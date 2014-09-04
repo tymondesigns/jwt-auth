@@ -159,8 +159,8 @@ class JWTAuth {
 			'iss' => $this->request->url(),
 			'sub' => $subject,
 			'iat' => time(),
-			'exp' => time() + ($this->config->get('jwt::ttl', 60) * 60),
-			'jti' => base64_encode($subject . '|' . time())
+			'exp' => time() + ($this->config->get('jwt::ttl', 60) * 60)
+			// 'jti' => base64_encode($subject . '|' . time())
 		];
 
 		return $this->payload;
@@ -192,9 +192,10 @@ class JWTAuth {
 
 	protected function verifyId()
 	{
-		$value = explode( '|', base64_decode($this->payload['jti']) );
+		// $value = explode( '|', base64_decode($this->payload['jti']) );
 
-		return $value['sub'] === $value[0] && $value['iat'] === $value[1];
+		// return $value['sub'] === $value[0] && $value['iat'] === $value[1];
+		return true;
 	}
 
 }

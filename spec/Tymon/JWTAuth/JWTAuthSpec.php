@@ -12,8 +12,8 @@ class JWTAuthSpec extends ObjectBehavior
         $this->shouldHaveType('Tymon\JWTAuth\JWTAuth');
     }
 
-    function it_should_create_a_jwt_based_on_a_subject()
-    {
+    // function it_should_create_a_jwt_based_on_a_subject()
+    // {
     	
-    }
+    // }
 }
