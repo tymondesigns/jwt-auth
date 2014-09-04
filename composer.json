@@ -1,0 +1,24 @@
+{
+    "name": "tymon/jwt-auth",
+    "description": "",
+    "authors": [
+        {
+            "name": "Sean Tymon",
+            "email": "tymon148@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "firebase/php-jwt": "1.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tymon\\JWTAuth\\": "src"
+        }
+    },
+    "minimum-stability": "stable"
+}
