@@ -183,6 +183,21 @@ class JWTAuth {
 	}
 
 
+	protected function checkExp()
+	{
+		if ( isset($this->payload['exp']) )
+		{
+			if (! ctype_digit($this->payload['exp']))
+			{
+				throw new TokenException('Expiration (exp) must be a unix timestamp');
+			}
+			
+			return true;
+		}
+	
+		throw new TokenException('Invalid Expiration (exp) provided');
+	}
+
 	/**
 	 * Determine whether the token has expired
 	 *
@@ -190,7 +205,7 @@ class JWTAuth {
 	 */
 	protected function hasExpired()
 	{
-		return $this->payload['iat'] > time() || $this->payload['exp'] < time();
+		return $this->payload['iat'] > time() && $this->payload['exp'] < time();
 	}
 
 	/**
