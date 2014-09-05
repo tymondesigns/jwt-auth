@@ -32,7 +32,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 			$secret = $app['config']->get('jwt::secret');
 			$identifier = $app['config']->get('jwt::identifier');
 			
-			return new JWTAuth( $secret, $identifier, $app['request'], $app['config'] );
+			return new JWTAuth( $secret, $identifier, $app['request'], $app['config'], $app['crypt'] );
 		});
 	}
 
