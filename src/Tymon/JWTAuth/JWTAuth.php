@@ -3,6 +3,7 @@
 use JWT;
 use Illuminate\Http\Request;
 use Illuminate\Config\Repository;
+use Illuminate\Encryption\Encrypter;
 use Tymon\JWTAuth\Exceptions\TokenException;
 use User;
 
@@ -27,6 +28,11 @@ class JWTAuth {
 	 * @var \Illuminate\Config\Repository
 	 */
 	protected $config;
+	
+	/**
+	 * @var \Illuminate\Encryption\Encrypter
+	 */
+	protected $encrypter;
 
 	/**
 	 * @var array
@@ -39,12 +45,13 @@ class JWTAuth {
 	 * @param Request $request
 	 * @param Repository $config
 	 */
-	public function __construct($secret = 'changeme', $identifier = 'id', Request $request, Repository $config)
+	public function __construct($secret, $identifier, Request $request, Repository $config, Encrypter $encrypter)
 	{
 		$this->secret = $secret;
 		$this->identifier = $identifier;
 		$this->request = $request;
 		$this->config = $config;
+		$this->encrypter = $encrypter;
 	}
 
 
@@ -79,6 +86,8 @@ class JWTAuth {
 	 */
 	public function decode($token = null)
 	{
+		if ( is_null($token) ) throw new TokenException('A token is required');
+		
 		try
 		{
 			$this->payload = (array) JWT::decode($token, $this->secret);
@@ -124,14 +133,7 @@ class JWTAuth {
 	 */
 	public function toUser($token)
 	{
-		try
-		{
-			$this->payload = $this->decode($token);
-		}
-		catch(TokenException $e)
-		{
-			throw $e;
-		}
+		$this->payload = $this->decode($token);
 
 		return User::where($this->identifier, $this->payload['sub']);
 	}
@@ -160,7 +162,7 @@ class JWTAuth {
 			'sub' => $subject,
 			'iat' => time(),
 			'exp' => time() + ($this->config->get('jwt::ttl', 60) * 60)
-			// 'jti' => base64_encode($subject . '|' . time())
+			'jti' => $this->encrypter->encrypt($subject . '|' . time())
 		];
 
 		return $this->payload;
@@ -190,12 +192,16 @@ class JWTAuth {
 		return $this->payload['iat'] > time() || $this->payload['exp'] < time();
 	}
 
+	/**
+	 * Check the jti 
+	 *
+	 * @return bool
+	 */
 	protected function verifyId()
 	{
-		// $value = explode( '|', base64_decode($this->payload['jti']) );
+		$value = explode( '|', $this->encryptor->decrypt($this->payload['jti']) );
 
-		// return $value['sub'] === $value[0] && $value['iat'] === $value[1];
-		return true;
+		return $value['sub'] === $value[0] && $value['iat'] === $value[1];
 	}
 
 }
