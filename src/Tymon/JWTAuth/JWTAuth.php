@@ -201,7 +201,7 @@ class JWTAuth {
 	{
 		$value = explode( '|', $this->encryptor->decrypt($this->payload['jti']) );
 
-		return $value['sub'] === $value[0] && $value['iat'] === $value[1];
+		return $this->payload['sub'] === $value[0] && $this->payload['iat'] === $value[1];
 	}
 
 }
