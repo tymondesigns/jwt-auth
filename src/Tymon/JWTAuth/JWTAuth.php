@@ -37,13 +37,14 @@ class JWTAuth {
 	/**
 	 * @var array
 	 */
-	protected $payload;
+	protected $payload = [];
 
 	/**
 	 * @param string $secret
 	 * @param string $identifier
 	 * @param Request $request
 	 * @param Repository $config
+	 * @param Encrypter $encrypter
 	 */
 	public function __construct($secret, $identifier, Request $request, Repository $config, Encrypter $encrypter)
 	{
@@ -111,11 +112,11 @@ class JWTAuth {
 	 * @param $token
 	 * @return bool
 	 */
-	public function check($token)
+	public function check($token = null)
 	{
 		try
 		{
-			$this->payload = JWT::decode($token, $this->secret);
+			$this->decode($token);
 		}
 		catch(TokenException $e)
 		{
@@ -131,7 +132,7 @@ class JWTAuth {
 	 * @param $token
 	 * @return mixed
 	 */
-	public function toUser($token)
+	public function toUser($token = null)
 	{
 		$this->payload = $this->decode($token);
 
@@ -144,7 +145,7 @@ class JWTAuth {
 	 * @param $user
 	 * @return string
 	 */
-	public function fromUser($user)
+	public function fromUser(User $user)
 	{
 		return $this->encode($user->{$this->identifier});
 	}
