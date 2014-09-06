@@ -13,11 +13,12 @@
         "firebase/php-jwt": "1.*"
     },
     "require-dev": {
-        "phpspec/phpspec": "2.0.*"
+        "phpspec/phpspec": "2.0.*",
+        "mockery/mockery": "0.9.*"
     },
     "autoload": {
-        "psr-4": {
-            "Tymon\\JWTAuth\\": "src"
+        "psr-0": {
+            "Tymon\\JWTAuth": "src/"
         }
     },
     "minimum-stability": "stable"
