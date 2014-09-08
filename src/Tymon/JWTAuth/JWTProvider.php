@@ -30,6 +30,11 @@ class JWTProvider {
 	protected $payload;
 
 	/**
+	 * @var int
+	 */
+	protected $ttl = 120;
+
+	/**
 	 * @param $secret
 	 * @param Request $request
 	 */
@@ -150,10 +155,17 @@ class JWTProvider {
 			'iss' => $this->request->url(),
 			'sub' => $subject,
 			'iat' => time(),
-			'exp' => time() + (60 * 60)
+			'exp' => time() + ($this->ttl * 60)
 		], $customClaims);
 
 		return $this->createPayload($payload)->get();
+	}
+
+	protected function setTtl($ttl)
+	{
+		$this->ttl = $ttl;
+
+		return $this;
 	}
 
 }
