@@ -161,7 +161,7 @@ class JWTProvider {
 		return $this->createPayload($payload)->get();
 	}
 
-	protected function setTtl($ttl)
+	public function setTtl($ttl)
 	{
 		$this->ttl = $ttl;
 
