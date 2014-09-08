@@ -85,7 +85,7 @@ class JWTProvider {
 
 		try
 		{
-			$payload = JWTDriver::decode( $this->token->get(), $this->secret );
+			$payload = (array) JWTDriver::decode( $this->token->get(), $this->secret );
 			$this->createPayload($payload);
 		}
 		catch (Exception $e)

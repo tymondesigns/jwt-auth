@@ -86,4 +86,14 @@ class Payload {
 		return $this->value;
 	}
 
+	/**
+	 * Get the payload as a string
+	 * 
+	 * @return array
+	 */
+	public function __toString()
+	{
+		return json_encode($this->value);
+	}
+
 }
