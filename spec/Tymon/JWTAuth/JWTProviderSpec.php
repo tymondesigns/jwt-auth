@@ -37,17 +37,17 @@ class JWTProviderSpec extends ObjectBehavior
         $this->shouldThrow('Tymon\JWTAuth\Exceptions\JWTException')->during('encode', []);
     }
 
-    function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
-    {
-        $request = Mockery::mock('Illuminate\Http\Request');
-        $request->shouldReceive('url')->once()->andReturn('http://example.com');
-        $this->beConstructedWith('secret', $request);
+    // function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
+    // {
+    //     $request = Mockery::mock('Illuminate\Http\Request');
+    //     $request->shouldReceive('url')->once()->andReturn('http://example.com');
+    //     $this->beConstructedWith('secret', $request);
 
-        $payload = $this->decode();
+    //     $payload = $this->decode();
 
-        $payload->shouldHaveType('Tymon\JWTAuth\JWTPayload');
-        $payload->get()->shouldBeArray();
-    }
+    //     $payload->shouldHaveType('Tymon\JWTAuth\JWTPayload');
+    //     $payload->get()->shouldBeArray();
+    // }
 
     function it_should_throw_an_exception_when_not_passing_a_token_to_decode()
     {

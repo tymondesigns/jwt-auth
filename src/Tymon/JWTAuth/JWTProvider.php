@@ -5,6 +5,7 @@ use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTPayload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Exception;
 
 class JWTProvider {
 

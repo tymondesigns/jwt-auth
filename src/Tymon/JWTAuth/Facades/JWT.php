@@ -11,7 +11,7 @@ class JWT extends Facade {
      */
     protected static function getFacadeAccessor()
     {
-        return 'Tymon\JWTAuth\JWTAuth';
+        return 'tymon.jwt.auth';
     }
 
 }
