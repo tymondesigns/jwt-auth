@@ -1,6 +1,7 @@
 <?php namespace Tymon\JWTAuth;
 
 use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\JWTProvider;
 use Tymon\JWTAuth\JWTAuth;
 
 class JWTAuthServiceProvider extends ServiceProvider {
