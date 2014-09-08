@@ -1,8 +1,8 @@
 <?php namespace Tymon\JWTAuth;
 
 use JWT as JWTDriver;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\JWTPayload;
+use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Exception;
@@ -104,7 +104,7 @@ class JWTProvider {
 	 */
 	public function createJWT($token)
 	{
-		$this->token = new JWT($token);
+		$this->token = new Token($token);
 
 		return $this->token;
 	}
@@ -117,7 +117,7 @@ class JWTProvider {
 	 */
 	public function createPayload($payload)
 	{
-		$this->payload = new JWTPayload($payload);
+		$this->payload = new Payload($payload);
 
 		return $this->payload;
 	}

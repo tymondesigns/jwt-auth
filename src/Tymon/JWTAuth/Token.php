@@ -2,7 +2,7 @@
 
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class JWT {
+class Token {
 
 	/**
 	 * @var string

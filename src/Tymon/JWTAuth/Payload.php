@@ -2,7 +2,7 @@
 
 use Tymon\JWTAuth\Exceptions\JWTPayloadException;
 
-class JWTPayload {
+class Payload {
 
 	/**
 	 * @var array

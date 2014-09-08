@@ -1,6 +1,7 @@
 <?php namespace Tymon\JWTAuth;
 
 use User;
+use Tymon\JWTAuth\JWTProvider;
 
 class JWTAuth {
 
@@ -9,6 +10,9 @@ class JWTAuth {
 	 */
 	protected $provider;
 
+	/**
+	 * @var string
+	 */
 	protected $identifier;
 
 	/**

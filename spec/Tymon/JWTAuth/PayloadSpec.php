@@ -5,7 +5,7 @@ namespace spec\Tymon\JWTAuth;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class JWTPayloadSpec extends ObjectBehavior
+class PayloadSpec extends ObjectBehavior
 {
 
 	function it_creates_the_object_when_passing_a_valid_payload()
@@ -19,7 +19,7 @@ class JWTPayloadSpec extends ObjectBehavior
 		];
 
 		$this->beConstructedWith($payload);
-		$this->shouldHaveType('Tymon\JWTAuth\JWTPayload');
+		$this->shouldHaveType('Tymon\JWTAuth\Payload');
 
 		$this->get()->shouldBe($payload);
 	}

@@ -24,7 +24,7 @@ class JWTProviderSpec extends ObjectBehavior
 
     	$token = $this->encode(1);
 
-    	$token->shouldHaveType('Tymon\JWTAuth\JWT');
+    	$token->shouldHaveType('Tymon\JWTAuth\Token');
     	$token->get()->shouldBeString();
     }
 
