@@ -10,7 +10,7 @@ use Exception;
 class JWTProvider {
 
 	/**
-	 * @var
+	 * @var string
 	 */
 	protected $secret;
 
@@ -80,7 +80,7 @@ class JWTProvider {
 
 		try
 		{
-			$payload = JWTDriver::decode( $token, $this->secret );
+			$payload = JWTDriver::decode( $this->token->get(), $this->secret );
 			$this->createPayload($payload);
 		}
 		catch (Exception $e)
@@ -153,9 +153,7 @@ class JWTProvider {
 			'exp' => time() + (60 * 60)
 		], $customClaims);
 
-		$this->createPayload($payload);
-
-		return $this->payload->get();
+		return $this->createPayload($payload)->get();
 	}
 
 }
