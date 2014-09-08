@@ -1,39 +1,33 @@
 <?php namespace Tymon\JWTAuth;
 
-use JWT;
-use Illuminate\Http\Request;
-use Illuminate\Config\Repository;
-use Illuminate\Encryption\Encrypter;
-use Tymon\JWTAuth\Exceptions\TokenException;
 use User;
 
 class JWTAuth {
 
 	/**
-	 * @var string
+	 * @var JWTProvider
 	 */
-	protected $driver;
+	protected $provider;
 
 	/**
-	 * @param string $driver
+	 * @param JWTProvider $provider
 	 */
-	public function __construct(JWTDriver $driver)
+	public function __construct(JWTProvider $provider)
 	{
-		$this->driver = $driver;
+		$this->provider = $provider;
 	}
-
 
 	/**
 	 * Find a user using the user identifier in the subject claim
 	 * 
 	 * @param $token
-	 * @return mixed
+	 * @return User
 	 */
 	public function toUser($token = null)
 	{
-		$this->payload = $this->decode($token);
+		$payload = $this->provider->decode($token);
 
-		return User::where($this->identifier, $this->payload['sub']);
+		return User::where($this->identifier, $payload['sub'])->first();
 	}
 
 	/**
@@ -44,44 +38,7 @@ class JWTAuth {
 	 */
 	public function fromUser(User $user)
 	{
-		return $this->encode($user->{$this->identifier});
-	}
-
-	protected function checkExp()
-	{
-		if ( isset($this->payload['exp']) )
-		{
-			if (! ctype_digit($this->payload['exp']))
-			{
-				throw new TokenException('Expiration (exp) must be a unix timestamp');
-			}
-			
-			return true;
-		}
-	
-		throw new TokenException('Invalid Expiration (exp) provided');
-	}
-
-	/**
-	 * Determine whether the token has expired
-	 *
-	 * @return bool
-	 */
-	protected function hasExpired()
-	{
-		return $this->payload['iat'] > time() && $this->payload['exp'] < time();
-	}
-
-	/**
-	 * Check the jti 
-	 *
-	 * @return bool
-	 */
-	protected function verifyId()
-	{
-		$value = explode( '|', $this->encryptor->decrypt($this->payload['jti']) );
-
-		return $this->payload['sub'] === $value[0] && $this->payload['iat'] === $value[1];
+		return $this->provider->encode($user->{$this->identifier});
 	}
 
 }

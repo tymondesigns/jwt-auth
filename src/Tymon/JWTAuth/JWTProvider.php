@@ -1,12 +1,12 @@
 <?php namespace Tymon\JWTAuth;
 
-use JWT as JWTBuilder;
+use JWT as JWTDriver;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTPayload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class JWTDriver {
+class JWTProvider {
 
 	/**
 	 * @var
@@ -19,12 +19,12 @@ class JWTDriver {
 	protected $request;
 
 	/**
-	 * @var
+	 * @var string
 	 */
 	protected $token;
 
 	/**
-	 * @var
+	 * @var array
 	 */
 	protected $payload;
 
@@ -39,7 +39,9 @@ class JWTDriver {
 	}
 
 	/**
-	 * @param null $subject
+	 * Create a JSON Web Token
+	 * 
+	 * @param mixed $subject
 	 * @param array $customClaims
 	 * @return mixed
 	 * @throws Exceptions\JWTException
@@ -50,7 +52,7 @@ class JWTDriver {
 
 		try
 		{
-			$token = JWTBuilder::encode( $this->buildPayload($subject, $customClaims), $this->secret );
+			$token = JWTDriver::encode( $this->buildPayload($subject, $customClaims), $this->secret );
 			$this->createJWT($token);
 		}
 		catch (Exception $e)
@@ -62,20 +64,22 @@ class JWTDriver {
 	}
 
 	/**
-	 * @param null $token
+	 * Decode a JSON Web Token
+	 * 
+	 * @param string $token
 	 * @return mixed
 	 * @throws TokenException
 	 * @throws Exceptions\JWTException
 	 */
 	public function decode($token = null)
 	{
-		if ( is_null($token) ) throw new TokenException('A token is required');
+		if ( is_null($token) ) throw new JWTException('A token is required');
 
 		$this->createJWT($token);
 
 		try
 		{
-			$payload = JWTBuilder::decode( $token, $this->secret );
+			$payload = JWTDriver::decode( $token, $this->secret );
 			$this->createPayload($payload);
 		}
 		catch (Exception $e)
@@ -87,6 +91,8 @@ class JWTDriver {
 	}
 
 	/**
+	 * Create a new JWT value object
+	 * 
 	 * @param $token
 	 * @return JWT
 	 */
@@ -98,6 +104,8 @@ class JWTDriver {
 	}
 
 	/**
+	 * Create a new JWTPayload value object
+	 * 
 	 * @param $payload
 	 * @return JWTPayload
 	 */
@@ -109,7 +117,27 @@ class JWTDriver {
 	}
 
 	/**
-	 * Create a new JWTPayload value object
+	 * Get the JWT Payload
+	 * 
+	 * @return JWTPayload
+	 */
+	public function getPayload()
+	{
+		return $this->payload;
+	}
+
+	/**
+	 * Get the JWT
+	 * 
+	 * @return JWT
+	 */
+	public function getToken()
+	{
+		return $this->token;
+	}
+
+	/**
+	 * Build the payload for the token
 	 * 
 	 * @param $subject
 	 * @param $subject
@@ -121,8 +149,7 @@ class JWTDriver {
 			'iss' => $this->request->url(),
 			'sub' => $subject,
 			'iat' => time(),
-			'exp' => time() + (60 * 60),
-			'jti' => '123'
+			'exp' => time() + (60 * 60)
 		], $customClaims);
 
 		$this->createPayload($payload);
