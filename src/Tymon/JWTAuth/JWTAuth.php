@@ -9,12 +9,15 @@ class JWTAuth {
 	 */
 	protected $provider;
 
+	protected $identifier;
+
 	/**
 	 * @param JWTProvider $provider
 	 */
-	public function __construct(JWTProvider $provider)
+	public function __construct(JWTProvider $provider, $identifier)
 	{
 		$this->provider = $provider;
+		$this->identifier = $identifier;
 	}
 
 	/**
