@@ -24,10 +24,10 @@ class Token {
 	 */
 	protected function validateJWT($value)
 	{
-		if(! is_string($value))
-		{
-			throw new JWTException('JWT must be a string');
-		}
+		// if(! is_string($value))
+		// {
+			// throw new JWTException('JWT must be a string');
+		// }
 
 		return $value;
 	}
