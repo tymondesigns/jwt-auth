@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class JWT extends Facade {
+class JWTAuth extends Facade {
 	
 	/**
      * Get the registered name of the component.

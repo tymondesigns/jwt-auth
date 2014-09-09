@@ -48,4 +48,21 @@ class JWTAuth {
 		return $this->provider->encode($user->{$this->identifier});
 	}
 
+	/**
+	 * Magically call the JWT provider
+	 * 
+	 * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed           
+	 */
+	public function __call($method, $parameters)
+	{
+		if ( method_exists($this->provider, $method) )
+		{
+            return call_user_func_array([$this->provider, $method], $parameters);
+        }
+
+        throw new \BadMethodCallException('Method [$method] does not exist.');
+	}
+
 }

@@ -11,7 +11,7 @@ return [
 	|
 	*/
 
-	'secret' => 'fq344c4ftgfvw34ft435g6w45tf34ft',
+	'secret' => 'changeme!!',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -30,6 +30,9 @@ return [
 	|--------------------------------------------------------------------------
 	| 
 	| Specify the hashing algorithm that will be used to sign the token.
+	| 
+	| Possible values are:
+	| 'HS256', 'HS512', 'HS384', 'RS256'
 	|
 	*/
 

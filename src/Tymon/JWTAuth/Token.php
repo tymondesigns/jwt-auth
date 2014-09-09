@@ -10,29 +10,35 @@ class Token {
 	protected $value;
 
 	/**
+	 * Create a new JSON Web Token
+	 * 
 	 * @param $value
 	 */
 	public function __construct($value)
 	{
-		$this->value = $this->validateJWT($value);
+		$this->value = $this->validateToken($value);
 	}
 
 	/**
+	 * Validate the token
+	 * 
 	 * @param $value
 	 * @return string
 	 * @throws Exceptions\JWTException
 	 */
-	protected function validateJWT($value)
+	protected function validateToken($value)
 	{
-		// if(! is_string($value))
-		// {
-			// throw new JWTException('JWT must be a string');
-		// }
+		if( count(explode('.', $value)) !== 3 )
+		{
+			throw new JWTException('Invalid JWT - Wrong number of segments');
+		}
 
 		return $value;
 	}
 
 	/**
+	 * Get the token
+	 * 
 	 * @return string
 	 */
 	public function get()
@@ -41,6 +47,8 @@ class Token {
 	}
 
 	/**
+	 * Get the token when casting to string
+	 * 
 	 * @return string
 	 */
 	public function __toString()

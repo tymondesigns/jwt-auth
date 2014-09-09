@@ -4,6 +4,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Illuminate\Http\Request;
 use Mockery;
+use JWT;
 
 class JWTProviderSpec extends ObjectBehavior
 {
@@ -45,7 +46,7 @@ class JWTProviderSpec extends ObjectBehavior
 
     //     $payload = $this->decode();
 
-    //     $payload->shouldHaveType('Tymon\JWTAuth\JWTPayload');
+    //     $payload->shouldHaveType('Tymon\JWTAuth\Payload');
     //     $payload->get()->shouldBeArray();
     // }
 
@@ -60,8 +61,8 @@ class JWTProviderSpec extends ObjectBehavior
 
 }
 
-class TokenStub {
-    public static function encode() {
-
-    }
-}
+// class TokenStub {
+//     public static function encode() {
+//         return JWT::encode();
+//     }
+// }

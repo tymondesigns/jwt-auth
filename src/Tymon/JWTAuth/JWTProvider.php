@@ -59,7 +59,7 @@ class JWTProvider {
 		try
 		{
 			$token = JWTDriver::encode( $this->buildPayload($subject, $customClaims), $this->secret );
-			$this->createJWT($token);
+			$this->createToken($token);
 		}
 		catch (Exception $e)
 		{
@@ -81,7 +81,7 @@ class JWTProvider {
 	{
 		if ( is_null($token) ) throw new JWTException('A token is required');
 
-		$this->createJWT($token);
+		$this->createToken($token);
 
 		try
 		{
@@ -102,7 +102,7 @@ class JWTProvider {
 	 * @param $token
 	 * @return JWT
 	 */
-	public function createJWT($token)
+	public function createToken($token)
 	{
 		$this->token = new Token($token);
 
@@ -161,7 +161,7 @@ class JWTProvider {
 		return $this->createPayload($payload)->get();
 	}
 
-	public function setTtl($ttl)
+	public function setTTl($ttl)
 	{
 		$this->ttl = $ttl;
 

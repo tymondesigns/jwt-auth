@@ -14,7 +14,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 	protected $defer = false;
 
 	/**
-	 *
+	 * Boot the service provider.
 	 */
 	public function boot()
 	{
@@ -45,9 +45,10 @@ class JWTAuthServiceProvider extends ServiceProvider {
 		$this->app['tymon.jwt.provider'] = $this->app->share(function ($app) {
 			$secret = $app['config']->get('jwt::secret');
 			$ttl = $app['config']->get('jwt::ttl');
+
 			$provider = new JWTProvider($secret, $app['request']);
 
-			return $provider->setTtl($ttl);
+			return $provider->setTTl($ttl);
 		});
 	}
 
