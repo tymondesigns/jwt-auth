@@ -45,10 +45,11 @@ class JWTAuthServiceProvider extends ServiceProvider {
 		$this->app['tymon.jwt.provider'] = $this->app->share(function ($app) {
 			$secret = $app['config']->get('jwt::secret');
 			$ttl = $app['config']->get('jwt::ttl');
+			$algo = $app['config']->get('jwt::algo');
 
 			$provider = new JWTProvider($secret, $app['request']);
 
-			return $provider->setTTl($ttl);
+			return $provider->setTTl($ttl)->setAlgo($algo);
 		});
 	}
 

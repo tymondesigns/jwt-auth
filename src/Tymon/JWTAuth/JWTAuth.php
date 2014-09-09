@@ -51,8 +51,8 @@ class JWTAuth {
 	/**
 	 * Magically call the JWT provider
 	 * 
-	 * @param  string  $method
-     * @param  array   $parameters
+	 * @param  string $method
+     * @param  array  $parameters
      * @return mixed           
 	 */
 	public function __call($method, $parameters)

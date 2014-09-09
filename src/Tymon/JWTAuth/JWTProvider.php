@@ -35,6 +35,11 @@ class JWTProvider {
 	protected $ttl = 120;
 
 	/**
+	 * @var string
+	 */
+	protected $algo = 'HS256';
+
+	/**
 	 * @param $secret
 	 * @param Request $request
 	 */
@@ -58,7 +63,7 @@ class JWTProvider {
 
 		try
 		{
-			$token = JWTDriver::encode( $this->buildPayload($subject, $customClaims), $this->secret );
+			$token = JWTDriver::encode( $this->buildPayload($subject, $customClaims), $this->secret, $this->algo );
 			$this->createToken($token);
 		}
 		catch (Exception $e)
@@ -164,6 +169,13 @@ class JWTProvider {
 	public function setTTl($ttl)
 	{
 		$this->ttl = $ttl;
+
+		return $this;
+	}
+
+	public function setAlgo($algo)
+	{
+		$this->algo = $algo;
 
 		return $this;
 	}
