@@ -82,8 +82,13 @@ class Payload implements ArrayAccess {
 	 * 
 	 * @return array
 	 */
-	public function get()
+	public function get($property = null)
 	{
+		if (! is_null($property) )
+		{
+			return $this->value[$property];
+		}
+		
 		return $this->value;
 	}
 

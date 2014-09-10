@@ -128,6 +128,17 @@ class JWTProvider {
 	}
 
 	/**
+	 * Helper method to return the subject claim
+	 * 
+	 * @param  string $token
+	 * @return mixed
+	 */
+	public function getSubject($token)
+	{
+		return $this->decode($token)->get('sub');
+	}
+
+	/**
 	 * Get the JWT Payload
 	 * 
 	 * @return JWTPayload
