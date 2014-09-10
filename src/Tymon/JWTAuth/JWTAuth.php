@@ -2,6 +2,7 @@
 
 use User;
 use Tymon\JWTAuth\JWTProvider;
+use Illuminate\Auth\AuthManager;
 
 class JWTAuth {
 
@@ -16,12 +17,18 @@ class JWTAuth {
 	protected $identifier;
 
 	/**
+	 * @var \Illuminate\Auth\AuthManager
+	 */
+	protected $auth;
+
+	/**
 	 * @param JWTProvider $provider
 	 */
-	public function __construct(JWTProvider $provider, $identifier = 'id')
+	public function __construct(JWTProvider $provider, AuthManager $auth, $identifier = 'id')
 	{
 		$this->provider = $provider;
 		$this->identifier = $identifier;
+		$this->auth = $auth;
 	}
 
 	/**
@@ -49,11 +56,29 @@ class JWTAuth {
 	}
 
 	/**
+	 * Attempt to authenticate the user and return the token
+	 *  
+	 * @param  array $credentials
+	 * @return User
+	 * @throws JWTAuthException
+	 */
+	public function attempt(array $credentials = [])
+	{
+		if ( $this->auth->once($credentials) )
+		{
+			return $this->fromUser( $this->auth->user() );
+		}
+
+		throw new JWTAuthException('Invalid credentials.');
+	}
+
+	/**
 	 * Magically call the JWT provider
 	 * 
 	 * @param  string $method
      * @param  array  $parameters
      * @return mixed           
+     * @throws \BadMethodCallException
 	 */
 	public function __call($method, $parameters)
 	{

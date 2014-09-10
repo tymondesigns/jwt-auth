@@ -58,7 +58,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 		$this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
 			$identifier = $app['config']->get('jwt::identifier');
 
-			return new JWTAuth( $app['tymon.jwt.provider'], $identifier );
+			return new JWTAuth( $app['tymon.jwt.provider'], $app['auth'], $identifier );
 		});
 	}
 
