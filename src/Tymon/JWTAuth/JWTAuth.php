@@ -32,7 +32,7 @@ class JWTAuth {
 	 */
 	public function toUser($token = null)
 	{
-		$payload = $this->provider->decode($token)->get();
+		$payload = $this->provider->decode($token);
 
 		return User::where($this->identifier, $payload['sub'])->first();
 	}
@@ -45,7 +45,7 @@ class JWTAuth {
 	 */
 	public function fromUser(User $user)
 	{
-		return $this->provider->encode($user->{$this->identifier})->get();
+		return $this->provider->encode($user->{$this->identifier});
 	}
 
 	/**
