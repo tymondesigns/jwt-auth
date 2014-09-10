@@ -65,12 +65,12 @@ class JWTAuth {
 	 */
 	public function attempt(array $credentials = [])
 	{
-		if ( $this->auth->once($credentials) )
+		if (! $this->auth->once($credentials) )
 		{
-			return $this->fromUser( $this->auth->user() );
+			throw new JWTAuthException('Invalid credentials.');
 		}
 
-		throw new JWTAuthException('Invalid credentials.');
+		return $this->fromUser( $this->auth->user() );
 	}
 
 	/**
