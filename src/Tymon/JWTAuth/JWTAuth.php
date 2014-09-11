@@ -4,6 +4,7 @@ use User;
 use Tymon\JWTAuth\JWTProvider;
 use Illuminate\Auth\AuthManager;
 use Exception;
+use Tymon\JWTAuth\Exceptions\JWTAuthException;
 
 class JWTAuth {
 
@@ -82,9 +83,9 @@ class JWTAuth {
 	{
 		if ( is_null($token) ) throw new JWTAuthException('A token is required');
 
-		$user = $this->toUser($token);
+		$id = $this->provider->getSubject($token);
 
-		if (! $user = $this->auth->login($user) )
+		if (! $user = $this->auth->loginUsingId($id) )
 		{
 			throw new JWTAuthException('User not found.');
 		}

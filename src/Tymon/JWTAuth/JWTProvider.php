@@ -68,10 +68,10 @@ class JWTProvider {
 		}
 		catch (Exception $e)
 		{
-			throw new JWTException( $e->getMessage() );
+			throw new JWTException( 'Could not create token: ' . $e->getMessage() );
 		}
 
-		return $this->token;
+		return $this->token->get();
 	}
 
 	/**
@@ -90,12 +90,12 @@ class JWTProvider {
 
 		try
 		{
-			$payload = (array) JWTDriver::decode( $this->token->get(), $this->secret );
+			$payload = (array) JWTDriver::decode( $this->token, $this->secret );
 			$this->createPayload($payload);
 		}
 		catch (Exception $e)
 		{
-			throw new JWTException( $e->getMessage() );
+			throw new JWTException( 'Could not decode token: ' . $e->getMessage() );
 		}
 
 		return $this->payload;
