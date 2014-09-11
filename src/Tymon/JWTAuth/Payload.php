@@ -1,6 +1,6 @@
 <?php namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Exceptions\JWTPayloadException;
+use Tymon\JWTAuth\Exceptions\PayloadException;
 use ArrayAccess;
 
 class Payload implements ArrayAccess {
@@ -43,13 +43,13 @@ class Payload implements ArrayAccess {
 	 * 
 	 * @param  array $value
 	 * @return bool
-	 * @throws Exceptions\JWTPayloadException
+	 * @throws Exceptions\PayloadException
 	 */
 	protected function validateStructure($value)
 	{
 		if ( count( array_diff( $this->requiredClaims, array_keys($value) ) ) !== 0 )
 		{
-			throw new JWTPayloadException('JWT payload does not contain the required claims');
+			throw new PayloadException('JWT payload does not contain the required claims');
 		}
 
 		return true;
@@ -60,18 +60,18 @@ class Payload implements ArrayAccess {
 	 * 
 	 * @param  array $value
 	 * @return bool
-	 * @throws Exceptions\JWTPayloadException
+	 * @throws Exceptions\PayloadException
 	 */
 	protected function validateExpiry($value)
 	{
 		if ( ! is_int($value['exp']) )
 		{
-			throw new JWTPayloadException('Invalid Expiration (exp) provided');
+			throw new PayloadException('Invalid Expiration (exp) provided');
 		}
 
 		if ( $value['iat'] > time() || $value['exp'] < time() )
 		{
-			throw new JWTPayloadException('JWT has expired');
+			throw new PayloadException('JWT has expired');
 		}
 
 		return true;

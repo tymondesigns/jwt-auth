@@ -20,16 +20,15 @@ class JWTAuth {
 	/**
 	 * @var string
 	 */
-	protected $identifier;
+	protected $identifier = 'id';
 
 	/**
 	 * @param JWTProvider $provider
 	 */
-	public function __construct(JWTProvider $provider, AuthManager $auth, $identifier = 'id')
+	public function __construct(JWTProvider $provider, AuthManager $auth)
 	{
 		$this->provider = $provider;
 		$this->auth = $auth;
-		$this->identifier = $identifier;
 	}
 
 	/**
@@ -94,21 +93,33 @@ class JWTAuth {
 	}
 
 	/**
+	 * Set the identifier
+	 * 
+	 * @param string $identifier
+	 */
+	public function setIdentifier($identifier)
+	{
+		$this->identifier = $identifier;
+
+		return $this;
+	}
+
+	/**
 	 * Magically call the JWT provider
 	 * 
 	 * @param  string $method
-     * @param  array  $parameters
-     * @return mixed           
-     * @throws \BadMethodCallException
+	 * @param  array  $parameters
+	 * @return mixed           
+	 * @throws \BadMethodCallException
 	 */
 	public function __call($method, $parameters)
 	{
 		if ( method_exists($this->provider, $method) )
 		{
-            return call_user_func_array([$this->provider, $method], $parameters);
-        }
+			return call_user_func_array([$this->provider, $method], $parameters);
+		}
 
-        throw new \BadMethodCallException('Method [$method] does not exist.');
+		throw new \BadMethodCallException('Method [$method] does not exist.');
 	}
 
 }

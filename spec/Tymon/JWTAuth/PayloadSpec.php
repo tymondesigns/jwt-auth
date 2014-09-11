@@ -19,16 +19,17 @@ class PayloadSpec extends ObjectBehavior
 		];
 
 		$this->beConstructedWith($payload);
+		
 		$this->shouldHaveType('Tymon\JWTAuth\Payload');
-
 		$this->get()->shouldBe($payload);
+		$this['sub']->shouldBe(1);
 	}
 
 	function it_should_throw_an_exception_when_payload_does_not_contain_required_claims()
 	{
 		$payload = ['iat' => 12312312, 'exp' => 13234234];
 
-		$this->shouldThrow('Tymon\JWTAuth\Exceptions\JWTPayloadException')->during('__construct', [$payload]);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('__construct', [$payload]);
 	}
 
 	function it_should_throw_an_exception_when_payload_has_invalid_expiration()
@@ -40,7 +41,7 @@ class PayloadSpec extends ObjectBehavior
 			'iss' => 'http://example.com'
 		];
 
-		$this->shouldThrow('Tymon\JWTAuth\Exceptions\JWTPayloadException')->during('__construct', [$payload]);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('__construct', [$payload]);
 	}
 
 	function it_should_throw_an_exception_when_payload_has_expired()
@@ -52,7 +53,7 @@ class PayloadSpec extends ObjectBehavior
 			'iss' => 'http://example.com',
 		];
 
-		$this->shouldThrow('Tymon\JWTAuth\Exceptions\JWTPayloadException')->during('__construct', [$payload]);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('__construct', [$payload]);
 	}
 
 }

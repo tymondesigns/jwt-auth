@@ -2,4 +2,4 @@
 
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class JWTAuthException extends JWTException {}
+class PayloadException extends JWTException {}
