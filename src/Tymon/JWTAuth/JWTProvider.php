@@ -71,7 +71,7 @@ class JWTProvider {
 			throw new JWTException( 'Could not create token: ' . $e->getMessage() );
 		}
 
-		return $this->token->get();
+		return $this->token;
 	}
 
 	/**
