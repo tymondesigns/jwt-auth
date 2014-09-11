@@ -1,10 +1,8 @@
 <?php namespace spec\Tymon\JWTAuth;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Illuminate\Http\Request;
 use Mockery;
-use JWT;
 
 class JWTProviderSpec extends ObjectBehavior
 {

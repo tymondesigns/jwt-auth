@@ -54,7 +54,7 @@ class JWTProvider {
 	 * 
 	 * @param mixed $subject
 	 * @param array $customClaims
-	 * @return mixed
+	 * @return string
 	 * @throws Exceptions\JWTException
 	 */
 	public function encode($subject = null, array $customClaims = [])
@@ -104,8 +104,8 @@ class JWTProvider {
 	/**
 	 * Create a new JWT value object
 	 * 
-	 * @param $token
-	 * @return JWT
+	 * @param string $token
+	 * @return Token
 	 */
 	public function createToken($token)
 	{
@@ -118,7 +118,7 @@ class JWTProvider {
 	 * Create a new JWTPayload value object
 	 * 
 	 * @param $payload
-	 * @return JWTPayload
+	 * @return Payload
 	 */
 	public function createPayload($payload)
 	{
@@ -151,7 +151,7 @@ class JWTProvider {
 	/**
 	 * Get the JWT
 	 * 
-	 * @return JWT
+	 * @return string
 	 */
 	public function getToken()
 	{

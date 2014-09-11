@@ -95,7 +95,7 @@ class Payload implements ArrayAccess {
 	/**
 	 * Get the payload as a string
 	 * 
-	 * @return array
+	 * @return string
 	 */
 	public function __toString()
 	{

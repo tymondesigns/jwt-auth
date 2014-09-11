@@ -3,7 +3,6 @@
 namespace spec\Tymon\JWTAuth;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class TokenSpec extends ObjectBehavior
 {

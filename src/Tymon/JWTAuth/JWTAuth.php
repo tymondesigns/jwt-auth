@@ -3,7 +3,6 @@
 use User;
 use Tymon\JWTAuth\JWTProvider;
 use Illuminate\Auth\AuthManager;
-use Exception;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 
 class JWTAuth {
