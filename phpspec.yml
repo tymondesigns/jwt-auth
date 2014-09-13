@@ -3,10 +3,3 @@ suites:
     namespace: Tymon
     src_path: src
     spec_prefix: spec
-extensions:
-  - PhpSpec\Extension\CodeCoverageExtension
-code_coverage:
-  format:
-    - clover
-  output:
-    clover: coverage.xml
