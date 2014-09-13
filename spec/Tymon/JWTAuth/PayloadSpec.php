@@ -20,8 +20,13 @@ class PayloadSpec extends ObjectBehavior
 		$this->beConstructedWith($payload);
 		
 		$this->shouldHaveType('Tymon\JWTAuth\Payload');
+		
 		$this->get()->shouldBe($payload);
+		$this->get('custom')->shouldBe('data');
 		$this['sub']->shouldBe(1);
+
+		$this['extra'] = 'something';
+		$this->get('extra')->shouldBe('something');
 	}
 
 	function it_should_throw_an_exception_when_payload_does_not_contain_required_claims()

@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "phpspec/phpspec": "2.0.*",
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "henrikbjorn/phpspec-code-coverage": "~0.2"
     },
     "autoload": {
         "psr-0": {
