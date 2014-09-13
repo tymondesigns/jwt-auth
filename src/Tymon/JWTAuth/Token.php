@@ -12,7 +12,7 @@ class Token {
 	/**
 	 * Create a new JSON Web Token
 	 * 
-	 * @param $value
+	 * @param string $value
 	 */
 	public function __construct($value)
 	{
