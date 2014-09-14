@@ -177,6 +177,11 @@ class JWTProvider {
 		return $this->createPayload($payload)->get();
 	}
 
+	/**
+	 * Set the ttl of the token
+	 * 
+	 * @param int $ttl in minutes
+	 */
 	public function setTTL($ttl)
 	{
 		$this->ttl = $ttl;
@@ -184,6 +189,11 @@ class JWTProvider {
 		return $this;
 	}
 
+	/**
+	 * Set the algorithm of the token
+	 * 
+	 * @param string $algo
+	 */
 	public function setAlgo($algo)
 	{
 		$this->algo = $algo;
