@@ -4,8 +4,7 @@ namespace spec\Tymon\JWTAuth;
 
 use PhpSpec\ObjectBehavior;
 
-class TokenSpec extends ObjectBehavior
-{
+class TokenSpec extends ObjectBehavior {
 
 	function it_creates_the_object_when_passing_a_well_formed_token()
 	{

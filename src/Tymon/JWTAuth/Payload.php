@@ -84,7 +84,7 @@ class Payload implements ArrayAccess {
 	 */
 	public function get($property = null)
 	{
-		if (! is_null($property) )
+		if ( ! is_null($property) )
 		{
 			return $this->value[$property];
 		}
@@ -125,7 +125,7 @@ class Payload implements ArrayAccess {
 	}
 
 	/**
-	 * Set the item at a given offset.
+	 * Don't allow changing the payload as it should be immutable
 	 *
 	 * @param  mixed  $key
 	 * @param  mixed  $value
@@ -133,25 +133,18 @@ class Payload implements ArrayAccess {
 	 */
 	public function offsetSet($key, $value)
 	{
-		if (is_null($key))
-		{
-			$this->value[] = $value;
-		}
-		else
-		{
-			$this->value[$key] = $value;
-		}
+		throw new PayloadException('You cannot change the payload');
 	}
 
 	/**
-	 * Unset the item at a given offset.
+	 * Don't allow changing the payload as it should be immutable
 	 *
 	 * @param  string  $key
 	 * @return void
 	 */
 	public function offsetUnset($key)
 	{
-		unset($this->value[$key]);
+		throw new PayloadException('You cannot change the payload');
 	}
 
 }

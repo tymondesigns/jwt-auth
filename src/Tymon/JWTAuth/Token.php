@@ -28,7 +28,7 @@ class Token {
 	 */
 	protected function validateToken($value)
 	{
-		if( count(explode('.', $value)) !== 3 )
+		if ( count(explode('.', $value)) !== 3 )
 		{
 			throw new JWTException('Invalid JWT - Wrong number of segments');
 		}

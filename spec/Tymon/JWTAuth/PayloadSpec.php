@@ -4,8 +4,7 @@ namespace spec\Tymon\JWTAuth;
 
 use PhpSpec\ObjectBehavior;
 
-class PayloadSpec extends ObjectBehavior
-{
+class PayloadSpec extends ObjectBehavior {
 
 	function it_creates_the_object_when_passing_a_valid_payload()
 	{
@@ -25,8 +24,22 @@ class PayloadSpec extends ObjectBehavior
 		$this->get('custom')->shouldBe('data');
 		$this['sub']->shouldBe(1);
 
-		$this['extra'] = 'something';
-		$this->get('extra')->shouldBe('something');
+		$this->get('custom')->shouldBe('data');
+	}
+
+	function it_should_throw_an_exception_when_attempting_to_change_the_payload()
+	{
+		$payload = [
+			'iat' => time(),
+			'exp' => time() + (60 * 60), // plus 1 hour
+			'sub' => 1,
+			'iss' => 'http://example.com'
+		];
+
+		$this->beConstructedWith($payload);
+
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('offsetSet', ['extra', 'something']);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('offsetUnset', ['extra']);
 	}
 
 	function it_should_throw_an_exception_when_payload_does_not_contain_required_claims()

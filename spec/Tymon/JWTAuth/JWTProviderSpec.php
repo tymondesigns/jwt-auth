@@ -4,8 +4,7 @@ use PhpSpec\ObjectBehavior;
 use Illuminate\Http\Request;
 use Mockery;
 
-class JWTProviderSpec extends ObjectBehavior
-{
+class JWTProviderSpec extends ObjectBehavior {
 
     function it_is_initializable()
     {
