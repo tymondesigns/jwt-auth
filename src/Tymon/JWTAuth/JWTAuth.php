@@ -93,6 +93,16 @@ class JWTAuth {
 	}
 
 	/**
+	 * Get the JWT provider
+	 * 
+	 * @return \Tymon\JWTAuth\JWTProvider
+	 */
+	public function getProvider()
+	{
+		return $this->provider;
+	}
+
+	/**
 	 * Set the identifier
 	 * 
 	 * @param string $identifier
