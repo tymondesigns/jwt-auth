@@ -37,6 +37,8 @@ Finally, you will want to publish the config using the following command:
 $ php artisan config:publish tymon/jwt-auth
 ```
 
+##### **Don't forget to set a secret key in the config file!**
+
 And you're done!
 
 ## Usage
