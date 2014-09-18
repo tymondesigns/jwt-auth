@@ -11,7 +11,7 @@ Install via composer - edit your `composer.json` to require the package.
 
 ```js
 "require": {
-    "tymon/jwt-auth": "~0.*"
+    "tymon/jwt-auth": "0.*"
 }
 ```
 
@@ -39,4 +39,15 @@ And you're done!
 
 ## Usage
 
-More docs coming soon...
+### Creating Tokens
+
+There are a number of ways you can generate a token. The usual flow would be to pass some credentials and the package will try to authenticate the user and return a fully formed JSON Web Token.
+
+```php
+$token = JWTAuth::attempt($credentials);
+```
+
+```php
+$user = User::find(1);
+$token = JWTAuth::fromUser($user);
+```
