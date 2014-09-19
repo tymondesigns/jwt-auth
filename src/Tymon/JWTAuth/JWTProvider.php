@@ -167,12 +167,12 @@ class JWTProvider {
 	 */
 	protected function buildPayload($subject, array $customClaims = [])
 	{
-		$payload = array_merge([
+		$payload = array_merge($customClaims, [
 			'iss' => $this->request->url(),
 			'sub' => $subject,
 			'iat' => time(),
 			'exp' => time() + ($this->ttl * 60)
-		], $customClaims);
+		]);
 
 		return $this->createPayload($payload)->get();
 	}
