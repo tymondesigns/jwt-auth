@@ -7,11 +7,11 @@ return [
 	| JWT Authentication Secret
 	|--------------------------------------------------------------------------
 	| 
-	| Don't forget to set this, as it will be used to sign your token.
+	| Don't forget to set this, as it will be used to sign your tokens.
 	|
 	*/
 
-	'secret' => 'changeme!!',
+	'secret' => 'changeme',
 
 	/*
 	|--------------------------------------------------------------------------
