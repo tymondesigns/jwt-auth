@@ -41,7 +41,7 @@ $ php artisan config:publish tymon/jwt-auth
 
 And you're done!
 
-## Usage
+## Basic Usage
 
 ### Creating Tokens
 
@@ -50,6 +50,8 @@ There are a number of ways you can generate a token. The usual flow would be to 
 ```php
 $token = JWTAuth::attempt($credentials);
 ```
+
+##### Creating a token based on a User object
 
 ```php
 $user = User::find(1);
