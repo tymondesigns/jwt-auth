@@ -47,7 +47,10 @@ And you're done!
 
 There are a number of ways you can generate a token. The usual flow would be to pass some credentials and the package will try to authenticate the user and return a fully formed JSON Web Token.
 
+##### Creating a token based on user's credentials
+
 ```php
+$credentials = Input::only('email', 'password');
 $token = JWTAuth::attempt($credentials);
 ```
 
@@ -56,4 +59,11 @@ $token = JWTAuth::attempt($credentials);
 ```php
 $user = User::find(1);
 $token = JWTAuth::fromUser($user);
+```
+
+### Retrieving User from a token
+
+```php
+$token = Input::get('token');
+$user = JWTAuth::toUser($token);
 ```
