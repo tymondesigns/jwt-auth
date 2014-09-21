@@ -1,6 +1,6 @@
 <?php namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenException;
 
 class Token {
 
@@ -30,7 +30,7 @@ class Token {
 	{
 		if ( count(explode('.', $value)) !== 3 )
 		{
-			throw new JWTException('Invalid JWT - Wrong number of segments');
+			throw new TokenException('Invalid JWT - Wrong number of segments');
 		}
 
 		return $value;

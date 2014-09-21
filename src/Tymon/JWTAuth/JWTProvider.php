@@ -54,7 +54,7 @@ class JWTProvider {
 	 * 
 	 * @param mixed $subject
 	 * @param array $customClaims
-	 * @return string
+	 * @return Token
 	 * @throws Exceptions\JWTException
 	 */
 	public function encode($subject = null, array $customClaims = [])
@@ -78,8 +78,7 @@ class JWTProvider {
 	 * Decode a JSON Web Token
 	 * 
 	 * @param string $token
-	 * @return mixed
-	 * @throws TokenException
+	 * @return Payload
 	 * @throws Exceptions\JWTException
 	 */
 	public function decode($token = null)
