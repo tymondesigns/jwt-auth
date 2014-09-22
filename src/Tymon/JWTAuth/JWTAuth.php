@@ -39,7 +39,7 @@ class JWTAuth {
 	 */
 	public function toUser($token = null)
 	{
-		$payload = $this->provider->decode($token);
+		$this->provider->decode($token);
 
 		return User::where( $this->identifier, $this->provider->getSubject() )->first();
 	}
