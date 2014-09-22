@@ -41,7 +41,7 @@ class JWTAuth {
 	{
 		$payload = $this->provider->decode($token);
 
-		return User::where($this->identifier, $payload['sub'])->first();
+		return User::where( $this->identifier, $this->provider->getSubject() )->first();
 	}
 
 	/**
