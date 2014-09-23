@@ -41,7 +41,12 @@ class JWTAuth {
 	{
 		$this->provider->decode($token);
 
-		return User::where( $this->identifier, $this->provider->getSubject() )->first();
+		if ( ! $user = User::where( $this->identifier, $this->provider->getSubject() )->first() )
+		{
+			return false;
+		}
+
+		return $user;
 	}
 
 	/**
