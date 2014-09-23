@@ -1,16 +1,16 @@
 <?php namespace Tymon\JWTAuth;
 
 use User;
-use Tymon\JWTAuth\JWTProvider;
+use Tymon\JWTAuth\Drivers\DriverInterface;
 use Illuminate\Auth\AuthManager;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 
 class JWTAuth {
 
 	/**
-	 * @var JWTProvider
+	 * @var DriverInterface
 	 */
-	protected $provider;
+	protected $driver;
 
 	/**
 	 * @var \Illuminate\Auth\AuthManager
@@ -23,11 +23,11 @@ class JWTAuth {
 	protected $identifier = 'id';
 
 	/**
-	 * @param JWTProvider $provider
+	 * @param DriverInterface $driver
 	 */
-	public function __construct(JWTProvider $provider, AuthManager $auth)
+	public function __construct(DriverInterface $driver, AuthManager $auth)
 	{
-		$this->provider = $provider;
+		$this->driver = $driver;
 		$this->auth = $auth;
 	}
 
@@ -39,9 +39,9 @@ class JWTAuth {
 	 */
 	public function toUser($token = null)
 	{
-		$this->provider->decode($token);
+		$this->driver->decode($token);
 
-		return User::where( $this->identifier, $this->provider->getSubject() )->first();
+		return User::where( $this->identifier, $this->driver->getSubject() )->first();
 	}
 
 	/**
@@ -52,7 +52,7 @@ class JWTAuth {
 	 */
 	public function fromUser(User $user)
 	{
-		return $this->provider->encode($user->{$this->identifier})->get();
+		return $this->driver->encode($user->{$this->identifier})->get();
 	}
 
 	/**
@@ -82,7 +82,7 @@ class JWTAuth {
 	{
 		if ( is_null($token) ) throw new JWTAuthException('A token is required');
 
-		$id = $this->provider->getSubject($token);
+		$id = $this->driver->getSubject($token);
 
 		if (! $user = $this->auth->loginUsingId($id) )
 		{
@@ -93,13 +93,13 @@ class JWTAuth {
 	}
 
 	/**
-	 * Get the JWT provider
+	 * Get the JWT driver
 	 * 
-	 * @return \Tymon\JWTAuth\JWTProvider
+	 * @return \Tymon\JWTAuth\JWTdriver
 	 */
-	public function getProvider()
+	public function getdriver()
 	{
-		return $this->provider;
+		return $this->driver;
 	}
 
 	/**
@@ -115,7 +115,7 @@ class JWTAuth {
 	}
 
 	/**
-	 * Magically call the JWT provider
+	 * Magically call the JWT driver
 	 * 
 	 * @param  string $method
 	 * @param  array  $parameters
@@ -124,9 +124,9 @@ class JWTAuth {
 	 */
 	public function __call($method, $parameters)
 	{
-		if ( method_exists($this->provider, $method) )
+		if ( method_exists($this->driver, $method) )
 		{
-			return call_user_func_array([$this->provider, $method], $parameters);
+			return call_user_func_array([$this->driver, $method], $parameters);
 		}
 
 		throw new \BadMethodCallException('Method [$method] does not exist.');
