@@ -1,12 +1,11 @@
-<?php namespace Tymon\JWTAuth\Drivers;
+<?php namespace Tymon\JWTAuth\Providers;
 
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Exception;
 
-abstract class AbstractDriver {
+abstract class AbstractProvider {
 
 	/**
 	 * @var string
@@ -19,12 +18,12 @@ abstract class AbstractDriver {
 	protected $request;
 
 	/**
-	 * @var string
+	 * @var Token
 	 */
 	protected $token;
 
 	/**
-	 * @var array
+	 * @var Payload
 	 */
 	protected $payload;
 
@@ -40,7 +39,7 @@ abstract class AbstractDriver {
 
 	/**
 	 * @param $secret
-	 * @param Request $request
+	 * @param \Illuminate\Http\Request $request
 	 */
 	public function __construct($secret, Request $request)
 	{
@@ -68,10 +67,10 @@ abstract class AbstractDriver {
 	}
 
 	/**
-	 * Create a new JWT value object
+	 * Create a new Token value object
 	 * 
 	 * @param string $token
-	 * @return Token
+	 * @return \Tymon\JWTAuth\Token
 	 */
 	public function createToken($token)
 	{
@@ -81,10 +80,10 @@ abstract class AbstractDriver {
 	}
 
 	/**
-	 * Create a new JWTPayload value object
+	 * Create a new Payload value object
 	 * 
-	 * @param $payload
-	 * @return Payload
+	 * @param  array $payload
+	 * @return \Tymon\JWTAuth\Payload
 	 */
 	public function createPayload($payload)
 	{
@@ -93,10 +92,28 @@ abstract class AbstractDriver {
 		return $this->payload;
 	}
 
-		/**
+	/**
+	 * Helper method to return the subject claim
+	 * 
+	 * @param  string $token
+	 * @return mixed
+	 */
+	public function getSubject($token = false)
+	{
+		if (! $token)
+		{
+			if (! $this->payload) throw new JWTException('A token is required');
+
+			return $this->payload->get('sub');
+		}
+
+		return $this->decode($token)->get('sub');
+	}
+
+	/**
 	 * Get the JWT Payload
 	 * 
-	 * @return JWTPayload
+	 * @return \Tymon\JWTAuth\Payload
 	 */
 	public function getPayload()
 	{
@@ -106,14 +123,14 @@ abstract class AbstractDriver {
 	/**
 	 * Get the JWT
 	 * 
-	 * @return string
+	 * @return \Tymon\JWTAuth\Token
 	 */
 	public function getToken()
 	{
 		return $this->token;
 	}
 
-		/**
+	/**
 	 * Set the ttl of the token
 	 * 
 	 * @param int $ttl in minutes

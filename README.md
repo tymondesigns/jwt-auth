@@ -53,7 +53,11 @@ There are a number of ways you can generate a token. The usual flow would be to 
 // simple example
 Route::post('auth/login', function () {
     $credentials = Input::only('email', 'password');
-    $token = JWTAuth::attempt($credentials);
+    
+    if ( ! $token = JWTAuth::attempt($credentials) )
+    {
+        // return 401 error response
+    }
     
     return Response::json(compact('token'));
 });
@@ -77,7 +81,7 @@ Route::post('me', function () {
     
     if ( ! $user = JWTAuth::toUser($token) )
     {
-        // return 401 error response
+        // user not found
     }
     
     return Response::json(compact('user'));

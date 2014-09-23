@@ -22,7 +22,7 @@ class Token {
 	/**
 	 * Validate the token
 	 * 
-	 * @param $value
+	 * @param string $value
 	 * @return string
 	 * @throws Exceptions\JWTException
 	 */

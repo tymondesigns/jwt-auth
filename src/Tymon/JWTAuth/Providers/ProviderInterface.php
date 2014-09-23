@@ -1,6 +1,6 @@
-<?php namespace Tymon\JWTAuth\Drivers;
+<?php namespace Tymon\JWTAuth\Providers;
 
-interface DriverInterface {
+interface ProviderInterface {
 
 	public function encode($subject, array $customClaims = []);
 

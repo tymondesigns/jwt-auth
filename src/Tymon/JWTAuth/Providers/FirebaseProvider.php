@@ -1,23 +1,24 @@
-<?php namespace Tymon\JWTAuth\Drivers;
+<?php namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Drivers\AbstractDriver;
-use Tymon\JWTAuth\Drivers\DriverInterface;
+use Tymon\JWTAuth\Providers\AbstractProvider;
+use Tymon\JWTAuth\Providers\ProviderInterface;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWT as Firebase;
+use Exception;
 
-class Firebase extends AbstractDriver implements DriverInterface {
+class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 
 	/**
 	 * Create a JSON Web Token
 	 * 
 	 * @param mixed $subject
 	 * @param array $customClaims
-	 * @return Token
-	 * @throws Exceptions\JWTException
+	 * @return \Tymon\JWTAuth\Token
+	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
-	public function encode($subject, array $customClaims = [])
+	public function encode($subject = false, array $customClaims = [])
 	{
-		if ( is_null($subject) ) throw new JWTException('A subject is required');
+		if ( ! $subject ) throw new JWTException('A subject is required');
 
 		try
 		{
@@ -36,12 +37,12 @@ class Firebase extends AbstractDriver implements DriverInterface {
 	 * Decode a JSON Web Token
 	 * 
 	 * @param string $token
-	 * @return Payload
-	 * @throws Exceptions\JWTException
+	 * @return \Tymon\JWTAuth\Payload
+	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
-	public function decode($token = null)
+	public function decode($token = false)
 	{
-		if ( is_null($token) ) throw new JWTException('A token is required');
+		if ( ! $token ) throw new JWTException('A token is required');
 
 		$this->createToken($token);
 

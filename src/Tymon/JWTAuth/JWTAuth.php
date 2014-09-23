@@ -1,16 +1,16 @@
 <?php namespace Tymon\JWTAuth;
 
-use User;
-use Tymon\JWTAuth\Drivers\DriverInterface;
-use Illuminate\Auth\AuthManager;
+use Tymon\JWTAuth\Providers\ProviderInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
+use Illuminate\Auth\AuthManager;
+use User;
 
 class JWTAuth {
 
 	/**
-	 * @var DriverInterface
+	 * @var \Tymon\JWTAuth\Providers\ProviderInterface
 	 */
-	protected $driver;
+	protected $provider;
 
 	/**
 	 * @var \Illuminate\Auth\AuthManager
@@ -23,11 +23,11 @@ class JWTAuth {
 	protected $identifier = 'id';
 
 	/**
-	 * @param DriverInterface $driver
+	 * @param \Tymon\JWTAuth\Providers\ProviderInterface $provider
 	 */
-	public function __construct(DriverInterface $driver, AuthManager $auth)
+	public function __construct(ProviderInterface $provider, AuthManager $auth)
 	{
-		$this->driver = $driver;
+		$this->provider = $provider;
 		$this->auth = $auth;
 	}
 
@@ -41,7 +41,12 @@ class JWTAuth {
 	{
 		$this->driver->decode($token);
 
-		return User::where( $this->identifier, $this->driver->getSubject() )->first();
+		if ( ! $user = User::where( $this->identifier, $this->provider->getSubject() )->first() )
+		{
+			return false;
+		}
+
+		return $user;
 	}
 
 	/**
@@ -52,7 +57,7 @@ class JWTAuth {
 	 */
 	public function fromUser(User $user)
 	{
-		return $this->driver->encode($user->{$this->identifier})->get();
+		return $this->provider->encode($user->{$this->identifier})->get();
 	}
 
 	/**
@@ -60,7 +65,7 @@ class JWTAuth {
 	 *  
 	 * @param  array $credentials
 	 * @return string
-	 * @throws JWTAuthException
+	 * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
 	 */
 	public function attempt(array $credentials = [])
 	{
@@ -82,7 +87,7 @@ class JWTAuth {
 	{
 		if ( is_null($token) ) throw new JWTAuthException('A token is required');
 
-		$id = $this->driver->getSubject($token);
+		$id = $this->provider->getSubject($token);
 
 		if (! $user = $this->auth->loginUsingId($id) )
 		{
@@ -93,13 +98,13 @@ class JWTAuth {
 	}
 
 	/**
-	 * Get the JWT driver
+	 * Get the JWT provider
 	 * 
-	 * @return \Tymon\JWTAuth\JWTdriver
+	 * @return \Tymon\JWTAuth\Providers\ProviderInterface
 	 */
-	public function getdriver()
+	public function getProvider()
 	{
-		return $this->driver;
+		return $this->provider;
 	}
 
 	/**
@@ -124,9 +129,9 @@ class JWTAuth {
 	 */
 	public function __call($method, $parameters)
 	{
-		if ( method_exists($this->driver, $method) )
+		if ( method_exists($this->provider, $method) )
 		{
-			return call_user_func_array([$this->driver, $method], $parameters);
+			return call_user_func_array([$this->provider, $method], $parameters);
 		}
 
 		throw new \BadMethodCallException('Method [$method] does not exist.');
