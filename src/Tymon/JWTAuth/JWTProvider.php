@@ -59,7 +59,7 @@ class JWTProvider {
 	 */
 	public function encode($subject = null, array $customClaims = [])
 	{
-		if ( is_null($subject) ) throw new JWTException('A subject is required');
+		if (! $subject) throw new JWTException('A subject is required');
 
 		try
 		{
@@ -83,7 +83,7 @@ class JWTProvider {
 	 */
 	public function decode($token = null)
 	{
-		if ( is_null($token) ) throw new JWTException('A token is required');
+		if (! $token) throw new JWTException('A token is required');
 
 		$this->createToken($token);
 
@@ -134,6 +134,13 @@ class JWTProvider {
 	 */
 	public function getSubject($token)
 	{
+		if (! $token)
+		{
+			if (! $this->token) throw new JWTException('A token is required');
+
+			return $this->token->get('sub');
+		}
+
 		return $this->decode($token)->get('sub');
 	}
 
