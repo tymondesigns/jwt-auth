@@ -129,7 +129,7 @@ class JWTProvider {
 	/**
 	 * Helper method to return the subject claim
 	 * 
-	 * @param  mixed $token
+	 * @param  string $token
 	 * @return mixed
 	 */
 	public function getSubject($token)
@@ -147,7 +147,7 @@ class JWTProvider {
 	/**
 	 * Get the JWT Payload
 	 * 
-	 * @return JWTPayload
+	 * @return Payload
 	 */
 	public function getPayload()
 	{
@@ -157,7 +157,7 @@ class JWTProvider {
 	/**
 	 * Get the JWT
 	 * 
-	 * @return string
+	 * @return Token
 	 */
 	public function getToken()
 	{

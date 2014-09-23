@@ -80,6 +80,7 @@ class Payload implements ArrayAccess {
 	/**
 	 * Get the payload
 	 * 
+	 * @param string $property
 	 * @return array
 	 */
 	public function get($property = null)
