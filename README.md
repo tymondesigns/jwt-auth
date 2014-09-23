@@ -68,6 +68,8 @@ $token = JWTAuth::fromUser($user);
 
 ### Retrieving User from a token
 
+Once a user has "logged in" (e.g. provided their credentials via a login form) to your application, then the next step would be to make a subsequent request, with the token, to retrieve the users' details, so you can show them as being logged in.
+
 ```php
 // simple example
 Route::post('me', function () {
