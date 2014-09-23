@@ -54,8 +54,8 @@ class JWTAuthFilter {
 		$header = $request->headers->get('authorization');
 
 		if ( ! starts_with( strtolower($header), 'bearer' ) ) {
-            throw new BadRequestHttpException;
-        }
+			throw new BadRequestHttpException;
+		}
 
 		return trim( str_ireplace( 'bearer', '', $header ) );
 	}
