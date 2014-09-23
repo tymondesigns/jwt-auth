@@ -69,6 +69,12 @@ $token = JWTAuth::fromUser($user);
 ### Retrieving User from a token
 
 ```php
-$token = Input::get('token');
-$user = JWTAuth::toUser($token);
+// simple example
+Route::post('me', function () {
+    $token = Input::get('token');
+    $user = JWTAuth::toUser($token);
+    
+    return Response::json(compact('user'));
+});
+
 ```
