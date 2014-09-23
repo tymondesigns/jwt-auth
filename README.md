@@ -50,6 +50,7 @@ There are a number of ways you can generate a token. The usual flow would be to 
 ##### Creating a token based on user's credentials
 
 ```php
+// simple example
 Route::post('auth/login', function () {
     $credentials = Input::only('email', 'password');
     $token = JWTAuth::attempt($credentials);
