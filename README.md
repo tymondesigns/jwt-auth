@@ -74,7 +74,10 @@ Once a user has "logged in" (e.g. provided their credentials via a login form) t
 // simple example
 Route::post('me', function () {
     $token = Input::get('token');
-    $user = JWTAuth::toUser($token);
+    if ( ! $user = JWTAuth::toUser($token) )
+    {
+        // return 401 error response
+    }
     
     return Response::json(compact('user'));
 });
