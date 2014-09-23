@@ -132,7 +132,7 @@ class JWTProvider {
 	 * @param  string $token
 	 * @return mixed
 	 */
-	public function getSubject($token = null)
+	public function getSubject($token = false)
 	{
 		if (! $token)
 		{
