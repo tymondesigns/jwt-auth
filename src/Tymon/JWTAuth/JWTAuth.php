@@ -66,7 +66,7 @@ class JWTAuth {
 	{
 		if (! $this->auth->once($credentials) )
 		{
-			throw new JWTAuthException('Invalid credentials.');
+			return false;
 		}
 
 		return $this->fromUser( $this->auth->user() );
