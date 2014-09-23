@@ -1,6 +1,6 @@
 {
     "name": "tymon/jwt-auth",
-    "description": "",
+    "description": "JSON Web Token Authentication for Laravel",
     "authors": [
         {
             "name": "Sean Tymon",
