@@ -1,10 +1,28 @@
 <?php namespace Tymon\JWTAuth;
 
+use Illuminate\Events\Dispatcher;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Exception;
 
 class JWTAuthFilter {
 	
+	/**
+	 * @var \Illuminate\Events\Dispatcher
+	 */
+	protected $events;
+
+	public function __construct(Dispatcher $events)
+	{
+		$this->events = $events;
+	}
+
+	/**
+	 * Filter the request
+	 * 
+	 * @param  \Illuminate\Routing\Router $route   
+	 * @param  \Illuminate\Http\Request   $request 
+	 * @return void          
+	 */
 	public function filter($route, $request)
 	{
 		try
@@ -13,10 +31,10 @@ class JWTAuthFilter {
 		}
 		catch(Exception $e)
 		{
-			return false;
+			$this->events->fire('tymon.jwt.invalid', $e);
 		}
 
-		return true;
+		$this->events->fire('tymon.jwt.valid', $token);
 	}
 
 	/**
@@ -31,11 +49,11 @@ class JWTAuthFilter {
 		{
 			$token = $this->parseAuthHeader($request);
 		}
-		catch (Exception $exception)
+		catch (Exception $e)
 		{
 			if ( ! $token = $request->query('token', false) )
 			{
-				throw $exception;
+				throw $e;
 			}
 		}
 
