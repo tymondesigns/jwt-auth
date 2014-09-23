@@ -129,16 +129,16 @@ class JWTProvider {
 	/**
 	 * Helper method to return the subject claim
 	 * 
-	 * @param  string $token
+	 * @param  mixed $token
 	 * @return mixed
 	 */
 	public function getSubject($token)
 	{
 		if (! $token)
 		{
-			if (! $this->token) throw new JWTException('A token is required');
+			if (! $this->payload) throw new JWTException('A token is required');
 
-			return $this->token->get('sub');
+			return $this->payload->get('sub');
 		}
 
 		return $this->decode($token)->get('sub');
