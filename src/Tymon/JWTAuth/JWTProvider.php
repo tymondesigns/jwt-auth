@@ -20,12 +20,12 @@ class JWTProvider {
 	protected $request;
 
 	/**
-	 * @var string
+	 * @var Token
 	 */
 	protected $token;
 
 	/**
-	 * @var array
+	 * @var Payload
 	 */
 	protected $payload;
 
