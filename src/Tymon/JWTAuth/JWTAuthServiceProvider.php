@@ -1,7 +1,6 @@
 <?php namespace Tymon\JWTAuth;
 
 use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\JWTProvider;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 
@@ -26,7 +25,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 			return $app['tymon.jwt.auth'];
 		};
 
-		$this->app['Tymon\JWTAuth\JWTProvider'] = function ($app)
+		$this->app['Tymon\JWTAuth\Providers\ProviderInterface'] = function ($app)
 		{
 			return $app['tymon.jwt.provider'];
 		};
@@ -53,13 +52,15 @@ class JWTAuthServiceProvider extends ServiceProvider {
 	protected function registerJWTProvider()
 	{
 		$this->app['tymon.jwt.provider'] = $this->app->share(function ($app) {
+
 			$secret = $app['config']->get('jwt::secret', 'changeme');
 			$ttl = $app['config']->get('jwt::ttl', 120);
 			$algo = $app['config']->get('jwt::algo', 'HS256');
+			$provider = $app['config']->get('jwt::provider', 'Tymon\JWTAuth\Providers\FirebaseProvider');
 
-			$provider = new JWTProvider($secret, $app['request']);
+			$instance = $app->make($provider , [ $secret, $app['request'] ] );
 
-			return $provider->setTTL($ttl)->setAlgo($algo);
+			return $instance->setTTL($ttl)->setAlgo($algo);
 		});
 	}
 
@@ -85,7 +86,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 			'tymon.jwt.provider',
 			'tymon.jwt.auth',
 			'tymon.jwt.generate',
-			'Tymon\JWTAuth\JWTProvider',
+			'Tymon\JWTAuth\Providers\ProviderInterface',
 			'Tymon\JWTAuth\JWTAuth'
 		];
 	}

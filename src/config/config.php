@@ -48,6 +48,18 @@ return [
 	|
 	*/
 
-	'identifier' => 'id'
+	'identifier' => 'id',
+
+	/*
+	|--------------------------------------------------------------------------
+	| JWT Provider
+	|--------------------------------------------------------------------------
+	| 
+	| Specify the JWT provider to do the heavy lifting of encoding, signing
+	| and decoding of JSON Web Tokens 
+	|
+	*/
+
+	'provider' => 'Tymon\JWTAuth\Providers\FirebaseProvider'
 
 ];
