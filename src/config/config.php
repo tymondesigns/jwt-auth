@@ -56,7 +56,7 @@ return [
 	|--------------------------------------------------------------------------
 	| 
 	| Specify the JWT provider to do the heavy lifting of encoding, signing
-	| and decoding of JSON Web Tokens 
+	| and decoding JSON Web Tokens 
 	|
 	*/
 
