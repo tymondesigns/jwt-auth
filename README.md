@@ -80,9 +80,12 @@ Route::post('me', ['before' => 'jwt-auth', function () {
 
     $token = Input::get('token');
     
-    try {
+    try
+    {
         $user = JWTAuth::toUser($token);
-    } catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+    }
+    catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e)
+    {
         // token has expired
         return Response::json(['error' => 'token_expired'], 400);
     }
