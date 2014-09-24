@@ -7,11 +7,23 @@ use Mockery;
 
 class JWTAuthSpec extends ObjectBehavior
 {
-    function it_is_initializable(FirebaseProvider $provider)
-    {
-    	$auth = Mockery::mock('Illuminate\Auth\AuthManager');
-    	$this->beConstructedWith($provider, $auth);
 
+	function let(FirebaseProvider $provider)
+	{
+		$auth = Mockery::mock('Illuminate\Auth\AuthManager');
+    	$this->beConstructedWith($provider, $auth);
+	}
+
+    function it_is_initializable()
+    {
         $this->shouldHaveType('Tymon\JWTAuth\JWTAuth');
     }
+
+    // function it_should_generate_token_when_passing_a_user_object(User $user)
+    // {
+    // 	$user->id->shouldReturn(1);
+    // 	$token = $this->fromUser($user);
+    // }
 }
+
+class User {}
