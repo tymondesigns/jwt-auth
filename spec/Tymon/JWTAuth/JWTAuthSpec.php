@@ -1,6 +1,4 @@
-<?php
-
-namespace spec\Tymon\JWTAuth;
+<?php namespace spec\Tymon\JWTAuth;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

@@ -37,7 +37,7 @@ class JWTAuth {
 	 * @param $token
 	 * @return User
 	 */
-	public function toUser($token = null)
+	public function toUser($token)
 	{
 		$this->driver->decode($token);
 
@@ -83,9 +83,9 @@ class JWTAuth {
 	 * @param  string $token 
 	 * @return User        
 	 */
-	public function login($token = null)
+	public function login($token)
 	{
-		if ( is_null($token) ) throw new JWTAuthException('A token is required');
+		if ( ! $token ) throw new JWTAuthException('A token is required');
 
 		$id = $this->provider->getSubject($token);
 
