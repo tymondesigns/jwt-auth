@@ -85,7 +85,7 @@ class JWTAuth {
 	 */
 	public function login($token)
 	{
-		if ( ! $token ) throw new JWTAuthException('A token is required');
+		if (! $token) throw new JWTAuthException('A token is required');
 
 		$id = $this->provider->getSubject($token);
 

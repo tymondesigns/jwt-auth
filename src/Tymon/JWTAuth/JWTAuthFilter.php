@@ -31,7 +31,7 @@ class JWTAuthFilter {
 		}
 		catch(Exception $e)
 		{
-			$this->events->fire('tymon.jwt.invalid', $e);
+			$this->events->fire('tymon.jwt.invalid', $e->getMessage());
 		}
 
 		$this->events->fire('tymon.jwt.valid', $token);
