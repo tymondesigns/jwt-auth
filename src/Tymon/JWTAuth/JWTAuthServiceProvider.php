@@ -3,6 +3,7 @@
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
+use Tymon\JWTAuth\JWTAuthFilter;
 
 class JWTAuthServiceProvider extends ServiceProvider {
 
@@ -36,6 +37,8 @@ class JWTAuthServiceProvider extends ServiceProvider {
         });
 
         $this->commands('tymon.jwt.generate');
+
+        $this->app['router']->filter('jwt-auth', 'tymon.jwt.filter');
 	}
 
 	/**
@@ -47,6 +50,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 	{
 		$this->registerJWTProvider();
 		$this->registerJWTAuth();
+		$this->registerJWTAuthFilter();
 	}
 
 	protected function registerJWTProvider()
@@ -72,6 +76,13 @@ class JWTAuthServiceProvider extends ServiceProvider {
 			$auth = new JWTAuth( $app['tymon.jwt.provider'], $app['auth'] );
 
 			return $auth->setIdentifier($identifier);
+		});
+	}
+
+	protected function registerJWTAuthFilter()
+	{
+		$this->app['tymon.jwt.filter'] = $this->app->share(function ($app) {
+			return new JWTAuthFilter($app['events']);
 		});
 	}
 
