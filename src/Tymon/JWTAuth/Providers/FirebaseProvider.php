@@ -36,7 +36,7 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 	/**
 	 * Decode a JSON Web Token
 	 * 
-	 * @param string $token
+	 * @param  string $token
 	 * @return \Tymon\JWTAuth\Payload
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */

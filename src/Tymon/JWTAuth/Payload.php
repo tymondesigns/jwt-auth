@@ -1,6 +1,7 @@
 <?php namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use ArrayAccess;
 
 class Payload implements ArrayAccess {
@@ -71,7 +72,7 @@ class Payload implements ArrayAccess {
 
 		if ( $value['iat'] > time() || $value['exp'] < time() )
 		{
-			throw new PayloadException('JWT has expired');
+			throw new TokenExpiredException('JWT has expired');
 		}
 
 		return true;
