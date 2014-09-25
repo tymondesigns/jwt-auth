@@ -76,7 +76,7 @@ Once a user has "logged in" (e.g. provided their credentials via a login form) t
 
 ```php
 // simple example
-Route::post('me', ['before' => 'jwt-auth', function () {
+Route::post('me', function () {
 
     $token = Input::get('token');
     
@@ -97,6 +97,6 @@ Route::post('me', ['before' => 'jwt-auth', function () {
     }
     
     return Response::json(compact('user'));
-}]);
+});
 
 ```
