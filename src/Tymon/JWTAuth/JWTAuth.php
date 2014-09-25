@@ -91,7 +91,7 @@ class JWTAuth {
 
 		if (! $user = $this->auth->loginUsingId($id) )
 		{
-			throw new JWTAuthException('User not found.');
+			return false;
 		}
 
 		return $user;
