@@ -68,7 +68,7 @@ class PayloadSpec extends ObjectBehavior {
 			'iss' => 'http://example.com',
 		];
 
-		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('__construct', [$payload]);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\TokenExpiredException')->during('__construct', [$payload]);
 	}
 
 }
