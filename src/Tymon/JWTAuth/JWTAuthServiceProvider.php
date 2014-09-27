@@ -4,6 +4,7 @@ use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuthFilter;
+use Tymon\JWTAuth\Providers\FirebaseProvider as Provider;
 
 class JWTAuthServiceProvider extends ServiceProvider {
 
@@ -60,7 +61,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 			$secret = $app['config']->get('jwt::secret', 'changeme');
 			$ttl = $app['config']->get('jwt::ttl', 120);
 			$algo = $app['config']->get('jwt::algo', 'HS256');
-			$provider = $app['config']->get('jwt::provider', 'Tymon\JWTAuth\Providers\FirebaseProvider');
+			$provider = $app['config']->get('jwt::provider', Provider::class);
 
 			$instance = $app->make($provider , [ $secret, $app['request'] ] );
 
