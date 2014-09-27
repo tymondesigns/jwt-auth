@@ -1,5 +1,7 @@
 <?php namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Illuminate\Events\Dispatcher;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Exception;
@@ -11,9 +13,15 @@ class JWTAuthFilter {
 	 */
 	protected $events;
 
-	public function __construct(Dispatcher $events)
+	/**
+	 * @var \Tymon\JWTAuth\JWTAuth
+	 */
+	protected $auth;
+
+	public function __construct(Dispatcher $events, JWTAuth $auth)
 	{
 		$this->events = $events;
+		$this->auth = $auth;
 	}
 
 	/**
@@ -28,13 +36,18 @@ class JWTAuthFilter {
 		try
 		{
 			$token = $this->getToken($request);
+			$user = $this->auth->toUser($token);
+		}
+		catch(TokenExpiredException $e)
+		{
+			$this->events->fire('tymon.jwt.expired', $e->getMessage());
 		}
 		catch(Exception $e)
 		{
 			$this->events->fire('tymon.jwt.invalid', $e->getMessage());
 		}
 
-		$this->events->fire('tymon.jwt.valid', $token);
+		$this->events->fire('tymon.jwt.valid', $user);
 	}
 
 	/**
@@ -49,7 +62,7 @@ class JWTAuthFilter {
 		{
 			$token = $this->parseAuthHeader($request);
 		}
-		catch (Exception $e)
+		catch (BadRequestHttpException $e)
 		{
 			if ( ! $token = $request->query('token', false) )
 			{

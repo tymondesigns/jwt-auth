@@ -2,6 +2,7 @@
 
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use ArrayAccess;
 
 class Payload implements ArrayAccess {
@@ -50,7 +51,7 @@ class Payload implements ArrayAccess {
 	{
 		if ( count( array_diff( $this->requiredClaims, array_keys($value) ) ) !== 0 )
 		{
-			throw new PayloadException('JWT payload does not contain the required claims');
+			throw new TokenInvalidException('JWT payload does not contain the required claims');
 		}
 
 		return true;
@@ -67,7 +68,7 @@ class Payload implements ArrayAccess {
 	{
 		if ( ! is_int($value['exp']) )
 		{
-			throw new PayloadException('Invalid Expiration (exp) provided');
+			throw new TokenInvalidException('Invalid Expiration (exp) provided');
 		}
 
 		if ( $value['iat'] > time() || $value['exp'] < time() )

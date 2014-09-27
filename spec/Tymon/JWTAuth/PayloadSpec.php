@@ -44,7 +44,7 @@ class PayloadSpec extends ObjectBehavior {
 	{
 		$payload = ['iat' => 12312312, 'exp' => 13234234];
 
-		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('__construct', [$payload]);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\TokenInvalidException')->during('__construct', [$payload]);
 	}
 
 	function it_should_throw_an_exception_when_payload_has_invalid_expiration()
@@ -56,7 +56,7 @@ class PayloadSpec extends ObjectBehavior {
 			'iss' => 'http://example.com'
 		];
 
-		$this->shouldThrow('Tymon\JWTAuth\Exceptions\PayloadException')->during('__construct', [$payload]);
+		$this->shouldThrow('Tymon\JWTAuth\Exceptions\TokenInvalidException')->during('__construct', [$payload]);
 	}
 
 	function it_should_throw_an_exception_when_payload_has_expired()

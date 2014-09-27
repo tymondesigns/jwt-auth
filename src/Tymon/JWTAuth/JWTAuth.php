@@ -55,7 +55,7 @@ class JWTAuth {
 	 * @param $user
 	 * @return string
 	 */
-	public function fromUser(User $user)
+	public function fromUser($user)
 	{
 		return $this->provider->encode($user->{$this->identifier})->get();
 	}
