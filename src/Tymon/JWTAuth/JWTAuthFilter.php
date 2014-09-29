@@ -2,9 +2,9 @@
 
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Events\Dispatcher;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Exception;
+use Illuminate\Http\Response;
 
 class JWTAuthFilter {
 	
@@ -14,13 +14,19 @@ class JWTAuthFilter {
 	protected $events;
 
 	/**
+	 * @var \Illuminate\Http\Response
+	 */
+	protected $response;
+
+	/**
 	 * @var \Tymon\JWTAuth\JWTAuth
 	 */
 	protected $auth;
 
-	public function __construct(Dispatcher $events, JWTAuth $auth)
+	public function __construct(Dispatcher $events, Response $response, JWTAuth $auth)
 	{
 		$this->events = $events;
+		$this->response = $response;
 		$this->auth = $auth;
 	}
 
@@ -33,18 +39,31 @@ class JWTAuthFilter {
 	 */
 	public function filter($route, $request)
 	{
+		if ( ! $token = $this->getToken($request) )
+		{
+			$this->events->fire('tymon.jwt.absent');
+			return $this->response->json(['error' => 'token_not_provided'], 400);
+		}
+
 		try
 		{
-			$token = $this->getToken($request);
 			$user = $this->auth->toUser($token);
 		}
 		catch(TokenExpiredException $e)
 		{
 			$this->events->fire('tymon.jwt.expired', $e->getMessage());
+			return $this->response->json(['error' => 'token_expired'], 401);
 		}
-		catch(Exception $e)
+		catch(JWTException $e)
 		{
 			$this->events->fire('tymon.jwt.invalid', $e->getMessage());
+			return $this->response->json(['error' => 'token_invalid'], 401);
+		}
+
+		if (! $user)
+		{
+			$this->events->fire('tymon.jwt.user_not_found');
+			return $this->response->json(['error' => 'user_not_found'], 404);
 		}
 
 		$this->events->fire('tymon.jwt.valid', $user);
@@ -58,15 +77,11 @@ class JWTAuthFilter {
 	 */
 	protected function getToken($request)
 	{
-		try
-		{
-			$token = $this->parseAuthHeader($request);
-		}
-		catch (BadRequestHttpException $e)
+		if ( ! $token = $this->parseAuthHeader($request) )
 		{
 			if ( ! $token = $request->query('token', false) )
 			{
-				throw $e;
+				return false;
 			}
 		}
 
@@ -78,14 +93,13 @@ class JWTAuthFilter {
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @return string
-	 * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
 	 */
 	protected function parseAuthHeader($request)
 	{
 		$header = $request->headers->get('authorization');
 
 		if ( ! starts_with( strtolower($header), 'bearer' ) ) {
-			throw new BadRequestHttpException;
+			return false;
 		}
 
 		return trim( str_ireplace( 'bearer', '', $header ) );
