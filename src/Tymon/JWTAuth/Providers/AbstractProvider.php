@@ -72,7 +72,7 @@ abstract class AbstractProvider {
 	 * @param string $token
 	 * @return \Tymon\JWTAuth\Token
 	 */
-	public function createToken($token)
+	protected function createToken($token)
 	{
 		$this->token = new Token($token);
 
@@ -85,7 +85,7 @@ abstract class AbstractProvider {
 	 * @param  array $payload
 	 * @return \Tymon\JWTAuth\Payload
 	 */
-	public function createPayload($payload)
+	protected function createPayload($payload)
 	{
 		$this->payload = new Payload($payload);
 
