@@ -124,5 +124,5 @@ Event::listen('tymon.jwt.expired');
 Event::listen('tymon.jwt.invalid');
 
 // fired if the user could not be found (shouldn't really happen)
-Event::listen(''tymon.jwt.user_not_found');
+Event::listen('tymon.jwt.user_not_found');
 ```
