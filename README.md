@@ -108,3 +108,21 @@ Route::post('me', function () {
 });
 
 ```
+
+Alternatively, you can use the included `jwt-auth` route filter. It includes some sensible default responses when, for example, the token has expired or is invalid.
+
+These responses can be overridden, by hooking into a series of events that are fired before the response is returned. Here are the events that can be fired during the filter.
+
+```php
+// fired when the token could not be found in the request
+Event::listen('tymon.jwt.absent');
+
+// fired when the token has expired
+Event::listen('tymon.jwt.expired');
+
+// fired when the token is found to be invalid
+Event::listen('tymon.jwt.invalid');
+
+// fired if the user could not be found (shouldn't really happen)
+'tymon.jwt.user_not_found'
+```
