@@ -39,7 +39,7 @@ class JWTAuth {
 	 */
 	public function toUser($token)
 	{
-		$this->driver->decode($token);
+		$this->provider->decode($token);
 
 		if ( ! $user = User::where( $this->identifier, $this->provider->getSubject() )->first() )
 		{
