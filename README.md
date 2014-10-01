@@ -111,6 +111,14 @@ Route::post('me', function () {
 
 Alternatively, you can use the included `jwt-auth` route filter. It includes some sensible default responses when, for example, the token has expired or is invalid.
 
+```php
+Route::post('me', ['before' => 'jwt-auth', function() {
+    $user = JWTAuth::toUser( Input::get('token') );
+    
+    return Response::json(compact('user'));
+}]);
+```
+
 These responses can be overridden, by hooking into a series of events that are fired before the response is returned. Here are the events that can be fired during the filter.
 
 ```php
