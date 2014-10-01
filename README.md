@@ -125,4 +125,20 @@ Event::listen('tymon.jwt.invalid');
 
 // fired if the user could not be found (shouldn't really happen)
 Event::listen('tymon.jwt.user_not_found');
+
+// fired when the token is valid (User is passed along with event)
+Event::listen('tymon.jwt.valid');
+```
+
+You can also take advantage of Laravel's [wilcard listeners](http://laravel.com/docs/4.2/events#wildcard-listeners)
+
+```php
+// example
+Event::listen('tymon.jwt.*', function()
+{
+    if (Event::firing() == 'tymon.jwt.invalid')
+    {
+        // return response
+    }
+});
 ```
