@@ -60,7 +60,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
 			$secret = $app['config']->get('jwt::secret', 'changeme');
 			$ttl = $app['config']->get('jwt::ttl', 120);
 			$algo = $app['config']->get('jwt::algo', 'HS256');
-			$provider = $app['config']->get('jwt::provider', 'Tymon\JWTAuth\Providers\FirebaseProvider';
+			$provider = $app['config']->get('jwt::provider', 'Tymon\JWTAuth\Providers\FirebaseProvider');
 
 			$instance = $app->make($provider , [ $secret, $app['request'] ] );
 
