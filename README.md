@@ -39,6 +39,14 @@ $ php artisan config:publish tymon/jwt-auth
 
 ##### **Don't forget to set a secret key in the config file!**
 
+I have included a helper command to generate a key as follows:
+
+```bash
+$ php artisan jwt:generate
+```
+
+this will generate a new random key, which will be used to sign your tokens.
+
 And you're done!
 
 ## Basic Usage
