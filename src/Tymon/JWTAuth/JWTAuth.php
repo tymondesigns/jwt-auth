@@ -106,7 +106,7 @@ class JWTAuth {
 	 */
 	public function getToken($query = 'token')
 	{
-		$request = Request::instance();
+		$request = app('request');
 
 		if ( ! $token = $this->parseAuthHeader($request) )
 		{
