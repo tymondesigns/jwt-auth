@@ -101,11 +101,13 @@ class JWTAuth {
 	/**
 	 * Get the token from the request
 	 *
-	 * @param  \Illuminate\Http\Request $request
+	 * @param  string $query
 	 * @return mixed
 	 */
-	public function getToken(Request $request, $query = 'token')
+	public function getToken($query = 'token')
 	{
+		$request = Request::instance();
+
 		if ( ! $token = $this->parseAuthHeader($request) )
 		{
 			if ( ! $token = $request->query($query, false) )
