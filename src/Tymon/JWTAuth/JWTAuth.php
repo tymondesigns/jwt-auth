@@ -3,6 +3,7 @@
 use Tymon\JWTAuth\Providers\ProviderInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Request;
 use User;
 
 class JWTAuth {
@@ -34,8 +35,8 @@ class JWTAuth {
 	/**
 	 * Find a user using the user identifier in the subject claim
 	 * 
-	 * @param string $token
-	 * @return User
+	 * @param  string $token
+	 * @return mixed
 	 */
 	public function toUser($token)
 	{
@@ -64,7 +65,7 @@ class JWTAuth {
 	 * Attempt to authenticate the user and return the token
 	 *  
 	 * @param  array $credentials
-	 * @return string
+	 * @return mixed
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
 	 */
 	public function attempt(array $credentials = [])
@@ -81,7 +82,7 @@ class JWTAuth {
 	 * Log the user in via the token
 	 * 
 	 * @param  string $token 
-	 * @return User        
+	 * @return mixed        
 	 */
 	public function login($token)
 	{
@@ -95,6 +96,42 @@ class JWTAuth {
 		}
 
 		return $user;
+	}
+
+	/**
+	 * Get the token from the request
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return mixed
+	 */
+	public function getToken(Request $request, $query = 'token')
+	{
+		if ( ! $token = $this->parseAuthHeader($request) )
+		{
+			if ( ! $token = $request->query($query, false) )
+			{
+				return false;
+			}
+		}
+
+		return $token;
+	}
+
+	/**
+	 * Parse token from the authorization header
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return mixed
+	 */
+	protected function parseAuthHeader(Request $request, $method = 'bearer')
+	{
+		$header = $request->headers->get('authorization');
+
+		if ( ! starts_with( strtolower($header), $method ) ) {
+			return false;
+		}
+
+		return trim( str_ireplace( $method, '', $header ) );
 	}
 
 	/**
