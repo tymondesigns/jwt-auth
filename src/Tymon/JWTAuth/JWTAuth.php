@@ -45,7 +45,7 @@ class JWTAuth {
 	 */
 	public function toUser($token = false)
 	{
-		$this->requireToken();
+		$this->requireToken($token);
 
 		$this->provider->decode($this->token);
 
@@ -93,7 +93,7 @@ class JWTAuth {
 	 */
 	public function login($token = false)
 	{
-		$this->requireToken();
+		$this->requireToken($token);
 
 		$id = $this->provider->getSubject($this->token);
 
