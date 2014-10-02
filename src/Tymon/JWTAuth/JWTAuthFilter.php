@@ -39,7 +39,7 @@ class JWTAuthFilter {
 	 */
 	public function filter($route, $request)
 	{
-		if ( ! $token = $this->getToken($request) )
+		if ( ! $token = $this->auth->getToken($request) )
 		{
 			$this->events->fire('tymon.jwt.absent');
 			return $this->response->json(['error' => 'token_not_provided'], 400);
@@ -67,42 +67,6 @@ class JWTAuthFilter {
 		}
 
 		$this->events->fire('tymon.jwt.valid', $user);
-	}
-
-	/**
-	 * Get the token from the request
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @return mixed
-	 */
-	protected function getToken($request)
-	{
-		if ( ! $token = $this->parseAuthHeader($request) )
-		{
-			if ( ! $token = $request->query('token', false) )
-			{
-				return false;
-			}
-		}
-
-		return $token;
-	}
-
-	/**
-	 * Parse token from the authorization header
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @return mixed
-	 */
-	protected function parseAuthHeader($request)
-	{
-		$header = $request->headers->get('authorization');
-
-		if ( ! starts_with( strtolower($header), 'bearer' ) ) {
-			return false;
-		}
-
-		return trim( str_ireplace( 'bearer', '', $header ) );
 	}
 
 }

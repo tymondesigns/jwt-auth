@@ -123,15 +123,15 @@ class JWTAuth {
 	 * @param  \Illuminate\Http\Request $request
 	 * @return string
 	 */
-	protected function parseAuthHeader(Request $request)
+	protected function parseAuthHeader(Request $request, $method = 'bearer')
 	{
 		$header = $request->headers->get('authorization');
 
-		if ( ! starts_with( strtolower($header), 'bearer' ) ) {
+		if ( ! starts_with( strtolower($header), $method ) ) {
 			return false;
 		}
 
-		return trim( str_ireplace( 'bearer', '', $header ) );
+		return trim( str_ireplace( $method, '', $header ) );
 	}
 
 	/**
