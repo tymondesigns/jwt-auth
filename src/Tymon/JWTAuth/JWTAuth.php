@@ -24,6 +24,11 @@ class JWTAuth {
 	protected $identifier = 'id';
 
 	/**
+	 * @var string
+	 */
+	protected $token;
+
+	/**
 	 * @param \Tymon\JWTAuth\Providers\ProviderInterface $provider
 	 */
 	public function __construct(ProviderInterface $provider, AuthManager $auth)
@@ -38,9 +43,11 @@ class JWTAuth {
 	 * @param  string $token
 	 * @return mixed
 	 */
-	public function toUser($token)
+	public function toUser($token = false)
 	{
-		$this->provider->decode($token);
+		$this->requireToken();
+
+		$this->provider->decode($this->token);
 
 		if ( ! $user = User::where( $this->identifier, $this->provider->getSubject() )->first() )
 		{
@@ -84,11 +91,11 @@ class JWTAuth {
 	 * @param  string $token 
 	 * @return mixed        
 	 */
-	public function login($token)
+	public function login($token = false)
 	{
-		if (! $token) throw new JWTAuthException('A token is required');
+		$this->requireToken();
 
-		$id = $this->provider->getSubject($token);
+		$id = $this->provider->getSubject($this->token);
 
 		if (! $user = $this->auth->loginUsingId($id) )
 		{
@@ -115,6 +122,8 @@ class JWTAuth {
 				return false;
 			}
 		}
+
+		$this->setToken($token);
 
 		return $token;
 	}
@@ -156,6 +165,36 @@ class JWTAuth {
 		$this->identifier = $identifier;
 
 		return $this;
+	}
+
+	/**
+	 * Set the token 
+	 * 
+	 * @param mixed $token
+	 */
+	public function setToken($token)
+	{
+		$this->token = $token;
+
+		return $this;
+	}
+
+	/**
+	 * Ensure that a token is available
+	 * 
+	 * @param  mixed $token 
+	 * @return void
+	 */
+	protected function requireToken($token)
+	{
+		if ($token)
+		{
+			$this->setToken($token);
+		}
+		else if (! $this->token)
+		{
+			throw new JWTAuthException('A token is required');
+		}
 	}
 
 	/**
