@@ -82,7 +82,8 @@ class JWTAuthServiceProvider extends ServiceProvider {
 	protected function registerJWTAuthFilter()
 	{
 		$this->app['tymon.jwt.filter'] = $this->app->share(function ($app) {
-			return new JWTAuthFilter($app['events']);
+			$response = new Illuminate\Http\Response;
+			return new JWTAuthFilter($app['events'], $response, $app['tymon.jwt.auth']);
 		});
 	}
 

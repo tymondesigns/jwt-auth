@@ -35,7 +35,7 @@ class JWTAuthFilter {
 	 * 
 	 * @param  \Illuminate\Routing\Router $route   
 	 * @param  \Illuminate\Http\Request   $request 
-	 * @return void          
+	 * @return \Illuminate\Http\Response          
 	 */
 	public function filter($route, $request)
 	{
@@ -73,7 +73,7 @@ class JWTAuthFilter {
 	 * Get the token from the request
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @return string
+	 * @return mixed
 	 */
 	protected function getToken($request)
 	{
@@ -92,7 +92,7 @@ class JWTAuthFilter {
 	 * Parse token from the authorization header
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @return string
+	 * @return mixed
 	 */
 	protected function parseAuthHeader($request)
 	{
