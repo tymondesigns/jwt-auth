@@ -3,6 +3,7 @@
 use Tymon\JWTAuth\Providers\ProviderInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Request;
 use User;
 
 class JWTAuth {
@@ -95,6 +96,42 @@ class JWTAuth {
 		}
 
 		return $user;
+	}
+
+	/**
+	 * Get the token from the request
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return string
+	 */
+	public function getToken(Request $request, $query = 'token')
+	{
+		if ( ! $token = $this->parseAuthHeader($request) )
+		{
+			if ( ! $token = $request->query($query, false) )
+			{
+				return false;
+			}
+		}
+
+		return $token;
+	}
+
+	/**
+	 * Parse token from the authorization header
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return string
+	 */
+	protected function parseAuthHeader(Request $request)
+	{
+		$header = $request->headers->get('authorization');
+
+		if ( ! starts_with( strtolower($header), 'bearer' ) ) {
+			return false;
+		}
+
+		return trim( str_ireplace( 'bearer', '', $header ) );
 	}
 
 	/**
