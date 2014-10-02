@@ -19,6 +19,11 @@ class JWTAuth {
 	protected $auth;
 
 	/**
+	 * @var \Illuminate\Http\Request
+	 */
+	protected $request;
+
+	/**
 	 * @var string
 	 */
 	protected $identifier = 'id';
@@ -31,10 +36,11 @@ class JWTAuth {
 	/**
 	 * @param \Tymon\JWTAuth\Providers\ProviderInterface $provider
 	 */
-	public function __construct(ProviderInterface $provider, AuthManager $auth)
+	public function __construct(ProviderInterface $provider, AuthManager $auth, Request $request)
 	{
 		$this->provider = $provider;
 		$this->auth = $auth;
+		$this->request = $request;
 	}
 
 	/**
@@ -113,11 +119,9 @@ class JWTAuth {
 	 */
 	public function getToken($query = 'token')
 	{
-		$request = app('request');
-
-		if ( ! $token = $this->parseAuthHeader($request) )
+		if ( ! $token = $this->parseAuthHeader() )
 		{
-			if ( ! $token = $request->query($query, false) )
+			if ( ! $token = $this->request->query($query, false) )
 			{
 				return false;
 			}
@@ -134,9 +138,9 @@ class JWTAuth {
 	 * @param  \Illuminate\Http\Request $request
 	 * @return mixed
 	 */
-	protected function parseAuthHeader(Request $request, $method = 'bearer')
+	protected function parseAuthHeader($method = 'bearer')
 	{
-		$header = $request->headers->get('authorization');
+		$header = $this->request->headers->get('authorization');
 
 		if ( ! starts_with( strtolower($header), $method ) ) {
 			return false;
