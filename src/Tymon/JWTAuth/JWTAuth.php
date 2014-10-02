@@ -103,7 +103,7 @@ class JWTAuth {
 
 		$id = $this->provider->getSubject($this->token);
 
-		if (! $user = $this->auth->loginUsingId($id) )
+		if (! $user = $this->auth->onceUsingId($id) )
 		{
 			return false;
 		}
@@ -202,7 +202,7 @@ class JWTAuth {
 	}
 
 	/**
-	 * Magically call the JWT driver
+	 * Magically call the JWT provider
 	 * 
 	 * @param  string $method
 	 * @param  array  $parameters
