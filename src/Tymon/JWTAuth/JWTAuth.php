@@ -34,7 +34,7 @@ class JWTAuth {
 	/**
 	 * Find a user using the user identifier in the subject claim
 	 * 
-	 * @param $token
+	 * @param string $token
 	 * @return User
 	 */
 	public function toUser($token)
