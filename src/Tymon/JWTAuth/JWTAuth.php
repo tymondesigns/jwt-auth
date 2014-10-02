@@ -65,7 +65,7 @@ class JWTAuth {
 	 * Attempt to authenticate the user and return the token
 	 *  
 	 * @param  array $credentials
-	 * @return string
+	 * @return mixed
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
 	 */
 	public function attempt(array $credentials = [])
@@ -102,7 +102,7 @@ class JWTAuth {
 	 * Get the token from the request
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @return string
+	 * @return mixed
 	 */
 	public function getToken(Request $request, $query = 'token')
 	{
@@ -121,7 +121,7 @@ class JWTAuth {
 	 * Parse token from the authorization header
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @return string
+	 * @return mixed
 	 */
 	protected function parseAuthHeader(Request $request, $method = 'bearer')
 	{
