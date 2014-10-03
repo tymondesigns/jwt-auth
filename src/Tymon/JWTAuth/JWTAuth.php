@@ -174,7 +174,7 @@ class JWTAuth {
 	/**
 	 * Set the token 
 	 * 
-	 * @param mixed $token
+	 * @param string $token
 	 */
 	public function setToken($token)
 	{
@@ -186,7 +186,7 @@ class JWTAuth {
 	/**
 	 * Ensure that a token is available
 	 * 
-	 * @param  mixed $token 
+	 * @param  token $token 
 	 * @return void
 	 */
 	protected function requireToken($token)
