@@ -8,6 +8,7 @@ interface ProviderInterface {
 	public function encode($subject, array $customClaims = []);
 
 	/**
+	 * @param string $token
 	 * @return \Tymon\JWTAuth\Payload
 	 */
 	public function decode($token = null);

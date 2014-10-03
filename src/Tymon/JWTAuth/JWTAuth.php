@@ -78,7 +78,7 @@ class JWTAuth {
 	 * Attempt to authenticate the user and return the token
 	 *  
 	 * @param  array $credentials
-	 * @return mixed
+	 * @return false|string
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
 	 */
 	public function attempt(array $credentials = [])
@@ -135,8 +135,7 @@ class JWTAuth {
 	/**
 	 * Parse token from the authorization header
 	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @return mixed
+	 * @return false|string
 	 */
 	protected function parseAuthHeader($method = 'bearer')
 	{
