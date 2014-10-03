@@ -55,7 +55,7 @@ And you're done!
 
 There are a number of ways you can generate a token. The usual flow would be to pass some credentials and the package will try to authenticate the user and return a fully formed JSON Web Token.
 
-##### Creating a token based on user's credentials
+##### Authenticating a User
 
 ```php
 // simple example
