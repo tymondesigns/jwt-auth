@@ -46,7 +46,7 @@ class JWTAuth {
 	/**
 	 * Find a user using the user identifier in the subject claim
 	 * 
-	 * @param  string $token
+	 * @param  mixed $token
 	 * @return mixed
 	 */
 	public function toUser($token = false)
@@ -94,7 +94,7 @@ class JWTAuth {
 	/**
 	 * Log the user in via the token
 	 * 
-	 * @param  string $token 
+	 * @param  mixed $token 
 	 * @return mixed        
 	 */
 	public function login($token = false)
@@ -186,7 +186,7 @@ class JWTAuth {
 	/**
 	 * Ensure that a token is available
 	 * 
-	 * @param  token $token 
+	 * @param  mixed $token 
 	 * @return void
 	 */
 	protected function requireToken($token)
