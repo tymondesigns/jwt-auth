@@ -157,14 +157,14 @@ JWTAuth::toUser($token);
 JWTAuth::fromUser($user);
 
 // sets the token for the request 
-// further methods can then be chained
+// further methods that require a token can then be chained
 JWTAuth::setToken($token);
 
 // returns the subject (sub) claim from the token
 // (defaults to User id)
 JWTAuth::getSubject($token);
 
-// provides access to the underlying jwt encoder
+// provides access to the underlying jwt provider
 // returns a token
 JWTAuth::encode($subject, array $customClaims);
 
