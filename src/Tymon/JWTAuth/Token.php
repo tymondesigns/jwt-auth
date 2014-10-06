@@ -30,7 +30,7 @@ class Token {
 	{
 		if ( count(explode('.', $value)) !== 3 )
 		{
-			throw new TokenInvalidException('Invalid JWT - Wrong number of segments');
+			throw new TokenInvalidException('Wrong number of segments');
 		}
 
 		return $value;
