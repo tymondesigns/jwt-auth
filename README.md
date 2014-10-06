@@ -166,7 +166,7 @@ JWTAuth::getSubject($token);
 
 // provides access to the underlying jwt provider
 // returns a token
-JWTAuth::encode($subject, array $customClaims);
+JWTAuth::encode($subject, $customClaims);
 
 // decodes a token and returns the payload array
 JWTAuth::decode($token);
