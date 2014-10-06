@@ -136,3 +136,38 @@ Event::listen('tymon.jwt.user_not_found');
 // fired when the token is valid (User is passed along with event)
 Event::listen('tymon.jwt.valid');
 ```
+
+## API
+
+```php
+// accepts an array of credentials e.g. email & password
+JWTAuth::attempt($credentials);
+
+// accepts a token and returns the authenticated user on success
+JWTAuth::login($token);
+
+// retrieves the token from the request
+// (checks Authorization Bearer header and query string)
+JWTAuth::getToken();
+
+// accepts a token and returns the User object
+JWTAuth::toUser($token);
+
+// accepts a User, and returns a token
+JWTAuth::fromUser($user);
+
+// sets the token for the request 
+// further methods can then be chained
+JWTAuth::setToken($token);
+
+// returns the subject (sub) claim from the token
+// (defaults to User id)
+JWTAuth::getSubject($token);
+
+// provides access to the underlying jwt encoder
+// returns a token
+JWTAuth::encode($subject, array $customClaims);
+
+// decodes a token and returns the payload array
+JWTAuth::decode($token);
+```
