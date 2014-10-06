@@ -85,12 +85,10 @@ Once a user has "logged in" (e.g. provided their credentials via a login form) t
 ```php
 // simple example
 Route::post('me', function () {
-
-    $token = Input::get('token');
     
     try
     {
-        $user = JWTAuth::toUser($token);
+        $user = JWTAuth::getToken()->toUser();
     }
     catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e)
     {
