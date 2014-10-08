@@ -16,10 +16,8 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 	 * @return \Tymon\JWTAuth\Token
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
-	public function encode($subject = false, array $customClaims = [])
+	public function encode($subject, array $customClaims = [])
 	{
-		if ( ! $subject ) throw new JWTException('A subject is required');
-
 		try
 		{
 			$token = Firebase::encode( $this->buildPayload($subject, $customClaims), $this->secret, $this->algo );
@@ -40,10 +38,8 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 	 * @return \Tymon\JWTAuth\Payload
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
-	public function decode($token = false)
+	public function decode($token)
 	{
-		if ( ! $token ) throw new JWTException('A token is required');
-
 		$this->createToken($token);
 
 		try
