@@ -171,3 +171,8 @@ JWTAuth::encode($subject, $customClaims);
 // decodes a token and returns the payload array
 JWTAuth::decode($token);
 ```
+## Todo
+
+- add more tests
+- finish docs!
+- think about decoupling from laravel
