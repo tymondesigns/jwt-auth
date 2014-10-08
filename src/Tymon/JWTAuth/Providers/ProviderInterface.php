@@ -13,6 +13,6 @@ interface ProviderInterface {
 	 * @param  string $token
 	 * @return \Tymon\JWTAuth\Payload
 	 */
-	public function decode($token = null);
+	public function decode($token);
 
 }
