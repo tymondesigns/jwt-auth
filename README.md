@@ -173,6 +173,6 @@ JWTAuth::decode($token);
 ```
 ## Todo
 
-- add more tests
-- finish docs!
-- think about decoupling from laravel
+- [ ] add more tests
+- [ ] finish docs!
+- [ ] think about decoupling from laravel
