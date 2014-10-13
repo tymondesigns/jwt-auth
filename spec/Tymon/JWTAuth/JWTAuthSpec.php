@@ -10,9 +10,10 @@ class JWTAuthSpec extends ObjectBehavior
 
 	function let(FirebaseProvider $provider)
 	{
+        $user = Mockery::mock('Illuminate\Database\Eloquent\Model');
 		$auth = Mockery::mock('Illuminate\Auth\AuthManager');
         $request = Mockery::mock('Illuminate\Http\Request');
-    	$this->beConstructedWith($provider, $auth, $request);
+    	$this->beConstructedWith($user, $provider, $auth, $request);
 	}
 
     function it_is_initializable()

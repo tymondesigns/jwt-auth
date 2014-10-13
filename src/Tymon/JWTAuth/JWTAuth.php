@@ -4,9 +4,14 @@ use Tymon\JWTAuth\Providers\ProviderInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
-use User;
+use Illuminate\Database\Eloquent\Model;
 
 class JWTAuth {
+
+	/**
+	 * @var \Illuminate\Database\Eloquent\Model
+	 */
+	protected $user;
 
 	/**
 	 * @var \Tymon\JWTAuth\Providers\ProviderInterface
@@ -34,10 +39,14 @@ class JWTAuth {
 	protected $token;
 
 	/**
+	 * @param \Illuminate\Database\Eloquent\Model $user
 	 * @param \Tymon\JWTAuth\Providers\ProviderInterface $provider
+	 * @param \Illuminate\Auth\AuthManager $auth
+	 * @param \Illuminate\Http\Request $request
 	 */
-	public function __construct(ProviderInterface $provider, AuthManager $auth, Request $request)
+	public function __construct(Model $user, ProviderInterface $provider, AuthManager $auth, Request $request)
 	{
+		$this->user = $user;
 		$this->provider = $provider;
 		$this->auth = $auth;
 		$this->request = $request;
@@ -55,7 +64,7 @@ class JWTAuth {
 
 		$this->provider->decode($this->token);
 
-		if ( ! $user = User::where( $this->identifier, $this->provider->getSubject() )->first() )
+		if ( ! $user = $this->user->where( $this->identifier, $this->provider->getSubject() )->first() )
 		{
 			return false;
 		}
@@ -66,10 +75,10 @@ class JWTAuth {
 	/**
 	 * Generate a token using the user identifier as the subject claim
 	 * 
-	 * @param $user
+	 * @param \Illuminate\Database\Eloquent\Model $user
 	 * @return string
 	 */
-	public function fromUser($user)
+	public function fromUser(Model $user)
 	{
 		return $this->provider->encode($user->{$this->identifier})->get();
 	}
