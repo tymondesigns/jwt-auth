@@ -82,6 +82,14 @@ $token = JWTAuth::fromUser($user);
 
 Once a user has "logged in" (e.g. provided their credentials via a login form) to your application, then the next step would be to make a subsequent request, with the token, to retrieve the users' details, so you can show them as being logged in.
 
+To make authenticated requests, you will need to set an authorization header:
+
+`Authorization: Bearer {yourtokenhere}`
+
+Alternatively you can include the token via a query string
+
+`http://api.mysite.com/me?token={yourtokenhere}`
+
 ```php
 // simple example
 Route::post('me', function () {
@@ -174,5 +182,6 @@ JWTAuth::decode($token);
 ## Todo
 
 - [ ] add more tests
+- [ ] add test coverage reporting
 - [ ] finish docs!
 - [ ] think about decoupling from laravel
