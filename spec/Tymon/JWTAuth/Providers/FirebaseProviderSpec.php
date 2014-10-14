@@ -2,24 +2,23 @@
 
 use PhpSpec\ObjectBehavior;
 use Illuminate\Http\Request;
-use Mockery;
 
 class FirebaseProviderSpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $request = Mockery::mock('Illuminate\Http\Request');
-    	$this->beConstructedWith('secret', $request);
 
+    function let(Request $request)
+    {
+        $request->url()->willReturn('http://example.com');
+        $this->beConstructedWith('secret', $request);
+    }
+
+    function it_is_initializable(Request $request)
+    {
         $this->shouldHaveType('Tymon\JWTAuth\Providers\FirebaseProvider');
     }
 
     function it_should_return_the_token_when_passing_a_valid_subject_to_encode()
     {
-    	$request = Mockery::mock('Illuminate\Http\Request');
-		$request->shouldReceive('url')->once()->andReturn('http://example.com');
-    	$this->beConstructedWith('secret', $request);
-
     	$token = $this->encode(1);
 
     	$token->shouldHaveType('Tymon\JWTAuth\Token');
@@ -28,10 +27,6 @@ class FirebaseProviderSpec extends ObjectBehavior
 
     function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     {
-        $request = Mockery::mock('Illuminate\Http\Request');
-        $request->shouldReceive('url')->once()->andReturn('http://example.com');
-        $this->beConstructedWith('secret', $request);
-
         $token = $this->encode(1)->get();
         $payload = $this->decode($token);
 

@@ -30,7 +30,8 @@ class Payload implements ArrayAccess {
 	/**
 	 * Perform some validation checks on the payload
 	 * 
-	 * @param $value
+	 * @param  $value
+	 * @return array
 	 */
 	protected function validatePayload($value)
 	{
@@ -44,8 +45,8 @@ class Payload implements ArrayAccess {
 	 * Validate the structure of the payload
 	 * 
 	 * @param  array $value
-	 * @return bool
-	 * @throws Exceptions\PayloadException
+	 * @return true
+	 * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
 	 */
 	protected function validateStructure($value)
 	{
@@ -62,9 +63,10 @@ class Payload implements ArrayAccess {
 	 * 
 	 * @param  array $value
 	 * @return bool
-	 * @throws Exceptions\PayloadException
+	 * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
+	 * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
 	 */
-	protected function validateExpiry($value)
+	protected function validateExpiry(array $value)
 	{
 		if ( ! is_int($value['exp']) )
 		{

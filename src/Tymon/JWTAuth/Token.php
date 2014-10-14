@@ -24,7 +24,7 @@ class Token {
 	 * 
 	 * @param string $value
 	 * @return string
-	 * @throws Exceptions\JWTException
+	 * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
 	 */
 	protected function validateToken($value)
 	{

@@ -2,17 +2,16 @@
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Providers\FirebaseProvider;
-use Mockery;
 
 class JWTAuthSpec extends ObjectBehavior
 {
 
-	function let(FirebaseProvider $provider)
+	function let(FirebaseProvider $provider, Model $user, AuthManager $auth, Request $request)
 	{
-        $user = Mockery::mock('Illuminate\Database\Eloquent\Model');
-		$auth = Mockery::mock('Illuminate\Auth\AuthManager');
-        $request = Mockery::mock('Illuminate\Http\Request');
     	$this->beConstructedWith($user, $provider, $auth, $request);
 	}
 
@@ -21,11 +20,9 @@ class JWTAuthSpec extends ObjectBehavior
         $this->shouldHaveType('Tymon\JWTAuth\JWTAuth');
     }
 
-    // function it_should_generate_token_when_passing_a_user_object(User $user)
+    // function it_should_generate_token_when_passing_a_user_object(Model $user)
     // {
-    // 	$user->id->shouldReturn(1);
+    // 	$user->id->willReturn(1);
     // 	$token = $this->fromUser($user);
     // }
 }
-
-class User {}

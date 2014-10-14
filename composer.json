@@ -15,7 +15,9 @@
     },
     "require-dev": {
         "phpspec/phpspec": "2.0.*",
-        "mockery/mockery": "0.9.*"
+        "illuminate/auth": "4.2.*",
+        "illuminate/http": "4.2.*",
+        "illuminate/database": "4.2.*"
     },
     "autoload": {
         "psr-0": {
