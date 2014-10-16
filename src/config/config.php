@@ -47,6 +47,8 @@ return [
 	| Specify the full namespace to your User model.
 	| e.g. 'Acme\Entities\User'
 	|
+	| Your User must extend Eloquent (Illuminate\Database\Eloquent\Model)
+	|
 	*/
 
 	'user' => 'User',
