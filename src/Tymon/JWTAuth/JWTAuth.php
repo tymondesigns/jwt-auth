@@ -75,10 +75,10 @@ class JWTAuth {
 	/**
 	 * Generate a token using the user identifier as the subject claim
 	 * 
-	 * @param \Illuminate\Database\Eloquent\Model $user
+	 * @param  $user
 	 * @return string
 	 */
-	public function fromUser(Model $user)
+	public function fromUser($user)
 	{
 		return $this->provider->encode($user->{$this->identifier})->get();
 	}
