@@ -14,7 +14,7 @@ Install via composer - edit your `composer.json` to require the package.
 
 ```js
 "require": {
-    "tymon/jwt-auth": "0.*"
+    "tymon/jwt-auth": "0.3.*"
 }
 ```
 
