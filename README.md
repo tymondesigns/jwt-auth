@@ -103,7 +103,7 @@ Route::post('me', function () {
     catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e)
     {
         // token has expired
-        return Response::json(['error' => 'token_expired'], 400);
+        return Response::json(['error' => 'token_expired'], 401);
     }
     
     if (! $user)
