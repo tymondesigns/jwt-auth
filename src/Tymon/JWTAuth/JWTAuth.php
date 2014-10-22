@@ -88,7 +88,6 @@ class JWTAuth {
 	 *  
 	 * @param  array $credentials
 	 * @return false|string
-	 * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
 	 */
 	public function attempt(array $credentials = [])
 	{
