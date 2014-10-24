@@ -51,7 +51,7 @@ class JWTAuthFilter {
 		catch(JWTException $e)
 		{
 			$response = $this->events->fire('tymon.jwt.invalid', $e->getMessage(), true);
-			return $response ?: Response::json(['error' => 'token_invalid'], 401);
+			return $response ?: Response::json(['error' => 'token_invalid'], 400);
 		}
 
 		if (! $user)

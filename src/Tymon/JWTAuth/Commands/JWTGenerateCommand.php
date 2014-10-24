@@ -21,6 +21,11 @@ class JWTGenerateCommand extends Command {
 	protected $description = "Set the JWT Auth secret key used to sign the tokens";
 
 	/**
+	 * @var \Illuminate\Filesystem\Filesystem
+	 */
+	protected $files;
+
+	/**
 	 * Create a new JWT secret generator command.
 	 *
 	 * @param  \Illuminate\Filesystem\Filesystem  $files
