@@ -68,7 +68,7 @@ class JWTAuthFilter {
 	 * @param  integer $status 
 	 * @return mixed 
 	 */
-	protected function respond($event, $error, $status, $payload = '')
+	protected function respond($event, $error, $status, $payload = [])
 	{
 		$response = $this->events->fire($event, $payload, true);
 		return $response ?: Response::json(['error' => $error], $status);
