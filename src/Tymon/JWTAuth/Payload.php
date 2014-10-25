@@ -1,8 +1,7 @@
 <?php namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 use ArrayAccess;
 
 class Payload implements ArrayAccess {
@@ -13,72 +12,15 @@ class Payload implements ArrayAccess {
 	protected $value;
 
 	/**
-	 * @var array
-	 */
-	protected $requiredClaims = ['iss', 'iat', 'exp', 'sub'];
-
-	/**
 	 * Create a new JWT payload
 	 *
 	 * @param array $value
 	 */
 	public function __construct(array $value)
 	{
-		$this->value = $this->validatePayload($value);
-	}
+		PayloadValidator::check($value);
 
-	/**
-	 * Perform some validation checks on the payload
-	 * 
-	 * @param  $value
-	 * @return array
-	 */
-	protected function validatePayload($value)
-	{
-		$this->validateStructure($value);
-		$this->validateExpiry($value);
-
-		return $value;
-	}
-
-	/**
-	 * Validate the structure of the payload
-	 * 
-	 * @param  array $value
-	 * @return true
-	 * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-	 */
-	protected function validateStructure($value)
-	{
-		if ( count( array_diff( $this->requiredClaims, array_keys($value) ) ) !== 0 )
-		{
-			throw new TokenInvalidException('JWT payload does not contain the required claims');
-		}
-
-		return true;
-	}
-
-	/**
-	 * Validate the expiry date of the payload
-	 * 
-	 * @param  array $value
-	 * @return bool
-	 * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
-	 * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-	 */
-	protected function validateExpiry(array $value)
-	{
-		if ( ! is_int($value['exp']) )
-		{
-			throw new TokenInvalidException('Invalid Expiration (exp) provided');
-		}
-
-		if ( $value['iat'] > time() || $value['exp'] < time() )
-		{
-			throw new TokenExpiredException('JWT has expired');
-		}
-
-		return true;
+		$this->value = $value;
 	}
 
 	/**

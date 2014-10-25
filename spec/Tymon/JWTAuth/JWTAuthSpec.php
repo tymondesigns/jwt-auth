@@ -20,6 +20,18 @@ class JWTAuthSpec extends ObjectBehavior
         $this->shouldHaveType('Tymon\JWTAuth\JWTAuth');
     }
 
+    // function it_should_return_a_user_when_passing_a_user()
+    // {
+
+    // }
+
+    // function it_should_get_the_token_from_the_request_when_passing_via_query_string(Request $request)
+    // {
+    //     $request->header->get('authorization')->willReturn('foo');
+    //     $request->query('token')->willReturn('foo.bar.baz');
+    //     $token = $this->getToken();
+    // }
+
     // function it_should_generate_token_when_passing_a_user_object(Model $user)
     // {
     // 	$user->id->willReturn(1);

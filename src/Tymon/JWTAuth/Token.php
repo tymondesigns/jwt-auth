@@ -1,6 +1,6 @@
 <?php namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Validators\TokenValidator;
 
 class Token {
 
@@ -16,24 +16,9 @@ class Token {
 	 */
 	public function __construct($value)
 	{
-		$this->value = $this->validateToken($value);
-	}
+		TokenValidator::check($value);
 
-	/**
-	 * Validate the token
-	 * 
-	 * @param string $value
-	 * @return string
-	 * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-	 */
-	protected function validateToken($value)
-	{
-		if ( count(explode('.', $value)) !== 3 )
-		{
-			throw new TokenInvalidException('Wrong number of segments');
-		}
-
-		return $value;
+		$this->value = $value;
 	}
 
 	/**
