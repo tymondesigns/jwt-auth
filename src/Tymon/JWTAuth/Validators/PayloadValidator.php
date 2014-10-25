@@ -2,6 +2,7 @@
 
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Exception;
 
 class PayloadValidator {
 
