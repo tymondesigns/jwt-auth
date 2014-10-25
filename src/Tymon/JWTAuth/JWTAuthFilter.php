@@ -18,6 +18,7 @@ class JWTAuthFilter {
 	 */
 	protected $auth;
 
+
 	public function __construct(Dispatcher $events, JWTAuth $auth)
 	{
 		$this->events = $events;
@@ -35,8 +36,7 @@ class JWTAuthFilter {
 	{
 		if ( ! $token = $this->auth->getToken($request) )
 		{
-			$response = $this->events->fire('tymon.jwt.absent', [], true);
-			return $response ?: Response::json(['error' => 'token_not_provided'], 400);
+			return $this->respond('tymon.jwt.absent','token_not_provided', 400);
 		}
 
 		try
@@ -45,22 +45,33 @@ class JWTAuthFilter {
 		}
 		catch(TokenExpiredException $e)
 		{
-			$response = $this->events->fire('tymon.jwt.expired', $e->getMessage(), true);
-			return $response ?: Response::json(['error' => 'token_expired'], 401);
+			return $this->respond('tymon.jwt.expired', 'token_expired', 401, $e);
 		}
 		catch(JWTException $e)
 		{
-			$response = $this->events->fire('tymon.jwt.invalid', $e->getMessage(), true);
-			return $response ?: Response::json(['error' => 'token_invalid'], 400);
+			return $this->respond('tymon.jwt.invalid', 'token_invalid', 400, $e);
 		}
 
 		if (! $user)
 		{
-			$response = $this->events->fire('tymon.jwt.user_not_found', [], true);
-			return $response ?: Response::json(['error' => 'user_not_found'], 404);
+			return $this->respond('tymon.jwt.user_not_found', 'user_not_found', 404);
 		}
 
 		$this->events->fire('tymon.jwt.valid', $user);
+	}
+
+	/**
+	 * Fire event and return the response
+	 * 
+	 * @param  string  $event  
+	 * @param  string  $error  
+	 * @param  integer $status 
+	 * @return mixed 
+	 */
+	protected function respond($event, $error, $status, $payload = [])
+	{
+		$response = $this->events->fire($event, $payload, true);
+		return $response ?: Response::json(['error' => $error], $status);
 	}
 
 }
