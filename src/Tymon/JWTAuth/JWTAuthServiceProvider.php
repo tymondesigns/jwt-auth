@@ -4,106 +4,151 @@ use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuthFilter;
+use Tymon\JWTAuth\Auth\IlluminateAuth;
 
 class JWTAuthServiceProvider extends ServiceProvider {
 
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
-	/**
-	 * Boot the service provider.
-	 */
-	public function boot()
-	{
-		$this->package('tymon/jwt-auth', 'jwt');
+    /**
+     * Boot the service provider.
+     */
+    public function boot()
+    {
+        $this->package('tymon/jwt-auth', 'jwt');
 
-		$this->app['Tymon\JWTAuth\JWTAuth'] = function ($app)
-		{
-			return $app['tymon.jwt.auth'];
-		};
+        $this->bootBindings();
 
-		$this->app['Tymon\JWTAuth\Providers\ProviderInterface'] = function ($app)
-		{
-			return $app['tymon.jwt.provider'];
-		};
-
-		$this->app['tymon.jwt.generate'] = $this->app->share(function($app)
-        {
-            return new JWTGenerateCommand($app['files']);
-        });
-
+        // register the command
         $this->commands('tymon.jwt.generate');
 
+        // register the filter
         $this->app['router']->filter('jwt-auth', 'tymon.jwt.filter');
-	}
+    }
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->registerJWTProvider();
-		$this->registerJWTAuth();
-		$this->registerJWTAuthFilter();
-	}
+    /**
+     * Bind some Interfaces and implementations
+     */
+    protected function bootBindings()
+    {
+        $this->app['Tymon\JWTAuth\JWTAuth'] = function ($app) {
+            return $app['tymon.jwt.auth'];
+        };
 
-	protected function registerJWTProvider()
-	{
-		$this->app['tymon.jwt.provider'] = $this->app->share(function ($app) {
+        $this->app['Tymon\JWTAuth\Providers\ProviderInterface'] = function ($app) {
+            return $app['tymon.jwt.provider'];
+        };
 
-			$secret = $app['config']->get('jwt::secret', 'changeme');
-			$ttl = $app['config']->get('jwt::ttl', 120);
-			$algo = $app['config']->get('jwt::algo', 'HS256');
-			$provider = $app['config']->get('jwt::provider', 'Tymon\JWTAuth\Providers\FirebaseProvider');
+        $this->app['Tymon\JWTAuth\Auth\AuthInterface'] = function ($app) {
+            return $app['tymon.jwt.illuminate.auth'];
+        };
+    }
 
-			$instance = $app->make($provider , [ $secret, $app['request'] ] );
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerJWTProvider();
+        $this->registerAuthProvider();
+        $this->registerJWTAuth();
+        $this->registerJWTAuthFilter();
+        $this->registerJWTCommand();
+    }
 
-			return $instance->setTTL($ttl)->setAlgo($algo);
-		});
-	}
+    /**
+     * Register the bindings for the JSON Web Token provider
+     */
+    protected function registerJWTProvider()
+    {
+        $this->app['tymon.jwt.provider'] = $this->app->share(function ($app) {
+            $secret = $this->config('secret');
+            $ttl = $this->config('ttl');
+            $algo = $this->config('algo');
+            $provider = $this->config('provider');
 
-	protected function registerJWTAuth()
-	{
-		$this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
-			$identifier = $app['config']->get('jwt::identifier', 'id');
-			$user = $app['config']->get('jwt::user', 'User');
+            $instance = $app->make($provider, [ $secret, $app['request'] ]);
 
-			$userInstance = $app->make($user);
+            return $instance->setTTL($ttl)->setAlgo($algo);
+        });
+    }
 
-			$auth = new JWTAuth( $userInstance, $app['tymon.jwt.provider'], $app['auth'], $app['request'] );
+    /**
+     * Register the bindings for the JSON Web Token provider
+     */
+    protected function registerAuthProvider()
+    {
+        $this->app['tymon.jwt.illuminate.auth'] = $this->app->share(function ($app) {
+            return new IlluminateAuth($app['auth']);
+        });
+    }
 
-			return $auth->setIdentifier($identifier);
-		});
-	}
+    /**
+     * Register the bindings for the main JWTAuth class
+     */
+    protected function registerJWTAuth()
+    {
+        $this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
+            $identifier = $this->config('identifier');
+            $user = $this->config('user');
 
-	protected function registerJWTAuthFilter()
-	{
-		$this->app['tymon.jwt.filter'] = $this->app->share(function ($app) {
-			return new JWTAuthFilter($app['events'], $app['tymon.jwt.auth']);
-		});
-	}
+            $userInstance = $app->make($user);
+            $auth = new JWTAuth( $userInstance, $app['tymon.jwt.provider'], $auth, $app['request'] );
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return string[]
-	 */
-	public function provides()
-	{
-		return [
-			'tymon.jwt.provider',
-			'tymon.jwt.auth',
-			'tymon.jwt.generate',
-			'tymon.jwt.filter',
-			'Tymon\JWTAuth\Providers\ProviderInterface',
-			'Tymon\JWTAuth\JWTAuth'
-		];
-	}
+            return $auth->setIdentifier($identifier);
+        });
+    }
+
+    /**
+     * Register the bindings for the 'jwt-auth' filter
+     */
+    protected function registerJWTAuthFilter()
+    {
+        $this->app['tymon.jwt.filter'] = $this->app->share(function ($app) {
+            return new JWTAuthFilter($app['events'], $app['tymon.jwt.auth']);
+        });
+    }
+
+    /**
+     * Register the Artisan command
+     */
+    protected function registerJWTCommand()
+    {
+        $this->app['tymon.jwt.generate'] = $this->app->share(function($app) {
+            return new JWTGenerateCommand($app['files']);
+        });
+    }
+
+    /**
+     * Helper to get the config values
+     */
+    protected function config($key, $default = null)
+    {
+        $this->app['config']->get("jwt::$key", $default);
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return string[]
+     */
+    public function provides()
+    {
+        return [
+            'tymon.jwt.provider',
+            'tymon.jwt.auth',
+            'tymon.jwt.generate',
+            'tymon.jwt.filter',
+            'Tymon\JWTAuth\Providers\ProviderInterface',
+            'Tymon\JWTAuth\JWTAuth'
+        ];
+    }
 
 }
