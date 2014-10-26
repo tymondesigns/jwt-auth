@@ -45,7 +45,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
         };
 
         $this->app['Tymon\JWTAuth\Auth\AuthInterface'] = function ($app) {
-            return $app['tymon.jwt.illuminate.auth'];
+            return $app['tymon.jwt.provider.auth'];
         };
     }
 
@@ -85,7 +85,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
      */
     protected function registerAuthProvider()
     {
-        $this->app['tymon.jwt.illuminate.auth'] = $this->app->share(function ($app) {
+        $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
             return new IlluminateAuth($app['auth']);
         });
     }
@@ -100,7 +100,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
             $user = $this->config('user');
 
             $userInstance = $app->make($user);
-            $auth = new JWTAuth( $userInstance, $app['tymon.jwt.provider'], $auth, $app['request'] );
+            $auth = new JWTAuth( $userInstance, $app['tymon.jwt.provider'], $app['tymon.jwt.provider.auth'], $app['request'] );
 
             return $auth->setIdentifier($identifier);
         });
@@ -131,7 +131,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
      */
     protected function config($key, $default = null)
     {
-        $this->app['config']->get("jwt::$key", $default);
+        return $this->app['config']->get("jwt::$key", $default);
     }
 
     /**
