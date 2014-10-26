@@ -2,7 +2,7 @@
 
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Exception;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class PayloadValidator {
 
@@ -33,7 +33,7 @@ class PayloadValidator {
 	{
 		try {
 			self::check($payload);
-		} catch (Exception $e) {
+		} catch (JWTException $e) {
 			return false;
 		}
 
