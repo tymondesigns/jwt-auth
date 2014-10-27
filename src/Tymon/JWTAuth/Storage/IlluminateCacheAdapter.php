@@ -15,7 +15,7 @@ class IlluminateCacheAdapter
 
 	public function add($token)
 	{
-		$this->cache->put($token)
+		// $this->cache->put($token)
 	}
 
 	public function exists($token)
