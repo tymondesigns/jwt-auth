@@ -4,7 +4,7 @@ use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuthFilter;
-use Tymon\JWTAuth\Auth\IlluminateAuth;
+use Tymon\JWTAuth\Auth\IlluminateAuthAdapter;
 
 class JWTAuthServiceProvider extends ServiceProvider {
 
@@ -72,7 +72,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
             $secret = $this->config('secret');
             $ttl = $this->config('ttl');
             $algo = $this->config('algo');
-            $provider = $this->config('provider');
+            $provider = $this->config('providers.jwt');
 
             $instance = $app->make($provider, [ $secret, $app['request'] ]);
 
@@ -86,7 +86,9 @@ class JWTAuthServiceProvider extends ServiceProvider {
     protected function registerAuthProvider()
     {
         $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
-            return new IlluminateAuth($app['auth']);
+            $provider = $this->config('providers.auth');
+            
+            return $app->make($provider, [ $app['auth'] ]);
         });
     }
 

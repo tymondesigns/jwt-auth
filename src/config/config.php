@@ -67,14 +67,19 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
-	| JWT Provider
+	| Providers
 	|--------------------------------------------------------------------------
 	| 
-	| Specify the JWT provider to do the heavy lifting of encoding, signing
-	| and decoding JSON Web Tokens 
+	| Specify the various providers used throughout the package
 	|
 	*/
 
-	'provider' => 'Tymon\JWTAuth\Providers\FirebaseProvider'
+	'providers' => [
+
+		'jwt'      => 'Tymon\JWTAuth\Providers\FirebaseAdapter',
+		'auth'     => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
+		'storage'  => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
+
+	]
 
 ];

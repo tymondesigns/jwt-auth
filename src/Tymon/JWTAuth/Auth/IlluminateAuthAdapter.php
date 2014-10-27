@@ -3,7 +3,7 @@
 use Tymon\JWTAuth\Auth\AuthInterface;
 use Illuminate\Auth\AuthManager;
 
-class IlluminateAuth implements AuthInterface
+class IlluminateAuthAdapter implements AuthInterface
 {
 
     /**

@@ -15,7 +15,7 @@ class Payload implements ArrayAccess
     /**
      * Create a new JWT payload
      *
-     * @param array $value
+     * @param array  $value
      */
     public function __construct(array $value)
     {
@@ -27,7 +27,7 @@ class Payload implements ArrayAccess
     /**
      * Get the payload
      *
-     * @param string $property
+     * @param  string  $property
      * @return array
      */
     public function get($property = null)
@@ -52,7 +52,7 @@ class Payload implements ArrayAccess
     /**
      * Determine if an item exists at an offset.
      *
-     * @param  mixed $key
+     * @param  mixed  $key
      * @return bool
      */
     public function offsetExists($key)
@@ -63,7 +63,7 @@ class Payload implements ArrayAccess
     /**
      * Get an item at a given offset.
      *
-     * @param  mixed $key
+     * @param  mixed  $key
      * @return mixed
      */
     public function offsetGet($key)
@@ -74,8 +74,8 @@ class Payload implements ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable
      *
-     * @param  mixed $key
-     * @param  mixed $value
+     * @param  mixed  $key
+     * @param  mixed  $value
      * @return void
      */
     public function offsetSet($key, $value)
@@ -86,7 +86,7 @@ class Payload implements ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable
      *
-     * @param  string $key
+     * @param  string  $key
      * @return void
      */
     public function offsetUnset($key)

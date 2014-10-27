@@ -5,7 +5,7 @@ use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-abstract class AbstractProvider {
+abstract class Provider {
 
 	/**
 	 * @var string
@@ -39,7 +39,7 @@ abstract class AbstractProvider {
 
 	/**
 	 * @param $secret
-	 * @param \Illuminate\Http\Request $request
+	 * @param \Illuminate\Http\Request  $request
 	 */
 	public function __construct($secret, Request $request)
 	{
@@ -50,8 +50,8 @@ abstract class AbstractProvider {
 	/**
 	 * Build the payload for the token
 	 * 
-	 * @param $subject
-	 * @param $subject
+	 * @param  mixed  $subject
+	 * @param  array  $customClaims
 	 * @return array
 	 */
 	protected function buildPayload($subject, array $customClaims = [])
@@ -69,7 +69,7 @@ abstract class AbstractProvider {
 	/**
 	 * Create a new Token value object
 	 * 
-	 * @param string $token
+	 * @param  string  $token
 	 * @return \Tymon\JWTAuth\Token
 	 */
 	protected function createToken($token)
@@ -82,7 +82,7 @@ abstract class AbstractProvider {
 	/**
 	 * Create a new Payload value object
 	 * 
-	 * @param  array $payload
+	 * @param  array  $payload
 	 * @return \Tymon\JWTAuth\Payload
 	 */
 	protected function createPayload($payload)
@@ -95,7 +95,7 @@ abstract class AbstractProvider {
 	/**
 	 * Helper method to return the subject claim
 	 * 
-	 * @param  string $token
+	 * @param  string  $token
 	 * @return mixed
 	 */
 	public function getSubject($token = false)
@@ -133,7 +133,7 @@ abstract class AbstractProvider {
 	/**
 	 * Set the ttl of the token
 	 * 
-	 * @param int $ttl in minutes
+	 * @param int  $ttl  in minutes
 	 */
 	public function setTTL($ttl)
 	{
@@ -145,7 +145,7 @@ abstract class AbstractProvider {
 	/**
 	 * Set the algorithm of the token
 	 * 
-	 * @param string $algo
+	 * @param string  $algo
 	 */
 	public function setAlgo($algo)
 	{

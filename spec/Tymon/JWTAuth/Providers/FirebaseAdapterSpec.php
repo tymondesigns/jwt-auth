@@ -3,7 +3,7 @@
 use PhpSpec\ObjectBehavior;
 use Illuminate\Http\Request;
 
-class FirebaseProviderSpec extends ObjectBehavior
+class FirebaseAdapterSpec extends ObjectBehavior
 {
 
     function let(Request $request)
@@ -14,7 +14,7 @@ class FirebaseProviderSpec extends ObjectBehavior
 
     function it_is_initializable(Request $request)
     {
-        $this->shouldHaveType('Tymon\JWTAuth\Providers\FirebaseProvider');
+        $this->shouldHaveType('Tymon\JWTAuth\Providers\FirebaseAdapter');
     }
 
     function it_should_return_the_token_when_passing_a_valid_subject_to_encode()

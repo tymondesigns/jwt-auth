@@ -17,4 +17,9 @@ class Registry
         $this->storage = $storage;
     }
 
+    public function add($token)
+    {
+        $this->storage->add($token);
+    }
+
 }
