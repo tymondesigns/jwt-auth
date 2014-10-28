@@ -1,5 +1,7 @@
-<?php namespace Tymon\JWTAuth\Exceptions;
+<?php
 
-use Tymon\JWTAuth\Exceptions\JWTException;
+namespace Tymon\JWTAuth\Exceptions;
 
-class JWTAuthException extends JWTException {}
+class JWTAuthException extends JWTException
+{
+}

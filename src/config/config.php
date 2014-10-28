@@ -2,48 +2,48 @@
 
 return [
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| JWT Authentication Secret
 	|--------------------------------------------------------------------------
-	| 
+	|
 	| Don't forget to set this, as it will be used to sign your tokens.
 	|
 	*/
 
-	'secret' => 'changeme',
+    'secret' => 'changeme',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| JWT time to live
 	|--------------------------------------------------------------------------
-	| 
+	|
 	| Specify the length of time (in minutes) that the token will be valid for.
 	| Defaults to 24 hours
 	|
 	*/
 
-	'ttl' => 1440,
+    'ttl' => 1440,
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| JWT hashing algorithm
 	|--------------------------------------------------------------------------
-	| 
+	|
 	| Specify the hashing algorithm that will be used to sign the token.
-	| 
+	|
 	| Possible values are:
 	| 'HS256', 'HS512', 'HS384', 'RS256'
 	|
 	*/
 
-	'algo' => 'HS256',
+    'algo' => 'HS256',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| User Model namespace
 	|--------------------------------------------------------------------------
-	| 
+	|
 	| Specify the full namespace to your User model.
 	| e.g. 'Acme\Entities\User'
 	|
@@ -51,35 +51,35 @@ return [
 	|
 	*/
 
-	'user' => 'User',
+    'user' => 'User',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| User identifier
 	|--------------------------------------------------------------------------
-	| 
+	|
 	| Specify a unique property of the user that will be added as the 'sub'
 	| claim of the token payload.
 	|
 	*/
 
-	'identifier' => 'id',
+    'identifier' => 'id',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Providers
 	|--------------------------------------------------------------------------
-	| 
+	|
 	| Specify the various providers used throughout the package
 	|
 	*/
 
-	'providers' => [
+    'providers' => [
 
-		'jwt'      => 'Tymon\JWTAuth\Providers\FirebaseAdapter',
-		'auth'     => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
-		'storage'  => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
+        'jwt'      => 'Tymon\JWTAuth\Providers\FirebaseAdapter',
+        'auth'     => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
+        'storage'  => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
 
-	]
+    ]
 
 ];

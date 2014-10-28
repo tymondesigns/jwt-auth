@@ -1,4 +1,6 @@
-<?php namespace Tymon\JWTAuth;
+<?php 
+
+namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Validators\TokenValidator;
 
@@ -13,7 +15,7 @@ class Token
     /**
      * Create a new JSON Web Token
      *
-     * @param string  $value
+     * @param string $value
      */
     public function __construct($value)
     {
@@ -41,5 +43,4 @@ class Token
     {
         return $this->value;
     }
-
 }

@@ -1,3 +1,7 @@
-<?php namespace Tymon\JWTAuth\Exceptions;
+<?php 
 
-class TokenInvalidException extends JWTException {}
+namespace Tymon\JWTAuth\Exceptions;
+
+class TokenInvalidException extends JWTException
+{
+}

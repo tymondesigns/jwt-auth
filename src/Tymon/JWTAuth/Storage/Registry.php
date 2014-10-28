@@ -1,6 +1,6 @@
-<?php namespace Tymon\JWTAuth\Storage;
+<?php 
 
-use Tymon\JWTAuth\Storage\Storable;
+namespace Tymon\JWTAuth\Storage;
 
 class Registry
 {
@@ -8,9 +8,9 @@ class Registry
      * @var \Tymon\JWTAuth\Storage\Storable
      */
     protected $storage;
-    
+
     /**
-     * @param \Tymon\JWTAuth\Storage\Storable  $storage
+     * @param \Tymon\JWTAuth\Storage\Storable $storage
      */
     public function __construct(Storable $storage)
     {
@@ -21,5 +21,4 @@ class Registry
     {
         $this->storage->add($token);
     }
-
 }

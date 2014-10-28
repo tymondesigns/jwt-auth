@@ -1,6 +1,7 @@
-<?php namespace Tymon\JWTAuth\Auth;
+<?php
 
-use Tymon\JWTAuth\Auth\AuthInterface;
+namespace Tymon\JWTAuth\Auth;
+
 use Illuminate\Auth\AuthManager;
 
 class IlluminateAuthAdapter implements AuthInterface
@@ -22,7 +23,7 @@ class IlluminateAuthAdapter implements AuthInterface
     /**
      * Log a user into the application without sessions or cookies.
      *
-     * @param  array  $credentials
+     * @param  array $credentials
      * @return bool
      */
     public function check(array $credentials = [])
@@ -32,8 +33,8 @@ class IlluminateAuthAdapter implements AuthInterface
 
     /**
      * Log the given user ID into the application without sessions or cookies.
-     * 
-     * @param  mixed  $id
+     *
+     * @param  mixed $id
      * @return bool
      */
     public function checkUsingId($id)
@@ -50,5 +51,4 @@ class IlluminateAuthAdapter implements AuthInterface
     {
         return $this->auth->user();
     }
-
 }

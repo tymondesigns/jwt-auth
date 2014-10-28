@@ -1,5 +1,7 @@
-<?php namespace Tymon\JWTAuth\Exceptions;
+<?php 
 
-use Tymon\JWTAuth\Exceptions\JWTException;
+namespace Tymon\JWTAuth\Exceptions;
 
-class PayloadException extends JWTException {}
+class PayloadException extends JWTException
+{
+}

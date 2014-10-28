@@ -1,13 +1,12 @@
-<?php namespace Tymon\JWTAuth;
+<?php 
+
+namespace Tymon\JWTAuth;
 
 use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
-use Tymon\JWTAuth\JWTAuthFilter;
-use Tymon\JWTAuth\Auth\IlluminateAuthAdapter;
 
-class JWTAuthServiceProvider extends ServiceProvider {
-
+class JWTAuthServiceProvider extends ServiceProvider
+{
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -87,7 +86,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
     {
         $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
             $provider = $this->config('providers.auth');
-            
+
             return $app->make($provider, [ $app['auth'] ]);
         });
     }
@@ -102,7 +101,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
             $user = $this->config('user');
 
             $userInstance = $app->make($user);
-            $auth = new JWTAuth( $userInstance, $app['tymon.jwt.provider'], $app['tymon.jwt.provider.auth'], $app['request'] );
+            $auth = new JWTAuth($userInstance, $app['tymon.jwt.provider'], $app['tymon.jwt.provider.auth'], $app['request']);
 
             return $auth->setIdentifier($identifier);
         });
@@ -123,7 +122,7 @@ class JWTAuthServiceProvider extends ServiceProvider {
      */
     protected function registerJWTCommand()
     {
-        $this->app['tymon.jwt.generate'] = $this->app->share(function($app) {
+        $this->app['tymon.jwt.generate'] = $this->app->share(function ($app) {
             return new JWTGenerateCommand($app['files']);
         });
     }
@@ -152,5 +151,4 @@ class JWTAuthServiceProvider extends ServiceProvider {
             'Tymon\JWTAuth\JWTAuth'
         ];
     }
-
 }
