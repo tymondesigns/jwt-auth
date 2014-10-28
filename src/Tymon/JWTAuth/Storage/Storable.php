@@ -2,9 +2,11 @@
 
 interface Storable
 {
-	public function add($token);
+	public function add($key, $value, $minutes);
 
-	public function exists($token);
+	public function has($key);
 
-	public function destroy($token);
+	public function destroy($key);
+	
+	public function flush();
 }
