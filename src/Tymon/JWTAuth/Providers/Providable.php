@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-interface ProviderInterface
+interface Providable
 {
     /**
 	 * @param  mixed  $subject

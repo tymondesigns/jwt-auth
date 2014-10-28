@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Providers\ProviderInterface;
+use Tymon\JWTAuth\Providers\Providable;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Tymon\JWTAuth\Auth\AuthInterface;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class JWTAuth
     protected $user;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\ProviderInterface
+     * @var \Tymon\JWTAuth\Providers\Providable
      */
     protected $provider;
 
@@ -42,12 +42,12 @@ class JWTAuth
     protected $token;
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model        $user
-     * @param \Tymon\JWTAuth\Providers\ProviderInterface $provider
-     * @param \Tymon\JWTAuth\Auth\AuthInterface          $auth
-     * @param \Illuminate\Http\Request                   $request
+     * @param \Illuminate\Database\Eloquent\Model  $user
+     * @param \Tymon\JWTAuth\Providers\Providable  $provider
+     * @param \Tymon\JWTAuth\Auth\AuthInterface    $auth
+     * @param \Illuminate\Http\Request             $request
      */
-    public function __construct(Model $user, ProviderInterface $provider, AuthInterface $auth, Request $request)
+    public function __construct(Model $user, Providable $provider, AuthInterface $auth, Request $request)
     {
         $this->user = $user;
         $this->provider = $provider;
@@ -58,7 +58,7 @@ class JWTAuth
     /**
      * Find a user using the user identifier in the subject claim
      *
-     * @param  mixed $token
+     * @param  mixed  $token
      * @return mixed
      */
     public function toUser($token = false)
@@ -77,7 +77,7 @@ class JWTAuth
     /**
      * Generate a token using the user identifier as the subject claim
      *
-     * @param         $user
+     * @param  $user
      * @return string
      */
     public function fromUser($user)
@@ -88,7 +88,7 @@ class JWTAuth
     /**
      * Attempt to authenticate the user and return the token
      *
-     * @param  array        $credentials
+     * @param  array  $credentials
      * @return false|string
      */
     public function attempt(array $credentials = [])
@@ -103,7 +103,7 @@ class JWTAuth
     /**
      * Log the user in via the token
      *
-     * @param  mixed $token
+     * @param  mixed  $token
      * @return mixed
      */
     public function login($token = false)
@@ -122,7 +122,7 @@ class JWTAuth
     /**
      * Get the token from the request
      *
-     * @param  string $query
+     * @param  string  $query
      * @return mixed
      */
     public function getToken($query = 'token')
@@ -179,7 +179,7 @@ class JWTAuth
     /**
      * Set the token
      *
-     * @param string $token
+     * @param string  $token
      */
     public function setToken($token)
     {
@@ -191,7 +191,7 @@ class JWTAuth
     /**
      * Ensure that a token is available
      *
-     * @param  mixed $token
+     * @param  mixed  $token
      * @return void
      */
     protected function requireToken($token)
@@ -208,8 +208,8 @@ class JWTAuth
     /**
      * Magically call the JWT provider
      *
-     * @param  string                  $method
-     * @param  array                   $parameters
+     * @param  string  $method
+     * @param  array   $parameters
      * @return mixed
      * @throws \BadMethodCallException
      */
