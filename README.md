@@ -1,4 +1,4 @@
-# jwt-auth - Laravel JWT Authentication
+# jwt-auth
 
 > JSON Web Token Authentication for Laravel
 
