@@ -2,17 +2,19 @@
 
 namespace Tymon\JWTAuth\Storage;
 
+use Tymon\JWTAuth\Storage\StorageInterface;
+
 class Registry
 {
     /**
-     * @var \Tymon\JWTAuth\Storage\Storable
+     * @var \Tymon\JWTAuth\Storage\StorageInterface
      */
     protected $storage;
 
     /**
-     * @param \Tymon\JWTAuth\Storage\Storable $storage
+     * @param \Tymon\JWTAuth\Storage\StorageInterface $storage
      */
-    public function __construct(Storable $storage)
+    public function __construct(StorageInterface $storage)
     {
         $this->storage = $storage;
     }

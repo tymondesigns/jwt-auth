@@ -13,7 +13,7 @@ class IlluminateAuthAdapter implements AuthInterface
     protected $auth;
 
     /**
-     * @param \Illuminate\Auth\AuthManager $auth
+     * @param \Illuminate\Auth\AuthManager  $auth
      */
     public function __construct(AuthManager $auth)
     {
@@ -23,7 +23,7 @@ class IlluminateAuthAdapter implements AuthInterface
     /**
      * Log a user into the application without sessions or cookies.
      *
-     * @param  array $credentials
+     * @param  array  $credentials
      * @return bool
      */
     public function check(array $credentials = [])
@@ -34,7 +34,7 @@ class IlluminateAuthAdapter implements AuthInterface
     /**
      * Log the given user ID into the application without sessions or cookies.
      *
-     * @param  mixed $id
+     * @param  mixed  $id
      * @return bool
      */
     public function checkUsingId($id)

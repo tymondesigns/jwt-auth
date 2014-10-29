@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
-use Tymon\JWTAuth\Providers\Providable;
+use Tymon\JWTAuth\JWT\JWTInterface;
 
 class JWTAuth
 {
@@ -17,7 +17,7 @@ class JWTAuth
     protected $user;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\Providable
+     * @var \Tymon\JWTAuth\JWT\JWTInterface
      */
     protected $provider;
 
@@ -43,11 +43,11 @@ class JWTAuth
 
     /**
      * @param \Illuminate\Database\Eloquent\Model  $user
-     * @param \Tymon\JWTAuth\Providers\Providable  $provider
+     * @param \Tymon\JWTAuth\JWT\JWTInterface      $provider
      * @param \Tymon\JWTAuth\Auth\AuthInterface    $auth
      * @param \Illuminate\Http\Request             $request
      */
-    public function __construct(Model $user, Providable $provider, AuthInterface $auth, Request $request)
+    public function __construct(Model $user, JWTInterface $provider, AuthInterface $auth, Request $request)
     {
         $this->user = $user;
         $this->provider = $provider;
@@ -152,6 +152,25 @@ class JWTAuth
         }
 
         return trim(str_ireplace($method, '', $header));
+    }
+
+    /**
+     * Check whether the token is valid
+     *
+     * @param  mixed  $token
+     * @return bool
+     */
+    public function isValid($token = false)
+    {
+        $this->requireToken($token);
+
+        try {
+            $this->provider->decode($this->token);
+        } catch (JWTException $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

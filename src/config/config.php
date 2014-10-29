@@ -76,8 +76,10 @@ return [
 
     'providers' => [
 
-        'jwt'      => 'Tymon\JWTAuth\Providers\FirebaseAdapter',
+        'jwt'      => 'Tymon\JWTAuth\JWT\FirebaseAdapter',
+
         'auth'     => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
+
         'storage'  => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
 
     ]

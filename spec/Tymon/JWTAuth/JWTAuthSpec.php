@@ -4,7 +4,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Providers\FirebaseAdapter;
+use Tymon\JWTAuth\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Auth\IlluminateAuthAdapter;
 
 class JWTAuthSpec extends ObjectBehavior

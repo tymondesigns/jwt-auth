@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth\Storage;
 
-interface Storable
+interface StorageInterface
 {
     public function add($key, $value, $minutes);
 
