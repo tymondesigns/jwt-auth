@@ -4,6 +4,8 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
+use Tymon\JWTAuth\Filters\JWTAuthFilter;
+use Tymon\JWTAuth\JWTAuth;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -39,7 +41,7 @@ class JWTAuthServiceProvider extends ServiceProvider
             return $app['tymon.jwt.auth'];
         };
 
-        $this->app['Tymon\JWTAuth\Providers\ProviderInterface'] = function ($app) {
+        $this->app['Tymon\JWTAuth\Providers\Providable'] = function ($app) {
             return $app['tymon.jwt.provider'];
         };
 
