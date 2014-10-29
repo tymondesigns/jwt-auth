@@ -159,7 +159,7 @@ class JWTAuth
     /**
      * Get the JWT provider
      *
-     * @return Providable
+     * @return \Tymon\JWTAuth\JWT\JWTInterface
      */
     public function getProvider()
     {

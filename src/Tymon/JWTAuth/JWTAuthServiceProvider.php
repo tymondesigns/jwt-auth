@@ -59,6 +59,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->registerJWTProvider();
         $this->registerAuthProvider();
+        $this->registerStorageProvider();
         $this->registerJWTAuth();
         $this->registerJWTAuthFilter();
         $this->registerJWTCommand();
@@ -90,6 +91,18 @@ class JWTAuthServiceProvider extends ServiceProvider
             $provider = $this->config('providers.auth');
 
             return $app->make($provider, [ $app['auth'] ]);
+        });
+    }
+
+    /**
+     * Register the bindings for the Storage provider
+     */
+    protected function registerStorageProvider()
+    {
+        $this->app['tymon.jwt.provider.storage'] = $this->app->share(function ($app) {
+            $provider = $this->config('providers.storage');
+
+            return $app->make($provider, [ $app['cache'] ]);
         });
     }
 

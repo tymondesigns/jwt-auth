@@ -2,8 +2,8 @@
 
 namespace Tymon\JWTAuth\Storage;
 
-use Tymon\JWTAuth\Storage\StorageInterface;
 use Illuminate\Cache\Repository;
+use Tymon\JWTAuth\Storage\StorageInterface;
 
 class IlluminateCacheAdapter implements StorageInterface
 {

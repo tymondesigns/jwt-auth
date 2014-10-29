@@ -85,7 +85,7 @@ return [
         |
         */
 
-        'jwt'      => 'Tymon\JWTAuth\JWT\FirebaseAdapter',
+        'jwt' => 'Tymon\JWTAuth\JWT\FirebaseAdapter',
 
         /*
         |--------------------------------------------------------------------------
@@ -96,18 +96,18 @@ return [
         |
         */
 
-        'auth'     => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
+        'auth' => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
 
         /*
         |--------------------------------------------------------------------------
         | Storage Provider
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to store tokens in a registry
+        | Specify the provider that is used to store the tokens in a 'registry'
         |
         */
 
-        'storage'  => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
+        'storage' => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
 
     ]
 
