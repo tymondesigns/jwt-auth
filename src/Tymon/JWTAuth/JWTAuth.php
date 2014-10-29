@@ -155,25 +155,6 @@ class JWTAuth
     }
 
     /**
-     * Check whether the token is valid
-     *
-     * @param  mixed  $token
-     * @return bool
-     */
-    public function isValid($token = false)
-    {
-        $this->requireToken($token);
-
-        try {
-            $this->provider->decode($this->token);
-        } catch (JWTException $e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Get the JWT provider
      *
      * @return Providable
