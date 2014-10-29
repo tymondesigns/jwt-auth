@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth\Validators;
 
@@ -17,6 +17,9 @@ class TokenValidator
         self::validateStructure($token);
     }
 
+    /**
+     * @param string $token
+     */
     protected static function validateStructure($token)
     {
         if (count(explode('.', $token)) !== 3) {
