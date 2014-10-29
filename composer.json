@@ -1,11 +1,21 @@
 {
     "name": "tymon/jwt-auth",
     "description": "JSON Web Token Authentication for Laravel",
+    "keywords": [
+        "tymon",
+        "jwt",
+        "authorization",
+        "laravel",
+        "json web token"
+    ],
+    "homepage": "https://github.com/tymondesigns/jwt-auth",
     "license": "MIT",
     "authors": [
         {
             "name": "Sean Tymon",
-            "email": "tymon148@gmail.com"
+            "email": "tymon148@gmail.com",
+            "homepage": "http://tymondesigns.com",
+            "role": "Developer"
         }
     ],
     "require": {
