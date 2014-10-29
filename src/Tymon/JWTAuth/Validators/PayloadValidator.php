@@ -1,24 +1,24 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class PayloadValidator
 {
     /**
-	 * @var array
-	 */
+     * @var array
+     */
     protected static $requiredClaims = ['iss', 'iat', 'exp', 'sub'];
 
     /**
-	 * Run the validation on the payload array
-	 *
-	 * @param  array  $payload
-	 * @return void
-	 */
+     * Run the validation on the payload array
+     *
+     * @param  array  $payload
+     * @return void
+     */
     public static function check(array $payload)
     {
         self::validateStructure($payload);
@@ -26,11 +26,11 @@ class PayloadValidator
     }
 
     /**
-	 * Helper function to return a boolean
-	 *
-	 * @param  array  $payload
-	 * @return bool
-	 */
+     * Helper function to return a boolean
+     *
+     * @param  array  $payload
+     * @return bool
+     */
     public static function isValid(array $payload)
     {
         try {
@@ -43,11 +43,11 @@ class PayloadValidator
     }
 
     /**
-	 * Ensure the payload contains the required claims
-	 *
-	 * @param  $payload
-	 * @return bool
-	 */
+     * Ensure the payload contains the required claims
+     *
+     * @param  $payload
+     * @return bool
+     */
     protected static function validateStructure($payload)
     {
         if (count(array_diff(self::$requiredClaims, array_keys($payload))) !== 0) {
@@ -58,11 +58,11 @@ class PayloadValidator
     }
 
     /**
-	 * Validate the issue and expiry date of the payload
-	 *
-	 * @param  $payload
-	 * @return bool
-	 */
+     * Validate the issue and expiry date of the payload
+     *
+     * @param  $payload
+     * @return bool
+     */
     protected static function validateExpiry($payload)
     {
         if (! is_int($payload['exp'])) {

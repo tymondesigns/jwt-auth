@@ -9,8 +9,8 @@ class TokenValidator
     /**
 	 * Check the structure of the token
 	 *
-	 * @param $token
-	 * @return bool
+	 * @param string $token
+	 * @return boolean|null
 	 */
     public static function check($token)
     {

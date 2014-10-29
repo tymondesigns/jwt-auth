@@ -1,12 +1,12 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Providers\Providable;
-use Tymon\JWTAuth\Exceptions\JWTAuthException;
-use Tymon\JWTAuth\Auth\AuthInterface;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Auth\AuthInterface;
+use Tymon\JWTAuth\Exceptions\JWTAuthException;
+use Tymon\JWTAuth\Providers\Providable;
 
 class JWTAuth
 {
@@ -58,7 +58,7 @@ class JWTAuth
     /**
      * Find a user using the user identifier in the subject claim
      *
-     * @param  mixed  $token
+     * @param  string  $token
      * @return mixed
      */
     public function toUser($token = false)
@@ -104,7 +104,7 @@ class JWTAuth
      * Log the user in via the token
      *
      * @param  mixed  $token
-     * @return mixed
+     * @return boolean
      */
     public function login($token = false)
     {
@@ -123,7 +123,7 @@ class JWTAuth
      * Get the token from the request
      *
      * @param  string  $query
-     * @return mixed
+     * @return false|string
      */
     public function getToken($query = 'token')
     {
@@ -157,7 +157,7 @@ class JWTAuth
     /**
      * Get the JWT provider
      *
-     * @return \Tymon\JWTAuth\Providers\ProviderInterface
+     * @return Providable
      */
     public function getProvider()
     {

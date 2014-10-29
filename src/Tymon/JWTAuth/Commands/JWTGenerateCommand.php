@@ -2,37 +2,37 @@
 
 namespace Tymon\JWTAuth\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class JWTGenerateCommand extends Command
 {
     /**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
+     * The console command name.
+     *
+     * @var string
+     */
     protected $name = 'jwt:generate';
 
     /**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = "Set the JWT Auth secret key used to sign the tokens";
 
     /**
-	 * @var \Illuminate\Filesystem\Filesystem
-	 */
+     * @var \Illuminate\Filesystem\Filesystem
+     */
     protected $files;
 
     /**
-	 * Create a new JWT secret generator command.
-	 *
-	 * @param  \Illuminate\Filesystem\Filesystem  $files
-	 * @return void
-	 */
+     * Create a new JWT secret generator command.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @return void
+     */
     public function __construct(Filesystem $files)
     {
         parent::__construct();
@@ -41,10 +41,10 @@ class JWTGenerateCommand extends Command
     }
 
     /**
-	 * Execute the console command.
-	 *
-	 * @return void
-	 */
+     * Execute the console command.
+     *
+     * @return void
+     */
     public function fire()
     {
         list($path, $contents) = $this->getKeyFile();
@@ -61,10 +61,10 @@ class JWTGenerateCommand extends Command
     }
 
     /**
-	 * Get the key file and contents.
-	 *
-	 * @return array
-	 */
+     * Get the key file and contents.
+     *
+     * @return array
+     */
     protected function getKeyFile()
     {
         $env = $this->option('env') ? $this->option('env').'/' : '';
@@ -75,10 +75,10 @@ class JWTGenerateCommand extends Command
     }
 
     /**
-	 * Generate a random key for the JWT Auth secret.
-	 *
-	 * @return string
-	 */
+     * Generate a random key for the JWT Auth secret.
+     *
+     * @return string
+     */
     protected function getRandomKey()
     {
         return Str::random(32);

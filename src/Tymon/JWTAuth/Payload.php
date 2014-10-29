@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth;
 
+use ArrayAccess;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
-use ArrayAccess;
 
 class Payload implements ArrayAccess
 {

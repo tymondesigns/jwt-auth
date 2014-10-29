@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth\Exceptions;
 

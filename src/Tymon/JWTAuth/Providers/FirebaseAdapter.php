@@ -1,21 +1,21 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Exceptions\JWTException;
-use JWT as Firebase;
 use Exception;
+use JWT as Firebase;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class FirebaseAdapter extends Provider implements Providable
 {
     /**
-	 * Create a JSON Web Token
-	 *
-	 * @param  mixed  $subject
-	 * @param  array  $customClaims
-	 * @return \Tymon\JWTAuth\Token
-	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
-	 */
+     * Create a JSON Web Token
+     *
+     * @param  mixed  $subject
+     * @param  array  $customClaims
+     * @return \Tymon\JWTAuth\Token
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     */
     public function encode($subject, array $customClaims = [])
     {
         try {
@@ -29,12 +29,12 @@ class FirebaseAdapter extends Provider implements Providable
     }
 
     /**
-	 * Decode a JSON Web Token
-	 *
-	 * @param  string  $token
-	 * @return \Tymon\JWTAuth\Payload
-	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
-	 */
+     * Decode a JSON Web Token
+     *
+     * @param  string  $token
+     * @return \Tymon\JWTAuth\Payload
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     */
     public function decode($token)
     {
         $this->createToken($token);

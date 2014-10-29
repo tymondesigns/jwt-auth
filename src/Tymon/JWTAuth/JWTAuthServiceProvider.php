@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Tymon\JWTAuth;
 
@@ -129,6 +129,8 @@ class JWTAuthServiceProvider extends ServiceProvider
 
     /**
      * Helper to get the config values
+     * @param string $key
+     * @return string
      */
     protected function config($key, $default = null)
     {
