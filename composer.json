@@ -20,8 +20,8 @@
         "illuminate/database": "4.2.*"
     },
     "autoload": {
-        "psr-0": {
-            "Tymon\\JWTAuth": "src/"
+        "psr-4": {
+            "Tymon\\JWTAuth\\": "src"
         }
     },
     "minimum-stability": "stable"
