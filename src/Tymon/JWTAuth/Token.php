@@ -15,7 +15,7 @@ class Token
     /**
      * Create a new JSON Web Token
      *
-     * @param string $value
+     * @param string  $value
      */
     public function __construct($value)
     {

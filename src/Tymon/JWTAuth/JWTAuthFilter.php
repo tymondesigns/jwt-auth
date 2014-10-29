@@ -28,8 +28,8 @@ class JWTAuthFilter
     /**
      * Filter the request
      *
-     * @param  \Illuminate\Routing\Router $route
-     * @param  \Illuminate\Http\Request   $request
+     * @param  \Illuminate\Routing\Router  $route
+     * @param  \Illuminate\Http\Request    $request
      * @return \Illuminate\Http\Response
      */
     public function filter($route, $request)
@@ -56,9 +56,9 @@ class JWTAuthFilter
     /**
      * Fire event and return the response
      *
-     * @param  string  $event
-     * @param  string  $error
-     * @param  integer $status
+     * @param  string   $event
+     * @param  string   $error
+     * @param  integer  $status
      * @return mixed
      */
     protected function respond($event, $error, $status, $payload = [])

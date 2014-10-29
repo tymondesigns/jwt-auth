@@ -70,15 +70,42 @@ return [
     | Providers
     |--------------------------------------------------------------------------
     |
-    | Specify the various providers used throughout the package
+    | Specify the various providers used throughout the package.
     |
     */
 
     'providers' => [
 
+        /*
+        |--------------------------------------------------------------------------
+        | JWT Provider
+        |--------------------------------------------------------------------------
+        |
+        | Specify the provider that is used to create and decode the tokens.
+        |
+        */
+
         'jwt'      => 'Tymon\JWTAuth\JWT\FirebaseAdapter',
 
+        /*
+        |--------------------------------------------------------------------------
+        | Authentication Provider
+        |--------------------------------------------------------------------------
+        |
+        | Specify the provider that is used to authenticate users.
+        |
+        */
+
         'auth'     => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Storage Provider
+        |--------------------------------------------------------------------------
+        |
+        | Specify the provider that is used to store tokens in a registry
+        |
+        */
 
         'storage'  => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
 

@@ -77,34 +77,36 @@ class JWTAuth
     /**
      * Generate a token using the user identifier as the subject claim
      *
-     * @param  $user
+     * @param  mixed  $user
+     * @param  array  $customClaims
      * @return string
      */
-    public function fromUser($user)
+    public function fromUser($user, array $customClaims = [])
     {
-        return $this->provider->encode($user->{$this->identifier})->get();
+        return $this->provider->encode($user->{$this->identifier}, $customClaims)->get();
     }
 
     /**
      * Attempt to authenticate the user and return the token
      *
      * @param  array  $credentials
+     * @param  array  $customClaims
      * @return false|string
      */
-    public function attempt(array $credentials = [])
+    public function attempt(array $credentials = [], array $customClaims = [])
     {
         if (! $this->auth->check($credentials)) {
             return false;
         }
 
-        return $this->fromUser($this->auth->user());
+        return $this->fromUser($this->auth->user(), $customClaims);
     }
 
     /**
      * Log the user in via the token
      *
      * @param  mixed  $token
-     * @return boolean
+     * @return mixed
      */
     public function login($token = false)
     {
