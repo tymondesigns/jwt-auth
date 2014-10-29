@@ -80,7 +80,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the JSON Web Token provider
+     * Register the bindings for the Auth provider
      */
     protected function registerAuthProvider()
     {
@@ -149,7 +149,8 @@ class JWTAuthServiceProvider extends ServiceProvider
             'tymon.jwt.auth',
             'tymon.jwt.generate',
             'tymon.jwt.filter',
-            'Tymon\JWTAuth\Providers\ProviderInterface',
+            'tymon.jwt.provider.auth',
+            'Tymon\JWTAuth\Providers\Providable',
             'Tymon\JWTAuth\JWTAuth'
         ];
     }
