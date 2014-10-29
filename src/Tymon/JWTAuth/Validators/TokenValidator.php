@@ -7,11 +7,11 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class TokenValidator
 {
     /**
-	 * Check the structure of the token
-	 *
-	 * @param string $token
-	 * @return boolean|null
-	 */
+     * Check the structure of the token
+     *
+     * @param string $token
+     * @return boolean|null
+     */
     public static function check($token)
     {
         self::validateStructure($token);
