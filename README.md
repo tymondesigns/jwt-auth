@@ -11,6 +11,8 @@
 
 #### *Docs work in progress!*
 
+This package requires PHP >=5.4
+
 ## Installation
 
 Install via composer - edit your `composer.json` to require the package.
