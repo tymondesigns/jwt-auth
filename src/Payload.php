@@ -6,7 +6,7 @@ use ArrayAccess;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements ArrayAccess
+final class Payload implements ArrayAccess
 {
 
     /**
