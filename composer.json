@@ -10,14 +10,14 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
+        "illuminate/support": "~4.0",
         "firebase/php-jwt": "1.*"
     },
     "require-dev": {
         "phpspec/phpspec": "2.0.*",
-        "illuminate/auth": "4.2.*",
-        "illuminate/http": "4.2.*",
-        "illuminate/database": "4.2.*"
+        "illuminate/auth": "~4.0",
+        "illuminate/http": "~4.0",
+        "illuminate/database": "~4.0"
     },
     "autoload": {
         "psr-0": {
