@@ -12,7 +12,7 @@ final class Payload implements ArrayAccess
     /**
      * @var array
      */
-    protected $value;
+    private $value;
 
     /**
      * Create a new JWT payload
