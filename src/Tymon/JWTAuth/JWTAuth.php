@@ -122,10 +122,25 @@ class JWTAuth {
 	/**
 	 * Get the token from the request
 	 *
-	 * @param  string $query
+	 * @param  string  $query
 	 * @return mixed
 	 */
-	public function getToken($query = 'token')
+	public function getToken()
+	{
+		if (! $this->token) {
+			$this->parseToken();
+		}
+
+		return $this->token;
+	}
+
+	/**
+	 * Get the token from the request
+	 *
+	 * @param  string  $query
+	 * @return mixed
+	 */
+	public function parseToken($query = 'token')
 	{
 		if ( ! $token = $this->parseAuthHeader() )
 		{
@@ -135,9 +150,7 @@ class JWTAuth {
 			}
 		}
 
-		$this->setToken($token);
-
-		return $token;
+		return $this->setToken($token);
 	}
 
 	/**
