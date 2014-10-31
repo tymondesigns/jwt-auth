@@ -126,7 +126,7 @@ Alternatively, you can use the included `jwt-auth` route filter. It includes som
 ```php
 Route::post('me', ['before' => 'jwt-auth', function() {
 
-    $user = JWTAuth::getToken()->toUser();
+    $user = JWTAuth::parseToken()->toUser();
     
     return Response::json(compact('user'));
 }]);
