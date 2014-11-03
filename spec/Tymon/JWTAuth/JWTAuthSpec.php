@@ -2,15 +2,15 @@
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Auth\IlluminateAuthAdapter;
+use Tymon\JWTAuth\User\EloquentUserAdapter;
 
 class JWTAuthSpec extends ObjectBehavior
 {
 
-	function let(FirebaseAdapter $provider, Model $user, IlluminateAuthAdapter $auth, Request $request)
+	function let(FirebaseAdapter $provider, EloquentUserAdapter $user, IlluminateAuthAdapter $auth, Request $request)
 	{
     	$this->beConstructedWith($user, $provider, $auth, $request);
 	}
