@@ -47,8 +47,6 @@ return [
     | Specify the full namespace to your User model.
     | e.g. 'Acme\Entities\User'
     |
-    | Your User must extend Eloquent (Illuminate\Database\Eloquent\Model)
-    |
     */
 
     'user' => 'User',
@@ -75,6 +73,18 @@ return [
     */
 
     'providers' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | User Provider
+        |--------------------------------------------------------------------------
+        |
+        | Specify the provider that is used to find the user based
+        | on the subject claim
+        |
+        */
+
+        'user' => 'Tymon\JWTAuth\User\EloquentUserAdapter',
 
         /*
         |--------------------------------------------------------------------------

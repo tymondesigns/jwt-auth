@@ -41,8 +41,12 @@ class JWTAuthServiceProvider extends ServiceProvider
             return $app['tymon.jwt.auth'];
         };
 
-        $this->app['Tymon\JWTAuth\Providers\Providable'] = function ($app) {
-            return $app['tymon.jwt.provider'];
+         $this->app['Tymon\JWTAuth\User\UserInterface'] = function ($app) {
+            return $app['tymon.jwt.provider.user'];
+        };
+
+        $this->app['Tymon\JWTAuth\JWT\JWTInterface'] = function ($app) {
+            return $app['tymon.jwt.provider.jwt'];
         };
 
         $this->app['Tymon\JWTAuth\Auth\AuthInterface'] = function ($app) {
@@ -57,12 +61,25 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // register providers
+        $this->registerUserProvider();
         $this->registerJWTProvider();
         $this->registerAuthProvider();
         $this->registerStorageProvider();
+
         $this->registerJWTAuth();
         $this->registerJWTAuthFilter();
         $this->registerJWTCommand();
+    }
+
+    /**
+     * Register the bindings for the User provider
+     */
+    protected function registerUserProvider()
+    {
+        $this->app['tymon.jwt.provider.user'] = $this->app->share(function ($app) {
+            return $app->make($this->config('user'));
+        });
     }
 
     /**
@@ -88,9 +105,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerAuthProvider()
     {
         $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
-            $provider = $this->config('providers.auth');
-
-            return $app->make($provider, [ $app['auth'] ]);
+            return $app->make($this->config('providers.auth'), [ $app['auth'] ]);
         });
     }
 
@@ -100,9 +115,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerStorageProvider()
     {
         $this->app['tymon.jwt.provider.storage'] = $this->app->share(function ($app) {
-            $provider = $this->config('providers.storage');
-
-            return $app->make($provider, [ $app['cache'] ]);
+            return $app->make($this->config('providers.storage'), [ $app['cache'] ]);
         });
     }
 
@@ -111,12 +124,15 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerJWTAuth()
     {
-        $this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
+        $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
             $identifier = $this->config('identifier');
-            $user = $this->config('user');
 
-            $userInstance = $app->make($user);
-            $auth = new JWTAuth($userInstance, $app['tymon.jwt.provider'], $app['tymon.jwt.provider.auth'], $app['request']);
+            $auth = new JWTAuth(
+                $app['tymon.jwt.provider.user'],
+                $app['tymon.jwt.provider.jwt'],
+                $app['tymon.jwt.provider.auth'],
+                $app['request']
+            );
 
             return $auth->setIdentifier($identifier);
         });
@@ -160,13 +176,16 @@ class JWTAuthServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'tymon.jwt.provider',
             'tymon.jwt.auth',
+            'tymon.jwt.provider.user'
+            'tymon.jwt.provider.jwt',
+            'tymon.jwt.provider.auth',
             'tymon.jwt.generate',
             'tymon.jwt.filter',
-            'tymon.jwt.provider.auth',
-            'Tymon\JWTAuth\Providers\Providable',
-            'Tymon\JWTAuth\JWTAuth'
+            'Tymon\JWTAuth\JWTAuth',
+            'Tymon\JWTAuth\User\UserInterface',
+            'Tymon\JWTAuth\JWT\JWTInterface',
+            'Tymon\JWTAuth\Auth\AuthInterface'
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\User\UserInterface;
 use Tymon\JWTAuth\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Tymon\JWTAuth\JWT\JWTInterface;
@@ -12,7 +12,7 @@ class JWTAuth
 {
 
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var \Tymon\JWTAuth\User\UserInterface
      */
     protected $user;
 
@@ -42,12 +42,12 @@ class JWTAuth
     protected $token;
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model  $user
-     * @param \Tymon\JWTAuth\JWT\JWTInterface      $provider
-     * @param \Tymon\JWTAuth\Auth\AuthInterface    $auth
-     * @param \Illuminate\Http\Request             $request
+     * @param \Tymon\JWTAuth\User\UserInterface  $user
+     * @param \Tymon\JWTAuth\JWT\JWTInterface  $provider
+     * @param \Tymon\JWTAuth\Auth\AuthInterface  $auth
+     * @param \Illuminate\Http\Request  $request
      */
-    public function __construct(Model $user, JWTInterface $provider, AuthInterface $auth, Request $request)
+    public function __construct(UserInterface $user, JWTInterface $provider, AuthInterface $auth, Request $request)
     {
         $this->user = $user;
         $this->provider = $provider;
@@ -67,7 +67,7 @@ class JWTAuth
 
         $this->provider->decode($this->token);
 
-        if (! $user = $this->user->where($this->identifier, $this->provider->getSubject())->first()) {
+        if (! $user = $this->user->getBy($this->identifier, $this->provider->getSubject()) {
             return false;
         }
 
@@ -195,6 +195,7 @@ class JWTAuth
      *
      * @param  mixed  $token
      * @return void
+     * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
      */
     protected function requireToken($token)
     {
