@@ -67,7 +67,7 @@ class JWTAuth
 
         $this->provider->decode($this->token);
 
-        if (! $user = $this->user->getBy($this->identifier, $this->provider->getSubject()) {
+        if (! $user = $this->user->getBy($this->identifier, $this->provider->getSubject())) {
             return false;
         }
 

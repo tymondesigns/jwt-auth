@@ -177,7 +177,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         return [
             'tymon.jwt.auth',
-            'tymon.jwt.provider.user'
+            'tymon.jwt.provider.user',
             'tymon.jwt.provider.jwt',
             'tymon.jwt.provider.auth',
             'tymon.jwt.generate',
