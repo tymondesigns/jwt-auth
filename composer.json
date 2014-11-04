@@ -27,7 +27,8 @@
         "firebase/php-jwt": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit" : "4.*",
+        "phpunit/phpunit": "4.*",
+        "mockery/mockery": "0.9.*",
         "illuminate/auth": "4.2.*",
         "illuminate/database": "4.2.*"
     },
