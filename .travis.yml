@@ -7,7 +7,12 @@ php:
   - hhvm
 
 before_script:
-  - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev
 
-script: vendor/bin/phpspec run
+script:
+  - phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
