@@ -25,8 +25,6 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
         $token = $this->jwt->encode(1);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
-        $this->assertInternalType('string', $token->get());
-        // $this->assertEquals(count(explode('.', $token)), 3);
     }
 
     /** @test */
@@ -36,10 +34,47 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
         $payload = $this->jwt->decode($token);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
-        $this->assertInternalType('array', $payload->get());
-        $this->assertEquals($payload['sub'], 1);
-        $this->assertEquals($payload->get('sub'), 1);
-        $this->assertTrue(isset($payload['iat']));
+    }
+
+    /** @test */
+    public function it_should_return_the_subject_via_helper_when_payload_is_already_set()
+    {
+        $token = $this->jwt->encode(1)->get();
+        $payload = $this->jwt->decode($token);
+
+        $this->assertEquals($this->jwt->getSubject(), 1);
+    }
+
+    /** @test */
+    public function it_should_return_the_subject_via_helper_when_payload_is_not_set()
+    {
+        $token = $this->jwt->encode(1)->get();
+
+        $this->assertEquals($this->jwt->getSubject($token), 1);
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_no_token_or_payload_is_available()
+    {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+
+        $this->assertEquals($this->jwt->getSubject(), 1);
+    }
+
+    /** @test */
+    public function it_should_get_the_token()
+    {
+        $this->jwt->encode(1);
+
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $this->jwt->getToken());
+    }
+
+    /** @test */
+    public function it_should_get_the_payload()
+    {
+        $this->jwt->encode(1);
+
+        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $this->jwt->getPayload());
     }
 
 }
