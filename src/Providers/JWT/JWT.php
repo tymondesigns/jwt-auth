@@ -7,7 +7,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Token;
 
-abstract class JWT
+abstract class AbstractJWT
 {
     /**
      * @var string
@@ -64,6 +64,8 @@ abstract class JWT
             'iat' => time(),
             'exp' => time() + ($this->ttl * 60)
         ]);
+
+        $payload['jti'] = md5($payload['iat'] . $payload['sub'] . $payload['exp']);
 
         return $this->createPayload($payload)->get();
     }

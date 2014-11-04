@@ -41,15 +41,15 @@ class JWTAuthServiceProvider extends ServiceProvider
             return $app['tymon.jwt.auth'];
         };
 
-         $this->app['Tymon\JWTAuth\User\UserInterface'] = function ($app) {
+         $this->app['Tymon\JWTAuth\Providers\User\UserInterface'] = function ($app) {
             return $app['tymon.jwt.provider.user'];
         };
 
-        $this->app['Tymon\JWTAuth\JWT\JWTInterface'] = function ($app) {
+        $this->app['Tymon\JWTAuth\Providers\JWT\JWTInterface'] = function ($app) {
             return $app['tymon.jwt.provider.jwt'];
         };
 
-        $this->app['Tymon\JWTAuth\Auth\AuthInterface'] = function ($app) {
+        $this->app['Tymon\JWTAuth\Providers\Auth\AuthInterface'] = function ($app) {
             return $app['tymon.jwt.provider.auth'];
         };
     }
@@ -87,7 +87,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerJWTProvider()
     {
-        $this->app['tymon.jwt.provider'] = $this->app->share(function ($app) {
+        $this->app['tymon.jwt.provider.jwt'] = $this->app->share(function ($app) {
             $secret = $this->config('secret');
             $ttl = $this->config('ttl');
             $algo = $this->config('algo');
@@ -124,7 +124,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerJWTAuth()
     {
-        $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
+        $this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
             $identifier = $this->config('identifier');
 
             $auth = new JWTAuth(
