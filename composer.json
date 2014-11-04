@@ -2,8 +2,10 @@
     "name": "tymon/jwt-auth",
     "description": "JSON Web Token Authentication for Laravel",
     "keywords": [
-        "tymon",
         "jwt",
+        "tymon",
+        "auth",
+        "authentication",
         "authorization",
         "laravel",
         "json web token"
@@ -21,12 +23,12 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",
+        "illuminate/http": "4.2.*",
         "firebase/php-jwt": "1.*"
     },
     "require-dev": {
-        "phpspec/phpspec": "2.0.*",
+        "phpunit/phpunit" : "4.*",
         "illuminate/auth": "4.2.*",
-        "illuminate/http": "4.2.*",
         "illuminate/database": "4.2.*"
     },
     "autoload": {
@@ -34,5 +36,14 @@
             "Tymon\\JWTAuth\\": "src"
         }
     },
-    "minimum-stability": "stable"
+    "autoload-dev": {
+        "psr-4": {
+            "Tymon\\JWTAuth\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.4-dev"
+        }
+    }
 }

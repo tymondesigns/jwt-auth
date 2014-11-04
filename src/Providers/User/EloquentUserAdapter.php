@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\User;
+namespace Tymon\JWTAuth\Providers\User;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class EloquentUserAdapter implements UserInterface
     /**
      * Create a new User instance
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $user
+     * @param  \Illuminate\Database\Eloquent\Model $user
      * @return void
      */
     public function _construct(Model $user)
@@ -26,8 +26,8 @@ class EloquentUserAdapter implements UserInterface
     /**
      * Get the user by the given key, value
      *
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param  mixed                              $key
+     * @param  mixed                              $value
      * @return Illuminate\Database\Eloquent\Model
      */
     public function getBy($key, $value)

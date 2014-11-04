@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Auth;
+namespace Tymon\JWTAuth\Providers\Auth;
 
 interface AuthInterface
 {

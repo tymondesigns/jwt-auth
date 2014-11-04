@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\JWT;
+namespace Tymon\JWTAuth\Providers\JWT;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;

@@ -1,14 +1,14 @@
 <?php
 
-namespace Tymon\JWTAuth\User;
+namespace Tymon\JWTAuth\Providers\User;
 
 interface UserInterface
 {
     /**
      * Get the user by the given key, value
      *
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param mixed $key
+     * @param mixed $value
      */
     public function getBy($key, $value);
 }

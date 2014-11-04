@@ -1,5 +1,0 @@
-suites:
-  jwt_auth_suite:
-    namespace: Tymon
-    src_path: src
-    spec_prefix: spec

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Storage;
+namespace Tymon\JWTAuth\Providers\Storage;
 
 interface StorageInterface
 {
