@@ -17,6 +17,10 @@
     <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>
+            <exclude>
+                <file>src/JWTAuthServiceProvider.php</file>
+                <directory suffix=".php">src/config/</directory>
+            </exclude>
         </whitelist>
     </filter>
     <logging>
