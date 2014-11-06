@@ -6,11 +6,13 @@
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/tymondesigns/jwt-auth/develop.svg?style=flat-square)](https://scrutinizer-ci.com/g/tymondesigns/jwt-auth/?branch=develop)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/tymondesigns/jwt-auth/develop.svg?style=flat-square)](https://scrutinizer-ci.com/g/tymondesigns/jwt-auth/code-structure/develop)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://www.opensource.org/licenses/MIT)
-[![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square)](https://github.com/tymon/jwt-auth/releases)
+[![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
 [![Total Downloads](https://img.shields.io/packagist/dt/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
 
 
 #### *Docs work in progress!*
+
+This package requires PHP >=5.4
 
 ## Installation
 
