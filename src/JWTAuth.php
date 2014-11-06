@@ -19,7 +19,7 @@ class JWTAuth
     /**
      * @var \Tymon\JWTAuth\JWT\JWTInterface
      */
-    protected $provider;
+    protected $jwt;
 
     /**
      * @var \Tymon\JWTAuth\Auth\AuthInterface
@@ -43,14 +43,14 @@ class JWTAuth
 
     /**
      * @param \Tymon\JWTAuth\User\UserInterface  $user
-     * @param \Tymon\JWTAuth\JWT\JWTInterface  $provider
+     * @param \Tymon\JWTAuth\JWT\JWTInterface  $jwt
      * @param \Tymon\JWTAuth\Auth\AuthInterface  $auth
      * @param \Illuminate\Http\Request  $request
      */
-    public function __construct(UserInterface $user, JWTInterface $provider, AuthInterface $auth, Request $request)
+    public function __construct(UserInterface $user, JWTInterface $jwt, AuthInterface $auth, Request $request)
     {
         $this->user = $user;
-        $this->provider = $provider;
+        $this->jwt = $jwt;
         $this->auth = $auth;
         $this->request = $request;
     }
@@ -65,9 +65,9 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        $this->provider->decode($this->token);
+        $this->jwt->decode($this->token);
 
-        if (! $user = $this->user->getBy($this->identifier, $this->provider->getSubject())) {
+        if (! $user = $this->user->getBy($this->identifier, $this->jwt->getSubject())) {
             return false;
         }
 
@@ -83,7 +83,7 @@ class JWTAuth
      */
     public function fromUser($user, array $customClaims = [])
     {
-        return $this->provider->encode($user->{$this->identifier}, $customClaims)->get();
+        return $this->jwt->encode($user->{$this->identifier}, $customClaims)->get();
     }
 
     /**
@@ -112,7 +112,7 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        $id = $this->provider->getSubject($this->token);
+        $id = $this->jwt->getSubject($this->token);
 
         if (! $user = $this->auth->checkUsingId($id)) {
             return false;
@@ -172,16 +172,6 @@ class JWTAuth
     }
 
     /**
-     * Get the JWT provider
-     *
-     * @return \Tymon\JWTAuth\JWT\JWTInterface
-     */
-    public function getProvider()
-    {
-        return $this->provider;
-    }
-
-    /**
      * Set the identifier
      *
      * @param string $identifier
@@ -233,8 +223,8 @@ class JWTAuth
      */
     public function __call($method, $parameters)
     {
-        if (method_exists($this->provider, $method)) {
-            return call_user_func_array([$this->provider, $method], $parameters);
+        if (method_exists($this->jwt, $method)) {
+            return call_user_func_array([$this->jwt, $method], $parameters);
         }
 
         throw new \BadMethodCallException('Method [$method] does not exist.');
