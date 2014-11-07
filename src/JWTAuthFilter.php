@@ -34,7 +34,7 @@ class JWTAuthFilter
      */
     public function filter($route, $request)
     {
-        if (! $token = $this->auth->getToken($request)) {
+        if (! $token = $this->auth->getToken()) {
             return $this->respond('tymon.jwt.absent', 'token_not_provided', 400);
         }
 
