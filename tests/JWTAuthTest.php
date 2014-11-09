@@ -96,4 +96,10 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($user);
     }
+
+    /** @test */
+    public function it_should_retrieve_the_token_from_the_auth_header()
+    {
+
+    }
 }

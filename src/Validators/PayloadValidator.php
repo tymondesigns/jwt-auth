@@ -2,11 +2,10 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class PayloadValidator
+class PayloadValidator extends AbstractValidator
 {
     /**
      * @var array
@@ -23,23 +22,6 @@ class PayloadValidator
     {
         self::validateStructure($payload);
         self::validateExpiry($payload);
-    }
-
-    /**
-     * Helper function to return a boolean
-     *
-     * @param  array  $payload
-     * @return bool
-     */
-    public static function isValid(array $payload)
-    {
-        try {
-            self::check($payload);
-        } catch (JWTException $e) {
-            return false;
-        }
-
-        return true;
     }
 
     /**

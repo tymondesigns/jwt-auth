@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class TokenValidator
+class TokenValidator extends AbstractValidator
 {
     /**
      * Check the structure of the token
