@@ -76,6 +76,14 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_throw_an_exception_when_not_providing_a_token()
+    {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTAuthException');
+
+        $user = $this->jwtAuth->toUser();
+    }
+
+    /** @test */
     public function it_should_return_the_owning_user_from_a_token_containing_an_existing_user()
     {
         $this->jwt->shouldReceive('getSubject')->once()->andReturn(1);
@@ -100,6 +108,36 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_retrieve_the_token_from_the_auth_header()
     {
+        $request = Request::create('/foo', 'GET');
+        $request->headers->set('authorization', 'Bearer foo');
+        $jwtAuth = new JWTAuth($this->user, $this->jwt, $this->auth, $request);
 
+        $this->assertEquals($jwtAuth->getToken(), 'foo');
+    }
+
+    /** @test */
+    public function it_should_retrieve_the_token_from_the_query_string()
+    {
+        $request = Request::create('/foo', 'GET', ['token' => 'foo']);
+        $jwtAuth = new JWTAuth($this->user, $this->jwt, $this->auth, $request);
+
+        $this->assertEquals($jwtAuth->getToken(), 'foo');
+    }
+
+    /** @test */
+    public function it_should_return_false_when_token_not_present_in_request()
+    {
+        $request = Request::create('/foo', 'GET');
+        $jwtAuth = new JWTAuth($this->user, $this->jwt, $this->auth, $request);
+
+        $this->assertFalse($jwtAuth->getToken());
+    }
+
+    /** @test */
+    public function it_should_set_the_identifier()
+    {
+        $this->jwtAuth->setIdentifier('foo');
+
+        $this->assertEquals($this->jwtAuth->getIdentifier(), 'foo');
     }
 }

@@ -23,5 +23,4 @@ abstract class AbstractValidator
 
         return true;
     }
-
 }

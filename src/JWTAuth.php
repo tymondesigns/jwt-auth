@@ -130,7 +130,9 @@ class JWTAuth
     public function getToken()
     {
         if (! $this->token) {
-            $this->parseToken();
+            if (! $this->parseToken()) {
+                return false;
+            }
         }
 
         return $this->token;
@@ -181,6 +183,16 @@ class JWTAuth
         $this->identifier = $identifier;
 
         return $this;
+    }
+
+    /**
+     * Get the identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 
     /**
