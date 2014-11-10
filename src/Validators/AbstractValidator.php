@@ -7,7 +7,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 abstract class AbstractValidator
 {
 
-	/**
+    /**
      * Helper function to return a boolean
      *
      * @param  array  $value
