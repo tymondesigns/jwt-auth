@@ -20,6 +20,7 @@
             <exclude>
                 <file>src/JWTAuthServiceProvider.php</file>
                 <directory suffix=".php">src/config/</directory>
+                <directory suffix=".php">src/Facades/</directory>
             </exclude>
         </whitelist>
     </filter>
