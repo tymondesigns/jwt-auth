@@ -17,6 +17,11 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->jwtAuth = new JWTAuth($this->user, $this->jwt, $this->auth, Request::create('/foo', 'GET'));
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /** @test */
     public function it_should_return_a_user_when_passing_a_token_containing_a_valid_subject_claim()
     {
