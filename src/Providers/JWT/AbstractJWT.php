@@ -65,7 +65,7 @@ abstract class AbstractJWT
             'exp' => time() + ($this->ttl * 60)
         ]);
 
-        // $payload['jti'] = md5($payload['iat'] . $payload['sub'] . $payload['exp']);
+        // $payload['jti'] = md5($payload['iat'] . $payload['sub']);
 
         return $this->createPayload($payload)->get();
     }
@@ -139,7 +139,8 @@ abstract class AbstractJWT
     /**
      * Set the ttl of the token
      *
-     * @param int  $ttl  in minutes
+     * @param  int  $ttl  in minutes
+     * @return self
      */
     public function setTTL($ttl)
     {
@@ -149,14 +150,35 @@ abstract class AbstractJWT
     }
 
     /**
-     * Set the algorithm of the token
+     * Set the algorithm used to sign the token
      *
-     * @param string  $algo
+     * @param  string  $algo
+     * @return self
      */
     public function setAlgo($algo)
     {
         $this->algo = $algo;
 
         return $this;
+    }
+
+    /**
+     * Get the ttl of the token
+     *
+     * @return int
+     */
+    public function getTTL()
+    {
+        return $this->ttl;
+    }
+
+    /**
+     * Get the algorithm used to sign the token
+     *
+     * @return string
+     */
+    public function getAlgo()
+    {
+        return $this->algo;
     }
 }

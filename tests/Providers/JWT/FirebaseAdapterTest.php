@@ -22,6 +22,7 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_token_when_passing_a_valid_subject_to_encode()
     {
+        // $this->firebase->shouldReceive('encode')->once()->with(1)->andReturn('foo.bar.baz');
         $token = $this->jwt->encode(1);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
@@ -75,6 +76,22 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
         $this->jwt->encode(1);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $this->jwt->getPayload());
+    }
+
+    /** @test */
+    public function it_should_set_the_ttl()
+    {
+        $this->jwt->setTTL(1440);
+
+        $this->assertEquals(1440, $this->jwt->getTTL());
+    }
+
+    /** @test */
+    public function it_should_set_the_algo()
+    {
+        $this->jwt->setAlgo('HS512');
+
+        $this->assertEquals('HS512', $this->jwt->getAlgo());
     }
 
 }
