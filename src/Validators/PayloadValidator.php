@@ -10,18 +10,18 @@ class PayloadValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected static $requiredClaims = ['iss', 'iat', 'exp', 'sub'];
+    protected static $requiredClaims = ['iss', 'iat', 'exp', 'sub', 'jti'];
 
     /**
      * Run the validation on the payload array
      *
-     * @param  array  $payload
+     * @param  array  $value
      * @return void
      */
-    public static function check(array $payload)
+    public static function check($value)
     {
-        self::validateStructure($payload);
-        self::validateExpiry($payload);
+        self::validateStructure($value);
+        self::validateExpiry($value);
     }
 
     /**

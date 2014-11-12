@@ -12,7 +12,8 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
             'iss' => 'http://example.com',
             'iat' => time(),
             'exp' => time() + 3600,
-            'sub' => 1
+            'sub' => 1,
+            'jti' => 'foo'
         ]);
     }
 

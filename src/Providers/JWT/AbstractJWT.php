@@ -65,9 +65,14 @@ abstract class AbstractJWT
             'exp' => time() + ($this->ttl * 60)
         ]);
 
-        // $payload['jti'] = md5($payload['iat'] . $payload['sub']);
+        $payload['jti'] = $this->createJti($payload);
 
         return $this->createPayload($payload)->get();
+    }
+
+    protected function createJti($payload)
+    {
+        return md5('jti.'. $payload['sub'] . $payload['iat']);
     }
 
     /**

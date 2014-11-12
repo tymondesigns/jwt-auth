@@ -14,7 +14,8 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'iss' => 'http://example.com',
             'iat' => time(),
             'exp' => time() + 3600,
-            'sub' => 1
+            'sub' => 1,
+            'jti' => 'foo'
         ];
 
 		$this->assertTrue(PayloadValidator::isValid($payload));
@@ -29,7 +30,8 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'iss' => 'http://example.com',
             'iat' => time() - 3660,
             'exp' => time() - 1440,
-            'sub' => 1
+            'sub' => 1,
+            'jti' => 'foo'
         ];
 
 		PayloadValidator::check($payload);
@@ -57,7 +59,8 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'iss' => 'http://example.com',
             'iat' => time() - 3660,
             'exp' => 'foo',
-            'sub' => 1
+            'sub' => 1,
+            'jti' => 'foo'
         ];
 
 		PayloadValidator::check($payload);

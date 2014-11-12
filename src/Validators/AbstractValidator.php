@@ -23,4 +23,6 @@ abstract class AbstractValidator
 
         return true;
     }
+
+    abstract public static function check($value);
 }

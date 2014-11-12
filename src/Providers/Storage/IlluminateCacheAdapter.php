@@ -3,7 +3,7 @@
 namespace Tymon\JWTAuth\Providers\Storage;
 
 use Illuminate\Cache\Repository;
-use Tymon\JWTAuth\Storage\StorageInterface;
+use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class IlluminateCacheAdapter implements StorageInterface
 {
@@ -28,8 +28,8 @@ class IlluminateCacheAdapter implements StorageInterface
     /**
      * Add a new item into storage
      *
-     * @param  string        $key
-     * @param  mixed         $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @param  DateTime|int  $minutes
      * @return void
      */

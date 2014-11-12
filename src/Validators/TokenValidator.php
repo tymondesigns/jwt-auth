@@ -9,12 +9,12 @@ class TokenValidator extends AbstractValidator
     /**
      * Check the structure of the token
      *
-     * @param string $token
+     * @param string $value
      * @return boolean|null
      */
-    public static function check($token)
+    public static function check($value)
     {
-        self::validateStructure($token);
+        self::validateStructure($value);
     }
 
     /**
