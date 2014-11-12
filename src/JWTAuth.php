@@ -91,7 +91,7 @@ class JWTAuth
      *
      * @param  array  $credentials
      * @param  array  $customClaims
-     * @return false|string
+     * @return mixed
      */
     public function attempt(array $credentials = [], array $customClaims = [])
     {
@@ -160,7 +160,7 @@ class JWTAuth
     /**
      * Parse token from the authorization header
      *
-     * @return false|string
+     * @return mixed
      */
     protected function parseAuthHeader($method = 'bearer')
     {

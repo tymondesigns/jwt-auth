@@ -180,7 +180,7 @@ class JWTAuthServiceProvider extends ServiceProvider
             'tymon.jwt.provider.user',
             'tymon.jwt.provider.jwt',
             'tymon.jwt.provider.auth',
-            'tymon.jwt.provider.storage'
+            'tymon.jwt.provider.storage',
             'tymon.jwt.generate',
             'tymon.jwt.filter',
             'Tymon\JWTAuth\JWTAuth',
