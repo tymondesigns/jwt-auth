@@ -9,8 +9,8 @@ class TokenValidator extends AbstractValidator
     /**
      * Check the structure of the token
      *
-     * @param string $value
-     * @return boolean|null
+     * @param string  $value
+     * @return void
      */
     public static function check($value)
     {
@@ -18,7 +18,7 @@ class TokenValidator extends AbstractValidator
     }
 
     /**
-     * @param string $token
+     * @param string  $token
      */
     protected static function validateStructure($token)
     {

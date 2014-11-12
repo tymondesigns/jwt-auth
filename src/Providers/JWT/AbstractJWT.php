@@ -70,7 +70,13 @@ abstract class AbstractJWT
         return $this->createPayload($payload)->get();
     }
 
-    protected function createJti($payload)
+    /**
+     * Create a unique id for the token
+     *
+     * @param  array  $payload
+     * @return string
+     */
+    protected function createJti(array $payload)
     {
         return md5('jti.'. $payload['sub'] . $payload['iat']);
     }
