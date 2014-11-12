@@ -63,7 +63,7 @@ class JWTGenerateCommand extends Command
     /**
      * Get the key file and contents.
      *
-     * @return array
+     * @return string[]
      */
     protected function getKeyFile()
     {

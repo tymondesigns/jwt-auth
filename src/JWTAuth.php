@@ -3,10 +3,10 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\User\UserInterface;
 use Tymon\JWTAuth\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Tymon\JWTAuth\JWT\JWTInterface;
+use Tymon\JWTAuth\User\UserInterface;
 
 class JWTAuth
 {
@@ -91,7 +91,7 @@ class JWTAuth
      *
      * @param  array  $credentials
      * @param  array  $customClaims
-     * @return mixed
+     * @return false|string
      */
     public function attempt(array $credentials = [], array $customClaims = [])
     {
@@ -124,8 +124,7 @@ class JWTAuth
     /**
      * Get the token
      *
-     * @param  string  $query
-     * @return mixed
+     * @return false|string
      */
     public function getToken()
     {
@@ -160,7 +159,7 @@ class JWTAuth
     /**
      * Parse token from the authorization header
      *
-     * @return mixed
+     * @return false|string
      */
     protected function parseAuthHeader($method = 'bearer')
     {

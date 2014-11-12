@@ -4,8 +4,8 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
-use Tymon\JWTAuth\JWTAuthFilter;
 use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\JWTAuthFilter;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
