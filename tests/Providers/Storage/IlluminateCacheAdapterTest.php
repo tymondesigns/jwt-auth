@@ -45,7 +45,7 @@ class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_remove_all_items_from_storage()
     {
-        $this->cache->shouldReceive('tags->flush');
+        $this->cache->shouldReceive('tags->flush')->withNoArgs();
 
         $this->storage->flush();
     }

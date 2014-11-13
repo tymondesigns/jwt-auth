@@ -18,7 +18,7 @@ class EloquentUserAdapter implements UserInterface
      * @param  \Illuminate\Database\Eloquent\Model $user
      * @return void
      */
-    public function _construct(Model $user)
+    public function __construct(Model $user)
     {
         $this->user = $user;
     }

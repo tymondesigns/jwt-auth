@@ -9,6 +9,7 @@ class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->builder = Mockery::mock('Illuminate\Database\Query\Builder');
         $this->model = Mockery::mock('Illuminate\Database\Eloquent\Model');
         $this->user = new EloquentUserAdapter($this->model);
     }
@@ -21,8 +22,12 @@ class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_user_if_found()
     {
-        // $this->model->shouldReceive('where')->once()->with('foo', 'bar')->andReturn((object) ['id' => 1]);
-        // $this->assertEquals($this->user->getBy('foo', 'bar')->id, 1);
+        $this->builder->shouldReceive('first')->once()->withNoArgs()->andReturn((object) ['id' => 1]);
+        $this->model->shouldReceive('where')->once()->with('foo', 'bar')->andReturn($this->builder);
+
+        $user = $this->user->getBy('foo', 'bar');
+
+        // dd($user);
     }
 
 }
