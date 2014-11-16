@@ -68,12 +68,12 @@ There are a number of ways you can generate a token. The usual flow would be to 
 // simple example
 Route::post('auth/login', function () {
     $credentials = Input::only('email', 'password');
-    
+
     if ( ! $token = JWTAuth::attempt($credentials) )
     {
         // return 401 error response
     }
-    
+
     return Response::json(compact('token'));
 });
 ```
@@ -100,7 +100,7 @@ Alternatively you can include the token via a query string
 ```php
 // simple example
 Route::post('me', function () {
-    
+
     try
     {
         $user = JWTAuth::getToken()->toUser();
@@ -110,13 +110,13 @@ Route::post('me', function () {
         // token has expired
         return Response::json(['error' => 'token_expired'], 401);
     }
-    
+
     if (! $user)
     {
         // user not found
         return Response::json(['error' => 'user_not_found'], 404);
     }
-    
+
     return Response::json(compact('user'));
 });
 
@@ -128,7 +128,7 @@ Alternatively, you can use the included `jwt-auth` route filter. It includes som
 Route::post('me', ['before' => 'jwt-auth', function() {
 
     $user = JWTAuth::getToken()->toUser();
-    
+
     return Response::json(compact('user'));
 }]);
 ```
@@ -171,7 +171,7 @@ JWTAuth::toUser($token);
 // accepts a User, and returns a token
 JWTAuth::fromUser($user);
 
-// sets the token for the request 
+// sets the token for the request
 // further methods that require a token can then be chained
 JWTAuth::setToken($token);
 
@@ -188,10 +188,10 @@ JWTAuth::decode($token);
 ```
 ## Todo
 
-- [ ] add more tests
+- [x] add more tests
 - [x] add test coverage reporting
 - [ ] finish docs!
-- [ ] think about decoupling from laravel
+- [ ] fully decouple from laravel
 
 ## License
 
