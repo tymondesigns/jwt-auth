@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth;
+namespace Tymon\JWTAuth\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;

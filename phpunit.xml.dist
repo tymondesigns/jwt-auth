@@ -18,7 +18,7 @@
         <whitelist>
             <directory suffix=".php">src/</directory>
             <exclude>
-                <file>src/JWTAuthServiceProvider.php</file>
+                <file>src/Providers/JWTAuthServiceProvider.php</file>
                 <directory suffix=".php">src/config/</directory>
                 <directory suffix=".php">src/Facades/</directory>
             </exclude>

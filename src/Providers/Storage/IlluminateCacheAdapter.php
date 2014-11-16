@@ -30,12 +30,22 @@ class IlluminateCacheAdapter implements StorageInterface
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @param  DateTime|int  $minutes
      * @return void
      */
-    public function add($key, $value, $minutes)
+    public function add($key, $value)
     {
-        return $this->cache->tags($this->tag)->put($key, $value, $minutes);
+        return $this->cache->tags($this->tag)->forever($key, $value);
+    }
+
+    /**
+     * Retrieve an item from storage
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function get($key)
+    {
+        return $this->cache->tags($this->tag)->get($key);
     }
 
     /**

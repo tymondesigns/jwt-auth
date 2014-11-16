@@ -30,7 +30,7 @@ class PayloadValidator extends AbstractValidator
      * @param  $payload
      * @return bool
      */
-    protected static function validateStructure($payload)
+    protected static function validateStructure(array $payload)
     {
         if (count(array_diff(self::$requiredClaims, array_keys($payload))) !== 0) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
@@ -45,7 +45,7 @@ class PayloadValidator extends AbstractValidator
      * @param  $payload
      * @return bool
      */
-    protected static function validateExpiry($payload)
+    protected static function validateExpiry(array $payload)
     {
         if (! is_int($payload['exp'])) {
             throw new TokenInvalidException('Invalid Expiration (exp) provided');
