@@ -13,6 +13,8 @@
 
 This package requires PHP >=5.4
 
+###### *lots of improvements being made on develop branch (0.4.x-dev). Hope to release soon*
+
 ## Installation
 
 Install via composer - edit your `composer.json` to require the package.
