@@ -52,6 +52,10 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->app['Tymon\JWTAuth\Providers\Auth\AuthInterface'] = function ($app) {
             return $app['tymon.jwt.provider.auth'];
         };
+        
+        $this->app['Tymon\JWTAuth\Providers\Storage\StorageInterface'] = function ($app) {
+            return $app['tymon.jwt.provider.storage'];
+        };
     }
 
     /**
@@ -186,7 +190,8 @@ class JWTAuthServiceProvider extends ServiceProvider
             'Tymon\JWTAuth\JWTAuth',
             'Tymon\JWTAuth\User\UserInterface',
             'Tymon\JWTAuth\JWT\JWTInterface',
-            'Tymon\JWTAuth\Auth\AuthInterface'
+            'Tymon\JWTAuth\Auth\AuthInterface',
+            'Tymon\JWTAuth\Storage\StorageInterface'
         ];
     }
 }
