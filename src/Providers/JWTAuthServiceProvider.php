@@ -82,7 +82,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerUserProvider()
     {
         $this->app['tymon.jwt.provider.user'] = $this->app->share(function ($app) {
-            return $app->make($this->config('user'));
+            return $app->make($this->config('providers.user'));
         });
     }
 
