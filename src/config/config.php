@@ -84,7 +84,7 @@ return [
         |
         */
 
-        'user' => 'Tymon\JWTAuth\User\EloquentUserAdapter',
+        'user' => 'Tymon\JWTAuth\Providers\User\EloquentUserAdapter',
 
         /*
         |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
         |
         */
 
-        'jwt' => 'Tymon\JWTAuth\JWT\FirebaseAdapter',
+        'jwt' => 'Tymon\JWTAuth\Providers\JWT\FirebaseAdapter',
 
         /*
         |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
         |
         */
 
-        'auth' => 'Tymon\JWTAuth\Auth\IlluminateAuthAdapter',
+        'auth' => 'Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter',
 
         /*
         |--------------------------------------------------------------------------
@@ -117,7 +117,7 @@ return [
         |
         */
 
-        'storage' => 'Tymon\JWTAuth\Storage\IlluminateCacheAdapter'
+        'storage' => 'Tymon\JWTAuth\Providers\Storage\IlluminateCacheAdapter'
 
     ]
 
