@@ -11,4 +11,12 @@ interface ValidatorInterface
      * @return void
      */
     public static function check($value);
+    
+    /**
+     * Helper function to return a boolean
+     *
+     * @param  array  $value
+     * @return bool
+     */
+    public static function isValid($value)
 }
