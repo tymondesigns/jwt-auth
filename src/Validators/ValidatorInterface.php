@@ -18,5 +18,5 @@ interface ValidatorInterface
      * @param  array  $value
      * @return bool
      */
-    public static function isValid($value)
+    public static function isValid($value);
 }
