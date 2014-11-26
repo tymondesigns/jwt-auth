@@ -122,6 +122,19 @@ class JWTAuth
     }
 
     /**
+     * Refresh an expired token
+     *
+     * @param  bool  $token
+     * @return string
+     */
+    public function refresh($token = false)
+    {
+        $this->requireToken($token);
+
+        return $this->jwt->refresh($this->token)->get();
+    }
+
+    /**
      * Get the token
      *
      * @return false|string

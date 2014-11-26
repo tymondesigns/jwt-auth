@@ -7,16 +7,21 @@ use Tymon\JWTAuth\Validators\TokenValidator;
 class TokenValidatorTest extends \PHPUnit_Framework_TestCase
 {
 
+	public function setUp()
+	{
+		$this->validator = new TokenValidator();
+	}
+
 	/** @test */
 	public function it_should_return_true_when_providing_a_well_formed_token()
 	{
-		$this->assertTrue(TokenValidator::isValid('one.two.three'));
+		$this->assertTrue($this->validator->isValid('one.two.three'));
 	}
 
 	/** @test */
 	public function it_should_return_false_when_providing_a_malformed_token()
 	{
-		$this->assertFalse(TokenValidator::isValid('one.two.three.four.five'));
+		$this->assertFalse($this->validator->isValid('one.two.three.four.five'));
 	}
 
 	/** @test */
@@ -24,6 +29,6 @@ class TokenValidatorTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
 
-		TokenValidator::check('one.two.three.four.five');
+		$this->validator->check('one.two.three.four.five');
 	}
 }

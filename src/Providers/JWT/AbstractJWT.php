@@ -100,9 +100,9 @@ abstract class AbstractJWT
      * @param  array  $payload
      * @return \Tymon\JWTAuth\Payload
      */
-    protected function createPayload($payload)
+    protected function createPayload($payload, $refresh = false)
     {
-        $this->payload = new Payload($payload);
+        $this->payload = new Payload($payload, $refresh);
 
         return $this->payload;
     }
@@ -125,6 +125,19 @@ abstract class AbstractJWT
         }
 
         return $this->decode($token)->get('sub');
+    }
+
+    /**
+     * Refresh an expired token
+     *
+     * @param  string  $token
+     * @return \Tymon\JWTAuth\Token
+     */
+    public function refresh($token)
+    {
+        $subject = $this->decode($this->token, true)->get('sub');
+
+        return $this->encode($subject);
     }
 
     /**

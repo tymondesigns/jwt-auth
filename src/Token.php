@@ -19,7 +19,7 @@ final class Token
      */
     public function __construct($value)
     {
-        TokenValidator::check($value);
+        with(new TokenValidator)->check($value);
 
         $this->value = $value;
     }

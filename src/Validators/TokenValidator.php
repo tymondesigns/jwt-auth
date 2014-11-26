@@ -12,15 +12,16 @@ class TokenValidator extends AbstractValidator
      * @param string  $value
      * @return void
      */
-    public static function check($value)
+    public function check($value)
     {
-        self::validateStructure($value);
+        $this->validateStructure($value);
     }
 
     /**
-     * @param string  $token
+     * @param  string  $token
+     * @return void
      */
-    protected static function validateStructure($token)
+    protected function validateStructure($token)
     {
         if (count(explode('.', $token)) !== 3) {
             throw new TokenInvalidException('Wrong number of segments');

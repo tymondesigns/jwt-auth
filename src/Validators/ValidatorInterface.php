@@ -10,7 +10,7 @@ interface ValidatorInterface
      * @param  mixed  $value
      * @return void
      */
-    public static function check($value);
+    public function check($value);
     
     /**
      * Helper function to return a boolean
@@ -18,5 +18,5 @@ interface ValidatorInterface
      * @param  array  $value
      * @return bool
      */
-    public static function isValid($value);
+    public function isValid($value);
 }

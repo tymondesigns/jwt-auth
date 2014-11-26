@@ -32,16 +32,17 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
      * Decode a JSON Web Token
      *
      * @param  string  $token
+     * @param  bool  $refresh
      * @return \Tymon\JWTAuth\Payload
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    public function decode($token)
+    public function decode($token, $refresh = false)
     {
         $this->createToken($token);
 
         try {
             $payload = (array) Firebase::decode($this->token, $this->secret);
-            $this->createPayload($payload);
+            $this->createPayload($payload, $refresh);
         } catch (Exception $e) {
             throw new JWTException('Could not decode token: ' . $e->getMessage());
         }

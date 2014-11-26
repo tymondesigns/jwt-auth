@@ -19,9 +19,9 @@ final class Payload implements ArrayAccess
      *
      * @param array  $value
      */
-    public function __construct(array $value)
+    public function __construct(array $value, $refresh = false)
     {
-        PayloadValidator::check($value);
+        with(new PayloadValidator)->setRefreshFlow($refresh)->check($value);
 
         $this->value = $value;
     }

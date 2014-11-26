@@ -7,20 +7,34 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 abstract class AbstractValidator implements ValidatorInterface
 {
 
+    protected $refreshFlow = false;
+
     /**
      * Helper function to return a boolean
      *
      * @param  array  $value
      * @return bool
      */
-    public static function isValid($value)
+    public function isValid($value)
     {
         try {
-            static::check($value);
+            $this->check($value);
         } catch (JWTException $e) {
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Set the refresh flow flag
+     *
+     * @param bool  $refreshFlow
+     */
+    public function setRefreshFlow($refreshFlow)
+    {
+        $this->refreshFlow = $refreshFlow;
+
+        return $this;
     }
 }
