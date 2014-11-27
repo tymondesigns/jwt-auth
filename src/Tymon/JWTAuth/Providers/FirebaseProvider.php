@@ -51,7 +51,7 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
             }
         }
 
-        return $this->createPayload($payload, $refresh);
+        return $this->createPayload($payload);
 	}
 
 }
