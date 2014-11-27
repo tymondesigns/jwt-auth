@@ -10,7 +10,7 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 
 	/**
 	 * Create a JSON Web Token
-	 * 
+	 *
 	 * @param mixed $subject
 	 * @param array $customClaims
 	 * @return \Tymon\JWTAuth\Token
@@ -33,7 +33,7 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 
 	/**
 	 * Decode a JSON Web Token
-	 * 
+	 *
 	 * @param  string $token
 	 * @return \Tymon\JWTAuth\Payload
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
@@ -42,17 +42,16 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
 	{
 		$this->createToken($token);
 
-		try
-		{
-			$payload = (array) Firebase::decode( $this->token, $this->secret );
-			$this->createPayload($payload);
-		}
-		catch (Exception $e)
-		{
-			throw new JWTException( 'Could not decode token: ' . $e->getMessage() );
-		}
+        try {
+            $payload = (array) Firebase::decode($this->token, $this->secret);
+        } catch (Exception $e) {
+        	// ignore firebase's expired exception because we will throw our own later
+            if ($e->getMessage() !== 'Expired Token') {
+                throw new JWTException('Could not decode token: ' . $e->getMessage());
+            }
+        }
 
-		return $this->payload;
+        return $this->createPayload($payload, $refresh);
 	}
 
 }
