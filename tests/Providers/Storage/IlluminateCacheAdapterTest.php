@@ -21,7 +21,7 @@ class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_add_the_item_to_storage()
     {
-        $this->cache->shouldReceive('tags->forever')->with('foo', 'bar');
+        $this->cache->shouldReceive('tags->put')->with('foo', 'bar', 10);
 
         $this->storage->add('foo', 'bar', 10);
     }

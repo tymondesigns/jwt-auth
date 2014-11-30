@@ -7,7 +7,7 @@ interface StorageInterface
     /**
      * @return void
      */
-    public function add($key, $value);
+    public function add($key, $value, $minutes);
 
     /**
      * @return boolean
