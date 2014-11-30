@@ -78,7 +78,7 @@ abstract class AbstractJWT
      */
     protected function createJti(array $payload)
     {
-        return md5('jti.'. $payload['sub'] . $payload['iat']);
+        return md5('jti.'. $payload['sub'] . '.' . $payload['iat']);
     }
 
     /**

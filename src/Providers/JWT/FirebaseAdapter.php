@@ -43,7 +43,10 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
         try {
             $payload = (array) Firebase::decode($this->token, $this->secret);
         } catch (Exception $e) {
-            if ($e->getMessage() !== 'Expired Token') {
+            // firebase implementation doesn't return the payload if it has expired
+            if ($e->getMessage() === 'Expired Token') {
+                throw new TokenExpiredException('JWT has expired');
+            } else {
                 throw new JWTException('Could not decode token: ' . $e->getMessage());
             }
         }
