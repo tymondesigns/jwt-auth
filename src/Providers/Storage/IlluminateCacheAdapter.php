@@ -39,17 +39,6 @@ class IlluminateCacheAdapter implements StorageInterface
     }
 
     /**
-     * Retrieve an item from storage
-     *
-     * @param  string  $key
-     * @return bool
-     */
-    public function get($key)
-    {
-        return $this->cache->tags($this->tag)->get($key);
-    }
-
-    /**
      * Check whether a key exists in storage
      *
      * @param  string  $key
