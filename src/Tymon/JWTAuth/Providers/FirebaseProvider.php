@@ -45,10 +45,12 @@ class FirebaseProvider extends AbstractProvider implements ProviderInterface {
         try {
             $payload = (array) Firebase::decode($this->token, $this->secret);
         } catch (Exception $e) {
-        	// ignore firebase's expired exception because we will throw our own later
-            if ($e->getMessage() !== 'Expired Token') {
-                throw new JWTException('Could not decode token: ' . $e->getMessage());
-            }
+        	// firebase implementation doesn't return the payload if it has expired :(
+        	if ($e->getMessage() === 'Expired Token') {
+        		throw new TokenExpiredException('JWT has expired');
+        	} else {
+        		throw new JWTException('Could not decode token: ' . $e->getMessage());
+        	}
         }
 
         return $this->createPayload($payload);
