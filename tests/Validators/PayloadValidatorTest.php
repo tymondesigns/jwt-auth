@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth\Test;
 
+use Mockery;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
@@ -9,7 +10,8 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new PayloadValidator();
+        $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
+        $this->validator = new PayloadValidator($this->blacklist);
     }
 
     /** @test */
@@ -30,6 +32,8 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     public function it_should_throw_an_exception_when_providing_an_expired_payload()
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenExpiredException');
+
+        $this->blacklist->shouldReceive('has')->with('foo')->andReturn(false);
 
         $payload = [
             'iss' => 'http://example.com',

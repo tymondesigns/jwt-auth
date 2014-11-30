@@ -124,7 +124,7 @@ class JWTAuth
     /**
      * Refresh an expired token
      *
-     * @param  bool  $token
+     * @param  mixed  $token
      * @return string
      */
     public function refresh($token = false)
@@ -132,6 +132,19 @@ class JWTAuth
         $this->requireToken($token);
 
         return $this->jwt->refresh($this->token)->get();
+    }
+
+    /**
+     * Invalidate a token (add it to the blacklist)
+     *
+     * @param  mixed  $token
+     * @return bool
+     */
+    public function invalidate($token = false)
+    {
+        $this->requireToken($token);
+
+        // blacklist token here
     }
 
     /**

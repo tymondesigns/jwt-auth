@@ -18,13 +18,13 @@ class PayloadValidator extends AbstractValidator
      */
     protected $blacklist;
 
-    /**
-     * @param \Tymon\JWTAuth\Blacklist
-     */
-    public function __construct(Blacklist $blacklist)
-    {
-        $this->blacklist = $blacklist;
-    }
+    // /**
+    //  * @param \Tymon\JWTAuth\Blacklist
+    //  */
+    // public function __construct(Blacklist $blacklist)
+    // {
+    //     $this->blacklist = $blacklist;
+    // }
 
     /**
      * Run the validations on the payload array
@@ -35,6 +35,9 @@ class PayloadValidator extends AbstractValidator
     public function check($value)
     {
         $this->validateStructure($value);
+
+        // if config set to check storage
+        // $this->validateBlacklist($value);
 
         if (! $this->refreshFlow) {
             $this->validateExpiry($value);
