@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
+use Tymon\JWTAuth\Blacklist;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -52,7 +53,7 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->app['Tymon\JWTAuth\Providers\Auth\AuthInterface'] = function ($app) {
             return $app['tymon.jwt.provider.auth'];
         };
-        
+
         $this->app['Tymon\JWTAuth\Providers\Storage\StorageInterface'] = function ($app) {
             return $app['tymon.jwt.provider.storage'];
         };
@@ -143,6 +144,16 @@ class JWTAuthServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the bindings for the main JWTAuth class
+     */
+    protected function registerJWTBlacklist()
+    {
+        $this->app['tymon.jwt.blacklist'] = $this->app->share(function ($app) {
+            return new Blacklist($app['tymon.jwt.provider.storage']);
+        });
+    }
+
+    /**
      * Register the bindings for the 'jwt-auth' filter
      */
     protected function registerJWTAuthFilter()
@@ -185,6 +196,7 @@ class JWTAuthServiceProvider extends ServiceProvider
             'tymon.jwt.provider.jwt',
             'tymon.jwt.provider.auth',
             'tymon.jwt.provider.storage',
+            'tymon.jwt.blacklist',
             'tymon.jwt.generate',
             'tymon.jwt.filter',
             'Tymon\JWTAuth\JWTAuth',
