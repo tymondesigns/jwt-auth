@@ -1,7 +1,6 @@
 <?php namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Providers\AbstractProvider;
-use Tymon\JWTAuth\Providers\ProviderInterface;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWT as Firebase;
 use Exception;
