@@ -135,7 +135,7 @@ abstract class AbstractJWT
      */
     public function refresh($token)
     {
-        $subject = $this->decode($this->token, true)->get('sub');
+        $subject = $this->decode($token, true)->get('sub');
 
         return $this->encode($subject);
     }
