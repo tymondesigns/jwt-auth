@@ -2,8 +2,10 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
-use Tymon\JWTAuth\Exceptions\JWTException;
-
 class PayloadException extends JWTException
 {
+    /**
+     * @var integer
+     */
+    protected $statusCode = 500;
 }

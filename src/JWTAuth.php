@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Auth\AuthInterface;
-use Tymon\JWTAuth\Exceptions\JWTAuthException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWT\JWTInterface;
 use Tymon\JWTAuth\User\UserInterface;
 
@@ -171,10 +171,8 @@ class JWTAuth
      */
     public function parseToken($query = 'token')
     {
-        if ( ! $token = $this->parseAuthHeader() )
-        {
-            if ( ! $token = $this->request->query($query, false) )
-            {
+        if (! $token = $this->parseAuthHeader()) {
+            if (! $token = $this->request->query($query, false)) {
                 return false;
             }
         }
@@ -237,7 +235,7 @@ class JWTAuth
      *
      * @param  mixed  $token
      * @return void
-     * @throws \Tymon\JWTAuth\Exceptions\JWTAuthException
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     protected function requireToken($token)
     {
@@ -245,7 +243,7 @@ class JWTAuth
             $this->setToken($token);
         } else {
             if (! $this->token) {
-                throw new JWTAuthException('A token is required');
+                throw new JWTException('A token is required', 400);
             }
         }
     }
