@@ -118,7 +118,7 @@ abstract class AbstractJWT
         if (! $token) {
 
             if (! $this->payload) {
-                throw new JWTException('A token is required');
+                throw new JWTException('A token is required', 400);
             }
 
             return $this->payload->get('sub');

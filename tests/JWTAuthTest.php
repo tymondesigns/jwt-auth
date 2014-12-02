@@ -83,7 +83,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_not_providing_a_token()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTAuthException');
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
 
         $user = $this->jwtAuth->toUser();
     }

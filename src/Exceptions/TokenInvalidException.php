@@ -2,8 +2,10 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
-use Tymon\JWTAuth\Exceptions\JWTException;
-
 class TokenInvalidException extends JWTException
 {
+    /**
+     * @var integer
+     */
+    protected $statusCode = 400;
 }
