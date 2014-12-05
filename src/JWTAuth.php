@@ -262,6 +262,6 @@ class JWTAuth
             return call_user_func_array([$this->jwt, $method], $parameters);
         }
 
-        throw new \BadMethodCallException('Method [$method] does not exist.');
+        throw new \BadMethodCallException("Method [$method] does not exist.");
     }
 }
