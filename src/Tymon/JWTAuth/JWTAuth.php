@@ -111,12 +111,12 @@ class JWTAuth {
 
 		$id = $this->provider->getSubject($this->token);
 
-		if (! $user = $this->auth->onceUsingId($id) )
+		if (! $this->auth->onceUsingId($id) )
 		{
 			return false;
 		}
 
-		return $user;
+		return $this->auth->user();
 	}
 
 	/**
