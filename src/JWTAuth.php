@@ -114,11 +114,11 @@ class JWTAuth
 
         $id = $this->jwt->getSubject($this->token);
 
-        if (! $user = $this->auth->checkUsingId($id)) {
+        if (! $this->auth->checkUsingId($id)) {
             return false;
         }
 
-        return $user;
+        return $this->auth->user();
     }
 
     /**
