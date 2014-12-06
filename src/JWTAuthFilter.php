@@ -28,8 +28,6 @@ class JWTAuthFilter
     /**
      * Filter the request
      *
-     * @param  \Illuminate\Routing\Router  $route
-     * @param  \Illuminate\Http\Request    $request
      * @return \Illuminate\Http\Response
      */
     public function filter()

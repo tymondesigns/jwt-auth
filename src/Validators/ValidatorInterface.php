@@ -11,7 +11,7 @@ interface ValidatorInterface
      * @return void
      */
     public function check($value);
-    
+
     /**
      * Helper function to return a boolean
      *

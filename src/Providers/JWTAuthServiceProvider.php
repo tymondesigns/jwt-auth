@@ -3,10 +3,10 @@
 namespace Tymon\JWTAuth\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
-use Tymon\JWTAuth\Blacklist;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {

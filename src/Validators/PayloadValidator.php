@@ -2,9 +2,9 @@
 
 namespace Tymon\JWTAuth\Validators;
 
+use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Blacklist;
 
 class PayloadValidator extends AbstractValidator
 {

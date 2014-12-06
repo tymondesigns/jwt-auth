@@ -138,7 +138,7 @@ class JWTAuth
      * Invalidate a token (add it to the blacklist)
      *
      * @param  mixed  $token
-     * @return bool
+     * @return boolean|null
      */
     public function invalidate($token = false)
     {
