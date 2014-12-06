@@ -91,8 +91,9 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_owning_user_from_a_token_containing_an_existing_user()
     {
-        $this->jwt->shouldReceive('getSubject')->once()->andReturn(1);
-        $this->auth->shouldReceive('checkUsingId')->once()->andReturn((object) ['id' => 1]);
+        $this->jwt->shouldReceive('getSubject')->once()->with('foo')->andReturn(1);
+        $this->auth->shouldReceive('checkUsingId')->once()->with(1)->andReturn(true);
+        $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
         $user = $this->jwtAuth->login('foo');
 
