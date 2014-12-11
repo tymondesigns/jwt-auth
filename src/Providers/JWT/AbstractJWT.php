@@ -40,6 +40,11 @@ abstract class AbstractJWT
     protected $algo = 'HS256';
 
     /**
+     * @var boolean
+     */
+    protected $refreshFlow = false;
+
+    /**
      * @param $secret
      * @param \Illuminate\Http\Request  $request
      */
@@ -100,11 +105,23 @@ abstract class AbstractJWT
      * @param  array  $payload
      * @return \Tymon\JWTAuth\Payload
      */
-    protected function createPayload($payload, $refresh = false)
+    protected function createPayload($payload)
     {
-        $this->payload = new Payload($payload, $refresh);
+        $this->payload = new Payload($payload, $this->refreshFlow);
 
         return $this->payload;
+    }
+
+    /**
+     * Set the refresh flow flag
+     *
+     * @param bool  $refreshFlow
+     */
+    protected function setRefreshFlow($refreshFlow = true)
+    {
+        $this->refreshFlow = $refreshFlow;
+
+        return $this;
     }
 
     /**
@@ -135,7 +152,7 @@ abstract class AbstractJWT
      */
     public function refresh($token)
     {
-        $subject = $this->decode($token, true)->get('sub');
+        $subject = $this->setRefreshFlow()->decode($token)->get('sub');
 
         return $this->encode($subject);
     }

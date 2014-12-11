@@ -7,6 +7,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 abstract class AbstractValidator implements ValidatorInterface
 {
 
+    /**
+     * @var bool
+     */
     protected $refreshFlow = false;
 
     /**
@@ -31,7 +34,7 @@ abstract class AbstractValidator implements ValidatorInterface
      *
      * @param bool  $refreshFlow
      */
-    public function setRefreshFlow($refreshFlow)
+    public function setRefreshFlow($refreshFlow = true)
     {
         $this->refreshFlow = $refreshFlow;
 

@@ -79,7 +79,6 @@ class PayloadValidator extends AbstractValidator
     protected function validateBlacklist(array $payload)
     {
         if ($this->blacklist->has($payload['jti'])) {
-            // or throw TokenInvalidException ?
             throw new TokenBlacklistedException('Token has been blacklisted');
         }
 

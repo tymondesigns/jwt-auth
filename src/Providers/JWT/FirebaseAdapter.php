@@ -36,7 +36,7 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
      * @return \Tymon\JWTAuth\Payload
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    public function decode($token, $refresh = false)
+    public function decode($token)
     {
         $this->createToken($token);
 
@@ -51,6 +51,6 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
             }
         }
 
-        return $this->createPayload($payload, $refresh);
+        return $this->createPayload($payload);
     }
 }
