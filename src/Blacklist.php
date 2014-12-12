@@ -17,7 +17,7 @@ class Blacklist
     protected $storage;
 
     /**
-     * @param \Tymon\JWTAuth\JWT\JWTInterface  $jwt
+     * @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $jwt
      * @param \Tymon\JWTAuth\Providers\Storage\StorageInterface  $storage
      */
     public function __construct(JWTInterface $jwt, StorageInterface $storage)
