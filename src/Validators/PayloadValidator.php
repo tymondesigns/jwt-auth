@@ -2,7 +2,6 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -14,19 +13,6 @@ class PayloadValidator extends AbstractValidator
     protected $requiredClaims = ['iss', 'iat', 'exp', 'sub', 'jti'];
 
     /**
-     * @var \Tymon\JWTAuth\Blacklist
-     */
-    protected $blacklist;
-
-    // /**
-    //  * @param \Tymon\JWTAuth\Blacklist
-    //  */
-    // public function __construct(Blacklist $blacklist)
-    // {
-    //     $this->blacklist = $blacklist;
-    // }
-
-    /**
      * Run the validations on the payload array
      *
      * @param  array  $value
@@ -35,9 +21,6 @@ class PayloadValidator extends AbstractValidator
     public function check($value)
     {
         $this->validateStructure($value);
-
-        // if config set to check storage
-        // $this->validateBlacklist($value);
 
         if (! $this->refreshFlow) {
             $this->validateExpiry($value);
@@ -65,21 +48,6 @@ class PayloadValidator extends AbstractValidator
 
         if (! is_int($payload['exp'])) {
             throw new TokenInvalidException('Invalid Expiration (exp) provided');
-        }
-
-        return true;
-    }
-
-    /**
-     * Check whether the token has been blacklisted
-     *
-     * @param  array  $payload
-     * @return bool
-     */
-    protected function validateBlacklist(array $payload)
-    {
-        if ($this->blacklist->has($payload['jti'])) {
-            throw new TokenBlacklistedException('Token has been blacklisted');
         }
 
         return true;

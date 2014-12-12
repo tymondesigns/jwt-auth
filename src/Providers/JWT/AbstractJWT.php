@@ -4,8 +4,10 @@ namespace Tymon\JWTAuth\Providers\JWT;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Blacklist;
 
 abstract class AbstractJWT
 {
@@ -13,6 +15,11 @@ abstract class AbstractJWT
      * @var string
      */
     protected $secret;
+
+    /**
+     * @var \Tymon\JWTAuth\Blacklist
+     */
+    protected $blacklist;
 
     /**
      * @var \Illuminate\Http\Request
@@ -46,11 +53,13 @@ abstract class AbstractJWT
 
     /**
      * @param $secret
+     * @param \Tymon\JWTAuth\Blacklist  $blacklist
      * @param \Illuminate\Http\Request  $request
      */
-    public function __construct($secret, Request $request)
+    public function __construct($secret, Blacklist $blacklist, Request $request)
     {
         $this->secret = $secret;
+        $this->blacklist = $blacklist;
         $this->request = $request;
     }
 
@@ -107,6 +116,9 @@ abstract class AbstractJWT
      */
     protected function createPayload($payload)
     {
+        // if config set to check storage
+        $this->validateBlacklist($payload);
+
         $this->payload = new Payload($payload, $this->refreshFlow);
 
         return $this->payload;
@@ -122,6 +134,21 @@ abstract class AbstractJWT
         $this->refreshFlow = $refreshFlow;
 
         return $this;
+    }
+
+    /**
+     * Check whether the token has been blacklisted
+     *
+     * @param  array  $payload
+     * @return bool
+     */
+    protected function validateBlacklist(array $payload)
+    {
+        if ($this->blacklist->has($payload['jti'])) {
+            throw new TokenBlacklistedException('Token has been blacklisted');
+        }
+
+        return true;
     }
 
     /**
