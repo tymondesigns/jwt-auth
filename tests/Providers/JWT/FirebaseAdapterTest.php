@@ -10,7 +10,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->jwt = new FirebaseAdapter('secret', Request::create('/foo', 'GET'));
+        $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
+        $this->jwt = new FirebaseAdapter('secret', $this->blacklist, Request::create('/foo', 'GET'));
         $this->firebase = Mockery::mock('alias:Firebase');
     }
 
@@ -23,6 +24,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_the_token_when_passing_a_valid_subject_to_encode()
     {
         // $this->firebase->shouldReceive('encode')->once()->with(1)->andReturn('foo.bar.baz');
+        $this->blacklist->shouldReceive('has')->once()->andReturn(false);
+
         $token = $this->jwt->encode(1);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
@@ -31,6 +34,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     {
+        $this->blacklist->shouldReceive('has')->times(2)->andReturn(false);
+
         $token = $this->jwt->encode(1)->get();
         $payload = $this->jwt->decode($token);
 
@@ -40,6 +45,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_subject_via_helper_when_payload_is_already_set()
     {
+        $this->blacklist->shouldReceive('has')->times(2)->andReturn(false);
+
         $token = $this->jwt->encode(1)->get();
         $payload = $this->jwt->decode($token);
 
@@ -49,6 +56,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_subject_via_helper_when_payload_is_not_set()
     {
+        $this->blacklist->shouldReceive('has')->times(2)->andReturn(false);
+
         $token = $this->jwt->encode(1)->get();
 
         $this->assertEquals($this->jwt->getSubject($token), 1);
@@ -65,6 +74,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_token()
     {
+        $this->blacklist->shouldReceive('has')->once()->andReturn(false);
+
         $this->jwt->encode(1);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $this->jwt->getToken());
@@ -73,6 +84,8 @@ class FirebaseAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_payload()
     {
+        $this->blacklist->shouldReceive('has')->once()->andReturn(false);
+
         $this->jwt->encode(1);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $this->jwt->getPayload());

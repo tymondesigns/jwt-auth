@@ -23,7 +23,9 @@ class JWTGenerateCommandTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_shoud_generate_random_key()
     {
-        // Mockery::mock('Str')->shouldReceive('random')->andReturn('foo');
+        Mockery::mock('Str')->shouldReceive('random')->andReturn('foo');
+
+        // $this->tester->execute(['env' => 'local']);
 
         // $this->assertEquals('JWT Auth key [foo] set successfully.\n', $this->tester->getDisplay());
     }

@@ -55,4 +55,16 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->payload->get('sub'), 1);
     }
 
+    /** @test */
+    public function it_should_get_multiple_properties_when_passing_an_array_to_the_get_method()
+    {
+        $values = $this->payload->get(['sub', 'jti']);
+
+        list($sub, $jti) = $values;
+
+        $this->assertInternalType('array', $values);
+        $this->assertEquals($sub, 1);
+        $this->assertEquals($jti, 'foo');
+    }
+
 }

@@ -144,7 +144,7 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        // blacklist token here
+        // return $this->blacklist->add($this->token);
     }
 
     /**
@@ -185,9 +185,9 @@ class JWTAuth
      *
      * @return false|string
      */
-    protected function parseAuthHeader($method = 'bearer')
+    protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
     {
-        $header = $this->request->headers->get('authorization');
+        $header = $this->request->headers->get($header);
 
         if (! starts_with(strtolower($header), $method)) {
             return false;
