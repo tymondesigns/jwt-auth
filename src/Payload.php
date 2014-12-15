@@ -4,46 +4,67 @@ namespace Tymon\JWTAuth;
 
 use ArrayAccess;
 use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Claims\ClaimInterface;
 
-final class Payload implements ArrayAccess
+class Payload implements ArrayAccess
 {
 
     /**
-     * @var array
+     * The array of claims
+     *
+     * @var array \Tymon\JWTAuth\Claims\ClaimInterface[]
      */
-    private $value;
+	private $claims = [];
 
     /**
-     * Create a new JWT payload
+     * Build the Payload
      *
-     * @param array  $value
+     * @param array  $claims
      */
-    public function __construct(array $value, $refresh = false)
-    {
-        with(new PayloadValidator)->setRefreshFlow($refresh)->check($value);
+	public function __construct(array $claims)
+	{
+		$this->claims = $claims;
+	}
 
-        $this->value = $value;
+    /**
+     * Get the array of claims
+     *
+     * @return array
+     */
+    public function getClaims()
+    {
+        return array_map([$this, 'getClaimArray'], $this->claims);
+    }
+
+    /**
+     * Get the array representation of the claim
+     *
+     * @param  \Tymon\JWTAuth\Claims\ClaimInterface  $claim
+     * @return array
+     */
+    protected function getClaimArray(ClaimInterface $claim)
+    {
+        return $claim->toArray();
     }
 
     /**
      * Get the payload
      *
-     * @param  string  $property
+     * @param  string  $claim
      * @return array
      */
-    public function get($property = null)
+    public function get($claim = null)
     {
-        if (! is_null($property)) {
+        if (! is_null($claim)) {
 
-            if (is_array($property)) {
-                return array_map([$this, 'get'], $property);
+            if (is_array($claim)) {
+                return array_map([$this, 'get'], $claim);
             }
 
-            return $this->value[$property];
+            return $this->getClaims()[$claim];
         }
 
-        return $this->value;
+        return $this->getClaims();
     }
 
     /**
@@ -53,7 +74,7 @@ final class Payload implements ArrayAccess
      */
     public function __toString()
     {
-        return json_encode($this->value);
+        return json_encode($this->getClaims());
     }
 
     /**
@@ -64,7 +85,7 @@ final class Payload implements ArrayAccess
      */
     public function offsetExists($key)
     {
-        return array_key_exists($key, $this->value);
+        return array_key_exists($key, $this->getClaims());
     }
 
     /**
@@ -75,7 +96,7 @@ final class Payload implements ArrayAccess
      */
     public function offsetGet($key)
     {
-        return $this->value[$key];
+        return $this->getClaims()[$key];
     }
 
     /**
@@ -100,4 +121,5 @@ final class Payload implements ArrayAccess
     {
         throw new PayloadException('You cannot change the payload');
     }
+
 }
