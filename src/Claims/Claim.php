@@ -47,7 +47,7 @@ abstract class Claim implements ClaimInterface
     {
         if (method_exists($this, 'validate')) {
             if (! $this->validate($value)) {
-                throw new \Exception('Invalid data provided for claim "' . $this->getType().'": ' . $value);
+                throw new \Exception('Invalid value provided for claim "' . $this->getType() . '": ' . $value);
             }
         }
 
@@ -117,7 +117,17 @@ abstract class Claim implements ClaimInterface
      */
     public function toArray()
     {
-        return [$this->getType() => $this->getValue)];
+        return [$this->getType() => $this->getValue()];
+    }
+
+    /**
+     * Get the claim as a string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray());
     }
 
 }

@@ -61,7 +61,7 @@ class Payload implements ArrayAccess
                 return array_map([$this, 'get'], $claim);
             }
 
-            return $this->getClaims()[$claim];
+            return array_get($this->getClaims(), $claim);
         }
 
         return $this->getClaims();
@@ -96,7 +96,7 @@ class Payload implements ArrayAccess
      */
     public function offsetGet($key)
     {
-        return $this->getClaims()[$key];
+        return array_get($this->getClaims(), $key, []);
     }
 
     /**
