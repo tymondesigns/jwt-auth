@@ -143,8 +143,10 @@ class JWTAuth
     public function invalidate($token = false)
     {
         $this->requireToken($token);
+        
+        $this->jwt->decode($this->token);
 
-        // return $this->blacklist->add($this->token);
+        return $this->blacklist->add($this->jwt->getPayload());
     }
 
     /**
