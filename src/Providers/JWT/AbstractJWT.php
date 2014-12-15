@@ -203,6 +203,16 @@ abstract class AbstractJWT
     {
         return $this->token;
     }
+    
+    /**
+     * Get the Blacklist instance
+     * 
+     * @return \Tymon\JWTAuth\Blacklist
+     */
+    public function getBlacklist()
+    {
+        return $this->blacklist;
+    }
 
     /**
      * Set the ttl of the token
