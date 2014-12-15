@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Claims;
 
 interface ClaimInterface
 {
-	/**
+    /**
      * Set the claim value, and call a validate method if available
      *
      * @param mixed

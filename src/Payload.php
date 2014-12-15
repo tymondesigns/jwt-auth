@@ -14,17 +14,17 @@ class Payload implements ArrayAccess
      *
      * @var array \Tymon\JWTAuth\Claims\ClaimInterface[]
      */
-	private $claims = [];
+    private $claims = [];
 
     /**
      * Build the Payload
      *
      * @param array  $claims
      */
-	public function __construct(array $claims)
-	{
-		$this->claims = $claims;
-	}
+    public function __construct(array $claims)
+    {
+        $this->claims = $claims;
+    }
 
     /**
      * Get the array of claims
