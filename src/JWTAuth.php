@@ -138,15 +138,13 @@ class JWTAuth
      * Invalidate a token (add it to the blacklist)
      *
      * @param  mixed  $token
-     * @return boolean|null
+     * @return boolean
      */
     public function invalidate($token = false)
     {
         $this->requireToken($token);
-        
-        $this->jwt->decode($this->token);
 
-        return $this->jwt->getBlacklist()->add($this->jwt->getPayload());
+        return $this->jwt->invalidate($this->token);
     }
 
     /**

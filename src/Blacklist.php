@@ -3,13 +3,10 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Providers\Storage\StorageInterface;
+use Tymon\JWTAuth\Payload;
 
 class Blacklist
 {
-    /**
-     * @var \Tymon\JWTAuth\JWT\JWTInterface
-     */
-    protected $jwt;
 
     /**
      * @var \Tymon\JWTAuth\Providers\Storage\StorageInterface
@@ -17,23 +14,21 @@ class Blacklist
     protected $storage;
 
     /**
-     * @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $jwt
      * @param \Tymon\JWTAuth\Providers\Storage\StorageInterface  $storage
      */
-    public function __construct(JWTInterface $jwt, StorageInterface $storage)
+    public function __construct(StorageInterface $storage)
     {
-        $this->jwt = $jwt;
         $this->storage = $storage;
     }
 
     /**
      * Add the token (jti claim) to the blacklist
      *
-     * @param string  $jti
+     * @param \Tymon\JWTAuth\Payload  $payload
      */
-    public function add($token)
+    public function add(Payload $payload)
     {
-        list($exp, $jti) = $this->jwt->decode($token)->get(['exp', 'jti']);
+        list($exp, $jti) = $payload->get(['exp', 'jti']);
 
         // there is no need to add the token to the blacklist
         // if the token has already expired
@@ -46,24 +41,24 @@ class Blacklist
     }
 
     /**
-     * Determine whether the jti has been blacklisted
+     * Determine whether the token has been blacklisted
      *
-     * @param  string  $jti
+     * @param  \Tymon\JWTAuth\Payload  $payload
      * @return boolean
      */
-    public function has($jti)
+    public function has(Payload $payload)
     {
-        return $this->storage->has($jti);
+        return $this->storage->has($payload['jti']);
     }
 
     /**
      * Remove the token (jti claim) from the blacklist
      *
-     * @param string  $jti
+     * @param \Tymon\JWTAuth\Payload  $payload
      */
-    public function remove($jti)
+    public function remove(Payload $payload)
     {
-        return $this->storage->destroy($jti);
+        return $this->storage->destroy($payload['jti']);
     }
 
     /**

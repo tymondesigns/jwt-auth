@@ -116,10 +116,10 @@ abstract class AbstractJWT
      */
     protected function createPayload($payload)
     {
-        // if config set to check storage
-        $this->validateBlacklist($payload);
-
         $this->payload = new Payload($payload, $this->refreshFlow);
+
+        // if config set to check storage
+        $this->validateBlacklist();
 
         return $this->payload;
     }
@@ -142,9 +142,9 @@ abstract class AbstractJWT
      * @param  array  $payload
      * @return bool
      */
-    protected function validateBlacklist(array $payload)
+    protected function validateBlacklist()
     {
-        if ($this->blacklist->has($payload['jti'])) {
+        if ($this->blacklist->has($this->payload)) {
             throw new TokenBlacklistedException('Token has been blacklisted');
         }
 
@@ -203,10 +203,21 @@ abstract class AbstractJWT
     {
         return $this->token;
     }
-    
+
+    /**
+     * Invalidate the token by adding it to the blacklist
+     *
+     * @param  string  $token
+     * @return boolean
+     */
+    public function invalidate($token)
+    {
+        return $this->blacklist->add($this->decode($token));
+    }
+
     /**
      * Get the Blacklist instance
-     * 
+     *
      * @return \Tymon\JWTAuth\Blacklist
      */
     public function getBlacklist()
