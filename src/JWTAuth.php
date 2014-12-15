@@ -103,12 +103,12 @@ class JWTAuth
     }
 
     /**
-     * Log the user in via the token
+     * Authenticate a user via a token
      *
      * @param  mixed  $token
      * @return mixed
      */
-    public function login($token = false)
+    public function authenticate($token = false)
     {
         $this->requireToken($token);
 
