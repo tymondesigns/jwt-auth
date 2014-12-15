@@ -146,7 +146,7 @@ class JWTAuth
         
         $this->jwt->decode($this->token);
 
-        return $this->blacklist->add($this->jwt->getPayload());
+        return $this->jwt->getBlacklist()->add($this->jwt->getPayload());
     }
 
     /**
