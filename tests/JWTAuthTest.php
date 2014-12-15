@@ -95,7 +95,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('checkUsingId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
-        $user = $this->jwtAuth->login('foo');
+        $user = $this->jwtAuth->authenticate('foo');
 
         $this->assertEquals($user->id, 1);
     }
@@ -106,7 +106,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->jwt->shouldReceive('getSubject')->once()->andReturn(2);
         $this->auth->shouldReceive('checkUsingId')->once()->andReturn(false);
 
-        $user = $this->jwtAuth->login('foo');
+        $user = $this->jwtAuth->authenticate('foo');
 
         $this->assertFalse($user);
     }

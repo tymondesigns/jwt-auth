@@ -39,7 +39,7 @@ abstract class AbstractJWT
     /**
      * @var int
      */
-    protected $ttl = 120;
+    protected $ttl = 60;
 
     /**
      * @var string
@@ -81,7 +81,7 @@ abstract class AbstractJWT
 
         $payload['jti'] = $this->createJti($payload);
 
-        return $this->createPayload($payload)->get();
+        return $payload;
     }
 
     /**
