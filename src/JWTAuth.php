@@ -112,6 +112,8 @@ class JWTAuth
     {
         $this->requireToken($token);
 
+        // $id = with(new Token($this->token))->payload()->get('sub');
+
         $id = $this->jwt->getSubject($this->token);
 
         if (! $this->auth->checkUsingId($id)) {

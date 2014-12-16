@@ -33,18 +33,9 @@ class Payload implements ArrayAccess
      */
     public function getClaims()
     {
-        return array_map([$this, 'getClaimArray'], $this->claims);
-    }
-
-    /**
-     * Get the array representation of the claim
-     *
-     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
-     * @return array
-     */
-    protected function getClaimArray(Claim $claim)
-    {
-        return $claim->toArray();
+        return array_build($this->claims, function ($key, Claim $claim) {
+            return $claim->toArray();
+        });
     }
 
     /**
@@ -65,6 +56,17 @@ class Payload implements ArrayAccess
         }
 
         return $this->getClaims();
+    }
+
+    /**
+     * Determine whether the payload has the claim
+     *
+     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
+     * @return boolean
+     */
+    public function has(Claim $claim)
+    {
+        return $this->offsetExists($claim->getType());
     }
 
     /**
@@ -130,5 +132,29 @@ class Payload implements ArrayAccess
     public function offsetUnset($key)
     {
         throw new PayloadException('You cannot change the payload');
+    }
+
+    /**
+     * Magically call the claims array
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     * @throws \BadMethodCallException
+     */
+    public function __call($method, $parameters)
+    {
+        if (starts_with($method, 'get'))
+        {
+            $claim = array_where(function (Claim $claim) use ($method) {
+                return get_class($claim) === substr($method, 3);
+            }, $this->claims);
+
+            if ($claim) {
+                return $claim->getValue();
+            }
+        }
+
+        throw new \BadMethodCallException("The Claim [$method] does not exist.");
     }
 }
