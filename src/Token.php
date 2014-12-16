@@ -35,6 +35,16 @@ final class Token
     }
 
     /**
+     * Get the decoded payload for the token
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function payload()
+    {
+        // decode $this->value and return \Tymon\JWTAuth\Payload instance
+    }
+
+    /**
      * Get the token when casting to string
      *
      * @return string

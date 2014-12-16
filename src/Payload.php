@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth;
 
 use ArrayAccess;
 use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Claims\ClaimInterface;
+use Tymon\JWTAuth\Claims\Claim;
 
 class Payload implements ArrayAccess
 {
@@ -12,7 +12,7 @@ class Payload implements ArrayAccess
     /**
      * The array of claims
      *
-     * @var array \Tymon\JWTAuth\Claims\ClaimInterface[]
+     * @var array \Tymon\JWTAuth\Claims\Claim[]
      */
     private $claims = [];
 
@@ -39,10 +39,10 @@ class Payload implements ArrayAccess
     /**
      * Get the array representation of the claim
      *
-     * @param  \Tymon\JWTAuth\Claims\ClaimInterface  $claim
+     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      * @return array
      */
-    protected function getClaimArray(ClaimInterface $claim)
+    protected function getClaimArray(Claim $claim)
     {
         return $claim->toArray();
     }
@@ -65,6 +65,16 @@ class Payload implements ArrayAccess
         }
 
         return $this->getClaims();
+    }
+
+    /**
+     * Create the token from the payload
+     *
+     * @return \Tymon\JWTAuth\Token
+     */
+    public function token()
+    {
+        // encode $this->getClaims() and return \Tymon\JWTAuth\Token instance
     }
 
     /**
@@ -121,5 +131,4 @@ class Payload implements ArrayAccess
     {
         throw new PayloadException('You cannot change the payload');
     }
-
 }
