@@ -27,13 +27,23 @@ class Payload implements ArrayAccess
     }
 
     /**
+     * Get the array of claim instances
+     *
+     * @return \Tymon\JWTAuth\Claims\Claim[]
+     */
+    public function getClaims()
+    {
+        return $this->claims;
+    }
+
+    /**
      * Get the array of claims
      *
      * @return array
      */
-    public function getClaims()
+    public function getClaimsArray()
     {
-        return array_build($this->claims, function ($key, Claim $claim) {
+        return array_build($this->getClaims(), function ($key, Claim $claim) {
             return $claim->toArray();
         });
     }
@@ -52,10 +62,10 @@ class Payload implements ArrayAccess
                 return array_map([$this, 'get'], $claim);
             }
 
-            return array_get($this->getClaims(), $claim);
+            return array_get($this->getClaimsArray(), $claim);
         }
 
-        return $this->getClaims();
+        return $this->getClaimsArray();
     }
 
     /**
@@ -86,7 +96,7 @@ class Payload implements ArrayAccess
      */
     public function __toString()
     {
-        return json_encode($this->getClaims());
+        return json_encode($this->getClaimsArray());
     }
 
     /**
@@ -97,7 +107,7 @@ class Payload implements ArrayAccess
      */
     public function offsetExists($key)
     {
-        return array_key_exists($key, $this->getClaims());
+        return array_key_exists($key, $this->getClaimsArray());
     }
 
     /**
@@ -108,7 +118,7 @@ class Payload implements ArrayAccess
      */
     public function offsetGet($key)
     {
-        return array_get($this->getClaims(), $key, []);
+        return array_get($this->getClaimsArray(), $key, []);
     }
 
     /**
