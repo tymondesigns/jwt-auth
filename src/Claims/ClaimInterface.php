@@ -19,30 +19,16 @@ interface ClaimInterface
     public function getValue();
 
     /**
-     * Set the claim type
+     * Set the claim name
      *
-     * @param string  $type
+     * @param string  $name
      */
-    public function setType($type);
+    public function setName($name);
 
     /**
-     * Get the claim type
+     * Get the claim name
      *
      * @return string
      */
-    public function getType();
-
-    /**
-     * Set whether the claim is required
-     *
-     * @param boolean  $required
-     */
-    public function setRequired($required);
-
-    /**
-     * Determine whether the claim is required
-     *
-     * @return boolean
-     */
-    public function isRequired();
+    public function getName();
 }

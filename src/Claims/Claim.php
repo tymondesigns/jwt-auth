@@ -30,12 +30,9 @@ abstract class Claim implements ClaimInterface
      * @param mixed   $value
      * @param string  $type
      */
-    public function __construct($value, $type = null)
+    public function __construct($value)
     {
         $this->setValue($value);
-        if (! is_null($type)) {
-            $this->setType($type);
-        }
     }
 
     /**
@@ -67,57 +64,35 @@ abstract class Claim implements ClaimInterface
     }
 
     /**
-     * Set the claim type
+     * Set the claim name
      *
-     * @param string  $type
+     * @param string  $name
      */
-    public function setType($type)
+    public function setName($name)
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get the claim type
+     * Get the claim name
      *
      * @return string
      */
-    public function getType()
+    public function getName()
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
-     * Set whether the claim is required
-     *
-     * @param boolean  $required
-     */
-    public function setRequired($required)
-    {
-        $this->required = $required;
-
-        return $this;
-    }
-
-    /**
-     * Determine whether the claim is required
-     *
-     * @return boolean
-     */
-    public function isRequired()
-    {
-        return $this->required;
-    }
-
-    /**
-     * Build a key value array comprising of the claim type and value
+     * Build a key value array comprising of the claim name and value
      *
      * @return array
      */
     public function toArray()
     {
-        return [$this->getType() => $this->getValue()];
+        return [$this->getName() => $this->getValue()];
     }
 
     /**

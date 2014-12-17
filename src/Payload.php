@@ -43,9 +43,13 @@ class Payload implements ArrayAccess
      */
     public function getClaimsArray()
     {
-        return array_build($this->getClaims(), function ($key, Claim $claim) {
-            return $claim->toArray();
-        });
+        $results = [];
+        foreach ($this->claims as $claim) {
+            $array = $claim->toArray();
+            $results[key($array)] = pos($array);
+        }
+
+        return $results;
     }
 
     /**

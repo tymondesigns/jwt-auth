@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class IssuedAt extends Claim
+class Expiration extends Claim
 {
 
     /**
@@ -10,10 +10,10 @@ class IssuedAt extends Claim
      *
      * @var string
      */
-    protected $name = 'iat';
+    protected $name = 'exp';
 
     /**
-     * Validate the issued at claim
+     * Validate the expiry claim
      *
      * @param  mixed  $value
      * @return boolean

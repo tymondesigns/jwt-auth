@@ -5,16 +5,9 @@ namespace Tymon\JWTAuth\Claims;
 class Issuer extends Claim
 {
     /**
-     * The claim type
+     * The claim name
      *
      * @var string
      */
-    protected $type = 'iss';
-
-    /**
-     * Whether the claim is required
-     *
-     * @var boolean
-     */
-    protected $required = true;
+    protected $name = 'iss';
 }

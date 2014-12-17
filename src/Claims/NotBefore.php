@@ -2,25 +2,18 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class IssuedAt extends Claim
+class NotBefore extends Claim
 {
 
     /**
-     * The claim type
+     * The claim name
      *
      * @var string
      */
-    protected $type = 'exp';
+    protected $name = 'nbf';
 
     /**
-     * Whether the claim is required
-     *
-     * @var boolean
-     */
-    protected $required = true;
-
-    /**
-     * Validate the expiry claim
+     * Validate the not before claim
      *
      * @param  mixed  $value
      * @return boolean
