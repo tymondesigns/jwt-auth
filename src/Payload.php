@@ -7,11 +7,10 @@ use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Driver;
 use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 
 class Payload implements ArrayAccess
 {
-
-    use Driver;
 
     /**
      * The array of claims
@@ -163,15 +162,15 @@ class Payload implements ArrayAccess
     {
         if (starts_with($method, 'get'))
         {
-            $claim = array_where(function (Claim $claim) use ($method) {
+            $instance = array_where(function (Claim $claim) use ($method) {
                 return get_class($claim) === substr($method, 3);
             }, $this->claims);
 
-            if ($claim) {
-                return $claim->getValue();
+            if ($instance) {
+                return $instance->getValue();
             }
         }
 
-        throw new \BadMethodCallException("The Claim [$method] does not exist.");
+        throw new \BadMethodCallException("The method [$method] does not exist.");
     }
 }

@@ -49,6 +49,26 @@ class Token
     }
 
     /**
+     * Refresh the token
+     *
+     * @return \Tymon\JWTAuth\Token
+     */
+    public function refresh()
+    {
+        return with(new Payload($this->decode()))->setRefreshFlow()->token();
+    }
+
+    /**
+     * Invalidate the token
+     *
+     * @return boolean
+     */
+    public function invalidate()
+    {
+        $this->blacklist->add($this->payload());
+    }
+
+    /**
      * Get the token when casting to string
      *
      * @return string

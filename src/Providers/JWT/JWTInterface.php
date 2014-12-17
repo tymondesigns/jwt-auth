@@ -7,13 +7,13 @@ interface JWTInterface
     /**
      * @param  mixed  $subject
      * @param  array  $customClaims
-     * @return \Tymon\JWTAuth\Token
+     * @return string
      */
-    public function encode($subject, array $customClaims = []);
+    public function encode(array $payload);
 
     /**
      * @param  string  $token
-     * @return \Tymon\JWTAuth\Payload
+     * @return array
      */
     public function decode($token);
 }

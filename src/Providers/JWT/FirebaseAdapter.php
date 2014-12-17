@@ -13,7 +13,7 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
      *
      * @param  mixed  $subject
      * @param  array  $customClaims
-     * @return \Tymon\JWTAuth\Token
+     * @return string
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     public function encode(array $payload)

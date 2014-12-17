@@ -21,7 +21,7 @@ trait Driver
     }
 
     /**
-     * There must be a get method on the class that uses this trait
+     * Define that there must be a get method on the class that uses this trait
      *
      * @return mixed
      */

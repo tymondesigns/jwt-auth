@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
+use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
 
@@ -16,6 +17,7 @@ use Tymon\JWTAuth\Claims\Custom;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
+
     public function setUp()
     {
         $claims = [
@@ -77,6 +79,21 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $values);
         $this->assertEquals($sub, 1);
         $this->assertEquals($jti, 'foo');
+    }
+
+    /** @test */
+    public function it_should_return_token_instance_when_calling_token_method()
+    {
+        // $this->encode()
+        $token = $this->payload->token();
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
+    }
+
+    /** @test */
+    public function it_should_determine_whether_the_payload_has_a_claim()
+    {
+        $this->assertTrue($this->payload->has(new Subject(1)));
+        $this->assertFalse($this->payload->has(new Audience(1)));
     }
 
 }
