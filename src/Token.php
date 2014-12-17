@@ -55,7 +55,7 @@ class Token
      */
     public function refresh()
     {
-        return with(new Payload($this->decode()))->setRefreshFlow()->token();
+        return $this->payload()->setRefreshFlow()->token();
     }
 
     /**
