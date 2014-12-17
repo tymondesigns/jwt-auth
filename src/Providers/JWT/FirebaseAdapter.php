@@ -16,10 +16,10 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
      * @return \Tymon\JWTAuth\Token
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    public function encode($subject, array $customClaims = [])
+    public function encode(array $payload)
     {
         try {
-            return Firebase::encode($this->buildPayload($subject, $customClaims), $this->secret, $this->algo);
+            return Firebase::encode($payload, $this->secret, $this->algo);
         } catch (Exception $e) {
             throw new JWTException('Could not create token: ' . $e->getMessage());
         }
