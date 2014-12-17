@@ -6,11 +6,11 @@ abstract class Claim implements ClaimInterface
 {
 
     /**
-     * The claim type
+     * The claim name
      *
      * @var string
      */
-    protected $type;
+    protected $name;
 
     /**
      * The claim value
@@ -28,7 +28,6 @@ abstract class Claim implements ClaimInterface
 
     /**
      * @param mixed   $value
-     * @param string  $type
      */
     public function __construct($value)
     {

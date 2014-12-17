@@ -5,9 +5,13 @@ namespace Tymon\JWTAuth;
 use ArrayAccess;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Claims\Claim;
+use Tymon\JWTAuth\Driver;
+use Tymon\JWTAuth\Token;
 
 class Payload implements ArrayAccess
 {
+
+    use Driver;
 
     /**
      * The array of claims
@@ -41,12 +45,11 @@ class Payload implements ArrayAccess
      *
      * @return array
      */
-    public function getClaimsArray()
+    public function toArray()
     {
         $results = [];
         foreach ($this->claims as $claim) {
-            $array = $claim->toArray();
-            $results[key($array)] = pos($array);
+            $results[$claim->getName()] = $claim->getValue();
         }
 
         return $results;
@@ -66,10 +69,10 @@ class Payload implements ArrayAccess
                 return array_map([$this, 'get'], $claim);
             }
 
-            return array_get($this->getClaimsArray(), $claim);
+            return array_get($this->toArray(), $claim);
         }
 
-        return $this->getClaimsArray();
+        return $this->toArray();
     }
 
     /**
@@ -80,7 +83,7 @@ class Payload implements ArrayAccess
      */
     public function has(Claim $claim)
     {
-        return $this->offsetExists($claim->getType());
+        return in_array($claim, $this->claims);
     }
 
     /**
@@ -90,7 +93,7 @@ class Payload implements ArrayAccess
      */
     public function token()
     {
-        // encode $this->getClaims() and return \Tymon\JWTAuth\Token instance
+        return new Token($this->encode());
     }
 
     /**
@@ -100,7 +103,7 @@ class Payload implements ArrayAccess
      */
     public function __toString()
     {
-        return json_encode($this->getClaimsArray());
+        return json_encode($this->toArray());
     }
 
     /**
@@ -111,7 +114,7 @@ class Payload implements ArrayAccess
      */
     public function offsetExists($key)
     {
-        return array_key_exists($key, $this->getClaimsArray());
+        return array_key_exists($key, $this->toArray());
     }
 
     /**
@@ -122,7 +125,7 @@ class Payload implements ArrayAccess
      */
     public function offsetGet($key)
     {
-        return array_get($this->getClaimsArray(), $key, []);
+        return array_get($this->toArray(), $key, []);
     }
 
     /**

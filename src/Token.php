@@ -3,9 +3,13 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Validators\TokenValidator;
+use Tymon\JWTAuth\Driver;
+use Tymon\JWTAuth\Payload;
 
-final class Token
+class Token
 {
+
+    use Driver;
 
     /**
      * @var string
@@ -41,7 +45,7 @@ final class Token
      */
     public function payload()
     {
-        // decode $this->value and return \Tymon\JWTAuth\Payload instance
+        return new Payload($this->decode());
     }
 
     /**

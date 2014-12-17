@@ -19,13 +19,10 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
     public function encode($subject, array $customClaims = [])
     {
         try {
-            $token = Firebase::encode($this->buildPayload($subject, $customClaims), $this->secret, $this->algo);
-            $this->createToken($token);
+            return Firebase::encode($this->buildPayload($subject, $customClaims), $this->secret, $this->algo);
         } catch (Exception $e) {
             throw new JWTException('Could not create token: ' . $e->getMessage());
         }
-
-        return $this->token;
     }
 
     /**
@@ -33,15 +30,13 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
      *
      * @param  string  $token
      * @param  bool  $refresh
-     * @return \Tymon\JWTAuth\Payload
+     * @return array
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     public function decode($token)
     {
-        $this->createToken($token);
-
         try {
-            $payload = (array) Firebase::decode($this->token, $this->secret);
+            return (array) Firebase::decode($token, $this->secret);
         } catch (Exception $e) {
             // firebase implementation doesn't return the payload if it has expired
             if ($e->getMessage() === 'Expired Token') {
@@ -50,7 +45,5 @@ class FirebaseAdapter extends AbstractJWT implements JWTInterface
                 throw new JWTException('Could not decode token: ' . $e->getMessage());
             }
         }
-
-        return $this->createPayload($payload);
     }
 }
