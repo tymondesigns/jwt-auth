@@ -12,6 +12,8 @@ use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 class Payload implements ArrayAccess
 {
 
+    use Driver;
+
     /**
      * The array of claims
      *
@@ -92,6 +94,7 @@ class Payload implements ArrayAccess
      */
     public function token()
     {
+        $this->setProvider(new FirebaseAdapter('secret'));
         return new Token($this->encode());
     }
 

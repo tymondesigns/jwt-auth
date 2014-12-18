@@ -2,23 +2,15 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\JWT\JWTInterface;
+use Tymon\JWTAuth\Providers\JWT\JWTInterface;
 
 trait Driver
 {
 
 	/**
-     * @var \Tymon\JWTAuth\JWT\JWTInterface
+     * @var \Tymon\JWTAuth\JWT\AbstractJWT
      */
-    protected $jwt;
-
-    /**
-     * @param \Tymon\JWTAuth\JWT\JWTInterface  $jwt
-     */
-    public function __construct(JWTInterface $jwt)
-    {
-        $this->jwt = $jwt;
-    }
+    protected $provider;
 
     /**
      * Define that there must be a get method on the class that uses this trait
@@ -34,7 +26,7 @@ trait Driver
      */
     public function encode()
     {
-    	return $this->jwt->encode($this->get());
+    	return $this->provider->encode($this->get());
     }
 
     /**
@@ -44,7 +36,19 @@ trait Driver
      */
     public function decode()
     {
-    	return $this->jwt->decode($this->get());
+    	return $this->provider->decode($this->get());
+    }
+
+    /**
+     * Set the JWT provider
+     *
+     * @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $provider
+     */
+    public function setProvider(JWTInterface $provider)
+    {
+        $this->provider = $provider;
+
+        return $this;
     }
 
 }
