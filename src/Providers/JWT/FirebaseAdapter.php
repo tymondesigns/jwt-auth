@@ -6,7 +6,7 @@ use Exception;
 use JWT as Firebase;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class FirebaseAdapter extends AbstractJWT implements JWTInterface
+class FirebaseAdapter extends JWTProvider implements JWTInterface
 {
     /**
      * Create a JSON Web Token

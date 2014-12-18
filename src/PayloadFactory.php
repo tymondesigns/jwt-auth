@@ -108,6 +108,16 @@ class PayloadFactory
     //     throw new \Exception("[$claim] method not found");
     // }
 
+    /**
+     * Create a unique id for the token
+     *
+     * @return string
+     */
+    protected function jti()
+    {
+        return md5('jti.'. $this->claims['sub'] . '.' . $this->claims['iat']);
+    }
+
     public function iss()
     {
         return $this->request->url();
