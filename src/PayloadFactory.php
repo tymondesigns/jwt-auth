@@ -48,15 +48,24 @@ class PayloadFactory
         $this->request = $request;
     }
 
+    /**
+     * Create the Payload instance
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
     public function make()
     {
         $this->buildDefaultClaims();
 
-
-
         return new Payload($this->claims);
     }
 
+    /**
+     * Add a claim to the Payload
+     *
+     * @param string  $name
+     * @param mixed   $value
+     */
     public function addClaim($name, $value)
     {
         $this->claims[$name] = $value;
@@ -64,29 +73,21 @@ class PayloadFactory
         return $this;
     }
 
-    protected function buildClaims()
-    {
-
-    }
-
     /**
-     * Magically set the claims
+     * Build the default claims
      *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return mixed
-     * @throws \BadMethodCallException
+     * @return \Tymon\JWTAuth\PayloadFactory
      */
-    public function __call($method, $parameters)
+    protected function buildDefaultClaims()
     {
-        if (class_exists($class = '\\Tymon\\JWTAuth\\Claims\\' . studly_case($method))) {
-            $this->claims[] = new $class($parameters[0]);
-
-            return $this;
+        foreach ($this->defaultClaims as $claim) {
+            $this->addClaim($claim, $this->$claim());
         }
 
-        throw new \BadMethodCallException("The Claim [$class] does not exist.");
+        return $this;
     }
+
+
 
 
 
@@ -136,5 +137,24 @@ class PayloadFactory
     public function nbf()
     {
         return time();
+    }
+
+    /**
+     * Magically set the claims
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     * @throws \BadMethodCallException
+     */
+    public function __call($method, $parameters)
+    {
+        if (class_exists($class = '\\Tymon\\JWTAuth\\Claims\\' . studly_case($method))) {
+            $this->claims[] = new $class($parameters[0]);
+
+            return $this;
+        }
+
+        throw new \BadMethodCallException("The Claim [$class] does not exist.");
     }
 }
