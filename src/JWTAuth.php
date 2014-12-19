@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWT\JWTInterface;
 use Tymon\JWTAuth\User\UserInterface;
+use Tymon\JWTAuth\Token;
 
 class JWTAuth
 {
@@ -17,9 +18,9 @@ class JWTAuth
     protected $user;
 
     /**
-     * @var \Tymon\JWTAuth\JWT\JWTInterface
+     * @var \Tymon\JWTAuth\JWTManager
      */
-    protected $jwt;
+    protected $manager;
 
     /**
      * @var \Tymon\JWTAuth\Auth\AuthInterface
@@ -43,14 +44,14 @@ class JWTAuth
 
     /**
      * @param \Tymon\JWTAuth\User\UserInterface  $user
-     * @param \Tymon\JWTAuth\JWT\JWTInterface  $jwt
+     * @param \Tymon\JWTAuth\JWTManager  $manager
      * @param \Tymon\JWTAuth\Auth\AuthInterface  $auth
      * @param \Illuminate\Http\Request  $request
      */
-    public function __construct(UserInterface $user, JWTInterface $jwt, AuthInterface $auth, Request $request)
+    public function __construct(UserInterface $user, JWTManager $manager, AuthInterface $auth, Request $request)
     {
         $this->user = $user;
-        $this->jwt = $jwt;
+        $this->manager = $manager;
         $this->auth = $auth;
         $this->request = $request;
     }
@@ -65,9 +66,9 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        $this->jwt->decode($this->token);
+        $payload = $this->manager->decode($this->token);
 
-        if (! $user = $this->user->getBy($this->identifier, $this->jwt->getSubject())) {
+        if (! $user = $this->user->getBy($this->identifier, $payload->get('sub'))) {
             return false;
         }
 
@@ -83,8 +84,9 @@ class JWTAuth
      */
     public function fromUser($user, array $customClaims = [])
     {
-        // return $this->factory->sub($user->{$this->identifier})->make()->token()->get();
-        return $this->jwt->encode($user->{$this->identifier}, $customClaims)->get();
+        $payload = $this->makePayload($user->{$this->identifier}, $customClaims);
+
+        return $this->manager->encode($payload)->get();
     }
 
     /**
@@ -113,9 +115,7 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        // $id = with(new Token($this->token))->payload()->get('sub');
-
-        $id = $this->jwt->getSubject($this->token);
+        $id = $this->manager->decode($this->token)->get('sub');
 
         if (! $this->auth->checkUsingId($id)) {
             return false;
@@ -199,6 +199,12 @@ class JWTAuth
         return trim(str_ireplace($method, '', $header));
     }
 
+
+    protected function makePayload($subject, array $customClaims = [])
+    {
+        return $this->manager->getPayloadFactory()->make(array_merge($customClaims, ['sub' => $subject]));
+    }
+
     /**
      * Set the identifier
      *
@@ -228,7 +234,7 @@ class JWTAuth
      */
     public function setToken($token)
     {
-        $this->token = $token;
+        $this->token = new Token($token);
 
         return $this;
     }
@@ -252,7 +258,7 @@ class JWTAuth
     }
 
     /**
-     * Magically call the JWT provider
+     * Magically call the JWT Manager
      *
      * @param  string  $method
      * @param  array   $parameters
@@ -261,8 +267,8 @@ class JWTAuth
      */
     public function __call($method, $parameters)
     {
-        if (method_exists($this->jwt, $method)) {
-            return call_user_func_array([$this->jwt, $method], $parameters);
+        if (method_exists($this->manager, $method)) {
+            return call_user_func_array([$this->manager, $method], $parameters);
         }
 
         throw new \BadMethodCallException("Method [$method] does not exist.");

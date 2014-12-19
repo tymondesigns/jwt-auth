@@ -149,18 +149,21 @@ class Payload implements ArrayAccess
     {
         if (starts_with($method, 'get'))
         {
-            $instance = array_where($this->claims, function ($key, Claim $claim) use ($method) {
-                $class = "\\Tymon\\JWTAuth\\Claims\\" . substr($method, 3);
-                if (in_array($class, $this->claims)) {
+            $instance = null;
+            $class = "\\Tymon\\JWTAuth\\Claims\\" . substr($method, 3);
 
+            foreach ($this->claims as $claim) {
+                if ($claim instanceof $class) {
+                    $instance = $claim;
                 }
-            });
+            }
 
             if ($instance) {
                 return $instance->getValue();
             }
+
         }
 
-        throw new \BadMethodCallException("The method [$method] does not exist.");
+        throw new \BadMethodCallException("The claim [$method] does not exist on the payload.");
     }
 }

@@ -2,10 +2,11 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Providers\JWT\JWTInterface;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Blacklist;
+use Tymon\JWTAuth\Providers\JWT\JWTInterface;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class JWTManager
 {
@@ -60,6 +61,10 @@ class JWTManager
 	{
 		$payload = $this->jwt->decode($token->get());
 
+		if ($this->blacklist->has($payload)) {
+			throw new TokenBlacklistedException('The token has been blacklisted');
+		}
+
 		return $this->payloadFactory->make($payload);
 	}
 
@@ -87,5 +92,15 @@ class JWTManager
 	public function invalidate(Token $token)
 	{
 		return $this->blacklist->add($this->decode($token));
+	}
+
+	/**
+	 * Get the PayloadFactory instance
+	 *
+	 * @return \Tymon\JWTAuth\PayloadFactory
+	 */
+	public function getPayloadFactory()
+	{
+		return $this->payloadFactory;
 	}
 }

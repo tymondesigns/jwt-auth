@@ -92,6 +92,18 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     public function it_should_magically_get_a_property()
     {
         $sub = $this->payload->getSubject();
+        $jti = $this->payload->getJwtId();
+
+        $this->assertEquals($sub, 1);
+        $this->assertEquals($jti, 'foo');
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
+    {
+        $this->setExpectedException('\BadMethodCallException');
+
+        $this->payload->getFoo();
     }
 
 }
