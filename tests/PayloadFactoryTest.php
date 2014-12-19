@@ -21,11 +21,6 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->sub = Mockery::mock('Tymon\JWTAuth\Claims\Subject');
-        $this->jti = Mockery::mock('Tymon\JWTAuth\Claims\JwtId');
-        $this->iat = Mockery::mock('Tymon\JWTAuth\Claims\IssuedAt');
-        $this->jwtId = Mockery::mock('Tymon\JWTAuth\Claims\Claim');
-
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
         $this->factory = new PayloadFactory($this->claimFactory, Request::create('/foo', 'GET'));
     }
