@@ -89,6 +89,7 @@ class PayloadFactory
      */
     protected function buildClaims(array $customClaims)
     {
+        // add the custom claims first
         foreach (array_diff($customClaims, $this->defaultClaims) as $name => $value) {
             $this->addClaim($name, $value);
         }
@@ -143,7 +144,7 @@ class PayloadFactory
     }
 
     /**
-     * Magically set the claims
+     * Magically add a claim
      *
      * @param  string  $method
      * @param  array   $parameters

@@ -9,8 +9,6 @@ use Tymon\JWTAuth\Payload;
 class Token
 {
 
-    use Driver;
-
     /**
      * @var string
      */
@@ -36,16 +34,6 @@ class Token
     public function get()
     {
         return $this->value;
-    }
-
-    /**
-     * Get the decoded payload for the token
-     *
-     * @return \Tymon\JWTAuth\Payload
-     */
-    public function payload()
-    {
-        return new Payload($this->decode());
     }
 
     /**

@@ -12,8 +12,6 @@ use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 class Payload implements ArrayAccess
 {
 
-    use Driver;
-
     /**
      * The array of claims
      *
@@ -88,16 +86,6 @@ class Payload implements ArrayAccess
     }
 
     /**
-     * Create the token from the payload
-     *
-     * @return \Tymon\JWTAuth\Token
-     */
-    public function token()
-    {
-        return new Token($this->encode());
-    }
-
-    /**
      * Get the payload as a string
      *
      * @return string
@@ -153,7 +141,7 @@ class Payload implements ArrayAccess
     }
 
     /**
-     * Magically call the claims array
+     * Magically get a claim value
      *
      * @param  string  $method
      * @param  array   $parameters
@@ -164,9 +152,12 @@ class Payload implements ArrayAccess
     {
         if (starts_with($method, 'get'))
         {
-            $instance = array_where(function (Claim $claim) use ($method) {
-                return get_class($claim) === substr($method, 3);
-            }, $this->claims);
+            $instance = array_where($this->claims, function ($key, Claim $claim) use ($method) {
+                $class = "\\Tymon\\JWTAuth\\Claims\\" . substr($method, 3);
+                if (in_array($class, $this->claims)) {
+
+                }
+            });
 
             if ($instance) {
                 return $instance->getValue();

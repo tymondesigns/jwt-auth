@@ -29,8 +29,6 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->payload = new Payload($claims);
-
-        $this->payload->setProvider(new FirebaseAdapter('secret'));
     }
 
     /** @test */
@@ -84,18 +82,16 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_return_token_instance_when_calling_token_method()
-    {
-        // $this->encode()
-        $token = $this->payload->token();
-        $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
-    }
-
-    /** @test */
     public function it_should_determine_whether_the_payload_has_a_claim()
     {
         $this->assertTrue($this->payload->has(new Subject(1)));
         $this->assertFalse($this->payload->has(new Audience(1)));
+    }
+
+    /** @test */
+    public function it_should_magically_get_a_property()
+    {
+        $sub = $this->payload->getSubject();
     }
 
 }

@@ -5,6 +5,7 @@ namespace Tymon\JWTAuth;
 use Tymon\JWTAuth\Providers\JWT\JWTInterface;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Blacklist;
 
 class JWTManager
 {
@@ -15,17 +16,24 @@ class JWTManager
 	protected $jwt;
 
 	/**
-	 * @var \Tymon\JWTAuth\Payload\PayloadFactory
+	 * @var \Tymon\JWTAuth\Blacklist
+	 */
+	protected $blacklist;
+
+	/**
+	 * @var \Tymon\JWTAuth\PayloadFactory
 	 */
 	protected $payloadFactory;
 
 	/**
 	 *  @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $jwt
-	 *  @param \Tymon\JWTAuth\Payload\PayloadFactory  $payloadFactory
+	 *  @param \Tymon\JWTAuth\Blacklist  $blacklist
+	 *  @param \Tymon\JWTAuth\PayloadFactory  $payloadFactory
 	 */
-	public function __construct(JWTInterface $jwt, PayloadFactory $payloadFactory)
+	public function __construct(JWTInterface $jwt, Blacklist $blacklist, PayloadFactory $payloadFactory)
 	{
 		$this->jwt = $jwt;
+		$this->blacklist = $blacklist;
 		$this->payloadFactory = $payloadFactory;
 	}
 
@@ -65,7 +73,7 @@ class JWTManager
 	{
 		list($iat, $sub) = $this->decode($token)->get(['iat', 'sub']);
 
-		// @todo if iat longer than refresh_ttl ago
+		// @todo - check if $iat longer than refresh_ttl ago
 
 		return $this->encode($this->payloadFactory->sub($sub)->make());
 	}
@@ -80,5 +88,4 @@ class JWTManager
 	{
 		return $this->blacklist->add($this->decode($token));
 	}
-
 }
