@@ -32,10 +32,12 @@ class Blacklist
 
         // there is no need to add the token to the blacklist
         // if the token has already expired
-        if ($exp > time()) {
-            // add 60 seconds to abate any potential overlap
-            return $this->storage->add($jti, [], ($exp - time()) + 60);
+        if ($exp < time()) {
+            return false;
         }
+
+        // add 60 seconds to abate any potential overlap
+        $this->storage->add($jti, [], ($exp - time()) + 60);
 
         return true;
     }

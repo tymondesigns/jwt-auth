@@ -2,13 +2,6 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Audience;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 
 class Factory
@@ -18,13 +11,13 @@ class Factory
      * @var array
      */
     private static $classMap = [
-        Audience::NAME    => Audience::class,
-        Expiration::NAME  => Expiration::class,
-        IssuedAt::NAME    => IssuedAt::class,
-        Issuer::NAME      => Issuer::class,
-        JwtId::NAME       => JwtId::class,
-        NotBefore::NAME   => NotBefore::class,
-        Subject::NAME     => Subject::class
+        'aud' => 'Tymon\JWTAuth\Claims\Audience',
+        'exp' => 'Tymon\JWTAuth\Claims\Expiration',
+        'iat' => 'Tymon\JWTAuth\Claims\IssuedAt',
+        'iss' => 'Tymon\JWTAuth\Claims\Issuer',
+        'jti' => 'Tymon\JWTAuth\Claims\JwtId',
+        'nbf' => 'Tymon\JWTAuth\Claims\NotBefore',
+        'sub' => 'Tymon\JWTAuth\Claims\Subject'
     ];
 
     /**
@@ -40,6 +33,11 @@ class Factory
             return new self::$classMap[$name]($value);
         }
 
-        return with(new Custom($value))->setType($name);
+        return new Custom($value, $name);
+    }
+
+    public function has($name)
+    {
+        return array_key_exists($name, self::$classMap);
     }
 }

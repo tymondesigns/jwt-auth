@@ -83,6 +83,7 @@ class JWTAuth
      */
     public function fromUser($user, array $customClaims = [])
     {
+        // return $this->factory->sub($user->{$this->identifier})->make()->token()->get();
         return $this->jwt->encode($user->{$this->identifier}, $customClaims)->get();
     }
 
@@ -242,7 +243,7 @@ class JWTAuth
     protected function requireToken($token)
     {
         if ($token) {
-            $this->setToken($token);
+            return $this->setToken($token);
         } else {
             if (! $this->token) {
                 throw new JWTException('A token is required', 400);

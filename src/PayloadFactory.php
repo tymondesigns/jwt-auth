@@ -3,13 +3,8 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Audience;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Claims\Factory;
+use Illuminate\Http\Request;
 
 class PayloadFactory
 {
@@ -31,7 +26,7 @@ class PayloadFactory
     /**
      * @var array
      */
-    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf'];
+    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
 
     /**
      * @var array
@@ -53,11 +48,25 @@ class PayloadFactory
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function make()
+    public function make(array $customClaims = [])
     {
-        $this->buildDefaultClaims();
+        $this->buildClaims($customClaims);
 
-        return new Payload($this->claims);
+        return new Payload($this->resolveClaims());
+    }
+
+    /**
+     * Add an array of claims
+     *
+     * @param array $claims
+     */
+    public function addClaims(array $claims)
+    {
+        foreach ($claims as $name => $value) {
+            $this->addClaim($name, $value);
+        }
+
+        return $this;
     }
 
     /**
@@ -78,36 +87,30 @@ class PayloadFactory
      *
      * @return \Tymon\JWTAuth\PayloadFactory
      */
-    protected function buildDefaultClaims()
+    protected function buildClaims(array $customClaims)
     {
+        foreach (array_diff($customClaims, $this->defaultClaims) as $name => $value) {
+            $this->addClaim($name, $value);
+        }
+
         foreach ($this->defaultClaims as $claim) {
-            $this->addClaim($claim, $this->$claim());
+            if (! array_key_exists($claim, $customClaims)) {
+                $this->addClaim($claim, $this->$claim());
+            }
         }
 
         return $this;
     }
 
+    public function resolveClaims()
+    {
+        $resolved = [];
+        foreach ($this->claims as $name => $value) {
+            $resolved[] = $this->claimFactory->get($name, $value);
+        }
 
-
-
-
-
-
-
-    // protected function buildDefaultClaims()
-    // {
-    //     return array_map([$this, 'buildClaim'], $this->defaultClaims);
-    // }
-
-    // protected function buildClaim($claim)
-    // {
-    //     if (method_exists($this, $claim))
-    //     {
-    //         $this->claims[] = $this->claimFactory->get($claim, $this->$claim());
-    //     }
-
-    //     throw new \Exception("[$claim] method not found");
-    // }
+        return $resolved;
+    }
 
     /**
      * Create a unique id for the token
@@ -144,17 +147,13 @@ class PayloadFactory
      *
      * @param  string  $method
      * @param  array   $parameters
-     * @return mixed
+     * @return this
      * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)
     {
-        if (class_exists($class = '\\Tymon\\JWTAuth\\Claims\\' . studly_case($method))) {
-            $this->claims[] = new $class($parameters[0]);
+        $this->addClaim($method, $parameters[0]);
 
-            return $this;
-        }
-
-        throw new \BadMethodCallException("The Claim [$class] does not exist.");
+        return $this;
     }
 }

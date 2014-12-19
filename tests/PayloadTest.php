@@ -29,6 +29,8 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->payload = new Payload($claims);
+
+        $this->payload->setProvider(new FirebaseAdapter('secret'));
     }
 
     /** @test */

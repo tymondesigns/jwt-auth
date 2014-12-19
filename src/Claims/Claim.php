@@ -20,18 +20,14 @@ abstract class Claim implements ClaimInterface
     private $value;
 
     /**
-     * Whether the claim is required
-     *
-     * @var boolean
-     */
-    protected $required = false;
-
-    /**
      * @param mixed   $value
      */
-    public function __construct($value)
+    public function __construct($value, $name = null)
     {
         $this->setValue($value);
+        if (! is_null($name)) {
+            $this->setName($name);
+        }
     }
 
     /**
