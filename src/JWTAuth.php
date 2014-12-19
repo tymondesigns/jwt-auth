@@ -134,7 +134,7 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        return $this->jwt->refresh($this->token)->get();
+        return $this->manager->refresh($this->token)->get();
     }
 
     /**
@@ -147,7 +147,7 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        return $this->jwt->invalidate($this->token);
+        return $this->manager->invalidate($this->token);
     }
 
     /**
@@ -200,6 +200,13 @@ class JWTAuth
     }
 
 
+    /**
+     * Parse token from the authorization header
+     *
+     * @param  mixed  $subject
+     * @param  array  $customClaims
+     * @return \Tymon\JWTAuth\Payload
+     */
     protected function makePayload($subject, array $customClaims = [])
     {
         return $this->manager->getPayloadFactory()->make(array_merge($customClaims, ['sub' => $subject]));

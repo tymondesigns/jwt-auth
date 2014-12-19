@@ -7,6 +7,9 @@ use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
+use Tymon\JWTAuth\JWTManager;
+use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Claims\Factory;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -76,6 +79,10 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerAuthProvider();
         $this->registerStorageProvider();
 
+        $this->registerClaimFactory();
+        $this->registerPayloadFactory();
+        $this->registerJWTManager();
+
         $this->registerJWTAuth();
         $this->registerJWTAuthFilter();
         $this->registerJWTCommand();
@@ -130,6 +137,42 @@ class JWTAuthServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the bindings for the Payload Factory
+     */
+    protected function registerClaimFactory()
+    {
+        $this->app['tymon.jwt.claim.factory'] = $this->app->share(function ($app) {
+            return new Factory();
+        });
+    }
+
+    /**
+     * Register the bindings for the Payload Factory
+     */
+    protected function registerPayloadFactory()
+    {
+        $this->app['tymon.jwt.payload.factory'] = $this->app->share(function ($app) {
+            return new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request']);
+        });
+    }
+
+    /**
+     * Register the bindings for the JWT Manager
+     */
+    protected function registerJWTManager()
+    {
+        $this->app['tymon.jwt.manager'] = $this->app->share(function ($app) {
+
+            return new JWTManager(
+                $app['tymon.jwt.provider.jwt'],
+                $app['tymon.jwt.blacklist'],
+                $app['tymon.jwt.payload.factory']
+            );
+
+        });
+    }
+
+    /**
      * Register the bindings for the main JWTAuth class
      */
     protected function registerJWTAuth()
@@ -138,7 +181,7 @@ class JWTAuthServiceProvider extends ServiceProvider
 
             $auth = new JWTAuth(
                 $app['tymon.jwt.provider.user'],
-                $app['tymon.jwt.provider.jwt'],
+                $app['tymon.jwt.manager'],
                 $app['tymon.jwt.provider.auth'],
                 $app['request']
             );
