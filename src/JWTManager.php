@@ -75,7 +75,7 @@ class JWTManager
 
 		// @todo - check if $iat longer than refresh_ttl ago
 
-		return $this->encode($this->payloadFactory->sub($sub)->make());
+		return $this->encode($this->payloadFactory->make(['sub' => $sub]));
 	}
 
 	/**

@@ -3,8 +3,6 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Validators\TokenValidator;
-use Tymon\JWTAuth\Driver;
-use Tymon\JWTAuth\Payload;
 
 class Token
 {
@@ -34,26 +32,6 @@ class Token
     public function get()
     {
         return $this->value;
-    }
-
-    /**
-     * Refresh the token
-     *
-     * @return \Tymon\JWTAuth\Token
-     */
-    public function refresh()
-    {
-        return $this->payload()->setRefreshFlow()->token();
-    }
-
-    /**
-     * Invalidate the token
-     *
-     * @return boolean
-     */
-    public function invalidate()
-    {
-        $this->blacklist->add($this->payload());
     }
 
     /**

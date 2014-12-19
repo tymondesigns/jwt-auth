@@ -3,11 +3,8 @@
 namespace Tymon\JWTAuth;
 
 use ArrayAccess;
-use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Driver;
-use Tymon\JWTAuth\Token;
-use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
+use Tymon\JWTAuth\Exceptions\PayloadException;
 
 class Payload implements ArrayAccess
 {
@@ -126,7 +123,7 @@ class Payload implements ArrayAccess
      */
     public function offsetSet($key, $value)
     {
-        throw new PayloadException('You cannot change the payload');
+        throw new PayloadException('The payload is immutable');
     }
 
     /**
@@ -137,7 +134,7 @@ class Payload implements ArrayAccess
      */
     public function offsetUnset($key)
     {
-        throw new PayloadException('You cannot change the payload');
+        throw new PayloadException('The payload is immutable');
     }
 
     /**
