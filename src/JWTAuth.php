@@ -5,9 +5,8 @@ namespace Tymon\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\JWT\JWTInterface;
-use Tymon\JWTAuth\User\UserInterface;
 use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\User\UserInterface;
 
 class JWTAuth
 {
@@ -199,7 +198,6 @@ class JWTAuth
         return trim(str_ireplace($method, '', $header));
     }
 
-
     /**
      * Parse token from the authorization header
      *
@@ -250,7 +248,7 @@ class JWTAuth
      * Ensure that a token is available
      *
      * @param  mixed  $token
-     * @return void
+     * @return JWTAuth|null
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     protected function requireToken($token)

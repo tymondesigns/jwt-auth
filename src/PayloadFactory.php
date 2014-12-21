@@ -2,9 +2,9 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Claims\Factory;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Payload;
 
 class PayloadFactory
 {
@@ -185,7 +185,7 @@ class PayloadFactory
      *
      * @param  string  $method
      * @param  array   $parameters
-     * @return this
+     * @return PayloadFactory
      * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)
