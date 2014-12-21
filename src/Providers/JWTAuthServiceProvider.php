@@ -61,8 +61,20 @@ class JWTAuthServiceProvider extends ServiceProvider
             return $app['tymon.jwt.provider.storage'];
         };
 
+        $this->app['Tymon\JWTAuth\JWTManager'] = function ($app) {
+            return $app['tymon.jwt.manager'];
+        };
+
         $this->app['Tymon\JWTAuth\Blacklist'] = function ($app) {
             return $app['tymon.jwt.blacklist'];
+        };
+
+        $this->app['Tymon\JWTAuth\PayloadFactory'] = function ($app) {
+            return $app['tymon.jwt.payload.factory'];
+        };
+
+        $this->app['Tymon\JWTAuth\Claims\Factory'] = function ($app) {
+            return $app['tymon.jwt.claim.factory'];
         };
     }
 
