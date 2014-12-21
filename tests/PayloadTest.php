@@ -93,9 +93,11 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     {
         $sub = $this->payload->getSubject();
         $jti = $this->payload->getJwtId();
+        $iss = $this->payload->getIssuer();
 
         $this->assertEquals($sub, 1);
         $this->assertEquals($jti, 'foo');
+        $this->assertEquals($iss, 'http://example.com');
     }
 
     /** @test */
