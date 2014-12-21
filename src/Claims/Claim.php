@@ -2,6 +2,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+
 abstract class Claim implements ClaimInterface
 {
 
@@ -39,7 +41,7 @@ abstract class Claim implements ClaimInterface
     {
         if (method_exists($this, 'validate')) {
             if (! $this->validate($value)) {
-                throw new \Exception('Invalid value provided for claim "' . $this->getType() . '": ' . $value);
+                throw new InvalidClaimException('Invalid value provided for claim "' . $this->getName() . '": ' . $value);
             }
         }
 

@@ -38,7 +38,7 @@ class JWTAuth
     protected $identifier = 'id';
 
     /**
-     * @var string
+     * @var \Tymon\JWTAuth\Token
      */
     protected $token;
 

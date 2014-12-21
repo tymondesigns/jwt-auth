@@ -59,13 +59,15 @@ class JWTManager
 	 */
 	public function decode(Token $token)
 	{
-		$payload = $this->jwt->decode($token->get());
+		$payloadArray = $this->jwt->decode($token->get());
+
+		$payload = $this->payloadFactory->make($payloadArray);
 
 		if ($this->blacklist->has($payload)) {
 			throw new TokenBlacklistedException('The token has been blacklisted');
 		}
 
-		return $this->payloadFactory->make($payload);
+		return $payload;
 	}
 
 	/**
@@ -113,7 +115,7 @@ class JWTManager
 	 */
 	public function getJWTProvider()
 	{
-		return $this->$jwt;
+		return $this->jwt;
 	}
 
 	/**

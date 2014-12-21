@@ -36,6 +36,12 @@ class Factory
         return new Custom($value, $name);
     }
 
+    /**
+     * Check whether the claim exists
+     *
+     * @param  string  $name
+     * @return boolean
+     */
     public function has($name)
     {
         return array_key_exists($name, self::$classMap);

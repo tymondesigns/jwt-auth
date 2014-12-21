@@ -29,8 +29,6 @@ class PayloadValidator extends AbstractValidator
         }
     }
 
-    // protected function getPayload
-
     /**
      * Ensure the payload contains the required claims and
      * the claims have the relevant type
