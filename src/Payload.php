@@ -4,8 +4,8 @@ namespace Tymon\JWTAuth;
 
 use ArrayAccess;
 use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class Payload implements ArrayAccess
 {

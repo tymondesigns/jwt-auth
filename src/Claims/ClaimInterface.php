@@ -8,6 +8,7 @@ interface ClaimInterface
      * Set the claim value, and call a validate method if available
      *
      * @param mixed
+     * @return Claim
      */
     public function setValue($value);
 
@@ -22,6 +23,7 @@ interface ClaimInterface
      * Set the claim name
      *
      * @param string  $name
+     * @return Claim
      */
     public function setName($name);
 
