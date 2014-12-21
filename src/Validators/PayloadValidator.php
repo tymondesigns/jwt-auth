@@ -10,7 +10,7 @@ class PayloadValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $requiredClaims = ['iss', 'iat', 'exp', 'sub', 'jti'];
+    protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
 
     /**
      * Run the validations on the payload array
@@ -29,6 +29,8 @@ class PayloadValidator extends AbstractValidator
         }
     }
 
+    // protected function getPayload
+
     /**
      * Ensure the payload contains the required claims and
      * the claims have the relevant type
@@ -40,14 +42,6 @@ class PayloadValidator extends AbstractValidator
     {
         if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
-        }
-
-        if (! is_int($payload['iat'])) {
-            throw new TokenInvalidException('Invalid Issued At (iat) provided');
-        }
-
-        if (! is_int($payload['exp'])) {
-            throw new TokenInvalidException('Invalid Expiration (exp) provided');
         }
 
         return true;

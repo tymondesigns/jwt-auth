@@ -20,6 +20,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
         $payload = [
             'iss' => 'http://example.com',
             'iat' => time(),
+            'nbf' => time(),
             'exp' => time() + 3600,
             'sub' => 1,
             'jti' => 'foo'
@@ -38,6 +39,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
         $payload = [
             'iss' => 'http://example.com',
             'iat' => time() - 3660,
+            'nbf' => time() - 3660,
             'exp' => time() - 1440,
             'sub' => 1,
             'jti' => 'foo'

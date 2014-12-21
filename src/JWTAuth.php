@@ -265,6 +265,16 @@ class JWTAuth
     }
 
     /**
+     * Get the JWTManager instance
+     *
+     * @return \Tymon\JWTAuth\JWTManager
+     */
+    public function manager()
+    {
+        return $this->manager;
+    }
+
+    /**
      * Magically call the JWT Manager
      *
      * @param  string  $method

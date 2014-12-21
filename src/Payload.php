@@ -4,6 +4,7 @@ namespace Tymon\JWTAuth;
 
 use ArrayAccess;
 use Tymon\JWTAuth\Claims\Claim;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 
 class Payload implements ArrayAccess
@@ -24,6 +25,8 @@ class Payload implements ArrayAccess
     public function __construct(array $claims)
     {
         $this->claims = $claims;
+
+        with(new PayloadValidator)->check($this->toArray());
     }
 
     /**

@@ -76,11 +76,13 @@ class JWTManager
 	 */
 	public function refresh(Token $token)
 	{
-		list($iat, $sub) = $this->decode($token)->get(['iat', 'sub']);
+		$payload = $this->decode($token);
 
-		// @todo - check if $iat longer than refresh_ttl ago
+		// invalidate old token
+		$this->blacklist->add($payload);
 
-		return $this->encode($this->payloadFactory->make(['sub' => $sub]));
+		// return the new token
+		return $this->encode($this->payloadFactory->make(['sub' => $payload['sub']]));
 	}
 
 	/**
@@ -102,5 +104,25 @@ class JWTManager
 	public function getPayloadFactory()
 	{
 		return $this->payloadFactory;
+	}
+
+	/**
+	 * Get the JWTProvider instance
+	 *
+	 * @return \Tymon\JWTAuth\Providers\JWT\JWTInterface
+	 */
+	public function getJWTProvider()
+	{
+		return $this->$jwt;
+	}
+
+	/**
+	 * Get the Blacklist instance
+	 *
+	 * @return \Tymon\JWTAuth\Blacklist
+	 */
+	public function getBlacklist()
+	{
+		return $this->blacklist;
 	}
 }

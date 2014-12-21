@@ -24,6 +24,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration(time() + 3600),
+            new NotBefore(time()),
             new IssuedAt(time()),
             new JwtId('foo')
         ];

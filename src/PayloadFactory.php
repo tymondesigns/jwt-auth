@@ -50,13 +50,13 @@ class PayloadFactory
      */
     public function make(array $customClaims = [])
     {
-        $this->buildClaims($customClaims);
+        $claims = $this->buildClaims($customClaims)->resolveClaims();
 
-        return new Payload($this->resolveClaims());
+        return new Payload($claims);
     }
 
     /**
-     * Add an array of claims
+     * Add an array of claims to the Payload
      *
      * @param array $claims
      */
@@ -103,6 +103,11 @@ class PayloadFactory
         return $this;
     }
 
+    /**
+     * Build out the Claim DTO's
+     *
+     * @return array
+     */
     public function resolveClaims()
     {
         $resolved = [];
@@ -114,33 +119,65 @@ class PayloadFactory
     }
 
     /**
-     * Create a unique id for the token
+     * Set a unique id (jti) for the token
      *
      * @return string
      */
     protected function jti()
     {
-        return md5('jti.'. $this->claims['sub'] . '.' . $this->claims['iat']);
+        return md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
     }
 
+    /**
+     * Set the Issuer (iss) claim
+     *
+     * @return string
+     */
     public function iss()
     {
         return $this->request->url();
     }
 
+    /**
+     * Set the Issued At (iat) claim
+     *
+     * @return int
+     */
     public function iat()
     {
         return time();
     }
 
+    /**
+     * Set the Expiration (exp) claim
+     *
+     * @return int
+     */
     public function exp()
     {
         return time() + ($this->ttl * 60);
     }
 
+    /**
+     * Set the Not Before (nbf) claim
+     *
+     * @return int
+     */
     public function nbf()
     {
         return time();
+    }
+
+    /**
+     * Set the token ttl (in minutes)
+     *
+     * @param int
+     */
+    public function setTTL($ttl)
+    {
+        $this->ttl = $ttl;
+
+        return $this;
     }
 
     /**
