@@ -141,7 +141,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerClaimFactory()
     {
-        $this->app['tymon.jwt.claim.factory'] = $this->app->share(function () {
+        $this->app->instance('tymon.jwt.claim.factory', function () {
             return new Factory();
         });
     }
