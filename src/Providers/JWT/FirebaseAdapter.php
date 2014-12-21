@@ -11,8 +11,6 @@ class FirebaseAdapter extends JWTProvider implements JWTInterface
     /**
      * Create a JSON Web Token
      *
-     * @param  mixed  $subject
-     * @param  array  $customClaims
      * @return string
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
@@ -29,7 +27,6 @@ class FirebaseAdapter extends JWTProvider implements JWTInterface
      * Decode a JSON Web Token
      *
      * @param  string  $token
-     * @param  bool  $refresh
      * @return array
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */

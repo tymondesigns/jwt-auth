@@ -2,8 +2,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class Blacklist
 {
