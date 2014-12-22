@@ -25,7 +25,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('tymon/jwt-auth', 'jwt');
+        $this->package('tymon/jwt-auth', 'jwt', __DIR__.'/../');
 
         $this->bootBindings();
 
@@ -106,7 +106,8 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerUserProvider()
     {
         $this->app['tymon.jwt.provider.user'] = $this->app->share(function ($app) {
-            return $app->make($this->config('providers.user'));
+            $user = $this->config('user');
+            return $app->make($this->config('providers.user'), [ new $user ]);
         });
     }
 

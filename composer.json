@@ -24,12 +24,11 @@
         "php": ">=5.4.0",
         "illuminate/support": "~4.0",
         "illuminate/http": "~4.0",
-        "firebase/php-jwt": "1.*"
+        "namshi/jose": "2.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",
         "mockery/mockery": "0.9.*",
-        "namshi/jose": "2.0.*",
         "illuminate/auth": "~4.0",
         "illuminate/database": "~4.0",
         "illuminate/console" : "~4.0"
