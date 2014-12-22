@@ -9,7 +9,7 @@ class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->cache = Mockery::mock('Illuminate\Cache\Repository');
+        $this->cache = Mockery::mock('Illuminate\Cache\CacheManager');
         $this->storage = new IlluminateCacheAdapter($this->cache);
     }
 

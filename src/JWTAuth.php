@@ -42,15 +42,15 @@ class JWTAuth
     protected $token;
 
     /**
-     * @param \Tymon\JWTAuth\User\UserInterface  $user
      * @param \Tymon\JWTAuth\JWTManager  $manager
+     * @param \Tymon\JWTAuth\User\UserInterface  $user
      * @param \Tymon\JWTAuth\Auth\AuthInterface  $auth
      * @param \Illuminate\Http\Request  $request
      */
-    public function __construct(UserInterface $user, JWTManager $manager, AuthInterface $auth, Request $request)
+    public function __construct(JWTManager $manager, UserInterface $user, AuthInterface $auth, Request $request)
     {
-        $this->user = $user;
         $this->manager = $manager;
+        $this->user = $user;
         $this->auth = $auth;
         $this->request = $request;
     }

@@ -190,8 +190,8 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
 
             $auth = new JWTAuth(
-                $app['tymon.jwt.provider.user'],
                 $app['tymon.jwt.manager'],
+                $app['tymon.jwt.provider.user'],
                 $app['tymon.jwt.provider.auth'],
                 $app['request']
             );
@@ -238,29 +238,5 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function config($key, $default = null)
     {
         return $this->app['config']->get("jwt::$key", $default);
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return string[]
-     */
-    public function provides()
-    {
-        return [
-            'tymon.jwt.auth',
-            'tymon.jwt.provider.user',
-            'tymon.jwt.provider.jwt',
-            'tymon.jwt.provider.auth',
-            'tymon.jwt.provider.storage',
-            'tymon.jwt.blacklist',
-            'tymon.jwt.generate',
-            'tymon.jwt.filter',
-            'Tymon\JWTAuth\JWTAuth',
-            'Tymon\JWTAuth\User\UserInterface',
-            'Tymon\JWTAuth\JWT\JWTInterface',
-            'Tymon\JWTAuth\Auth\AuthInterface',
-            'Tymon\JWTAuth\Storage\StorageInterface'
-        ];
     }
 }
