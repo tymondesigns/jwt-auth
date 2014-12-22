@@ -152,7 +152,7 @@ class Payload implements ArrayAccess
     {
         if (! method_exists($this, $method) && starts_with($method, 'get'))
         {
-            $class = "Tymon\\JWTAuth\\Claims\\" . substr($method, 3);
+            $class = sprintf("Tymon\\JWTAuth\\Claims\\%s", substr($method, 3));
 
             foreach ($this->claims as $claim) {
                 if (get_class($claim) === $class) {
