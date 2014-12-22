@@ -30,7 +30,8 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
     public function encode(array $payload)
     {
         try {
-            $this->jws->setPayload($payload)->sign($this->secret);
+            $this->jws->setPayload($payload);
+            $this->jws->sign($this->secret);
 
             return $this->jws->getTokenString();
         } catch (Exception $e) {
