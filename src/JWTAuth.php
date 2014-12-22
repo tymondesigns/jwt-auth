@@ -63,9 +63,7 @@ class JWTAuth
      */
     public function toUser($token = false)
     {
-        $this->requireToken($token);
-
-        $payload = $this->manager->decode($this->token);
+        $payload = $this->getPayload($token);
 
         if (! $user = $this->user->getBy($this->identifier, $payload->get('sub'))) {
             return false;
@@ -112,9 +110,7 @@ class JWTAuth
      */
     public function authenticate($token = false)
     {
-        $this->requireToken($token);
-
-        $id = $this->manager->decode($this->token)->get('sub');
+        $id = $this->getPayload($token)->get('sub');
 
         if (! $this->auth->checkUsingId($id)) {
             return false;
@@ -168,6 +164,7 @@ class JWTAuth
     /**
      * Get the raw Payload instance
      *
+     * @param  mixed  $token
      * @return \Tymon\JWTAuth\Payload
      */
     public function getPayload($token = false)
