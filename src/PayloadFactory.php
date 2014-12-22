@@ -89,10 +89,8 @@ class PayloadFactory
      */
     protected function buildClaims(array $customClaims)
     {
-        // add the custom claims first
-        foreach (array_diff($customClaims, $this->defaultClaims) as $name => $value) {
-            $this->addClaim($name, $value);
-        }
+        // add any custom claims first
+        $this->addClaims(array_diff($customClaims, $this->defaultClaims));
 
         foreach ($this->defaultClaims as $claim) {
             if (! array_key_exists($claim, $customClaims)) {
@@ -178,6 +176,16 @@ class PayloadFactory
         $this->ttl = $ttl;
 
         return $this;
+    }
+
+    /**
+     * Get the token ttl
+     *
+     * @return int
+     */
+    public function getTTL()
+    {
+        return $this->ttl;
     }
 
     /**

@@ -33,7 +33,6 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_payload_when_passing_an_array_of_claims_to_make_method()
     {
-
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
@@ -50,7 +49,6 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_payload_when_chaining_claim_methods()
     {
-
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
@@ -66,6 +64,14 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($payload->get('foo'), 'baz');
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+    }
+
+    /** @test */
+    public function it_should_set_the_ttl()
+    {
+        $this->factory->setTTL(12345);
+
+        $this->assertEquals($this->factory->getTTL(), 12345);
     }
 
 }
