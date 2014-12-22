@@ -90,6 +90,7 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTProvider();
         $this->registerAuthProvider();
         $this->registerStorageProvider();
+        $this->registerJWTBlacklist();
 
         $this->registerClaimFactory();
         $this->registerPayloadFactory();
@@ -106,8 +107,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerUserProvider()
     {
         $this->app['tymon.jwt.provider.user'] = $this->app->share(function ($app) {
-            $user = $this->config('user');
-            return $app->make($this->config('providers.user'), [ new $user ]);
+            return $app->make($this->config('providers.user'), [$app->make($this->config('user'))]);
         });
     }
 
@@ -122,9 +122,7 @@ class JWTAuthServiceProvider extends ServiceProvider
             $algo = $this->config('algo');
             $provider = $this->config('providers.jwt');
 
-            $instance = $app->make($provider, [$secret]);
-
-            return $instance->setAlgo($algo);
+            return $app->make($provider, [$secret, $algo]);
         });
     }
 
@@ -153,7 +151,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerClaimFactory()
     {
-        $this->app->instance('tymon.jwt.claim.factory', function () {
+        $this->app['tymon.jwt.claim.factory'] = $this->app->share(function ($app) {
             return new Factory();
         });
     }

@@ -3,16 +3,16 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Auth\AuthInterface;
+use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Token;
-use Tymon\JWTAuth\User\UserInterface;
+use Tymon\JWTAuth\Providers\User\UserInterface;
 
 class JWTAuth
 {
 
     /**
-     * @var \Tymon\JWTAuth\User\UserInterface
+     * @var \Tymon\JWTAuth\Providers\User\UserInterface
      */
     protected $user;
 
@@ -22,7 +22,7 @@ class JWTAuth
     protected $manager;
 
     /**
-     * @var \Tymon\JWTAuth\Auth\AuthInterface
+     * @var \Tymon\JWTAuth\Providers\Auth\AuthInterface
      */
     protected $auth;
 

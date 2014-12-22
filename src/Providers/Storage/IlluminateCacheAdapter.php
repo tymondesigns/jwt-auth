@@ -2,13 +2,13 @@
 
 namespace Tymon\JWTAuth\Providers\Storage;
 
-use Illuminate\Cache\Repository;
+use Illuminate\Cache\CacheManager;
 use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class IlluminateCacheAdapter implements StorageInterface
 {
     /**
-     * @var \Illuminate\Cache\Repository
+     * @var \Illuminate\Cache\CacheManager
      */
     protected $cache;
 
@@ -18,9 +18,9 @@ class IlluminateCacheAdapter implements StorageInterface
     protected $tag = 'tymon.jwt';
 
     /**
-     * @param \Illuminate\Cache\Repository  $cache
+     * @param \Illuminate\Cache\CacheManager  $cache
      */
-    public function __construct(Repository $cache)
+    public function __construct(CacheManager  $cache)
     {
         $this->cache = $cache;
     }
