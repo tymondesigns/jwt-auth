@@ -109,7 +109,7 @@ return [
         |
         */
 
-        'jwt' => 'Tymon\JWTAuth\Providers\JWT\FirebaseAdapter',
+        'jwt' => 'Tymon\JWTAuth\Providers\JWT\NamshiAdapter',
 
         /*
         |--------------------------------------------------------------------------
@@ -127,7 +127,7 @@ return [
         | Storage Provider
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to store the tokens in a 'registry'
+        | Specify the provider that is used to store tokens in a 'blacklist'
         |
         */
 

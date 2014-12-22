@@ -152,7 +152,7 @@ class Payload implements ArrayAccess
     {
         if (! method_exists($this, $method) && starts_with($method, 'get'))
         {
-            $class = sprintf("Tymon\\JWTAuth\\Claims\\%s", substr($method, 3));
+            $class = sprintf('Tymon\\JWTAuth\\Claims\\%s', substr($method, 3));
 
             foreach ($this->claims as $claim) {
                 if (get_class($claim) === $class) {
@@ -161,6 +161,6 @@ class Payload implements ArrayAccess
             }
         }
 
-        throw new \BadMethodCallException("The claim [$method] does not exist on the payload.");
+        throw new \BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', $method));
     }
 }

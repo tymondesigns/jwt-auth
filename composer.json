@@ -29,7 +29,7 @@
     "require-dev": {
         "phpunit/phpunit": "4.*",
         "mockery/mockery": "0.9.*",
-        "namshi/jose": "1.0.*",
+        "namshi/jose": "2.0.*",
         "illuminate/auth": "~4.0",
         "illuminate/database": "~4.0",
         "illuminate/console" : "~4.0"
