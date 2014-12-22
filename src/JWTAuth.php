@@ -166,6 +166,18 @@ class JWTAuth
     }
 
     /**
+     * Get the raw Payload instance
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function getPayload($token = false)
+    {
+        $this->requireToken($token);
+
+        return $this->manager->decode($this->token);
+    }
+
+    /**
      * Parse the token from the request
      *
      * @param  string  $query
