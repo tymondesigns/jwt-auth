@@ -12,14 +12,15 @@ abstract class JWTProvider
     /**
      * @var string
      */
-    protected $algo = 'HS256';
+    protected $algo;
 
     /**
      * @param $secret
      */
-    public function __construct($secret)
+    public function __construct($secret, $algo = 'HS256')
     {
         $this->secret = $secret;
+        $this->algo = $algo;
     }
 
     /**
