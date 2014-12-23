@@ -12,14 +12,14 @@ class JWTAuth
 {
 
     /**
-     * @var \Tymon\JWTAuth\Providers\User\UserInterface
-     */
-    protected $user;
-
-    /**
      * @var \Tymon\JWTAuth\JWTManager
      */
     protected $manager;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\User\UserInterface
+     */
+    protected $user;
 
     /**
      * @var \Tymon\JWTAuth\Providers\Auth\AuthInterface

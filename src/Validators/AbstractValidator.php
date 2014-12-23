@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth\Validators;
 
+use Carbon\Carbon;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 abstract class AbstractValidator implements ValidatorInterface
@@ -39,5 +40,16 @@ abstract class AbstractValidator implements ValidatorInterface
         $this->refreshFlow = $refreshFlow;
 
         return $this;
+    }
+
+    /**
+     * Get the Carbon instance for the timestamp
+     *
+     * @param  int  $ts
+     * @return \Carbon\Carbon
+     */
+    protected function carbon($ts)
+    {
+        return Carbon::createFromTimeStamp($ts);
     }
 }

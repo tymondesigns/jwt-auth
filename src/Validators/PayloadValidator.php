@@ -53,8 +53,12 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateExpiry(array $payload)
     {
-        if ($payload['iat'] > time() || $payload['exp'] < time()) {
-            throw new TokenExpiredException('JWT has expired');
+        if ($this->carbon($payload['iat'])->isFuture()) {
+            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
+        }
+
+        if ($this->carbon($payload['exp'])->isPast()) {
+            throw new TokenExpiredException('Token has expired');
         }
 
         return true;
