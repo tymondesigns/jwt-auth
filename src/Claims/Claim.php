@@ -86,7 +86,7 @@ abstract class Claim implements ClaimInterface
      *
      * @return boolean
      */
-    protected function validate()
+    protected function validate($value)
     {
         return true;
     }
