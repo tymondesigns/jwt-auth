@@ -58,7 +58,7 @@ class Payload implements ArrayAccess
      * Get the payload
      *
      * @param  string  $claim
-     * @return array
+     * @return mixed
      */
     public function get($claim = null)
     {

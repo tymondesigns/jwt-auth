@@ -40,10 +40,8 @@ abstract class Claim implements ClaimInterface
      */
     public function setValue($value)
     {
-        if (method_exists($this, 'validate')) {
-            if (! $this->validate($value)) {
-                throw new InvalidClaimException('Invalid value provided for claim "' . $this->getName() . '": ' . $value);
-            }
+        if (! $this->validate($value)) {
+            throw new InvalidClaimException('Invalid value provided for claim "' . $this->getName() . '": ' . $value);
         }
 
         $this->value = $value;
@@ -84,6 +82,16 @@ abstract class Claim implements ClaimInterface
     }
 
     /**
+     * Default validate call
+     *
+     * @return boolean
+     */
+    public function validate()
+    {
+        return true;
+    }
+
+    /**
      * Build a key value array comprising of the claim name and value
      *
      * @return array
@@ -102,5 +110,4 @@ abstract class Claim implements ClaimInterface
     {
         return json_encode($this->toArray());
     }
-
 }

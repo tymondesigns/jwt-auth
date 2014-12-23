@@ -20,6 +20,6 @@ class IssuedAt extends Claim
      */
     protected function validate($value)
     {
-        return is_int($value);
+        return is_numeric($value);
     }
 }

@@ -38,7 +38,7 @@ class Blacklist
             return false;
         }
 
-        // add a minute to abate any potential overlap
+        // add a minute to abate potential overlap
         $minutes = $exp->diffInMinutes(Carbon::now())->addMinute();
 
         $this->storage->add($jti, [], $minutes);
