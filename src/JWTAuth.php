@@ -223,8 +223,8 @@ class JWTAuth
     /**
      * Set the identifier
      *
-     * @param string $identifier
-     * @return $this;
+     * @param  string $identifier
+     * @return $this
      */
     public function setIdentifier($identifier)
     {
