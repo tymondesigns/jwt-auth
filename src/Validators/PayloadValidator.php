@@ -49,7 +49,7 @@ class PayloadValidator extends AbstractValidator
     /**
      * Validate the payload timestamps
      *
-     * @param array  $payload
+     * @param  array  $payload
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @return boolean

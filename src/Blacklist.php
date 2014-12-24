@@ -3,7 +3,6 @@
 namespace Tymon\JWTAuth;
 
 use Carbon\Carbon;
-use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class Blacklist
@@ -25,7 +24,7 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist
      *
-     * @param \Tymon\JWTAuth\Payload $payload
+     * @param  \Tymon\JWTAuth\Payload  $payload
      * @return boolean
      */
     public function add(Payload $payload)
@@ -60,7 +59,7 @@ class Blacklist
     /**
      * Remove the token (jti claim) from the blacklist
      *
-     * @param \Tymon\JWTAuth\Payload $payload
+     * @param  \Tymon\JWTAuth\Payload  $payload
      * @return boolean
      */
     public function remove(Payload $payload)

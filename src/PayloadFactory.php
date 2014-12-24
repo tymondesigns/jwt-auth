@@ -4,7 +4,6 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
-use Tymon\JWTAuth\Payload;
 
 class PayloadFactory
 {
@@ -58,7 +57,7 @@ class PayloadFactory
     {
         $claims = $this->buildClaims($customClaims)->resolveClaims();
 
-        return new Payload($claims);
+        return new Payload($claims, $this->refreshFlow);
     }
 
     /**
@@ -79,8 +78,8 @@ class PayloadFactory
     /**
      * Add a claim to the Payload
      *
-     * @param string $name
-     * @param mixed $value
+     * @param  string  $name
+     * @param  mixed   $value
      * @return $this
      */
     public function addClaim($name, $value)
@@ -93,7 +92,7 @@ class PayloadFactory
     /**
      * Build the default claims
      *
-     * @param array  $customClaims
+     * @param  array  $customClaims
      * @return $this
      */
     protected function buildClaims(array $customClaims)
