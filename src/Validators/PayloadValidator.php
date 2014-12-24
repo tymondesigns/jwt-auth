@@ -23,7 +23,7 @@ class PayloadValidator extends AbstractValidator
         $this->validateStructure($value);
 
         if (! $this->refreshFlow) {
-            $this->validateExpiry($value);
+            $this->validateTimestamps($value);
         } else {
             $this->validateRefresh($value);
         }
@@ -46,13 +46,17 @@ class PayloadValidator extends AbstractValidator
     }
 
     /**
-     * Validate the issue and expiry date of the payload
+     * Validate the payload timestamps
      *
      * @param  $payload
      * @return bool
      */
-    protected function validateExpiry(array $payload)
+    protected function validateTimestamps(array $payload)
     {
+        if ($this->carbon($payload['nbf'])->isFuture()) {
+            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
+        }
+
         if ($this->carbon($payload['iat'])->isFuture()) {
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
         }

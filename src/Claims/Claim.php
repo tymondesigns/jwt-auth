@@ -82,7 +82,7 @@ abstract class Claim implements ClaimInterface
     }
 
     /**
-     * Default validate call
+     * Validate the Claim value
      *
      * @return boolean
      */

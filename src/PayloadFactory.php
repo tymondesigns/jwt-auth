@@ -117,16 +117,6 @@ class PayloadFactory
     }
 
     /**
-     * Set a unique id (jti) for the token
-     *
-     * @return string
-     */
-    protected function jti()
-    {
-        return md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
-    }
-
-    /**
      * Set the Issuer (iss) claim
      *
      * @return string
@@ -164,6 +154,16 @@ class PayloadFactory
     public function nbf()
     {
         return time();
+    }
+
+    /**
+     * Set a unique id (jti) for the token
+     *
+     * @return string
+     */
+    protected function jti()
+    {
+        return md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
     }
 
     /**

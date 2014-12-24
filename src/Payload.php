@@ -22,11 +22,11 @@ class Payload implements ArrayAccess
      *
      * @param array  $claims
      */
-    public function __construct(array $claims)
+    public function __construct(array $claims, $refreshFlow = false)
     {
         $this->claims = $claims;
 
-        with(new PayloadValidator)->check($this->toArray());
+        with(new PayloadValidator)->setRefreshFlow($refreshFlow)->check($this->toArray());
     }
 
     /**
