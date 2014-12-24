@@ -51,7 +51,8 @@ class JWTManager
     /**
      * Decode a Token and return the Payload
      *
-     * @param  \Tymon\JWTAuth\Token  $token
+     * @param  \Tymon\JWTAuth\Token $token
+     * @throws Exceptions\TokenBlacklistedException
      * @return \Tymon\JWTAuth\Payload
      */
     public function decode(Token $token)

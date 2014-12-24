@@ -3,9 +3,8 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Providers\User\UserInterface;
 
 class JWTAuth
@@ -58,7 +57,7 @@ class JWTAuth
     /**
      * Find a user using the user identifier in the subject claim
      *
-     * @param  string  $token
+     * @param bool|string $token
      * @return mixed
      */
     public function toUser($token = false)
@@ -194,6 +193,8 @@ class JWTAuth
     /**
      * Parse token from the authorization header
      *
+     * @param string  $header
+     * @param string  $method
      * @return false|string
      */
     protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
@@ -223,6 +224,7 @@ class JWTAuth
      * Set the identifier
      *
      * @param string $identifier
+     * @return $this;
      */
     public function setIdentifier($identifier)
     {
@@ -244,7 +246,8 @@ class JWTAuth
     /**
      * Set the token
      *
-     * @param string  $token
+     * @param string $token
+     * @return $this
      */
     public function setToken($token)
     {
@@ -262,13 +265,11 @@ class JWTAuth
      */
     protected function requireToken($token)
     {
-        if ($token) {
-            return $this->setToken($token);
-        } else {
-            if (! $this->token) {
-                throw new JWTException('A token is required', 400);
-            }
+        if (! $token && ! $this->token) {
+            throw new JWTException('A token is required', 400);
         }
+
+        return $this->setToken($token);
     }
 
     /**

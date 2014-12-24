@@ -33,7 +33,8 @@ abstract class AbstractValidator implements ValidatorInterface
     /**
      * Set the refresh flow flag
      *
-     * @param bool  $refreshFlow
+     * @param  bool  $refreshFlow
+     * @return $this
      */
     public function setRefreshFlow($refreshFlow = true)
     {

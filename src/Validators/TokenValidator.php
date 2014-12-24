@@ -19,6 +19,7 @@ class TokenValidator extends AbstractValidator
 
     /**
      * @param  string  $token
+     * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @return void
      */
     protected function validateStructure($token)

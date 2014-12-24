@@ -20,7 +20,8 @@ class Payload implements ArrayAccess
     /**
      * Build the Payload
      *
-     * @param array  $claims
+     * @param array $claims
+     * @param bool  $refreshFlow
      */
     public function __construct(array $claims, $refreshFlow = false)
     {
@@ -120,8 +121,9 @@ class Payload implements ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable
      *
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param  mixed $key
+     * @param  mixed $value
+     * @throws Exceptions\PayloadException
      * @return void
      */
     public function offsetSet($key, $value)
@@ -132,7 +134,8 @@ class Payload implements ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable
      *
-     * @param  string  $key
+     * @param  string $key
+     * @throws Exceptions\PayloadException
      * @return void
      */
     public function offsetUnset($key)
