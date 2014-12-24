@@ -71,6 +71,8 @@ class Blacklist
      */
     public function clear()
     {
-        return $this->storage->flush();
+        $this->storage->flush();
+
+        return true;
     }
 }

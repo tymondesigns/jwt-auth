@@ -24,6 +24,11 @@ class PayloadFactory
     protected $ttl = 60;
 
     /**
+     * @var boolean
+     */
+    protected $refreshFlow = false;
+
+    /**
      * @var array
      */
     protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
@@ -46,6 +51,7 @@ class PayloadFactory
     /**
      * Create the Payload instance
      *
+     * @param  array  $customClaims
      * @return \Tymon\JWTAuth\Payload
      */
     public function make(array $customClaims = [])
@@ -58,7 +64,8 @@ class PayloadFactory
     /**
      * Add an array of claims to the Payload
      *
-     * @param array $claims
+     * @param  array  $claims
+     * @return $this
      */
     public function addClaims(array $claims)
     {
@@ -72,8 +79,9 @@ class PayloadFactory
     /**
      * Add a claim to the Payload
      *
-     * @param string  $name
-     * @param mixed   $value
+     * @param string $name
+     * @param mixed $value
+     * @return $this
      */
     public function addClaim($name, $value)
     {
@@ -85,7 +93,8 @@ class PayloadFactory
     /**
      * Build the default claims
      *
-     * @return \Tymon\JWTAuth\PayloadFactory
+     * @param array  $customClaims
+     * @return $this
      */
     protected function buildClaims(array $customClaims)
     {
@@ -170,6 +179,7 @@ class PayloadFactory
      * Set the token ttl (in minutes)
      *
      * @param int
+     * @return $this
      */
     public function setTTL($ttl)
     {
@@ -186,6 +196,19 @@ class PayloadFactory
     public function getTTL()
     {
         return $this->ttl;
+    }
+
+    /**
+     * Set the refresh flow
+     *
+     * @param boolean $refreshFlow
+     * @return $this
+     */
+    public function setRefreshFlow($refreshFlow = true)
+    {
+        $this->refreshFlow = $refreshFlow;
+
+        return $this;
     }
 
     /**

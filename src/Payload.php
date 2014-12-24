@@ -13,7 +13,7 @@ class Payload implements ArrayAccess
     /**
      * The array of claims
      *
-     * @var array \Tymon\JWTAuth\Claims\Claim[]
+     * @var array
      */
     private $claims = [];
 

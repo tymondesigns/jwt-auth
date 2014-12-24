@@ -43,8 +43,8 @@ class JWTAuth
 
     /**
      * @param \Tymon\JWTAuth\JWTManager  $manager
-     * @param \Tymon\JWTAuth\User\UserInterface  $user
-     * @param \Tymon\JWTAuth\Auth\AuthInterface  $auth
+     * @param \Tymon\JWTAuth\Providers\User\UserInterface  $user
+     * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface  $auth
      * @param \Illuminate\Http\Request  $request
      */
     public function __construct(JWTManager $manager, UserInterface $user, AuthInterface $auth, Request $request)

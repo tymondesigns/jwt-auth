@@ -2,11 +2,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Providers\JWT\JWTInterface;
-use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class JWTManager
 {
@@ -84,7 +81,7 @@ class JWTManager
         $this->blacklist->add($payload);
 
         // return the new token
-        return $this->encode($this->payloadFactory->make(['sub' => $payload['sub']]));
+        return $this->encode($this->payloadFactory->setRefreshFlow()->make(['sub' => $payload['sub']]));
     }
 
     /**
