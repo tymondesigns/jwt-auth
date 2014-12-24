@@ -68,7 +68,7 @@ class Payload implements ArrayAccess
                 return array_map([$this, 'get'], $claim);
             }
 
-            return array_get($this->toArray(), $claim);
+            return array_get($this->toArray(), $claim, false);
         }
 
         return $this->toArray();
