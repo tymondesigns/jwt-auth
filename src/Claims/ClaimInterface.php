@@ -33,11 +33,4 @@ interface ClaimInterface
      * @return string
      */
     public function getName();
-
-    /**
-     * Validate the Claim value
-     *
-     * @return boolean
-     */
-    protected function validate($value);
 }
