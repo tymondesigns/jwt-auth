@@ -20,12 +20,14 @@ class TokenValidator extends AbstractValidator
     /**
      * @param  string  $token
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return void
+     * @return boolean
      */
     protected function validateStructure($token)
     {
         if (count(explode('.', $token)) !== 3) {
             throw new TokenInvalidException('Wrong number of segments');
         }
+
+        return true;
     }
 }
