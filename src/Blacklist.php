@@ -29,7 +29,7 @@ class Blacklist
      */
     public function add(Payload $payload)
     {
-        $exp = Carbon::createFromTimeStamp($payload['exp']);
+        $exp = Carbon::createFromTimeStampUTC($payload['exp']);
 
         // there is no need to add the token to the blacklist
         // if the token has already expired
@@ -38,7 +38,7 @@ class Blacklist
         }
 
         // add a minute to abate potential overlap
-        $minutes = $exp->diffInMinutes(Carbon::now())->addMinute();
+        $minutes = $exp->diffInMinutes(Carbon::now()->subMinute());
 
         $this->storage->add($payload['jti'], [], $minutes);
 

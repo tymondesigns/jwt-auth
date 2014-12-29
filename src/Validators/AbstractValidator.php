@@ -51,6 +51,6 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     protected function carbon($ts)
     {
-        return Carbon::createFromTimeStamp($ts);
+        return Carbon::createFromTimeStampUTC($ts);
     }
 }
