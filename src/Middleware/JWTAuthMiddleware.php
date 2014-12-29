@@ -4,6 +4,13 @@ namespace Tymon\JWTAuth\Middleware;
 
 class JWTAuthMiddleware
 {
+
+    protected $response;
+
+    protected $events;
+
+    protected $auth;
+
 	/**
      * Create a new Middleware instance
      *
