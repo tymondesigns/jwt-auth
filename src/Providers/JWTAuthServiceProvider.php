@@ -4,7 +4,6 @@ namespace Tymon\JWTAuth\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
@@ -151,9 +150,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerClaimFactory()
     {
-        $this->app['tymon.jwt.claim.factory'] = $this->app->singleton(function () {
-            return new Factory();
-        });
+        $this->app->singleton('tymon.jwt.claim.factory', 'Tymon\JWTAuth\Claims\Factory');
     }
 
     /**
