@@ -129,6 +129,29 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_refresh_a_token()
+    {
+        $token = Mockery::mock('Tymon\JWTAuth\Token');
+        $token->shouldReceive('get')->once()->andReturn('foo.bar.baz');
+
+        $this->manager->shouldReceive('refresh')->once()->andReturn($token);
+
+        $token = $this->jwtAuth->refresh('foo.bar.baz');
+
+        $this->assertEquals($token, 'foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_invalidate_a_token()
+    {
+        $this->manager->shouldReceive('invalidate')->once()->andReturn(true);
+
+        $result = $this->jwtAuth->invalidate('foo.bar.baz');
+
+        $this->assertTrue($result);
+    }
+
+    /** @test */
     public function it_should_retrieve_the_token_from_the_auth_header()
     {
         $request = Request::create('/foo', 'GET');
