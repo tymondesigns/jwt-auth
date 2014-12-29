@@ -4,12 +4,12 @@ namespace Tymon\JWTAuth\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Blacklist;
+use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
-use Tymon\JWTAuth\Claims\Factory;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {

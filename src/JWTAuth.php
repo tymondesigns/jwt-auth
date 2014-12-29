@@ -147,7 +147,7 @@ class JWTAuth
     /**
      * Get the token
      *
-     * @return false|string
+     * @return boolean|string
      */
     public function getToken()
     {
@@ -260,7 +260,7 @@ class JWTAuth
      * Ensure that a token is available
      *
      * @param  mixed  $token
-     * @return JWTAuth|null
+     * @return JWTAuth
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     protected function requireToken($token)
