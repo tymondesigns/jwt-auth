@@ -33,7 +33,7 @@ class PayloadValidator extends AbstractValidator
      * Ensure the payload contains the required claims and
      * the claims have the relevant type
      *
-     * @param array $payload
+     * @param array  $payload
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @return bool
      */
@@ -83,5 +83,17 @@ class PayloadValidator extends AbstractValidator
         // so the user will need to re-login at least every 2 weeks.
 
         return true;
+    }
+
+    /**
+     * Set the required claims
+     *
+     * @param array  $claims
+     */
+    public function setRequiredClaims(array $claims)
+    {
+        $this->requiredClaims = $claims;
+
+        return $this;
     }
 }
