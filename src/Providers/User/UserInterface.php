@@ -7,7 +7,7 @@ interface UserInterface
     /**
      * Get the user by the given key, value
      *
-     * @param mixed $key
+     * @param string $key
      * @param mixed $value
      * @return Illuminate\Database\Eloquent\Model|null
      */
