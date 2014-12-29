@@ -8,6 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Don't forget to set this, as it will be used to sign your tokens.
+    | A helper command is provided for this: `php artisan jwt:generate`
     |
     */
 
@@ -79,6 +80,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Required Claims
+    |--------------------------------------------------------------------------
+    |
+    | Specify the required claims that must exist in any token.
+    | A TokenInvalidException will be thrown if any of these claims are not
+    | present in the payload.
+    |
+    */
+
+    'required_claims' => ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'],
+
+    /*
+    |--------------------------------------------------------------------------
     | Providers
     |--------------------------------------------------------------------------
     |
@@ -127,7 +141,7 @@ return [
         | Storage Provider
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to store tokens in a 'blacklist'
+        | Specify the provider that is used to store tokens in the blacklist
         |
         */
 
