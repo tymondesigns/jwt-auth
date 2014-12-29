@@ -8,6 +8,7 @@ use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
+use Tymon\JWTAuth\Middleware\JWTAuthMiddleware;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
 
@@ -34,6 +35,14 @@ class JWTAuthServiceProvider extends ServiceProvider
 
         // register the filter
         $this->app['router']->filter('jwt-auth', 'tymon.jwt.filter');
+
+        try {
+            // register the middleware
+            $this->app['router']->middleware('jwt.auth', 'tymon.jwt.middleware');
+        } catch(\Exception $e) {
+            // no laravel 5 here
+        }
+
     }
 
     /**
@@ -98,6 +107,7 @@ class JWTAuthServiceProvider extends ServiceProvider
 
         $this->registerJWTAuth();
         $this->registerJWTAuthFilter();
+        $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
     }
 
@@ -209,6 +219,14 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app['tymon.jwt.blacklist'] = $this->app->share(function ($app) {
             return new Blacklist($app['tymon.jwt.provider.storage']);
+        });
+    }
+
+    protected function registerJWTAuthMiddleware()
+    {
+        $this->app['tymon.jwt.middleware'] = $this->app->share(function ($app) {
+            $response = $app->make('Illuminate\Routing\ResponseFactory');
+            return new JWTAuthMiddleware($response, $app['events'], $app['tymon.jwt.auth']);
         });
     }
 

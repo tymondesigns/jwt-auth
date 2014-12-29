@@ -273,6 +273,18 @@ class JWTAuth
     }
 
     /**
+     * Set the request instance
+     *
+     * @param Request $request
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
      * Get the JWTManager instance
      *
      * @return \Tymon\JWTAuth\JWTManager

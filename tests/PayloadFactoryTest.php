@@ -73,5 +73,4 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->factory->getTTL(), 12345);
     }
-
 }
