@@ -9,6 +9,7 @@ use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Claims\Factory;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -150,7 +151,9 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerClaimFactory()
     {
-        $this->app->singleton('tymon.jwt.claim.factory', 'Tymon\JWTAuth\Claims\Factory');
+        $this->app->singleton('tymon.jwt.claim.factory', function () {
+            return new Factory();
+        });
     }
 
     /**
