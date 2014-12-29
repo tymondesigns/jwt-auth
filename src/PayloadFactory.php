@@ -177,7 +177,7 @@ class PayloadFactory
     /**
      * Set the token ttl (in minutes)
      *
-     * @param int
+     * @param  int  $ttl
      * @return $this
      */
     public function setTTL($ttl)

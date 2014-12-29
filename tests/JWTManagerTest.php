@@ -64,10 +64,9 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload($claims);
         $token = new Token('foo.bar.baz');
-        $payloadArray = $payload->toArray();
 
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payloadArray);
-        $this->factory->shouldReceive('make')->with($payloadArray)->andReturn($payload);
+        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+        $this->factory->shouldReceive('make')->with($payload->toArray())->andReturn($payload);
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
 
         $payload = $this->manager->decode($token);
@@ -90,12 +89,57 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload($claims);
         $token = new Token('foo.bar.baz');
-        $payloadArray = $payload->toArray();
 
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payloadArray);
-        $this->factory->shouldReceive('make')->with($payloadArray)->andReturn($payload);
+        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+        $this->factory->shouldReceive('make')->with($payload->toArray())->andReturn($payload);
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
 
         $payload = $this->manager->decode($token);
+    }
+
+    // /** @test */
+    // public function it_should_refresh_a_token()
+    // {
+    //     $claims = [
+    //         new Subject(1),
+    //         new Issuer('http://example.com'),
+    //         new Expiration(time() - 3600),
+    //         new NotBefore(time()),
+    //         new IssuedAt(time()),
+    //         new JwtId('foo')
+    //     ];
+    //     $payload = new Payload($claims, true);
+    //     $token = new Token('foo.bar.baz');
+
+    //     $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+    //     $this->factory->shouldReceive('setRefreshFlow->make')->andReturn(Mockery::self());
+    //     $this->factory->shouldReceive('make')->with(['sub' => 1])->andReturn($payload);
+    //     $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+    //     $this->blacklist->shouldReceive('add')->once()->with($payload);
+
+    //     $token = $this->manager->refresh($token);
+    // }
+
+    /** @test */
+    public function it_should_invalidate_a_token()
+    {
+         $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration(time() + 3600),
+            new NotBefore(time()),
+            new IssuedAt(time()),
+            new JwtId('foo')
+        ];
+        $payload = new Payload($claims);
+        $token = new Token('foo.bar.baz');
+
+        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+        $this->factory->shouldReceive('make')->with($payload->toArray())->andReturn($payload);
+        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+
+        $this->blacklist->shouldReceive('add')->with($payload)->andReturn(true);
+
+        $this->manager->invalidate($token);
     }
 }
