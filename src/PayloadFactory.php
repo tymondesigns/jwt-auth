@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
 
@@ -141,7 +142,7 @@ class PayloadFactory
      */
     public function iat()
     {
-        return time();
+        return Carbon::now()->format('U');
     }
 
     /**
@@ -151,7 +152,7 @@ class PayloadFactory
      */
     public function exp()
     {
-        return time() + ($this->ttl * 60);
+        return Carbon::now()->addMinutes($this->ttl)->format('U');
     }
 
     /**
@@ -161,7 +162,7 @@ class PayloadFactory
      */
     public function nbf()
     {
-        return time();
+        return Carbon::now()->format('U');
     }
 
     /**
@@ -171,7 +172,7 @@ class PayloadFactory
      */
     protected function jti()
     {
-        return md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
+        $i = md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
     }
 
     /**
