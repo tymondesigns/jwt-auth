@@ -172,7 +172,7 @@ class PayloadFactory
      */
     protected function jti()
     {
-        $i = md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
+        return md5('jti.'. array_get($this->claims, 'sub', '') . '.' . array_get($this->claims, 'iat', ''));
     }
 
     /**
