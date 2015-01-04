@@ -142,7 +142,7 @@ class PayloadFactory
      */
     public function iat()
     {
-        return Carbon::now()->format('U');
+        return $this->now()->format('U');
     }
 
     /**
@@ -152,7 +152,7 @@ class PayloadFactory
      */
     public function exp()
     {
-        return Carbon::now()->addMinutes($this->ttl)->format('U');
+        return $this->now()->addMinutes($this->ttl)->format('U');
     }
 
     /**
@@ -162,7 +162,7 @@ class PayloadFactory
      */
     public function nbf()
     {
-        return Carbon::now()->format('U');
+        return $this->now()->format('U');
     }
 
     /**
@@ -209,6 +209,16 @@ class PayloadFactory
         $this->refreshFlow = $refreshFlow;
 
         return $this;
+    }
+
+    /**
+     * Get the current time
+     *
+     * @return \Carbon\Carbon
+     */
+    protected function now()
+    {
+        return Carbon::now();
     }
 
     /**

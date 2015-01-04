@@ -2,12 +2,11 @@
 
 namespace Tymon\JWTAuth;
 
-use ArrayAccess;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements ArrayAccess
+class Payload implements \ArrayAccess
 {
 
     /**
@@ -20,8 +19,8 @@ class Payload implements ArrayAccess
     /**
      * Build the Payload
      *
-     * @param array $claims
-     * @param bool  $refreshFlow
+     * @param array  $claims
+     * @param bool   $refreshFlow
      */
     public function __construct(array $claims, $refreshFlow = false)
     {
