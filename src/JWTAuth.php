@@ -57,14 +57,14 @@ class JWTAuth
     /**
      * Find a user using the user identifier in the subject claim
      *
-     * @param bool|string $token
+     * @param  bool|string  $token
      * @return mixed
      */
     public function toUser($token = false)
     {
         $payload = $this->getPayload($token);
 
-        if (! $user = $this->user->getBy($this->identifier, $payload->get('sub'))) {
+        if (! $user = $this->user->getBy($this->identifier, $payload['sub'])) {
             return false;
         }
 
@@ -147,7 +147,7 @@ class JWTAuth
     /**
      * Get the token
      *
-     * @return boolean|string
+     * @return boolean|Token
      */
     public function getToken()
     {
@@ -209,7 +209,7 @@ class JWTAuth
     }
 
     /**
-     * Parse token from the authorization header
+     * Create a Payload instance
      *
      * @param  mixed  $subject
      * @param  array  $customClaims
@@ -246,7 +246,7 @@ class JWTAuth
     /**
      * Set the token
      *
-     * @param string $token
+     * @param  string  $token
      * @return $this
      */
     public function setToken($token)
@@ -275,7 +275,7 @@ class JWTAuth
     /**
      * Set the request instance
      *
-     * @param Request $request
+     * @param Request  $request
      */
     public function setRequest(Request $request)
     {
