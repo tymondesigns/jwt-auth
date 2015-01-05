@@ -27,7 +27,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_a_user_when_passing_a_token_containing_a_valid_subject_claim()
     {
         $payload = Mockery::mock('Tymon\JWTAuth\Payload');
-        $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
+        $payload->shouldReceive('offsetGet')->once()->andReturn(1);
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
         $this->user->shouldReceive('getBy')->once()->andReturn((object) ['id' => 1]);
@@ -41,7 +41,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_false_when_passing_a_token_containing_an_invalid_subject_claim()
     {
         $payload = Mockery::mock('Tymon\JWTAuth\Payload');
-        $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
+        $payload->shouldReceive('offsetGet')->once()->andReturn(1);
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
         $this->user->shouldReceive('getBy')->once()->andReturn(false);
