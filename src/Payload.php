@@ -6,7 +6,7 @@ use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-final class Payload implements \ArrayAccess
+class Payload implements \ArrayAccess
 {
 
     /**

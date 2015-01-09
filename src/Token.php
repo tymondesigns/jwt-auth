@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Validators\TokenValidator;
 
-final class Token
+class Token
 {
 
     /**
