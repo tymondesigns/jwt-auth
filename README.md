@@ -104,7 +104,7 @@ Route::post('me', function () {
     
     try
     {
-        $user = JWTAuth::getToken()->toUser();
+        $user = JWTAuth::parseToken()->toUser();
     }
     catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e)
     {
