@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
+use Exception;
 use Illuminate\Auth\AuthManager;
 
 class IlluminateAuthAdapter implements AuthInterface
@@ -39,7 +40,11 @@ class IlluminateAuthAdapter implements AuthInterface
      */
     public function checkUsingId($id)
     {
-        return $this->auth->onceUsingId($id);
+        try {
+            return $this->auth->onceUsingId($id);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
