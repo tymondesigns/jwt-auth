@@ -16,7 +16,6 @@ class EloquentUserAdapter implements UserInterface
      * Create a new User instance
      *
      * @param  \Illuminate\Database\Eloquent\Model $user
-     * @return void
      */
     public function __construct(Model $user)
     {
