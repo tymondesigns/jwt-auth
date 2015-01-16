@@ -1,5 +1,6 @@
 <?php namespace Tymon\JWTAuth;
 
+use Exception;
 use Tymon\JWTAuth\Providers\ProviderInterface;
 use Tymon\JWTAuth\Exceptions\JWTAuthException;
 use Illuminate\Auth\AuthManager;
@@ -111,8 +112,9 @@ class JWTAuth {
 
 		$id = $this->provider->getSubject($this->token);
 
-		if (! $this->auth->onceUsingId($id) )
-		{
+		try {
+			$this->auth->onceUsingId($id);
+		} catch (Exception $e) {
 			return false;
 		}
 
