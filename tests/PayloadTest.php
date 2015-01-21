@@ -109,4 +109,13 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $this->payload->getFoo();
     }
 
+    /** @test */
+    public function it_should_get_the_claims()
+    {
+        $claims = $this->payload->getClaims();
+
+        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims[2]);
+        $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims[5]);
+    }
+
 }

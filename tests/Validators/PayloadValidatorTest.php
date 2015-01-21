@@ -10,8 +10,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
-        $this->validator = new PayloadValidator($this->blacklist);
+        $this->validator = new PayloadValidator();
     }
 
     /** @test */
@@ -34,8 +33,6 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenExpiredException');
 
-        $this->blacklist->shouldReceive('has')->with('foo')->andReturn(false);
-
         $payload = [
             'iss' => 'http://example.com',
             'iat' => time() - 3660,
@@ -53,12 +50,27 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
 
-        $this->blacklist->shouldReceive('has')->with('foo')->andReturn(false);
-
         $payload = [
             'iss' => 'http://example.com',
             'iat' => time() - 3660,
             'nbf' => time() + 3660,
+            'exp' => time() + 1440,
+            'sub' => 1,
+            'jti' => 'foo'
+        ];
+
+        $this->validator->check($payload);
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_providing_an_invalid_iat_claim()
+    {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+
+        $payload = [
+            'iss' => 'http://example.com',
+            'iat' => time() + 3660,
+            'nbf' => time() - 3660,
             'exp' => time() + 1440,
             'sub' => 1,
             'jti' => 'foo'
