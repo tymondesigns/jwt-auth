@@ -49,6 +49,25 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
+    {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+
+        $this->blacklist->shouldReceive('has')->with('foo')->andReturn(false);
+
+        $payload = [
+            'iss' => 'http://example.com',
+            'iat' => time() - 3660,
+            'nbf' => time() + 3660,
+            'exp' => time() + 1440,
+            'sub' => 1,
+            'jti' => 'foo'
+        ];
+
+        $this->validator->check($payload);
+    }
+
+    /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
