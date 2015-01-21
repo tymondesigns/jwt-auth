@@ -33,6 +33,13 @@ class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_return_false_if_user_is_not_found()
+    {
+        $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andThrow(new \Exception);
+        $this->assertFalse($this->auth->checkUsingId(123));
+    }
+
+    /** @test */
     public function it_should_return_the_currently_authenticated_user()
     {
         $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);

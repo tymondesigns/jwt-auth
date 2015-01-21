@@ -44,12 +44,13 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
         $token = $this->provider->encode($payload);
     }
 
-    // /** @test */
+    /** @test */
     // public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     // {
-    //     // $this->jws->shouldReceive('load')->once()->with('foo.bar.baz')->andReturn(true);
+        // $this->jws->shouldReceive('load')->once()->with('foo.bar.baz')->andReturn(true);
+        // $this->jws->shouldReceive('verify')->andReturn(true);
 
-    //     $payload = $this->provider->decode('foo.bar.baz');
+        // $payload = $this->provider->decode('foo.bar.baz');
 
     // }
 
@@ -58,7 +59,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
 
-        // $this->jws->shouldReceive('verify')->andThrow(new \Exception);
+        $this->jws->shouldReceive('verify')->andReturn(false);
 
         $token = $this->provider->decode('foo');
     }
