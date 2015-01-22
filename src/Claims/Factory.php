@@ -29,7 +29,7 @@ class Factory
      */
     public function get($name, $value)
     {
-        if (array_key_exists($name, self::$classMap)) {
+        if ($this->has($name)) {
             return new self::$classMap[$name]($value);
         }
 
