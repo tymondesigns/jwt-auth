@@ -42,15 +42,4 @@ abstract class AbstractValidator implements ValidatorInterface
 
         return $this;
     }
-
-    /**
-     * Get the Carbon instance for the timestamp
-     *
-     * @param  int  $ts
-     * @return \Carbon\Carbon
-     */
-    protected function carbon($ts)
-    {
-        return Carbon::createFromTimeStampUTC($ts);
-    }
 }

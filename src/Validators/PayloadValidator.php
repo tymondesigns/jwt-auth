@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth\Validators;
 
+use Tymon\JWTAuth\Utils;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -11,6 +12,11 @@ class PayloadValidator extends AbstractValidator
      * @var array
      */
     protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
+
+    /**
+     * @var integer
+     */
+    protected $refreshTTL = 20160;
 
     /**
      * Run the validations on the payload array
@@ -56,16 +62,16 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateTimestamps(array $payload)
     {
-        if ($this->carbon($payload['nbf'])->isFuture()) {
-            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
+        if (Utils::carbonCreate($payload['nbf'])->isFuture()) {
+            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future', 400);
         }
 
-        if ($this->carbon($payload['iat'])->isFuture()) {
-            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
+        if (Utils::carbonCreate($payload['iat'])->isFuture()) {
+            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future', 400);
         }
 
-        if ($this->carbon($payload['exp'])->isPast()) {
-            throw new TokenExpiredException('Token has expired');
+        if (Utils::carbonCreate($payload['exp'])->isPast()) {
+            throw new TokenExpiredException('Token has expired', 400);
         }
 
         return true;
@@ -79,8 +85,9 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateRefresh(array $payload)
     {
-        // @todo check the issued at timestamp and limit to longer time e.g. 2 weeks
-        // so the user will need to re-login at least every 2 weeks.
+        if (Utils::carbonCreate($payload['exp'])->diffInMinutes(Utils::now()) >= $this->refreshTTL) {
+            throw new TokenExpiredException('Token has expired and can no longer be refreshed', 400);
+        }
 
         return true;
     }
@@ -93,6 +100,18 @@ class PayloadValidator extends AbstractValidator
     public function setRequiredClaims(array $claims)
     {
         $this->requiredClaims = $claims;
+
+        return $this;
+    }
+
+    /**
+     * Set the refresh ttl
+     *
+     * @param integer  $ttl
+     */
+    public function setRefreshTTL($ttl)
+    {
+        $this->refreshTTL = $ttl;
 
         return $this;
     }

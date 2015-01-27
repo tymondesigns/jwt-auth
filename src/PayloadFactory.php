@@ -2,7 +2,6 @@
 
 namespace Tymon\JWTAuth;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
 
@@ -142,7 +141,7 @@ class PayloadFactory
      */
     public function iat()
     {
-        return $this->now()->format('U');
+        return Utils::now()->format('U');
     }
 
     /**
@@ -152,7 +151,7 @@ class PayloadFactory
      */
     public function exp()
     {
-        return $this->now()->addMinutes($this->ttl)->format('U');
+        return Utils::now()->addMinutes($this->ttl)->format('U');
     }
 
     /**
@@ -162,7 +161,7 @@ class PayloadFactory
      */
     public function nbf()
     {
-        return $this->now()->format('U');
+        return Utils::now()->format('U');
     }
 
     /**
@@ -209,16 +208,6 @@ class PayloadFactory
         $this->refreshFlow = $refreshFlow;
 
         return $this;
-    }
-
-    /**
-     * Get the current time
-     *
-     * @return \Carbon\Carbon
-     */
-    protected function now()
-    {
-        return Carbon::now();
     }
 
     /**

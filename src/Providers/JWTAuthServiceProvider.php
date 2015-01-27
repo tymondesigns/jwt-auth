@@ -26,7 +26,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->package('tymon/jwt-auth', 'jwt', __DIR__.'/../');
+        $this->package('tymon/jwt-auth', 'jwt', __DIR__.'/../');
 
         $this->bootBindings();
 
@@ -35,14 +35,6 @@ class JWTAuthServiceProvider extends ServiceProvider
 
         // register the filter
         $this->app['router']->filter('jwt-auth', 'tymon.jwt.filter');
-
-        try {
-            // register the middleware
-            $this->app['router']->middleware('jwt.auth', 'tymon.jwt.middleware');
-        } catch(\Exception $e) {
-            // no laravel 5 here
-        }
-
     }
 
     /**
@@ -257,6 +249,6 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function config($key, $default = null)
     {
-        return $this->app['config']->get("tymon/jwt-auth::$key", $default);
+        return $this->app['config']->get("jwt::$key", $default);
     }
 }
