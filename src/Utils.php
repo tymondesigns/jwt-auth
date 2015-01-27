@@ -23,7 +23,7 @@ class Utils
      * @param  int  $timestamp
      * @return \Carbon\Carbon
      */
-	public static function carbonCreate($timestamp)
+	public static function timestamp($timestamp)
 	{
 		return Carbon::createFromTimeStampUTC($timestamp);
 	}

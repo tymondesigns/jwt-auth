@@ -62,15 +62,15 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateTimestamps(array $payload)
     {
-        if (Utils::carbonCreate($payload['nbf'])->isFuture()) {
+        if (Utils::timestamp($payload['nbf'])->isFuture()) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future', 400);
         }
 
-        if (Utils::carbonCreate($payload['iat'])->isFuture()) {
+        if (Utils::timestamp($payload['iat'])->isFuture()) {
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future', 400);
         }
 
-        if (Utils::carbonCreate($payload['exp'])->isPast()) {
+        if (Utils::timestamp($payload['exp'])->isPast()) {
             throw new TokenExpiredException('Token has expired', 400);
         }
 
@@ -85,7 +85,7 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateRefresh(array $payload)
     {
-        if (Utils::carbonCreate($payload['exp'])->diffInMinutes(Utils::now()) >= $this->refreshTTL) {
+        if (Utils::timestamp($payload['exp'])->diffInMinutes(Utils::now()) >= $this->refreshTTL) {
             throw new TokenExpiredException('Token has expired and can no longer be refreshed', 400);
         }
 

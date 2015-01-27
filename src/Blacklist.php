@@ -28,7 +28,7 @@ class Blacklist
      */
     public function add(Payload $payload)
     {
-        $exp = Utils::carbonCreate($payload['exp']);
+        $exp = Utils::timestamp($payload['exp']);
 
         // there is no need to add the token to the blacklist
         // if the token has already expired
