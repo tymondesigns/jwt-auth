@@ -93,13 +93,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Enable the Blacklist
+    | Blacklist Enabled
     |--------------------------------------------------------------------------
     |
+    | In order to invalidate tokens, you must have the the blacklist enabled.
+    | If you do not want or need this functionality, then set this to false.
     |
     */
 
-    'enable_blacklist' => true,
+    'blacklist_enabled' => true,
 
     /*
     |--------------------------------------------------------------------------

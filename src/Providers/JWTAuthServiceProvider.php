@@ -177,12 +177,13 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app['tymon.jwt.manager'] = $this->app->share(function ($app) {
 
-            return new JWTManager(
+            $instance =  new JWTManager(
                 $app['tymon.jwt.provider.jwt'],
                 $app['tymon.jwt.blacklist'],
                 $app['tymon.jwt.payload.factory']
             );
 
+            return $instance->setBlacklistEnabled($this->config('blacklist_enabled'));
         });
     }
 

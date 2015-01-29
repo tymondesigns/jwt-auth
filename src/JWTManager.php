@@ -24,6 +24,11 @@ class JWTManager
     protected $payloadFactory;
 
     /**
+     * @var boolean
+     */
+    protected $blacklistEnabled = true;
+
+    /**
      *  @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $jwt
      *  @param \Tymon\JWTAuth\Blacklist  $blacklist
      *  @param \Tymon\JWTAuth\PayloadFactory  $payloadFactory
@@ -61,7 +66,7 @@ class JWTManager
 
         $payload = $this->payloadFactory->make($payloadArray);
 
-        if ($this->blacklist->has($payload)) {
+        if ($this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');
         }
 
@@ -78,8 +83,10 @@ class JWTManager
     {
         $payload = $this->decode($token);
 
-        // invalidate old token
-        $this->blacklist->add($payload);
+        if ($this->blacklistEnabled) {
+            // invalidate old token
+            $this->blacklist->add($payload);
+        }
 
         // return the new token
         return $this->encode($this->payloadFactory->setRefreshFlow()->make(['sub' => $payload['sub']]));
@@ -93,6 +100,10 @@ class JWTManager
      */
     public function invalidate(Token $token)
     {
+        if (! $this->blacklistEnabled) {
+            throw new JWTException('You must have the blacklist enabled to invalidate a token.');
+        }
+
         return $this->blacklist->add($this->decode($token));
     }
 
@@ -124,5 +135,17 @@ class JWTManager
     public function getBlacklist()
     {
         return $this->blacklist;
+    }
+
+    /**
+     * Set whether the blacklist is enabled
+     *
+     * @param bool  $enabled
+     */
+    public function setBlacklistEnabled($enabled)
+    {
+        $this->blacklistEnabled = $enabled;
+
+        return $this;
     }
 }
