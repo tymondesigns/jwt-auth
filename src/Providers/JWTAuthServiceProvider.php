@@ -11,6 +11,7 @@ use Tymon\JWTAuth\JWTAuthFilter;
 use Tymon\JWTAuth\Middleware\JWTAuthMiddleware;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -77,6 +78,10 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->app['Tymon\JWTAuth\Claims\Factory'] = function ($app) {
             return $app['tymon.jwt.claim.factory'];
         };
+
+        $this->app['Tymon\JWTAuth\Validators\PayloadValidator'] = function ($app) {
+            return $app['tymon.jwt.validators.payload'];
+        };
     }
 
     /**
@@ -98,6 +103,7 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTManager();
 
         $this->registerJWTAuth();
+        $this->registerPayloadValidator();
         $this->registerJWTAuthFilter();
         $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
@@ -212,6 +218,16 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app['tymon.jwt.blacklist'] = $this->app->share(function ($app) {
             return new Blacklist($app['tymon.jwt.provider.storage']);
+        });
+    }
+
+    /**
+     * Register the bindings for the payload validator
+     */
+    protected function registerPayloadValidator()
+    {
+        $this->app['tymon.jwt.validators.payload'] = $this->app->share(function ($app) {
+            return with(new PayloadValidator)->setRequiredClaims($this->config('required_claims'));
         });
     }
 
