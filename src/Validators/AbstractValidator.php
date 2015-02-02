@@ -2,7 +2,6 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Carbon\Carbon;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 abstract class AbstractValidator implements ValidatorInterface
