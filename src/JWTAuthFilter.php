@@ -9,7 +9,6 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class JWTAuthFilter
 {
-
     /**
      * @var \Illuminate\Events\Dispatcher
      */

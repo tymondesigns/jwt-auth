@@ -4,7 +4,6 @@ namespace Tymon\JWTAuth\Claims;
 
 class Expiration extends Claim
 {
-
     /**
      * The claim name
      *

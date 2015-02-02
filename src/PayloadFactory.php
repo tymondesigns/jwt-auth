@@ -7,7 +7,6 @@ use Tymon\JWTAuth\Claims\Factory;
 
 class PayloadFactory
 {
-
     /**
      * @var \Tymon\JWTAuth\Claims\Factory
      */

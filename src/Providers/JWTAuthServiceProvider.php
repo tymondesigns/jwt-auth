@@ -47,7 +47,7 @@ class JWTAuthServiceProvider extends ServiceProvider
             return $app['tymon.jwt.auth'];
         };
 
-         $this->app['Tymon\JWTAuth\Providers\User\UserInterface'] = function ($app) {
+        $this->app['Tymon\JWTAuth\Providers\User\UserInterface'] = function ($app) {
             return $app['tymon.jwt.provider.user'];
         };
 

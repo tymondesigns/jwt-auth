@@ -8,7 +8,6 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class Payload implements \ArrayAccess
 {
-
     /**
      * The array of claims
      *
@@ -63,7 +62,6 @@ class Payload implements \ArrayAccess
     public function get($claim = null)
     {
         if (! is_null($claim)) {
-
             if (is_array($claim)) {
                 return array_map([$this, 'get'], $claim);
             }
@@ -152,8 +150,7 @@ class Payload implements \ArrayAccess
      */
     public function __call($method, $parameters)
     {
-        if (! method_exists($this, $method) && starts_with($method, 'get'))
-        {
+        if (! method_exists($this, $method) && starts_with($method, 'get')) {
             $class = sprintf('Tymon\\JWTAuth\\Claims\\%s', substr($method, 3));
 
             foreach ($this->claims as $claim) {

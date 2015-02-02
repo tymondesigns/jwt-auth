@@ -8,7 +8,6 @@ use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class JWTManager
 {
-
     /**
      * @var \Tymon\JWTAuth\Providers\JWT\JWTInterface
      */

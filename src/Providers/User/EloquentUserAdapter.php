@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EloquentUserAdapter implements UserInterface
 {
-
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */

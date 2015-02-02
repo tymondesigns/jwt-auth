@@ -6,7 +6,6 @@ use Carbon\Carbon;
 
 class Utils
 {
-
     /**
      * Get the Carbon instance for the current time
      *

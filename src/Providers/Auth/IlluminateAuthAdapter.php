@@ -7,7 +7,6 @@ use Illuminate\Auth\AuthManager;
 
 class IlluminateAuthAdapter implements AuthInterface
 {
-
     /**
      * @var \Illuminate\Auth\AuthManager
      */

@@ -6,7 +6,6 @@ use Tymon\JWTAuth\Claims\Custom;
 
 class Factory
 {
-
     /**
      * @var array
      */

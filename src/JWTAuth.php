@@ -9,7 +9,6 @@ use Tymon\JWTAuth\Providers\User\UserInterface;
 
 class JWTAuth
 {
-
     /**
      * @var \Tymon\JWTAuth\JWTManager
      */

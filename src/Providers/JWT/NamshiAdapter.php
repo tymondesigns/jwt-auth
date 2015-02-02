@@ -9,7 +9,6 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class NamshiAdapter extends JWTProvider implements JWTInterface
 {
-
     /**
      * @var \Namshi\JOSE\JWS
      */

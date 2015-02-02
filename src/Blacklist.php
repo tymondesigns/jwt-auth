@@ -6,7 +6,6 @@ use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class Blacklist
 {
-
     /**
      * @var \Tymon\JWTAuth\Providers\Storage\StorageInterface
      */

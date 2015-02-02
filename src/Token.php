@@ -6,7 +6,6 @@ use Tymon\JWTAuth\Validators\TokenValidator;
 
 class Token
 {
-
     /**
      * @var string
      */

@@ -4,7 +4,6 @@ namespace Tymon\JWTAuth\Claims;
 
 class IssuedAt extends Claim
 {
-
     /**
      * The claim name
      *

@@ -6,7 +6,6 @@ use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 abstract class Claim implements ClaimInterface
 {
-
     /**
      * The claim name
      *
