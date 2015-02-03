@@ -1,38 +1,44 @@
 <?php
 
-namespace Tymon\JWTAuth;
+namespace Tymon\JWTAuth\Middleware;
 
+use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Events\Dispatcher;
-use Response;
+use Illuminate\Routing\ResponseFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
-class JWTAuthFilter
+class JWTAuthMiddleware
 {
-    /**
-     * @var \Illuminate\Events\Dispatcher
-     */
+    protected $response;
+
     protected $events;
 
-    /**
-     * @var \Tymon\JWTAuth\JWTAuth
-     */
     protected $auth;
 
-    public function __construct(Dispatcher $events, JWTAuth $auth)
+    /**
+     * Create a new Middleware instance
+     *
+     * @param ResponseFactory  $response
+     * @param Dispatcher  $events
+     * @param JWTAuth  $auth
+     */
+    public function __construct(ResponseFactory $response, Dispatcher $events, JWTAuth $auth)
     {
+        $this->response = $response;
         $this->events = $events;
         $this->auth = $auth;
     }
-
     /**
-     * Filter the request
+     * Handle an incoming request.
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
      */
-    public function filter()
+    public function handle($request, \Closure $next)
     {
-        if (! $token = $this->auth->getToken()) {
+        if (! $token = $this->auth->setRequest($request)->getToken()) {
             return $this->respond('tymon.jwt.absent', 'token_not_provided', 400);
         }
 
@@ -49,20 +55,22 @@ class JWTAuthFilter
         }
 
         $this->events->fire('tymon.jwt.valid', $user);
-    }
 
+        return $next($request);
+    }
     /**
      * Fire event and return the response
      *
      * @param  string   $event
      * @param  string   $error
      * @param  integer  $status
+     * @param  array    $payload
      * @return mixed
      */
     protected function respond($event, $error, $status, $payload = [])
     {
         $response = $this->events->fire($event, $payload, true);
 
-        return $response ?: Response::json(['error' => $error], $status);
+        return $response ?: $this->response->json(['error' => $error], $status);
     }
 }
