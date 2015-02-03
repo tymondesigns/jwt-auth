@@ -27,15 +27,13 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('tymon/jwt-auth', 'jwt', __DIR__.'/../');
+        $this->publishes([
+            __DIR__.'/../config/config.php' => config_path('jwt.php')
+        ]);
 
         $this->bootBindings();
 
-        // register the command
         $this->commands('tymon.jwt.generate');
-
-        // register the filter
-        $this->app['router']->filter('jwt-auth', 'tymon.jwt.filter');
     }
 
     /**
@@ -104,9 +102,10 @@ class JWTAuthServiceProvider extends ServiceProvider
 
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
-        $this->registerJWTAuthFilter();
         $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
+
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'jwt');
     }
 
     /**
@@ -240,16 +239,6 @@ class JWTAuthServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the 'jwt-auth' filter
-     */
-    protected function registerJWTAuthFilter()
-    {
-        $this->app['tymon.jwt.filter'] = $this->app->share(function ($app) {
-            return new JWTAuthFilter($app['events'], $app['tymon.jwt.auth']);
-        });
-    }
-
-    /**
      * Register the Artisan command
      */
     protected function registerJWTCommand()
@@ -266,6 +255,6 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function config($key, $default = null)
     {
-        return $this->app['config']->get("jwt::$key", $default);
+        return config("jwt.$key", $default);
     }
 }
