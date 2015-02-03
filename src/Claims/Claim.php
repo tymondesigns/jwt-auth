@@ -24,12 +24,9 @@ abstract class Claim implements ClaimInterface
      * @param mixed   $value
      * @param string $name
      */
-    public function __construct($value, $name = null)
+    public function __construct($value)
     {
         $this->setValue($value);
-        if (! is_null($name)) {
-            $this->setName($name);
-        }
     }
 
     /**

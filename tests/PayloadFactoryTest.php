@@ -55,7 +55,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->claimFactory->shouldReceive('get')->once()->with('iat', time())->andReturn(new IssuedAt(time()));
         $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('nbf', time())->andReturn(new NotBefore(time()));
-        $this->claimFactory->shouldReceive('get')->once()->with('foo', 'baz')->andReturn(new Custom('baz', 'foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('foo', 'baz')->andReturn(new Custom('foo', 'baz'));
 
         $payload = $this->factory->sub(1)->foo('baz')->make();
 
