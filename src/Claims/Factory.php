@@ -32,7 +32,7 @@ class Factory
             return new self::$classMap[$name]($value);
         }
 
-        return new Custom($value, $name);
+        return new Custom($name, $value);
     }
 
     /**

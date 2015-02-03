@@ -142,4 +142,32 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->invalidate($token);
     }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
+    {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+
+        $token = new Token('foo.bar.baz');
+
+        $this->manager->setBlacklistEnabled(false)->invalidate($token);
+    }
+
+    /** @test */
+    public function it_should_get_the_payload_factory()
+    {
+        $this->assertInstanceOf('Tymon\JWTAuth\PayloadFactory', $this->manager->getPayloadFactory());
+    }
+
+    /** @test */
+    public function it_should_get_the_jwt_provider()
+    {
+        $this->assertInstanceOf('Tymon\JWTAuth\Providers\JWT\JWTInterface', $this->manager->getJWTProvider());
+    }
+
+    /** @test */
+    public function it_should_get_the_blacklist()
+    {
+        $this->assertInstanceOf('Tymon\JWTAuth\Blacklist', $this->manager->getBlacklist());
+    }
 }
