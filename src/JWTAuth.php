@@ -264,7 +264,7 @@ class JWTAuth
      */
     protected function requireToken($token)
     {
-        if (! $token && ! $this->token) {
+        if (! $token = $token ?: $this->token) {
             throw new JWTException('A token is required', 400);
         }
 
