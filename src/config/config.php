@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'secret' => 'changeme',
+    'secret' => env('JWT_KEY', 'changeme'),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'blacklist_enabled' => true,
+    'blacklist_enabled' => env('JWT_BLACKLIST_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
