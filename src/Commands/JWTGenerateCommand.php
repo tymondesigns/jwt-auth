@@ -2,9 +2,9 @@
 
 namespace Tymon\JWTAuth\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 class JWTGenerateCommand extends Command
 {
@@ -20,24 +20,7 @@ class JWTGenerateCommand extends Command
      *
      * @var string
      */
-    protected $description = "Set the JWT Auth secret key used to sign the tokens";
-
-    /**
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
-
-    /**
-     * Create a new JWT secret generator command.
-     *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
-     */
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct();
-
-        $this->files = $files;
-    }
+    protected $description = 'Set the JWT Auth secret key used to sign the tokens';
 
     /**
      * Execute the console command.
@@ -46,31 +29,23 @@ class JWTGenerateCommand extends Command
      */
     public function fire()
     {
-        list($path, $contents) = $this->getKeyFile();
-
         $key = $this->getRandomKey();
 
-        $contents = str_replace($this->laravel['config']['jwt::secret'], $key, $contents);
+        if ($this->option('show')) {
+            return $this->line('<comment>'.$key.'</comment>');
+        }
 
-        $this->files->put($path, $contents);
+        $path = base_path('.env');
 
-        $this->laravel['config']['jwt::secret'] = $key;
+        if (file_exists($path)) {
+            file_put_contents($path, str_replace(
+                $this->laravel['config']['jwt.secret'], $key, file_get_contents($path)
+            ));
+        }
 
-        $this->info("JWT Auth key [$key] set successfully.");
-    }
+        $this->laravel['config']['jwt.secret'] = $key;
 
-    /**
-     * Get the key file and contents.
-     *
-     * @return string[]
-     */
-    protected function getKeyFile()
-    {
-        $env = $this->option('env') ? $this->option('env').'/' : '';
-
-        $contents = $this->files->get($path = $this->laravel['path']."/config/packages/tymon/jwt-auth/{$env}config.php");
-
-        return [$path, $contents];
+        $this->info("jwt-auth secret [$key] set successfully.");
     }
 
     /**
@@ -81,5 +56,17 @@ class JWTGenerateCommand extends Command
     protected function getRandomKey()
     {
         return Str::random(32);
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['show', null, InputOption::VALUE_NONE, 'Simply display the key instead of modifying files.'],
+        ];
     }
 }
