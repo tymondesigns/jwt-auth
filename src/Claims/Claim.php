@@ -21,8 +21,7 @@ abstract class Claim implements ClaimInterface
     private $value;
 
     /**
-     * @param mixed   $value
-     * @param string $name
+     * @param mixed  $value
      */
     public function __construct($value)
     {

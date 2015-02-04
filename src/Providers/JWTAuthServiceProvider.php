@@ -8,7 +8,6 @@ use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTAuthFilter;
-use Tymon\JWTAuth\Middleware\JWTAuthMiddleware;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -105,7 +104,6 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
         $this->registerJWTAuthFilter();
-        $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
     }
 
@@ -183,13 +181,13 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app['tymon.jwt.manager'] = $this->app->share(function ($app) {
 
-            $instance =  new JWTManager(
+            $instance = new JWTManager(
                 $app['tymon.jwt.provider.jwt'],
                 $app['tymon.jwt.blacklist'],
                 $app['tymon.jwt.payload.factory']
             );
 
-            return $instance->setBlacklistEnabled($this->config('blacklist_enabled'));
+            return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'));
         });
     }
 
@@ -226,16 +224,8 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerPayloadValidator()
     {
-        $this->app['tymon.jwt.validators.payload'] = $this->app->share(function ($app) {
+        $this->app['tymon.jwt.validators.payload'] = $this->app->share(function () {
             return with(new PayloadValidator)->setRequiredClaims($this->config('required_claims'));
-        });
-    }
-
-    protected function registerJWTAuthMiddleware()
-    {
-        $this->app['tymon.jwt.middleware'] = $this->app->share(function ($app) {
-            $response = $app->make('Illuminate\Routing\ResponseFactory');
-            return new JWTAuthMiddleware($response, $app['events'], $app['tymon.jwt.auth']);
         });
     }
 
