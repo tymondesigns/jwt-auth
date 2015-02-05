@@ -31,7 +31,7 @@ Then run `composer update` in your terminal to pull it in.
 Once this has finished, you will need to add the service provider to the `providers` array in `app/config/app.php` as follows:
 
 ```php
-''Tymon\JWTAuth\JWTAuthServiceProvider''
+'Tymon\JWTAuth\JWTAuthServiceProvider'
 ```
 
 Next, also in the `app/config/app.php` file, under the `aliases` array, you may want to add the `JWTAuth` facade.
