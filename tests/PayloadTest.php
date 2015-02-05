@@ -6,6 +6,7 @@ use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
 
+use Mockery;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
@@ -29,7 +30,15 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
             new JwtId('foo')
         ];
 
-        $this->payload = new Payload($claims);
+        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator->shouldReceive('setRefreshFlow->check');
+
+        $this->payload = new Payload($claims, $this->validator);
+    }
+
+    public function tearDown()
+    {
+        Mockery::close();
     }
 
     /** @test */

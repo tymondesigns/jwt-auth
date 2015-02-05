@@ -96,11 +96,11 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTBlacklist();
 
         $this->registerClaimFactory();
-        $this->registerPayloadFactory();
         $this->registerJWTManager();
 
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
+        $this->registerPayloadFactory();
         $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
 
@@ -163,18 +163,6 @@ class JWTAuthServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the Payload Factory
-     */
-    protected function registerPayloadFactory()
-    {
-        $this->app['tymon.jwt.payload.factory'] = $this->app->share(function ($app) {
-            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request']);
-
-            return $factory->setTTL($this->config('ttl'));
-        });
-    }
-
-    /**
      * Register the bindings for the JWT Manager
      */
     protected function registerJWTManager()
@@ -226,6 +214,18 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app['tymon.jwt.validators.payload'] = $this->app->share(function () {
             return with(new PayloadValidator())->setRequiredClaims($this->config('required_claims'));
+        });
+    }
+
+    /**
+     * Register the bindings for the Payload Factory
+     */
+    protected function registerPayloadFactory()
+    {
+        $this->app['tymon.jwt.payload.factory'] = $this->app->share(function ($app) {
+            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request'], $app['tymon.validators.payload']);
+
+            return $factory->setTTL($this->config('ttl'));
         });
     }
 

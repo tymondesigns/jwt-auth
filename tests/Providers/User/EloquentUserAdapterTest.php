@@ -26,6 +26,7 @@ class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
         $this->model->shouldReceive('where')->once()->with('foo', 'bar')->andReturn($this->builder);
 
         $user = $this->user->getBy('foo', 'bar');
-    }
 
+        $this->assertEquals(1, $user->id);
+    }
 }
