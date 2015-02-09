@@ -81,10 +81,11 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('jti'), 'foo');
- 	$this->assertEquals($payload->get('foo'), ['bar' => [0,0,0]]);
+        $this->assertEquals($payload->get('foo'), ['bar' => [0,0,0]]);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
+    
     /** @test */
     public function it_should_set_the_ttl()
     {
