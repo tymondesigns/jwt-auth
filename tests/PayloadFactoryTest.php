@@ -67,6 +67,25 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_return_a_payload_when_passing_miltidimensional_array_as_custom_claim_to_make_method()
+    {
+        $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
+        $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
+        $this->claimFactory->shouldReceive('get')->once()->with('iat', time())->andReturn(new IssuedAt(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', time())->andReturn(new NotBefore(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('foo', ['bar' => [0,0,0]])->andReturn(new Custom('foo', ['bar' => [0,0,0]]));
+
+        $payload = $this->factory->sub(1)->foo(['bar' => [0,0,0]])->make();
+
+        $this->assertEquals($payload->get('sub'), 1);
+        $this->assertEquals($payload->get('jti'), 'foo');
+ 	$this->assertEquals($payload->get('foo'), ['bar' => [0,0,0]]);
+
+        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+    }
+    /** @test */
     public function it_should_set_the_ttl()
     {
         $this->factory->setTTL(12345);
