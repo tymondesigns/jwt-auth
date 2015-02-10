@@ -158,7 +158,9 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $request->headers->set('authorization', 'Bearer foo.bar.baz');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
+
     }
 
     /** @test */
@@ -167,16 +169,19 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/foo', 'GET', ['token' => 'foo.bar.baz']);
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
     }
 
     /** @test */
     public function it_should_return_false_when_token_not_present_in_request()
     {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+
         $request = Request::create('/foo', 'GET');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
-        $this->assertFalse($jwtAuth->getToken());
+        $jwtAuth->getToken();
     }
 
     /** @test */
