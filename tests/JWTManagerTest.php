@@ -24,6 +24,9 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
         $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
         $this->manager = new JWTManager($this->jwt, $this->blacklist, $this->factory);
+
+        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
     public function tearDown()
@@ -42,7 +45,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
 
         $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('foo.bar.baz');
 
@@ -62,7 +65,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -87,7 +90,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -131,7 +134,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
