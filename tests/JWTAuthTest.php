@@ -131,14 +131,14 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $token = Mockery::mock('Tymon\JWTAuth\Token');
-        $token->shouldReceive('get')->once()->andReturn('foo.bar.baz');
+        $newToken = Mockery::mock('Tymon\JWTAuth\Token');
+        $newToken->shouldReceive('get')->once()->andReturn('baz.bar.foo');
 
-        $this->manager->shouldReceive('refresh')->once()->andReturn($token);
+        $this->manager->shouldReceive('refresh')->once()->andReturn($newToken);
 
-        $token = $this->jwtAuth->refresh('foo.bar.baz');
+        $result = $this->jwtAuth->setToken('foo.bar.baz')->refresh();
 
-        $this->assertEquals($token, 'foo.bar.baz');
+        $this->assertEquals($result, 'baz.bar.foo');
     }
 
     /** @test */
@@ -158,7 +158,9 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $request->headers->set('authorization', 'Bearer foo.bar.baz');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
+
     }
 
     /** @test */
@@ -167,16 +169,19 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/foo', 'GET', ['token' => 'foo.bar.baz']);
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
     }
 
     /** @test */
-    public function it_should_return_false_when_token_not_present_in_request()
+    public function it_should_throw_an_exception_when_token_not_present_in_request()
     {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+
         $request = Request::create('/foo', 'GET');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
-        $this->assertFalse($jwtAuth->getToken());
+        $jwtAuth->parseToken();
     }
 
     /** @test */
