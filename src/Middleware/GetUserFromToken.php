@@ -8,7 +8,7 @@ use Illuminate\Routing\ResponseFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
-class JWTAuthMiddleware
+class GetUserFromToken
 {
     protected $response;
 

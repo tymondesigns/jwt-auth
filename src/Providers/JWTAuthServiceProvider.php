@@ -243,8 +243,8 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerJWTCommand()
     {
-        $this->app['tymon.jwt.generate'] = $this->app->share(function ($app) {
-            return new JWTGenerateCommand($app['files']);
+        $this->app['tymon.jwt.generate'] = $this->app->share(function () {
+            return new JWTGenerateCommand();
         });
     }
 
