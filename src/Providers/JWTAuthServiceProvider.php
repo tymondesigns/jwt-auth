@@ -223,7 +223,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerPayloadFactory()
     {
         $this->app['tymon.jwt.payload.factory'] = $this->app->share(function ($app) {
-            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request'], $app['tymon.validators.payload']);
+            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request'], $app['tymon.validators.payload.factory']);
 
             return $factory->setTTL($this->config('ttl'));
         });
