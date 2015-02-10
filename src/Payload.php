@@ -63,7 +63,6 @@ class Payload implements \ArrayAccess
     public function get($claim = null)
     {
         if (! is_null($claim)) {
-            
             if (is_array($claim)) {
                 return array_map([$this, 'get'], $claim);
             }
