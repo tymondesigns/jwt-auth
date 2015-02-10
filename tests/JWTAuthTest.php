@@ -185,6 +185,12 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_return_false_when_no_token_is_set()
+    {
+        $this->assertFalse($this->jwtAuth->getToken());
+    }
+
+    /** @test */
     public function it_should_set_the_identifier()
     {
         $this->jwtAuth->setIdentifier('foo');
@@ -200,5 +206,22 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $blacklist = $this->jwtAuth->getBlacklist();
 
         $this->assertInstanceOf('StdClass', $blacklist);
+    }
+
+    /** @test */
+    public function it_should_set_the_request()
+    {
+        $request = Request::create('/foo', 'GET', ['token' => 'some.random.token']);
+
+        $token = $this->jwtAuth->setRequest($request)->getToken();
+
+        $this->assertEquals('some.random.token', $token);
+    }
+
+    /** @test */
+    public function it_should_get_the_manager_instance()
+    {
+        $manager = $this->jwtAuth->manager();
+        $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
     }
 }

@@ -151,7 +151,9 @@ class JWTAuth
     public function getToken()
     {
         if (! $this->token) {
-            if (! $this->parseToken()) {
+            try {
+                $this->parseToken();
+            } catch (JWTException $e) {
                 return false;
             }
         }

@@ -20,7 +20,7 @@ class JWTGenerateCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Set the JWT Auth secret key used to sign the tokens';
+    protected $description = 'Set the JWTAuth secret key used to sign the tokens';
 
     /**
      * Execute the console command.
