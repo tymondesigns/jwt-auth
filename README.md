@@ -43,7 +43,7 @@ Next, also in the `app/config/app.php` file, under the `aliases` array, you may 
 Finally, you will want to publish the config using the following command:
 
 ```bash
-$ php artisan config:publish tymon/jwt-auth
+$ php artisan vendor:publish
 ```
 
 ##### **Don't forget to set a secret key in the config file!**
