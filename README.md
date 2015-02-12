@@ -22,7 +22,7 @@ Install via composer - edit your `composer.json` to require the package.
 
 ```js
 "require": {
-    "tymon/jwt-auth": "0.3.*"
+    "tymon/jwt-auth": "dev-laravel-5"
 }
 ```
 
@@ -43,7 +43,7 @@ Next, also in the `app/config/app.php` file, under the `aliases` array, you may 
 Finally, you will want to publish the config using the following command:
 
 ```bash
-$ php artisan config:publish tymon/jwt-auth
+$ php artisan vendor:publish
 ```
 
 ##### **Don't forget to set a secret key in the config file!**
