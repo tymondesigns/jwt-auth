@@ -20,7 +20,7 @@ class IlluminateCacheAdapter implements StorageInterface
     /**
      * @param \Illuminate\Cache\CacheManager  $cache
      */
-    public function __construct(CacheManager  $cache)
+    public function __construct(CacheManager $cache)
     {
         $this->cache = $cache;
     }
@@ -35,7 +35,7 @@ class IlluminateCacheAdapter implements StorageInterface
      */
     public function add($key, $value, $minutes)
     {
-        return $this->cache->tags($this->tag)->put($key, $value, $minutes);
+        $this->cache()->put($key, $value, $minutes);
     }
 
     /**
@@ -46,7 +46,7 @@ class IlluminateCacheAdapter implements StorageInterface
      */
     public function has($key)
     {
-        return $this->cache->tags($this->tag)->has($key);
+        return $this->cache()->has($key);
     }
 
     /**
@@ -57,7 +57,7 @@ class IlluminateCacheAdapter implements StorageInterface
      */
     public function destroy($key)
     {
-        return $this->cache->tags($this->tag)->forget($key);
+        return $this->cache()->forget($key);
     }
 
     /**
@@ -67,6 +67,16 @@ class IlluminateCacheAdapter implements StorageInterface
      */
     public function flush()
     {
-        return $this->cache->tags($this->tag)->flush();
+        $this->cache()->flush();
+    }
+
+    /**
+     * Return the cache instance with tags attached
+     *
+     * @return \Illuminate\Cache\CacheManager
+     */
+    protected function cache()
+    {
+        return $this->cache->tags($this->tag);
     }
 }

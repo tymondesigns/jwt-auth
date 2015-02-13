@@ -10,7 +10,7 @@ interface AuthInterface
      * @param  array  $credentials
      * @return bool
      */
-    public function check(array $credentials = []);
+    public function byCredentials(array $credentials = []);
 
     /**
      * Authenticate a user via the id
@@ -18,7 +18,7 @@ interface AuthInterface
      * @param  mixed  $id
      * @return bool
      */
-    public function checkUsingId($id);
+    public function byId($id);
 
     /**
      * Get the currently authenticated user

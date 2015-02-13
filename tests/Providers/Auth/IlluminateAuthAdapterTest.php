@@ -22,21 +22,21 @@ class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_true_if_credentials_are_valid()
     {
         $this->authManager->shouldReceive('once')->once()->with(['email' => 'foo@bar.com', 'password' => 'foobar'])->andReturn(true);
-        $this->assertTrue($this->auth->check(['email' => 'foo@bar.com', 'password' => 'foobar']));
+        $this->assertTrue($this->auth->byCredentials(['email' => 'foo@bar.com', 'password' => 'foobar']));
     }
 
     /** @test */
     public function it_should_return_true_if_user_is_found()
     {
         $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andReturn(true);
-        $this->assertTrue($this->auth->checkUsingId(123));
+        $this->assertTrue($this->auth->byId(123));
     }
 
     /** @test */
     public function it_should_return_false_if_user_is_not_found()
     {
         $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andThrow(new \Exception);
-        $this->assertFalse($this->auth->checkUsingId(123));
+        $this->assertFalse($this->auth->byId(123));
     }
 
     /** @test */

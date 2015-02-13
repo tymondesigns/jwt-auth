@@ -218,7 +218,9 @@ class JWTAuth
      */
     protected function makePayload($subject, array $customClaims = [])
     {
-        return $this->manager->getPayloadFactory()->make(array_merge($customClaims, ['sub' => $subject]));
+        return $this->manager->getPayloadFactory()->make(
+            array_merge($customClaims, ['sub' => $subject])
+        );
     }
 
     /**

@@ -76,9 +76,7 @@ class PayloadFactory
      */
     public function addClaims(array $claims)
     {
-        foreach ($claims as $name => $value) {
-            $this->addClaim($name, $value);
-        }
+        array_walk(array_flip($claims), [$this, 'addClaim']);
 
         return $this;
     }
