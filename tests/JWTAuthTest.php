@@ -68,7 +68,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->manager->shouldReceive('getPayloadFactory->make')->once()->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
-        $this->auth->shouldReceive('check')->once()->andReturn(true);
+        $this->auth->shouldReceive('byCredentials')->once()->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
         $token = $this->jwtAuth->attempt();
@@ -80,7 +80,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_false_when_passing_invalid_credentials_to_attempt_method()
     {
         $this->manager->shouldReceive('encode->get')->never();
-        $this->auth->shouldReceive('check')->once()->andReturn(false);
+        $this->auth->shouldReceive('byCredentials')->once()->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
         $token = $this->jwtAuth->attempt();
@@ -104,7 +104,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
-        $this->auth->shouldReceive('checkUsingId')->once()->with(1)->andReturn(true);
+        $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
         $user = $this->jwtAuth->authenticate('foo.bar.baz');
@@ -120,7 +120,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
-        $this->auth->shouldReceive('checkUsingId')->once()->with(1)->andReturn(false);
+        $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
         $user = $this->jwtAuth->authenticate('foo.bar.baz');
