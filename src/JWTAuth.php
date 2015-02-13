@@ -93,7 +93,7 @@ class JWTAuth
      */
     public function attempt(array $credentials = [], array $customClaims = [])
     {
-        if (! $this->auth->check($credentials)) {
+        if (! $this->auth->byCredentials($credentials)) {
             return false;
         }
 
@@ -110,7 +110,7 @@ class JWTAuth
     {
         $id = $this->getPayload($token)->get('sub');
 
-        if (! $this->auth->checkUsingId($id)) {
+        if (! $this->auth->byId($id)) {
             return false;
         }
 
