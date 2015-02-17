@@ -2,15 +2,15 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory;
-use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Middleware\JWTAuthMiddleware;
+use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Claims\Factory;
+use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Middleware\JWTAuthMiddleware;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -28,7 +28,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('jwt.php')
-        ]);
+        ], 'config');
 
         $this->bootBindings();
 
