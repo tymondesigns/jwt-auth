@@ -8,7 +8,7 @@ use Illuminate\Routing\ResponseFactory;
 
 abstract class BaseMiddleware
 {
-	/**
+    /**
      * @var \Illuminate\Routing\ResponseFactory
      */
     protected $response;
@@ -37,7 +37,7 @@ abstract class BaseMiddleware
         $this->auth = $auth;
     }
 
-	/**
+    /**
      * Fire event and return the response
      *
      * @param  string   $event
