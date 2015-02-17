@@ -106,7 +106,7 @@ class PayloadFactory
     protected function buildClaims(array $customClaims)
     {
         // add any custom claims first
-        $this->addClaims(array_diff($customClaims, $this->defaultClaims));
+        $this->addClaims(array_diff_key($customClaims, $this->defaultClaims));
 
         foreach ($this->defaultClaims as $claim) {
             if (! array_key_exists($claim, $customClaims)) {
