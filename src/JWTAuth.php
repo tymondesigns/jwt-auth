@@ -146,7 +146,7 @@ class JWTAuth
     /**
      * Get the token
      *
-     * @return boolean|Token
+     * @return boolean|string
      */
     public function getToken()
     {
@@ -178,7 +178,7 @@ class JWTAuth
      * Parse the token from the request
      *
      * @param  string  $query
-     * @return mixed
+     * @return JWTAuth
      */
     public function parseToken($query = 'token')
     {
