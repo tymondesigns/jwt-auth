@@ -35,7 +35,7 @@ class JWTGenerateCommand extends Command
             return $this->line('<comment>'.$key.'</comment>');
         }
 
-        $path = base_path('.env');
+        $path = config_path('jwt.php');
 
         if (file_exists($path)) {
             file_put_contents($path, str_replace(
