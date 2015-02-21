@@ -7,5 +7,5 @@ class TokenBlacklistedException extends TokenInvalidException
     /**
      * @var integer
      */
-    protected $statusCode = 400;
+    protected $statusCode = 401;
 }
