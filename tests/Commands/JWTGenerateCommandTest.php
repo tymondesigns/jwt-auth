@@ -15,7 +15,8 @@ class JWTGenerateCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->command = new JWTGenerateCommand();
+        $this->files = Mockery::mock('Illuminate\Filesystem\Filesystem');
+        $this->command = new JWTGenerateCommand($this->files);
         $this->tester = new CommandTester($this->command);
     }
 
