@@ -81,6 +81,10 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->app['Tymon\JWTAuth\Validators\PayloadValidator'] = function ($app) {
             return $app['tymon.jwt.validators.payload'];
         };
+
+        $this->app['Tymon\JWTAuth\Validators\PayloadValidator'] = function ($app) {
+            return $app['tymon.jwt.validators.payload'];
+        };
     }
 
     /**
@@ -98,11 +102,11 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTBlacklist();
 
         $this->registerClaimFactory();
-        $this->registerPayloadFactory();
         $this->registerJWTManager();
 
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
+        $this->registerPayloadFactory();
         $this->registerJWTAuthFilter();
         $this->registerJWTCommand();
     }
@@ -168,7 +172,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerPayloadFactory()
     {
         $this->app['tymon.jwt.payload.factory'] = $this->app->share(function ($app) {
-            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request']);
+            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request'], $app['tymon.jwt.validators.payload']);
 
             return $factory->setTTL($this->config('ttl'));
         });
