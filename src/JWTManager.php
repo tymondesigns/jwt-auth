@@ -89,7 +89,9 @@ class JWTManager
         }
 
         // return the new token
-        return $this->encode($this->payloadFactory->setRefreshFlow()->make(['sub' => $payload['sub']]));
+        return $this->encode(
+            $this->payloadFactory->setRefreshFlow()->make(['sub' => $payload['sub']])
+        );
     }
 
     /**

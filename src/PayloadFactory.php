@@ -4,6 +4,7 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadFactory
 {
@@ -16,6 +17,11 @@ class PayloadFactory
      * @var \Illuminate\Http\Request
      */
     protected $request;
+
+    /**
+     * @var \Tymon\JWTAuth\Validators\PayloadValidator
+     */
+    protected $validator;
 
     /**
      * @var int
@@ -40,11 +46,13 @@ class PayloadFactory
     /**
      * @param \Tymon\JWTAuth\Claims\Factory  $claimFactory
      * @param \Illuminate\Http\Request  $request
+     * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
-    public function __construct(Factory $claimFactory, Request $request)
+    public function __construct(Factory $claimFactory, Request $request, PayloadValidator $validator)
     {
         $this->claimFactory = $claimFactory;
         $this->request = $request;
+        $this->validator = $validator;
     }
 
     /**
@@ -57,7 +65,7 @@ class PayloadFactory
     {
         $claims = $this->buildClaims($customClaims)->resolveClaims();
 
-        return new Payload($claims, $this->refreshFlow);
+        return new Payload($claims, $this->validator, $this->refreshFlow);
     }
 
     /**
@@ -98,7 +106,7 @@ class PayloadFactory
     protected function buildClaims(array $customClaims)
     {
         // add any custom claims first
-        $this->addClaims(array_diff($customClaims, $this->defaultClaims));
+        $this->addClaims(array_diff_key($customClaims, $this->defaultClaims));
 
         foreach ($this->defaultClaims as $claim) {
             if (! array_key_exists($claim, $customClaims)) {

@@ -67,6 +67,8 @@ class Blacklist
 
     /**
      * Remove all tokens from the blacklist
+     *
+     * @return boolean
      */
     public function clear()
     {

@@ -2,8 +2,6 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Claims\Custom;
-
 class Factory
 {
     /**
@@ -20,7 +18,7 @@ class Factory
     ];
 
     /**
-     * Get the instance of the claim when passing the type and value
+     * Get the instance of the claim when passing the name and value
      *
      * @param  string  $name
      * @param  mixed   $value

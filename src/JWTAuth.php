@@ -93,7 +93,7 @@ class JWTAuth
      */
     public function attempt(array $credentials = [], array $customClaims = [])
     {
-        if (! $this->auth->check($credentials)) {
+        if (! $this->auth->byCredentials($credentials)) {
             return false;
         }
 
@@ -110,7 +110,7 @@ class JWTAuth
     {
         $id = $this->getPayload($token)->get('sub');
 
-        if (! $this->auth->checkUsingId($id)) {
+        if (! $this->auth->byId($id)) {
             return false;
         }
 
@@ -146,12 +146,14 @@ class JWTAuth
     /**
      * Get the token
      *
-     * @return boolean|Token
+     * @return boolean|string
      */
     public function getToken()
     {
         if (! $this->token) {
-            if (! $this->parseToken()) {
+            try {
+                $this->parseToken();
+            } catch (JWTException $e) {
                 return false;
             }
         }
@@ -176,13 +178,13 @@ class JWTAuth
      * Parse the token from the request
      *
      * @param  string  $query
-     * @return mixed
+     * @return JWTAuth
      */
     public function parseToken($query = 'token')
     {
         if (! $token = $this->parseAuthHeader()) {
             if (! $token = $this->request->query($query, false)) {
-                return false;
+                throw new JWTException('The token could not be parsed from the request', 400);
             }
         }
 
@@ -216,7 +218,9 @@ class JWTAuth
      */
     protected function makePayload($subject, array $customClaims = [])
     {
-        return $this->manager->getPayloadFactory()->make(array_merge($customClaims, ['sub' => $subject]));
+        return $this->manager->getPayloadFactory()->make(
+            array_merge($customClaims, ['sub' => $subject])
+        );
     }
 
     /**
@@ -264,7 +268,7 @@ class JWTAuth
      */
     protected function requireToken($token)
     {
-        if (! $token && ! $this->token) {
+        if (! $token = $token ?: $this->token) {
             throw new JWTException('A token is required', 400);
         }
 

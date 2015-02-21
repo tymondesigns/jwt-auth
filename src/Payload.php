@@ -19,13 +19,14 @@ class Payload implements \ArrayAccess
      * Build the Payload
      *
      * @param array  $claims
+     * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param bool   $refreshFlow
      */
-    public function __construct(array $claims, $refreshFlow = false)
+    public function __construct(array $claims, PayloadValidator $validator, $refreshFlow = false)
     {
         $this->claims = $claims;
 
-        with(new PayloadValidator)->setRefreshFlow($refreshFlow)->check($this->toArray());
+        $validator->setRefreshFlow($refreshFlow)->check($this->toArray());
     }
 
     /**

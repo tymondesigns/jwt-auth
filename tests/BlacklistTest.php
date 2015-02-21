@@ -21,6 +21,9 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     {
         $this->storage = Mockery::mock('Tymon\JWTAuth\Providers\Storage\StorageInterface');
         $this->blacklist = new Blacklist($this->storage);
+
+        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
     public function tearDown()
@@ -39,7 +42,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
 
         $this->storage->shouldReceive('add')->with('foo', [], 61);
         $this->blacklist->add($payload);
@@ -56,7 +59,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims, true);
+        $payload = new Payload($claims, $this->validator, true);
 
         $this->storage->shouldReceive('add')->never();
         $this->assertFalse($this->blacklist->add($payload));
@@ -73,7 +76,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foobar')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
 
         $this->storage->shouldReceive('has')->with('foobar')->andReturn(true);
         $this->assertTrue($this->blacklist->has($payload));
@@ -90,7 +93,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(time()),
             new JwtId('foobar')
         ];
-        $payload = new Payload($claims);
+        $payload = new Payload($claims, $this->validator);
 
         $this->storage->shouldReceive('destroy')->with('foobar')->andReturn(true);
         $this->assertTrue($this->blacklist->remove($payload));

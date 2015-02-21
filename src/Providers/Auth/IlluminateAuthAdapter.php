@@ -26,7 +26,7 @@ class IlluminateAuthAdapter implements AuthInterface
      * @param  array  $credentials
      * @return bool
      */
-    public function check(array $credentials = [])
+    public function byCredentials(array $credentials = [])
     {
         return $this->auth->once($credentials);
     }
@@ -37,7 +37,7 @@ class IlluminateAuthAdapter implements AuthInterface
      * @param  mixed  $id
      * @return bool
      */
-    public function checkUsingId($id)
+    public function byId($id)
     {
         try {
             return $this->auth->onceUsingId($id);

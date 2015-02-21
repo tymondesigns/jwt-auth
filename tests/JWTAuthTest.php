@@ -68,7 +68,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->manager->shouldReceive('getPayloadFactory->make')->once()->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
-        $this->auth->shouldReceive('check')->once()->andReturn(true);
+        $this->auth->shouldReceive('byCredentials')->once()->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
         $token = $this->jwtAuth->attempt();
@@ -80,7 +80,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_false_when_passing_invalid_credentials_to_attempt_method()
     {
         $this->manager->shouldReceive('encode->get')->never();
-        $this->auth->shouldReceive('check')->once()->andReturn(false);
+        $this->auth->shouldReceive('byCredentials')->once()->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
         $token = $this->jwtAuth->attempt();
@@ -104,7 +104,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
-        $this->auth->shouldReceive('checkUsingId')->once()->with(1)->andReturn(true);
+        $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
         $user = $this->jwtAuth->authenticate('foo.bar.baz');
@@ -120,7 +120,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
-        $this->auth->shouldReceive('checkUsingId')->once()->with(1)->andReturn(false);
+        $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
         $user = $this->jwtAuth->authenticate('foo.bar.baz');
@@ -131,14 +131,14 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $token = Mockery::mock('Tymon\JWTAuth\Token');
-        $token->shouldReceive('get')->once()->andReturn('foo.bar.baz');
+        $newToken = Mockery::mock('Tymon\JWTAuth\Token');
+        $newToken->shouldReceive('get')->once()->andReturn('baz.bar.foo');
 
-        $this->manager->shouldReceive('refresh')->once()->andReturn($token);
+        $this->manager->shouldReceive('refresh')->once()->andReturn($newToken);
 
-        $token = $this->jwtAuth->refresh('foo.bar.baz');
+        $result = $this->jwtAuth->setToken('foo.bar.baz')->refresh();
 
-        $this->assertEquals($token, 'foo.bar.baz');
+        $this->assertEquals($result, 'baz.bar.foo');
     }
 
     /** @test */
@@ -158,7 +158,9 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $request->headers->set('authorization', 'Bearer foo.bar.baz');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
+
     }
 
     /** @test */
@@ -167,16 +169,25 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/foo', 'GET', ['token' => 'foo.bar.baz']);
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
     }
 
     /** @test */
-    public function it_should_return_false_when_token_not_present_in_request()
+    public function it_should_throw_an_exception_when_token_not_present_in_request()
     {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+
         $request = Request::create('/foo', 'GET');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
-        $this->assertFalse($jwtAuth->getToken());
+        $jwtAuth->parseToken();
+    }
+
+    /** @test */
+    public function it_should_return_false_when_no_token_is_set()
+    {
+        $this->assertFalse($this->jwtAuth->getToken());
     }
 
     /** @test */
@@ -195,5 +206,22 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $blacklist = $this->jwtAuth->getBlacklist();
 
         $this->assertInstanceOf('StdClass', $blacklist);
+    }
+
+    /** @test */
+    public function it_should_set_the_request()
+    {
+        $request = Request::create('/foo', 'GET', ['token' => 'some.random.token']);
+
+        $token = $this->jwtAuth->setRequest($request)->getToken();
+
+        $this->assertEquals('some.random.token', $token);
+    }
+
+    /** @test */
+    public function it_should_get_the_manager_instance()
+    {
+        $manager = $this->jwtAuth->manager();
+        $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
     }
 }

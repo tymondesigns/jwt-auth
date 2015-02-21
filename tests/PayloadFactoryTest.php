@@ -22,7 +22,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
-        $this->factory = new PayloadFactory($this->claimFactory, Request::create('/foo', 'GET'));
+        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->factory = new PayloadFactory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
     }
 
     public function tearDown()
@@ -33,6 +34,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_payload_when_passing_an_array_of_claims_to_make_method()
     {
+        $this->validator->shouldReceive('setRefreshFlow->check');
+
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
@@ -49,6 +52,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_payload_when_chaining_claim_methods()
     {
+        $this->validator->shouldReceive('setRefreshFlow->check');
+
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
@@ -62,6 +67,27 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('jti'), 'foo');
         $this->assertEquals($payload->get('foo'), 'baz');
+
+        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+    }
+
+    /** @test */
+    public function it_should_return_a_payload_when_passing_miltidimensional_array_as_custom_claim_to_make_method()
+    {
+        $this->validator->shouldReceive('setRefreshFlow->check');
+
+        $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
+        $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('exp', Mockery::any())->andReturn(new Expiration(time() + 3600));
+        $this->claimFactory->shouldReceive('get')->once()->with('iat', Mockery::any())->andReturn(new IssuedAt(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', Mockery::any())->andReturn(new NotBefore(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('foo', ['bar' => [0,0,0]])->andReturn(new Custom('foo', ['bar' => [0,0,0]]));
+
+        $payload = $this->factory->sub(1)->foo(['bar' => [0,0,0]])->make();
+
+        $this->assertEquals($payload->get('sub'), 1);
+        $this->assertEquals($payload->get('foo'), ['bar' => [0,0,0]]);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
