@@ -20,7 +20,7 @@ Install via composer - edit your `composer.json` to require the package.
 
 ```js
 "require": {
-    "tymon/jwt-auth": "0.3.*"
+    "tymon/jwt-auth": "0.4.*"
 }
 ```
 
@@ -29,7 +29,7 @@ Then run `composer update` in your terminal to pull it in.
 Once this has finished, you will need to add the service provider to the `providers` array in `app/config/app.php` as follows:
 
 ```php
-'Tymon\JWTAuth\JWTAuthServiceProvider'
+'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
 ```
 
 Next, also in the `app/config/app.php` file, under the `aliases` array, you may want to add the `JWTAuth` facade.
@@ -159,7 +159,7 @@ Event::listen('tymon.jwt.valid');
 JWTAuth::attempt($credentials);
 
 // accepts a token and returns the authenticated user on success
-JWTAuth::login($token);
+JWTAuth::authenticate($token);
 
 // retrieves the token from the request
 // (checks Authorization Bearer header and query string)
@@ -186,12 +186,6 @@ JWTAuth::encode($subject, $customClaims);
 // decodes a token and returns the payload array
 JWTAuth::decode($token);
 ```
-## Todo
-
-- [x] add more tests
-- [x] add test coverage reporting
-- [ ] finish docs!
-- [ ] fully decouple from laravel
 
 ## License
 
