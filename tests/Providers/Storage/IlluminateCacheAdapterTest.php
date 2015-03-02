@@ -11,6 +11,8 @@ class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->cache = Mockery::mock('Illuminate\Cache\CacheManager');
         $this->storage = new IlluminateCacheAdapter($this->cache);
+
+        $this->cache->shouldReceive('tags')->andReturn(Mockery::self());
     }
 
     public function tearDown()
