@@ -45,5 +45,4 @@ class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
         $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
         $this->assertEquals($this->auth->user()->id, 1);
     }
-
 }

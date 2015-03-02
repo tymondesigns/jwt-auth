@@ -5,7 +5,6 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
-
 use Mockery;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
@@ -126,5 +125,4 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims[2]);
         $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims[5]);
     }
-
 }

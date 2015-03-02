@@ -22,5 +22,4 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInternalType('string', $this->token->get());
     }
-
 }

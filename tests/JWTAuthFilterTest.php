@@ -89,5 +89,4 @@ class JWTAuthFilterTest extends \PHPUnit_Framework_TestCase
 
         $this->filter->filter($this->route, $this->request);
     }
-
 }

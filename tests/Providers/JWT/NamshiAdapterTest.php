@@ -10,7 +10,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-    	$this->jws = Mockery::mock('Namshi\JOSE\JWS');
+        $this->jws = Mockery::mock('Namshi\JOSE\JWS');
         $this->provider = new NamshiAdapter('secret', 'HS256', $this->jws);
     }
 
@@ -22,7 +22,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_the_token_when_passing_a_valid_subject_to_encode()
     {
-    	$payload = ['sub' => 1, 'exp' => time(), 'iat' => time(), 'iss' => '/foo'];
+        $payload = ['sub' => 1, 'exp' => time(), 'iat' => time(), 'iss' => '/foo'];
 
         $this->jws->shouldReceive('setPayload')->once()->with($payload)->andReturn(Mockery::self());
         $this->jws->shouldReceive('sign')->once()->with('secret')->andReturn(Mockery::self());
@@ -63,5 +63,4 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->provider->decode('foo');
     }
-
 }
