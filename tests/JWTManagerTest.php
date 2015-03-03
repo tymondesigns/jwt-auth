@@ -6,7 +6,6 @@ use Mockery;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Token;
-
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
@@ -126,7 +125,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_invalidate_a_token()
     {
-         $claims = [
+        $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration(time() + 3600),

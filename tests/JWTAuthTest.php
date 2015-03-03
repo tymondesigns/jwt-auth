@@ -160,7 +160,6 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
         $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
-
     }
 
     /** @test */

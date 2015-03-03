@@ -5,7 +5,6 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 use Mockery;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Payload;
-
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
@@ -105,5 +104,4 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $this->storage->shouldReceive('flush');
         $this->assertTrue($this->blacklist->clear());
     }
-
 }

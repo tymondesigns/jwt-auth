@@ -5,9 +5,7 @@ namespace Tymon\JWTAuth\Test;
 use Mockery;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
-
 use Illuminate\Foundation\Application;
-
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Input\ArrayInput;
 
@@ -35,5 +33,4 @@ class JWTGenerateCommandTest extends \PHPUnit_Framework_TestCase
     {
         return $command->run(new ArrayInput($input), new NullOutput);
     }
-
 }

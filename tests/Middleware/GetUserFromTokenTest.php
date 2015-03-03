@@ -91,5 +91,4 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
 
         $this->middleware->handle($this->request, function () {});
     }
-
 }

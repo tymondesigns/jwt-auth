@@ -25,5 +25,4 @@ class JWTProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('HS512', $this->provider->getAlgo());
     }
-
 }
