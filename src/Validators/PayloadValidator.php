@@ -27,10 +27,9 @@ class PayloadValidator extends AbstractValidator
     public function check($value)
     {
         $this->validateStructure($value);
-        $this->validateTimestamps($value);
 
         if (! $this->refreshFlow) {
-            $this->validateExpiry($value);
+            $this->validateTimestamps($value);
         } else {
             $this->validateRefresh($value);
         }
@@ -57,6 +56,7 @@ class PayloadValidator extends AbstractValidator
      * Validate the payload timestamps
      *
      * @param  array  $payload
+     * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @return boolean
      */
@@ -70,18 +70,6 @@ class PayloadValidator extends AbstractValidator
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future', 400);
         }
 
-        return true;
-    }
-
-    /**
-     * Validate the payload expiry
-     *
-     * @param  array  $payload
-     * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     * @return boolean
-     */
-    protected function validateExpiry(array $payload)
-    {
         if (Utils::timestamp($payload['exp'])->isPast()) {
             throw new TokenExpiredException('Token has expired', 400);
         }
@@ -97,7 +85,7 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateRefresh(array $payload)
     {
-        if (Utils::timestamp($payload['exp'])->diffInMinutes(Utils::now()) >= $this->refreshTTL) {
+        if (Utils::timestamp($payload['iat'])->diffInMinutes(Utils::now()) >= $this->refreshTTL) {
             throw new TokenExpiredException('Token has expired and can no longer be refreshed', 400);
         }
 
