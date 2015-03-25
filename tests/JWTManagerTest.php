@@ -114,7 +114,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-        $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('baz.bar.foo');
 
         $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
         $this->factory->shouldReceive('make')->andReturn($payload);
@@ -125,7 +125,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $token = $this->manager->refresh($token);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
-        $this->assertEquals('foo.bar.baz', $token);
+        $this->assertEquals('baz.bar.foo', $token);
     }
 
     /** @test */

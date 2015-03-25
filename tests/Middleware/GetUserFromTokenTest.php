@@ -44,7 +44,7 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $exception = new TokenExpiredException;
 
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
-        $this->auth->shouldReceive('toUser')->once()->with('foo')->andThrow($exception);
+        $this->auth->shouldReceive('authenticate')->once()->with('foo')->andThrow($exception);
 
         $this->events->shouldReceive('fire')->once()->with('tymon.jwt.expired', [$exception], true);
         $this->response->shouldReceive('json')->with(['error' => 'token_expired'], 401);
@@ -58,7 +58,7 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $exception = new TokenInvalidException;
 
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
-        $this->auth->shouldReceive('toUser')->once()->with('foo')->andThrow($exception);
+        $this->auth->shouldReceive('authenticate')->once()->with('foo')->andThrow($exception);
 
         $this->events->shouldReceive('fire')->once()->with('tymon.jwt.invalid', [$exception], true);
         $this->response->shouldReceive('json')->with(['error' => 'token_invalid'], 400);
@@ -70,7 +70,7 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
     public function it_should_fire_an_event_when_no_user_is_found()
     {
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
-        $this->auth->shouldReceive('toUser')->once()->with('foo')->andReturn(false);
+        $this->auth->shouldReceive('authenticate')->once()->with('foo')->andReturn(false);
 
         $this->events->shouldReceive('fire')->once()->with('tymon.jwt.user_not_found', [], true);
         $this->response->shouldReceive('json')->with(['error' => 'user_not_found'], 404);
@@ -84,7 +84,7 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $user = (object) ['id' => 1];
 
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
-        $this->auth->shouldReceive('toUser')->once()->with('foo')->andReturn($user);
+        $this->auth->shouldReceive('authenticate')->once()->with('foo')->andReturn($user);
 
         $this->events->shouldReceive('fire')->once()->with('tymon.jwt.valid', $user);
         $this->response->shouldReceive('json')->never();

@@ -40,10 +40,10 @@ class JWTAuth
     protected $token;
 
     /**
-     * @param \Tymon\JWTAuth\JWTManager  $manager
-     * @param \Tymon\JWTAuth\Providers\User\UserInterface  $user
-     * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface  $auth
-     * @param \Illuminate\Http\Request  $request
+     * @param \Tymon\JWTAuth\JWTManager                   $manager
+     * @param \Tymon\JWTAuth\Providers\User\UserInterface $user
+     * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface $auth
+     * @param \Illuminate\Http\Request                    $request
      */
     public function __construct(JWTManager $manager, UserInterface $user, AuthInterface $auth, Request $request)
     {
@@ -54,9 +54,10 @@ class JWTAuth
     }
 
     /**
-     * Find a user using the user identifier in the subject claim
+     * Find a user using the user identifier in the subject claim.
      *
-     * @param  bool|string  $token
+     * @param bool|string $token
+     *
      * @return mixed
      */
     public function toUser($token = false)
@@ -71,10 +72,11 @@ class JWTAuth
     }
 
     /**
-     * Generate a token using the user identifier as the subject claim
+     * Generate a token using the user identifier as the subject claim.
      *
-     * @param  mixed  $user
-     * @param  array  $customClaims
+     * @param mixed $user
+     * @param array $customClaims
+     *
      * @return string
      */
     public function fromUser($user, array $customClaims = [])
@@ -85,10 +87,11 @@ class JWTAuth
     }
 
     /**
-     * Attempt to authenticate the user and return the token
+     * Attempt to authenticate the user and return the token.
      *
-     * @param  array  $credentials
-     * @param  array  $customClaims
+     * @param array $credentials
+     * @param array $customClaims
+     *
      * @return false|string
      */
     public function attempt(array $credentials = [], array $customClaims = [])
@@ -101,9 +104,10 @@ class JWTAuth
     }
 
     /**
-     * Authenticate a user via a token
+     * Authenticate a user via a token.
      *
-     * @param  mixed  $token
+     * @param mixed $token
+     *
      * @return mixed
      */
     public function authenticate($token = false)
@@ -118,9 +122,10 @@ class JWTAuth
     }
 
     /**
-     * Refresh an expired token
+     * Refresh an expired token.
      *
-     * @param  mixed  $token
+     * @param mixed $token
+     *
      * @return string
      */
     public function refresh($token = false)
@@ -131,9 +136,10 @@ class JWTAuth
     }
 
     /**
-     * Invalidate a token (add it to the blacklist)
+     * Invalidate a token (add it to the blacklist).
      *
-     * @param  mixed  $token
+     * @param mixed $token
+     *
      * @return boolean
      */
     public function invalidate($token = false)
@@ -144,7 +150,7 @@ class JWTAuth
     }
 
     /**
-     * Get the token
+     * Get the token.
      *
      * @return boolean|string
      */
@@ -162,9 +168,10 @@ class JWTAuth
     }
 
     /**
-     * Get the raw Payload instance
+     * Get the raw Payload instance.
      *
-     * @param  mixed  $token
+     * @param mixed $token
+     *
      * @return \Tymon\JWTAuth\Payload
      */
     public function getPayload($token = false)
@@ -175,9 +182,10 @@ class JWTAuth
     }
 
     /**
-     * Parse the token from the request
+     * Parse the token from the request.
      *
-     * @param  string  $query
+     * @param string $query
+     *
      * @return JWTAuth
      */
     public function parseToken($method = 'bearer', $header = 'authorization', $query = 'token')
@@ -192,10 +200,11 @@ class JWTAuth
     }
 
     /**
-     * Parse token from the authorization header
+     * Parse token from the authorization header.
      *
-     * @param string  $header
-     * @param string  $method
+     * @param string $header
+     * @param string $method
+     *
      * @return false|string
      */
     protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
@@ -210,10 +219,11 @@ class JWTAuth
     }
 
     /**
-     * Create a Payload instance
+     * Create a Payload instance.
      *
-     * @param  mixed  $subject
-     * @param  array  $customClaims
+     * @param mixed $subject
+     * @param array $customClaims
+     *
      * @return \Tymon\JWTAuth\Payload
      */
     protected function makePayload($subject, array $customClaims = [])
@@ -224,9 +234,10 @@ class JWTAuth
     }
 
     /**
-     * Set the identifier
+     * Set the identifier.
      *
-     * @param  string $identifier
+     * @param string $identifier
+     *
      * @return $this
      */
     public function setIdentifier($identifier)
@@ -237,7 +248,7 @@ class JWTAuth
     }
 
     /**
-     * Get the identifier
+     * Get the identifier.
      *
      * @return string
      */
@@ -247,9 +258,10 @@ class JWTAuth
     }
 
     /**
-     * Set the token
+     * Set the token.
      *
-     * @param  string  $token
+     * @param string $token
+     *
      * @return $this
      */
     public function setToken($token)
@@ -260,10 +272,12 @@ class JWTAuth
     }
 
     /**
-     * Ensure that a token is available
+     * Ensure that a token is available.
      *
-     * @param  mixed  $token
+     * @param mixed $token
+     *
      * @return JWTAuth
+     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     protected function requireToken($token)
@@ -276,9 +290,9 @@ class JWTAuth
     }
 
     /**
-     * Set the request instance
+     * Set the request instance.
      *
-     * @param Request  $request
+     * @param Request $request
      */
     public function setRequest(Request $request)
     {
@@ -288,7 +302,7 @@ class JWTAuth
     }
 
     /**
-     * Get the JWTManager instance
+     * Get the JWTManager instance.
      *
      * @return \Tymon\JWTAuth\JWTManager
      */
@@ -298,11 +312,13 @@ class JWTAuth
     }
 
     /**
-     * Magically call the JWT Manager
+     * Magically call the JWT Manager.
      *
-     * @param  string  $method
-     * @param  array   $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
+     *
      * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)

@@ -14,6 +14,11 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
      */
     protected $jws;
 
+    /**
+     * @param string  $secret
+     * @param string  $algo
+     * @param null    $driver
+     */
     public function __construct($secret, $algo, $driver = null)
     {
         parent::__construct($secret, $algo);
@@ -53,7 +58,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
             throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
         }
 
-        if (! $jws->verify($this->secret)) {
+        if (! $jws->verify($this->secret, $this->algo)) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
