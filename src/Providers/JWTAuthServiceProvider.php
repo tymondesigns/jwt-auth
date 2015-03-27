@@ -101,7 +101,6 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
         $this->registerPayloadFactory();
-        $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
 
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'jwt');
@@ -226,15 +225,6 @@ class JWTAuthServiceProvider extends ServiceProvider
             $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request'], $app['tymon.jwt.validators.payload']);
 
             return $factory->setTTL($this->config('ttl'));
-        });
-    }
-
-    protected function registerJWTAuthMiddleware()
-    {
-        $this->app['tymon.jwt.middleware'] = $this->app->share(function ($app) {
-            $response = $app->make('Illuminate\Routing\ResponseFactory');
-
-            return new JWTAuthMiddleware($response, $app['events'], $app['tymon.jwt.auth']);
         });
     }
 
