@@ -35,17 +35,21 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->shouldReceive('setRefreshFlow->check');
 
+        $expTime = time() + 3600;
+
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
         $this->claimFactory->shouldReceive('get')->once()->with('iat', 123)->andReturn(new IssuedAt(123));
         $this->claimFactory->shouldReceive('get')->once()->with('jti', 'foo')->andReturn(new JwtId('foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('nbf', time())->andReturn(new NotBefore(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('exp', $expTime)->andReturn(new Expiration($expTime));
 
         $payload = $this->factory->make(['sub' => 1, 'jti' => 'foo', 'iat' => 123]);
 
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('iat'), 123);
+        $this->assertEquals($payload['exp'], $expTime);
+
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
 
