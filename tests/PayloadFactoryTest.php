@@ -68,7 +68,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->sub(1)->foo('baz')->make();
 
-        $this->assertEquals($payload->get('sub'), 1);
+        $this->assertEquals($payload['sub'], 1);
         $this->assertEquals($payload->get('jti'), 'foo');
         $this->assertEquals($payload->get('foo'), 'baz');
 
