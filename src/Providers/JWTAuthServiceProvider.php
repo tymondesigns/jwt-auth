@@ -10,7 +10,6 @@ use Tymon\JWTAuth\Claims\Factory;
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Validators\PayloadValidator;
-use Tymon\JWTAuth\Middleware\JWTAuthMiddleware;
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -104,7 +103,7 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTAuthMiddleware();
         $this->registerJWTCommand();
 
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'jwt');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'jwt');
     }
 
     /**
@@ -138,7 +137,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerAuthProvider()
     {
         $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
-            return $app->make($this->config('providers.auth'), [ $app['auth'] ]);
+            return $this->getConfigInstance($this->config('providers.auth'));
         });
     }
 
@@ -148,7 +147,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerStorageProvider()
     {
         $this->app['tymon.jwt.provider.storage'] = $this->app->share(function ($app) {
-            return $app->make($this->config('providers.storage'), [ $app['cache'] ]);
+            return $this->getConfigInstance($this->config('providers.storage'));
         });
     }
 
@@ -250,11 +249,29 @@ class JWTAuthServiceProvider extends ServiceProvider
 
     /**
      * Helper to get the config values
+     *
      * @param  string $key
      * @return string
      */
     protected function config($key, $default = null)
     {
         return config("jwt.$key", $default);
+    }
+
+    /**
+     * Get an instantiable configuration instance. Pinched from dingo/api :)
+     *
+     * @param  mixed  $instance
+     * @return object
+     */
+    protected function getConfigInstance($instance)
+    {
+        if (is_callable($instance)) {
+            return call_user_func($instance, $this->app);
+        } elseif (is_string($instance)) {
+            return $this->app->make($instance);
+        } else {
+            return $instance;
+        }
     }
 }
