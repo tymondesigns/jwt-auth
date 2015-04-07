@@ -47,8 +47,8 @@ return [
     |
     | Specify the hashing algorithm that will be used to sign the token.
     |
-    | Possible values are:
-    | 'HS256', 'HS512', 'HS384', 'RS256'
+    | See here: https://github.com/namshi/jose/tree/2.2.0/src/Namshi/JOSE/Signer
+    | for possible values
     |
     */
 

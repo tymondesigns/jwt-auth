@@ -260,8 +260,8 @@ class JWTAuthServiceProvider extends ServiceProvider
             return call_user_func($instance, $this->app);
         } elseif (is_string($instance)) {
             return $this->app->make($instance);
-        } else {
-            return $instance;
         }
+
+        return $instance;
     }
 }
