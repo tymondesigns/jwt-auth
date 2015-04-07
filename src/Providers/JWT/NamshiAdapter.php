@@ -53,7 +53,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
             throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
         }
 
-        if (! $jws->verify($this->secret)) {
+        if (! $jws->verify($this->secret, $this->algo)) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
