@@ -20,6 +20,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the length of time (in minutes) that the token will be valid for.
+    | Set "null" for unlimited.
     | Defaults to 1 hour
     |
     */
@@ -34,6 +35,7 @@ return [
     | Specify the length of time (in minutes) that the token can be refreshed
     | within. I.E. The user can refresh their token within a 2 week window of
     | the original token being created until they must re-authenticate.
+    | Set "null" for unlimited.
     | Defaults to 2 weeks
     |
     */
