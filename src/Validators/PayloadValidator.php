@@ -85,7 +85,7 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateRefresh(array $payload)
     {
-        if($this->refreshTTL === null) {
+        if ($this->refreshTTL === null) {
             return true;
         }
 
