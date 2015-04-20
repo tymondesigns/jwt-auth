@@ -48,7 +48,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('iat'), 123);
-        $this->assertEquals($payload['exp'], $expTime);
+        $this->assertEquals($payload->get('exp'), $expTime);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
