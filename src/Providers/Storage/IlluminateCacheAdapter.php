@@ -83,4 +83,15 @@ class IlluminateCacheAdapter implements StorageInterface
 
         return $this->cache->tags($this->tag);
     }
+
+    /**
+     * Get a value given it's key.
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return $this->cache()->get($key);
+    }
 }

@@ -106,6 +106,20 @@ return [
     'blacklist_enabled' => env('JWT_BLACKLIST_ENABLED', true),
 
     /*
+    | -------------------------------------------------------------------------
+    | Blacklist Delay Time
+    | -------------------------------------------------------------------------
+    |
+    | When multiple concurrent requests are made to the api endpoints with
+    | same JWT, It is possible that some of them fail, due to token regeneration
+    | on every request.
+    |
+    | Set delay time in seconds to prevent the parallel request failure.
+    |
+    */
+    'blacklist_delay' => env('JWT_BLACKLIST_DELAY', 0),
+
+    /*
     |--------------------------------------------------------------------------
     | Providers
     |--------------------------------------------------------------------------
