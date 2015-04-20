@@ -6,8 +6,8 @@ interface StorageInterface
 {
     /**
      * @param string $key
+     * @param $value
      * @param integer $minutes
-     * @return void
      */
     public function add($key, $value, $minutes);
 
@@ -27,4 +27,12 @@ interface StorageInterface
      * @return void
      */
     public function flush();
+
+    /**
+     * Get a value given it's key.
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function get($key);
 }

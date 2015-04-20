@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
+use Carbon\Carbon;
 use Mockery;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Payload;
@@ -43,7 +44,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload($claims, $this->validator);
 
-        $this->storage->shouldReceive('add')->with('foo', [], 61);
+        $this->storage->shouldReceive('add')->once();
         $this->blacklist->add($payload);
     }
 
@@ -77,8 +78,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload($claims, $this->validator);
 
-        $this->storage->shouldReceive('has')->with('foobar')->andReturn(true);
+        $this->storage->shouldReceive('get')->once()->with('foobar')->andReturn(['valid_until' => 0]);
         $this->assertTrue($this->blacklist->has($payload));
+
+        $this->storage->shouldReceive('get')->once()->with('foobar')->andReturn(null);
+        $this->assertFalse($this->blacklist->has($payload));
+
+        $this->storage->shouldReceive('get')->once()->with('foobar')->andReturn(['valid_until' => time() + 500]);
+        $this->assertFalse($this->blacklist->has($payload));
     }
 
     /** @test */

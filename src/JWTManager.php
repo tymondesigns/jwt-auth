@@ -29,6 +29,13 @@ class JWTManager
     protected $blacklistEnabled = true;
 
     /**
+     * Blacklist delay time in seconds
+     *
+     * @var int
+     */
+    protected $blacklistDelay = 0;
+
+    /**
      *  @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $jwt
      *  @param \Tymon\JWTAuth\Blacklist  $blacklist
      *  @param \Tymon\JWTAuth\PayloadFactory  $payloadFactory
@@ -150,6 +157,18 @@ class JWTManager
     public function setBlacklistEnabled($enabled)
     {
         $this->blacklistEnabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Set blacklist delay time
+     *
+     * @param int $delay
+     */
+    public function setBlacklistDelay($delay = 0)
+    {
+        $this->blacklistDelay = (int) $delay;
 
         return $this;
     }

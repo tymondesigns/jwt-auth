@@ -22,10 +22,11 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     * @return boolean
+     * @param  \Tymon\JWTAuth\Payload $payload
+     * @param int $delay
+     * @return bool
      */
-    public function add(Payload $payload)
+    public function add(Payload $payload, $delay = 0)
     {
         $exp = Utils::timestamp($payload['exp']);
 
@@ -38,7 +39,7 @@ class Blacklist
         // add a minute to abate potential overlap
         $minutes = $exp->diffInMinutes(Utils::now()->subMinute());
 
-        $this->storage->add($payload['jti'], [], $minutes);
+        $this->storage->add($payload['jti'], ['valid_until' => $this->getDelayedTime($delay)], $minutes);
 
         return true;
     }
@@ -51,7 +52,17 @@ class Blacklist
      */
     public function has(Payload $payload)
     {
-        return $this->storage->has($payload['jti']);
+        $storageData = $this->storage->get($payload['jti']);
+
+        if ($storageData === null) {
+            return false;
+        }
+
+        if ($storageData['valid_until'] > Utils::now()->timestamp) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -75,5 +86,22 @@ class Blacklist
         $this->storage->flush();
 
         return true;
+    }
+
+    /**
+     * Get delayed timestamp. The delayed timestamp ensures that the key is available in a delay period.
+     *
+     * @param $delay
+     * @return int
+     */
+    protected function getDelayedTime($delay)
+    {
+        $delay = (int) $delay;
+
+        if ($delay === 0) {
+            return 0;
+        }
+
+        return Utils::now()->timestamp + $delay;
     }
 }
