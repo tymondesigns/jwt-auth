@@ -25,7 +25,6 @@ class JWTServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         $this->publishes([
             __DIR__ . '/../config/config.php' => $this->app->basePath('config') . '/jwt.php'
         ], 'config');
