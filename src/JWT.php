@@ -44,7 +44,7 @@ class JWT
      *
      * @return string
      */
-    public function refresh($token = FALSE)
+    public function refresh($token = false)
     {
         $this->requireToken($token);
 
@@ -58,7 +58,7 @@ class JWT
      *
      * @return boolean
      */
-    public function invalidate($token = FALSE)
+    public function invalidate($token = false)
     {
         $this->requireToken($token);
 
@@ -76,7 +76,7 @@ class JWT
             try {
                 $this->parseToken();
             } catch (JWTException $e) {
-                return FALSE;
+                return false;
             }
         }
 
@@ -90,7 +90,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function getPayload($token = FALSE)
+    public function getPayload($token = false)
     {
         $this->requireToken($token);
 
@@ -107,7 +107,7 @@ class JWT
     public function parseToken($method = 'bearer', $header = 'authorization', $query = 'token')
     {
         if (!$token = $this->parseAuthHeader($header, $method)) {
-            if (!$token = $this->request->query($query, FALSE)) {
+            if (!$token = $this->request->query($query, false)) {
                 throw new JWTException('The token could not be parsed from the request', 400);
             }
         }
@@ -128,7 +128,7 @@ class JWT
         $header = $this->request->headers->get($header);
 
         if (!starts_with(strtolower($header), $method)) {
-            return FALSE;
+            return false;
         }
 
         return trim(str_ireplace($method, '', $header));

@@ -15,8 +15,8 @@ abstract class JWTProvider
     protected $algo;
 
     /**
-     * @param string  $secret
-     * @param string  $algo
+     * @param string $secret
+     * @param string $algo
      */
     public function __construct($secret, $algo = 'HS256')
     {
@@ -27,7 +27,7 @@ abstract class JWTProvider
     /**
      * Set the algorithm used to sign the token
      *
-     * @param  string  $algo
+     * @param  string $algo
      * @return self
      */
     public function setAlgo($algo)

@@ -18,7 +18,7 @@ class JWTServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = FALSE;
+    protected $defer = false;
 
     /**
      * Boot the service provider.
@@ -212,7 +212,7 @@ class JWTServiceProvider extends ServiceProvider
      * @param  string $key
      * @return string
      */
-    protected function config($key, $default = NULL)
+    protected function config($key, $default = null)
     {
         return config("jwt.$key", $default);
     }
