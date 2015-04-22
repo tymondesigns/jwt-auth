@@ -68,7 +68,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-        $this->factory->shouldReceive('make')->with($payload->toArray())->andReturn($payload);
+        $this->factory->shouldReceive('setRefreshFlow->make')->with($payload->toArray())->andReturn($payload);
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
 
         $payload = $this->manager->decode($token);
@@ -93,7 +93,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-        $this->factory->shouldReceive('make')->with($payload->toArray())->andReturn($payload);
+        $this->factory->shouldReceive('setRefreshFlow->make')->with($payload->toArray())->andReturn($payload);
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
 
         $payload = $this->manager->decode($token);
@@ -143,7 +143,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-        $this->factory->shouldReceive('make')->with($payload->toArray())->andReturn($payload);
+        $this->factory->shouldReceive('setRefreshFlow->make')->with($payload->toArray())->andReturn($payload);
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
 
         $this->blacklist->shouldReceive('add')->with($payload)->andReturn(true);
