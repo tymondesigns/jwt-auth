@@ -211,7 +211,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerPayloadValidator()
     {
         $this->app['tymon.jwt.validators.payload'] = $this->app->share(function () {
-            return with(new PayloadValidator())->setRequiredClaims($this->config('required_claims'));
+            return with(new PayloadValidator())->setRefreshTTL($this->config('refresh_ttl'))->setRequiredClaims($this->config('required_claims'));
         });
     }
 
