@@ -59,9 +59,9 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(time() + 3600),
-            new NotBefore(time()),
-            new IssuedAt(time()),
+            new Expiration(123 + 3600),
+            new NotBefore(123),
+            new IssuedAt(123),
             new JwtId('foo')
         ];
         $payload = new Payload($claims, $this->validator);
