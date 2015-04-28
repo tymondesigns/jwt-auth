@@ -13,7 +13,7 @@ class JWTException extends \Exception
      * @param string  $message
      * @param integer $statusCode
      */
-    public function __construct($message = 'An error occured', $statusCode = null)
+    public function __construct($message = 'An error occurred', $statusCode = null)
     {
         parent::__construct($message);
 
