@@ -71,7 +71,7 @@ class PayloadValidator extends AbstractValidator
         }
 
         if (Utils::timestamp($payload['exp'])->isPast()) {
-            throw new TokenExpiredException('Token has expired', 400);
+            throw new TokenExpiredException('Token has expired');
         }
 
         return true;
