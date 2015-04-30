@@ -81,7 +81,7 @@ class JWTAuth
      */
     public function fromUser($user, array $customClaims = [])
     {
-        $payload = $this->makePayload($user->{$this->identifier}, $customClaims);
+        $payload = $this->makePayload($user, $customClaims);
 
         return $this->manager->encode($payload)->get();
     }
@@ -221,15 +221,17 @@ class JWTAuth
     /**
      * Create a Payload instance.
      *
-     * @param mixed $subject
+     * @param mixed $user
      * @param array $customClaims
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    protected function makePayload($subject, array $customClaims = [])
+    protected function makePayload($user, array $customClaims = [])
     {
+        $subject = $user->{$this->identifier};
+
         return $this->manager->getPayloadFactory()->make(
-            array_merge($customClaims, ['sub' => $subject])
+            array_merge($customClaims, ['sub' => $subject]), $user
         );
     }
 
