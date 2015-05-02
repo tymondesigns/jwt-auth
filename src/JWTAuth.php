@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuthSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
-use Tymon\JWTAuth\Providers\User\UserInterface;
 
 class JWTAuth
 {
