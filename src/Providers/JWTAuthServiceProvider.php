@@ -88,7 +88,6 @@ class JWTAuthServiceProvider extends ServiceProvider
     public function register()
     {
         // register providers
-        $this->registerUserProvider();
         $this->registerJWTProvider();
         $this->registerAuthProvider();
         $this->registerStorageProvider();
@@ -103,16 +102,6 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerJWTCommand();
 
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'jwt');
-    }
-
-    /**
-     * Register the bindings for the User provider
-     */
-    protected function registerUserProvider()
-    {
-        $this->app['tymon.jwt.provider.user'] = $this->app->share(function ($app) {
-            return $app->make($this->config('providers.user'), [$app->make($this->config('user'))]);
-        });
     }
 
     /**

@@ -16,11 +16,6 @@ class JWTAuth
     protected $manager;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\User\UserInterface
-     */
-    protected $user;
-
-    /**
      * @var \Tymon\JWTAuth\Providers\Auth\AuthInterface
      */
     protected $auth;
@@ -42,34 +37,14 @@ class JWTAuth
 
     /**
      * @param \Tymon\JWTAuth\JWTManager                   $manager
-     * @param \Tymon\JWTAuth\Providers\User\UserInterface $user
      * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface $auth
      * @param \Illuminate\Http\Request                    $request
      */
-    public function __construct(JWTManager $manager, UserInterface $user, AuthInterface $auth, Request $request)
+    public function __construct(JWTManager $manager, AuthInterface $auth, Request $request)
     {
         $this->manager = $manager;
-        $this->user = $user;
         $this->auth = $auth;
         $this->request = $request;
-    }
-
-    /**
-     * Find a user using the user identifier in the subject claim.
-     *
-     * @param bool|string $token
-     *
-     * @return mixed
-     */
-    public function toUser($token = false)
-    {
-        $payload = $this->getPayload($token);
-
-        if (! $user = $this->user->getBy($this->identifier, $payload['sub'])) {
-            return false;
-        }
-
-        return $user;
     }
 
     /**
@@ -107,9 +82,9 @@ class JWTAuth
     /**
      * Authenticate a user via a token.
      *
-     * @param mixed $token
+     * @param bool|string $token
      *
-     * @return mixed
+     * @return \Tymon\JWTAuth\JWTAuthSubject
      */
     public function authenticate($token = false)
     {
@@ -120,6 +95,18 @@ class JWTAuth
         }
 
         return $this->auth->user();
+    }
+
+    /**
+     * Maintaining backwards compatibilty. Alternative for authenticate().
+     *
+     * @param bool|string $token
+     *
+     * @return \Tymon\JWTAuth\JWTAuthSubject
+     */
+    public function toUser($token = false)
+    {
+        return $this->authenticate($token);
     }
 
     /**
