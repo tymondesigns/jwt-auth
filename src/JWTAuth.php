@@ -26,11 +26,6 @@ class JWTAuth
     protected $request;
 
     /**
-     * @var string
-     */
-    protected $identifier = 'id';
-
-    /**
      * @var \Tymon\JWTAuth\Token
      */
     protected $token;
@@ -219,30 +214,6 @@ class JWTAuth
         return $this->manager->getPayloadFactory()->make(
             array_merge($customClaims, $user->getCustomClaims(), ['sub' => $user->getIdentifier()])
         );
-    }
-
-    /**
-     * Set the identifier.
-     *
-     * @param string $identifier
-     *
-     * @return $this
-     */
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = $identifier;
-
-        return $this;
-    }
-
-    /**
-     * Get the identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
     }
 
     /**

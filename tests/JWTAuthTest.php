@@ -171,14 +171,6 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_set_the_identifier()
-    {
-        $this->jwtAuth->setIdentifier('foo');
-
-        $this->assertEquals($this->jwtAuth->getIdentifier(), 'foo');
-    }
-
-    /** @test */
     public function it_should_magically_call_the_manager()
     {
         $this->manager->shouldReceive('getBlacklist')->andReturn(new \StdClass);
