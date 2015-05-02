@@ -54,10 +54,15 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_token_when_passing_a_user()
     {
-        $this->manager->shouldReceive('getPayloadFactory->make')->once()->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
+        $this->manager
+             ->shouldReceive('getPayloadFactory->make')
+             ->once()
+             ->with(['sub' => 1, 'foo' => 'bar', 'role' => 'admin'])
+             ->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
+
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
-        $token = $this->jwtAuth->fromUser((object) ['id' => 1]);
+        $token = $this->jwtAuth->fromUser(new \Tymon\JWTAuth\Test\Stubs\UserStub);
 
         $this->assertEquals($token, 'foo.bar.baz');
     }
@@ -65,11 +70,16 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_token_when_passing_valid_credentials_to_attempt_method()
     {
-        $this->manager->shouldReceive('getPayloadFactory->make')->once()->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
+        $this->manager
+             ->shouldReceive('getPayloadFactory->make')
+             ->once()
+             ->with(['sub' => 1, 'foo' => 'bar', 'role' => 'admin'])
+             ->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
+
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
         $this->auth->shouldReceive('byCredentials')->once()->andReturn(true);
-        $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
+        $this->auth->shouldReceive('user')->once()->andReturn(new \Tymon\JWTAuth\Test\Stubs\UserStub);
 
         $token = $this->jwtAuth->attempt();
 
