@@ -168,15 +168,11 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerJWTAuth()
     {
         $this->app['tymon.jwt.auth'] = $this->app->share(function ($app) {
-
-            $auth = new JWTAuth(
+            return new JWTAuth(
                 $app['tymon.jwt.manager'],
-                $app['tymon.jwt.provider.user'],
                 $app['tymon.jwt.provider.auth'],
                 $app['request']
             );
-
-            return $auth->setIdentifier($this->config('identifier'));
         });
     }
 

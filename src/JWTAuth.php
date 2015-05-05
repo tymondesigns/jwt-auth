@@ -211,7 +211,7 @@ class JWTAuth
     protected function makePayload(JWTAuthSubject $user, array $customClaims = [])
     {
         return $this->manager->getPayloadFactory()->make(
-            array_merge($customClaims, $user->getCustomClaims(), ['sub' => $user->getIdentifier()])
+            array_merge($customClaims, $user->getJWTCustomClaims(), ['sub' => $user->getJWTIdentifier()])
         );
     }
 

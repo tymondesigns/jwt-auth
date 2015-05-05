@@ -7,12 +7,12 @@ use Tymon\JWTAuth\Providers\JWT\JWTProvider;
 
 class UserStub implements JWTAuthSubject
 {
-    public function getIdentifier()
+    public function getJWTIdentifier()
     {
         return 1;
     }
 
-    public function getCustomClaims()
+    public function getJWTCustomClaims()
     {
         return [
             'foo' => 'bar',
