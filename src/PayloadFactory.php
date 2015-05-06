@@ -59,11 +59,12 @@ class PayloadFactory
      * Create the Payload instance
      *
      * @param  array  $customClaims
+     * @param  mixed  $user
      * @return \Tymon\JWTAuth\Payload
      */
-    public function make(array $customClaims = [])
+    public function make(array $customClaims = [], $user = null)
     {
-        $claims = $this->buildClaims($customClaims)->resolveClaims();
+        $claims = $this->buildClaims($customClaims, $user)->resolveClaims();
 
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
@@ -72,12 +73,13 @@ class PayloadFactory
      * Add an array of claims to the Payload
      *
      * @param  array  $claims
+     * @param  mixed  $user
      * @return $this
      */
-    public function addClaims(array $claims)
+    public function addClaims(array $claims, $user = null)
     {
         foreach ($claims as $name => $value) {
-            $this->addClaim($name, $value);
+            $this->addClaim($name, $value, $user);
         }
 
         return $this;
@@ -88,10 +90,15 @@ class PayloadFactory
      *
      * @param  string  $name
      * @param  mixed   $value
+     * @param  mixed   $user
      * @return $this
      */
-    public function addClaim($name, $value)
+    public function addClaim($name, $value, $user = null)
     {
+        if ($value instanceof \Closure || is_callable($value)) {
+            $value = $value($user);
+        }
+
         $this->claims[$name] = $value;
 
         return $this;
@@ -101,16 +108,17 @@ class PayloadFactory
      * Build the default claims
      *
      * @param  array  $customClaims
+     * @param  mixed  $user
      * @return $this
      */
-    protected function buildClaims(array $customClaims)
+    protected function buildClaims(array $customClaims, $user = null)
     {
         // add any custom claims first
-        $this->addClaims(array_diff_key($customClaims, $this->defaultClaims));
+        $this->addClaims(array_diff_key($customClaims, $this->defaultClaims), $user);
 
         foreach ($this->defaultClaims as $claim) {
             if (! array_key_exists($claim, $customClaims)) {
-                $this->addClaim($claim, $this->$claim());
+                $this->addClaim($claim, $this->$claim(), $user);
             }
         }
 
