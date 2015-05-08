@@ -2,8 +2,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuthSubject;
+use Tymon\JWTAuth\Token\Http\TokenParser;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 
@@ -20,9 +20,9 @@ class JWTAuth
     protected $auth;
 
     /**
-     * @var \Illuminate\Http\Request
+     * @var \Tymon\JWTAuth\Token\Http\TokenParser
      */
-    protected $request;
+    protected $parser;
 
     /**
      * @var \Tymon\JWTAuth\Token
@@ -32,13 +32,13 @@ class JWTAuth
     /**
      * @param \Tymon\JWTAuth\JWTManager                   $manager
      * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface $auth
-     * @param \Illuminate\Http\Request                    $request
+     * @param \Tymon\JWTAuth\Token\Http\TokenParser       $parser
      */
-    public function __construct(JWTManager $manager, AuthInterface $auth, Request $request)
+    public function __construct(JWTManager $manager, AuthInterface $auth, TokenParser $parser)
     {
         $this->manager = $manager;
         $this->auth = $auth;
-        $this->request = $request;
+        $this->parser = $parser;
     }
 
     /**
@@ -166,38 +166,15 @@ class JWTAuth
     /**
      * Parse the token from the request.
      *
-     * @param string $query
-     *
      * @return JWTAuth
      */
-    public function parseToken($method = 'bearer', $header = 'authorization', $query = 'token')
+    public function parseToken()
     {
-        if (! $token = $this->parseAuthHeader($header, $method)) {
-            if (! $token = $this->request->query($query, false)) {
-                throw new JWTException('The token could not be parsed from the request', 400);
-            }
+        if (! $token = $this->parser->parseToken()) {
+            throw new JWTException('The token could not be parsed from the request', 400);
         }
 
         return $this->setToken($token);
-    }
-
-    /**
-     * Parse token from the authorization header.
-     *
-     * @param string $header
-     * @param string $method
-     *
-     * @return false|string
-     */
-    protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
-    {
-        $header = $this->request->headers->get($header);
-
-        if (! starts_with(strtolower($header), $method)) {
-            return false;
-        }
-
-        return trim(str_ireplace($method, '', $header));
     }
 
     /**
@@ -254,7 +231,7 @@ class JWTAuth
      */
     public function setRequest(Request $request)
     {
-        $this->request = $request;
+        $this->parser->setRequest($request);
 
         return $this;
     }
