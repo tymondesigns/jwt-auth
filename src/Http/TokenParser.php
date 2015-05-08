@@ -55,11 +55,11 @@ class TokenParser
 
         $header = $this->request->headers->get($this->header);
 
-        if (! starts_with(strtolower($this->header), $prefix)) {
+        if (! starts_with(strtolower($this->header), $this->prefix)) {
             return false;
         }
 
-        return trim(str_ireplace($prefix, '', $this->header));
+        return trim(str_ireplace($this->prefix, '', $this->header));
     }
 
     /**
