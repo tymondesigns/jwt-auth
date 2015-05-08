@@ -3,9 +3,9 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWTAuthSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
-use Tymon\JWTAuth\Providers\User\UserInterface;
 
 class JWTAuth
 {
@@ -13,11 +13,6 @@ class JWTAuth
      * @var \Tymon\JWTAuth\JWTManager
      */
     protected $manager;
-
-    /**
-     * @var \Tymon\JWTAuth\Providers\User\UserInterface
-     */
-    protected $user;
 
     /**
      * @var \Tymon\JWTAuth\Providers\Auth\AuthInterface
@@ -30,58 +25,33 @@ class JWTAuth
     protected $request;
 
     /**
-     * @var string
-     */
-    protected $identifier = 'id';
-
-    /**
      * @var \Tymon\JWTAuth\Token
      */
     protected $token;
 
     /**
      * @param \Tymon\JWTAuth\JWTManager                   $manager
-     * @param \Tymon\JWTAuth\Providers\User\UserInterface $user
      * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface $auth
      * @param \Illuminate\Http\Request                    $request
      */
-    public function __construct(JWTManager $manager, UserInterface $user, AuthInterface $auth, Request $request)
+    public function __construct(JWTManager $manager, AuthInterface $auth, Request $request)
     {
         $this->manager = $manager;
-        $this->user = $user;
         $this->auth = $auth;
         $this->request = $request;
     }
 
     /**
-     * Find a user using the user identifier in the subject claim.
-     *
-     * @param bool|string $token
-     *
-     * @return mixed
-     */
-    public function toUser($token = false)
-    {
-        $payload = $this->getPayload($token);
-
-        if (! $user = $this->user->getBy($this->identifier, $payload['sub'])) {
-            return false;
-        }
-
-        return $user;
-    }
-
-    /**
      * Generate a token using the user identifier as the subject claim.
      *
-     * @param mixed $user
+     * @param JWTAuthSubject $user
      * @param array $customClaims
      *
      * @return string
      */
-    public function fromUser($user, array $customClaims = [])
+    public function fromUser(JWTAuthSubject $user, array $customClaims = [])
     {
-        $payload = $this->makePayload($user->{$this->identifier}, $customClaims);
+        $payload = $this->makePayload($user, $customClaims);
 
         return $this->manager->encode($payload)->get();
     }
@@ -106,9 +76,9 @@ class JWTAuth
     /**
      * Authenticate a user via a token.
      *
-     * @param mixed $token
+     * @param bool|string $token
      *
-     * @return mixed
+     * @return \Tymon\JWTAuth\JWTAuthSubject
      */
     public function authenticate($token = false)
     {
@@ -119,6 +89,18 @@ class JWTAuth
         }
 
         return $this->auth->user();
+    }
+
+    /**
+     * Maintaining backwards compatibilty. Alternative for authenticate().
+     *
+     * @param bool|string $token
+     *
+     * @return \Tymon\JWTAuth\JWTAuthSubject
+     */
+    public function toUser($token = false)
+    {
+        return $this->authenticate($token);
     }
 
     /**
@@ -221,40 +203,16 @@ class JWTAuth
     /**
      * Create a Payload instance.
      *
-     * @param mixed $subject
+     * @param JWTAuthSubject $user
      * @param array $customClaims
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    protected function makePayload($subject, array $customClaims = [])
+    protected function makePayload(JWTAuthSubject $user, array $customClaims = [])
     {
         return $this->manager->getPayloadFactory()->make(
-            array_merge($customClaims, ['sub' => $subject])
+            array_merge($customClaims, $user->getJWTCustomClaims(), ['sub' => $user->getJWTIdentifier()])
         );
-    }
-
-    /**
-     * Set the identifier.
-     *
-     * @param string $identifier
-     *
-     * @return $this
-     */
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = $identifier;
-
-        return $this;
-    }
-
-    /**
-     * Get the identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
     }
 
     /**
