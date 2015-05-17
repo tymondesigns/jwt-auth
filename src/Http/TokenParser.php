@@ -41,19 +41,25 @@ class TokenParser
     }
 
     /**
+     * Attempt to parse the token from some other possible headers
+     *
+     * @return false|string
+     */
+    protected function parseFromAltHeaders()
+    {
+        return $this->request->server->get('HTTP_AUTHORIZATION',
+            $this->request->server->get('REDIRECT_HTTP_AUTHORIZATION', false)
+        );
+    }
+
+    /**
      * Try to parse the token from the request header
      *
      * @return false|string
      */
     public function parseTokenFromHeader()
     {
-        if ($this->request->server->has('HTTP_AUTHORIZATION')) {
-            $this->request->headers->set($this->header, $this->request->server->get('HTTP_AUTHORIZATION'))
-        } elseif ($this->request->server->has('REDIRECT_HTTP_AUTHORIZATION') {
-            $this->request->headers->set($this->header, $this->request->server->get('REDIRECT_HTTP_AUTHORIZATION'))
-        }
-
-        $header = $this->request->headers->get($this->header);
+        $header = $this->request->headers->get($this->header, $this->parseFromAltHeaders());
 
         if (! starts_with(strtolower($this->header), $this->prefix)) {
             return false;
@@ -79,13 +85,7 @@ class TokenParser
      */
     public function parseToken()
     {
-        if (! $token = $this->parseTokenFromHeader()) {
-            if (! $token = $this->parseTokenFromQueryString()) {
-                return false;
-            }
-        }
-
-        return $token;
+        return $this->parseTokenFromHeader() ?: $this->parseTokenFromQueryString();
     }
 
     /**
