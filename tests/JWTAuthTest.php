@@ -13,8 +13,9 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->manager = Mockery::mock('Tymon\JWTAuth\JWTManager');
         $this->auth = Mockery::mock('Tymon\JWTAuth\Providers\Auth\AuthInterface');
+        $this->parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
 
-        $this->jwtAuth = new JWTAuth($this->manager, $this->auth, Request::create('/foo', 'GET'));
+        $this->jwtAuth = new JWTAuth($this->manager, $this->auth, $this->parser);
     }
 
     public function tearDown()
@@ -133,24 +134,12 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_retrieve_the_token_from_the_auth_header()
+    public function it_should_retrieve_the_token_from_the_request()
     {
-        $request = Request::create('/foo', 'GET');
-        $request->headers->set('authorization', 'Bearer foo.bar.baz');
-        $jwtAuth = new JWTAuth($this->manager, $this->auth, $request);
+        $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
-        $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
-    }
-
-    /** @test */
-    public function it_should_retrieve_the_token_from_the_query_string()
-    {
-        $request = Request::create('/foo', 'GET', ['token' => 'foo.bar.baz']);
-        $jwtAuth = new JWTAuth($this->manager, $this->auth, $request);
-
-        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
-        $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $this->jwtAuth->parseToken()->getToken());
+        $this->assertEquals($this->jwtAuth->getToken(), 'foo.bar.baz');
     }
 
     /** @test */
@@ -158,15 +147,16 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
 
-        $request = Request::create('/foo', 'GET');
-        $jwtAuth = new JWTAuth($this->manager, $this->auth, $request);
+        $this->parser->shouldReceive('parseToken')->andReturn(false);
 
-        $jwtAuth->parseToken();
+        $this->jwtAuth->parseToken();
     }
 
     /** @test */
     public function it_should_return_false_when_no_token_is_set()
     {
+        $this->parser->shouldReceive('parseToken')->andReturn(false);
+
         $this->assertFalse($this->jwtAuth->getToken());
     }
 
@@ -184,6 +174,9 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_set_the_request()
     {
         $request = Request::create('/foo', 'GET', ['token' => 'some.random.token']);
+
+        $this->parser->shouldReceive('setRequest')->once()->with($request);
+        $this->parser->shouldReceive('parseToken')->andReturn('some.random.token');
 
         $token = $this->jwtAuth->setRequest($request)->getToken();
 
