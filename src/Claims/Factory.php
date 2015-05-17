@@ -22,6 +22,7 @@ class Factory
      *
      * @param  string  $name
      * @param  mixed   $value
+     *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
     public function get($name, $value)
@@ -37,6 +38,7 @@ class Factory
      * Check whether the claim exists
      *
      * @param  string  $name
+     *
      * @return boolean
      */
     public function has($name)

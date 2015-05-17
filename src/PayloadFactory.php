@@ -59,6 +59,7 @@ class PayloadFactory
      * Create the Payload instance
      *
      * @param  array  $customClaims
+     *
      * @return \Tymon\JWTAuth\Payload
      */
     public function make(array $customClaims = [])
@@ -72,6 +73,7 @@ class PayloadFactory
      * Add an array of claims to the Payload
      *
      * @param  array  $claims
+     *
      * @return $this
      */
     public function addClaims(array $claims)
@@ -88,6 +90,7 @@ class PayloadFactory
      *
      * @param  string  $name
      * @param  mixed   $value
+     *
      * @return $this
      */
     public function addClaim($name, $value)
@@ -101,6 +104,7 @@ class PayloadFactory
      * Build the default claims
      *
      * @param  array  $customClaims
+     *
      * @return $this
      */
     protected function buildClaims(array $customClaims)
@@ -189,6 +193,7 @@ class PayloadFactory
      * Set the token ttl (in minutes)
      *
      * @param  int  $ttl
+     *
      * @return $this
      */
     public function setTTL($ttl)
@@ -212,6 +217,7 @@ class PayloadFactory
      * Set the refresh flow
      *
      * @param boolean $refreshFlow
+     *
      * @return $this
      */
     public function setRefreshFlow($refreshFlow = true)
@@ -226,7 +232,9 @@ class PayloadFactory
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return PayloadFactory
+     *
      * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)

@@ -32,8 +32,10 @@ abstract class Claim implements ClaimInterface
      * Set the claim value, and call a validate method if available
      *
      * @param $value
-     * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     *
      * @return $this
+     *
+     * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      */
     public function setValue($value)
     {
@@ -60,6 +62,7 @@ abstract class Claim implements ClaimInterface
      * Set the claim name
      *
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -83,6 +86,7 @@ abstract class Claim implements ClaimInterface
      * Validate the Claim value
      *
      * @param  $value
+     *
      * @return boolean
      */
     protected function validate($value)

@@ -214,7 +214,7 @@ class JWTAuth
     /**
      * Set the request instance.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      */
     public function setRequest(Request $request)
     {

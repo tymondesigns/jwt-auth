@@ -49,6 +49,7 @@ class JWTManager
      * Encode a Payload and return the Token
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
+     *
      * @return \Tymon\JWTAuth\Token
      */
     public function encode(Payload $payload)
@@ -62,7 +63,9 @@ class JWTManager
      * Decode a Token and return the Payload
      *
      * @param  \Tymon\JWTAuth\Token $token
+     *
      * @return Payload
+     *
      * @throws TokenBlacklistedException
      */
     public function decode(Token $token)
@@ -82,6 +85,7 @@ class JWTManager
      * Refresh a Token and return a new Token
      *
      * @param  \Tymon\JWTAuth\Token  $token
+     *
      * @return \Tymon\JWTAuth\Token
      */
     public function refresh(Token $token)
@@ -106,6 +110,7 @@ class JWTManager
      * Invalidate a Token by adding it to the blacklist
      *
      * @param  Token  $token
+     *
      * @return boolean
      */
     public function invalidate(Token $token)
@@ -163,6 +168,7 @@ class JWTManager
      * Set the refresh flow
      *
      * @param boolean $refreshFlow
+     *
      * @return $this
      */
     public function setRefreshFlow($refreshFlow = true)

@@ -58,6 +58,7 @@ class Payload implements \ArrayAccess
      * Get the payload
      *
      * @param  string  $claim
+     *
      * @return mixed
      */
     public function get($claim = null)
@@ -77,6 +78,7 @@ class Payload implements \ArrayAccess
      * Determine whether the payload has the claim
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
+     *
      * @return boolean
      */
     public function has(Claim $claim)
@@ -98,6 +100,7 @@ class Payload implements \ArrayAccess
      * Determine if an item exists at an offset.
      *
      * @param  mixed  $key
+     *
      * @return bool
      */
     public function offsetExists($key)
@@ -109,6 +112,7 @@ class Payload implements \ArrayAccess
      * Get an item at a given offset.
      *
      * @param  mixed  $key
+     *
      * @return mixed
      */
     public function offsetGet($key)
@@ -121,8 +125,8 @@ class Payload implements \ArrayAccess
      *
      * @param  mixed $key
      * @param  mixed $value
+     *
      * @throws Exceptions\PayloadException
-     * @return void
      */
     public function offsetSet($key, $value)
     {
@@ -133,8 +137,8 @@ class Payload implements \ArrayAccess
      * Don't allow changing the payload as it should be immutable
      *
      * @param  string $key
+     *
      * @throws Exceptions\PayloadException
-     * @return void
      */
     public function offsetUnset($key)
     {
@@ -146,7 +150,9 @@ class Payload implements \ArrayAccess
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
+     *
      * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)

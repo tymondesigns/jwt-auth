@@ -44,6 +44,7 @@ abstract class BaseMiddleware
      * @param  string   $error
      * @param  integer  $status
      * @param  array    $payload
+     *
      * @return mixed
      */
     protected function respond($event, $error, $status, $payload = [])

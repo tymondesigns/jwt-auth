@@ -31,6 +31,7 @@ class IlluminateCacheAdapter implements StorageInterface
      * @param  string  $key
      * @param  mixed  $value
      * @param  int  $minutes
+     *
      * @return void
      */
     public function add($key, $value, $minutes)
@@ -42,7 +43,8 @@ class IlluminateCacheAdapter implements StorageInterface
      * Check whether a key exists in storage
      *
      * @param  string  $key
-     * @return bool
+     *
+     * @return boolean
      */
     public function has($key)
     {
@@ -53,7 +55,8 @@ class IlluminateCacheAdapter implements StorageInterface
      * Remove an item from storage
      *
      * @param  string  $key
-     * @return bool
+     *
+     * @return boolean
      */
     public function destroy($key)
     {

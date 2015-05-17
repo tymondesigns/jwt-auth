@@ -8,7 +8,8 @@ interface AuthInterface
      * Check a user's credentials
      *
      * @param  array  $credentials
-     * @return bool
+     *
+     * @return boolean
      */
     public function byCredentials(array $credentials = []);
 
@@ -16,7 +17,8 @@ interface AuthInterface
      * Authenticate a user via the id
      *
      * @param  mixed  $id
-     * @return bool
+     *
+     * @return boolean
      */
     public function byId($id);
 

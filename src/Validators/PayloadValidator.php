@@ -22,6 +22,7 @@ class PayloadValidator extends AbstractValidator
      * Run the validations on the payload array
      *
      * @param  array  $value
+     *
      * @return void
      */
     public function check($value)
@@ -40,8 +41,10 @@ class PayloadValidator extends AbstractValidator
      * the claims have the relevant type
      *
      * @param array  $payload
+     *
+     * @return boolean
+     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return bool
      */
     protected function validateStructure(array $payload)
     {
@@ -56,9 +59,11 @@ class PayloadValidator extends AbstractValidator
      * Validate the payload timestamps
      *
      * @param  array  $payload
+     *
+     * @return boolean
+     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return boolean
      */
     protected function validateTimestamps(array $payload)
     {
@@ -81,7 +86,8 @@ class PayloadValidator extends AbstractValidator
      * Check the token in the refresh flow context
      *
      * @param  $payload
-     * @return bool
+     *
+     * @return boolean
      */
     protected function validateRefresh(array $payload)
     {

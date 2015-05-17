@@ -28,6 +28,7 @@ abstract class JWTProvider
      * Set the algorithm used to sign the token
      *
      * @param  string  $algo
+     *
      * @return self
      */
     public function setAlgo($algo)
