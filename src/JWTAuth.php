@@ -77,13 +77,11 @@ class JWTAuth
     /**
      * Authenticate a user via a token.
      *
-     * @param bool|string $token
-     *
      * @return \Tymon\JWTAuth\JWTAuthSubject
      */
-    public function authenticate($token = false)
+    public function authenticate()
     {
-        $id = $this->getPayload($token)->get('sub');
+        $id = $this->getPayload()->get('sub');
 
         if (! $this->auth->byId($id)) {
             return false;
@@ -93,27 +91,23 @@ class JWTAuth
     }
 
     /**
-     * Maintaining backwards compatibilty. Alternative for authenticate().
-     *
-     * @param bool|string $token
+     * Maintaining backwards compatibilty. Alias for authenticate().
      *
      * @return \Tymon\JWTAuth\JWTAuthSubject
      */
-    public function toUser($token = false)
+    public function toUser()
     {
-        return $this->authenticate($token);
+        return $this->authenticate();
     }
 
     /**
      * Refresh an expired token.
      *
-     * @param mixed $token
-     *
      * @return string
      */
-    public function refresh($token = false)
+    public function refresh()
     {
-        $this->requireToken($token);
+        $this->requireToken();
 
         return $this->manager->refresh($this->token)->get();
     }
@@ -121,13 +115,11 @@ class JWTAuth
     /**
      * Invalidate a token (add it to the blacklist).
      *
-     * @param mixed $token
-     *
      * @return boolean
      */
-    public function invalidate($token = false)
+    public function invalidate()
     {
-        $this->requireToken($token);
+        $this->requireToken();
 
         return $this->manager->invalidate($this->token);
     }
@@ -153,13 +145,11 @@ class JWTAuth
     /**
      * Get the raw Payload instance.
      *
-     * @param mixed $token
-     *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function getPayload($token = false)
+    public function getPayload()
     {
-        $this->requireToken($token);
+        $this->requireToken();
 
         return $this->manager->decode($this->token);
     }
@@ -210,19 +200,15 @@ class JWTAuth
     /**
      * Ensure that a token is available.
      *
-     * @param mixed $token
-     *
      * @return JWTAuth
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    protected function requireToken($token)
+    protected function requireToken()
     {
-        if (! $token = $token ?: $this->token) {
+        if (! $this->token) {
             throw new JWTException('A token is required', 400);
         }
-
-        return $this->setToken($token);
     }
 
     /**

@@ -89,7 +89,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
-        $user = $this->jwtAuth->authenticate('foo.bar.baz');
+        $user = $this->jwtAuth->setToken('foo.bar.baz')->authenticate();
 
         $this->assertEquals($user->id, 1);
     }
@@ -105,7 +105,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
-        $user = $this->jwtAuth->authenticate('foo.bar.baz');
+        $user = $this->jwtAuth->setToken('foo.bar.baz')->authenticate();
 
         $this->assertFalse($user);
     }
@@ -128,7 +128,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->manager->shouldReceive('invalidate')->once()->andReturn(true);
 
-        $result = $this->jwtAuth->invalidate('foo.bar.baz');
+        $result = $this->jwtAuth->setToken('foo.bar.baz')->invalidate();
 
         $this->assertTrue($result);
     }
