@@ -3,7 +3,7 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\JWTAuthSubject;
-use Tymon\JWTAuth\Token\Http\TokenParser;
+use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 

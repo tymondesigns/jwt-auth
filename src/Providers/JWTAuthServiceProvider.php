@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Http\TokenParser;
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -25,9 +26,10 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('jwt.php')
-        ], 'config');
+        $path = realpath(__DIR__ . '/../../config/config.php');
+
+        $this->publishes([$path => config_path('jwt.php')], 'config');
+        $this->mergeConfigFrom($path, 'jwt');
 
         $this->bootBindings();
 
@@ -91,13 +93,12 @@ class JWTAuthServiceProvider extends ServiceProvider
 
         $this->registerClaimFactory();
         $this->registerJWTManager();
+        $this->registerTokenParser();
 
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
-
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'jwt');
     }
 
     /**
@@ -121,7 +122,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerAuthProvider()
     {
         $this->app['tymon.jwt.provider.auth'] = $this->app->share(function ($app) {
-            return $this->getConfigInstance($this->config('providers.auth'));
+            return $this->getConfigInstance('providers.auth');
         });
     }
 
@@ -131,7 +132,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerStorageProvider()
     {
         $this->app['tymon.jwt.provider.storage'] = $this->app->share(function ($app) {
-            return $this->getConfigInstance($this->config('providers.storage'));
+            return $this->getConfigInstance('providers.storage');
         });
     }
 
@@ -163,6 +164,16 @@ class JWTAuthServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the bindings for the Token Parser
+     */
+    protected function registerTokenParser()
+    {
+        $this->app['tymon.jwt.parser'] = $this->app->share(function ($app) {
+            return new TokenParser($app['request']);
+        });
+    }
+
+    /**
      * Register the bindings for the main JWTAuth class
      */
     protected function registerJWTAuth()
@@ -171,7 +182,7 @@ class JWTAuthServiceProvider extends ServiceProvider
             return new JWTAuth(
                 $app['tymon.jwt.manager'],
                 $app['tymon.jwt.provider.auth'],
-                $app['request']
+                $app['tymon.jwt.parser']
             );
         });
     }
@@ -192,7 +203,9 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerPayloadValidator()
     {
         $this->app['tymon.jwt.validators.payload'] = $this->app->share(function () {
-            return with(new PayloadValidator())->setRefreshTTL($this->config('refresh_ttl'))->setRequiredClaims($this->config('required_claims'));
+            return with(new PayloadValidator())
+                ->setRefreshTTL($this->config('refresh_ttl'))
+                ->setRequiredClaims($this->config('required_claims'));
         });
     }
 
@@ -202,7 +215,11 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerPayloadFactory()
     {
         $this->app['tymon.jwt.payload.factory'] = $this->app->share(function ($app) {
-            $factory = new PayloadFactory($app['tymon.jwt.claim.factory'], $app['request'], $app['tymon.jwt.validators.payload']);
+            $factory = new PayloadFactory(
+                $app['tymon.jwt.claim.factory'],
+                $app['request'],
+                $app['tymon.jwt.validators.payload']
+            );
 
             return $factory->setTTL($this->config('ttl'));
         });
@@ -232,11 +249,13 @@ class JWTAuthServiceProvider extends ServiceProvider
     /**
      * Get an instantiable configuration instance. Pinched from dingo/api :)
      *
-     * @param  mixed  $instance
+     * @param  string  $key
      * @return object
      */
-    protected function getConfigInstance($instance)
+    protected function getConfigInstance($key)
     {
+        $instance = $this->config($key);
+
         if (is_callable($instance)) {
             return call_user_func($instance, $this->app);
         } elseif (is_string($instance)) {
