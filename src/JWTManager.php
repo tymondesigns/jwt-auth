@@ -112,6 +112,8 @@ class JWTManager
      * @param  Token  $token
      *
      * @return boolean
+     *
+     * @throws JWTException
      */
     public function invalidate(Token $token)
     {
@@ -156,6 +158,8 @@ class JWTManager
      * Set whether the blacklist is enabled
      *
      * @param bool  $enabled
+     *
+     * @return \Tymon\JWTAuth\JWTManager
      */
     public function setBlacklistEnabled($enabled)
     {
