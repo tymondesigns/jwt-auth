@@ -127,7 +127,7 @@ class JWTAuth
     /**
      * Get the token.
      *
-     * @return boolean|string
+     * @return false|Token
      */
     public function getToken()
     {

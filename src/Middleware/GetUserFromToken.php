@@ -22,7 +22,7 @@ class GetUserFromToken extends BaseMiddleware
         }
 
         try {
-            $user = $this->auth->authenticate($token);
+            $user = $this->auth->authenticate();
         } catch (TokenExpiredException $e) {
             return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
         } catch (JWTException $e) {
