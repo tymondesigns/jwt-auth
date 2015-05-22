@@ -135,7 +135,7 @@ class JWTAuth
     {
         $this->requireToken($token);
 
-        return $this->manager->refresh($this->token, $customClaims = [])->get();
+        return $this->manager->refresh($this->token, $customClaims)->get();
     }
 
     /**
