@@ -126,13 +126,16 @@ class JWTAuth
      *
      * @param mixed $token
      *
+     * @param array $customClaims
+     *
+     * @throws JWTException
      * @return string
      */
-    public function refresh($token = false)
+    public function refresh($token = false, $customClaims = [])
     {
         $this->requireToken($token);
 
-        return $this->manager->refresh($this->token)->get();
+        return $this->manager->refresh($this->token, $customClaims = [])->get();
     }
 
     /**
