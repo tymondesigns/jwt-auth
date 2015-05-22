@@ -107,6 +107,6 @@ abstract class Claim implements ClaimInterface
      */
     public function __toString()
     {
-        return json_encode($this->toArray());
+        return json_encode($this->toArray(), JSON_UNESCAPED_SLASHES);
     }
 }
