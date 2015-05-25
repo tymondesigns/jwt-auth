@@ -58,7 +58,7 @@ class JWTAuth
      */
     public function fromUser(JWTAuthSubject $user)
     {
-        $payload = $this->makePayload($user, $this->customClaims);
+        $payload = $this->makePayload($user);
 
         return $this->manager->encode($payload)->get();
     }
