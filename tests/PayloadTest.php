@@ -17,7 +17,6 @@ use Tymon\JWTAuth\Claims\Custom;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         $claims = [
