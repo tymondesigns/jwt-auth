@@ -148,18 +148,6 @@ class JWTAuth
     }
 
     /**
-     * Get the raw Payload instance.
-     *
-     * @return \Tymon\JWTAuth\Payload
-     */
-    public function getPayload()
-    {
-        $this->requireToken();
-
-        return $this->manager->decode($this->token);
-    }
-
-    /**
      * Parse the token from the request.
      *
      * @return JWTAuth
@@ -174,6 +162,18 @@ class JWTAuth
     }
 
     /**
+     * Get the raw Payload instance.
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function getPayload()
+    {
+        $this->requireToken();
+
+        return $this->manager->decode($this->token);
+    }
+
+    /**
      * Create a Payload instance.
      *
      * @param JWTAuthSubject $user
@@ -182,8 +182,22 @@ class JWTAuth
      */
     public function makePayload(JWTAuthSubject $user)
     {
-        return $this->manager->getPayloadFactory()->make(
-            array_merge($this->customClaims, $user->getJWTCustomClaims(), ['sub' => $user->getJWTIdentifier()])
+        return $this->manager->getPayloadFactory()->make($this->getClaimsArray($user));
+    }
+
+    /**
+     * Build the claims array and return it
+     *
+     * @param JWTAuthSubject $user
+     *
+     * @return array
+     */
+    protected function getClaimsArray(JWTAuthSubject $user)
+    {
+        return array_merge(
+            $this->customClaims,
+            $user->getJWTCustomClaims(),
+            ['sub' => $user->getJWTIdentifier()]
         );
     }
 
