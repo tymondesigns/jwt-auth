@@ -31,6 +31,13 @@ class JWTAuth
     protected $token;
 
     /**
+     * Custom claims
+     *
+     * @var array
+     */
+    protected $customClaims = [];
+
+    /**
      * @param \Tymon\JWTAuth\JWTManager                   $manager
      * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface $auth
      * @param \Tymon\JWTAuth\Token\Http\TokenParser       $parser
@@ -46,13 +53,12 @@ class JWTAuth
      * Generate a token using the user identifier as the subject claim.
      *
      * @param JWTAuthSubject $user
-     * @param array $customClaims
      *
      * @return string
      */
-    public function fromUser(JWTAuthSubject $user, array $customClaims = [])
+    public function fromUser(JWTAuthSubject $user)
     {
-        $payload = $this->makePayload($user, $customClaims);
+        $payload = $this->makePayload($user, $this->customClaims);
 
         return $this->manager->encode($payload)->get();
     }
@@ -61,17 +67,16 @@ class JWTAuth
      * Attempt to authenticate the user and return the token.
      *
      * @param array $credentials
-     * @param array $customClaims
      *
      * @return false|string
      */
-    public function attempt(array $credentials = [], array $customClaims = [])
+    public function attempt(array $credentials = [])
     {
         if (! $this->auth->byCredentials($credentials)) {
             return false;
         }
 
-        return $this->fromUser($this->auth->user(), $customClaims);
+        return $this->fromUser($this->auth->user());
     }
 
     /**
@@ -91,7 +96,7 @@ class JWTAuth
     }
 
     /**
-     * Maintaining backwards compatibilty. Alias for authenticate().
+     * Alias for authenticate().
      *
      * @return \Tymon\JWTAuth\JWTAuthSubject
      */
@@ -172,14 +177,13 @@ class JWTAuth
      * Create a Payload instance.
      *
      * @param JWTAuthSubject $user
-     * @param array $customClaims
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    protected function makePayload(JWTAuthSubject $user, array $customClaims = [])
+    public function makePayload(JWTAuthSubject $user)
     {
         return $this->manager->getPayloadFactory()->make(
-            array_merge($customClaims, $user->getJWTCustomClaims(), ['sub' => $user->getJWTIdentifier()])
+            array_merge($this->customClaims, $user->getJWTCustomClaims(), ['sub' => $user->getJWTIdentifier()])
         );
     }
 
@@ -219,6 +223,20 @@ class JWTAuth
     public function setRequest(Request $request)
     {
         $this->parser->setRequest($request);
+
+        return $this;
+    }
+
+    /**
+     * Set the custom claims.
+     *
+     * @param array $customClaims
+     *
+     * @return $this
+     */
+    public function customClaims(array $customClaims = [])
+    {
+        $this->customClaims = $customClaims;
 
         return $this;
     }
