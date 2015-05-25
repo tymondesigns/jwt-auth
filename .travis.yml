@@ -18,7 +18,7 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.clover
+  - phpunit --coverage-clover=coverage.clover
 
 after_script:
   - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
