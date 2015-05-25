@@ -11,7 +11,7 @@ class JWTManager
     /**
      * @var \Tymon\JWTAuth\Providers\JWT\JWTInterface
      */
-    protected $jwt;
+    protected $provider;
 
     /**
      * @var \Tymon\JWTAuth\Blacklist
@@ -34,13 +34,13 @@ class JWTManager
     protected $refreshFlow = false;
 
     /**
-     *  @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $jwt
+     *  @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $provider
      *  @param \Tymon\JWTAuth\Blacklist  $blacklist
      *  @param \Tymon\JWTAuth\PayloadFactory  $payloadFactory
      */
-    public function __construct(JWTInterface $jwt, Blacklist $blacklist, PayloadFactory $payloadFactory)
+    public function __construct(JWTInterface $provider, Blacklist $blacklist, PayloadFactory $payloadFactory)
     {
-        $this->jwt = $jwt;
+        $this->provider = $provider;
         $this->blacklist = $blacklist;
         $this->payloadFactory = $payloadFactory;
     }
@@ -54,7 +54,7 @@ class JWTManager
      */
     public function encode(Payload $payload)
     {
-        $token = $this->jwt->encode($payload->get());
+        $token = $this->provider->encode($payload->get());
 
         return new Token($token);
     }
@@ -70,7 +70,7 @@ class JWTManager
      */
     public function decode(Token $token)
     {
-        $payloadArray = $this->jwt->decode($token->get());
+        $payloadArray = $this->provider->decode($token->get());
 
         $payload = $this->payloadFactory->setRefreshFlow($this->refreshFlow)->make($payloadArray);
 
@@ -141,7 +141,7 @@ class JWTManager
      */
     public function getJWTProvider()
     {
-        return $this->jwt;
+        return $this->provider;
     }
 
     /**
