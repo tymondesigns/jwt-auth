@@ -78,6 +78,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $payload = new Payload($claims, $this->validator);
 
         $this->storage->shouldReceive('has')->with('foobar')->andReturn(true);
+        $this->storage->shouldReceive('get')->with('foobar')->andReturn(['valid_until' => 3723 + 0]);
+
         $this->assertTrue($this->blacklist->has($payload));
     }
 

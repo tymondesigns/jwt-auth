@@ -2,6 +2,7 @@
 
 namespace Tymon\JWTAuth;
 
+use Carbon\Carbon;
 use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class Blacklist
@@ -10,6 +11,13 @@ class Blacklist
      * @var \Tymon\JWTAuth\Providers\Storage\StorageInterface
      */
     protected $storage;
+
+    /**
+     * The grace period when a token is blacklisted. In seconds
+     *
+     * @var integer
+     */
+    protected $gracePeriod = 0;
 
     /**
      * @param \Tymon\JWTAuth\Providers\Storage\StorageInterface  $storage
@@ -39,7 +47,7 @@ class Blacklist
         // add a minute to abate potential overlap
         $minutes = $exp->diffInMinutes(Utils::now()->subMinute());
 
-        $this->storage->add($payload['jti'], [], $minutes);
+        $this->storage->add($payload['jti'], ['valid_until' => $this->getGracePeriod($exp)], $minutes);
 
         return true;
     }
@@ -53,7 +61,17 @@ class Blacklist
      */
     public function has(Payload $payload)
     {
-        return $this->storage->has($payload['jti']);
+        // exit early if it doesn't exist
+        if (! $this->storage->has($payload['jti'])) return false;
+
+        $grace = $this->storage->get($payload['jti']);
+
+        // check whether the expiry + grace has past
+        if (Utils::timestamp($grace['valid_until'])->isFuture()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -78,5 +96,32 @@ class Blacklist
         $this->storage->flush();
 
         return true;
+    }
+
+    /**
+     * Get the timestamp when the blacklist comes into effect
+     * This defaults to immediate (0 seconds)
+     *
+     * @param \Carbon\Carbon $exp
+     *
+     * @return integer
+     */
+    protected function getGracePeriod(Carbon $exp)
+    {
+        return $exp->addSeconds($this->gracePeriod)->format('U');
+    }
+
+    /**
+     * Set the grace period
+     *
+     * @param  integer
+     *
+     * @return Blacklist
+     */
+    public function setGracePeriod($gracePeriod)
+    {
+        $this->gracePeriod = (int) $gracePeriod;
+
+        return $this;
     }
 }

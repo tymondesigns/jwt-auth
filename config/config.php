@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'ttl' => 60,
+    'ttl' => env('JWT_TTL', 60),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'refresh_ttl' => 20160,
+    'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'algo' => 'HS256',
+    'algo' => env('JWT_ALGO', 'HS256'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,6 +78,21 @@ return [
     */
 
     'blacklist_enabled' => env('JWT_BLACKLIST_ENABLED', true),
+
+    /*
+    | -------------------------------------------------------------------------
+    | Blacklist Grace Period
+    | -------------------------------------------------------------------------
+    |
+    | When multiple concurrent requests are made to the api endpoints with
+    | same JWT, It is possible that some of them fail, due to token regeneration
+    | on every request.
+    |
+    | Set grace period in seconds to prevent the parallel request failure.
+    |
+    */
+
+    'blacklist_grace_period' => env('JWT_BLACKLIST_GRACE_PERIOD', 0),
 
     /*
     |--------------------------------------------------------------------------
