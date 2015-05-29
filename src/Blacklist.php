@@ -39,7 +39,7 @@ class Blacklist
         $exp = Utils::timestamp($payload['exp']);
 
         // there is no need to add the token to the blacklist
-        // if the token has already expired
+        // if is has already expired
         if ($exp->isPast()) {
             return false;
         }

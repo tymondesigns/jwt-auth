@@ -8,13 +8,13 @@ class Factory
      * @var array
      */
     private static $classMap = [
-        'aud' => 'Tymon\JWTAuth\Claims\Audience',
-        'exp' => 'Tymon\JWTAuth\Claims\Expiration',
-        'iat' => 'Tymon\JWTAuth\Claims\IssuedAt',
-        'iss' => 'Tymon\JWTAuth\Claims\Issuer',
-        'jti' => 'Tymon\JWTAuth\Claims\JwtId',
-        'nbf' => 'Tymon\JWTAuth\Claims\NotBefore',
-        'sub' => 'Tymon\JWTAuth\Claims\Subject'
+        'aud' => Audience::class,
+        'exp' => Expiration::class,
+        'iat' => IssuedAt::class,
+        'iss' => Issuer::class,
+        'jti' => JwtId::class,
+        'nbf' => NotBefore::class,
+        'sub' => Subjec::class
     ];
 
     /**

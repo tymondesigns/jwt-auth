@@ -18,7 +18,7 @@ class Payload implements \ArrayAccess
     /**
      * Build the Payload
      *
-     * @param array  $claims
+     * @param \Tymon\JWTAuth\Claims\Claim[]  $claims
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param bool   $refreshFlow
      */
