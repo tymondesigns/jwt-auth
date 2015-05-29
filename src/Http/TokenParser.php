@@ -65,7 +65,7 @@ class TokenParser
             return false;
         }
 
-        return trim(str_ireplace($this->prefix, '', $this->header));
+        return trim(str_ireplace($this->prefix, '', $header));
     }
 
     /**
