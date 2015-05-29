@@ -23,7 +23,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
     {
         parent::__construct($secret, $algo);
 
-        $this->jws = $driver ?: new JWS($algo);
+        $this->jws = $driver ?: new JWS(['alg' => $algo]);
     }
 
     /**
