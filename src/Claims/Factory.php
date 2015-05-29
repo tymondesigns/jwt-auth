@@ -14,7 +14,7 @@ class Factory
         'iss' => Issuer::class,
         'jti' => JwtId::class,
         'nbf' => NotBefore::class,
-        'sub' => Subjec::class
+        'sub' => Subject::class
     ];
 
     /**
