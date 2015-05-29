@@ -61,13 +61,10 @@ class Blacklist
      */
     public function has(Payload $payload)
     {
-        // exit early if it doesn't exist
-        if (! $this->storage->has($payload['jti'])) return false;
-
         $grace = $this->storage->get($payload['jti']);
 
         // check whether the expiry + grace has past
-        if (Utils::timestamp($grace['valid_until'])->isFuture()) {
+        if (is_null($grace) || Utils::timestamp($grace['valid_until'])->isFuture()) {
             return false;
         }
 
