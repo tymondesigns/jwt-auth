@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-abstract class AbstractValidator implements ValidatorInterface
+abstract class Validator
 {
     /**
      * @var bool
@@ -42,4 +42,13 @@ abstract class AbstractValidator implements ValidatorInterface
 
         return $this;
     }
+
+    /**
+     * Run the validation
+     *
+     * @param  array  $value
+     *
+     * @return void
+     */
+    abstract public function check($value);
 }

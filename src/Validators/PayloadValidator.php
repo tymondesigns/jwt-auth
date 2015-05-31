@@ -6,7 +6,7 @@ use Tymon\JWTAuth\Utils;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class PayloadValidator extends AbstractValidator
+class PayloadValidator extends Validator
 {
     /**
      * @var array

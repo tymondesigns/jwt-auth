@@ -5,7 +5,6 @@
         "jwt",
         "auth",
         "authentication",
-        "tymon",
         "laravel",
         "json web token"
     ],

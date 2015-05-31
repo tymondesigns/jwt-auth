@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Claims;
 
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim implements ClaimInterface
+abstract class Claim
 {
     /**
      * The claim name
