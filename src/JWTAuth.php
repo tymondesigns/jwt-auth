@@ -3,7 +3,7 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\JWTAuthSubject;
+use Tymon\JWTAuth\JWTSubject;
 use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
@@ -52,11 +52,11 @@ class JWTAuth
     /**
      * Generate a token using the user identifier as the subject claim.
      *
-     * @param JWTAuthSubject $user
+     * @param JWTSubject $user
      *
      * @return string
      */
-    public function fromUser(JWTAuthSubject $user)
+    public function fromUser(JWTSubject $user)
     {
         $payload = $this->makePayload($user);
 
@@ -82,7 +82,7 @@ class JWTAuth
     /**
      * Authenticate a user via a token.
      *
-     * @return \Tymon\JWTAuth\JWTAuthSubject
+     * @return \Tymon\JWTAuth\JWTSubject
      */
     public function authenticate()
     {
@@ -98,7 +98,7 @@ class JWTAuth
     /**
      * Alias for authenticate().
      *
-     * @return \Tymon\JWTAuth\JWTAuthSubject
+     * @return \Tymon\JWTAuth\JWTSubject
      */
     public function toUser()
     {
@@ -176,11 +176,11 @@ class JWTAuth
     /**
      * Create a Payload instance.
      *
-     * @param JWTAuthSubject $user
+     * @param JWTSubject $user
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function makePayload(JWTAuthSubject $user)
+    public function makePayload(JWTSubject $user)
     {
         return $this->manager->getPayloadFactory()->make($this->getClaimsArray($user));
     }
@@ -188,11 +188,11 @@ class JWTAuth
     /**
      * Build the claims array and return it
      *
-     * @param JWTAuthSubject $user
+     * @param JWTSubject $user
      *
      * @return array
      */
-    protected function getClaimsArray(JWTAuthSubject $user)
+    protected function getClaimsArray(JWTSubject $user)
     {
         return array_merge(
             $this->customClaims,

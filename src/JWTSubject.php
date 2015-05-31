@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth;
 
-interface JWTAuthSubject
+interface JWTSubject
 {
     /**
      * Get the identifier that will be stored in the subject claim of the JWT

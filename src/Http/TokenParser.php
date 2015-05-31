@@ -45,7 +45,7 @@ class TokenParser
      *
      * @return false|string
      */
-    protected function parseFromAltHeaders()
+    protected function fromAltHeaders()
     {
         return $this->request->server->get('HTTP_AUTHORIZATION',
             $this->request->server->get('REDIRECT_HTTP_AUTHORIZATION', false)
@@ -57,9 +57,9 @@ class TokenParser
      *
      * @return false|string
      */
-    public function parseTokenFromHeader()
+    public function fromHeader()
     {
-        $header = $this->request->headers->get($this->header, $this->parseFromAltHeaders());
+        $header = $this->request->headers->get($this->header, $this->fromAltHeaders());
 
         if (! $header || ! starts_with(strtolower($header), $this->prefix)) {
             return false;
@@ -73,7 +73,7 @@ class TokenParser
      *
      * @return false|string
      */
-    public function parseTokenFromQueryString()
+    public function fromQueryString()
     {
         return $this->request->query($this->query, false);
     }
@@ -85,7 +85,7 @@ class TokenParser
      */
     public function parseToken()
     {
-        return $this->parseTokenFromHeader() ?: $this->parseTokenFromQueryString();
+        return $this->fromHeader() ?: $this->fromQueryString();
     }
 
     /**

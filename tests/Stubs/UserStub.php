@@ -2,10 +2,10 @@
 
 namespace Tymon\JWTAuth\Test\Stubs;
 
-use Tymon\JWTAuth\JWTAuthSubject;
+use Tymon\JWTAuth\JWTSubject;
 use Tymon\JWTAuth\Providers\JWT\JWTProvider;
 
-class UserStub implements JWTAuthSubject
+class UserStub implements JWTSubject
 {
     public function getJWTIdentifier()
     {
