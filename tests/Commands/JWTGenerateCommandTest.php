@@ -29,7 +29,7 @@ class JWTGenerateCommandTest extends \PHPUnit_Framework_TestCase
         // $this->runCommand($this->command);
     }
 
-    protected function runCommand($command, $input = array())
+    protected function runCommand($command, $input = [])
     {
         return $command->run(new ArrayInput($input), new NullOutput);
     }
