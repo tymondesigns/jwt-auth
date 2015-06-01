@@ -1,8 +1,8 @@
 <?php
 
-namespace Tymon\JWTAuth\Providers\JWT;
+namespace Tymon\JWTAuth\Contracts\Providers;
 
-interface JWTInterface
+interface JWT
 {
     /**
      * @param  array  $payload

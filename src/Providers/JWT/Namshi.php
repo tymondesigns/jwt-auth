@@ -5,9 +5,10 @@ namespace Tymon\JWTAuth\Providers\JWT;
 use Exception;
 use Namshi\JOSE\JWS;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class NamshiAdapter extends JWTProvider implements JWTInterface
+class Namshi extends Provider implements JWT
 {
     /**
      * @var \Namshi\JOSE\JWS

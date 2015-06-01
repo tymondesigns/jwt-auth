@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-abstract class JWTProvider
+abstract class Provider
 {
     /**
      * @var string

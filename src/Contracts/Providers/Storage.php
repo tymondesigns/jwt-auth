@@ -1,8 +1,8 @@
 <?php
 
-namespace Tymon\JWTAuth\Providers\Storage;
+namespace Tymon\JWTAuth\Contracts\Providers;
 
-interface StorageInterface
+interface Storage
 {
     /**
      * @param  string  $key

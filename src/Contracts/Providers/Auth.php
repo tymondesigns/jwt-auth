@@ -1,8 +1,8 @@
 <?php
 
-namespace Tymon\JWTAuth\Providers\Auth;
+namespace Tymon\JWTAuth\Contracts\Providers;
 
-interface AuthInterface
+interface Auth
 {
     /**
      * Check a user's credentials

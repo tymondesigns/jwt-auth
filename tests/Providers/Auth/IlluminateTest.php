@@ -3,14 +3,14 @@
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
 use Mockery;
-use Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter;
+use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
 
-class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
+class IlluminateTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->authManager = Mockery::mock('Illuminate\Auth\AuthManager');
-        $this->auth = new IlluminateAuthAdapter($this->authManager);
+        $this->auth = new Auth($this->authManager);
     }
 
     public function tearDown()

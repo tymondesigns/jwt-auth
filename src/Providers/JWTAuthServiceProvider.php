@@ -57,9 +57,9 @@ class JWTAuthServiceProvider extends ServiceProvider
     protected function registerAliases()
     {
         $this->app->alias('tymon.jwt.auth', 'Tymon\JWTAuth\JWTAuth');
-        $this->app->alias('tymon.jwt.provider.jwt', 'Tymon\JWTAuth\Providers\JWT\JWTInterface');
-        $this->app->alias('tymon.jwt.provider.auth', 'Tymon\JWTAuth\Providers\Auth\AuthInterface');
-        $this->app->alias('tymon.jwt.provider.storage', 'Tymon\JWTAuth\Providers\Storage\StorageInterface');
+        $this->app->alias('tymon.jwt.provider.jwt', 'Tymon\JWTAuth\Contracts\Providers\JWT');
+        $this->app->alias('tymon.jwt.provider.auth', 'Tymon\JWTAuth\Contracts\Providers\Auth');
+        $this->app->alias('tymon.jwt.provider.storage', 'Tymon\JWTAuth\Contracts\Providers\Storage');
         $this->app->alias('tymon.jwt.manager', 'Tymon\JWTAuth\JWTManager');
         $this->app->alias('tymon.jwt.blacklist', 'Tymon\JWTAuth\Blacklist');
         $this->app->alias('tymon.jwt.payload.factory', 'Tymon\JWTAuth\PayloadFactory');

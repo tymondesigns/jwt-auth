@@ -4,8 +4,9 @@ namespace Tymon\JWTAuth\Providers\Auth;
 
 use Exception;
 use Illuminate\Auth\AuthManager;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
-class IlluminateAuthAdapter implements AuthInterface
+class Illuminate implements Auth
 {
     /**
      * @var \Illuminate\Auth\AuthManager

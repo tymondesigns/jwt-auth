@@ -4,14 +4,14 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
+use Tymon\JWTAuth\Providers\JWT\Namshi;
 
-class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
+class NamshiTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->jws = Mockery::mock('Namshi\JOSE\JWS');
-        $this->provider = new NamshiAdapter('secret', 'HS256', $this->jws);
+        $this->provider = new Namshi('secret', 'HS256', $this->jws);
     }
 
     public function tearDown()

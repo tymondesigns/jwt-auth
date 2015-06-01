@@ -6,7 +6,7 @@ use Mockery;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
 
-class JWTProviderTest extends \PHPUnit_Framework_TestCase
+class ProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
