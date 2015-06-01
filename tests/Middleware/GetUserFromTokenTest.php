@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Test;
+namespace Tymon\JWTAuth\Test\Middleware;
 
 use Mockery;
 use Tymon\JWTAuth\Middleware\GetUserFromToken;

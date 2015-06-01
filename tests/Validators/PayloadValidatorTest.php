@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Test;
+namespace Tymon\JWTAuth\Test\Validators;
 
 use Mockery;
 use Tymon\JWTAuth\Validators\PayloadValidator;

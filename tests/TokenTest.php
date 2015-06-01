@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Test\Providers\JWT;
+namespace Tymon\JWTAuth\Test;
 
 use Tymon\JWTAuth\Token;
 

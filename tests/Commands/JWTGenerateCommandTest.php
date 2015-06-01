@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Test;
+namespace Tymon\JWTAuth\Test\Commands;
 
 use Mockery;
 use Symfony\Component\Console\Tester\CommandTester;
