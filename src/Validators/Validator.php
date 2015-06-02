@@ -3,8 +3,9 @@
 namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Contracts\Validators\Validator as ValidatorContract;
 
-abstract class Validator
+abstract class Validator implements ValidatorContract
 {
     /**
      * @var bool
