@@ -18,7 +18,7 @@ class GetUserFromToken extends BaseMiddleware
     public function handle($request, \Closure $next)
     {
         if (! $token = $this->auth->setRequest($request)->getToken()) {
-            return $this->respond('tymon.jwt.absent', 'token_not_provided', 400);
+            return $this->respond('tymon.jwt.absent', 'token_not_provided');
         }
 
         try {
@@ -30,7 +30,7 @@ class GetUserFromToken extends BaseMiddleware
         }
 
         if (! $user) {
-            return $this->respond('tymon.jwt.user_not_found', 'user_not_found', 404);
+            return $this->respond('tymon.jwt.user_not_found', 'user_not_found');
         }
 
         $this->events->fire('tymon.jwt.valid', $user);

@@ -47,7 +47,7 @@ abstract class BaseMiddleware
      *
      * @return mixed
      */
-    protected function respond($event, $error, $status, $payload = [])
+    protected function respond($event, $error, $status = 401, $payload = [])
     {
         $response = $this->events->fire($event, $payload, true);
 

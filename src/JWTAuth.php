@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTSubject;
 use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Providers\Auth\AuthInterface;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class JWTAuth
 {
@@ -16,7 +16,7 @@ class JWTAuth
     protected $manager;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\Auth\AuthInterface
+     * @var \Tymon\JWTAuth\Contracts\Providers\Auth
      */
     protected $auth;
 
@@ -38,11 +38,11 @@ class JWTAuth
     protected $customClaims = [];
 
     /**
-     * @param \Tymon\JWTAuth\JWTManager                   $manager
-     * @param \Tymon\JWTAuth\Providers\Auth\AuthInterface $auth
-     * @param \Tymon\JWTAuth\Token\Http\TokenParser       $parser
+     * @param \Tymon\JWTAuth\JWTManager               $manager
+     * @param \Tymon\JWTAuth\Contracts\Providers\Auth $auth
+     * @param \Tymon\JWTAuth\Token\Http\TokenParser   $parser
      */
-    public function __construct(JWTManager $manager, AuthInterface $auth, TokenParser $parser)
+    public function __construct(JWTManager $manager, Auth $auth, TokenParser $parser)
     {
         $this->manager = $manager;
         $this->auth = $auth;

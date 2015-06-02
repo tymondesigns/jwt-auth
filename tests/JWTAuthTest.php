@@ -12,7 +12,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->manager = Mockery::mock('Tymon\JWTAuth\JWTManager');
-        $this->auth = Mockery::mock('Tymon\JWTAuth\Providers\Auth\AuthInterface');
+        $this->auth = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Auth');
         $this->parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
 
         $this->jwtAuth = new JWTAuth($this->manager, $this->auth, $this->parser);
