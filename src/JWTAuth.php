@@ -266,6 +266,16 @@ class JWTAuth
     }
 
     /**
+     * Get the TokenParser instance
+     *
+     * @return \Tymon\JWTAuth\Token\Http\TokenParser
+     */
+    public function parser()
+    {
+        return $this->parser;
+    }
+
+    /**
      * Magically call the JWT Manager.
      *
      * @param string $method
