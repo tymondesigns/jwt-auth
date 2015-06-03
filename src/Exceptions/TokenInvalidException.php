@@ -7,5 +7,5 @@ class TokenInvalidException extends JWTException
     /**
      * @var integer
      */
-    protected $statusCode = 400;
+    protected $statusCode = 401;
 }
