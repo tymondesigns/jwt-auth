@@ -3,12 +3,12 @@
 namespace Tymon\JWTAuth;
 
 use Carbon\Carbon;
-use Tymon\JWTAuth\Providers\Storage\StorageInterface;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Blacklist
 {
     /**
-     * @var \Tymon\JWTAuth\Providers\Storage\StorageInterface
+     * @var \Tymon\JWTAuth\Contracts\Providers\Storage
      */
     protected $storage;
 
@@ -20,9 +20,9 @@ class Blacklist
     protected $gracePeriod = 0;
 
     /**
-     * @param \Tymon\JWTAuth\Providers\Storage\StorageInterface  $storage
+     * @param \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
      */
-    public function __construct(StorageInterface $storage)
+    public function __construct(Storage $storage)
     {
         $this->storage = $storage;
     }

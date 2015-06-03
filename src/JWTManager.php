@@ -3,13 +3,13 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Providers\JWT\JWTInterface;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class JWTManager
 {
     /**
-     * @var \Tymon\JWTAuth\Providers\JWT\JWTInterface
+     * @var \Tymon\JWTAuth\Contracts\Providers\JWT
      */
     protected $provider;
 
@@ -34,11 +34,11 @@ class JWTManager
     protected $refreshFlow = false;
 
     /**
-     *  @param \Tymon\JWTAuth\Providers\JWT\JWTInterface  $provider
+     *  @param \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      *  @param \Tymon\JWTAuth\Blacklist  $blacklist
      *  @param \Tymon\JWTAuth\PayloadFactory  $payloadFactory
      */
-    public function __construct(JWTInterface $provider, Blacklist $blacklist, PayloadFactory $payloadFactory)
+    public function __construct(JWT $provider, Blacklist $blacklist, PayloadFactory $payloadFactory)
     {
         $this->provider = $provider;
         $this->blacklist = $blacklist;
