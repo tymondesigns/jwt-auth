@@ -70,7 +70,7 @@ class JWTAuth
      *
      * @return false|string
      */
-    public function attempt(array $credentials = [])
+    public function attempt(array $credentials)
     {
         if (! $this->auth->byCredentials($credentials)) {
             return false;

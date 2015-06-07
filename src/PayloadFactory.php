@@ -74,7 +74,7 @@ class PayloadFactory
      *
      * @param  array  $claims
      *
-     * @return $this
+     * @return PayloadFactory
      */
     public function addClaims(array $claims)
     {
@@ -91,7 +91,7 @@ class PayloadFactory
      * @param  string  $name
      * @param  mixed   $value
      *
-     * @return $this
+     * @return PayloadFactory
      */
     public function addClaim($name, $value)
     {
@@ -105,7 +105,7 @@ class PayloadFactory
      *
      * @param  array  $customClaims
      *
-     * @return $this
+     * @return PayloadFactory
      */
     protected function buildClaims(array $customClaims)
     {
@@ -194,7 +194,7 @@ class PayloadFactory
      *
      * @param  int  $ttl
      *
-     * @return $this
+     * @return PayloadFactory
      */
     public function setTTL($ttl)
     {
@@ -218,11 +218,25 @@ class PayloadFactory
      *
      * @param boolean $refreshFlow
      *
-     * @return $this
+     * @return PayloadFactory
      */
     public function setRefreshFlow($refreshFlow = true)
     {
         $this->refreshFlow = $refreshFlow;
+
+        return $this;
+    }
+
+    /**
+     * Set the default claims to be added to the Payload
+     *
+     * @param array $claims
+     *
+     * @return PayloadFactory
+     */
+    public function setDefaultClaims(array $claims)
+    {
+        $this->defaultClaims = $claims;
 
         return $this;
     }
