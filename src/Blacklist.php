@@ -47,7 +47,7 @@ class Blacklist
         // add a minute to abate potential overlap
         $minutes = $exp->diffInMinutes(Utils::now()->subMinute());
 
-        $this->storage->add($payload['jti'], ['valid_until' => $this->getGracePeriod($exp)], $minutes);
+        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp($exp)], $minutes);
 
         return true;
     }
@@ -103,7 +103,7 @@ class Blacklist
      *
      * @return integer
      */
-    protected function getGracePeriod(Carbon $exp)
+    protected function getGraceTimestamp(Carbon $exp)
     {
         return $exp->addSeconds($this->gracePeriod)->format('U');
     }

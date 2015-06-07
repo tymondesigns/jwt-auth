@@ -182,7 +182,7 @@ class JWTAuth
      */
     public function makePayload(JWTSubject $user)
     {
-        return $this->manager->getPayloadFactory()->make($this->getClaimsArray($user));
+        return $this->factory()->make($this->getClaimsArray($user));
     }
 
     /**
@@ -263,6 +263,16 @@ class JWTAuth
     public function manager()
     {
         return $this->manager;
+    }
+
+    /**
+     * Get the PayloadFactory
+     *
+     * @return \Tymon\JWTAuth\PayloadFactory
+     */
+    public function factory()
+    {
+        return $this->manager->getPayloadFactory();
     }
 
     /**

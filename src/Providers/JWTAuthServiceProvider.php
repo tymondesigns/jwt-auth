@@ -19,11 +19,7 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $path = realpath(__DIR__ . '/../../config/config.php');
-
-        $this->publishes([$path => config_path('jwt.php')], 'config');
-        $this->mergeConfigFrom($path, 'jwt');
-
+        $this->setupConfig();
         $this->commands('tymon.jwt.generate');
     }
 
@@ -48,6 +44,17 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerPayloadValidator();
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
+    }
+
+    /**
+     * Setup the config
+     */
+    protected function setupConfig()
+    {
+        $path = realpath(__DIR__ . '/../../config/config.php');
+
+        $this->publishes([$path => config_path('jwt.php')], 'config');
+        $this->mergeConfigFrom($path, 'jwt');
     }
 
     /**
