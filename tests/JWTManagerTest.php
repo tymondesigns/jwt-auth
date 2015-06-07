@@ -19,7 +19,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->jwt = Mockery::mock('Tymon\JWTAuth\Providers\JWT\JWTInterface');
+        $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
         $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
         $this->manager = new JWTManager($this->jwt, $this->blacklist, $this->factory);
@@ -170,7 +170,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_jwt_provider()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Providers\JWT\JWTInterface', $this->manager->getJWTProvider());
+        $this->assertInstanceOf('Tymon\JWTAuth\Contracts\Providers\JWT', $this->manager->getJWTProvider());
     }
 
     /** @test */

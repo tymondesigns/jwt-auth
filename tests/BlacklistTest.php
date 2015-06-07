@@ -18,7 +18,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->storage = Mockery::mock('Tymon\JWTAuth\Providers\Storage\StorageInterface');
+        $this->storage = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Storage');
         $this->blacklist = new Blacklist($this->storage);
 
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
