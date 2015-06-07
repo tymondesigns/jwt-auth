@@ -41,7 +41,6 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerStorageProvider();
         $this->registerJWTBlacklist();
 
-        $this->registerClaimFactory();
         $this->registerJWTManager();
         $this->registerTokenParser();
 
@@ -63,7 +62,6 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt.manager', 'Tymon\JWTAuth\JWTManager');
         $this->app->alias('tymon.jwt.blacklist', 'Tymon\JWTAuth\Blacklist');
         $this->app->alias('tymon.jwt.payload.factory', 'Tymon\JWTAuth\PayloadFactory');
-        $this->app->alias('tymon.jwt.claim.factory', 'Tymon\JWTAuth\Claims\Factory');
         $this->app->alias('tymon.jwt.validators.payload', 'Tymon\JWTAuth\Validators\PayloadValidator');
     }
 
@@ -96,16 +94,6 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app->singleton('tymon.jwt.provider.storage', function ($app) {
             return $this->getConfigInstance('providers.storage');
-        });
-    }
-
-    /**
-     * Register the bindings for the Payload Factory
-     */
-    protected function registerClaimFactory()
-    {
-        $this->app->singleton('tymon.jwt.claim.factory', function () {
-            return new Factory();
         });
     }
 
@@ -181,7 +169,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     {
         $this->app->singleton('tymon.jwt.payload.factory', function ($app) {
             $factory = new PayloadFactory(
-                $app['tymon.jwt.claim.factory'],
+                new Factory,
                 $app['request'],
                 $app['tymon.jwt.validators.payload']
             );

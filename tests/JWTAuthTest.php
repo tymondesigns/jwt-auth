@@ -53,7 +53,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('byCredentials')->once()->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn(new \Tymon\JWTAuth\Test\Stubs\UserStub);
 
-        $token = $this->jwtAuth->attempt();
+        $token = $this->jwtAuth->attempt(['foo' => 'bar']);
 
         $this->assertEquals($token, 'foo.bar.baz');
     }
@@ -65,7 +65,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('byCredentials')->once()->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
-        $token = $this->jwtAuth->attempt();
+        $token = $this->jwtAuth->attempt(['foo' => 'bar']);
 
         $this->assertFalse($token);
     }
