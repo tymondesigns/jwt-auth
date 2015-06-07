@@ -278,7 +278,7 @@ class JWTAuth
     /**
      * Get the TokenParser instance
      *
-     * @return \Tymon\JWTAuth\Token\Http\TokenParser
+     * @return \Tymon\JWTAuth\Http\TokenParser
      */
     public function parser()
     {

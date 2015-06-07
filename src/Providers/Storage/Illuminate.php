@@ -40,18 +40,6 @@ class Illuminate implements Storage
     }
 
     /**
-     * Check whether a key exists in storage
-     *
-     * @param  string  $key
-     *
-     * @return boolean
-     */
-    public function has($key)
-    {
-        return $this->cache()->has($key);
-    }
-
-    /**
      * Get an item from storage
      *
      * @param  string  $key

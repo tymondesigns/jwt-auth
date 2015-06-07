@@ -29,11 +29,11 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_check_if_the_item_exists_in_storage()
+    public function it_should_get_an_item_from_storage()
     {
-        $this->cache->shouldReceive('tags->has')->with('foo')->andReturn(true);
+        $this->cache->shouldReceive('tags->get')->with('foo')->andReturn(['foo' => 'bar']);
 
-        $this->assertTrue($this->storage->has('foo'));
+        $this->assertEquals(['foo' => 'bar'], $this->storage->get('foo'));
     }
 
     /** @test */
@@ -47,7 +47,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_remove_all_items_from_storage()
     {
-        $this->cache->shouldReceive('tags->flush')->withNoArgs();
+        $this->cache->shouldReceive('flush')->withNoArgs();
 
         $this->storage->flush();
     }

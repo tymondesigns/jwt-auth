@@ -14,13 +14,6 @@ interface Storage
     public function add($key, $value, $minutes);
 
     /**
-     * @param  string $key
-     *
-     * @return boolean
-     */
-    public function has($key);
-
-    /**
      * @param  string  $key
      *
      * @return mixed

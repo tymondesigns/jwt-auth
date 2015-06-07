@@ -89,7 +89,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
-        $user = $this->jwtAuth->setToken('foo.bar.baz')->authenticate();
+        $user = $this->jwtAuth->setToken('foo.bar.baz')->customClaims(['foo' => 'bar'])->authenticate();
 
         $this->assertEquals($user->id, 1);
     }
@@ -188,5 +188,12 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $manager = $this->jwtAuth->manager();
         $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
+    }
+
+    /** @test */
+    public function it_should_get_the_parser_instance()
+    {
+        $parser = $this->jwtAuth->parser();
+        $this->assertInstanceOf('Tymon\JWTAuth\Http\TokenParser', $parser);
     }
 }
