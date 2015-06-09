@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth;
+namespace Tymon\JWTAuth\Contracts;
 
 interface JWTSubject
 {

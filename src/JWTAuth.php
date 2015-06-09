@@ -3,8 +3,8 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\JWTSubject;
 use Tymon\JWTAuth\Http\TokenParser;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 
@@ -52,7 +52,7 @@ class JWTAuth
     /**
      * Generate a token using the user identifier as the subject claim.
      *
-     * @param JWTSubject $user
+     * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
      *
      * @return string
      */
@@ -176,7 +176,7 @@ class JWTAuth
     /**
      * Create a Payload instance.
      *
-     * @param JWTSubject $user
+     * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
      *
      * @return \Tymon\JWTAuth\Payload
      */
@@ -188,7 +188,7 @@ class JWTAuth
     /**
      * Build the claims array and return it
      *
-     * @param JWTSubject $user
+     * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
      *
      * @return array
      */
