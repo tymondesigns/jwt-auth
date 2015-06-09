@@ -18,9 +18,9 @@ class Payload implements \ArrayAccess
     /**
      * Build the Payload
      *
-     * @param \Tymon\JWTAuth\Claims\Claim[]  $claims
+     * @param \Tymon\JWTAuth\Claims\Claim[]               $claims
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
-     * @param bool   $refreshFlow
+     * @param boolean                                     $refreshFlow
      */
     public function __construct(array $claims, PayloadValidator $validator, $refreshFlow = false)
     {
@@ -123,8 +123,8 @@ class Payload implements \ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable
      *
-     * @param  mixed $key
-     * @param  mixed $value
+     * @param  mixed  $key
+     * @param  mixed  $value
      *
      * @throws Exceptions\PayloadException
      */
@@ -136,7 +136,7 @@ class Payload implements \ArrayAccess
     /**
      * Don't allow changing the payload as it should be immutable
      *
-     * @param  string $key
+     * @param  string  $key
      *
      * @throws Exceptions\PayloadException
      */

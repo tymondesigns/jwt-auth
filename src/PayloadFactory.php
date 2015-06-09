@@ -44,8 +44,8 @@ class PayloadFactory
     protected $claims = [];
 
     /**
-     * @param \Tymon\JWTAuth\Claims\Factory  $claimFactory
-     * @param \Illuminate\Http\Request  $request
+     * @param \Tymon\JWTAuth\Claims\Factory               $claimFactory
+     * @param \Illuminate\Http\Request                    $request
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
     public function __construct(Factory $claimFactory, Request $request, PayloadValidator $validator)
@@ -137,7 +137,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Issuer (iss) claim
+     * Get the Issuer (iss) claim
      *
      * @return string
      */
@@ -147,7 +147,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Issued At (iat) claim
+     * Get the Issued At (iat) claim
      *
      * @return int
      */
@@ -157,7 +157,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Expiration (exp) claim
+     * Get the Expiration (exp) claim
      *
      * @return int
      */
@@ -167,7 +167,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Not Before (nbf) claim
+     * Get the Not Before (nbf) claim
      *
      * @return int
      */
@@ -177,7 +177,7 @@ class PayloadFactory
     }
 
     /**
-     * Set a unique id (jti) for the token
+     * Get a unique id (jti) for the token
      *
      * @return string
      */
@@ -247,9 +247,9 @@ class PayloadFactory
      * @param  string  $method
      * @param  array   $parameters
      *
-     * @return PayloadFactory
-     *
      * @throws \BadMethodCallException
+     *
+     * @return PayloadFactory
      */
     public function __call($method, $parameters)
     {

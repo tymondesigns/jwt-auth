@@ -92,6 +92,8 @@ class TokenParser
      * Set the request instance.
      *
      * @param \Illuminate\Http\Request $request
+     *
+     * @return TokenParser
      */
     public function setRequest(Request $request)
     {

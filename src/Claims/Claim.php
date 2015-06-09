@@ -33,9 +33,9 @@ abstract class Claim
      *
      * @param $value
      *
-     * @return $this
-     *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     *
+     * @return Claim
      */
     public function setValue($value)
     {
@@ -63,7 +63,7 @@ abstract class Claim
      *
      * @param string $name
      *
-     * @return $this
+     * @return Claim
      */
     public function setName($name)
     {

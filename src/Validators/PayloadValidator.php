@@ -6,6 +6,11 @@ use Tymon\JWTAuth\Utils;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
+/**
+ * Class PayloadValidator
+ *
+ * @package Tymon\JWTAuth\Validators
+ */
 class PayloadValidator extends Validator
 {
     /**
@@ -42,9 +47,9 @@ class PayloadValidator extends Validator
      *
      * @param array  $payload
      *
-     * @return boolean
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     *
+     * @return boolean
      */
     protected function validateStructure(array $payload)
     {
@@ -60,10 +65,10 @@ class PayloadValidator extends Validator
      *
      * @param  array  $payload
      *
-     * @return boolean
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     *
+     * @return boolean
      */
     protected function validateTimestamps(array $payload)
     {
@@ -87,6 +92,8 @@ class PayloadValidator extends Validator
      *
      * @param  $payload
      *
+     * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
+     *
      * @return boolean
      */
     protected function validateRefresh(array $payload)
@@ -102,6 +109,8 @@ class PayloadValidator extends Validator
      * Set the required claims
      *
      * @param array  $claims
+     *
+     * @return PayloadValidator
      */
     public function setRequiredClaims(array $claims)
     {

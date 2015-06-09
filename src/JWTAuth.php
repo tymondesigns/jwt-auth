@@ -38,9 +38,9 @@ class JWTAuth
     protected $customClaims = [];
 
     /**
-     * @param \Tymon\JWTAuth\JWTManager               $manager
-     * @param \Tymon\JWTAuth\Contracts\Providers\Auth $auth
-     * @param \Tymon\JWTAuth\Token\Http\TokenParser   $parser
+     * @param \Tymon\JWTAuth\JWTManager                $manager
+     * @param \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
+     * @param \Tymon\JWTAuth\Http\TokenParser          $parser
      */
     public function __construct(JWTManager $manager, Auth $auth, TokenParser $parser)
     {
@@ -150,6 +150,8 @@ class JWTAuth
     /**
      * Parse the token from the request.
      *
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     *
      * @return JWTAuth
      */
     public function parseToken()
@@ -233,6 +235,8 @@ class JWTAuth
      * Set the request instance.
      *
      * @param \Illuminate\Http\Request $request
+     *
+     * @return JWTAuth
      */
     public function setRequest(Request $request)
     {

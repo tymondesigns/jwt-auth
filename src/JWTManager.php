@@ -35,8 +35,8 @@ class JWTManager
 
     /**
      *  @param \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
-     *  @param \Tymon\JWTAuth\Blacklist  $blacklist
-     *  @param \Tymon\JWTAuth\PayloadFactory  $payloadFactory
+     *  @param \Tymon\JWTAuth\Blacklist                $blacklist
+     *  @param \Tymon\JWTAuth\PayloadFactory           $payloadFactory
      */
     public function __construct(JWT $provider, Blacklist $blacklist, PayloadFactory $payloadFactory)
     {
@@ -64,9 +64,9 @@ class JWTManager
      *
      * @param  \Tymon\JWTAuth\Token $token
      *
-     * @return Payload
-     *
      * @throws TokenBlacklistedException
+     *
+     * @return \Tymon\JWTAuth\Payload
      */
     public function decode(Token $token)
     {
@@ -85,7 +85,7 @@ class JWTManager
      * Refresh a Token and return a new Token
      *
      * @param  \Tymon\JWTAuth\Token  $token
-     * @param  array $customClaims
+     * @param  array                 $customClaims
      *
      * @return \Tymon\JWTAuth\Token
      */
@@ -111,9 +111,9 @@ class JWTManager
      *
      * @param  Token  $token
      *
-     * @return boolean
-     *
      * @throws JWTException
+     *
+     * @return boolean
      */
     public function invalidate(Token $token)
     {
@@ -137,7 +137,7 @@ class JWTManager
     /**
      * Get the JWTProvider instance
      *
-     * @return \Tymon\JWTAuth\Providers\JWT\JWTInterface
+     * @return \Tymon\JWTAuth\Contracts\Providers\JWT
      */
     public function getJWTProvider()
     {
@@ -173,7 +173,7 @@ class JWTManager
      *
      * @param boolean $refreshFlow
      *
-     * @return $this
+     * @return JWTManager
      */
     public function setRefreshFlow($refreshFlow = true)
     {
