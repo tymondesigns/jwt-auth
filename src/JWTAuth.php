@@ -81,7 +81,13 @@ class JWTAuth
      */
     public function fromUser($user, array $customClaims = [])
     {
-        $payload = $this->makePayload($user->{$this->identifier}, $customClaims);
+        $reflector = new \ReflectionClass(get_class($user));
+
+        if ($reflector->getProperty($this->identifier)->isPublic()) {
+            $payload = $this->makePayload($user->{$this->identifier}, $customClaims);
+        } else {
+            $payload = $this->makePayload($user->{'get'.ucfirst(camel_case($this->identifier))}(), $customClaims);
+        }
 
         return $this->manager->encode($payload)->get();
     }
