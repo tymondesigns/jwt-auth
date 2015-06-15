@@ -9,8 +9,12 @@ use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Http\TokenParser;
 use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+
 
 class JWTAuthServiceProvider extends ServiceProvider
 {
@@ -62,14 +66,14 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function registerAliases()
     {
-        $this->app->alias('tymon.jwt.auth', 'Tymon\JWTAuth\JWTAuth');
-        $this->app->alias('tymon.jwt.provider.jwt', 'Tymon\JWTAuth\Contracts\Providers\JWT');
-        $this->app->alias('tymon.jwt.provider.auth', 'Tymon\JWTAuth\Contracts\Providers\Auth');
-        $this->app->alias('tymon.jwt.provider.storage', 'Tymon\JWTAuth\Contracts\Providers\Storage');
-        $this->app->alias('tymon.jwt.manager', 'Tymon\JWTAuth\JWTManager');
-        $this->app->alias('tymon.jwt.blacklist', 'Tymon\JWTAuth\Blacklist');
-        $this->app->alias('tymon.jwt.payload.factory', 'Tymon\JWTAuth\PayloadFactory');
-        $this->app->alias('tymon.jwt.validators.payload', 'Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->app->alias('tymon.jwt.auth', JWTAuth::class);
+        $this->app->alias('tymon.jwt.provider.jwt', JWT::class);
+        $this->app->alias('tymon.jwt.provider.auth', Auth::class);
+        $this->app->alias('tymon.jwt.provider.storage', Storage::class);
+        $this->app->alias('tymon.jwt.manager', JWTManager::class);
+        $this->app->alias('tymon.jwt.blacklist', Blacklist::class);
+        $this->app->alias('tymon.jwt.payload.factory', PayloadFactory::class);
+        $this->app->alias('tymon.jwt.validators.payload', PayloadValidator::class);
     }
 
     /**
