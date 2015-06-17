@@ -9,7 +9,6 @@
 [![HHVM](https://img.shields.io/hhvm/tymon/jwt-auth.svg?style=flat-square)](http://hhvm.h4cc.de/package/tymon/jwt-auth)
 [![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
 [![Latest Dev Version](https://img.shields.io/packagist/vpre/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
-
 [![Total Downloads](https://img.shields.io/packagist/dt/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
 
 
@@ -39,4 +38,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[![Gratipay](https://img.shields.io/gratipay/tymondesigns.svg?style=flat-square)
+[![Total Downloads](https://img.shields.io/gratipay/tymondesigns.svg?style=flat-square)](https://gratipay.com/~tymondesigns)
+[![Gratipay](https://img.shields.io/gratipay/tymondesigns.svg?style=flat-square)]
