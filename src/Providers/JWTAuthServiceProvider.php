@@ -15,7 +15,6 @@ use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-
 class JWTAuthServiceProvider extends ServiceProvider
 {
     /**

@@ -30,7 +30,7 @@ class Token
      */
     public function get()
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**
@@ -40,6 +40,6 @@ class Token
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return $this->get();
     }
 }

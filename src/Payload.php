@@ -93,7 +93,7 @@ class Payload implements \ArrayAccess
      */
     public function __toString()
     {
-        return json_encode($this->toArray());
+        return json_encode($this->get(), JSON_UNESCAPED_SLASHES);
     }
 
     /**

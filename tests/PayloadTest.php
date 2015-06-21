@@ -58,7 +58,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_cast_the_payload_to_a_string_as_json()
     {
-        $this->assertEquals((string) $this->payload, json_encode($this->payload->get()));
+        $this->assertEquals((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
         $this->assertJsonStringEqualsJsonString((string) $this->payload, json_encode($this->payload->get()));
     }
 
