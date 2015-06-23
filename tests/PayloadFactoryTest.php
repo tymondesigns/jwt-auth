@@ -17,7 +17,6 @@ use Tymon\JWTAuth\Claims\Custom;
 
 class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
