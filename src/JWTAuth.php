@@ -3,10 +3,10 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Http\TokenParser;
 
 class JWTAuth
 {
