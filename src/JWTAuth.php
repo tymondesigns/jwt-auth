@@ -21,7 +21,7 @@ class JWTAuth
     protected $auth;
 
     /**
-     * @var \Tymon\JWTAuth\Token\Http\TokenParser
+     * @var \Tymon\JWTAuth\Http\TokenParser
      */
     protected $parser;
 
@@ -82,7 +82,7 @@ class JWTAuth
     /**
      * Authenticate a user via a token.
      *
-     * @return \Tymon\JWTAuth\JWTSubject
+     * @return \Tymon\JWTAuth\JWTSubject|false
      */
     public function authenticate()
     {
@@ -98,7 +98,7 @@ class JWTAuth
     /**
      * Alias for authenticate().
      *
-     * @return \Tymon\JWTAuth\JWTSubject
+     * @return \Tymon\JWTAuth\JWTSubject|false
      */
     public function toUser()
     {
