@@ -124,7 +124,7 @@ class PayloadFactory
     /**
      * Build out the Claim DTO's
      *
-     * @return array
+     * @return Claims\Claim[]
      */
     public function resolveClaims()
     {
