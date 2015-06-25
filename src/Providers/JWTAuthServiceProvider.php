@@ -2,17 +2,17 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Blacklist;
+use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Commands\JWTGenerateCommand;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Tymon\JWTAuth\Http\TokenParser;
+use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
-use Tymon\JWTAuth\Claims\Factory;
-use Tymon\JWTAuth\Http\TokenParser;
-use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class JWTAuthServiceProvider extends ServiceProvider
