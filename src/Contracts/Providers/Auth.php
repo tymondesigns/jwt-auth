@@ -9,7 +9,7 @@ interface Auth
      *
      * @param  array  $credentials
      *
-     * @return mixed
+     * @return boolean
      */
     public function byCredentials(array $credentials = []);
 
@@ -18,7 +18,7 @@ interface Auth
      *
      * @param  mixed  $id
      *
-     * @return mixed
+     * @return boolean
      */
     public function byId($id);
 
