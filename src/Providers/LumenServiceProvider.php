@@ -15,7 +15,7 @@ use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class JWTAuthServiceProvider extends ServiceProvider
+class LumenServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
@@ -38,6 +38,8 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerPayloadValidator();
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
+
+        $this->commands('tymon.jwt.generate');
     }
 
     /**
