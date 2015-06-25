@@ -2,9 +2,9 @@
 
 namespace Tymon\JWTAuth;
 
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class PayloadFactory
 {
@@ -14,9 +14,9 @@ class PayloadFactory
     protected $claimFactory;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
+     * @var \Illuminate\Http\Request
      */
-    protected $requestStack;
+    protected $request;
 
     /**
      * @var \Tymon\JWTAuth\Validators\PayloadValidator
@@ -44,14 +44,14 @@ class PayloadFactory
     protected $claims = [];
 
     /**
-     * @param \Tymon\JWTAuth\Claims\Factory                   $claimFactory
-     * @param \Symfony\Component\HttpFoundation\RequestStack  $requestStack
-     * @param \Tymon\JWTAuth\Validators\PayloadValidator      $validator
+     * @param \Tymon\JWTAuth\Claims\Factory               $claimFactory
+     * @param \Illuminate\Http\Request                    $request
+     * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
-    public function __construct(Factory $claimFactory, RequestStack $requestStack, PayloadValidator $validator)
+    public function __construct(Factory $claimFactory, Request $request, PayloadValidator $validator)
     {
         $this->claimFactory = $claimFactory;
-        $this->requestStack = $requestStack;
+        $this->request = $request;
         $this->validator = $validator;
     }
 
@@ -143,7 +143,7 @@ class PayloadFactory
      */
     public function iss()
     {
-        return $this->requestStack->getCurrentRequest()->getUri();
+        return $this->request->url();
     }
 
     /**
