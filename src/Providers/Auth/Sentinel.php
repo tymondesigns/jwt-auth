@@ -2,7 +2,6 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
-use Exception;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Cartalyst\Sentinel\Sentinel as SentinelAuth;
 
