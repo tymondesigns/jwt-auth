@@ -18,15 +18,6 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 class JWTAuthServiceProvider extends ServiceProvider
 {
     /**
-     * Boot the service provider.
-     */
-    public function boot()
-    {
-        $this->setupConfig();
-        $this->commands('tymon.jwt.generate');
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
@@ -47,17 +38,6 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerPayloadValidator();
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
-    }
-
-    /**
-     * Setup the config
-     */
-    protected function setupConfig()
-    {
-        $path = realpath(__DIR__ . '/../../config/config.php');
-
-        $this->publishes([$path => config_path('jwt.php')], 'config');
-        $this->mergeConfigFrom($path, 'jwt');
     }
 
     /**
