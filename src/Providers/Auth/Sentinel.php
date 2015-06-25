@@ -25,7 +25,7 @@ class Sentinel implements Auth
      *
      * @param  array  $credentials
      *
-     * @return boolean
+     * @return mixed
      */
     public function byCredentials(array $credentials = [])
     {
@@ -53,7 +53,7 @@ class Sentinel implements Auth
     /**
      * Get the currently authenticated user
      *
-     * @return mixed
+     * @return \Cartalyst\Sentinel\Users\UserInterface
      */
     public function user()
     {
