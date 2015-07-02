@@ -124,4 +124,10 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims[2]);
         $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims[5]);
     }
+
+    /** @test */
+    public function it_should_count_the_claims()
+    {
+        $this->assertEquals($this->payload->count(), 6);
+    }
 }

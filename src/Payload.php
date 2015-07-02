@@ -6,7 +6,7 @@ use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements \ArrayAccess
+class Payload implements \ArrayAccess, \Countable
 {
     /**
      * The array of claims
@@ -143,6 +143,16 @@ class Payload implements \ArrayAccess
     public function offsetUnset($key)
     {
         throw new PayloadException('The payload is immutable');
+    }
+
+    /**
+     * Count the number of claims
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->toArray());
     }
 
     /**
