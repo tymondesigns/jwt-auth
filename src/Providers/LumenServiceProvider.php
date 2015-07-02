@@ -148,7 +148,7 @@ class LumenServiceProvider extends ServiceProvider
     protected function registerPayloadValidator()
     {
         $this->app->singleton('tymon.jwt.validators.payload', function ($app) {
-            return with(new PayloadValidator())
+            return (new PayloadValidator)
                 ->setRefreshTTL($this->config('refresh_ttl'))
                 ->setRequiredClaims($this->config('required_claims'));
         });

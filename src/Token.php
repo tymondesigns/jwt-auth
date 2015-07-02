@@ -18,7 +18,7 @@ class Token
      */
     public function __construct($value)
     {
-        with(new TokenValidator)->check($value);
+        (new TokenValidator)->check($value);
 
         $this->value = $value;
     }

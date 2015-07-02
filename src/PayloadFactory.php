@@ -4,6 +4,7 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
+use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadFactory
@@ -39,9 +40,9 @@ class PayloadFactory
     protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
 
     /**
-     * @var array
+     * @var \Illuminate\Support\Collection
      */
-    protected $claims = [];
+    protected $claims;
 
     /**
      * @param \Tymon\JWTAuth\Claims\Factory               $claimFactory
@@ -53,6 +54,8 @@ class PayloadFactory
         $this->claimFactory = $claimFactory;
         $this->request = $request;
         $this->validator = $validator;
+
+        $this->claims = new Collection;
     }
 
     /**
@@ -64,7 +67,9 @@ class PayloadFactory
      */
     public function make(array $customClaims = [])
     {
-        $claims = $this->buildClaims($customClaims)->resolveClaims();
+        $claims = $this->buildClaims($customClaims)
+                       ->resolveClaims()
+                       ->toArray();
 
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
@@ -95,7 +100,7 @@ class PayloadFactory
      */
     public function addClaim($name, $value)
     {
-        $this->claims[$name] = $value;
+        $this->claims->put($name, $value);
 
         return $this;
     }
@@ -124,16 +129,13 @@ class PayloadFactory
     /**
      * Build out the Claim DTO's
      *
-     * @return Claims\Claim[]
+     * @return \Illuminate\Support\Collection
      */
     public function resolveClaims()
     {
-        $resolved = [];
-        foreach ($this->claims as $name => $value) {
-            $resolved[] = $this->claimFactory->get($name, $value);
-        }
-
-        return $resolved;
+        return $this->claims->map(function ($value, $name) {
+            return $this->claimFactory->get($name, $value);
+        });
     }
 
     /**
@@ -183,10 +185,7 @@ class PayloadFactory
      */
     protected function jti()
     {
-        $sub = array_get($this->claims, 'sub', '');
-        $nbf = array_get($this->claims, 'nbf', '');
-
-        return md5(sprintf('jti.%s.%s', $sub, $nbf));
+        return md5($this->claims->toJson());
     }
 
     /**
