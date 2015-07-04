@@ -27,7 +27,7 @@ class Sentinel implements Auth
      *
      * @return mixed
      */
-    public function byCredentials(array $credentials = [])
+    public function byCredentials(array $credentials)
     {
         return $this->sentinel->stateless($credentials);
     }

@@ -98,11 +98,11 @@ class JWTManager
             $this->blacklist->add($payload);
         }
 
+        $claims = array_merge($customClaims, ['sub' => $payload['sub'], 'iat' => $payload['iat']]);
+
         // return the new token
         return $this->encode(
-            $this->payloadFactory->make(
-                array_merge($customClaims, ['sub' => $payload['sub'], 'iat' => $payload['iat']])
-            )
+            $this->payloadFactory->customClaims($claims)->make()
         );
     }
 

@@ -28,7 +28,7 @@ class Illuminate implements Auth
      *
      * @return boolean
      */
-    public function byCredentials(array $credentials = [])
+    public function byCredentials(array $credentials)
     {
         return $this->auth->once($credentials);
     }

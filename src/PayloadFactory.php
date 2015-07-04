@@ -40,6 +40,13 @@ class PayloadFactory
     protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
 
     /**
+     * Custom claims
+     *
+     * @var array
+     */
+    protected $customClaims = [];
+
+    /**
      * @var \Illuminate\Support\Collection
      */
     protected $claims;
@@ -61,13 +68,11 @@ class PayloadFactory
     /**
      * Create the Payload instance
      *
-     * @param  array  $customClaims
-     *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function make(array $customClaims = [])
+    public function make()
     {
-        $claims = $this->buildClaims($customClaims)->resolveClaims();
+        $claims = $this->buildClaims()->resolveClaims();
 
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
@@ -106,18 +111,16 @@ class PayloadFactory
     /**
      * Build the default claims
      *
-     * @param  array  $customClaims
-     *
      * @return PayloadFactory
      */
-    protected function buildClaims(array $customClaims)
+    protected function buildClaims()
     {
         // add any custom claims first
-        $this->addClaims(array_diff_key($customClaims, $this->defaultClaims));
+        $this->addClaims(array_diff_key($this->customClaims, $this->defaultClaims));
 
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
-            if (! array_key_exists($claim, $customClaims)) {
+            if (! array_key_exists($claim, $this->customClaims)) {
                 $this->addClaim($claim, $this->$claim());
             }
         }
@@ -130,7 +133,7 @@ class PayloadFactory
      *
      * @return \Illuminate\Support\Collection
      */
-    public function resolveClaims()
+    protected function resolveClaims()
     {
         return $this->claims->map(function ($value, $name) {
             return $this->claimFactory->get($name, $value);
@@ -185,6 +188,20 @@ class PayloadFactory
     protected function jti()
     {
         return md5(sprintf('%s.%s', $this->claims->toJson(), str_random()));
+    }
+
+    /**
+     * Set the custom claims.
+     *
+     * @param array $customClaims
+     *
+     * @return $this
+     */
+    public function customClaims(array $customClaims = [])
+    {
+        $this->customClaims = $customClaims;
+
+        return $this;
     }
 
     /**

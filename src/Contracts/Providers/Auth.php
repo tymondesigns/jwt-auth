@@ -11,7 +11,7 @@ interface Auth
      *
      * @return mixed
      */
-    public function byCredentials(array $credentials = []);
+    public function byCredentials(array $credentials);
 
     /**
      * Authenticate a user via the id

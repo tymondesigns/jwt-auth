@@ -118,6 +118,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('baz.bar.foo');
 
         $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
+        $this->factory->shouldReceive('customClaims')->andReturn($this->factory);
         $this->factory->shouldReceive('make')->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);

@@ -43,7 +43,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->claimFactory->shouldReceive('get')->once()->with('nbf', 123)->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', $expTime)->andReturn(new Expiration($expTime));
 
-        $payload = $this->factory->make(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123]);
+        $payload = $this->factory->customClaims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
 
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('iat'), 123);

@@ -57,7 +57,8 @@ class Namshi extends Provider implements JWT
     public function decode($token)
     {
         try {
-            $jws = JWS::load($token);
+            // let's never allow unsecure tokens
+            $jws = JWS::load($token, false);
         } catch (Exception $e) {
             throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
         }
