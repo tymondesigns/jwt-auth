@@ -84,11 +84,11 @@ return [
     | Blacklist Grace Period
     | -------------------------------------------------------------------------
     |
-    | When multiple concurrent requests are made to the api endpoints with
-    | same JWT, It is possible that some of them fail, due to token regeneration
+    | When multiple concurrent requests are made with the same JWT,
+    | it is possible that some of them fail, due to token regeneration
     | on every request.
     |
-    | Set grace period in seconds to prevent the parallel request failure.
+    | Set grace period in seconds to prevent parallel request failure.
     |
     */
 
@@ -100,6 +100,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the various providers used throughout the package.
+    |
+    | Note: it is also possible to pass a closure,
+    | if you want more control. e.g.
+    |
+    | 'auth' => function ($app) {
+    |     return new Tymon\JWTAuth\Providers\Auth\Illuminate($app['auth']);
+    | }
     |
     */
 
@@ -125,9 +132,7 @@ return [
         |
         */
 
-        'auth' => function ($app) {
-            return new Tymon\JWTAuth\Providers\Auth\Illuminate($app['auth']);
-        },
+        'auth' => 'Tymon\JWTAuth\Providers\Auth\Illuminate',
 
         /*
         |--------------------------------------------------------------------------
@@ -138,9 +143,7 @@ return [
         |
         */
 
-        'storage' => function ($app) {
-            return new Tymon\JWTAuth\Providers\Storage\Illuminate($app['cache']);
-        }
+        'storage' => 'Tymon\JWTAuth\Providers\Storage\Illuminate'
 
     ]
 
