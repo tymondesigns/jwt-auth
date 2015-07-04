@@ -82,7 +82,7 @@ class Payload implements ArrayAccess, JsonSerializable, Countable
      */
     public function toArray()
     {
-        $collection = $this->claims->map(function ($claim, $name) {
+        $collection = $this->claims->map(function ($claim) {
             return $claim->getValue();
         });
 
