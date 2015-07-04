@@ -14,7 +14,7 @@ class JWTCheck extends BaseMiddleware
      */
     public function handle($request, \Closure $next)
     {
-        if ($token = $this->auth->setRequest($request)->getToken()) {
+        if ($this->auth->setRequest($request)->getToken()) {
             try {
                 $this->auth->authenticate();
             } catch (\Exception $e) {
