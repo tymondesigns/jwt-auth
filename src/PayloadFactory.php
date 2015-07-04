@@ -122,11 +122,6 @@ class PayloadFactory
             }
         }
 
-        // add a claim to show that this is a refreshed token
-        if ($this->refreshFlow) {
-            $this->addClaim('ref', true);
-        }
-
         return $this;
     }
 
