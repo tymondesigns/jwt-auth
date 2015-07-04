@@ -14,6 +14,7 @@ use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
+use Illuminate\Support\Collection;
 
 class JWTManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -44,7 +45,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(123),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
 
         $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('foo.bar.baz');
 
@@ -64,7 +65,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(123),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -89,7 +90,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(123),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -110,7 +111,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(123),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator, true);
+        $payload = new Payload(Collection::make($claims), $this->validator, true);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -124,6 +125,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->manager->refresh($token);
 
+        // $this->assertArrayHasKey('ref', $payload);
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
         $this->assertEquals('baz.bar.foo', $token);
     }
@@ -139,7 +141,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new IssuedAt(123),
             new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());

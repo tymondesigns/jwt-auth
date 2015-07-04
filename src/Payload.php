@@ -2,27 +2,31 @@
 
 namespace Tymon\JWTAuth;
 
+use ArrayAccess;
+use JsonSerializable;
+use Countable;
 use Tymon\JWTAuth\Claims\Claim;
+use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements \ArrayAccess, \Countable
+class Payload implements ArrayAccess, JsonSerializable, Countable
 {
     /**
-     * The array of claims
+     * The collection of claims
      *
-     * @var \Tymon\JWTAuth\Claims\Claim[]
+     * @var \Illuminate\Support\Collection
      */
     private $claims = [];
 
     /**
      * Build the Payload
      *
-     * @param \Tymon\JWTAuth\Claims\Claim[]               $claims
+     * @param \Illuminate\Support\Collection              $claims
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param boolean                                     $refreshFlow
      */
-    public function __construct(array $claims, PayloadValidator $validator, $refreshFlow = false)
+    public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
         $this->claims = $claims;
 
@@ -32,7 +36,7 @@ class Payload implements \ArrayAccess, \Countable
     /**
      * Get the array of claim instances
      *
-     * @return \Tymon\JWTAuth\Claims\Claim[]
+     * @return \Illuminate\Support\Collection
      */
     public function getClaims()
     {
@@ -40,24 +44,9 @@ class Payload implements \ArrayAccess, \Countable
     }
 
     /**
-     * Get the array of claims
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        $results = [];
-        foreach ($this->claims as $claim) {
-            $results[$claim->getName()] = $claim->getValue();
-        }
-
-        return $results;
-    }
-
-    /**
      * Get the payload
      *
-     * @param  string  $claim
+     * @param  mixed  $claim
      *
      * @return mixed
      */
@@ -83,7 +72,42 @@ class Payload implements \ArrayAccess, \Countable
      */
     public function has(Claim $claim)
     {
-        return in_array($claim, $this->claims);
+        return in_array($claim, $this->claims->toArray());
+    }
+
+    /**
+     * Get the array of claims
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $collection = $this->claims->map(function ($claim, $name) {
+            return $claim->getValue();
+        });
+
+        return $collection->toArray();
+    }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * Get the payload as JSON.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     /**
@@ -93,7 +117,7 @@ class Payload implements \ArrayAccess, \Countable
      */
     public function __toString()
     {
-        return json_encode($this->get(), JSON_UNESCAPED_SLASHES);
+        return $this->toJson(JSON_UNESCAPED_SLASHES);
     }
 
     /**

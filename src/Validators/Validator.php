@@ -3,7 +3,7 @@
 namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\Validators\Validator as ValidatorContract;
+use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
 
 abstract class Validator implements ValidatorContract
 {

@@ -14,24 +14,25 @@ use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
+use Illuminate\Support\Collection;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration(time() + 3600),
-            new NotBefore(time()),
-            new IssuedAt(time()),
-            new JwtId('foo')
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(time() + 3600),
+            'nbf' => new NotBefore(time()),
+            'iat' => new IssuedAt(time()),
+            'jti' => new JwtId('foo')
         ];
 
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
         $this->validator->shouldReceive('setRefreshFlow->check');
 
-        $this->payload = new Payload($claims, $this->validator);
+        $this->payload = new Payload(Collection::make($claims), $this->validator);
     }
 
     public function tearDown()
@@ -121,8 +122,8 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     {
         $claims = $this->payload->getClaims();
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims[2]);
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims[5]);
+        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims['exp']);
+        $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims['jti']);
     }
 
     /** @test */

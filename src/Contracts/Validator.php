@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth\Contracts\Validators;
+namespace Tymon\JWTAuth\Contracts;
 
 interface Validator
 {

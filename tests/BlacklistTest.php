@@ -13,6 +13,7 @@ use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
+use Illuminate\Support\Collection;
 
 class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,14 +35,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     public function it_should_add_a_valid_token_to_the_blacklist()
     {
         $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
-            new JwtId('foo')
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(123 + 3600),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
 
         $this->storage->shouldReceive('add')->with('foo', [], 61);
         $this->blacklist->add($payload);
@@ -51,14 +52,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_false_when_adding_an_expired_token_to_the_blacklist()
     {
         $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration(123 - 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
-            new JwtId('foo')
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(123 - 3600),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foo')
         ];
-        $payload = new Payload($claims, $this->validator, true);
+        $payload = new Payload(Collection::make($claims), $this->validator, true);
 
         $this->storage->shouldReceive('add')->never();
         $this->assertFalse($this->blacklist->add($payload));
@@ -68,14 +69,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     public function it_should_check_whether_a_token_has_been_blacklisted()
     {
         $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
-            new JwtId('foobar')
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(123 + 3600),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foobar')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
 
         $this->storage->shouldReceive('has')->with('foobar')->andReturn(true);
         $this->storage->shouldReceive('get')->with('foobar')->andReturn(['valid_until' => 3723 + 0]);
@@ -87,14 +88,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     public function it_should_remove_a_token_from_the_blacklist()
     {
         $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
-            new JwtId('foobar')
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(123 + 3600),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foobar')
         ];
-        $payload = new Payload($claims, $this->validator);
+        $payload = new Payload(Collection::make($claims), $this->validator);
 
         $this->storage->shouldReceive('destroy')->with('foobar')->andReturn(true);
         $this->assertTrue($this->blacklist->remove($payload));

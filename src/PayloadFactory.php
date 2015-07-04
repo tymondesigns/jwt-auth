@@ -67,9 +67,7 @@ class PayloadFactory
      */
     public function make(array $customClaims = [])
     {
-        $claims = $this->buildClaims($customClaims)
-                       ->resolveClaims()
-                       ->toArray();
+        $claims = $this->buildClaims($customClaims)->resolveClaims();
 
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
@@ -117,10 +115,16 @@ class PayloadFactory
         // add any custom claims first
         $this->addClaims(array_diff_key($customClaims, $this->defaultClaims));
 
+        // add the default claims
         foreach ($this->defaultClaims as $claim) {
             if (! array_key_exists($claim, $customClaims)) {
                 $this->addClaim($claim, $this->$claim());
             }
+        }
+
+        // add a claim to show that this is a refreshed token
+        if ($this->refreshFlow) {
+            $this->addClaim('ref', true);
         }
 
         return $this;
@@ -185,7 +189,7 @@ class PayloadFactory
      */
     protected function jti()
     {
-        return md5($this->claims->toJson());
+        return md5(sprintf('%s.%s', $this->claims->toJson(), str_random()));
     }
 
     /**
