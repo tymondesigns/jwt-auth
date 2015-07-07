@@ -7,10 +7,12 @@ use JsonSerializable;
 use Countable;
 use Tymon\JWTAuth\Claims\Claim;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements ArrayAccess, JsonSerializable, Countable
+class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Countable
 {
     /**
      * The collection of claims
