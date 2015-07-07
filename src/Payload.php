@@ -17,7 +17,7 @@ class Payload implements ArrayAccess, JsonSerializable, Countable
      *
      * @var \Illuminate\Support\Collection
      */
-    private $claims = [];
+    private $claims;
 
     /**
      * Build the Payload

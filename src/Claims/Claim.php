@@ -2,9 +2,10 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use JsonSerializable;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim
+abstract class Claim implements JsonSerializable
 {
     /**
      * The claim name
@@ -95,6 +96,16 @@ abstract class Claim
     }
 
     /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
      * Build a key value array comprising of the claim name and value
      *
      * @return array
@@ -105,12 +116,23 @@ abstract class Claim
     }
 
     /**
-     * Get the claim as a string
+     * Get the claim as JSON.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * Get the payload as a string
      *
      * @return string
      */
     public function __toString()
     {
-        return json_encode($this->toArray(), JSON_UNESCAPED_SLASHES);
+        return $this->toJson(JSON_UNESCAPED_SLASHES);
     }
 }
