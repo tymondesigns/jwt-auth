@@ -2,15 +2,13 @@
 
 namespace Tymon\JWTAuth\Validators;
 
+use Tymon\JWTAuth\RefreshFlow;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
 
 abstract class Validator implements ValidatorContract
 {
-    /**
-     * @var bool
-     */
-    protected $refreshFlow = false;
+    use RefreshFlow;
 
     /**
      * Helper function to return a boolean
@@ -28,20 +26,6 @@ abstract class Validator implements ValidatorContract
         }
 
         return true;
-    }
-
-    /**
-     * Set the refresh flow flag
-     *
-     * @param  boolean  $refreshFlow
-     *
-     * @return $this
-     */
-    public function setRefreshFlow($refreshFlow = true)
-    {
-        $this->refreshFlow = $refreshFlow;
-
-        return $this;
     }
 
     /**

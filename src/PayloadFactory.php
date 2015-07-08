@@ -3,12 +3,15 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\RefreshFlow;
 use Tymon\JWTAuth\Claims\Factory;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadFactory
 {
+    use RefreshFlow;
+
     /**
      * @var \Tymon\JWTAuth\Claims\Factory
      */
@@ -28,11 +31,6 @@ class PayloadFactory
      * @var int
      */
     protected $ttl = 60;
-
-    /**
-     * @var boolean
-     */
-    protected $refreshFlow = false;
 
     /**
      * @var array
@@ -226,20 +224,6 @@ class PayloadFactory
     public function getTTL()
     {
         return $this->ttl;
-    }
-
-    /**
-     * Set the refresh flow
-     *
-     * @param boolean $refreshFlow
-     *
-     * @return PayloadFactory
-     */
-    public function setRefreshFlow($refreshFlow = true)
-    {
-        $this->refreshFlow = $refreshFlow;
-
-        return $this;
     }
 
     /**

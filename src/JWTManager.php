@@ -2,12 +2,15 @@
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\RefreshFlow;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class JWTManager
 {
+    use RefreshFlow;
+
     /**
      * @var \Tymon\JWTAuth\Contracts\Providers\JWT
      */
@@ -27,11 +30,6 @@ class JWTManager
      * @var boolean
      */
     protected $blacklistEnabled = true;
-
-    /**
-     * @var boolean
-     */
-    protected $refreshFlow = false;
 
     /**
      *  @param \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
@@ -164,20 +162,6 @@ class JWTManager
     public function setBlacklistEnabled($enabled)
     {
         $this->blacklistEnabled = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * Set the refresh flow
-     *
-     * @param boolean $refreshFlow
-     *
-     * @return JWTManager
-     */
-    public function setRefreshFlow($refreshFlow = true)
-    {
-        $this->refreshFlow = $refreshFlow;
 
         return $this;
     }
