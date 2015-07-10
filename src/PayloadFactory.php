@@ -70,7 +70,7 @@ class PayloadFactory
      */
     public function make($claims = null)
     {
-        $claims = $claims ? $this->addClaims($claims)->resolveClaims() : $this->buildClaims($claims)->resolveClaims();
+        $claims = $claims ? $this->buildClaims()->addClaims($claims)->resolveClaims() : $this->buildClaims($claims)->resolveClaims();
 
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
