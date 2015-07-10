@@ -66,13 +66,11 @@ class PayloadFactory
     /**
      * Create the Payload instance
      *
-     * @param null $claims
-     *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function make($claims = null)
+    public function make()
     {
-        $claims = $claims ? $this->addClaims($claims)->resolveClaims() : $this->buildClaims($claims)->resolveClaims();
+        $claims = $this->buildClaims()->resolveClaims();
 
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
