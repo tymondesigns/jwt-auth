@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\RefreshFlow;
+use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;

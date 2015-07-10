@@ -3,6 +3,7 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -10,6 +11,8 @@ use Tymon\JWTAuth\Http\TokenParser;
 
 class JWTAuth
 {
+    use CustomClaims;
+
     /**
      * @var \Tymon\JWTAuth\JWTManager
      */
@@ -29,13 +32,6 @@ class JWTAuth
      * @var \Tymon\JWTAuth\Token
      */
     protected $token;
-
-    /**
-     * Custom claims
-     *
-     * @var array
-     */
-    protected $customClaims = [];
 
     /**
      * @param \Tymon\JWTAuth\JWTManager                $manager
@@ -204,6 +200,16 @@ class JWTAuth
     }
 
     /**
+     * Convenience method to return the authenticated user
+     *
+     * @return mixed
+     */
+    public function user()
+    {
+        return $this->auth->user();
+    }
+
+    /**
      * Set the token.
      *
      * @param string $token
@@ -241,20 +247,6 @@ class JWTAuth
     public function setRequest(Request $request)
     {
         $this->parser->setRequest($request);
-
-        return $this;
-    }
-
-    /**
-     * Set the custom claims.
-     *
-     * @param array $customClaims
-     *
-     * @return $this
-     */
-    public function customClaims(array $customClaims = [])
-    {
-        $this->customClaims = $customClaims;
 
         return $this;
     }

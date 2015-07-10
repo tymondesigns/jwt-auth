@@ -3,14 +3,16 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\RefreshFlow;
+use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Claims\Factory;
 use Illuminate\Support\Collection;
+use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadFactory
 {
-    use RefreshFlow;
+    use RefreshFlow, CustomClaims;
 
     /**
      * @var \Tymon\JWTAuth\Claims\Factory
@@ -36,13 +38,6 @@ class PayloadFactory
      * @var array
      */
     protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
-
-    /**
-     * Custom claims
-     *
-     * @var array
-     */
-    protected $customClaims = [];
 
     /**
      * @var \Illuminate\Support\Collection
@@ -186,20 +181,6 @@ class PayloadFactory
     protected function jti()
     {
         return md5(sprintf('%s.%s', $this->claims->toJson(), str_random()));
-    }
-
-    /**
-     * Set the custom claims.
-     *
-     * @param array $customClaims
-     *
-     * @return $this
-     */
-    public function customClaims(array $customClaims = [])
-    {
-        $this->customClaims = $customClaims;
-
-        return $this;
     }
 
     /**

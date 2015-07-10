@@ -3,6 +3,7 @@
 namespace Tymon\JWTAuth;
 
 use Carbon\Carbon;
+use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Blacklist

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tymon\JWTAuth;
+namespace Tymon\JWTAuth\Support;
 
 use Carbon\Carbon;
 

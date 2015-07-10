@@ -2,7 +2,7 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\RefreshFlow;
+use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
 
