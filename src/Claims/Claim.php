@@ -3,9 +3,10 @@
 namespace Tymon\JWTAuth\Claims;
 
 use JsonSerializable;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim implements JsonSerializable
+abstract class Claim implements ClaimContract, JsonSerializable
 {
     /**
      * The claim name
@@ -30,9 +31,9 @@ abstract class Claim implements JsonSerializable
     }
 
     /**
-     * Set the claim value, and call a validate method if available
+     * Set the claim value, and call a validate method
      *
-     * @param $value
+     * @param mixed $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      *
@@ -86,11 +87,11 @@ abstract class Claim implements JsonSerializable
     /**
      * Validate the Claim value
      *
-     * @param  $value
+     * @param  mixed $value
      *
      * @return boolean
      */
-    protected function validate($value)
+    public function validate($value)
     {
         return true;
     }

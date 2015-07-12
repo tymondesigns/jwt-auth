@@ -18,7 +18,7 @@ class NotBefore extends Claim
      *
      * @return boolean
      */
-    protected function validate($value)
+    public function validate($value)
     {
         return is_numeric($value);
     }

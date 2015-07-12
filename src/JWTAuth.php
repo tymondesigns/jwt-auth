@@ -200,9 +200,9 @@ class JWTAuth
     }
 
     /**
-     * Convenience method to return the authenticated user
+     * Get the authenticated user
      *
-     * @return mixed
+     * @return \Tymon\JWTAuth\Contracts\JWTSubject
      */
     public function user()
     {
