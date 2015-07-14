@@ -137,7 +137,7 @@ class JWTAuth
         try {
             $this->getPayload();
         } catch (JWTException $e) {
-            return false
+            return false;
         }
 
         return true;

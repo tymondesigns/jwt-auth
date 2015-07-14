@@ -6,6 +6,7 @@ use Mockery;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class JWTAuthTest extends \PHPUnit_Framework_TestCase
 {
@@ -140,6 +141,33 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $this->jwtAuth->parseToken()->getToken());
         $this->assertEquals($this->jwtAuth->getToken(), 'foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_get_the_authenticated_user()
+    {
+        $manager = $this->jwtAuth->manager();
+        $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
+    }
+
+    /** @test */
+    public function it_should_return_false_if_the_token_is_invalid()
+    {
+        $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
+        $this->manager->shouldReceive('decode')->once()->andThrow(new TokenInvalidException);
+
+        $this->assertFalse($this->jwtAuth->parseToken()->check());
+    }
+
+    /** @test */
+    public function it_should_return_true_if_the_token_is_valid()
+    {
+        $payload = Mockery::mock('Tymon\JWTAuth\Payload');
+
+        $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+
+        $this->assertTrue($this->jwtAuth->parseToken()->check());
     }
 
     /** @test */
