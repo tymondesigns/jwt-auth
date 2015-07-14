@@ -72,7 +72,7 @@ class JWTAuth
             return false;
         }
 
-        return $this->fromUser($this->auth->user());
+        return $this->fromUser($this->user());
     }
 
     /**
@@ -88,7 +88,7 @@ class JWTAuth
             return false;
         }
 
-        return $this->auth->user();
+        return $this->user();
     }
 
     /**
@@ -180,7 +180,7 @@ class JWTAuth
      */
     public function makePayload(JWTSubject $user)
     {
-        return $this->factory()->make($this->getClaimsArray($user));
+        return $this->factory()->customClaims($this->getClaimsArray($user))->make();
     }
 
     /**
