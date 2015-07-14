@@ -126,6 +126,24 @@ class JWTAuth
     }
 
     /**
+     * Check that the token is valid including not expired or blacklisted
+     *
+     * @return boolean
+     */
+    public function check()
+    {
+        $this->requireToken();
+
+        try {
+            $this->getPayload();
+        } catch (JWTException $e) {
+            return false
+        }
+
+        return true;
+    }
+
+    /**
      * Get the token.
      *
      * @return false|Token
