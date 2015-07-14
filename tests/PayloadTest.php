@@ -124,6 +124,15 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims['exp']);
         $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims['jti']);
+        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Subject', $claims['sub']);
+
+        $this->assertContainsOnlyInstancesOf('Tymon\JWTAuth\Claims\Claim', $claims);
+    }
+
+    /** @test */
+    public function it_should_get_the_object_as_json()
+    {
+        $this->assertJsonStringEqualsJsonString(json_encode($this->payload), $this->payload->toJson());
     }
 
     /** @test */

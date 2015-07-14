@@ -102,4 +102,18 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->factory->getTTL(), 12345);
     }
+
+    /** @test */
+    public function it_should_set_the_default_claims()
+    {
+        $this->factory->setDefaultClaims(['sub', 'iat']);
+
+        $this->assertEquals($this->factory->getDefaultClaims(), ['sub', 'iat']);
+    }
+
+    /** @test */
+    public function it_should_get_the_validator()
+    {
+        $this->assertInstanceOf('Tymon\JWTAuth\Validators\PayloadValidator', $this->factory->validator());
+    }
 }

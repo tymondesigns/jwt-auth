@@ -222,6 +222,26 @@ class PayloadFactory
     }
 
     /**
+     * Get the default claims
+     *
+     * @return array
+     */
+    public function getDefaultClaims()
+    {
+        return $this->defaultClaims;
+    }
+
+    /**
+     * Get the PayloadValidator instance
+     *
+     * @return \Tymon\JWTAuth\Validators\PayloadValidator
+     */
+    public function validator()
+    {
+        return $this->validator;
+    }
+
+    /**
      * Magically add a claim
      *
      * @param  string  $method
