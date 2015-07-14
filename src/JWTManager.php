@@ -70,7 +70,10 @@ class JWTManager
     {
         $payloadArray = $this->provider->decode($token->get());
 
-        $payload = $this->payloadFactory->setRefreshFlow($this->refreshFlow)->make($payloadArray);
+        $payload = $this->payloadFactory
+                        ->setRefreshFlow($this->refreshFlow)
+                        ->customClaims($payloadArray)
+                        ->make();
 
         if ($this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');
