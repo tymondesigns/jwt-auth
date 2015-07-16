@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Commands\JWTGenerateCommand;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
@@ -12,7 +12,7 @@ use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class LumenServiceProvider extends ServiceProvider
@@ -53,7 +53,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
         $this->app->alias('tymon.jwt.manager', Manager::class);
         $this->app->alias('tymon.jwt.blacklist', Blacklist::class);
-        $this->app->alias('tymon.jwt.payload.factory', PayloadFactory::class);
+        $this->app->alias('tymon.jwt.payload.factory', Factory::class);
         $this->app->alias('tymon.jwt.validators.payload', PayloadValidator::class);
     }
 
@@ -160,8 +160,8 @@ class LumenServiceProvider extends ServiceProvider
     protected function registerPayloadFactory()
     {
         $this->app->singleton('tymon.jwt.payload.factory', function ($app) {
-            $factory = new PayloadFactory(
-                new Factory,
+            $factory = new Factory(
+                new ClaimFactory,
                 $app['request'],
                 $app['tymon.jwt.validators.payload']
             );

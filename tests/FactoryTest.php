@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Mockery;
 use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Factory;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
@@ -15,13 +15,13 @@ use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 
-class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
-        $this->factory = new PayloadFactory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
+        $this->factory = new Factory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
     }
 
     public function tearDown()

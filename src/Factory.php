@@ -4,13 +4,13 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Support\Utils;
-use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class PayloadFactory
+class Factory
 {
     use RefreshFlow, CustomClaims;
 
@@ -49,7 +49,7 @@ class PayloadFactory
      * @param \Illuminate\Http\Request                    $request
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
-    public function __construct(Factory $claimFactory, Request $request, PayloadValidator $validator)
+    public function __construct(ClaimFactory $claimFactory, Request $request, PayloadValidator $validator)
     {
         $this->claimFactory = $claimFactory;
         $this->request = $request;
@@ -75,7 +75,7 @@ class PayloadFactory
      *
      * @param  array  $claims
      *
-     * @return PayloadFactory
+     * @return Factory
      */
     public function addClaims(array $claims)
     {
@@ -92,7 +92,7 @@ class PayloadFactory
      * @param  string  $name
      * @param  mixed   $value
      *
-     * @return PayloadFactory
+     * @return Factory
      */
     public function addClaim($name, $value)
     {
@@ -104,7 +104,7 @@ class PayloadFactory
     /**
      * Build the default claims
      *
-     * @return PayloadFactory
+     * @return Factory
      */
     protected function buildClaims()
     {
@@ -188,7 +188,7 @@ class PayloadFactory
      *
      * @param  int  $ttl
      *
-     * @return PayloadFactory
+     * @return Factory
      */
     public function setTTL($ttl)
     {
@@ -212,7 +212,7 @@ class PayloadFactory
      *
      * @param array $claims
      *
-     * @return PayloadFactory
+     * @return Factory
      */
     public function setDefaultClaims(array $claims)
     {
@@ -249,7 +249,7 @@ class PayloadFactory
      *
      * @throws \BadMethodCallException
      *
-     * @return PayloadFactory
+     * @return Factory
      */
     public function __call($method, $parameters)
     {

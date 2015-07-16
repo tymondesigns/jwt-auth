@@ -23,7 +23,7 @@ class Manager
     protected $blacklist;
 
     /**
-     * @var \Tymon\JWTAuth\PayloadFactory
+     * @var \Tymon\JWTAuth\Factory
      */
     protected $payloadFactory;
 
@@ -35,9 +35,9 @@ class Manager
     /**
      *  @param \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      *  @param \Tymon\JWTAuth\Blacklist                $blacklist
-     *  @param \Tymon\JWTAuth\PayloadFactory           $payloadFactory
+     *  @param \Tymon\JWTAuth\Factory                  $payloadFactory
      */
-    public function __construct(JWT $provider, Blacklist $blacklist, PayloadFactory $payloadFactory)
+    public function __construct(JWT $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
         $this->provider = $provider;
         $this->blacklist = $blacklist;
@@ -126,9 +126,9 @@ class Manager
     }
 
     /**
-     * Get the PayloadFactory instance
+     * Get the Payload Factory instance
      *
-     * @return \Tymon\JWTAuth\PayloadFactory
+     * @return \Tymon\JWTAuth\Factory
      */
     public function getPayloadFactory()
     {

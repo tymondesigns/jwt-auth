@@ -78,7 +78,7 @@ class JWTAuth
     /**
      * Authenticate a user via a token.
      *
-     * @return \Tymon\JWTAuth\JWTSubject|false
+     * @return \Tymon\JWTAuth\Contracts\JWTSubject|false
      */
     public function authenticate()
     {
@@ -94,7 +94,7 @@ class JWTAuth
     /**
      * Alias for authenticate().
      *
-     * @return \Tymon\JWTAuth\JWTSubject|false
+     * @return \Tymon\JWTAuth\Contracts\JWTSubject|false
      */
     public function toUser()
     {
@@ -290,9 +290,9 @@ class JWTAuth
     }
 
     /**
-     * Get the PayloadFactory
+     * Get the Payload Factory
      *
-     * @return \Tymon\JWTAuth\PayloadFactory
+     * @return \Tymon\JWTAuth\Factory
      */
     public function factory()
     {

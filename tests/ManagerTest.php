@@ -20,7 +20,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
-        $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
+        $this->factory = Mockery::mock('Tymon\JWTAuth\Factory');
         $this->manager = new Manager($this->jwt, $this->blacklist, $this->factory);
 
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
@@ -177,7 +177,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_payload_factory()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\PayloadFactory', $this->manager->getPayloadFactory());
+        $this->assertInstanceOf('Tymon\JWTAuth\Factory', $this->manager->getPayloadFactory());
     }
 
     /** @test */

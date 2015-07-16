@@ -26,7 +26,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_token_when_passing_a_user()
     {
-        $payloadFactory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
+        $payloadFactory = Mockery::mock('Tymon\JWTAuth\Factory');
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
 
         $this->manager
@@ -45,7 +45,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_a_token_when_passing_valid_credentials_to_attempt_method()
     {
-        $payloadFactory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
+        $payloadFactory = Mockery::mock('Tymon\JWTAuth\Factory');
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
 
         $this->manager

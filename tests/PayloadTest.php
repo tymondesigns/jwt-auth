@@ -4,7 +4,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\PayloadFactory;
+use Tymon\JWTAuth\Factory;
 use Mockery;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
