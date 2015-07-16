@@ -10,7 +10,7 @@ checks:
             remove_unused: true
             preserve_multiple: false
             preserve_blanklines: true
-            order_alphabetically: true
+            order_alphabetically: false
         fix_php_opening_tag: true
         fix_linefeed: true
         fix_line_ending: true
