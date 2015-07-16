@@ -11,7 +11,7 @@ use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\JWTManager;
+use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
@@ -31,7 +31,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->registerStorageProvider();
         $this->registerJWTBlacklist();
 
-        $this->registerJWTManager();
+        $this->registerManager();
         $this->registerTokenParser();
 
         $this->registerJWTAuth();
@@ -51,7 +51,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt.provider.jwt', JWT::class);
         $this->app->alias('tymon.jwt.provider.auth', Auth::class);
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
-        $this->app->alias('tymon.jwt.manager', JWTManager::class);
+        $this->app->alias('tymon.jwt.manager', Manager::class);
         $this->app->alias('tymon.jwt.blacklist', Blacklist::class);
         $this->app->alias('tymon.jwt.payload.factory', PayloadFactory::class);
         $this->app->alias('tymon.jwt.validators.payload', PayloadValidator::class);
@@ -92,11 +92,11 @@ class LumenServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the JWT Manager
      */
-    protected function registerJWTManager()
+    protected function registerManager()
     {
         $this->app->singleton('tymon.jwt.manager', function ($app) {
 
-            $instance = new JWTManager(
+            $instance = new Manager(
                 $app['tymon.jwt.provider.jwt'],
                 $app['tymon.jwt.blacklist'],
                 $app['tymon.jwt.payload.factory']

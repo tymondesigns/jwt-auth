@@ -5,14 +5,13 @@ namespace Tymon\JWTAuth\Test;
 use Mockery;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class JWTAuthTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->manager = Mockery::mock('Tymon\JWTAuth\JWTManager');
+        $this->manager = Mockery::mock('Tymon\JWTAuth\Manager');
         $this->auth = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Auth');
         $this->parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
 
@@ -123,7 +122,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $newToken = Mockery::mock('Tymon\JWTAuth\Token');
         $newToken->shouldReceive('get')->once()->andReturn('baz.bar.foo');
 
-        $this->manager->shouldReceive('refresh')->once()->andReturn($newToken);
+        $this->manager->shouldReceive('customClaims->refresh')->once()->andReturn($newToken);
 
         $result = $this->jwtAuth->setToken('foo.bar.baz')->refresh();
 
@@ -153,7 +152,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_get_the_authenticated_user()
     {
         $manager = $this->jwtAuth->manager();
-        $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
+        $this->assertInstanceOf('Tymon\JWTAuth\Manager', $manager);
     }
 
     /** @test */
@@ -221,7 +220,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_get_the_manager_instance()
     {
         $manager = $this->jwtAuth->manager();
-        $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
+        $this->assertInstanceOf('Tymon\JWTAuth\Manager', $manager);
     }
 
     /** @test */

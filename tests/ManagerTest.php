@@ -3,27 +3,25 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
-use Tymon\JWTAuth\JWTManager;
+use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Custom;
 use Illuminate\Support\Collection;
 
-class JWTManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
         $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
-        $this->manager = new JWTManager($this->jwt, $this->blacklist, $this->factory);
+        $this->manager = new Manager($this->jwt, $this->blacklist, $this->factory);
 
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
         $this->validator->shouldReceive('setRefreshFlow->check');

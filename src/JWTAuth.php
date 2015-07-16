@@ -14,7 +14,7 @@ class JWTAuth
     use CustomClaims;
 
     /**
-     * @var \Tymon\JWTAuth\JWTManager
+     * @var \Tymon\JWTAuth\Manager
      */
     protected $manager;
 
@@ -34,11 +34,11 @@ class JWTAuth
     protected $token;
 
     /**
-     * @param \Tymon\JWTAuth\JWTManager                $manager
+     * @param \Tymon\JWTAuth\Manager                   $manager
      * @param \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
      * @param \Tymon\JWTAuth\Http\TokenParser          $parser
      */
-    public function __construct(JWTManager $manager, Auth $auth, TokenParser $parser)
+    public function __construct(Manager $manager, Auth $auth, TokenParser $parser)
     {
         $this->manager = $manager;
         $this->auth = $auth;
@@ -110,7 +110,7 @@ class JWTAuth
     {
         $this->requireToken();
 
-        return $this->manager->refresh($this->token, $this->customClaims)->get();
+        return $this->manager->customClaims($this->customClaims)->refresh($this->token)->get();
     }
 
     /**
@@ -126,16 +126,28 @@ class JWTAuth
     }
 
     /**
-     * Check that the token is valid including not expired or blacklisted
+     * Alias to get the payload
+     * And as a result checks that the token is valid
+     * i.e. not expired or blacklisted
+     *
+     * @throws JWTException
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function checkOrFail()
+    {
+        return $this->getPayload();
+    }
+
+    /**
+     * Check that the token is valid
      *
      * @return boolean
      */
     public function check()
     {
-        $this->requireToken();
-
         try {
-            $this->getPayload();
+            $this->checkOrFail();
         } catch (JWTException $e) {
             return false;
         }
@@ -232,7 +244,7 @@ class JWTAuth
      *
      * @param string $token
      *
-     * @return $this
+     * @return JWTAuth
      */
     public function setToken($token)
     {
@@ -243,8 +255,6 @@ class JWTAuth
 
     /**
      * Ensure that a token is available.
-     *
-     * @return JWTAuth
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
@@ -270,9 +280,9 @@ class JWTAuth
     }
 
     /**
-     * Get the JWTManager instance.
+     * Get the Manager instance.
      *
-     * @return \Tymon\JWTAuth\JWTManager
+     * @return \Tymon\JWTAuth\Manager
      */
     public function manager()
     {

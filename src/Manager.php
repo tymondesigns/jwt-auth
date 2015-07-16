@@ -3,13 +3,14 @@
 namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
-class JWTManager
+class Manager
 {
-    use RefreshFlow;
+    use RefreshFlow, CustomClaims;
 
     /**
      * @var \Tymon\JWTAuth\Contracts\Providers\JWT
@@ -86,11 +87,10 @@ class JWTManager
      * Refresh a Token and return a new Token
      *
      * @param  \Tymon\JWTAuth\Token  $token
-     * @param  array                 $customClaims
      *
      * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token, array $customClaims = [])
+    public function refresh(Token $token)
     {
         $payload = $this->setRefreshFlow()->decode($token);
 
@@ -99,7 +99,7 @@ class JWTManager
             $this->blacklist->add($payload);
         }
 
-        $claims = array_merge($customClaims, ['sub' => $payload['sub'], 'iat' => $payload['iat']]);
+        $claims = array_merge($this->customClaims, ['sub' => $payload['sub'], 'iat' => $payload['iat']]);
 
         // return the new token
         return $this->encode(
@@ -160,7 +160,7 @@ class JWTManager
      *
      * @param bool  $enabled
      *
-     * @return \Tymon\JWTAuth\JWTManager
+     * @return \Tymon\JWTAuth\Manager
      */
     public function setBlacklistEnabled($enabled)
     {
