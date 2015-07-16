@@ -89,6 +89,16 @@ class TokenParser
     }
 
     /**
+     * Check whether a token exists in the request
+     *
+     * @return  boolean
+     */
+    public function hasToken()
+    {
+        return $this->parseToken() !== false;
+    }
+
+    /**
      * Set the request instance.
      *
      * @param \Illuminate\Http\Request $request

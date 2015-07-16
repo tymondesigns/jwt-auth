@@ -43,4 +43,14 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($parser->parseToken(), 'foobar');
     }
+
+    /** @test */
+    public function it_should_return_false_if_no_token_in_request()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+
+        $parser = new TokenParser($request);
+
+        $this->assertFalse($parser->hasToken());
+    }
 }
