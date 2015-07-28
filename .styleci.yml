@@ -6,5 +6,5 @@ enabled:
 linting: true
 
 finder:
-  - exclude:
+  exclude:
     - tests
