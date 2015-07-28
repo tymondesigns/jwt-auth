@@ -40,7 +40,7 @@ class Blacklist
         $exp = Utils::timestamp($payload['exp']);
 
         // there is no need to add the token to the blacklist
-        // if is has already expired
+        // if it has already expired
         if ($exp->isPast()) {
             return false;
         }
@@ -106,7 +106,7 @@ class Blacklist
      */
     protected function getGraceTimestamp(Carbon $exp)
     {
-        return $exp->addSeconds($this->gracePeriod)->format('U');
+        return (int) $exp->addSeconds($this->gracePeriod)->format('U');
     }
 
     /**

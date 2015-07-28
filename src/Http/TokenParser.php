@@ -75,7 +75,7 @@ class TokenParser
      */
     public function fromQueryString()
     {
-        return $this->request->query($this->query, false);
+        return $this->request->input($this->query, false);
     }
 
     /**
