@@ -1,0 +1,1349 @@
+diff --git a/config/config.php b/config/config.php
+index c98f8dc27aa4a2b45d5e3ace9121b816eae0eba2..809845892237216ff319da97c2f609f30790502f 100644
+--- a/config/config.php
++++ b/config/config.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ return [
+ 
+     /*
+diff --git a/src/Blacklist.php b/src/Blacklist.php
+index eb7079a88e34224115e8cd74ce0ad0a6e5d26f00..69d8828e3def5c763e055cd1848b930eec94c70d 100644
+--- a/src/Blacklist.php
++++ b/src/Blacklist.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth;
+ 
+ use Carbon\Carbon;
+diff --git a/src/Claims/Audience.php b/src/Claims/Audience.php
+index 6ec1ec778eaf0000ab7bb5a32c8f2d84267bb552..728d1ca90af3d7508a2a4e5f165d3b0aa07055fc 100644
+--- a/src/Claims/Audience.php
++++ b/src/Claims/Audience.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class Audience extends Claim
+diff --git a/src/Claims/Claim.php b/src/Claims/Claim.php
+index d74f5212d606db21e9a68b31837fe52f7dd017b6..2bb7b914ddd7017e0ecb07a454eac3f1c66e7e92 100644
+--- a/src/Claims/Claim.php
++++ b/src/Claims/Claim.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ use JsonSerializable;
+diff --git a/src/Claims/Custom.php b/src/Claims/Custom.php
+index d5aed51d4f7423ce9cc4b277219f7f2a75e2d0b7..fda521b85976a7530e57391d77531a97ace8bfad 100644
+--- a/src/Claims/Custom.php
++++ b/src/Claims/Custom.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class Custom extends Claim
+diff --git a/src/Claims/Expiration.php b/src/Claims/Expiration.php
+index b58ce5354eb8707fe9560e8d2bac562de9722f66..4138ee808efc0f5a2e73373be212a85f0267b993 100644
+--- a/src/Claims/Expiration.php
++++ b/src/Claims/Expiration.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class Expiration extends Claim
+diff --git a/src/Claims/Factory.php b/src/Claims/Factory.php
+index 129f24a8c9a68578cd0334fc3bebd6c6dbe11df1..cb701476b5d8588c3a13b4ccda8733aabd0afa91 100644
+--- a/src/Claims/Factory.php
++++ b/src/Claims/Factory.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class Factory
+diff --git a/src/Claims/IssuedAt.php b/src/Claims/IssuedAt.php
+index 8101283e5af36f16b96cb75b4313ef0d89bbd832..fc0101225bd61a95836be250c2cee5753b778350 100644
+--- a/src/Claims/IssuedAt.php
++++ b/src/Claims/IssuedAt.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class IssuedAt extends Claim
+diff --git a/src/Claims/Issuer.php b/src/Claims/Issuer.php
+index 50b862dc828774ed63d4bdebafe90f41192c7e35..8d059cee3fa93025ab9fbfe44f19dc94c6ddbf38 100644
+--- a/src/Claims/Issuer.php
++++ b/src/Claims/Issuer.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class Issuer extends Claim
+diff --git a/src/Claims/JwtId.php b/src/Claims/JwtId.php
+index 503d0c92258108f0cda268c3eed7b4d13fe701e5..f0ac8a04daebad8106292e1b56f68ccb81a86c5f 100644
+--- a/src/Claims/JwtId.php
++++ b/src/Claims/JwtId.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class JwtId extends Claim
+diff --git a/src/Claims/NotBefore.php b/src/Claims/NotBefore.php
+index 9f92f723648479252f2005f377b10f3bdb278b7a..c343935d71e040602910de8edc5119c4e67bb12f 100644
+--- a/src/Claims/NotBefore.php
++++ b/src/Claims/NotBefore.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class NotBefore extends Claim
+diff --git a/src/Claims/Subject.php b/src/Claims/Subject.php
+index 6474e0ca887078fec570ed60b840d53768c55882..c60ba4fc4004c70a58de7e7b484938803458325f 100644
+--- a/src/Claims/Subject.php
++++ b/src/Claims/Subject.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Claims;
+ 
+ class Subject extends Claim
+diff --git a/src/Commands/JWTGenerateCommand.php b/src/Commands/JWTGenerateCommand.php
+index 9c90b1376ea5fb01134c8aa5dbb35f1f2540880b..d734c2056dd42e645a3633badda1bf67285d6a5e 100644
+--- a/src/Commands/JWTGenerateCommand.php
++++ b/src/Commands/JWTGenerateCommand.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Commands;
+ 
+ use Illuminate\Support\Str;
+diff --git a/src/Contracts/Claim.php b/src/Contracts/Claim.php
+index 4b42bf318c2fc550a92f645bf409aaba156beb83..17c7259d127747114bbd96a57e9ceea589b6faad 100644
+--- a/src/Contracts/Claim.php
++++ b/src/Contracts/Claim.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Contracts;
+ 
+ interface Claim
+diff --git a/src/Contracts/JWTSubject.php b/src/Contracts/JWTSubject.php
+index 589425f87151c6d6cf3328361fd8e72f405eaec5..fbc50ba469fb34f60aa24717f04d0ec2b4d2740a 100644
+--- a/src/Contracts/JWTSubject.php
++++ b/src/Contracts/JWTSubject.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Contracts;
+ 
+ interface JWTSubject
+diff --git a/src/Contracts/Providers/Auth.php b/src/Contracts/Providers/Auth.php
+index 1b5bf04b573b57043f822ea123115ceb7a4f7ebe..eef077fffaec420b3513c5ae126322903fa3c0f9 100644
+--- a/src/Contracts/Providers/Auth.php
++++ b/src/Contracts/Providers/Auth.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Contracts\Providers;
+ 
+ interface Auth
+diff --git a/src/Contracts/Providers/JWT.php b/src/Contracts/Providers/JWT.php
+index e60207675b0002e1f2c5872410acb47991a234b8..43c644548a1e98f932b97e0a90c805b9d8a99f9d 100644
+--- a/src/Contracts/Providers/JWT.php
++++ b/src/Contracts/Providers/JWT.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Contracts\Providers;
+ 
+ interface JWT
+diff --git a/src/Contracts/Providers/Storage.php b/src/Contracts/Providers/Storage.php
+index 81bef70fa5c8b41290f74949381a81613929b0da..814e9d3b39c0c9a433fad7de78213ca488857b28 100644
+--- a/src/Contracts/Providers/Storage.php
++++ b/src/Contracts/Providers/Storage.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Contracts\Providers;
+ 
+ interface Storage
+diff --git a/src/Contracts/Validator.php b/src/Contracts/Validator.php
+index 4523767d3bab6c2dccfb804658579750accfb12a..3e5bc569e989e427a28760395c6cae5c0e93ac06 100644
+--- a/src/Contracts/Validator.php
++++ b/src/Contracts/Validator.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Contracts;
+ 
+ interface Validator
+diff --git a/src/Exceptions/InvalidClaimException.php b/src/Exceptions/InvalidClaimException.php
+index b954f19701b3b11f1a5affac501f88d047167fed..726a67be493aa0d339727befc089348a332f3732 100644
+--- a/src/Exceptions/InvalidClaimException.php
++++ b/src/Exceptions/InvalidClaimException.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Exceptions;
+ 
+ class InvalidClaimException extends JWTException
+diff --git a/src/Exceptions/JWTException.php b/src/Exceptions/JWTException.php
+index 6bc890ccf9fd7a8eeccb0763f9772e456852e84b..8d686243c4b61cda9dea547858d313e98ee47f18 100644
+--- a/src/Exceptions/JWTException.php
++++ b/src/Exceptions/JWTException.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Exceptions;
+ 
+ class JWTException extends \Exception
+diff --git a/src/Exceptions/PayloadException.php b/src/Exceptions/PayloadException.php
+index e3658e6345078a0caa5532a1547a045c314b01be..2bf1d9a37cbbe362a9b9b1cd53b588fdd33c237d 100644
+--- a/src/Exceptions/PayloadException.php
++++ b/src/Exceptions/PayloadException.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Exceptions;
+ 
+ class PayloadException extends JWTException
+diff --git a/src/Exceptions/TokenBlacklistedException.php b/src/Exceptions/TokenBlacklistedException.php
+index 4d87b8b5b879e6b031840d99057632703be9471d..ed958281fef8826c19c0d5ab1ee277e4b818cb67 100644
+--- a/src/Exceptions/TokenBlacklistedException.php
++++ b/src/Exceptions/TokenBlacklistedException.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Exceptions;
+ 
+ class TokenBlacklistedException extends TokenInvalidException
+diff --git a/src/Exceptions/TokenExpiredException.php b/src/Exceptions/TokenExpiredException.php
+index 2e5523c659d55e96ea585ccb37997a241282e3d3..37db19bec7127f5deaa55467797d58a460f33cfb 100644
+--- a/src/Exceptions/TokenExpiredException.php
++++ b/src/Exceptions/TokenExpiredException.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Exceptions;
+ 
+ class TokenExpiredException extends JWTException
+diff --git a/src/Exceptions/TokenInvalidException.php b/src/Exceptions/TokenInvalidException.php
+index 5844e3e6c175cfcc2d1199a23acbd16e2926ce88..59ad2a76119e900bf034b1c1ef945508878ded64 100644
+--- a/src/Exceptions/TokenInvalidException.php
++++ b/src/Exceptions/TokenInvalidException.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Exceptions;
+ 
+ class TokenInvalidException extends JWTException
+diff --git a/src/Facades/JWTAuth.php b/src/Facades/JWTAuth.php
+index 4304ef7c64fa4105024bfc80e959db7745ff55f5..8c6cde8ea6afb921bc78980996a5ec1f1309e2c4 100644
+--- a/src/Facades/JWTAuth.php
++++ b/src/Facades/JWTAuth.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Facades;
+ 
+ use Illuminate\Support\Facades\Facade;
+diff --git a/src/Facades/JWTFactory.php b/src/Facades/JWTFactory.php
+index 462571f58ce29994bcb890eea6031bb95e52ac57..06345c1ad63f69eb70b45e679663bdd25d256a3b 100644
+--- a/src/Facades/JWTFactory.php
++++ b/src/Facades/JWTFactory.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Facades;
+ 
+ use Illuminate\Support\Facades\Facade;
+diff --git a/src/Factory.php b/src/Factory.php
+index 2bb12a6e0cf1439ba6ef4fb331c2162f177b4d6e..5b7cd4e249ea05f4a872f4d53faeec87b9ef3984 100644
+--- a/src/Factory.php
++++ b/src/Factory.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth;
+ 
+ use Illuminate\Http\Request;
+diff --git a/src/Http/TokenParser.php b/src/Http/TokenParser.php
+index 4c3443508a15f1c92a147f745fd6f394755bd2b6..35b155a30c6e0cb7156a25d1567ea8682040dc4d 100644
+--- a/src/Http/TokenParser.php
++++ b/src/Http/TokenParser.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Http;
+ 
+ use Illuminate\Http\Request;
+diff --git a/src/JWTAuth.php b/src/JWTAuth.php
+index b5974f3d67f2eea6d45103fe9abafcc8204c7b4f..ba78a88f4d8e79bd237a3483fb7677db717dbf15 100644
+--- a/src/JWTAuth.php
++++ b/src/JWTAuth.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth;
+ 
+ use Illuminate\Http\Request;
+diff --git a/src/Manager.php b/src/Manager.php
+index 142b1d65e2235b4b0b419f7b70b674b030c53403..cfdd670a9e423a884fbc1d8f50b18ad7ad9d0ced 100644
+--- a/src/Manager.php
++++ b/src/Manager.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth;
+ 
+ use Tymon\JWTAuth\Support\RefreshFlow;
+diff --git a/src/Middleware/BaseMiddleware.php b/src/Middleware/BaseMiddleware.php
+index b859029f7927924f8c7588a8299d056c2348956a..a5fd882e1caa63f6e8cfd188addd8eba3facfab7 100644
+--- a/src/Middleware/BaseMiddleware.php
++++ b/src/Middleware/BaseMiddleware.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Middleware;
+ 
+ use Tymon\JWTAuth\JWTAuth;
+diff --git a/src/Middleware/GetUserFromToken.php b/src/Middleware/GetUserFromToken.php
+index f5666c9c764bad607adf30ba200b390ce0d5cd60..947f22953dba63a22f7e5f9aca6652542c60ee5b 100644
+--- a/src/Middleware/GetUserFromToken.php
++++ b/src/Middleware/GetUserFromToken.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Middleware;
+ 
+ use Tymon\JWTAuth\Exceptions\JWTException;
+diff --git a/src/Middleware/JWTCheck.php b/src/Middleware/JWTCheck.php
+index fa2e1a5ba5b7a89a9b64b57c04d13ddd887f4c20..287407cd124f515b5d80051b5d5b74d946b04a27 100644
+--- a/src/Middleware/JWTCheck.php
++++ b/src/Middleware/JWTCheck.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Middleware;
+ 
+ class JWTCheck extends BaseMiddleware
+diff --git a/src/Middleware/RefreshToken.php b/src/Middleware/RefreshToken.php
+index 8c1fc8f35c1cd49325da2ee10918f9a27b9fbe97..40653e4167c898530df90ccc59eb761ae00ce1c4 100644
+--- a/src/Middleware/RefreshToken.php
++++ b/src/Middleware/RefreshToken.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Middleware;
+ 
+ use Tymon\JWTAuth\Exceptions\JWTException;
+diff --git a/src/Payload.php b/src/Payload.php
+index 53b92904de7da717e8d6f84f8a2980594d6499e3..cc68e5de454bec223b6d520fcab06a17749819e4 100644
+--- a/src/Payload.php
++++ b/src/Payload.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth;
+ 
+ use ArrayAccess;
+diff --git a/src/Providers/Auth/Illuminate.php b/src/Providers/Auth/Illuminate.php
+index 110a228870d09e7f7837a4ce1a31bc316633c9ea..6832dbaa081b2379d7d348da139b6d1d19aa671b 100644
+--- a/src/Providers/Auth/Illuminate.php
++++ b/src/Providers/Auth/Illuminate.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers\Auth;
+ 
+ use Exception;
+diff --git a/src/Providers/Auth/Sentinel.php b/src/Providers/Auth/Sentinel.php
+index f8ce7eb63849ebb8571cdb94d5bd028644196b98..f8cc1fa9834c58fd96bc4ac0d2b521025dec65c3 100644
+--- a/src/Providers/Auth/Sentinel.php
++++ b/src/Providers/Auth/Sentinel.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers\Auth;
+ 
+ use Tymon\JWTAuth\Contracts\Providers\Auth;
+diff --git a/src/Providers/JWT/Namshi.php b/src/Providers/JWT/Namshi.php
+index 2ed0843c63d6fea98d7fa4a2293c70b227736a53..790d19e6e3bfda61de006df1eed0d544b76f91e6 100644
+--- a/src/Providers/JWT/Namshi.php
++++ b/src/Providers/JWT/Namshi.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers\JWT;
+ 
+ use Exception;
+diff --git a/src/Providers/JWT/Provider.php b/src/Providers/JWT/Provider.php
+index 39bf0015f0330796d89891adb0cab59c5c2159d1..7c9b0fc402fb3aa5c38c0ad7f3cb70d850dd8b9d 100644
+--- a/src/Providers/JWT/Provider.php
++++ b/src/Providers/JWT/Provider.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers\JWT;
+ 
+ abstract class Provider
+diff --git a/src/Providers/LaravelServiceProvider.php b/src/Providers/LaravelServiceProvider.php
+index 8956b3527d23c5a03addf27c32a2f72ca782ffc2..c714534db18dbd3f7467553ab96501f7e4f13508 100644
+--- a/src/Providers/LaravelServiceProvider.php
++++ b/src/Providers/LaravelServiceProvider.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers;
+ 
+ class LaravelServiceProvider extends LumenServiceProvider
+diff --git a/src/Providers/LumenServiceProvider.php b/src/Providers/LumenServiceProvider.php
+index a806889fd7b86e175b22b1d1e1003236fbaffabb..a99a6367c5c3088c3a93b20b95239bf8e3c77078 100644
+--- a/src/Providers/LumenServiceProvider.php
++++ b/src/Providers/LumenServiceProvider.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers;
+ 
+ use Illuminate\Support\ServiceProvider;
+diff --git a/src/Providers/Storage/Illuminate.php b/src/Providers/Storage/Illuminate.php
+index a9f629b0ddaf34bb85935576f312d0d5ea5823d1..97727b20e40165cc5170cf3f82bedb8d1efe78f9 100644
+--- a/src/Providers/Storage/Illuminate.php
++++ b/src/Providers/Storage/Illuminate.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Providers\Storage;
+ 
+ use Illuminate\Cache\CacheManager;
+diff --git a/src/Support/CustomClaims.php b/src/Support/CustomClaims.php
+index 4ba44bcf64d9b23af1772065cfbd695e4d73fd3e..15fd52030eff6c0fc52ff492ac861a430a970f9b 100644
+--- a/src/Support/CustomClaims.php
++++ b/src/Support/CustomClaims.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Support;
+ 
+ trait CustomClaims
+diff --git a/src/Support/RefreshFlow.php b/src/Support/RefreshFlow.php
+index bc31a3704e2b8161441787c4ff2c5bd96f8068fb..2b3ad5dcd6db11c80cc2649348a0324566edb0bc 100644
+--- a/src/Support/RefreshFlow.php
++++ b/src/Support/RefreshFlow.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Support;
+ 
+ trait RefreshFlow
+diff --git a/src/Support/Utils.php b/src/Support/Utils.php
+index b3065032060a3b745a3b0f0d6cf9646e8f89bc81..2802368c79a71747ed6d01478e346ec8a11931b7 100644
+--- a/src/Support/Utils.php
++++ b/src/Support/Utils.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Support;
+ 
+ use Carbon\Carbon;
+diff --git a/src/Token.php b/src/Token.php
+index 68c361c9c518323ee8dd4840e67e72e50f2b3e82..c91c11c421523d2b529ef01294a265276ed400c2 100644
+--- a/src/Token.php
++++ b/src/Token.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth;
+ 
+ use Tymon\JWTAuth\Validators\TokenValidator;
+diff --git a/src/Validators/PayloadValidator.php b/src/Validators/PayloadValidator.php
+index bc8c4e2bf26ab08099a475576e5121e919991d3e..103c624ec56ba2ac0519f5a0172ed2f1a64a40d2 100644
+--- a/src/Validators/PayloadValidator.php
++++ b/src/Validators/PayloadValidator.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Validators;
+ 
+ use Tymon\JWTAuth\Support\Utils;
+diff --git a/src/Validators/TokenValidator.php b/src/Validators/TokenValidator.php
+index 41fa919aff1eb0aba4dfed27be3fffc7dc38dbb0..55f2e7b686658d12831231e41584e67d447bdbb8 100644
+--- a/src/Validators/TokenValidator.php
++++ b/src/Validators/TokenValidator.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Validators;
+ 
+ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+diff --git a/src/Validators/Validator.php b/src/Validators/Validator.php
+index 88027a9024fb62831cead86c2a65f541fc0e5cc2..fc5b27dafb837d1620a0253c1e1faa806c320083 100644
+--- a/src/Validators/Validator.php
++++ b/src/Validators/Validator.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Validators;
+ 
+ use Tymon\JWTAuth\Support\RefreshFlow;
+diff --git a/tests/BlacklistTest.php b/tests/BlacklistTest.php
+index 330ddd9c3de4ee7a0f45b1b723e2baa83eaef6bc..8c5d36a114e480b32a07bea3cf137aa7d92993c1 100644
+--- a/tests/BlacklistTest.php
++++ b/tests/BlacklistTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test;
+ 
+ use Mockery;
+diff --git a/tests/Claims/ClaimTest.php b/tests/Claims/ClaimTest.php
+index 449b97d48c20e88e844a5d0b527fab4c0eb6498c..dfa741d7de7893a0d8f5ccd1a5bb10e497b61ad0 100644
+--- a/tests/Claims/ClaimTest.php
++++ b/tests/Claims/ClaimTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Validators;
+ 
+ use Mockery;
+diff --git a/tests/Claims/FactoryTest.php b/tests/Claims/FactoryTest.php
+index 3dc2be4aec4e0b0766b01373a3f5617b50fb8c6d..3f8f48b3ac5105bb28d6a1d4c8610a5d82f95f1e 100644
+--- a/tests/Claims/FactoryTest.php
++++ b/tests/Claims/FactoryTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Validators;
+ 
+ use Mockery;
+diff --git a/tests/Commands/JWTGenerateCommandTest.php b/tests/Commands/JWTGenerateCommandTest.php
+index 5230f4e37b21b500abc94270ca800256103e7039..4346deaff7f154ea443a51e975796564727236ba 100644
+--- a/tests/Commands/JWTGenerateCommandTest.php
++++ b/tests/Commands/JWTGenerateCommandTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Commands;
+ 
+ use Mockery;
+diff --git a/tests/FactoryTest.php b/tests/FactoryTest.php
+index eb048191ca61c11805f50361fddc2a7208a49667..4251cb8bb3205ec1b498b583f778246aaaec6356 100644
+--- a/tests/FactoryTest.php
++++ b/tests/FactoryTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test;
+ 
+ use Mockery;
+diff --git a/tests/Http/TokenParserTest.php b/tests/Http/TokenParserTest.php
+index 00fb1a9cded01827a0c40f4a35acf731da7cf376..8c68e364a21aa0e98d7cf87e35a3a7654ee4353f 100644
+--- a/tests/Http/TokenParserTest.php
++++ b/tests/Http/TokenParserTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Http;
+ 
+ use Illuminate\Http\Request;
+diff --git a/tests/JWTAuthTest.php b/tests/JWTAuthTest.php
+index 6ddfc7bf0e30fe2318d709cc224486d04318346e..01493c4580ebd239fccc39405bd220252e3e6d35 100644
+--- a/tests/JWTAuthTest.php
++++ b/tests/JWTAuthTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test;
+ 
+ use Mockery;
+diff --git a/tests/ManagerTest.php b/tests/ManagerTest.php
+index 2a088ff8e65bf8cf0676196d43354aa4f8197265..f01a9a51b9400c9a7a9f82507571e795d9047840 100644
+--- a/tests/ManagerTest.php
++++ b/tests/ManagerTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test;
+ 
+ use Mockery;
+diff --git a/tests/Middleware/GetUserFromTokenTest.php b/tests/Middleware/GetUserFromTokenTest.php
+index f8bbf6dc9904d9d22b218f2dacff8954e1e2f346..3e604206a1f70897911821569eab5cfd5484d0b5 100644
+--- a/tests/Middleware/GetUserFromTokenTest.php
++++ b/tests/Middleware/GetUserFromTokenTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Middleware;
+ 
+ use Mockery;
+diff --git a/tests/PayloadTest.php b/tests/PayloadTest.php
+index dae662bc2a92d5cc2c8c8c9b0a3726b64796889c..db844d1f64904d6be808ef9e2a62b770c2a58d5c 100644
+--- a/tests/PayloadTest.php
++++ b/tests/PayloadTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test;
+ 
+ use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
+diff --git a/tests/Providers/Auth/IlluminateTest.php b/tests/Providers/Auth/IlluminateTest.php
+index b04e700408788c4bce75dc8846867794b8500897..70a0535e247d989baa6866d46a8c89e39fad38e3 100644
+--- a/tests/Providers/Auth/IlluminateTest.php
++++ b/tests/Providers/Auth/IlluminateTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Providers\Auth;
+ 
+ use Mockery;
+diff --git a/tests/Providers/Auth/SentinelTest.php b/tests/Providers/Auth/SentinelTest.php
+index 0622f25fba0743f7d547f5fb14885d1e649c3842..644a8f987e6c4912bb290ab81645fe56f16676ce 100644
+--- a/tests/Providers/Auth/SentinelTest.php
++++ b/tests/Providers/Auth/SentinelTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Providers\Auth;
+ 
+ use Mockery;
+diff --git a/tests/Providers/JWT/NamshiTest.php b/tests/Providers/JWT/NamshiTest.php
+index 7374648cde150b6495121fe5fd7d694c64d7e3b2..4e254d3f0a06fe12c087e816037ca678298efdf7 100644
+--- a/tests/Providers/JWT/NamshiTest.php
++++ b/tests/Providers/JWT/NamshiTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Providers\JWT;
+ 
+ use Mockery;
+diff --git a/tests/Providers/JWT/ProviderTest.php b/tests/Providers/JWT/ProviderTest.php
+index 64c1e9ffcd47990908a56e69564c6af4440dccda..893eb70f16f75ddd3897135d5a2e0909e267e563 100644
+--- a/tests/Providers/JWT/ProviderTest.php
++++ b/tests/Providers/JWT/ProviderTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Providers\JWT;
+ 
+ use Mockery;
+diff --git a/tests/Providers/Storage/IlluminateTest.php b/tests/Providers/Storage/IlluminateTest.php
+index e764cb654121434208c167a7b831e49c0c2b9fd0..f6c97985e1351af3311c32c463530529e2b1ba1e 100644
+--- a/tests/Providers/Storage/IlluminateTest.php
++++ b/tests/Providers/Storage/IlluminateTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Providers\Storage;
+ 
+ use Mockery;
+diff --git a/tests/Stubs/JWTProviderStub.php b/tests/Stubs/JWTProviderStub.php
+index ad6d5c5d2e52728dab18d800f2511c7e65d43a39..56fc36d33f35000aa54d8007cb9295ec152b80ba 100644
+--- a/tests/Stubs/JWTProviderStub.php
++++ b/tests/Stubs/JWTProviderStub.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Stubs;
+ 
+ use Tymon\JWTAuth\Providers\JWT\Provider;
+diff --git a/tests/Stubs/SentinelStub.php b/tests/Stubs/SentinelStub.php
+index 446635f8a6dd5548802b3784ec4621ac4f3492eb..863310c092479863ecf8cc90bc661daa4f726d2f 100644
+--- a/tests/Stubs/SentinelStub.php
++++ b/tests/Stubs/SentinelStub.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Stubs;
+ 
+ use Cartalyst\Sentinel\Users\UserInterface;
+diff --git a/tests/Stubs/UserStub.php b/tests/Stubs/UserStub.php
+index 5ebfde1c59a71e7722f35b44ad415ab58018272c..f19db7ceb046d6b8bfdf9bc4b968fdbdb362b61f 100644
+--- a/tests/Stubs/UserStub.php
++++ b/tests/Stubs/UserStub.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Stubs;
+ 
+ use Tymon\JWTAuth\Contracts\JWTSubject;
+diff --git a/tests/TokenTest.php b/tests/TokenTest.php
+index 4b9e93ee7895619c4d8123faa085c826dec34ac7..1311f2215deb8432b32947b1abdfab8ae1fe7051 100644
+--- a/tests/TokenTest.php
++++ b/tests/TokenTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test;
+ 
+ use Tymon\JWTAuth\Token;
+diff --git a/tests/Validators/PayloadValidatorTest.php b/tests/Validators/PayloadValidatorTest.php
+index 0b5ef23a0d5a4ae779719052384e38345fc1ff6f..cf7d1a1da848437b24fc0f8f414ea269f59b8f69 100644
+--- a/tests/Validators/PayloadValidatorTest.php
++++ b/tests/Validators/PayloadValidatorTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Validators;
+ 
+ use Mockery;
+diff --git a/tests/Validators/TokenValidatorTest.php b/tests/Validators/TokenValidatorTest.php
+index 1fe45a7ff5acf4c341cc5fc052ccaf5b577283b8..8ef75bcd5cf3a55627e6f96bea0f8d88ca2859af 100644
+--- a/tests/Validators/TokenValidatorTest.php
++++ b/tests/Validators/TokenValidatorTest.php
+@@ -1,5 +1,14 @@
+ <?php
+ 
++/*
++ * This file is part of jwt-auth
++ *
++ * (c) Sean Tymon <tymon148@gmail.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
+ namespace Tymon\JWTAuth\Test\Validators;
+ 
+ use Tymon\JWTAuth\Validators\TokenValidator;
