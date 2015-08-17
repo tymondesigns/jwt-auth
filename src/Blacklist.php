@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth;
 
 use Carbon\Carbon;
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Tymon\JWTAuth\Support\Utils;
 
 class Blacklist
 {
@@ -47,12 +47,6 @@ class Blacklist
     public function add(Payload $payload)
     {
         $exp = Utils::timestamp($payload['exp']);
-
-        // there is no need to add the token to the blacklist
-        // if it has already expired
-        if ($exp->isPast()) {
-            return false;
-        }
 
         // add a minute to abate potential overlap
         $minutes = $exp->diffInMinutes(Utils::now()->subMinute());
