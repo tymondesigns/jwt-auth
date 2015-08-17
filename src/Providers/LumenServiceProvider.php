@@ -147,7 +147,8 @@ class LumenServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt.blacklist', function ($app) {
             $instance = new Blacklist($app['tymon.jwt.provider.storage']);
 
-            return $instance->setGracePeriod($this->config('blacklist_grace_period'));
+            return $instance->setGracePeriod($this->config('blacklist_grace_period'))
+                            ->setRefreshTTL($this->config('refresh_ttl'));
         });
     }
 

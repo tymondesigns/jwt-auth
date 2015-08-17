@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth;
 
 use Carbon\Carbon;
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Tymon\JWTAuth\Support\Utils;
 
 class Blacklist
 {
@@ -28,6 +28,13 @@ class Blacklist
      * @var integer
      */
     protected $gracePeriod = 0;
+
+    /**
+     * Number of minutes from issue date in which a JWT can be refreshed.
+     *
+     * @var integer
+     */
+    protected $refreshTTL = 20160;
 
     /**
      * @param \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
@@ -47,17 +54,13 @@ class Blacklist
     public function add(Payload $payload)
     {
         $exp = Utils::timestamp($payload['exp']);
+        $refreshExp = Utils::timestamp($payload['iat'])->addMinute($this->refreshTTL);
+        $lastExp = $exp->max($refreshExp); // the later of the two expiration dates
 
-        // there is no need to add the token to the blacklist
-        // if it has already expired
-        if ($exp->isPast()) {
-            return false;
-        }
+        // find the number of minutes until the expiration date, plus 1 minute to avoid overlap
+        $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
 
-        // add a minute to abate potential overlap
-        $minutes = $exp->diffInMinutes(Utils::now()->subMinute());
-
-        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp($exp)], $minutes);
+        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp(Utils::now())], $minutes);
 
         return true;
     }
@@ -128,6 +131,20 @@ class Blacklist
     public function setGracePeriod($gracePeriod)
     {
         $this->gracePeriod = (int) $gracePeriod;
+
+        return $this;
+    }
+
+    /**
+     * Set the refresh time limit
+     *
+     * @param  integer
+     *
+     * @return Blacklist
+     */
+    public function setRefreshTTL($ttl)
+    {
+        $this->refreshTTL = $ttl;
 
         return $this;
     }
