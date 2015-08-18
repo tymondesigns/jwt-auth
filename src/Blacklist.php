@@ -55,12 +55,12 @@ class Blacklist
     {
         $exp = Utils::timestamp($payload['exp']);
         $refreshExp = Utils::timestamp($payload['iat'])->addMinute($this->refreshTTL);
-        $latestExp = $exp->max($refreshExp); // the later of the two expiration dates
+        $lastExp = $exp->max($refreshExp); // the later of the two expiration dates
 
         // find the number of minutes until the expiration date, plus 1 minute to avoid overlap
-        $minutes = $laterExp->diffInMinutes(Utils::now()->subMinute());
+        $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
 
-        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp($latestExp)], $minutes);
+        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp()], $minutes);
 
         return true;
     }
