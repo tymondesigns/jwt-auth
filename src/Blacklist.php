@@ -54,9 +54,12 @@ class Blacklist
     public function add(Payload $payload)
     {
         $exp = Utils::timestamp($payload['exp']);
+        $refreshExp = Utils::timestamp($payload['iat'])->addMinute($this->refreshTTL);
 
         // add a minute to abate potential overlap
-        $minutes = $exp->diffInMinutes(Utils::now()->subMinute());
+        $minutesUntilExp = $exp->diffInMinutes(Utils::now()->subMinute());
+        $minutesUntilNoRefresh = $refreshExp->diffInMinutes(Utils::now()->subMinute());
+        $minutes = max($minutesUntilExp, $minutesUntilNoRefresh);
 
         $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp($exp)], $minutes);
 
