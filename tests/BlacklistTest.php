@@ -58,7 +58,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_return_false_when_adding_an_expired_token_to_the_blacklist()
+    public function it_should_return_true_when_adding_an_expired_token_to_the_blacklist()
     {
         $claims = [
             'sub' => new Subject(1),
@@ -70,8 +70,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
 
-        $this->storage->shouldReceive('add')->never();
-        $this->assertFalse($this->blacklist->add($payload));
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => -3477], 59)->once();
+        $this->assertTrue($this->blacklist->add($payload));
     }
 
     /** @test */
