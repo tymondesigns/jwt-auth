@@ -74,10 +74,10 @@ class Blacklist
      */
     public function has(Payload $payload)
     {
-        $id = $this->storage->get($payload['jti']);
+        $grace = $this->storage->get($payload['jti']);
 
         // check whether the expiry + grace has past
-        if (is_null($id) || Utils::timestamp($grace['valid_until'])->isFuture()) {
+        if (is_null($grace) || Utils::timestamp($grace['valid_until'])->isFuture()) {
             return false;
         }
 

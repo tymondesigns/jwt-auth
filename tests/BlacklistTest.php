@@ -57,7 +57,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 3723], 20161)->once();
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 123], 20161)->once();
         $this->blacklist->add($payload);
     }
 
@@ -74,7 +74,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
 
-        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => -3477], 20161)->once();
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 123], 20161)->once();
         $this->assertTrue($this->blacklist->add($payload));
     }
 
@@ -92,7 +92,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $payload = new Payload(Collection::make($claims), $this->validator);
 
         $this->storage->shouldReceive('has')->with('foobar')->once()->andReturn(true);
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => 3723 + 0]);
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => 123]);
 
         $this->assertTrue($this->blacklist->has($payload));
     }
