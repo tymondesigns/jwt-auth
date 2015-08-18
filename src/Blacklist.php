@@ -30,6 +30,13 @@ class Blacklist
     protected $gracePeriod = 0;
 
     /**
+     * Number of minutes from issue date in which a JWT can be refreshed.
+     *
+     * @var integer
+     */
+    protected $refreshTTL = 20160;
+
+    /**
      * @param \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
      */
     public function __construct(Storage $storage)
@@ -122,6 +129,20 @@ class Blacklist
     public function setGracePeriod($gracePeriod)
     {
         $this->gracePeriod = (int) $gracePeriod;
+
+        return $this;
+    }
+
+    /**
+     * Set the refresh time limit
+     *
+     * @param  integer
+     *
+     * @return Blacklist
+     */
+    public function setRefreshTTL($gracePeriod)
+    {
+        $this->refreshTTL = $ttl;
 
         return $this;
     }
