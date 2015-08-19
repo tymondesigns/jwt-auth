@@ -142,7 +142,7 @@ class Blacklist
      *
      * @return Blacklist
      */
-    public function setRefreshTTL($gracePeriod)
+    public function setRefreshTTL($ttl)
     {
         $this->refreshTTL = $ttl;
 
