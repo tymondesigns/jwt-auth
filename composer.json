@@ -22,7 +22,7 @@
         "php": ">=5.5.0",
         "illuminate/support": "5.1.*",
         "illuminate/http": "5.1.*",
-        "namshi/jose": "5.0.*",
+        "namshi/jose": "6.0.*",
         "nesbot/carbon": "~1.0"
     },
     "require-dev": {
