@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Carbon\Carbon;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -28,6 +29,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
+
         $this->storage = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Storage');
         $this->blacklist = new Blacklist($this->storage);
 
@@ -37,6 +40,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
+        Carbon::setTestNow();
         Mockery::close();
     }
 
@@ -53,12 +57,12 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('add')->with('foo', [], 61);
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 123], 20161)->once();
         $this->blacklist->add($payload);
     }
 
     /** @test */
-    public function it_should_return_false_when_adding_an_expired_token_to_the_blacklist()
+    public function it_should_return_true_when_adding_an_expired_token_to_the_blacklist()
     {
         $claims = [
             'sub' => new Subject(1),
@@ -70,8 +74,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
 
-        $this->storage->shouldReceive('add')->never();
-        $this->assertFalse($this->blacklist->add($payload));
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 123], 20161)->once();
+        $this->assertTrue($this->blacklist->add($payload));
     }
 
     /** @test */
@@ -87,8 +91,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('has')->with('foobar')->andReturn(true);
-        $this->storage->shouldReceive('get')->with('foobar')->andReturn(['valid_until' => 3723 + 0]);
+        $this->storage->shouldReceive('has')->with('foobar')->andReturn(true); // currently unused
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => 123]);
 
         $this->assertTrue($this->blacklist->has($payload));
     }
