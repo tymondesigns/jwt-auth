@@ -25,6 +25,7 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
         $parser = new TokenParser($request);
 
         $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
     }
 
     /** @test */
@@ -38,9 +39,11 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
 
         $parser = new TokenParser($request1);
         $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
 
         $parser->setRequest($request2);
         $this->assertEquals($parser->parseToken(), 'foobarbaz');
+        $this->assertTrue($parser->hasToken());
     }
 
     /** @test */
@@ -51,6 +54,7 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
         $parser = new TokenParser($request);
 
         $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
     }
 
     /** @test */

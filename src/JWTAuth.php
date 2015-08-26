@@ -135,9 +135,8 @@ class JWTAuth
     }
 
     /**
-     * Alias to get the payload
-     * And as a result checks that the token is valid
-     * i.e. not expired or blacklisted
+     * Alias to get the payload, and as a result checks that
+     * the token is valid i.e. not expired or blacklisted
      *
      * @throws JWTException
      *
