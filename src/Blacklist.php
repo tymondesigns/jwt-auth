@@ -54,13 +54,15 @@ class Blacklist
     public function add(Payload $payload)
     {
         $exp = Utils::timestamp($payload['exp']);
-        $refreshExp = Utils::timestamp($payload['iat'])->addMinute($this->refreshTTL);
-        $lastExp = $exp->max($refreshExp); // the later of the two expiration dates
+        $refreshExp = Utils::timestamp($payload['iat'])->addMinutes($this->refreshTTL);
+
+        // get the later of the two expiration dates
+        $lastExp = $exp->max($refreshExp);
 
         // find the number of minutes until the expiration date, plus 1 minute to avoid overlap
         $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
 
-        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp(Utils::now())], $minutes);
+        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp()], $minutes);
 
         return true;
     }
@@ -112,13 +114,11 @@ class Blacklist
      * Get the timestamp when the blacklist comes into effect
      * This defaults to immediate (0 seconds)
      *
-     * @param \Carbon\Carbon $exp
-     *
      * @return integer
      */
-    protected function getGraceTimestamp(Carbon $exp)
+    protected function getGraceTimestamp()
     {
-        return (int) $exp->addSeconds($this->gracePeriod)->format('U');
+        return (int) Utils::now()->addSeconds($this->gracePeriod)->format('U');
     }
 
     /**
