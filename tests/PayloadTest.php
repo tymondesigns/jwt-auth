@@ -119,6 +119,22 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_invoke_the_instance_as_a_callable()
+    {
+        $payload = $this->payload;
+
+        $sub = $payload('sub');
+        $jti = $payload('jti');
+        $iss = $payload('iss');
+
+        $this->assertEquals($sub, 1);
+        $this->assertEquals($jti, 'foo');
+        $this->assertEquals($iss, 'http://example.com');
+
+        $this->assertEquals($payload(), $this->payload->toArray());
+    }
+
+    /** @test */
     public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
     {
         $this->setExpectedException('\BadMethodCallException');

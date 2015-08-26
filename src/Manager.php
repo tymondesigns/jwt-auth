@@ -109,7 +109,10 @@ class Manager
         }
 
         // persist the subject and issued at claims
-        $claims = array_merge($this->customClaims, ['sub' => $payload['sub'], 'iat' => $payload['iat']]);
+        $claims = array_merge(
+            $this->customClaims,
+            ['sub' => $payload['sub'], 'iat' => $payload['iat']]
+        );
 
         // return the new token
         return $this->encode(

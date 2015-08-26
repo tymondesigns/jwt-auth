@@ -191,6 +191,18 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
+     * Invoke the Payload as a callable function
+     *
+     * @param   mixed  $claim
+     *
+     * @return  mixed
+     */
+    public function __invoke($claim = null)
+    {
+        return $this->get($claim);
+    }
+
+    /**
      * Magically get a claim value
      *
      * @param  string  $method
@@ -202,7 +214,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function __call($method, $parameters)
     {
-        if (! method_exists($this, $method) && starts_with($method, 'get')) {
+        if (starts_with($method, 'get')) {
             $class = sprintf('Tymon\\JWTAuth\\Claims\\%s', substr($method, 3));
 
             foreach ($this->claims as $claim) {

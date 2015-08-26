@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth;
 
 use Carbon\Carbon;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Support\Utils;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Blacklist
 {
@@ -144,7 +144,7 @@ class Blacklist
      */
     public function setRefreshTTL($ttl)
     {
-        $this->refreshTTL = $ttl;
+        $this->refreshTTL = (int) $ttl;
 
         return $this;
     }
