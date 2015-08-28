@@ -83,9 +83,14 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerAuthProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.auth', function ($app) {
-            return $this->getConfigInstance('providers.auth');
-        });
+        $this->app->singleton(
+            'tymon.jwt.provider.auth',
+            function ($app) {
+                $provider = $this->config('providers.auth');
+
+                return $app->make($provider, [new AuthManager($app)]);
+            }
+        );
     }
 
     /**
@@ -93,9 +98,14 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerStorageProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.storage', function ($app) {
-            return $this->getConfigInstance('providers.storage');
-        });
+        $this->app->singleton(
+            'tymon.jwt.provider.storage',
+            function ($app) {
+                $provider = $this->config('providers.storage');
+
+                return $app->make($provider, [new CacheManager($app)]);
+            }
+        );
     }
 
     /**
