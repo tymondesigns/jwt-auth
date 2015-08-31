@@ -231,9 +231,9 @@ class JWTAuth
     protected function getClaimsArray(JWTSubject $user)
     {
         return array_merge(
+            ['sub' => $user->getJWTIdentifier()],
             $this->customClaims,
-            $user->getJWTCustomClaims(),
-            ['sub' => $user->getJWTIdentifier()]
+            $user->getJWTCustomClaims()
         );
     }
 
