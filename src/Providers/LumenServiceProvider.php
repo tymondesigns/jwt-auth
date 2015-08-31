@@ -83,7 +83,7 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerAuthProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.auth', function ($app) {
+        $this->app->singleton('tymon.jwt.provider.auth', function () {
             return $this->getConfigInstance('providers.auth');
         });
     }
@@ -93,7 +93,7 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerStorageProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.storage', function ($app) {
+        $this->app->singleton('tymon.jwt.provider.storage', function () {
             return $this->getConfigInstance('providers.storage');
         });
     }
@@ -157,7 +157,7 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerPayloadValidator()
     {
-        $this->app->singleton('tymon.jwt.validators.payload', function ($app) {
+        $this->app->singleton('tymon.jwt.validators.payload', function () {
             return (new PayloadValidator)
                 ->setRefreshTTL($this->config('refresh_ttl'))
                 ->setRequiredClaims($this->config('required_claims'));
@@ -185,7 +185,7 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerJWTCommand()
     {
-        $this->app->singleton('tymon.jwt.generate', function ($app) {
+        $this->app->singleton('tymon.jwt.generate', function () {
             return new JWTGenerateCommand();
         });
     }
@@ -194,7 +194,8 @@ class LumenServiceProvider extends ServiceProvider
      * Helper to get the config values
      *
      * @param  string $key
-     * @return string
+     *
+     * @return mixed
      */
     protected function config($key, $default = null)
     {
@@ -205,6 +206,7 @@ class LumenServiceProvider extends ServiceProvider
      * Get an instantiable configuration instance. Pinched from dingo/api :)
      *
      * @param  string  $key
+     *
      * @return object
      */
     protected function getConfigInstance($key)
