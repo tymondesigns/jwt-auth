@@ -191,7 +191,7 @@ class JWTAuth
     public function parseToken()
     {
         if (! $token = $this->parser->parseToken()) {
-            throw new JWTException('The token could not be parsed from the request', 400);
+            throw new JWTException('The token could not be parsed from the request');
         }
 
         return $this->setToken($token);
@@ -269,7 +269,7 @@ class JWTAuth
     protected function requireToken()
     {
         if (! $this->token) {
-            throw new JWTException('A token is required', 400);
+            throw new JWTException('A token is required');
         }
     }
 

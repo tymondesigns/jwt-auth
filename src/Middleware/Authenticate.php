@@ -32,7 +32,7 @@ class Authenticate extends BaseMiddleware
         }
 
         try {
-            $this->auth->authenticate();
+            $this->auth->parseToken()->authenticate();
         } catch (JWTException $e) {
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage());
         }

@@ -41,7 +41,37 @@ class AuthenticateTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('parser')->andReturn($parser);
 
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
-        $this->auth->shouldReceive('authenticate')->once()->andReturn(new UserStub);
+        $this->auth->shouldReceive('parseToken->authenticate')->once()->andReturn(new UserStub);
+
+        $this->middleware->handle($this->request, function () {});
+    }
+
+    /** @test */
+    public function it_should_throw_a_bad_request_exception_if_token_not_provided()
+    {
+        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
+
+        $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
+        $parser->shouldReceive('hasToken')->once()->andReturn(false);
+
+        $this->auth->shouldReceive('parser')->andReturn($parser);
+        $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+
+        $this->middleware->handle($this->request, function () {});
+    }
+
+    /** @test */
+    public function it_should_throw_an_unauthorized_exception_if_token_invalid()
+    {
+        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
+
+        $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
+        $parser->shouldReceive('hasToken')->once()->andReturn(true);
+
+        $this->auth->shouldReceive('parser')->andReturn($parser);
+
+        $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+        $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException);
 
         $this->middleware->handle($this->request, function () {});
     }
