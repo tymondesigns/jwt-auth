@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Middleware;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Authenticate extends BaseMiddleware
@@ -27,9 +26,7 @@ class Authenticate extends BaseMiddleware
      */
     public function handle($request, \Closure $next)
     {
-        if (! $this->auth->parser()->setRequest($request)->hasToken()) {
-            throw new BadRequestHttpException('Token not provided');
-        }
+        $this->checkForToken($request);
 
         try {
             $this->auth->parseToken()->authenticate();
