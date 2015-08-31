@@ -118,7 +118,7 @@ class Factory
     protected function buildClaims()
     {
         // add any custom claims first
-        $this->addClaims(array_diff_key($this->customClaims, $this->defaultClaims));
+        $this->addClaims($this->customClaims);
 
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
