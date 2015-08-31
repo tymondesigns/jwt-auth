@@ -207,7 +207,7 @@ class LumenServiceProvider extends ServiceProvider
      *
      * @param  string  $key
      *
-     * @return object
+     * @return mixed
      */
     protected function getConfigInstance($key)
     {
