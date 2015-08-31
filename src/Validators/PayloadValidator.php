@@ -89,7 +89,7 @@ class PayloadValidator extends Validator
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
         }
 
-        if (Utils::timestamp($payload['exp'])->isPast()) {
+        if (isset($payload['exp']) && Utils::timestamp($payload['exp'])->isPast()) {
             throw new TokenExpiredException('Token has expired');
         }
 
