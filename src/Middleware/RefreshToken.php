@@ -12,7 +12,7 @@
 namespace Tymon\JWTAuth\Middleware;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class RefreshToken extends BaseMiddleware
 {
@@ -37,7 +37,7 @@ class RefreshToken extends BaseMiddleware
         }
 
         // send the refreshed token back to the client
-        $response->headers->set('Authorization', 'Bearer ' . $newToken);
+        $response->headers->set('Authorization', 'Bearer ' . $token);
 
         return $response;
     }
