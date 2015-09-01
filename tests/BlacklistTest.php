@@ -97,6 +97,24 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_check_whether_a_token_has_been_blacklisted_when_the_token_is_not_blacklisted()
+    {
+        $claims = [
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(123 + 3600),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foobar')
+        ];
+        $payload = new Payload(Collection::make($claims), $this->validator);
+
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(null);
+
+        $this->assertFalse($this->blacklist->has($payload));
+    }
+
+    /** @test */
     public function it_should_remove_a_token_from_the_blacklist()
     {
         $claims = [
