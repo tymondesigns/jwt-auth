@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="JWTAuth Test Suite">
+        <testsuite name="jwt-auth Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -20,8 +20,8 @@
             <exclude>
                 <file>src/Providers/LaravelServiceProvider.php</file>
                 <file>src/Providers/LumenServiceProvider.php</file>
-                <directory suffix=".php">src/config/</directory>
                 <directory suffix=".php">src/Facades/</directory>
+                <directory suffix=".php">src/Commands/</directory>
             </exclude>
         </whitelist>
     </filter>
