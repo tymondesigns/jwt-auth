@@ -24,13 +24,19 @@ abstract class Provider
     protected $algo;
 
     /**
+     * @var string
+     */
+    protected $cert;
+
+    /**
      * @param string  $secret
      * @param string  $algo
      */
-    public function __construct($secret, $algo = 'HS256')
+    public function __construct($secret, $algo = 'HS256', $cert=null)
     {
         $this->secret = $secret;
         $this->algo = $algo;
+        $this->cert = $cert;
     }
 
     /**

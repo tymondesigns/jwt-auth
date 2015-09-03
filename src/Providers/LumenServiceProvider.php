@@ -74,7 +74,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
             $provider = $this->config('providers.jwt');
 
-            return $app->make($provider, [$this->config('secret'), $this->config('algo')]);
+            return $app->make($provider, [$this->config('secret'), $this->config('algo'), $this->config('cert')]);
         });
     }
 

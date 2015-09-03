@@ -29,9 +29,9 @@ class Namshi extends Provider implements JWT
      * @param string  $algo
      * @param null    $driver
      */
-    public function __construct($secret, $algo, $driver = null)
+    public function __construct($secret, $algo, $cert, $driver = null)
     {
-        parent::__construct($secret, $algo);
+        parent::__construct($secret, $algo, $cert);
 
         $this->jws = $driver ?: new JWS(['typ' => 'JWT', 'alg' => $algo]);
     }
@@ -67,12 +67,18 @@ class Namshi extends Provider implements JWT
     {
         try {
             // let's never allow unsecure tokens
-            $jws = JWS::load($token, false);
+            $jws = $this->jws->load($token, false);
         } catch (Exception $e) {
             throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
         }
 
-        if (! $jws->verify($this->secret, $this->algo)) {
+        if (in_array($this->algo, ['RS256']) && $this->cert !== null) {
+            $key = $this->cert;
+        } else {
+            $key = $this->secret;
+        }
+
+        if (! $jws->verify($key, $this->algo)) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
