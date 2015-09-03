@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Middleware\JWTCheck;
+use Tymon\JWTAuth\Middleware\Check;
 use Tymon\JWTAuth\Middleware\RefreshToken;
-use Tymon\JWTAuth\Middleware\GetUserFromToken;
+use Tymon\JWTAuth\Middleware\Authenticate;
 
 class LaravelServiceProvider extends LumenServiceProvider
 {
@@ -27,8 +27,8 @@ class LaravelServiceProvider extends LumenServiceProvider
         $this->publishes([$path => config_path('jwt.php')], 'config');
         $this->mergeConfigFrom($path, 'jwt');
 
-        $this->app['router']->middleware('jwt.auth', GetUserFromToken::class);
+        $this->app['router']->middleware('jwt.auth', Authenticate::class);
         $this->app['router']->middleware('jwt.refresh', RefreshToken::class);
-        $this->app['router']->middleware('jwt.check', JWTCheck::class);
+        $this->app['router']->middleware('jwt.check', Check::class);
     }
 }
