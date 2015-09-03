@@ -101,13 +101,6 @@ return [
     |
     | Specify the various providers used throughout the package.
     |
-    | Note: it is also possible to pass a closure,
-    | if you want more control. e.g.
-    |
-    | 'auth' => function ($app) {
-    |     return new Tymon\JWTAuth\Providers\Auth\Illuminate($app['auth']);
-    | }
-    |
     */
 
     'providers' => [
