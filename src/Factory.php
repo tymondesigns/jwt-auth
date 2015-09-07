@@ -117,15 +117,13 @@ class Factory
      */
     protected function buildClaims()
     {
-        // add any custom claims first
-        $this->addClaims($this->customClaims);
-
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
-            if (! array_key_exists($claim, $this->customClaims)) {
-                $this->addClaim($claim, $this->$claim());
-            }
+            $this->addClaim($claim, $this->$claim());
         }
+
+        // add custom claims on top, allowing them to overwrite defaults
+        $this->addClaims($this->customClaims);
 
         return $this;
     }
