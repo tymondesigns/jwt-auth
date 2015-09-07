@@ -120,4 +120,40 @@ class TokenParser
 
         return $this;
     }
+
+    /**
+     * Set the header name
+     *
+     * @param  string  $headerName
+     */
+    public function setHeaderName($headerName)
+    {
+        $this->header = $headerName;
+
+        return $this;
+    }
+
+    /**
+     * Set the header prefix
+     *
+     * @param  string  $headerPrefix
+     */
+    public function setHeaderPrefix($headerPrefix)
+    {
+        $this->prefix = $headerPrefix;
+
+        return $this;
+    }
+
+    /**
+     * Set the query string
+     *
+     * @param  string  $quesryString
+     */
+    public function setQueryString($quesryString)
+    {
+        $this->query = $quesryString;
+
+        return $this;
+    }
 }
