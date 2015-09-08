@@ -11,9 +11,10 @@
 
 namespace Tymon\JWTAuth;
 
+use Countable;
 use ArrayAccess;
 use JsonSerializable;
-use Countable;
+use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Claim;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Jsonable;
@@ -68,7 +69,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
                 return array_map([$this, 'get'], $claim);
             }
 
-            return array_get($this->toArray(), $claim, false);
+            return Arr::get($this->toArray(), $claim, false);
         }
 
         return $this->toArray();
@@ -140,7 +141,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function offsetExists($key)
     {
-        return array_key_exists($key, $this->toArray());
+        return Arr::has($this->toArray(), $key);
     }
 
     /**
@@ -152,7 +153,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function offsetGet($key)
     {
-        return array_get($this->toArray(), $key, []);
+        return Arr::get($this->toArray(), $key, []);
     }
 
     /**
