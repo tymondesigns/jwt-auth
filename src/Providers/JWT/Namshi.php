@@ -48,7 +48,7 @@ class Namshi extends Provider implements JWT
         try {
             $this->jws->setPayload($payload)->sign($this->secret);
 
-            return $this->jws->getTokenString();
+            return (string) $this->jws->getTokenString();
         } catch (Exception $e) {
             throw new JWTException('Could not create token: ' . $e->getMessage());
         }
@@ -67,7 +67,7 @@ class Namshi extends Provider implements JWT
     {
         try {
             // let's never allow unsecure tokens
-            $jws = JWS::load($token, false);
+            $jws = $this->jws->load($token, false);
         } catch (Exception $e) {
             throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
         }
@@ -76,6 +76,6 @@ class Namshi extends Provider implements JWT
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return $jws->getPayload();
+        return (array) $jws->getPayload();
     }
 }

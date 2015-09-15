@@ -27,7 +27,7 @@ abstract class Provider
      * @param string  $secret
      * @param string  $algo
      */
-    public function __construct($secret, $algo = 'HS256')
+    public function __construct($secret, $algo)
     {
         $this->secret = $secret;
         $this->algo = $algo;

@@ -61,7 +61,11 @@ class Blacklist
         // find the number of minutes until the expiration date, plus 1 minute to avoid overlap
         $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
 
-        $this->storage->add($payload['jti'], ['valid_until' => $this->getGraceTimestamp()], $minutes);
+        $this->storage->add(
+            $payload['jti'],
+            ['valid_until' => $this->getGraceTimestamp()],
+            $minutes
+        );
 
         return true;
     }
