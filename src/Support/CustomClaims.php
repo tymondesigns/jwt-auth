@@ -23,7 +23,7 @@ trait CustomClaims
     /**
      * Set the custom claims.
      *
-     * @param array $customClaims
+     * @param  array $customClaims
      *
      * @return self
      */
@@ -32,5 +32,27 @@ trait CustomClaims
         $this->customClaims = $customClaims;
 
         return $this;
+    }
+
+    /**
+     * Alias to set the custom claims.
+     *
+     * @param  array $customClaims
+     *
+     * @return self
+     */
+    public function claims(array $customClaims)
+    {
+        return $this->customClaims($customClaims);
+    }
+
+    /**
+     * Get the custom claims
+     *
+     * @return  array
+     */
+    public function getCustomClaims()
+    {
+        return $this->customClaims;
     }
 }

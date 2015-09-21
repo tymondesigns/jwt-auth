@@ -123,7 +123,7 @@ class Factory
         }
 
         // add custom claims on top, allowing them to overwrite defaults
-        $this->addClaims($this->customClaims);
+        $this->addClaims($this->getCustomClaims());
 
         return $this;
     }

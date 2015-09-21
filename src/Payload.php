@@ -64,6 +64,8 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function get($claim = null)
     {
+        $claim = value($claim);
+
         if (! is_null($claim)) {
             if (is_array($claim)) {
                 return array_map([$this, 'get'], $claim);
@@ -115,6 +117,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      * Get the payload as JSON.
      *
      * @param  int  $options
+     *
      * @return string
      */
     public function toJson($options = 0)
@@ -153,7 +156,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function offsetGet($key)
     {
-        return Arr::get($this->toArray(), $key, []);
+        return Arr::get($this->toArray(), $key);
     }
 
     /**

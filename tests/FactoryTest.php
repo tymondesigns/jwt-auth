@@ -52,7 +52,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->claimFactory->shouldReceive('get')->once()->with('nbf', 123)->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', $expTime)->andReturn(new Expiration($expTime));
 
-        $payload = $this->factory->customClaims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
+        $payload = $this->factory->claims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
 
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('iat'), 123);
@@ -100,6 +100,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($payload->get('sub'), 1);
         $this->assertEquals($payload->get('foo'), ['bar' => [0, 0, 0]]);
+        $this->assertEquals($payload->get('foo.bar'), [0, 0, 0]);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }

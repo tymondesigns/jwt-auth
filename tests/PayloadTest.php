@@ -85,6 +85,13 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInternalType('array', $this->payload->get());
         $this->assertEquals($this->payload->get('sub'), 1);
+
+        $this->assertEquals(
+            $this->payload->get(function () {
+                return 'jti';
+            }),
+            'foo'
+        );
     }
 
     /** @test */

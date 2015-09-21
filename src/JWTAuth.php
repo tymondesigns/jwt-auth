@@ -119,7 +119,7 @@ class JWTAuth
     {
         $this->requireToken();
 
-        return $this->manager->customClaims($this->customClaims)->refresh($this->token)->get();
+        return $this->manager->customClaims($this->getCustomClaims())->refresh($this->token)->get();
     }
 
     /**
@@ -298,6 +298,16 @@ class JWTAuth
     }
 
     /**
+     * Get the TokenParser instance
+     *
+     * @return \Tymon\JWTAuth\Http\TokenParser
+     */
+    public function parser()
+    {
+        return $this->parser;
+    }
+
+    /**
      * Get the Payload Factory
      *
      * @return \Tymon\JWTAuth\Factory
@@ -308,13 +318,13 @@ class JWTAuth
     }
 
     /**
-     * Get the TokenParser instance
+     * Get the Blacklist
      *
-     * @return \Tymon\JWTAuth\Http\TokenParser
+     * @return \Tymon\JWTAuth\Blacklist
      */
-    public function parser()
+    public function blacklist()
     {
-        return $this->parser;
+        return $this->manager->getBlacklist();
     }
 
     /**
