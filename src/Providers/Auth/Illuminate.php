@@ -12,20 +12,20 @@
 namespace Tymon\JWTAuth\Providers\Auth;
 
 use Exception;
-use Illuminate\Auth\AuthManager;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Illuminate\Contracts\Auth\Guard as GuardContract;
 
 class Illuminate implements Auth
 {
     /**
-     * @var \Illuminate\Auth\AuthManager
+     * @var \Illuminate\Contracts\Auth\Guard
      */
     protected $auth;
 
     /**
-     * @param \Illuminate\Auth\AuthManager  $auth
+     * @param \Illuminate\Contracts\Auth\Guard  $auth
      */
-    public function __construct(AuthManager $auth)
+    public function __construct(GuardContract $auth)
     {
         $this->auth = $auth;
     }
