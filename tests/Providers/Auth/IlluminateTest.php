@@ -18,7 +18,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->authManager = Mockery::mock('Illuminate\Auth\AuthManager');
+        $this->authManager = Mockery::mock('Illuminate\Contracts\Auth\Guard');
         $this->auth = new Auth($this->authManager);
     }
 
