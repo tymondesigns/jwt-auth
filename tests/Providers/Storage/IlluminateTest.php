@@ -18,7 +18,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->cache = Mockery::mock('Illuminate\Contracts\Cache\Store');
+        $this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
         $this->storage = new Storage($this->cache);
 
         $this->cache->shouldReceive('tags')->andReturn(Mockery::self());
