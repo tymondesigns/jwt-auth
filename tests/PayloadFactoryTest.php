@@ -102,4 +102,12 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($this->factory->getTTL(), 12345);
     }
+
+    /** @test */
+    public function it_should_return_numeric_values_according_to_specs()
+    {
+        $this->assertInternalType('int', $this->factory->exp());
+        $this->assertInternalType('int', $this->factory->nbf());
+        $this->assertInternalType('int', $this->factory->iat());
+    }
 }
