@@ -12,7 +12,7 @@
 namespace Tymon\JWTAuth\Providers\Storage;
 
 use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Illuminate\Contracts\Cache\Store as StoreContract;
+use Illuminate\Contracts\Cache\Factory as CacheContract;
 
 class Illuminate implements Storage
 {
@@ -27,9 +27,9 @@ class Illuminate implements Storage
     protected $tag = 'tymon.jwt';
 
     /**
-     * @param \Illuminate\Contracts\Cache\Store  $cache
+     * @param \Illuminate\Contracts\Cache\Factory  $cache
      */
-    public function __construct(StoreContract $cache)
+    public function __construct(CacheContract $cache)
     {
         $this->cache = $cache;
     }
