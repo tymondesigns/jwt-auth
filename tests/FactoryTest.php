@@ -106,6 +106,24 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_exclude_the_exp_claim_when_setting_ttl_to_null()
+    {
+        $this->validator->shouldReceive('setRefreshFlow->check');
+
+        $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
+        $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('iat', Mockery::any())->andReturn(new IssuedAt(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', Mockery::any())->andReturn(new NotBefore(time()));
+
+        $payload = $this->factory->setTTL(null)->sub(1)->make();
+
+        $this->assertFalse($payload->get('exp'));
+
+        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+    }
+
+    /** @test */
     public function it_should_set_the_ttl()
     {
         $this->factory->setTTL(12345);

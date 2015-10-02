@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Illuminate\Support\Collection;
@@ -117,6 +118,11 @@ class Factory
      */
     protected function buildClaims()
     {
+        // remove the exp claim if it exists and the ttl is null
+        if (is_null($this->ttl) && $key = array_search('exp', $this->defaultClaims)) {
+            unset($this->defaultClaims[$key]);
+        }
+
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
             $this->addClaim($claim, call_user_func([$this, $claim]));
