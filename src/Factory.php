@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
@@ -193,7 +194,7 @@ class Factory
      */
     protected function jti()
     {
-        return md5(sprintf('%s.%s', $this->claims->toJson(), str_random()));
+        return md5(sprintf('%s.%s', $this->claims->toJson(), Str::random()));
     }
 
     /**
