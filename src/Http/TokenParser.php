@@ -125,6 +125,8 @@ class TokenParser
      * Set the header name
      *
      * @param  string  $headerName
+     *
+     * @return TokenParser
      */
     public function setHeaderName($headerName)
     {
@@ -137,6 +139,8 @@ class TokenParser
      * Set the header prefix
      *
      * @param  string  $headerPrefix
+     *
+     * @return TokenParser
      */
     public function setHeaderPrefix($headerPrefix)
     {
@@ -148,11 +152,13 @@ class TokenParser
     /**
      * Set the query string
      *
-     * @param  string  $quesryString
+     * @param  string  $queryString
+     *
+     * @return TokenParser
      */
-    public function setQueryString($quesryString)
+    public function setQueryString($queryString)
     {
-        $this->query = $quesryString;
+        $this->query = $queryString;
 
         return $this;
     }

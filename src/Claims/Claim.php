@@ -129,6 +129,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
      * Get the claim as JSON.
      *
      * @param  int  $options
+     * 
      * @return string
      */
     public function toJson($options = 0)

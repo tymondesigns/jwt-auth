@@ -71,7 +71,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
                 return array_map([$this, 'get'], $claim);
             }
 
-            return Arr::get($this->toArray(), $claim, false);
+            return Arr::get($this->toArray(), $claim);
         }
 
         return $this->toArray();

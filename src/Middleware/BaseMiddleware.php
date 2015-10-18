@@ -35,9 +35,9 @@ abstract class BaseMiddleware
     /**
      * Check the request for the presence of a token
      *
-     * @param   \Illuminate\Http\Request  $request
+     * @param   \Illuminate\Http\Request $request
      *
-     * @throws  Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function checkForToken(Request $request)
     {
