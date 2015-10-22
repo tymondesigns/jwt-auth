@@ -16,7 +16,6 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class RefreshToken extends BaseMiddleware
 {
-
     /**
      * Handle an incoming request.
      *
