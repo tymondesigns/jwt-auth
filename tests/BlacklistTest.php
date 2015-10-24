@@ -132,6 +132,25 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_set_a_custom_unique_key_for_the_blacklist()
+    {
+        $claims = [
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration(123 + 3600),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foobar')
+        ];
+        $payload = new Payload(Collection::make($claims), $this->validator);
+
+        $this->storage->shouldReceive('get')->with(1)->once()->andReturn(['valid_until' => 123]);
+
+        $this->assertTrue($this->blacklist->setKey('sub')->has($payload));
+        $this->assertEquals(1, $this->blacklist->getKey($payload));
+    }
+
+    /** @test */
     public function it_should_empty_the_blacklist()
     {
         $this->storage->shouldReceive('flush');

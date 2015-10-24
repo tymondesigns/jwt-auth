@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth;
 
+use Closure;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 
@@ -34,6 +35,13 @@ class Blacklist
      * @var integer
      */
     protected $refreshTTL = 20160;
+
+    /**
+     * The unique key held within the blacklist
+     *
+     * @var  string
+     */
+    protected $key = 'jti';
 
     /**
      * @param \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
@@ -62,7 +70,7 @@ class Blacklist
         $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
 
         $this->storage->add(
-            $payload['jti'],
+            $this->getKey($payload),
             ['valid_until' => $this->getGraceTimestamp()],
             $minutes
         );
@@ -79,7 +87,7 @@ class Blacklist
      */
     public function has(Payload $payload)
     {
-        $grace = $this->storage->get($payload['jti']);
+        $grace = $this->storage->get($this->getKey($payload));
 
         // check whether the expiry + grace has past
         if (is_null($grace) || Utils::timestamp($grace['valid_until'])->isFuture()) {
@@ -98,7 +106,7 @@ class Blacklist
      */
     public function remove(Payload $payload)
     {
-        return $this->storage->destroy($payload['jti']);
+        return $this->storage->destroy($this->getKey($payload));
     }
 
     /**
@@ -134,6 +142,30 @@ class Blacklist
     public function setGracePeriod($gracePeriod)
     {
         $this->gracePeriod = (int) $gracePeriod;
+
+        return $this;
+    }
+
+    /**
+     * Get the unique key held within the blacklist
+     *
+     * @param   Payload  $payload
+     *
+     * @return  mixed
+     */
+    public function getKey(Payload $payload)
+    {
+        return $payload->get($this->key);
+    }
+
+    /**
+     * Set the unique key held within the blacklist
+     *
+     * @param  string  $key
+     */
+    public function setKey($key)
+    {
+        $this->key = value($key);
 
         return $this;
     }
