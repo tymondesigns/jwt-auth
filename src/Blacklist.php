@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth;
 
-use Closure;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 
