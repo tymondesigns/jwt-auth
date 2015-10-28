@@ -73,7 +73,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('forever')->with('foo', null)->once();
+        $this->storage->shouldReceive('forever')->with('foo', 'forever')->once();
         $this->blacklist->add($payload);
     }
 

@@ -103,7 +103,7 @@ class Blacklist
      */
     public function addForever(Payload $payload)
     {
-        $this->storage->forever($this->getKey($payload), null);
+        $this->storage->forever($this->getKey($payload), 'forever');
 
         return true;
     }
@@ -117,10 +117,15 @@ class Blacklist
      */
     public function has(Payload $payload)
     {
-        $grace = $this->storage->get($this->getKey($payload));
+        $val = $this->storage->get($this->getKey($payload));
+
+        // exit early if the token was blacklisted forever
+        if ($val === 'forever') {
+            return true;
+        }
 
         // check whether the expiry + grace has past
-        if (is_null($grace) || Utils::timestamp($grace['valid_until'])->isFuture()) {
+        if (is_null($val) || Utils::timestamp($val['valid_until'])->isFuture()) {
             return false;
         }
 
