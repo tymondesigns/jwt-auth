@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -141,9 +142,23 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_invalidate_a_token()
     {
-        $this->manager->shouldReceive('invalidate')->once()->andReturn(true);
+        $token = new Token('foo.bar.baz');
 
-        $result = $this->jwtAuth->setToken('foo.bar.baz')->invalidate();
+        $this->manager->shouldReceive('invalidate')->once()->with($token, false)->andReturn(true);
+
+        $result = $this->jwtAuth->setToken($token)->invalidate();
+
+        $this->assertTrue($result);
+    }
+
+    /** @test */
+    public function it_should_force_invalidate_a_token_forever()
+    {
+        $token = new Token('foo.bar.baz');
+
+        $this->manager->shouldReceive('invalidate')->once()->with($token, true)->andReturn(true);
+
+        $result = $this->jwtAuth->setToken($token)->invalidate(true);
 
         $this->assertTrue($result);
     }

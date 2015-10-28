@@ -125,13 +125,15 @@ class JWTAuth
     /**
      * Invalidate a token (add it to the blacklist).
      *
+     * @param  boolean  $forceForever
+     *
      * @return boolean
      */
-    public function invalidate()
+    public function invalidate($forceForever = false)
     {
         $this->requireToken();
 
-        return $this->manager->invalidate($this->token);
+        return $this->manager->invalidate($this->token, $forceForever);
     }
 
     /**
@@ -250,13 +252,13 @@ class JWTAuth
     /**
      * Set the token.
      *
-     * @param string $token
+     * @param  Token|string  $token
      *
      * @return JWTAuth
      */
     public function setToken($token)
     {
-        $this->token = new Token($token);
+        $this->token = $token instanceof Token ? $token : new Token($token);
 
         return $this;
     }

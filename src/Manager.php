@@ -123,19 +123,23 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist
      *
-     * @param  Token  $token
+     * @param  Token    $token
+     * @param  boolean  $forceForever
      *
      * @throws JWTException
      *
      * @return boolean
      */
-    public function invalidate(Token $token)
+    public function invalidate(Token $token, $forceForever = false)
     {
         if (! $this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
         }
 
-        return $this->blacklist->add($this->decode($token));
+        return call_user_func(
+            [$this->blacklist, $forceForever ? 'addForever' : 'add'],
+            $this->decode($token)
+        );
     }
 
     /**

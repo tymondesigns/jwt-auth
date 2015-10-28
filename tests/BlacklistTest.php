@@ -62,7 +62,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_add_a_token_with_no_exp_to_the_blacklist()
+    public function it_should_add_a_token_with_no_exp_to_the_blacklist_forever()
     {
         $claims = [
             'sub' => new Subject(1),

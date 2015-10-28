@@ -174,6 +174,33 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_force_invalidate_a_token_forever()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration(123 + 3600),
+            new NotBefore(123),
+            new IssuedAt(123),
+            new JwtId('foo')
+        ];
+        $payload = new Payload(Collection::make($claims), $this->validator);
+        $token = new Token('foo.bar.baz');
+
+        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+
+        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
+        $this->factory->shouldReceive('customClaims')->with($payload->toArray())->andReturn($this->factory);
+        $this->factory->shouldReceive('make')->andReturn($payload);
+
+        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+
+        $this->blacklist->shouldReceive('addForever')->with($payload)->andReturn(true);
+
+        $this->manager->invalidate($token, true);
+    }
+
+    /** @test */
     public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
