@@ -65,6 +65,24 @@ class Blacklist
             return $this->addForever($payload);
         }
 
+        $this->storage->add(
+            $this->getKey($payload),
+            ['valid_until' => $this->getGraceTimestamp()],
+            $this->getMinutesUntilExpired($payload)
+        );
+
+        return true;
+    }
+
+    /**
+     * Get the number of minutes until the token expiry
+     *
+     * @param   Payload  $payload
+     *
+     * @return  int
+     */
+    protected function getMinutesUntilExpired(Payload $payload)
+    {
         $exp = Utils::timestamp($payload['exp']);
         $refreshExp = Utils::timestamp($payload['iat'])->addMinutes($this->refreshTTL);
 
@@ -73,15 +91,7 @@ class Blacklist
 
         // find the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
-        $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
-
-        $this->storage->add(
-            $this->getKey($payload),
-            ['valid_until' => $this->getGraceTimestamp()],
-            $minutes
-        );
-
-        return true;
+        return $lastExp->diffInMinutes(Utils::now()->subMinute());
     }
 
     /**
