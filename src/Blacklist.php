@@ -125,11 +125,7 @@ class Blacklist
         }
 
         // check whether the expiry + grace has past
-        if (is_null($val) || Utils::timestamp($val['valid_until'])->isFuture()) {
-            return false;
-        }
-
-        return true;
+        return ! (is_null($val) || Utils::timestamp($val['valid_until'])->isFuture());
     }
 
     /**
