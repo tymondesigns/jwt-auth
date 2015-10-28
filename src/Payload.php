@@ -78,7 +78,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Determine whether the payload has the claim
+     * Determine whether the payload has the claim (by instance)
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      *
@@ -87,6 +87,18 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     public function has(Claim $claim)
     {
         return in_array($claim, $this->claims->toArray());
+    }
+
+    /**
+     * Determine whether the payload has the claim (by key)
+     *
+     * @param   string   $claim
+     *
+     * @return  boolean
+     */
+    public function hasKey($claim)
+    {
+        return $this->offsetExists($claim);
     }
 
     /**

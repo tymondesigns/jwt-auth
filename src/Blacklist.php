@@ -59,13 +59,20 @@ class Blacklist
      */
     public function add(Payload $payload)
     {
+        // if there is no exp claim then add the jwt to
+        // the blacklist indefinitely
+        if (! $payload->hasKey('exp')) {
+            return $this->addForever($payload);
+        }
+
         $exp = Utils::timestamp($payload['exp']);
         $refreshExp = Utils::timestamp($payload['iat'])->addMinutes($this->refreshTTL);
 
-        // get the later of the two expiration dates
+        // get the latter of the two expiration dates
         $lastExp = $exp->max($refreshExp);
 
-        // find the number of minutes until the expiration date, plus 1 minute to avoid overlap
+        // find the number of minutes until the expiration date,
+        // plus 1 minute to avoid overlap
         $minutes = $lastExp->diffInMinutes(Utils::now()->subMinute());
 
         $this->storage->add(
@@ -73,6 +80,20 @@ class Blacklist
             ['valid_until' => $this->getGraceTimestamp()],
             $minutes
         );
+
+        return true;
+    }
+
+    /**
+     * Add the token (jti claim) to the blacklist indefinitely
+     *
+     * @param  Payload  $payload
+     *
+     * @return boolean
+     */
+    public function addForever(Payload $payload)
+    {
+        $this->storage->forever($this->getKey($payload), null);
 
         return true;
     }

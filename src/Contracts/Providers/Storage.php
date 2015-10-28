@@ -23,6 +23,14 @@ interface Storage
     public function add($key, $value, $minutes);
 
     /**
+     * @param  string   $key
+     * @param  mixed    $value
+     *
+     * @return void
+     */
+    public function forever($key, $value);
+
+    /**
      * @param  string  $key
      *
      * @return mixed

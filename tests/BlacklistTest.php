@@ -62,6 +62,22 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_add_a_token_with_no_exp_to_the_blacklist()
+    {
+        $claims = [
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'nbf' => new NotBefore(123),
+            'iat' => new IssuedAt(123),
+            'jti' => new JwtId('foo')
+        ];
+        $payload = new Payload(Collection::make($claims), $this->validator);
+
+        $this->storage->shouldReceive('forever')->with('foo', null)->once();
+        $this->blacklist->add($payload);
+    }
+
+    /** @test */
     public function it_should_return_true_when_adding_an_expired_token_to_the_blacklist()
     {
         $claims = [

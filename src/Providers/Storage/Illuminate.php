@@ -49,6 +49,19 @@ class Illuminate implements Storage
     }
 
     /**
+     * Add a new item into storage forever
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     *
+     * @return void
+     */
+    public function forever($key, $value)
+    {
+        $this->cache()->forever($key, $value);
+    }
+
+    /**
      * Get an item from storage
      *
      * @param  string  $key
