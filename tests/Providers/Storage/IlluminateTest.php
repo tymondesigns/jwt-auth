@@ -38,6 +38,14 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_add_the_item_to_storage_forever()
+    {
+        $this->cache->shouldReceive('tags->forever')->with('foo', 'bar');
+
+        $this->storage->forever('foo', 'bar');
+    }
+
+    /** @test */
     public function it_should_get_an_item_from_storage()
     {
         $this->cache->shouldReceive('tags->get')->with('foo')->andReturn(['foo' => 'bar']);
