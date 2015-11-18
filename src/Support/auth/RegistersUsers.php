@@ -19,6 +19,7 @@
 
 namespace Tymon\JWTAuth\Support\auth;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
