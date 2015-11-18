@@ -63,7 +63,6 @@ class JWTGenerateSecretCommand extends Command
                 } else {
                     return $this->comment('Phew... No changes were made to your secret key.');
                 }
-
             }
         }
 
