@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Providers;
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Commands\JWTGenerateCommand;
+use Tymon\JWTAuth\Commands\JWTGenerateSecretCommand;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
@@ -48,7 +48,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
 
-        $this->commands('tymon.jwt.generate');
+        $this->commands('tymon.jwt.secret');
     }
 
     /**
@@ -185,8 +185,8 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerJWTCommand()
     {
-        $this->app->singleton('tymon.jwt.generate', function () {
-            return new JWTGenerateCommand();
+        $this->app->singleton('tymon.jwt.secret', function () {
+            return new JWTGenerateSecretCommand();
         });
     }
 
