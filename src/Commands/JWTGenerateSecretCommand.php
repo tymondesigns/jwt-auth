@@ -15,14 +15,14 @@ use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
-class JWTGenerateCommand extends Command
+class JWTGenerateSecretCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'jwt:generate';
+    protected $name = 'jwt:secret';
 
     /**
      * The console command description.
@@ -44,11 +44,11 @@ class JWTGenerateCommand extends Command
             return $this->line('<comment>'.$key.'</comment>');
         }
 
-        $path = config_path('jwt.php');
+        $path = base_path('.env');
 
         if (file_exists($path)) {
             file_put_contents($path, str_replace(
-                $this->laravel['config']['jwt.secret'], $key, file_get_contents($path)
+                'APP_KEY='.$this->laravel['config']['jwt.secret'], 'APP_KEY='.$key, file_get_contents($path)
             ));
         }
 
