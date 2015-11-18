@@ -41,7 +41,7 @@ class JWTGenerateSecretCommand extends Command
         $key = $this->getRandomKey();
 
         if ($this->option('show')) {
-            return $this->line('<comment>'.$key.'</comment>');
+            return $this->comment($key);
         }
 
         $path = base_path('.env');
@@ -52,9 +52,18 @@ class JWTGenerateSecretCommand extends Command
             if (! Str::contains(file_get_contents($path), 'JWT_SECRET')) {
                 file_put_contents($path, "\r\nJWT_SECRET=$key", FILE_APPEND);
             } else {
-                file_put_contents($path, str_replace(
-                    'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
-                ));
+
+                // let's be sure you want to do this
+                $confirmed = $this->confirm('This will invalidate all existing tokens. Are you sure you want to override the secret key?');
+
+                if ($confirmed) {
+                    file_put_contents($path, str_replace(
+                        'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
+                    ));
+                } else {
+                    return $this->comment('Phew... No changes were made to your secret key.');
+                }
+
             }
         }
 
