@@ -124,7 +124,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'sub' => 1
         ];
 
-        $this->assertTrue($this->validator->setRequiredClaims(['iat', 'sub'])->isValid($payload));
+        $this->assertTrue($this->validator->setRequiredClaims(['iss', 'sub'])->isValid($payload));
     }
 
     /** @test */
