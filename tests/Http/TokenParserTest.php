@@ -64,6 +64,7 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
 
         $parser = new TokenParser($request);
 
+        $this->assertFalse($parser->parseToken());
         $this->assertFalse($parser->hasToken());
     }
 }
