@@ -6,7 +6,7 @@
          verbose="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
+         convertWarningsToExceptions="false"
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
