@@ -264,11 +264,15 @@ class JWTAuth
     }
 
     /**
-     * Remove the current token.
+     * Unset the current token.
+     * 
+     * @return JWTAuth
      */
     public function unsetToken()
     {
         $this->token = null;
+        
+        return $this;
     }
 
     /**
