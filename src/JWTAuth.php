@@ -266,7 +266,7 @@ class JWTAuth
     /**
      * Remove the current token.
      */
-    public function removeToken()
+    public function unsetToken()
     {
         $this->token = null;
     }
