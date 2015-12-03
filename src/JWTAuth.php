@@ -264,6 +264,14 @@ class JWTAuth
     }
 
     /**
+     * Remove the current token.
+     */
+    public function unsetToken()
+    {
+        $this->token = null;
+    }
+
+    /**
      * Ensure that a token is available.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
