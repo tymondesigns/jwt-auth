@@ -1,4 +1,4 @@
-<?php namespace Koodzo;
+<?php namespace Tymon\JWTAuth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
