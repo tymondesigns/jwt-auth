@@ -78,13 +78,23 @@ class TokenParser
     }
 
     /**
+     * Try to get the token from the route
+     *
+     * @return false|string
+     */
+    public function fromRoute()
+    {
+        return $this->request->route()->parameter($this->query, false);
+    }
+
+    /**
      * Try to parse the token from the request query string
      *
      * @return false|string
      */
     public function fromQueryString()
     {
-        return $this->request->input($this->query, false);
+        return $this->request->input($this->query, $this->fromRoute());
     }
 
     /**
