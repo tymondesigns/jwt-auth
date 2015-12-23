@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Test\Http;
 
+use Mockery;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\TokenParser;
 
@@ -50,6 +51,23 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_the_token_from_query_string()
     {
         $request = Request::create('foo', 'GET', ['token' => 'foobar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock();
+        });
+
+        $parser = new TokenParser($request);
+
+        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_route()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock('foobar');
+        });
 
         $parser = new TokenParser($request);
 
@@ -61,10 +79,22 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_false_if_no_token_in_request()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock();
+        });
 
         $parser = new TokenParser($request);
 
         $this->assertFalse($parser->parseToken());
         $this->assertFalse($parser->hasToken());
+    }
+
+    protected function getRouteMock($expectedParameterValue = false)
+    {
+        return Mockery::mock('Illuminate\Routing\Route')
+            ->shouldReceive('parameter')
+            ->with('token', false)
+            ->andReturn($expectedParameterValue)
+            ->getMock();
     }
 }
