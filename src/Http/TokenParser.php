@@ -84,7 +84,7 @@ class TokenParser
      */
     public function fromRoute()
     {
-        return $this->request->route()->parameter($this->query, false);
+        return $this->request->route($this->query) ?: false;
     }
 
     /**
