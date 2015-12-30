@@ -13,9 +13,12 @@ namespace Tymon\JWTAuth\Test\Http;
 
 use Mockery;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\TokenParser;
+use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\AuthHeaders;
+use Tymon\JWTAuth\Http\QueryString;
+use Tymon\JWTAuth\Http\RouteParams;
 
-class TokenParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_should_return_the_token_from_the_authorization_header()
@@ -23,7 +26,13 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('foo', 'POST');
         $request->headers->set('Authorization', 'Bearer foobar');
 
-        $parser = new TokenParser($request);
+        $parser = new Parser($request);
+
+        $parser->setChainOrder([
+            new QueryString,
+            new AuthHeaders,
+            new RouteParams
+        ]);
 
         $this->assertEquals($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
@@ -38,7 +47,13 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
         $request2 = Request::create('foo', 'POST');
         $request2->server->set('REDIRECT_HTTP_AUTHORIZATION', 'Bearer foobarbaz');
 
-        $parser = new TokenParser($request1);
+        $parser = new Parser($request1);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ]);
+
         $this->assertEquals($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
 
@@ -51,11 +66,13 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_the_token_from_query_string()
     {
         $request = Request::create('foo', 'GET', ['token' => 'foobar']);
-        $request->setRouteResolver(function () {
-            return $this->getRouteMock();
-        });
 
-        $parser = new TokenParser($request);
+        $parser = new Parser($request);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ]);
 
         $this->assertEquals($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
@@ -69,32 +86,43 @@ class TokenParserTest extends \PHPUnit_Framework_TestCase
             return $this->getRouteMock('foobar');
         });
 
-        $parser = new TokenParser($request);
+        $parser = new Parser($request);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ]);
 
         $this->assertEquals($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
     }
 
     /** @test */
-    public function it_should_return_false_if_no_token_in_request()
+    public function it_should_return_null_if_no_token_in_request()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
             return $this->getRouteMock();
         });
 
-        $parser = new TokenParser($request);
+        $parser = new Parser($request);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ]);
 
-        $this->assertFalse($parser->parseToken());
+        $this->assertNull($parser->parseToken());
         $this->assertFalse($parser->hasToken());
     }
 
-    protected function getRouteMock($expectedParameterValue = false)
+    protected function getRouteMock($expectedParameterValue = null)
     {
         return Mockery::mock('Illuminate\Routing\Route')
             ->shouldReceive('parameter')
-            ->with('token', false)
+            ->with('token')
             ->andReturn($expectedParameterValue)
             ->getMock();
     }
+
 }

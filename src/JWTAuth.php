@@ -265,7 +265,7 @@ class JWTAuth
 
     /**
      * Unset the current token.
-     * 
+     *
      * @return JWTAuth
      */
     public function unsetToken()
