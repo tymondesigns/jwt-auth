@@ -51,11 +51,7 @@ class Illuminate implements Auth
      */
     public function byId($id)
     {
-        try {
-            return $this->auth->onceUsingId($id);
-        } catch (Exception $e) {
-            return false;
-        }
+        return $this->auth->onceUsingId($id);
     }
 
     /**
