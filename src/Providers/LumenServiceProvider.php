@@ -121,12 +121,10 @@ class LumenServiceProvider extends ServiceProvider
     protected function registerTokenParser()
     {
         $this->app->singleton('tymon.jwt.parser', function ($app) {
-            return new TokenParser($app['request'])
-                ->setChainOrder([
-                    new AuthHeaders,
-                    new QueryString,
-                    new RouteParams
-                ]);
+            return new TokenParser(
+                $app['request'],
+                [new AuthHeaders, new QueryString, new RouteParams]
+            );
         });
     }
 

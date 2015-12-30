@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Http;
+namespace Tymon\JWTAuth\Contracts\Http;
 
 use Illuminate\Http\Request;
 

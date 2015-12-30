@@ -13,7 +13,7 @@ namespace Tymon\JWTAuth\Http;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Http\Parser as ParserContract;
+use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class AuthHeaders implements ParserContract
 {

@@ -18,7 +18,7 @@ class Parser
     /**
      * @var array
      */
-    private $chain = [];
+    private $chain;
 
     /**
      * @var \Illuminate\Http\Request
@@ -28,9 +28,10 @@ class Parser
     /**
      * @param \Illuminate\Http\Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, array $chain = [])
     {
         $this->request = $request;
+        $this->chain = $chain;
     }
 
     /**
