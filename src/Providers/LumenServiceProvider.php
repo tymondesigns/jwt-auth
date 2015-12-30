@@ -18,7 +18,10 @@ use Tymon\JWTAuth\Commands\JWTGenerateSecretCommand;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Tymon\JWTAuth\Http\TokenParser;
+use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\AuthHeaders;
+use Tymon\JWTAuth\Http\QueryString;
+use Tymon\JWTAuth\Http\RouteParams;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Factory;
@@ -121,7 +124,7 @@ class LumenServiceProvider extends ServiceProvider
     protected function registerTokenParser()
     {
         $this->app->singleton('tymon.jwt.parser', function ($app) {
-            return new TokenParser(
+            return new Parser(
                 $app['request'],
                 [new AuthHeaders, new QueryString, new RouteParams]
             );
