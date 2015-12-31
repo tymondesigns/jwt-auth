@@ -17,7 +17,6 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class AuthHeaders implements ParserContract
 {
-
     /**
      * The header name
      *

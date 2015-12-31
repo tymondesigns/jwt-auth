@@ -16,7 +16,6 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class RouteParams implements ParserContract
 {
-
     /**
      * The route param key
      *

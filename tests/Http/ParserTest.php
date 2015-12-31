@@ -47,8 +47,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $request2 = Request::create('foo', 'POST');
         $request2->server->set('REDIRECT_HTTP_AUTHORIZATION', 'Bearer foobarbaz');
 
-        $parser = new Parser($request1);
-        $parser->setChainOrder([
+        $parser = new Parser($request1, [
             new AuthHeaders,
             new QueryString,
             new RouteParams

@@ -16,7 +16,6 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class QueryString implements ParserContract
 {
-
     /**
      * The query string key
      *
