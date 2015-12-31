@@ -209,7 +209,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get an instantiable configuration instance. Pinched from dingo/api :)
+     * Get an instantiable configuration instance.
      *
      * @param  string  $key
      *

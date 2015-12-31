@@ -32,7 +32,7 @@ class RouteParams implements ParserContract
      */
     public function parse(Request $request)
     {
-        return $request->route()->parameter($this->key);
+        return $request->route($this->key);
     }
 
     /**
