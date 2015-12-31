@@ -44,7 +44,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_return_false_if_user_is_not_found()
     {
-        $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andThrow(new \Exception);
+        $this->authManager->shouldReceive('onceUsingId')->once()->with(123)->andReturn(false);
         $this->assertFalse($this->auth->byId(123));
     }
 

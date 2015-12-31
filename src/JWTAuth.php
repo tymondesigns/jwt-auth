@@ -16,7 +16,7 @@ use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Http\TokenParser;
+use Tymon\JWTAuth\Http\Parser;
 
 class JWTAuth
 {
@@ -33,7 +33,7 @@ class JWTAuth
     protected $auth;
 
     /**
-     * @var \Tymon\JWTAuth\Http\TokenParser
+     * @var \Tymon\JWTAuth\Http\Parser
      */
     protected $parser;
 
@@ -45,9 +45,9 @@ class JWTAuth
     /**
      * @param \Tymon\JWTAuth\Manager                   $manager
      * @param \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
-     * @param \Tymon\JWTAuth\Http\TokenParser          $parser
+     * @param \Tymon\JWTAuth\Http\Parser          $parser
      */
-    public function __construct(Manager $manager, Auth $auth, TokenParser $parser)
+    public function __construct(Manager $manager, Auth $auth, Parser $parser)
     {
         $this->manager = $manager;
         $this->auth = $auth;
@@ -271,7 +271,7 @@ class JWTAuth
     public function unsetToken()
     {
         $this->token = null;
-        
+
         return $this;
     }
 
@@ -312,9 +312,9 @@ class JWTAuth
     }
 
     /**
-     * Get the TokenParser instance
+     * Get the Parser instance
      *
-     * @return \Tymon\JWTAuth\Http\TokenParser
+     * @return \Tymon\JWTAuth\Http\Parser
      */
     public function parser()
     {

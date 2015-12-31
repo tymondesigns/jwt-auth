@@ -23,7 +23,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->manager = Mockery::mock('Tymon\JWTAuth\Manager');
         $this->auth = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Auth');
-        $this->parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
+        $this->parser = Mockery::mock('Tymon\JWTAuth\Http\Parser');
 
         $this->jwtAuth = new JWTAuth($this->manager, $this->auth, $this->parser);
     }
@@ -251,6 +251,6 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_get_the_parser_instance()
     {
         $parser = $this->jwtAuth->parser();
-        $this->assertInstanceOf('Tymon\JWTAuth\Http\TokenParser', $parser);
+        $this->assertInstanceOf('Tymon\JWTAuth\Http\Parser', $parser);
     }
 }
