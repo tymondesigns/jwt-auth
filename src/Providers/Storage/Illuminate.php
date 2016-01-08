@@ -25,6 +25,11 @@ class Illuminate implements Storage
      * @var string
      */
     protected $tag = 'tymon.jwt';
+    
+    /**
+     * @var boolean
+     */
+    protected $supportsTags;
 
     /**
      * @param \Illuminate\Contracts\Cache\Repository  $cache
@@ -102,10 +107,40 @@ class Illuminate implements Storage
      */
     protected function cache()
     {
-        if (! method_exists($this->cache, 'tags')) {
+        if (is_null($this->supportsTags)) $this->determineTagSupport();
+
+        if ($this->supportsTags) {
+            return $this->cache->tags($this->tag);
+        } else {
             return $this->cache;
         }
+    }
 
-        return $this->cache->tags($this->tag);
+    /**
+     * Detect as best we can whether tags are supported with this repository & store,
+     * and save our result on the $supportsTags flag.
+     *
+     * @return void
+     */
+    protected function determineTagSupport()
+    {
+        if (method_exists($this->cache, 'tags')) { // Laravel >= 5.1.28
+            try {
+                // Attempt the repository tags command, which throws exceptions when unsupported
+                $this->cache->tags($this->tag);
+                $this->supportsTags = true;
+            } catch (\BadMethodCallException $ex) {
+                $this->supportsTags = false;
+            }
+        } else {
+            if (method_exists($this->cache, 'getStore')) { // Laravel <= 5.1.27
+                // Check for the tags function directly on the store
+                $this->supportsTags = method_exists($this->cache->getStore(), 'tags');
+            } else {
+                // Must be using custom cache repository without getStore(), and all bets are off,
+                // or we are mocking the cache contract (in testing), which will not create a getStore method
+                $this->supportsTags = false;
+            }
+        }
     }
 }
