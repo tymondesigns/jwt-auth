@@ -55,6 +55,14 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
+     * Boot the service provider.
+     */
+    public function boot()
+    {
+        $this->app->configure('jwt');
+    }
+
+    /**
      * Bind some Interfaces and implementations
      */
     protected function registerAliases()
