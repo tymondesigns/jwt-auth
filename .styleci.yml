@@ -7,5 +7,4 @@ linting: true
 
 finder:
   exclude:
-    - tests
     - config
