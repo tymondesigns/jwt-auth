@@ -14,7 +14,8 @@ namespace Tymon\JWTAuth\Test\Providers\Storage;
 use Mockery;
 use Tymon\JWTAuth\Providers\Storage\Illuminate as Storage;
 
-class TaggedStorage extends Storage {
+class TaggedStorage extends Storage
+{
     // It's extremely challenging to test the actual functionality of the provider's
     // cache() function, because it relies on calling method_exists on methods that
     // aren't defined in the interface. Getting those conditionals to behave as expected
