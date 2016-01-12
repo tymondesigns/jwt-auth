@@ -30,5 +30,7 @@ class LaravelServiceProvider extends LumenServiceProvider
         $this->app['router']->middleware('jwt.auth', Authenticate::class);
         $this->app['router']->middleware('jwt.refresh', RefreshToken::class);
         $this->app['router']->middleware('jwt.check', Check::class);
+
+        $this->extendAuthGuard();
     }
 }

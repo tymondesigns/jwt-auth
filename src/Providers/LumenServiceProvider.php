@@ -11,21 +11,22 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Manager;
+use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Commands\JWTGenerateSecretCommand;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Http\Parser;
 use Tymon\JWTAuth\Http\AuthHeaders;
 use Tymon\JWTAuth\Http\QueryString;
 use Tymon\JWTAuth\Http\RouteParams;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Factory;
+use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
+use Tymon\JWTAuth\Commands\JWTGenerateSecretCommand;
 
 class LumenServiceProvider extends ServiceProvider
 {
@@ -60,6 +61,23 @@ class LumenServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->configure('jwt');
+        $this->extendAuthGuard();
+    }
+
+    protected function extendAuthGuard()
+    {
+        $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
+
+            $guard = new JwtGuard(
+                $app['tymon.jwt.auth'],
+                $app['auth']->createUserProvider($config['provider']),
+                $app['request']
+            );
+
+            $app->refresh('request', $guard, 'setRequest');
+
+            return $guard;
+        });
     }
 
     /**
