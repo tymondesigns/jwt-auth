@@ -81,7 +81,6 @@ class JWTGuard implements Guard
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
 
         if ($this->hasValidCredentials($user, $credentials)) {
-
             if ($login) {
                 $this->setUser($user);
 
