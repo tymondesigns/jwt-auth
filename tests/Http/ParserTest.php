@@ -17,6 +17,7 @@ use Tymon\JWTAuth\Http\Parser;
 use Tymon\JWTAuth\Http\AuthHeaders;
 use Tymon\JWTAuth\Http\QueryString;
 use Tymon\JWTAuth\Http\RouteParams;
+use Tymon\JWTAuth\Http\LumenRouteParams;
 
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -132,6 +133,25 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($parser->parseToken());
         $this->assertFalse($parser->hasToken());
+    }
+    
+    /** @test */
+    public function it_should_accept_lumen_request_arrays_with_special_class()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return [false, ['uses'=>'someController'], ['token'=>'foobar']];
+        });
+
+        $parser = new Parser($request);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new LumenRouteParams
+        ]);
+
+        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
     }
 
     /** @test */
