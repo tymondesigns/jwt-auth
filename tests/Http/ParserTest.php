@@ -153,6 +153,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($parser->hasToken());
     }
 
+    /** @test */
+    public function it_should_retrieve_the_chain()
+    {
+        $chain = [
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ];
+
+        $parser = new Parser(Mockery::mock('Illuminate\Http\Request'));
+        $parser->setChain($chain);
+
+        $this->assertEquals($parser->getChain(), $chain);
+    }
+
     protected function getRouteMock($expectedParameterValue = null)
     {
         return Mockery::mock('Illuminate\Routing\Route')
