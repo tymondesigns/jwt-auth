@@ -97,6 +97,44 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_should_ignore_routeless_requests()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return null;
+        });
+
+        $parser = new Parser($request);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_ignore_lumen_request_arrays()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return [false, ['uses'=>'someController'], ['token'=>'foobar']];
+        });
+
+        $parser = new Parser($request);
+        $parser->setChainOrder([
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_return_null_if_no_token_in_request()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
