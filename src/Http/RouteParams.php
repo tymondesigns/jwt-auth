@@ -39,6 +39,7 @@ class RouteParams implements ParserContract
             // in Lumen <5.2) or not exist at all (if the request was never dispatched)
             return null;
         }
+        
         return $route->parameter($this->key);
     }
 
