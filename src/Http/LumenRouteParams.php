@@ -33,6 +33,7 @@ class LumenRouteParams extends RouteParams
             // with the key we want.
             return null;
         }
+        
         return $route[2][$this->key];
     }
 }
