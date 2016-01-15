@@ -36,13 +36,35 @@ class Parser
     }
 
     /**
+     * Get the parser chain
+     *
+     * @return array The chain of ParserContracts that the parser evaluates.
+     */
+    public function getChain()
+    {
+        return $this->chain;
+    }
+
+    /**
      * Set the order of the parser chain
+     *
+     * @param array $chain
+     */
+    public function setChain(array $chain)
+    {
+        $this->chain = $chain;
+
+        return $this;
+    }
+    
+    /**
+     * Alias for setting the order of the chain
      *
      * @param array $chain
      */
     public function setChainOrder(array $chain)
     {
-        $this->chain = $chain;
+        $this->setChain($chain);
 
         return $this;
     }
