@@ -72,11 +72,23 @@ class JWTGuard implements Guard
     /**
      * Validate a user's credentials.
      *
+     * @param  array $credentials
+     *
+     * @return boolean
+     */
+    public function validate(array $credentials = [])
+    {
+        return $this->attempt($credentials, false);
+    }
+
+    /**
+     * Attempt to authenticate the user using the given credentials and return the token.
+     *
      * @param  array  $credentials
      *
      * @return boolean
      */
-    public function validate(array $credentials = [], $login = true)
+    public function attempt(array $credentials = [], $login = true)
     {
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
 
@@ -107,6 +119,104 @@ class JWTGuard implements Guard
 
         $this->user = null;
         $this->auth->unsetToken();
+    }
+
+    /**
+     * Refresh the token
+     *
+     * @return  string
+     */
+    public function refresh()
+    {
+        return $this->requireToken()->refresh();
+    }
+
+    /**
+     * Create a new token by User id
+     *
+     * @param   mixed  $id
+     *
+     * @return  string|null
+     */
+    public function tokenById($id)
+    {
+        if (! is_null($user = $this->provider->retrieveById($id))) {
+            return $this->auth->fromUser($user);
+        }
+
+        return null;
+    }
+
+    /**
+     * Log a user into the application using their credentials.
+     *
+     * @param  array $credentials
+     *
+     * @return boolean
+     */
+    public function once(array $credentials = [])
+    {
+        if ($this->validate($credentials)) {
+            $this->setUser($this->lastAttempted);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Log the given User into the application.
+     *
+     * @param  mixed $id
+     *
+     * @return boolean
+     */
+    public function onceUsingId($id)
+    {
+        if (! is_null($user = $this->provider->retrieveById($id))) {
+            $this->setUser($user);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Alias for onceUsingId
+     *
+     * @param   mixed  $id
+     *
+     * @return  boolean
+     */
+    public function byId($id)
+    {
+        return $this->onceUsingId($id);
+    }
+
+    /**
+     * Get the raw Payload instance.
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function getPayload()
+    {
+        return $this->auth->getPayload();
+    }
+
+    /**
+     * Set the token.
+     *
+     * @param  Token|string  $token
+     *
+     * @return JWTGuard
+     */
+    public function setToken($token)
+    {
+        $this->auth->setToken($token);
+
+        return $this;
     }
 
     /**
