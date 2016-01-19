@@ -29,11 +29,11 @@ class JWTGuard implements Guard
     protected $lastAttempted;
 
     /**
-     * The JWTAuth instance.
+     * The JWT instance.
      *
-     * @var \Tymon\JWTAuth\JWTAuth
+     * @var \Tymon\JWTAuth\JWT
      */
-    protected $auth;
+    protected $jwt;
 
     /**
      * The request instance.
@@ -42,9 +42,16 @@ class JWTGuard implements Guard
      */
     protected $request;
 
-    public function __construct(JWTAuth $auth, UserProvider $provider, Request $request)
+    /**
+     * Instantiate the class
+     *
+     * @param  \Tymon\JWTAuth\JWT                       $jwt
+     * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
+     * @param  \Illuminate\Http\Request                 $request
+     */
+    public function __construct(JWT $jwt, UserProvider $provider, Request $request)
     {
-        $this->auth = $auth;
+        $this->jwt = $jwt;
         $this->provider = $provider;
         $this->request = $request;
     }
@@ -64,7 +71,7 @@ class JWTGuard implements Guard
             return null;
         }
 
-        $id = $this->auth->getPayload()->get('sub');
+        $id = $this->jwt->getPayload()->get('sub');
 
         return $this->user = $this->provider->retrieveById($id);
     }
@@ -96,7 +103,7 @@ class JWTGuard implements Guard
             if ($login) {
                 $this->setUser($user);
 
-                return $this->auth->fromUser($user);
+                return $this->jwt->fromUser($user);
             }
 
             return true;
@@ -117,7 +124,7 @@ class JWTGuard implements Guard
         $this->requireToken()->invalidate($forceForever);
 
         $this->user = null;
-        $this->auth->unsetToken();
+        $this->jwt->unsetToken();
     }
 
     /**
@@ -140,7 +147,7 @@ class JWTGuard implements Guard
     public function tokenById($id)
     {
         if (! is_null($user = $this->provider->retrieveById($id))) {
-            return $this->auth->fromUser($user);
+            return $this->jwt->fromUser($user);
         }
 
         return null;
@@ -201,7 +208,7 @@ class JWTGuard implements Guard
      */
     public function getPayload()
     {
-        return $this->auth->getPayload();
+        return $this->jwt->getPayload();
     }
 
     /**
@@ -213,7 +220,7 @@ class JWTGuard implements Guard
      */
     public function setToken($token)
     {
-        $this->auth->setToken($token);
+        $this->jwt->setToken($token);
 
         return $this;
     }
@@ -306,10 +313,10 @@ class JWTGuard implements Guard
      */
     protected function requireToken()
     {
-        if (! $this->auth->getToken()) {
+        if (! $this->jwt->getToken()) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        return $this->auth;
+        return $this->jwt;
     }
 }
