@@ -11,11 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Support\CustomClaims;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class JWTAuth extends JWT
 {
