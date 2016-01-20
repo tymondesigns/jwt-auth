@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Providers;
 
+use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Factory;
@@ -21,12 +22,12 @@ use Tymon\JWTAuth\Http\AuthHeaders;
 use Tymon\JWTAuth\Http\QueryString;
 use Tymon\JWTAuth\Http\RouteParams;
 use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Commands\JWTGenerateSecretCommand;
+use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 class LumenServiceProvider extends ServiceProvider
 {
@@ -47,6 +48,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->registerManager();
         $this->registerTokenParser();
 
+        $this->registerJWT();
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
         $this->registerPayloadFactory();
@@ -69,7 +71,7 @@ class LumenServiceProvider extends ServiceProvider
         $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
 
             $guard = new JwtGuard(
-                $app['tymon.jwt.auth'],
+                $app['tymon.jwt'],
                 $app['auth']->createUserProvider($config['provider']),
                 $app['request']
             );
@@ -85,8 +87,9 @@ class LumenServiceProvider extends ServiceProvider
      */
     protected function registerAliases()
     {
+        $this->app->alias('tymon.jwt', JWT::class);
         $this->app->alias('tymon.jwt.auth', JWTAuth::class);
-        $this->app->alias('tymon.jwt.provider.jwt', JWT::class);
+        $this->app->alias('tymon.jwt.provider.jwt', JWTContract::class);
         $this->app->alias('tymon.jwt.provider.auth', Auth::class);
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
         $this->app->alias('tymon.jwt.manager', Manager::class);
@@ -153,6 +156,19 @@ class LumenServiceProvider extends ServiceProvider
             return new Parser(
                 $app['request'],
                 [new AuthHeaders, new QueryString, new RouteParams]
+            );
+        });
+    }
+
+    /**
+     * Register the bindings for the main JWTAuth class
+     */
+    protected function registerJWT()
+    {
+        $this->app->singleton('tymon.jwt', function ($app) {
+            return new JWT(
+                $app['tymon.jwt.manager'],
+                $app['tymon.jwt.parser']
             );
         });
     }
