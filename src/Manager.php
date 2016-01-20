@@ -14,8 +14,8 @@ namespace Tymon\JWTAuth;
 use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 class Manager
 {
@@ -46,7 +46,7 @@ class Manager
      *  @param \Tymon\JWTAuth\Blacklist                $blacklist
      *  @param \Tymon\JWTAuth\Factory                  $payloadFactory
      */
-    public function __construct(JWT $provider, Blacklist $blacklist, Factory $payloadFactory)
+    public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
         $this->provider = $provider;
         $this->blacklist = $blacklist;

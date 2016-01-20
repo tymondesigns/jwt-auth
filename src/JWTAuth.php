@@ -88,4 +88,14 @@ class JWTAuth extends JWT
     {
         return $this->authenticate();
     }
+
+    /**
+     * Get the authenticated user
+     *
+     * @return \Tymon\JWTAuth\Contracts\JWTSubject
+     */
+    public function user()
+    {
+        return $this->auth->user();
+    }
 }

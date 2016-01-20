@@ -190,16 +190,6 @@ class JWT
     }
 
     /**
-     * Get the authenticated user
-     *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject
-     */
-    public function user()
-    {
-        return $this->auth->user();
-    }
-
-    /**
      * Set the token.
      *
      * @param  Token|string  $token
