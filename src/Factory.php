@@ -15,11 +15,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Support\Utils;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class Factory
 {

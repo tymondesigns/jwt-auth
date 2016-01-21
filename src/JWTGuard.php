@@ -314,7 +314,7 @@ class JWTGuard implements Guard
     protected function requireToken()
     {
         if (! $this->jwt->getToken()) {
-            throw new BadRequestHttpException($e->getMessage());
+            throw new BadRequestHttpException('Token could not be parsed from the request.');
         }
 
         return $this->jwt;
