@@ -208,7 +208,7 @@ class JWTGuard implements Guard
      */
     public function getPayload()
     {
-        return $this->jwt->getPayload();
+        return $this->requireToken()->getPayload();
     }
 
     /**
