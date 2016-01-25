@@ -11,11 +11,11 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->events = Mockery::mock('Illuminate\Events\Dispatcher');
+        $this->events = Mockery::mock('Illuminate\Contracts\Events\Dispatcher');
         $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');
 
         $this->request = Mockery::mock('Illuminate\Http\Request');
-        $this->response = Mockery::mock('Illuminate\Routing\ResponseFactory');
+        $this->response = Mockery::mock('Illuminate\Contracts\Routing\ResponseFactory');
 
         $this->middleware = new GetUserFromToken($this->response, $this->events, $this->auth);
 
