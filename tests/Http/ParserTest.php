@@ -134,7 +134,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($parser->parseToken());
         $this->assertFalse($parser->hasToken());
     }
-    
+
     /** @test */
     public function it_should_accept_lumen_request_arrays_with_special_class()
     {

@@ -25,7 +25,7 @@ class Illuminate implements Storage
      * @var string
      */
     protected $tag = 'tymon.jwt';
-    
+
     /**
      * @var bool
      */

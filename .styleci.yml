@@ -1,8 +1,21 @@
 preset: psr2
 
 enabled:
+  - duplicate_semicolon
+  - extra_empty_lines
   - phpdoc_scalar
+  - return
   - short_array_syntax
+  - single_quote
+  - spaces_cast
+  - standardize_not_equal
+  - ternary_spaces
+  - trim_array_spaces
+  - unalign_double_arrow
+  - unalign_equals
+  - unneeded_control_parentheses
+  - unused_use
+  - whitespacy_lines
 
 linting: true
 

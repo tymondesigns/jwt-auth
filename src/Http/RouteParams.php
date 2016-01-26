@@ -33,13 +33,13 @@ class RouteParams implements ParserContract
     public function parse(Request $request)
     {
         $route = $request->route();
-        
+
         if (! is_callable([$route, 'parameter'])) {
             // Route may not be an instance of Illuminate\Routing\Route (it's an array
             // in Lumen <5.2) or not exist at all (if the request was never dispatched)
             return null;
         }
-        
+
         return $route->parameter($this->key);
     }
 

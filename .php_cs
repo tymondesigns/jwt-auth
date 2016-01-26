@@ -18,9 +18,22 @@ Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
 
 $fixers = [
     '-psr0',
+    'duplicate_semicolon',
+    'extra_empty_lines',
     'header_comment',
     'phpdoc_scalar',
+    'return',
     'short_array_syntax',
+    'single_quote',
+    'spaces_cast',
+    'standardize_not_equal',
+    'ternary_spaces',
+    'trim_array_spaces',
+    'unalign_double_arrow',
+    'unalign_equals',
+    'unneeded_control_parentheses',
+    'unused_use',
+    'whitespacy_lines',
 ];
 
 return Symfony\CS\Config\Config::create()
