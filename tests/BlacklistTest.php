@@ -179,7 +179,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $this->storage->shouldReceive('get')->with(1)->once()->andReturn(['valid_until' => 123]);
 
         $this->assertTrue($this->blacklist->setKey('sub')->has($payload));
-        $this->assertEquals(1, $this->blacklist->getKey($payload));
+        $this->assertSame(1, $this->blacklist->getKey($payload));
     }
 
     /** @test */

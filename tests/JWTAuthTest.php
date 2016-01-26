@@ -49,7 +49,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->jwtAuth->fromUser(new \Tymon\JWTAuth\Test\Stubs\UserStub);
 
-        $this->assertEquals($token, 'foo.bar.baz');
+        $this->assertSame($token, 'foo.bar.baz');
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->jwtAuth->attempt(['foo' => 'bar']);
 
-        $this->assertEquals($token, 'foo.bar.baz');
+        $this->assertSame($token, 'foo.bar.baz');
     }
 
     /** @test */
@@ -107,7 +107,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->jwtAuth->setToken('foo.bar.baz')->customClaims(['foo' => 'bar'])->authenticate();
 
-        $this->assertEquals($user->id, 1);
+        $this->assertSame($user->id, 1);
     }
 
     /** @test */

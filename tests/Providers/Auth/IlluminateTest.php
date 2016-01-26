@@ -52,6 +52,6 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_the_currently_authenticated_user()
     {
         $this->authManager->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
-        $this->assertEquals($this->auth->user()->id, 1);
+        $this->assertSame($this->auth->user()->id, 1);
     }
 }

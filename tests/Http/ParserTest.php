@@ -35,7 +35,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new RouteParams
         ]);
 
-        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
     }
 
@@ -54,11 +54,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new RouteParams
         ]);
 
-        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
 
         $parser->setRequest($request2);
-        $this->assertEquals($parser->parseToken(), 'foobarbaz');
+        $this->assertSame($parser->parseToken(), 'foobarbaz');
         $this->assertTrue($parser->hasToken());
     }
 
@@ -74,7 +74,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new RouteParams
         ]);
 
-        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
     }
 
@@ -93,7 +93,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new RouteParams
         ]);
 
-        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
     }
 
@@ -150,7 +150,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             new LumenRouteParams
         ]);
 
-        $this->assertEquals($parser->parseToken(), 'foobar');
+        $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
     }
 
@@ -185,7 +185,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser = new Parser(Mockery::mock('Illuminate\Http\Request'));
         $parser->setChain($chain);
 
-        $this->assertEquals($parser->getChain(), $chain);
+        $this->assertSame($parser->getChain(), $chain);
     }
 
     protected function getRouteMock($expectedParameterValue = null)

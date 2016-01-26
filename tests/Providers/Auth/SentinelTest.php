@@ -58,6 +58,6 @@ class SentinelTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_the_currently_authenticated_user()
     {
         $this->sentinel->shouldReceive('getUser')->once()->andReturn(new SentinelStub);
-        $this->assertEquals($this->auth->user()->getUserId(), 123);
+        $this->assertSame($this->auth->user()->getUserId(), 123);
     }
 }

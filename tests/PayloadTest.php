@@ -65,7 +65,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_cast_the_payload_to_a_string_as_json()
     {
-        $this->assertEquals((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
+        $this->assertSame((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
         $this->assertJsonStringEqualsJsonString((string) $this->payload, json_encode($this->payload->get()));
     }
 
@@ -73,7 +73,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     public function it_should_allow_array_access_on_the_payload()
     {
         $this->assertTrue(isset($this->payload['iat']));
-        $this->assertEquals($this->payload['sub'], 1);
+        $this->assertSame($this->payload['sub'], 1);
         $this->assertArrayHasKey('exp', $this->payload);
     }
 
@@ -81,9 +81,9 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     public function it_should_get_properties_of_payload_via_get_method()
     {
         $this->assertInternalType('array', $this->payload->get());
-        $this->assertEquals($this->payload->get('sub'), 1);
+        $this->assertSame($this->payload->get('sub'), 1);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->payload->get(function () {
                 return 'jti';
             }),
@@ -99,8 +99,8 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         list($sub, $jti) = $values;
 
         $this->assertInternalType('array', $values);
-        $this->assertEquals($sub, 1);
-        $this->assertEquals($jti, 'foo');
+        $this->assertSame($sub, 1);
+        $this->assertSame($jti, 'foo');
     }
 
     /** @test */
@@ -117,9 +117,9 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $jti = $this->payload->getJwtId();
         $iss = $this->payload->getIssuer();
 
-        $this->assertEquals($sub, 1);
-        $this->assertEquals($jti, 'foo');
-        $this->assertEquals($iss, 'http://example.com');
+        $this->assertSame($sub, 1);
+        $this->assertSame($jti, 'foo');
+        $this->assertSame($iss, 'http://example.com');
     }
 
     /** @test */
@@ -131,11 +131,11 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $jti = $payload('jti');
         $iss = $payload('iss');
 
-        $this->assertEquals($sub, 1);
-        $this->assertEquals($jti, 'foo');
-        $this->assertEquals($iss, 'http://example.com');
+        $this->assertSame($sub, 1);
+        $this->assertSame($jti, 'foo');
+        $this->assertSame($iss, 'http://example.com');
 
-        $this->assertEquals($payload(), $this->payload->toArray());
+        $this->assertSame($payload(), $this->payload->toArray());
     }
 
     /** @test */
@@ -167,6 +167,6 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_count_the_claims()
     {
-        $this->assertEquals($this->payload->count(), 6);
+        $this->assertSame($this->payload->count(), 6);
     }
 }

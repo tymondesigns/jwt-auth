@@ -58,7 +58,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     {
         $this->cache->shouldReceive('get')->with('foo')->once()->andReturn(['foo' => 'bar']);
 
-        $this->assertEquals(['foo' => 'bar'], $this->storage->get('foo'));
+        $this->assertSame(['foo' => 'bar'], $this->storage->get('foo'));
     }
 
     /** @test */
@@ -116,7 +116,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
         $this->emulateTags();
         $this->cache->shouldReceive('get')->with('foo')->once()->andReturn(['foo' => 'bar']);
 
-        $this->assertEquals(['foo' => 'bar'], $this->storage->get('foo'));
+        $this->assertSame(['foo' => 'bar'], $this->storage->get('foo'));
     }
 
     /** @test */
