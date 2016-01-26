@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 
 class NamshiTest extends \PHPUnit_Framework_TestCase

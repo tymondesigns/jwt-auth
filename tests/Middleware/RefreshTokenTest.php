@@ -13,9 +13,7 @@ namespace Middleware;
 
 use Mockery;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Middleware\RefreshToken;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class RefreshTokenTest extends \PHPUnit_Framework_TestCase

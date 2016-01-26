@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
-use Mockery;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
