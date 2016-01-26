@@ -116,7 +116,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->setTTL(null)->sub(1)->make();
 
-        $this->assertSame(null, $payload->get('exp'));
+        $this->assertNull($payload->get('exp'));
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
