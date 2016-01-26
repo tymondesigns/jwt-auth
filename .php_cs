@@ -1,7 +1,8 @@
 <?php
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
-        ->in(__DIR__ . '/src')
+        ->in(__DIR__)
+        ->exclude('config')
         ->ignoreDotFiles(true);
 
 $header = <<<EOF
