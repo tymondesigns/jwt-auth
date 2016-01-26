@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
-use Mockery;
 use Tymon\JWTAuth\Claims\Expiration;
 
 class ClaimTest extends \PHPUnit_Framework_TestCase

@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
 
 class ProviderTest extends \PHPUnit_Framework_TestCase

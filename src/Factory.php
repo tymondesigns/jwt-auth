@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Support\Utils;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;

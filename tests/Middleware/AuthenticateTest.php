@@ -14,7 +14,6 @@ namespace Tymon\JWTAuth\Test\Middleware;
 use Mockery;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Middleware\Authenticate;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthenticateTest extends \PHPUnit_Framework_TestCase

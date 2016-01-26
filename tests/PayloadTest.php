@@ -11,9 +11,7 @@
 
 namespace Tymon\JWTAuth\Test;
 
-use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Factory;
 use Mockery;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
@@ -22,7 +20,6 @@ use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Custom;
 use Illuminate\Support\Collection;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
