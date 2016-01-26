@@ -24,14 +24,14 @@ class Blacklist
     /**
      * The grace period when a token is blacklisted. In seconds
      *
-     * @var integer
+     * @var int
      */
     protected $gracePeriod = 0;
 
     /**
      * Number of minutes from issue date in which a JWT can be refreshed.
      *
-     * @var integer
+     * @var int
      */
     protected $refreshTTL = 20160;
 
@@ -55,7 +55,7 @@ class Blacklist
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
-     * @return boolean
+     * @return bool
      */
     public function add(Payload $payload)
     {
@@ -99,7 +99,7 @@ class Blacklist
      *
      * @param  Payload  $payload
      *
-     * @return boolean
+     * @return bool
      */
     public function addForever(Payload $payload)
     {
@@ -113,7 +113,7 @@ class Blacklist
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
-     * @return boolean
+     * @return bool
      */
     public function has(Payload $payload)
     {
@@ -133,7 +133,7 @@ class Blacklist
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
-     * @return boolean
+     * @return bool
      */
     public function remove(Payload $payload)
     {
@@ -143,7 +143,7 @@ class Blacklist
     /**
      * Remove all tokens from the blacklist
      *
-     * @return boolean
+     * @return bool
      */
     public function clear()
     {
@@ -156,7 +156,7 @@ class Blacklist
      * Get the timestamp when the blacklist comes into effect
      * This defaults to immediate (0 seconds)
      *
-     * @return integer
+     * @return int
      */
     protected function getGraceTimestamp()
     {
@@ -166,7 +166,7 @@ class Blacklist
     /**
      * Set the grace period
      *
-     * @param  integer
+     * @param  int
      *
      * @return Blacklist
      */
@@ -205,7 +205,7 @@ class Blacklist
     /**
      * Set the refresh time limit
      *
-     * @param  integer
+     * @param  int
      *
      * @return Blacklist
      */

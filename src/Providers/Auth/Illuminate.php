@@ -34,7 +34,7 @@ class Illuminate implements Auth
      *
      * @param  array  $credentials
      *
-     * @return boolean
+     * @return bool
      */
     public function byCredentials(array $credentials)
     {
@@ -46,7 +46,7 @@ class Illuminate implements Auth
      *
      * @param  mixed  $id
      *
-     * @return boolean
+     * @return bool
      */
     public function byId($id)
     {

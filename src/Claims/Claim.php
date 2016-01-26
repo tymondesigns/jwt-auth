@@ -98,7 +98,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
      *
      * @param  mixed $value
      *
-     * @return boolean
+     * @return bool
      */
     public function validate($value)
     {

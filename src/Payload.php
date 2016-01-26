@@ -36,7 +36,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      *
      * @param \Illuminate\Support\Collection              $claims
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
-     * @param boolean                                     $refreshFlow
+     * @param bool                                     $refreshFlow
      */
     public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
@@ -82,7 +82,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      *
-     * @return boolean
+     * @return bool
      */
     public function has(Claim $claim)
     {
@@ -94,7 +94,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      *
      * @param   string   $claim
      *
-     * @return  boolean
+     * @return  bool
      */
     public function hasKey($claim)
     {

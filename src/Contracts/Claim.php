@@ -52,7 +52,7 @@ interface Claim
      *
      * @param  mixed $value
      *
-     * @return boolean
+     * @return bool
      */
     public function validate($value);
 }

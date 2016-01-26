@@ -16,7 +16,7 @@ interface Storage
     /**
      * @param  string   $key
      * @param  mixed    $value
-     * @param  integer  $minutes
+     * @param  int  $minutes
      *
      * @return void
      */
@@ -40,7 +40,7 @@ interface Storage
     /**
      * @param  string  $key
      *
-     * @return boolean
+     * @return bool
      */
     public function destroy($key);
 

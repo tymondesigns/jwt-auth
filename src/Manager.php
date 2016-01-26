@@ -37,7 +37,7 @@ class Manager
     protected $payloadFactory;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $blacklistEnabled = true;
 
@@ -124,11 +124,11 @@ class Manager
      * Invalidate a Token by adding it to the blacklist
      *
      * @param  Token    $token
-     * @param  boolean  $forceForever
+     * @param  bool  $forceForever
      *
      * @throws JWTException
      *
-     * @return boolean
+     * @return bool
      */
     public function invalidate(Token $token, $forceForever = false)
     {

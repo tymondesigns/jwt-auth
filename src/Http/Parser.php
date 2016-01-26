@@ -93,7 +93,7 @@ class Parser
     /**
      * Check whether a token exists in the chain
      *
-     * @return  boolean
+     * @return  bool
      */
     public function hasToken()
     {

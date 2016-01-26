@@ -27,7 +27,7 @@ class Illuminate implements Storage
     protected $tag = 'tymon.jwt';
     
     /**
-     * @var boolean
+     * @var bool
      */
     protected $supportsTags;
 
@@ -83,7 +83,7 @@ class Illuminate implements Storage
      *
      * @param  string  $key
      *
-     * @return boolean
+     * @return bool
      */
     public function destroy($key)
     {
