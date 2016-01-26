@@ -13,16 +13,15 @@ namespace Tymon\JWTAuth\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 
 class JWTGenerateSecretCommand extends Command
 {
     /**
-     * The console command name.
+     * The console command signature.
      *
      * @var string
      */
-    protected $name = 'jwt:secret';
+    protected $signature = 'jwt:secret {show : Simply display the key instead of modifying files.}';
 
     /**
      * The console command description.
@@ -79,17 +78,5 @@ class JWTGenerateSecretCommand extends Command
     protected function getRandomKey()
     {
         return Str::quickRandom(32);
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['show', null, InputOption::VALUE_NONE, 'Simply display the key instead of modifying files.'],
-        ];
     }
 }
