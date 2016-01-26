@@ -193,6 +193,7 @@ class Blacklist
      * Set the unique key held within the blacklist
      *
      * @param  string  $key
+     * @return $this
      */
     public function setKey($key)
     {

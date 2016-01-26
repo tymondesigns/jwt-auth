@@ -66,7 +66,7 @@ class AuthHeaders implements ParserContract
      *
      * @param  string  $headerName
      *
-     * @return TokenParser
+     * @return $this
      */
     public function setHeaderName($headerName)
     {
@@ -80,7 +80,7 @@ class AuthHeaders implements ParserContract
      *
      * @param  string  $headerPrefix
      *
-     * @return TokenParser
+     * @return $this
      */
     public function setHeaderPrefix($headerPrefix)
     {
