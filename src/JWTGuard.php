@@ -14,9 +14,8 @@ namespace Tymon\JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\UserProvider;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class JWTGuard implements Guard
 {
