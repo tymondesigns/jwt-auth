@@ -28,7 +28,7 @@ class PayloadValidator extends Validator
     protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
 
     /**
-     * @var integer
+     * @var int
      */
     protected $refreshTTL = 20160;
 
@@ -58,7 +58,7 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return boolean
+     * @return bool
      */
     protected function validateStructure(array $payload)
     {
@@ -77,7 +77,7 @@ class PayloadValidator extends Validator
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return boolean
+     * @return bool
      */
     protected function validateTimestamps(array $payload)
     {
@@ -103,7 +103,7 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
-     * @return boolean
+     * @return bool
      */
     protected function validateRefresh(array $payload)
     {
@@ -131,7 +131,7 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl
      *
-     * @param integer  $ttl
+     * @param int  $ttl
      * @return $this
      */
     public function setRefreshTTL($ttl)

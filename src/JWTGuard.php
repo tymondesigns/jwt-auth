@@ -81,7 +81,7 @@ class JWTGuard implements Guard
      *
      * @param  array $credentials
      *
-     * @return boolean
+     * @return bool
      */
     public function validate(array $credentials = [])
     {
@@ -93,7 +93,7 @@ class JWTGuard implements Guard
      *
      * @param  array  $credentials
      *
-     * @return boolean
+     * @return bool
      */
     public function attempt(array $credentials = [], $login = true)
     {
@@ -115,7 +115,7 @@ class JWTGuard implements Guard
     /**
      * Logout the user, thus invalidating the token.
      *
-     * @param  boolean  $forceForever
+     * @param  bool  $forceForever
      *
      * @return void
      */
@@ -158,7 +158,7 @@ class JWTGuard implements Guard
      *
      * @param  array $credentials
      *
-     * @return boolean
+     * @return bool
      */
     public function once(array $credentials = [])
     {
@@ -176,7 +176,7 @@ class JWTGuard implements Guard
      *
      * @param  mixed $id
      *
-     * @return boolean
+     * @return bool
      */
     public function onceUsingId($id)
     {
@@ -194,7 +194,7 @@ class JWTGuard implements Guard
      *
      * @param   mixed  $id
      *
-     * @return  boolean
+     * @return  bool
      */
     public function byId($id)
     {
@@ -297,7 +297,7 @@ class JWTGuard implements Guard
      * @param  mixed  $user
      * @param  array  $credentials
      *
-     * @return boolean
+     * @return bool
      */
     protected function hasValidCredentials($user, $credentials)
     {

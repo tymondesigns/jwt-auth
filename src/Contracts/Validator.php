@@ -25,7 +25,7 @@ interface Validator
      * Helper function to return a boolean
      *
      * @param  array  $value
-     * @return boolean
+     * @return bool
      */
     public function isValid($value);
 }

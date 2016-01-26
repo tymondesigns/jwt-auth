@@ -75,9 +75,9 @@ class JWT
     /**
      * Invalidate a token (add it to the blacklist).
      *
-     * @param  boolean  $forceForever
+     * @param  bool  $forceForever
      *
-     * @return boolean
+     * @return bool
      */
     public function invalidate($forceForever = false)
     {
@@ -102,7 +102,7 @@ class JWT
     /**
      * Check that the token is valid
      *
-     * @return boolean
+     * @return bool
      */
     public function check()
     {
