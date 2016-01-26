@@ -44,7 +44,7 @@ class RefreshTokenTest extends \PHPUnit_Framework_TestCase
 
         $response = $this->middleware->handle($this->request, function () { return new Response; });
 
-        $this->assertEquals($response->headers->get('authorization'), 'Bearer foo.bar.baz');
+        $this->assertSame($response->headers->get('authorization'), 'Bearer foo.bar.baz');
     }
 
     /** @test */

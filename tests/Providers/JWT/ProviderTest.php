@@ -31,6 +31,6 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->provider->setAlgo('HS512');
 
-        $this->assertEquals('HS512', $this->provider->getAlgo());
+        $this->assertSame('HS512', $this->provider->getAlgo());
     }
 }

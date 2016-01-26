@@ -52,9 +52,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->claims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
 
-        $this->assertEquals($payload->get('sub'), 1);
-        $this->assertEquals($payload->get('iat'), 123);
-        $this->assertEquals($payload['exp'], $expTime);
+        $this->assertSame($payload->get('sub'), 1);
+        $this->assertSame($payload->get('iat'), 123);
+        $this->assertSame($payload['exp'], $expTime);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -74,9 +74,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->sub(1)->foo('baz')->make();
 
-        $this->assertEquals($payload['sub'], 1);
-        $this->assertEquals($payload->get('jti'), 'foo');
-        $this->assertEquals($payload->get('foo'), 'baz');
+        $this->assertSame($payload['sub'], 1);
+        $this->assertSame($payload->get('jti'), 'foo');
+        $this->assertSame($payload->get('foo'), 'baz');
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -96,9 +96,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->sub(1)->foo(['bar' => [0, 0, 0]])->make();
 
-        $this->assertEquals($payload->get('sub'), 1);
-        $this->assertEquals($payload->get('foo'), ['bar' => [0, 0, 0]]);
-        $this->assertEquals($payload->get('foo.bar'), [0, 0, 0]);
+        $this->assertSame($payload->get('sub'), 1);
+        $this->assertSame($payload->get('foo'), ['bar' => [0, 0, 0]]);
+        $this->assertSame($payload->get('foo.bar'), [0, 0, 0]);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -116,7 +116,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->setTTL(null)->sub(1)->make();
 
-        $this->assertEquals(null, $payload->get('exp'));
+        $this->assertNull($payload->get('exp'));
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -126,7 +126,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->factory->setTTL(12345);
 
-        $this->assertEquals($this->factory->getTTL(), 12345);
+        $this->assertSame($this->factory->getTTL(), 12345);
     }
 
     /** @test */
@@ -134,7 +134,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->factory->setDefaultClaims(['sub', 'iat']);
 
-        $this->assertEquals($this->factory->getDefaultClaims(), ['sub', 'iat']);
+        $this->assertSame($this->factory->getDefaultClaims(), ['sub', 'iat']);
     }
 
     /** @test */

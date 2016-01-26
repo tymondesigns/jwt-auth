@@ -31,7 +31,7 @@ class ClaimTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_convert_the_claim_to_an_array()
     {
-        $this->assertEquals(['exp' => 123456], $this->claim->toArray());
+        $this->assertSame(['exp' => 123456], $this->claim->toArray());
     }
 
     /** @test */
