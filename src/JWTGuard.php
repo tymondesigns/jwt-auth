@@ -16,6 +16,7 @@ use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class JWTGuard implements Guard
 {
@@ -314,7 +315,7 @@ class JWTGuard implements Guard
     protected function requireToken()
     {
         if (! $this->jwt->getToken()) {
-            throw new BadRequestHttpException('Token could not be parsed from the request.');
+            throw new JWTException('Token could not be parsed from the request.');
         }
 
         return $this->jwt;
