@@ -270,7 +270,7 @@ class JWTGuard implements Guard
     /**
      * Set the current request instance.
      *
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return $this
      */
@@ -307,9 +307,9 @@ class JWTGuard implements Guard
     /**
      * Ensure that a token is available in the request
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException::__construct
      *
-     * @return \Tymon\JWTAuth\JWTAuth
+     * @return \Tymon\JWTAuth\JWT
      */
     protected function requireToken()
     {

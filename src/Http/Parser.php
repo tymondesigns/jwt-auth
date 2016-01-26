@@ -49,6 +49,7 @@ class Parser
      * Set the order of the parser chain
      *
      * @param array $chain
+     * @return $this
      */
     public function setChain(array $chain)
     {
@@ -61,6 +62,7 @@ class Parser
      * Alias for setting the order of the chain
      *
      * @param array $chain
+     * @return $this
      */
     public function setChainOrder(array $chain)
     {
@@ -70,7 +72,7 @@ class Parser
     }
 
     /**
-     * Iterate throught the parsers and attempt to retrieve
+     * Iterate through the parsers and attempt to retrieve
      * a value, otherwise return null
      *
      * @return string|null
