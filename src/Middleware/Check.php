@@ -11,6 +11,8 @@
 
 namespace Tymon\JWTAuth\Middleware;
 
+use Exception;
+
 class Check extends BaseMiddleware
 {
     /**
@@ -26,7 +28,7 @@ class Check extends BaseMiddleware
         if ($this->auth->parser()->setRequest($request)->hasToken()) {
             try {
                 $this->auth->parseToken()->authenticate();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 unset($e);
             }
         }

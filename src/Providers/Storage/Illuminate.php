@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Providers\Storage;
 
+use BadMethodCallException;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
 
@@ -131,7 +132,7 @@ class Illuminate implements Storage
                 // Attempt the repository tags command, which throws exceptions when unsupported
                 $this->cache->tags($this->tag);
                 $this->supportsTags = true;
-            } catch (\BadMethodCallException $ex) {
+            } catch (BadMethodCallException $ex) {
                 $this->supportsTags = false;
             }
         } else {
