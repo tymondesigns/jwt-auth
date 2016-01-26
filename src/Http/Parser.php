@@ -57,7 +57,7 @@ class Parser
 
         return $this;
     }
-    
+
     /**
      * Alias for setting the order of the chain
      *
