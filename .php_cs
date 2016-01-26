@@ -16,7 +16,14 @@ EOF;
 
 Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
 
+$fixers = [
+    '-psr0',
+    'header_comment',
+    'phpdoc_scalar',
+    'short_array_syntax',
+];
+
 return Symfony\CS\Config\Config::create()
         ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-        ->fixers(['short_array_syntax', '-psr0', 'header_comment'])
+        ->fixers($fixers)
         ->finder($finder);

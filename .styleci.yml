@@ -1,6 +1,7 @@
 preset: psr2
 
 enabled:
+  - phpdoc_scalar
   - short_array_syntax
 
 linting: true
