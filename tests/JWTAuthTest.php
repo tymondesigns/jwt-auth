@@ -101,11 +101,12 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($token);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     */
     public function it_should_throw_an_exception_when_not_providing_a_token()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
-
         $user = $this->jwtAuth->toUser();
     }
 
@@ -214,11 +215,12 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->jwtAuth->parseToken()->check());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     */
     public function it_should_throw_an_exception_when_token_not_present_in_request()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
-
         $this->parser->shouldReceive('parseToken')->andReturn(false);
 
         $this->jwtAuth->parseToken();

@@ -51,11 +51,12 @@ class NamshiTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
-
         $this->jws->shouldReceive('sign')->andThrow(new \Exception);
 
         $payload = ['sub' => 1, 'exp' => time(), 'iat' => time(), 'iss' => '/foo'];
@@ -72,11 +73,12 @@ class NamshiTest extends \PHPUnit_Framework_TestCase
 
     // }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
-
         $this->jws->shouldReceive('verify')->andReturn(false);
 
         $token = $this->provider->decode('foo');

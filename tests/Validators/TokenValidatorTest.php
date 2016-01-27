@@ -37,11 +37,12 @@ class TokenValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->validator->isValid('one.two.three.four.five'));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     */
     public function it_should_throw_an_axception_when_providing_a_malformed_token()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
-
         $this->validator->check('one.two.three.four.five');
     }
 }
