@@ -23,12 +23,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Subject', $this->factory->get('sub', 1));
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Subject::class, $this->factory->get('sub', 1));
     }
 
     /** @test */
     public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Custom', $this->factory->get('foo', ['bar']));
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Custom::class, $this->factory->get('foo', ['bar']));
     }
 }

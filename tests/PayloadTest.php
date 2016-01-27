@@ -151,9 +151,9 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     {
         $claims = $this->payload->getClaims();
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims['exp']);
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims['jti']);
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Subject', $claims['sub']);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Expiration::class, $claims['exp']);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\JwtId::class, $claims['jti']);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Subject::class, $claims['sub']);
 
         $this->assertContainsOnlyInstancesOf('Tymon\JWTAuth\Claims\Claim', $claims);
     }

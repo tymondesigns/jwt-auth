@@ -56,7 +56,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($payload->get('iat'), 123);
         $this->assertSame($payload['exp'], $expTime);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($payload->get('jti'), 'foo');
         $this->assertSame($payload->get('foo'), 'baz');
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
@@ -100,7 +100,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($payload->get('foo'), ['bar' => [0, 0, 0]]);
         $this->assertSame($payload->get('foo.bar'), [0, 0, 0]);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
@@ -118,7 +118,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($payload->get('exp'));
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
@@ -140,6 +140,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_validator()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Validators\PayloadValidator', $this->factory->validator());
+        $this->assertInstanceOf(\Tymon\JWTAuth\Validators\PayloadValidator::class, $this->factory->validator());
     }
 }

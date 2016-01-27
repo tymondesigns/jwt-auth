@@ -85,7 +85,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->manager->decode($token);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
@@ -142,7 +142,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $token = $this->manager->refresh($token);
 
         // $this->assertArrayHasKey('ref', $payload);
-        $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
     }
 
@@ -213,18 +213,18 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_payload_factory()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Factory', $this->manager->getPayloadFactory());
+        $this->assertInstanceOf(\Tymon\JWTAuth\Factory::class, $this->manager->getPayloadFactory());
     }
 
     /** @test */
     public function it_should_get_the_jwt_provider()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Contracts\Providers\JWT', $this->manager->getJWTProvider());
+        $this->assertInstanceOf(\Tymon\JWTAuth\Contracts\Providers\JWT::class, $this->manager->getJWTProvider());
     }
 
     /** @test */
     public function it_should_get_the_blacklist()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Blacklist', $this->manager->getBlacklist());
+        $this->assertInstanceOf(\Tymon\JWTAuth\Blacklist::class, $this->manager->getBlacklist());
     }
 }
