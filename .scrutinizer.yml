@@ -1,9 +1,6 @@
 filter:
     excluded_paths: [tests/*]
 tools:
-    external_code_coverage:
-        timeout: 3400
-        runs: 2
     php_code_coverage: false
     php_code_sniffer:
         config:
