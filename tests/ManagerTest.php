@@ -75,7 +75,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -95,7 +95,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
@@ -125,7 +125,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
@@ -150,7 +150,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 - 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
         $token = new Token('foo.bar.baz');
@@ -181,7 +181,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
@@ -208,7 +208,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
         $token = new Token('foo.bar.baz');
