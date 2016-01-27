@@ -24,7 +24,7 @@ class UserStub implements JWTSubject
     {
         return [
             'foo' => 'bar',
-            'role' => 'admin'
+            'role' => 'admin',
         ];
     }
 }

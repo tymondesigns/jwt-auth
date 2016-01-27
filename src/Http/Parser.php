@@ -87,7 +87,7 @@ class Parser
             }
         }
 
-        return null;
+        return;
     }
 
     /**

@@ -26,7 +26,6 @@ class RefreshTokenTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Mockery\MockInterface
      */
-
     protected $request;
     /**
      * @var \Tymon\JWTAuth\Middleware\RefreshToken

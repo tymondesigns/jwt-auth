@@ -68,7 +68,7 @@ class JWTGuard implements Guard
         }
 
         if (! $this->requireToken()->check()) {
-            return null;
+            return;
         }
 
         $id = $this->jwt->getPayload()->get('sub');
@@ -149,8 +149,6 @@ class JWTGuard implements Guard
         if (! is_null($user = $this->provider->retrieveById($id))) {
             return $this->jwt->fromUser($user);
         }
-
-        return null;
     }
 
     /**
