@@ -149,8 +149,6 @@ class JWTGuard implements Guard
         if (! is_null($user = $this->provider->retrieveById($id))) {
             return $this->jwt->fromUser($user);
         }
-
-        return;
     }
 
     /**
