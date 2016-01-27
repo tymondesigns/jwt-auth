@@ -34,6 +34,8 @@ class AuthHeaders implements ParserContract
     /**
      * Attempt to parse the token from some other possible headers
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return null|string
      */
     protected function fromAltHeaders(Request $request)
