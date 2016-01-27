@@ -17,6 +17,16 @@ use Tymon\JWTAuth\Test\Stubs\SentinelStub;
 
 class SentinelTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $sentinel;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\Auth\Sentinel
+     */
+    protected $auth;
+
     public function setUp()
     {
         $this->sentinel = Mockery::mock('Cartalyst\Sentinel\Sentinel');

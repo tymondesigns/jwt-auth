@@ -16,6 +16,11 @@ use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
 
 class ProviderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Test\Stubs\JWTProviderStub
+     */
+    protected $provider;
+
     public function setUp()
     {
         $this->provider = new JWTProviderStub('secret', 'HS256');

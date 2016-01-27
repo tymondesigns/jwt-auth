@@ -24,6 +24,21 @@ use Tymon\JWTAuth\Claims\Custom;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $claimFactory;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $validator;
+
+    /**
+     * @var \Tymon\JWTAuth\Factory
+     */
+    protected $factory;
+
     public function setUp()
     {
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');

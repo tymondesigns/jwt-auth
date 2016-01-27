@@ -26,6 +26,16 @@ class TaggedStorage extends Storage
 
 class IlluminateTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $cache;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\Storage\Illuminate
+     */
+    protected $storage;
+
     public function setUp()
     {
         $this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');

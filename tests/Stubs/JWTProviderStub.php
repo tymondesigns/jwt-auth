@@ -15,4 +15,5 @@ use Tymon\JWTAuth\Providers\JWT\Provider;
 
 class JWTProviderStub extends Provider
 {
+    //
 }

@@ -15,6 +15,11 @@ use Tymon\JWTAuth\Validators\TokenValidator;
 
 class TokenValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Validators\TokenValidator
+     */
+    protected $validator;
+
     public function setUp()
     {
         $this->validator = new TokenValidator();

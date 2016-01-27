@@ -16,6 +16,16 @@ use Tymon\JWTAuth\Providers\JWT\Namshi;
 
 class NamshiTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $jws;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\JWT\Namshi
+     */
+    protected $provider;
+
     public function setUp()
     {
         $this->jws = Mockery::mock('Namshi\JOSE\JWS');

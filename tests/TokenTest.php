@@ -15,6 +15,11 @@ use Tymon\JWTAuth\Token;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Token
+     */
+    protected $token;
+
     public function setUp()
     {
         $this->token = new Token('foo.bar.baz');

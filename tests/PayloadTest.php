@@ -24,6 +24,16 @@ use Illuminate\Support\Collection;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $validator;
+
+    /**
+     * @var \Tymon\JWTAuth\Payload
+     */
+    protected $payload;
+
     public function setUp()
     {
         $claims = [
