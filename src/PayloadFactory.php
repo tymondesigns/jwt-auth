@@ -158,7 +158,7 @@ class PayloadFactory
      */
     public function iat()
     {
-        return (int) Utils::now()->format('U');
+        return Utils::now()->timestamp;
     }
 
     /**
@@ -168,7 +168,7 @@ class PayloadFactory
      */
     public function exp()
     {
-        return (int) Utils::now()->addMinutes($this->ttl)->format('U');
+        return Utils::now()->addMinutes($this->ttl)->timestamp;
     }
 
     /**
@@ -178,7 +178,7 @@ class PayloadFactory
      */
     public function nbf()
     {
-        return (int) Utils::now()->format('U');
+        return Utils::now()->timestamp;
     }
 
     /**

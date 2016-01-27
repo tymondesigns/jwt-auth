@@ -53,7 +53,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
         $this->jws->shouldReceive('sign')->andThrow(new \Exception);
 
         $payload = ['sub' => 1, 'exp' => 123, 'iat' => 123, 'iss' => '/foo'];
-        $token = $this->provider->encode($payload);
+        $this->provider->encode($payload);
     }
 
     /** @test */

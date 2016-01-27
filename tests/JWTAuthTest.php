@@ -102,7 +102,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
 
-        $user = $this->jwtAuth->toUser();
+        $this->jwtAuth->toUser();
     }
 
     /** @test */

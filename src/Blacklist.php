@@ -56,7 +56,7 @@ class Blacklist
         // Set the cache entry's lifetime to be equal to the amount
         // of refreshable time it has remaining (which is the larger
         // of `exp` and `iat+refresh_ttl`), rounded up a minute
-        $cacheLifetime = $exp->max($refreshExp)->diffInMinutes(Utils::now()->subMinute());
+        $cacheLifetime = $exp->max($refreshExp)->addMinute()->diffInMinutes();
 
         $this->storage->add($payload['jti'], [], $cacheLifetime);
 
