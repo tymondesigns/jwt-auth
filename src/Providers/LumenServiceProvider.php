@@ -234,7 +234,7 @@ class LumenServiceProvider extends ServiceProvider
     protected function registerJWTCommand()
     {
         $this->app->singleton('tymon.jwt.secret', function () {
-            return new JWTGenerateSecretCommand();
+            return new JWTGenerateSecretCommand;
         });
     }
 
