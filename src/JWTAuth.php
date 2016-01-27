@@ -17,24 +17,9 @@ use Tymon\JWTAuth\Contracts\Providers\Auth;
 class JWTAuth extends JWT
 {
     /**
-     * @var \Tymon\JWTAuth\Manager
-     */
-    protected $manager;
-
-    /**
      * @var \Tymon\JWTAuth\Contracts\Providers\Auth
      */
     protected $auth;
-
-    /**
-     * @var \Tymon\JWTAuth\Http\Parser
-     */
-    protected $parser;
-
-    /**
-     * @var \Tymon\JWTAuth\Token
-     */
-    protected $token;
 
     /**
      * @param \Tymon\JWTAuth\Manager                   $manager
