@@ -138,7 +138,7 @@ class JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
-     * @return JWTAuth
+     * @return $this
      */
     public function parseToken()
     {
@@ -194,7 +194,7 @@ class JWT
      *
      * @param  Token|string  $token
      *
-     * @return JWTAuth
+     * @return $this
      */
     public function setToken($token)
     {
@@ -206,7 +206,7 @@ class JWT
     /**
      * Unset the current token.
      *
-     * @return JWTAuth
+     * @return $this
      */
     public function unsetToken()
     {
@@ -232,7 +232,7 @@ class JWT
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return JWTAuth
+     * @return $this
      */
     public function setRequest(Request $request)
     {

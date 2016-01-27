@@ -105,7 +105,7 @@ class Parser
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Parser
+     * @return $this
      */
     public function setRequest(Request $request)
     {

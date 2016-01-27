@@ -177,7 +177,7 @@ class Manager
      *
      * @param bool  $enabled
      *
-     * @return \Tymon\JWTAuth\Manager
+     * @return $this
      */
     public function setBlacklistEnabled($enabled)
     {

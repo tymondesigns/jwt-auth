@@ -46,7 +46,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      *
-     * @return Claim
+     * @return $this
      */
     public function setValue($value)
     {
@@ -74,7 +74,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
      *
      * @param string $name
      *
-     * @return Claim
+     * @return $this
      */
     public function setName($name)
     {

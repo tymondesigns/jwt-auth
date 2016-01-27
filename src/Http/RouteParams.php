@@ -48,7 +48,7 @@ class RouteParams implements ParserContract
      *
      * @param  string  $key
      *
-     * @return RouteParams
+     * @return $this
      */
     public function setKey($key)
     {

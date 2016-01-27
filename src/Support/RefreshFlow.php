@@ -23,7 +23,7 @@ trait RefreshFlow
      *
      * @param  bool  $refreshFlow
      *
-     * @return self
+     * @return $this
      */
     public function setRefreshFlow($refreshFlow = true)
     {

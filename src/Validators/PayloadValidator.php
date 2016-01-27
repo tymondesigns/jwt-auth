@@ -119,7 +119,7 @@ class PayloadValidator extends Validator
      *
      * @param array  $claims
      *
-     * @return PayloadValidator
+     * @return $this
      */
     public function setRequiredClaims(array $claims)
     {
