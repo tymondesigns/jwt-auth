@@ -102,7 +102,7 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
         $this->cache->shouldReceive('tags')->with('tymon.jwt')->once()->andReturn(Mockery::self());
     }
 
-        /** @test */
+    /** @test */
     public function it_should_add_the_item_to_tagged_storage()
     {
         $this->emulateTags();

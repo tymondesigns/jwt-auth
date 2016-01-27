@@ -32,7 +32,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser->setChainOrder([
             new QueryString,
             new AuthHeaders,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -51,7 +51,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser = new Parser($request1, [
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -71,7 +71,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser->setChainOrder([
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -90,7 +90,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser->setChainOrder([
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -102,14 +102,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
-            return null;
+            return;
         });
 
         $parser = new Parser($request);
         $parser->setChainOrder([
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -121,14 +121,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
-            return [false, ['uses'=>'someController'], ['token'=>'foobar']];
+            return [false, ['uses' => 'someController'], ['token' => 'foobar']];
         });
 
         $parser = new Parser($request);
         $parser->setChainOrder([
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -140,14 +140,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
-            return [false, ['uses'=>'someController'], ['token'=>'foobar']];
+            return [false, ['uses' => 'someController'], ['token' => 'foobar']];
         });
 
         $parser = new Parser($request);
         $parser->setChainOrder([
             new AuthHeaders,
             new QueryString,
-            new LumenRouteParams
+            new LumenRouteParams,
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -166,7 +166,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser->setChainOrder([
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ]);
 
         $this->assertNull($parser->parseToken());
@@ -179,7 +179,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $chain = [
             new AuthHeaders,
             new QueryString,
-            new RouteParams
+            new RouteParams,
         ];
 
         $parser = new Parser(Mockery::mock('Illuminate\Http\Request'));

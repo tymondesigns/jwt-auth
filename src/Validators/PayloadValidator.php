@@ -17,8 +17,6 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 /**
  * Class PayloadValidator
- *
- * @package Tymon\JWTAuth\Validators
  */
 class PayloadValidator extends Validator
 {

@@ -42,7 +42,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(time() + 3600),
             'nbf' => new NotBefore(time()),
             'iat' => new IssuedAt(time()),
-            'jti' => new JwtId('foo')
+            'jti' => new JwtId('foo'),
         ];
 
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');

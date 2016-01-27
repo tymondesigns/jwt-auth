@@ -66,7 +66,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 + 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foo')
+            'jti' => new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -82,7 +82,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'iss' => new Issuer('http://example.com'),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foo')
+            'jti' => new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -99,7 +99,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 - 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foo')
+            'jti' => new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
 
@@ -116,7 +116,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 + 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foobar')
+            'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -134,7 +134,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 + 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foobar')
+            'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -152,7 +152,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 + 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foobar')
+            'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -170,7 +170,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 + 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foobar')
+            'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
@@ -187,7 +187,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             'exp' => new Expiration(123 + 3600),
             'nbf' => new NotBefore(123),
             'iat' => new IssuedAt(123),
-            'jti' => new JwtId('foobar')
+            'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 

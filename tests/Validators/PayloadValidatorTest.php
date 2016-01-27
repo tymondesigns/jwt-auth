@@ -34,7 +34,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => time(),
             'exp' => time() + 3600,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->assertTrue($this->validator->isValid($payload));
@@ -52,7 +52,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => time() - 3660,
             'exp' => time() - 1440,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -70,7 +70,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => time() + 3660,
             'exp' => time() + 1440,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -88,7 +88,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => time() - 3660,
             'exp' => time() + 1440,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -102,7 +102,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'sub' => 1
+            'sub' => 1,
         ];
 
         $this->validator->check($payload);
@@ -119,7 +119,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'iat' => time() - 3660,
             'exp' => 'foo',
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -130,7 +130,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'sub' => 1
+            'sub' => 1,
         ];
 
         $this->assertTrue($this->validator->setRequiredClaims(['iss', 'sub'])->isValid($payload));
@@ -145,7 +145,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => time(),
             'exp' => time() - 1000,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->assertTrue(
@@ -165,7 +165,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => time(),
             'exp' => time(),
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->setRefreshFlow()->setRefreshTTL(60)->check($payload);
