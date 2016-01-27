@@ -88,11 +88,12 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
+     */
     public function it_should_throw_exception_when_token_is_blacklisted()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenBlacklistedException');
-
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -200,11 +201,12 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->manager->invalidate($token, true);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     */
     public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
-
         $token = new Token('foo.bar.baz');
 
         $this->manager->setBlacklistEnabled(false)->invalidate($token);

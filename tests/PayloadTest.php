@@ -46,19 +46,21 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         Mockery::close();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\PayloadException
+     */
     public function it_throws_an_exception_when_trying_to_add_to_the_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\PayloadException');
-
         $this->payload['foo'] = 'bar';
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\PayloadException
+     */
     public function it_throws_an_exception_when_trying_to_remove_a_key_from_the_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\PayloadException');
-
         unset($this->payload['foo']);
     }
 
@@ -138,11 +140,12 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($payload(), $this->payload->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \BadMethodCallException
+     */
     public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
     {
-        $this->setExpectedException('\BadMethodCallException');
-
         $this->payload->getFoo();
     }
 

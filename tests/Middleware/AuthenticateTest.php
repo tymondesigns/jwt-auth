@@ -45,11 +45,12 @@ class AuthenticateTest extends \PHPUnit_Framework_TestCase
         $this->middleware->handle($this->request, function () {});
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     */
     public function it_should_throw_a_bad_request_exception_if_token_not_provided()
     {
-        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
-
         $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
 
@@ -59,11 +60,12 @@ class AuthenticateTest extends \PHPUnit_Framework_TestCase
         $this->middleware->handle($this->request, function () {});
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+     */
     public function it_should_throw_an_unauthorized_exception_if_token_invalid()
     {
-        $this->setExpectedException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
-
         $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 

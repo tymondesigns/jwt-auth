@@ -20,11 +20,12 @@ class ClaimTest extends \PHPUnit_Framework_TestCase
         $this->claim = new Expiration(123456);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     */
     public function it_should_throw_an_exception_when_passing_an_invalid_value()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\InvalidClaimException');
-
         $this->claim->setValue('foo');
     }
 
