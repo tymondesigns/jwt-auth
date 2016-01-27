@@ -136,7 +136,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->jwtAuth->setToken('foo.bar.baz')->refresh();
 
-        $this->assertEquals($result, 'baz.bar.foo');
+        $this->assertSame($result, 'baz.bar.foo');
     }
 
     /** @test */
