@@ -38,8 +38,8 @@ class JWT
     protected $token;
 
     /**
-     * @param \Tymon\JWTAuth\Manager                   $manager
-     * @param \Tymon\JWTAuth\Http\Parser               $parser
+     * @param \Tymon\JWTAuth\Manager      $manager
+     * @param \Tymon\JWTAuth\Http\Parser  $parser
      */
     public function __construct(Manager $manager, Parser $parser)
     {
