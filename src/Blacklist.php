@@ -91,7 +91,7 @@ class Blacklist
 
         // find the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
-        return $lastExp->diffInMinutes(Utils::now()->subMinute());
+        return $lastExp->addMinute()->diffInMinutes();
     }
 
     /**
