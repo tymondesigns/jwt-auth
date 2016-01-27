@@ -21,6 +21,7 @@ $fixers = [
     'duplicate_semicolon',
     'extra_empty_lines',
     'header_comment',
+    'logical_not_operators_with_successor_space',
     'phpdoc_scalar',
     'return',
     'short_array_syntax',
