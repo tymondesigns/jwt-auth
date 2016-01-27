@@ -40,7 +40,7 @@ class QueryString implements ParserContract
      *
      * @param  string  $key
      *
-     * @return QueryString
+     * @return $this
      */
     public function setKey($key)
     {

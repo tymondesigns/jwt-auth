@@ -168,7 +168,7 @@ class Blacklist
      *
      * @param  int
      *
-     * @return Blacklist
+     * @return $this
      */
     public function setGracePeriod($gracePeriod)
     {
@@ -207,7 +207,7 @@ class Blacklist
      *
      * @param  int
      *
-     * @return Blacklist
+     * @return $this
      */
     public function setRefreshTTL($ttl)
     {

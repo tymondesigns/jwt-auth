@@ -38,7 +38,7 @@ abstract class Provider
      *
      * @param  string  $algo
      *
-     * @return self
+     * @return $this
      */
     public function setAlgo($algo)
     {

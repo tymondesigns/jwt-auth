@@ -25,7 +25,7 @@ trait CustomClaims
      *
      * @param  array $customClaims
      *
-     * @return self
+     * @return $this
      */
     public function customClaims(array $customClaims)
     {
@@ -39,7 +39,7 @@ trait CustomClaims
      *
      * @param  array $customClaims
      *
-     * @return self
+     * @return $this
      */
     public function claims(array $customClaims)
     {

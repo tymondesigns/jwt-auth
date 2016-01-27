@@ -216,7 +216,7 @@ class JWTGuard implements Guard
      *
      * @param  Token|string  $token
      *
-     * @return JWTGuard
+     * @return $this
      */
     public function setToken($token)
     {

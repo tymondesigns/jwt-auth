@@ -85,7 +85,7 @@ class Factory
      *
      * @param  array  $claims
      *
-     * @return Factory
+     * @return $this
      */
     public function addClaims(array $claims)
     {
@@ -102,7 +102,7 @@ class Factory
      * @param  string  $name
      * @param  mixed   $value
      *
-     * @return Factory
+     * @return $this
      */
     public function addClaim($name, $value)
     {
@@ -114,7 +114,7 @@ class Factory
     /**
      * Build the default claims
      *
-     * @return Factory
+     * @return $this
      */
     protected function buildClaims()
     {
@@ -201,7 +201,7 @@ class Factory
      *
      * @param  int  $ttl
      *
-     * @return Factory
+     * @return $this
      */
     public function setTTL($ttl)
     {
@@ -225,7 +225,7 @@ class Factory
      *
      * @param array $claims
      *
-     * @return Factory
+     * @return $this
      */
     public function setDefaultClaims(array $claims)
     {
@@ -262,7 +262,7 @@ class Factory
      *
      * @throws \BadMethodCallException
      *
-     * @return Factory
+     * @return $this
      */
     public function __call($method, $parameters)
     {
