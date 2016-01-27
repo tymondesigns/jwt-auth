@@ -1,16 +1,11 @@
-preset: recommended
+preset: laravel
 
 enabled:
   - concat_with_spaces
-  - logical_not_operators_with_successor_space
   - unalign_double_arrow
 
 disabled:
-  - align_double_arrow
   - concat_without_spaces
-  - ordered_use
-  - phpdoc_align
-  - phpdoc_separation
   - phpdoc_short_description
 
 linting: true
