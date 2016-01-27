@@ -160,7 +160,7 @@ class Blacklist
      */
     protected function getGraceTimestamp()
     {
-        return (int) Utils::now()->addSeconds($this->gracePeriod)->format('U');
+        return Utils::now()->addSeconds($this->gracePeriod)->timestamp;
     }
 
     /**
