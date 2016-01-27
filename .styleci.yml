@@ -10,6 +10,8 @@ disabled:
   - concat_without_spaces
   - ordered_use
   - phpdoc_align
+  - phpdoc_separation
+  - phpdoc_short_description
 
 linting: true
 
