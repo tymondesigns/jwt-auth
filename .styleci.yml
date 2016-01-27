@@ -6,6 +6,7 @@ enabled:
 
 disabled:
   - align_double_arrow
+  - ordered_use
 
 linting: true
 
