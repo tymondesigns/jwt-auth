@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Middleware;
 
+use Closure;
 use Exception;
 
 class Check extends BaseMiddleware
@@ -23,7 +24,7 @@ class Check extends BaseMiddleware
      *
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle($request, Closure $next)
     {
         if ($this->auth->parser()->setRequest($request)->hasToken()) {
             try {

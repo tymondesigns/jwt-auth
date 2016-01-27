@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth;
 
+use BadMethodCallException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser;
 use Tymon\JWTAuth\Support\CustomClaims;
@@ -297,6 +298,6 @@ class JWT
             return call_user_func_array([$this->manager, $method], $parameters);
         }
 
-        throw new \BadMethodCallException("Method [$method] does not exist.");
+        throw new BadMethodCallException("Method [$method] does not exist.");
     }
 }
