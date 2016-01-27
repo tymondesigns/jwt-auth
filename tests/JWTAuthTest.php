@@ -15,6 +15,7 @@ use Mockery;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class JWTAuthTest extends \PHPUnit_Framework_TestCase
@@ -255,6 +256,18 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
         $token = $this->jwtAuth->setRequest($request)->getToken();
 
         $this->assertEquals('some.random.token', $token);
+    }
+
+    /** @test */
+    public function it_should_unset_the_token()
+    {
+        $this->parser->shouldReceive('parseToken')->andThrow(new JWTException);
+        $token = new Token('foo.bar.baz');
+        $this->jwtAuth->setToken($token);
+
+        $this->assertSame($this->jwtAuth->getToken(), $token);
+        $this->jwtAuth->unsetToken();
+        $this->assertFalse($this->jwtAuth->getToken());
     }
 
     /** @test */
