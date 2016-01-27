@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Http;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
 class LumenRouteParams extends RouteParams
@@ -28,7 +29,7 @@ class LumenRouteParams extends RouteParams
         // It will only work with poorly-specified aspects of certain Lumen releases.
         $route = $request->route();
 
-        if (! is_array($route) || ! array_has($route, '2.'.$this->key)) {
+        if (! is_array($route) || ! Arr::has($route, '2.'.$this->key)) {
             // Route is not the expected kind of array, or does not have a parameter
             // with the key we want.
             return null;
