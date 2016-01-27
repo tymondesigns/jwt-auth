@@ -105,7 +105,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
         $this->factory->shouldReceive('setRefreshFlow->make')->with($payload->toArray())->andReturn($payload);
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
 
-        $payload = $this->manager->decode($token);
+        $this->manager->decode($token);
     }
 
     /** @test */
