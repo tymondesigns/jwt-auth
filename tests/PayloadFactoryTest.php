@@ -11,7 +11,9 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
+use Carbon\Carbon;
 use Mockery;
+use Tymon\JWTAuth\Utils;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
 use Illuminate\Http\Request;
@@ -28,6 +30,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
+
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
         $this->factory = new PayloadFactory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
@@ -43,13 +47,13 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->shouldReceive('setRefreshFlow->check');
 
-        $expTime = time() + 3600;
+        $expTime = 123 + 3600;
 
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('iat', 123)->andReturn(new IssuedAt(123));
         $this->claimFactory->shouldReceive('get')->once()->with('jti', 'foo')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('get')->once()->with('nbf', time())->andReturn(new NotBefore(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', 123)->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', $expTime)->andReturn(new Expiration($expTime));
 
         $payload = $this->factory->make(['sub' => 1, 'jti' => 'foo', 'iat' => 123]);
@@ -68,10 +72,10 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('get')->once()->with('exp', time() + 3600)->andReturn(new Expiration(time() + 3600));
-        $this->claimFactory->shouldReceive('get')->once()->with('iat', time())->andReturn(new IssuedAt(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('exp', 123 + 3600)->andReturn(new Expiration(123 + 3600));
+        $this->claimFactory->shouldReceive('get')->once()->with('iat', 123)->andReturn(new IssuedAt(123));
         $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('get')->once()->with('nbf', time())->andReturn(new NotBefore(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', 123)->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('get')->once()->with('foo', 'baz')->andReturn(new Custom('foo', 'baz'));
 
         $payload = $this->factory->sub(1)->foo('baz')->make();
@@ -90,10 +94,10 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('get')->once()->with('exp', Mockery::any())->andReturn(new Expiration(time() + 3600));
-        $this->claimFactory->shouldReceive('get')->once()->with('iat', Mockery::any())->andReturn(new IssuedAt(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('exp', Mockery::any())->andReturn(new Expiration(123 + 3600));
+        $this->claimFactory->shouldReceive('get')->once()->with('iat', Mockery::any())->andReturn(new IssuedAt(123));
         $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('get')->once()->with('nbf', Mockery::any())->andReturn(new NotBefore(time()));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', Mockery::any())->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('get')->once()->with('foo', ['bar' => [0, 0, 0]])->andReturn(new Custom('foo', ['bar' => [0, 0, 0]]));
 
         $payload = $this->factory->sub(1)->foo(['bar' => [0, 0, 0]])->make();

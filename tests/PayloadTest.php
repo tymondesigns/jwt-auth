@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
+use Carbon\Carbon;
 use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
@@ -28,12 +29,14 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
+        
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(time() + 3600),
-            new NotBefore(time()),
-            new IssuedAt(time()),
+            new Expiration(123 + 3600),
+            new NotBefore(123),
+            new IssuedAt(123),
             new JwtId('foo')
         ];
 
