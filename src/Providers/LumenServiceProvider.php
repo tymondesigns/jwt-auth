@@ -242,6 +242,7 @@ class LumenServiceProvider extends ServiceProvider
      * Helper to get the config values
      *
      * @param  string $key
+     * @param  string $default
      *
      * @return mixed
      */
