@@ -74,7 +74,6 @@ $fixers = [
     'short_echo_tag',
     'short_tag',
     'single_array_no_trailing_comma',
-    'single_blank_line_before_namespace',
     'single_line_after_imports',
     'single_quote',
     'spaces_after_semicolon',
