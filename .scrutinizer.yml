@@ -17,9 +17,6 @@ checks:
         fix_identation_4spaces: true
         fix_doc_comments: true
 tools:
-    external_code_coverage:
-        timeout: 3400
-        runs: 2
     php_code_coverage: false
     php_code_sniffer:
         config:
