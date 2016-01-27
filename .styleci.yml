@@ -1,22 +1,12 @@
-preset: psr2
+preset: laravel
 
 enabled:
-  - duplicate_semicolon
-  - extra_empty_lines
-  - logical_not_operators_with_successor_space
-  - phpdoc_scalar
-  - return
-  - short_array_syntax
-  - single_quote
-  - spaces_cast
-  - standardize_not_equal
-  - ternary_spaces
-  - trim_array_spaces
+  - concat_with_spaces
   - unalign_double_arrow
-  - unalign_equals
-  - unneeded_control_parentheses
-  - unused_use
-  - whitespacy_lines
+
+disabled:
+  - concat_without_spaces
+  - phpdoc_short_description
 
 linting: true
 
