@@ -15,6 +15,11 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Validators\PayloadValidator
+     */
+    protected $validator;
+
     public function setUp()
     {
         $this->validator = new PayloadValidator();

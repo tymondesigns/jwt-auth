@@ -25,6 +25,31 @@ use Illuminate\Support\Collection;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $jwt;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $blacklist;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $factory;
+
+    /**
+     * @var \Tymon\JWTAuth\Manager
+     */
+    protected $manager;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $validator;
+
     public function setUp()
     {
         $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');

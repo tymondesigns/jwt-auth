@@ -25,6 +25,21 @@ use Illuminate\Support\Collection;
 
 class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $storage;
+
+    /**
+     * @var \Tymon\JWTAuth\Blacklist
+     */
+    protected $blacklist;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $validator;
+
     public function setUp()
     {
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));

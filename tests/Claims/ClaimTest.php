@@ -15,6 +15,11 @@ use Tymon\JWTAuth\Claims\Expiration;
 
 class ClaimTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Claims\Expiration
+     */
+    protected $claim;
+
     public function setUp()
     {
         $this->claim = new Expiration(123456);

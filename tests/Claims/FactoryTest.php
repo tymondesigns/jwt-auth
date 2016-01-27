@@ -15,6 +15,11 @@ use Tymon\JWTAuth\Claims\Factory;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Claims\Factory
+     */
+    protected $factory;
+
     public function setUp()
     {
         $this->factory = new Factory;

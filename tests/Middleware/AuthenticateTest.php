@@ -18,6 +18,21 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthenticateTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $auth;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $request;
+
+    /**
+     * @var \Tymon\JWTAuth\Middleware\Authenticate
+     */
+    protected $middleware;
+
     public function setUp()
     {
         $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');

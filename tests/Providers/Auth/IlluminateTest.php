@@ -16,6 +16,16 @@ use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
 
 class IlluminateTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $authManager;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\Auth\Illuminate
+     */
+    protected $auth;
+
     public function setUp()
     {
         $this->authManager = Mockery::mock('Illuminate\Contracts\Auth\Guard');
