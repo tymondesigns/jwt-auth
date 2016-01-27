@@ -11,7 +11,9 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
-class JWTException extends \Exception
+use Exception;
+
+class JWTException extends Exception
 {
     /**
      * @param string  $message
