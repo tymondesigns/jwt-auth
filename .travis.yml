@@ -30,3 +30,6 @@ before_script:
 
 script:
   - vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
+
+after_success:
+  - codecov
