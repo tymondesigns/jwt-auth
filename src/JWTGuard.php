@@ -305,7 +305,7 @@ class JWTGuard implements Guard
     /**
      * Ensure that a token is available in the request.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException::__construct
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
      * @return \Tymon\JWTAuth\JWT
      */
