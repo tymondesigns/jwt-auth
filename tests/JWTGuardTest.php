@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Test;
 use Mockery;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,4 +55,82 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->guard->user());
     }
 
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     */
+    public function it_should_throw_an_exception_if_no_token_is_provided()
+    {
+        $this->jwt->shouldReceive('getToken')->andReturn(false);
+        $this->jwt->shouldReceive('check')->never();
+        $this->jwt->shouldReceive('getPayload->get')->never();
+        $this->provider->shouldReceive('retrieveById')->never();
+
+        $this->guard->user();
+    }
+
+    /** @test */
+    public function it_should_return_a_token_if_credentials_are_ok_and_user_is_found()
+    {
+        $credentials = ['foo' => 'bar', 'baz' => 'bob'];
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveByCredentials')
+                       ->once()
+                       ->with($credentials)
+                       ->andReturn($user);
+
+        $this->provider->shouldReceive('validateCredentials')
+                       ->once()
+                       ->with($user, $credentials)
+                       ->andReturn(true);
+
+        $this->jwt->shouldReceive('fromUser')
+                  ->once()
+                  ->with($user)
+                  ->andReturn('foo.bar.baz');
+
+        $token = $this->guard->attempt($credentials);
+
+        $this->assertSame($token, 'foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_return_true_if_credentials_are_ok_and_user_is_found_when_choosing_not_to_login()
+    {
+        $credentials = ['foo' => 'bar', 'baz' => 'bob'];
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveByCredentials')
+                       ->twice()
+                       ->with($credentials)
+                       ->andReturn($user);
+
+        $this->provider->shouldReceive('validateCredentials')
+                       ->twice()
+                       ->with($user, $credentials)
+                       ->andReturn(true);
+
+        $this->assertTrue($this->guard->attempt($credentials, false)); // once
+        $this->assertTrue($this->guard->validate($credentials)); // twice
+    }
+
+    /** @test */
+    public function it_should_return_false_if_credentials_are_invalid()
+    {
+        $credentials = ['foo' => 'bar', 'baz' => 'bob'];
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveByCredentials')
+                       ->once()
+                       ->with($credentials)
+                       ->andReturn($user);
+
+        $this->provider->shouldReceive('validateCredentials')
+                       ->once()
+                       ->with($user, $credentials)
+                       ->andReturn(false);
+
+        $this->assertFalse($this->guard->attempt($credentials));
+    }
 }
