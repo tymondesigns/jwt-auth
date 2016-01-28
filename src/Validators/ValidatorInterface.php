@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Validators;
 interface ValidatorInterface
 {
     /**
-     * Perform some checks on the value
+     * Perform some checks on the value.
      *
      * @param  mixed  $value
      * @return void
@@ -22,7 +22,7 @@ interface ValidatorInterface
     public function check($value);
 
     /**
-     * Helper function to return a boolean
+     * Helper function to return a boolean.
      *
      * @param  array  $value
      * @return bool

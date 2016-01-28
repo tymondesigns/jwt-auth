@@ -19,7 +19,7 @@ class Blacklist
      * @var \Tymon\JWTAuth\Providers\Storage\StorageInterface
      */
     protected $storage;
-    
+
     /**
      * Number of minutes from issue date in which a JWT can be refreshed.
      *
@@ -36,7 +36,7 @@ class Blacklist
     }
 
     /**
-     * Add the token (jti claim) to the blacklist
+     * Add the token (jti claim) to the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      * @return boolean
@@ -64,7 +64,7 @@ class Blacklist
     }
 
     /**
-     * Determine whether the token has been blacklisted
+     * Determine whether the token has been blacklisted.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      * @return boolean
@@ -75,7 +75,7 @@ class Blacklist
     }
 
     /**
-     * Remove the token (jti claim) from the blacklist
+     * Remove the token (jti claim) from the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      * @return boolean
@@ -86,7 +86,7 @@ class Blacklist
     }
 
     /**
-     * Remove all tokens from the blacklist
+     * Remove all tokens from the blacklist.
      *
      * @return boolean
      */
@@ -96,9 +96,9 @@ class Blacklist
 
         return true;
     }
-    
+
     /**
-     * Set the refresh time limit
+     * Set the refresh time limit.
      *
      * @param  int
      *
@@ -107,6 +107,7 @@ class Blacklist
     public function setRefreshTTL($ttl)
     {
         $this->refreshTTL = (int) $ttl;
+
         return $this;
     }
 }

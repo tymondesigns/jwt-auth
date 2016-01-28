@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Providers\User;
 interface UserInterface
 {
     /**
-     * Get the user by the given key, value
+     * Get the user by the given key, value.
      *
      * @param string $key
      * @param mixed $value

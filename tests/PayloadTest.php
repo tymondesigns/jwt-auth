@@ -12,9 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Carbon\Carbon;
-use Tymon\JWTAuth\Providers\JWT\FirebaseAdapter;
 use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\PayloadFactory;
 use Mockery;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
@@ -23,21 +21,20 @@ use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Custom;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
-        
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
 
         $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');

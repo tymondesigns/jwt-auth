@@ -36,7 +36,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
     }
 
     /**
-     * Create a JSON Web Token
+     * Create a JSON Web Token.
      *
      * @return string
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
@@ -53,7 +53,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
     }
 
     /**
-     * Decode a JSON Web Token
+     * Decode a JSON Web Token.
      *
      * @param  string  $token
      * @return array

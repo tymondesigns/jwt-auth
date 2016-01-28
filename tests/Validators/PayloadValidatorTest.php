@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
-use Mockery;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
@@ -32,7 +31,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => 100,
             'exp' => 100 + 3600,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->assertTrue($this->validator->isValid($payload));
@@ -49,7 +48,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => 20,
             'exp' => 120,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -66,7 +65,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => 150,
             'exp' => 150 + 3600,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -83,7 +82,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'nbf' => 100,
             'exp' => 150 + 3600,
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);
@@ -96,7 +95,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 
         $payload = [
             'iss' => 'http://example.com',
-            'sub' => 1
+            'sub' => 1,
         ];
 
         $this->validator->check($payload);
@@ -112,7 +111,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'iat' => 100,
             'exp' => 'foo',
             'sub' => 1,
-            'jti' => 'foo'
+            'jti' => 'foo',
         ];
 
         $this->validator->check($payload);

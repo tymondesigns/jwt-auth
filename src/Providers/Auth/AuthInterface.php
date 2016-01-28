@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Providers\Auth;
 interface AuthInterface
 {
     /**
-     * Check a user's credentials
+     * Check a user's credentials.
      *
      * @param  array  $credentials
      * @return bool
@@ -22,7 +22,7 @@ interface AuthInterface
     public function byCredentials(array $credentials = []);
 
     /**
-     * Authenticate a user via the id
+     * Authenticate a user via the id.
      *
      * @param  mixed  $id
      * @return bool
@@ -30,7 +30,7 @@ interface AuthInterface
     public function byId($id);
 
     /**
-     * Get the currently authenticated user
+     * Get the currently authenticated user.
      *
      * @return mixed
      */

@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Carbon\Carbon;
 use Mockery;
-use Tymon\JWTAuth\Utils;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
 use Illuminate\Http\Request;
@@ -21,7 +20,6 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;

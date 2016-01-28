@@ -16,7 +16,7 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class TokenValidator extends AbstractValidator
 {
     /**
-     * Check the structure of the token
+     * Check the structure of the token.
      *
      * @param string  $value
      * @return void

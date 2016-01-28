@@ -21,7 +21,7 @@ class EloquentUserAdapter implements UserInterface
     protected $user;
 
     /**
-     * Create a new User instance
+     * Create a new User instance.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $user
      */
@@ -31,7 +31,7 @@ class EloquentUserAdapter implements UserInterface
     }
 
     /**
-     * Get the user by the given key, value
+     * Get the user by the given key, value.
      *
      * @param  mixed  $key
      * @param  mixed  $value

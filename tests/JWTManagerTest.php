@@ -19,10 +19,8 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Custom;
 
 class JWTManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,7 +49,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator);
 
@@ -71,7 +69,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator);
         $token = new Token('foo.bar.baz');
@@ -96,7 +94,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator);
         $token = new Token('foo.bar.baz');
@@ -117,7 +115,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 - 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator, true);
         $token = new Token('foo.bar.baz');
@@ -146,7 +144,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator);
         $token = new Token('foo.bar.baz');

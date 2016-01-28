@@ -23,11 +23,11 @@ class Factory
         'iss' => 'Tymon\JWTAuth\Claims\Issuer',
         'jti' => 'Tymon\JWTAuth\Claims\JwtId',
         'nbf' => 'Tymon\JWTAuth\Claims\NotBefore',
-        'sub' => 'Tymon\JWTAuth\Claims\Subject'
+        'sub' => 'Tymon\JWTAuth\Claims\Subject',
     ];
 
     /**
-     * Get the instance of the claim when passing the name and value
+     * Get the instance of the claim when passing the name and value.
      *
      * @param  string  $name
      * @param  mixed   $value
@@ -43,7 +43,7 @@ class Factory
     }
 
     /**
-     * Check whether the claim exists
+     * Check whether the claim exists.
      *
      * @param  string  $name
      * @return boolean

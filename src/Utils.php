@@ -16,7 +16,7 @@ use Carbon\Carbon;
 class Utils
 {
     /**
-     * Get the Carbon instance for the current time
+     * Get the Carbon instance for the current time.
      *
      * @return \Carbon\Carbon
      */
@@ -26,7 +26,7 @@ class Utils
     }
 
     /**
-     * Get the Carbon instance for the timestamp
+     * Get the Carbon instance for the timestamp.
      *
      * @param  int  $timestamp
      * @return \Carbon\Carbon

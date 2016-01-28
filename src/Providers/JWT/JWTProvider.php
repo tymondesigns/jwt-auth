@@ -34,7 +34,7 @@ abstract class JWTProvider
     }
 
     /**
-     * Set the algorithm used to sign the token
+     * Set the algorithm used to sign the token.
      *
      * @param  string  $algo
      * @return self
@@ -47,7 +47,7 @@ abstract class JWTProvider
     }
 
     /**
-     * Get the algorithm used to sign the token
+     * Get the algorithm used to sign the token.
      *
      * @return string
      */

@@ -41,7 +41,7 @@ class JWTGenerateCommand extends Command
         $key = $this->getRandomKey();
 
         if ($this->option('show')) {
-            return $this->line('<comment>'.$key.'</comment>');
+            return $this->line('<comment>' . $key . '</comment>');
         }
 
         $path = config_path('jwt.php');

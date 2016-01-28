@@ -28,7 +28,7 @@ class PayloadValidator extends AbstractValidator
     protected $refreshTTL = 20160;
 
     /**
-     * Run the validations on the payload array
+     * Run the validations on the payload array.
      *
      * @param  array  $value
      * @return void
@@ -46,7 +46,7 @@ class PayloadValidator extends AbstractValidator
 
     /**
      * Ensure the payload contains the required claims and
-     * the claims have the relevant type
+     * the claims have the relevant type.
      *
      * @param array  $payload
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
@@ -62,7 +62,7 @@ class PayloadValidator extends AbstractValidator
     }
 
     /**
-     * Validate the payload timestamps
+     * Validate the payload timestamps.
      *
      * @param  array  $payload
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
@@ -87,7 +87,7 @@ class PayloadValidator extends AbstractValidator
     }
 
     /**
-     * Check the token in the refresh flow context
+     * Check the token in the refresh flow context.
      *
      * @param  $payload
      * @return bool
@@ -102,7 +102,7 @@ class PayloadValidator extends AbstractValidator
     }
 
     /**
-     * Set the required claims
+     * Set the required claims.
      *
      * @param array  $claims
      */
@@ -114,7 +114,7 @@ class PayloadValidator extends AbstractValidator
     }
 
     /**
-     * Set the refresh ttl
+     * Set the refresh ttl.
      *
      * @param integer  $ttl
      */

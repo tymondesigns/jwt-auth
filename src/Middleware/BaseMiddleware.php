@@ -33,7 +33,7 @@ abstract class BaseMiddleware
     protected $auth;
 
     /**
-     * Create a new BaseMiddleware instance
+     * Create a new BaseMiddleware instance.
      *
      * @param \Illuminate\Contracts\Routing\ResponseFactory  $response
      * @param \Illuminate\Contracts\Events\Dispatcher  $events
@@ -47,7 +47,7 @@ abstract class BaseMiddleware
     }
 
     /**
-     * Fire event and return the response
+     * Fire event and return the response.
      *
      * @param  string   $event
      * @param  string   $error

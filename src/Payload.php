@@ -18,14 +18,14 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 class Payload implements \ArrayAccess
 {
     /**
-     * The array of claims
+     * The array of claims.
      *
      * @var \Tymon\JWTAuth\Claims\Claim[]
      */
     private $claims = [];
 
     /**
-     * Build the Payload
+     * Build the Payload.
      *
      * @param array  $claims
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
@@ -39,7 +39,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Get the array of claim instances
+     * Get the array of claim instances.
      *
      * @return \Tymon\JWTAuth\Claims\Claim[]
      */
@@ -49,7 +49,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Get the array of claims
+     * Get the array of claims.
      *
      * @return array
      */
@@ -64,7 +64,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Get the payload
+     * Get the payload.
      *
      * @param  string  $claim
      * @return mixed
@@ -83,7 +83,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Determine whether the payload has the claim
+     * Determine whether the payload has the claim.
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      * @return boolean
@@ -94,7 +94,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Get the payload as a string
+     * Get the payload as a string.
      *
      * @return string
      */
@@ -126,7 +126,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Don't allow changing the payload as it should be immutable
+     * Don't allow changing the payload as it should be immutable.
      *
      * @param  mixed $key
      * @param  mixed $value
@@ -139,7 +139,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Don't allow changing the payload as it should be immutable
+     * Don't allow changing the payload as it should be immutable.
      *
      * @param  string $key
      * @throws Exceptions\PayloadException
@@ -151,7 +151,7 @@ class Payload implements \ArrayAccess
     }
 
     /**
-     * Magically get a claim value
+     * Magically get a claim value.
      *
      * @param  string  $method
      * @param  array   $parameters

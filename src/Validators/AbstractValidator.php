@@ -21,7 +21,7 @@ abstract class AbstractValidator implements ValidatorInterface
     protected $refreshFlow = false;
 
     /**
-     * Helper function to return a boolean
+     * Helper function to return a boolean.
      *
      * @param  array  $value
      * @return bool
@@ -38,7 +38,7 @@ abstract class AbstractValidator implements ValidatorInterface
     }
 
     /**
-     * Set the refresh flow flag
+     * Set the refresh flow flag.
      *
      * @param  bool  $refreshFlow
      * @return $this

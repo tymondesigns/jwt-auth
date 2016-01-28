@@ -29,7 +29,7 @@ class IlluminateAuthAdapter implements AuthInterface
     }
 
     /**
-     * Check a user's credentials
+     * Check a user's credentials.
      *
      * @param  array  $credentials
      * @return bool
@@ -40,7 +40,7 @@ class IlluminateAuthAdapter implements AuthInterface
     }
 
     /**
-     * Authenticate a user via the id
+     * Authenticate a user via the id.
      *
      * @param  mixed  $id
      * @return bool
@@ -51,7 +51,7 @@ class IlluminateAuthAdapter implements AuthInterface
     }
 
     /**
-     * Get the currently authenticated user
+     * Get the currently authenticated user.
      *
      * @return mixed
      */

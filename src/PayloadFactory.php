@@ -65,7 +65,7 @@ class PayloadFactory
     }
 
     /**
-     * Create the Payload instance
+     * Create the Payload instance.
      *
      * @param  array  $customClaims
      * @return \Tymon\JWTAuth\Payload
@@ -78,7 +78,7 @@ class PayloadFactory
     }
 
     /**
-     * Add an array of claims to the Payload
+     * Add an array of claims to the Payload.
      *
      * @param  array  $claims
      * @return $this
@@ -93,7 +93,7 @@ class PayloadFactory
     }
 
     /**
-     * Add a claim to the Payload
+     * Add a claim to the Payload.
      *
      * @param  string  $name
      * @param  mixed   $value
@@ -107,7 +107,7 @@ class PayloadFactory
     }
 
     /**
-     * Build the default claims
+     * Build the default claims.
      *
      * @param  array  $customClaims
      * @return $this
@@ -127,7 +127,7 @@ class PayloadFactory
     }
 
     /**
-     * Build out the Claim DTO's
+     * Build out the Claim DTO's.
      *
      * @return array
      */
@@ -142,7 +142,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Issuer (iss) claim
+     * Set the Issuer (iss) claim.
      *
      * @return string
      */
@@ -152,7 +152,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Issued At (iat) claim
+     * Set the Issued At (iat) claim.
      *
      * @return int
      */
@@ -162,7 +162,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Expiration (exp) claim
+     * Set the Expiration (exp) claim.
      *
      * @return int
      */
@@ -172,7 +172,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the Not Before (nbf) claim
+     * Set the Not Before (nbf) claim.
      *
      * @return int
      */
@@ -182,7 +182,7 @@ class PayloadFactory
     }
 
     /**
-     * Set a unique id (jti) for the token
+     * Set a unique id (jti) for the token.
      *
      * @return string
      */
@@ -195,7 +195,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the token ttl (in minutes)
+     * Set the token ttl (in minutes).
      *
      * @param  int  $ttl
      * @return $this
@@ -208,7 +208,7 @@ class PayloadFactory
     }
 
     /**
-     * Get the token ttl
+     * Get the token ttl.
      *
      * @return int
      */
@@ -218,7 +218,7 @@ class PayloadFactory
     }
 
     /**
-     * Set the refresh flow
+     * Set the refresh flow.
      *
      * @param boolean $refreshFlow
      * @return $this
@@ -231,7 +231,7 @@ class PayloadFactory
     }
 
     /**
-     * Magically add a claim
+     * Magically add a claim.
      *
      * @param  string  $method
      * @param  array   $parameters

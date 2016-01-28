@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Carbon\Carbon;
 use Mockery;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
 
 class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
@@ -21,7 +20,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
-        
+
         $this->jws = Mockery::mock('Namshi\JOSE\JWS');
         $this->provider = new NamshiAdapter('secret', 'HS256', $this->jws);
     }

@@ -19,10 +19,8 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Custom;
 
 class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,7 +50,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Expiration(100 + 3600),
             new NotBefore(100),
             new IssuedAt(100),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator);
 
@@ -69,7 +67,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Expiration(101),
             new NotBefore(100),
             new IssuedAt(100),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator, true);
 
@@ -86,14 +84,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Expiration(100), // default refresh_ttl
             new NotBefore(100),
             new IssuedAt(100 - 20160*60),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator, true);
 
         $this->storage->shouldReceive('add')->never();
         $this->assertFalse($this->blacklist->add($payload));
     }
-    
+
     /** @test */
     public function it_should_return_false_when_adding_a_unrefreshable_token_after_modifying_refresh_ttl()
     {
@@ -103,7 +101,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Expiration(101),
             new NotBefore(100),
             new IssuedAt(100),
-            new JwtId('foo')
+            new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator, true);
 
@@ -121,7 +119,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foobar')
+            new JwtId('foobar'),
         ];
         $payload = new Payload($claims, $this->validator);
 
@@ -138,7 +136,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Expiration(123 + 3600),
             new NotBefore(123),
             new IssuedAt(123),
-            new JwtId('foobar')
+            new JwtId('foobar'),
         ];
         $payload = new Payload($claims, $this->validator);
 
