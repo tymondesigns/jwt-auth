@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
@@ -132,5 +133,12 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
                        ->andReturn(false);
 
         $this->assertFalse($this->guard->attempt($credentials));
+    }
+
+    /** @test */
+    public function it_should_magically_call_the_jwt_instance()
+    {
+        $this->jwt->shouldReceive('factory')->andReturn(Mockery::mock(Factory::class));
+        $this->assertInstanceOf(Factory::class, $this->guard->factory());
     }
 }
