@@ -75,7 +75,7 @@ class JWTAuth extends JWT
     }
 
     /**
-     * Get the authenticated user
+     * Get the authenticated user.
      *
      * @return \Tymon\JWTAuth\Contracts\JWTSubject
      */

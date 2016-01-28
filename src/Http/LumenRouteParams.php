@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class LumenRouteParams extends RouteParams
 {
     /**
-     * Try to get the token from the route parameters
+     * Try to get the token from the route parameters.
      *
      * @param  \Illuminate\Http\Request
      *

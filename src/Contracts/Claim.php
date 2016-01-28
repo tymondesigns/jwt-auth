@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Contracts;
 interface Claim
 {
     /**
-     * Set the claim value, and call a validate method
+     * Set the claim value, and call a validate method.
      *
      * @param mixed $value
      *
@@ -25,14 +25,14 @@ interface Claim
     public function setValue($value);
 
     /**
-     * Get the claim value
+     * Get the claim value.
      *
      * @return mixed
      */
     public function getValue();
 
     /**
-     * Set the claim name
+     * Set the claim name.
      *
      * @param string $name
      *
@@ -41,14 +41,14 @@ interface Claim
     public function setName($name);
 
     /**
-     * Get the claim name
+     * Get the claim name.
      *
      * @return string
      */
     public function getName();
 
     /**
-     * Validate the Claim value
+     * Validate the Claim value.
      *
      * @param  mixed $value
      *

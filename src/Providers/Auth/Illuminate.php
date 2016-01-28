@@ -30,7 +30,7 @@ class Illuminate implements Auth
     }
 
     /**
-     * Check a user's credentials
+     * Check a user's credentials.
      *
      * @param  array  $credentials
      *
@@ -42,7 +42,7 @@ class Illuminate implements Auth
     }
 
     /**
-     * Authenticate a user via the id
+     * Authenticate a user via the id.
      *
      * @param  mixed  $id
      *
@@ -54,7 +54,7 @@ class Illuminate implements Auth
     }
 
     /**
-     * Get the currently authenticated user
+     * Get the currently authenticated user.
      *
      * @return mixed
      */

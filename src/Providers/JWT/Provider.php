@@ -34,7 +34,7 @@ abstract class Provider
     }
 
     /**
-     * Set the algorithm used to sign the token
+     * Set the algorithm used to sign the token.
      *
      * @param  string  $algo
      *
@@ -48,7 +48,7 @@ abstract class Provider
     }
 
     /**
-     * Get the algorithm used to sign the token
+     * Get the algorithm used to sign the token.
      *
      * @return string
      */

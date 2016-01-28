@@ -18,14 +18,14 @@ use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 abstract class Claim implements ClaimContract, JsonSerializable
 {
     /**
-     * The claim name
+     * The claim name.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * The claim value
+     * The claim value.
      *
      * @var mixed
      */
@@ -40,7 +40,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Set the claim value, and call a validate method
+     * Set the claim value, and call a validate method.
      *
      * @param mixed $value
      *
@@ -60,7 +60,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Get the claim value
+     * Get the claim value.
      *
      * @return mixed
      */
@@ -70,7 +70,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Set the claim name
+     * Set the claim name.
      *
      * @param string $name
      *
@@ -84,7 +84,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Get the claim name
+     * Get the claim name.
      *
      * @return string
      */
@@ -94,7 +94,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Validate the Claim value
+     * Validate the Claim value.
      *
      * @param  mixed $value
      *
@@ -116,7 +116,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Build a key value array comprising of the claim name and value
+     * Build a key value array comprising of the claim name and value.
      *
      * @return array
      */
@@ -138,7 +138,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     }
 
     /**
-     * Get the payload as a string
+     * Get the payload as a string.
      *
      * @return string
      */

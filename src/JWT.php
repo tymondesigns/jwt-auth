@@ -89,7 +89,7 @@ class JWT
 
     /**
      * Alias to get the payload, and as a result checks that
-     * the token is valid i.e. not expired or blacklisted
+     * the token is valid i.e. not expired or blacklisted.
      *
      * @throws JWTException
      *
@@ -101,7 +101,7 @@ class JWT
     }
 
     /**
-     * Check that the token is valid
+     * Check that the token is valid.
      *
      * @return bool
      */
@@ -175,7 +175,7 @@ class JWT
     }
 
     /**
-     * Build the claims array and return it
+     * Build the claims array and return it.
      *
      * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
      *
@@ -253,7 +253,7 @@ class JWT
     }
 
     /**
-     * Get the Parser instance
+     * Get the Parser instance.
      *
      * @return \Tymon\JWTAuth\Http\Parser
      */
@@ -263,7 +263,7 @@ class JWT
     }
 
     /**
-     * Get the Payload Factory
+     * Get the Payload Factory.
      *
      * @return \Tymon\JWTAuth\Factory
      */
@@ -273,7 +273,7 @@ class JWT
     }
 
     /**
-     * Get the Blacklist
+     * Get the Blacklist.
      *
      * @return \Tymon\JWTAuth\Blacklist
      */

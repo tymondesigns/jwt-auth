@@ -36,7 +36,7 @@ class Parser
     }
 
     /**
-     * Get the parser chain
+     * Get the parser chain.
      *
      * @return array The chain of ParserContracts that the parser evaluates.
      */
@@ -46,7 +46,7 @@ class Parser
     }
 
     /**
-     * Set the order of the parser chain
+     * Set the order of the parser chain.
      *
      * @param array $chain
      * @return $this
@@ -59,7 +59,7 @@ class Parser
     }
 
     /**
-     * Alias for setting the order of the chain
+     * Alias for setting the order of the chain.
      *
      * @param array $chain
      * @return $this
@@ -73,7 +73,7 @@ class Parser
 
     /**
      * Iterate through the parsers and attempt to retrieve
-     * a value, otherwise return null
+     * a value, otherwise return null.
      *
      * @return string|null
      */
@@ -91,7 +91,7 @@ class Parser
     }
 
     /**
-     * Check whether a token exists in the chain
+     * Check whether a token exists in the chain.
      *
      * @return  bool
      */

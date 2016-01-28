@@ -83,7 +83,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bind some Interfaces and implementations
+     * Bind some Interfaces and implementations.
      */
     protected function registerAliases()
     {
@@ -99,7 +99,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the JSON Web Token provider
+     * Register the bindings for the JSON Web Token provider.
      */
     protected function registerJWTProvider()
     {
@@ -111,7 +111,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the Auth provider
+     * Register the bindings for the Auth provider.
      */
     protected function registerAuthProvider()
     {
@@ -121,7 +121,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the Storage provider
+     * Register the bindings for the Storage provider.
      */
     protected function registerStorageProvider()
     {
@@ -131,7 +131,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the JWT Manager
+     * Register the bindings for the JWT Manager.
      */
     protected function registerManager()
     {
@@ -148,7 +148,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the Token Parser
+     * Register the bindings for the Token Parser.
      */
     protected function registerTokenParser()
     {
@@ -161,7 +161,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the main JWTAuth class
+     * Register the bindings for the main JWTAuth class.
      */
     protected function registerJWT()
     {
@@ -174,7 +174,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the main JWTAuth class
+     * Register the bindings for the main JWTAuth class.
      */
     protected function registerJWTAuth()
     {
@@ -188,7 +188,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the main JWTAuth class
+     * Register the bindings for the main JWTAuth class.
      */
     protected function registerJWTBlacklist()
     {
@@ -201,7 +201,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the payload validator
+     * Register the bindings for the payload validator.
      */
     protected function registerPayloadValidator()
     {
@@ -213,7 +213,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the Payload Factory
+     * Register the bindings for the Payload Factory.
      */
     protected function registerPayloadFactory()
     {
@@ -229,7 +229,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the Artisan command
+     * Register the Artisan command.
      */
     protected function registerJWTCommand()
     {
@@ -239,7 +239,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Helper to get the config values
+     * Helper to get the config values.
      *
      * @param  string $key
      * @param  string $default

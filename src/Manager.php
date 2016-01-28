@@ -54,7 +54,7 @@ class Manager
     }
 
     /**
-     * Encode a Payload and return the Token
+     * Encode a Payload and return the Token.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
@@ -68,7 +68,7 @@ class Manager
     }
 
     /**
-     * Decode a Token and return the Payload
+     * Decode a Token and return the Payload.
      *
      * @param  \Tymon\JWTAuth\Token $token
      *
@@ -93,7 +93,7 @@ class Manager
     }
 
     /**
-     * Refresh a Token and return a new Token
+     * Refresh a Token and return a new Token.
      *
      * @param  \Tymon\JWTAuth\Token  $token
      *
@@ -121,7 +121,7 @@ class Manager
     }
 
     /**
-     * Invalidate a Token by adding it to the blacklist
+     * Invalidate a Token by adding it to the blacklist.
      *
      * @param  Token    $token
      * @param  bool  $forceForever
@@ -143,7 +143,7 @@ class Manager
     }
 
     /**
-     * Get the Payload Factory instance
+     * Get the Payload Factory instance.
      *
      * @return \Tymon\JWTAuth\Factory
      */
@@ -153,7 +153,7 @@ class Manager
     }
 
     /**
-     * Get the JWTProvider instance
+     * Get the JWTProvider instance.
      *
      * @return \Tymon\JWTAuth\Contracts\Providers\JWT
      */
@@ -163,7 +163,7 @@ class Manager
     }
 
     /**
-     * Get the Blacklist instance
+     * Get the Blacklist instance.
      *
      * @return \Tymon\JWTAuth\Blacklist
      */
@@ -173,7 +173,7 @@ class Manager
     }
 
     /**
-     * Set whether the blacklist is enabled
+     * Set whether the blacklist is enabled.
      *
      * @param bool  $enabled
      *
