@@ -72,7 +72,7 @@ class Manager
      *
      * @param  \Tymon\JWTAuth\Token $token
      *
-     * @throws TokenBlacklistedException
+     * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
      *
      * @return \Tymon\JWTAuth\Payload
      */
@@ -126,7 +126,7 @@ class Manager
      * @param  Token    $token
      * @param  bool  $forceForever
      *
-     * @throws JWTException
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
      * @return bool
      */

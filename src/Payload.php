@@ -178,7 +178,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      * @param  mixed  $key
      * @param  mixed  $value
      *
-     * @throws Exceptions\PayloadException
+     * @throws \Tymon\JWTAuth\Exceptions\PayloadException
      */
     public function offsetSet($key, $value)
     {
@@ -190,7 +190,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      *
      * @param  string  $key
      *
-     * @throws Exceptions\PayloadException
+     * @throws \Tymon\JWTAuth\Exceptions\PayloadException
      */
     public function offsetUnset($key)
     {
