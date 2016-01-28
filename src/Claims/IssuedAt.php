@@ -24,7 +24,7 @@ class IssuedAt extends Claim
      * Validate the issued at claim.
      *
      * @param  mixed  $value
-     * @return boolean
+     * @return bool
      */
     protected function validate($value)
     {

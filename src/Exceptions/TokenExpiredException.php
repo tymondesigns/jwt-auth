@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Exceptions;
 class TokenExpiredException extends JWTException
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $statusCode = 401;
 }

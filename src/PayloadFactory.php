@@ -38,7 +38,7 @@ class PayloadFactory
     protected $ttl = 60;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $refreshFlow = false;
 
@@ -220,7 +220,7 @@ class PayloadFactory
     /**
      * Set the refresh flow.
      *
-     * @param boolean $refreshFlow
+     * @param bool $refreshFlow
      * @return $this
      */
     public function setRefreshFlow($refreshFlow = true)

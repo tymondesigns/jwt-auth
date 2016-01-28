@@ -39,7 +39,7 @@ class Blacklist
      * Add the token (jti claim) to the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
-     * @return boolean
+     * @return bool
      */
     public function add(Payload $payload)
     {
@@ -67,7 +67,7 @@ class Blacklist
      * Determine whether the token has been blacklisted.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
-     * @return boolean
+     * @return bool
      */
     public function has(Payload $payload)
     {
@@ -78,7 +78,7 @@ class Blacklist
      * Remove the token (jti claim) from the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
-     * @return boolean
+     * @return bool
      */
     public function remove(Payload $payload)
     {
@@ -88,7 +88,7 @@ class Blacklist
     /**
      * Remove all tokens from the blacklist.
      *
-     * @return boolean
+     * @return bool
      */
     public function clear()
     {

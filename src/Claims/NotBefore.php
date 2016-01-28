@@ -24,7 +24,7 @@ class NotBefore extends Claim
      * Validate the not before claim.
      *
      * @param  mixed  $value
-     * @return boolean
+     * @return bool
      */
     protected function validate($value)
     {

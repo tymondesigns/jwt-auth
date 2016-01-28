@@ -46,7 +46,7 @@ class Factory
      * Check whether the claim exists.
      *
      * @param  string  $name
-     * @return boolean
+     * @return bool
      */
     public function has($name)
     {

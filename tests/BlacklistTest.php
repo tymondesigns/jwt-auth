@@ -83,7 +83,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
             new Issuer('http://example.com'),
             new Expiration(100), // default refresh_ttl
             new NotBefore(100),
-            new IssuedAt(100 - 20160*60),
+            new IssuedAt(100 - 20160 * 60),
             new JwtId('foo'),
         ];
         $payload = new Payload($claims, $this->validator, true);

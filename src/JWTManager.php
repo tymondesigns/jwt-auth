@@ -33,12 +33,12 @@ class JWTManager
     protected $payloadFactory;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $blacklistEnabled = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $refreshFlow = false;
 
@@ -115,7 +115,7 @@ class JWTManager
      * Invalidate a Token by adding it to the blacklist.
      *
      * @param  Token  $token
-     * @return boolean
+     * @return bool
      */
     public function invalidate(Token $token)
     {
@@ -171,7 +171,7 @@ class JWTManager
     /**
      * Set the refresh flow.
      *
-     * @param boolean $refreshFlow
+     * @param bool $refreshFlow
      * @return $this
      */
     public function setRefreshFlow($refreshFlow = true)

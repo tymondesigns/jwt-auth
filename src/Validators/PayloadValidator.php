@@ -23,7 +23,7 @@ class PayloadValidator extends AbstractValidator
     protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
 
     /**
-     * @var integer
+     * @var int
      */
     protected $refreshTTL = 20160;
 
@@ -67,7 +67,7 @@ class PayloadValidator extends AbstractValidator
      * @param  array  $payload
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @return boolean
+     * @return bool
      */
     protected function validateTimestamps(array $payload)
     {
@@ -116,7 +116,7 @@ class PayloadValidator extends AbstractValidator
     /**
      * Set the refresh ttl.
      *
-     * @param integer  $ttl
+     * @param int  $ttl
      */
     public function setRefreshTTL($ttl)
     {

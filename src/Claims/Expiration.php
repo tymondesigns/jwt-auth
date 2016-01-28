@@ -24,7 +24,7 @@ class Expiration extends Claim
      * Validate the expiry claim.
      *
      * @param  mixed  $value
-     * @return boolean
+     * @return bool
      */
     protected function validate($value)
     {
