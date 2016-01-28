@@ -34,22 +34,29 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided()
     {
-        $this->jwt->shouldReceive('getToken')->andReturn('foo.bar.baz');
-        $this->jwt->shouldReceive('check')->andReturn(true);
-        $this->jwt->shouldReceive('getPayload->get')->with('sub')->andReturn(1);
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('getPayload->get')
+                  ->once()
+                  ->with('sub')
+                  ->andReturn(1);
 
-        $this->provider->shouldReceive('retrieveById')->with(1)->once()->andReturn((object) ['id' => 1]);
+        $this->provider->shouldReceive('retrieveById')
+                       ->once()
+                       ->with(1)
+                       ->andReturn((object) ['id' => 1]);
+
         $this->assertSame(1, $this->guard->user()->id);
 
-        // check that the user is stored on the object
+        // check that the user is stored on the object next time round
         $this->assertSame(1, $this->guard->user()->id);
     }
 
     /** @test */
     public function it_should_return_null_if_an_invalid_token_is_provided()
     {
-        $this->jwt->shouldReceive('getToken')->andReturn('invalid.token.here');
-        $this->jwt->shouldReceive('check')->andReturn(false);
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('invalid.token.here');
+        $this->jwt->shouldReceive('check')->once()->andReturn(false);
         $this->jwt->shouldReceive('getPayload->get')->never();
         $this->provider->shouldReceive('retrieveById')->never();
 
@@ -140,5 +147,44 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
     {
         $this->jwt->shouldReceive('factory')->andReturn(Mockery::mock(Factory::class));
         $this->assertInstanceOf(Factory::class, $this->guard->factory());
+    }
+
+    /** @test */
+    public function it_should_logout_the_user_by_invalidating_the_token()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
+        $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
+        $this->jwt->shouldReceive('unsetToken')->once();
+
+        $this->guard->logout();
+        $this->assertNull($this->guard->getUser());
+    }
+
+    /** @test */
+    public function it_should_refresh_the_token()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
+        $this->jwt->shouldReceive('refresh')->once()->andReturn('foo.bar.baz');
+
+
+        $this->assertSame($this->guard->refresh(), 'foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_generate_a_token_by_id()
+    {
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveById')
+                       ->once()
+                       ->with(1)
+                       ->andReturn($user);
+
+        $this->jwt->shouldReceive('fromUser')
+                  ->once()
+                  ->with($user)
+                  ->andReturn('foo.bar.baz');
+
+        $this->assertSame('foo.bar.baz', $this->guard->tokenById(1));
     }
 }
