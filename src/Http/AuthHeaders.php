@@ -18,21 +18,21 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 class AuthHeaders implements ParserContract
 {
     /**
-     * The header name
+     * The header name.
      *
      * @var string
      */
     protected $header = 'authorization';
 
     /**
-     * The header prefix
+     * The header prefix.
      *
      * @var string
      */
     protected $prefix = 'bearer';
 
     /**
-     * Attempt to parse the token from some other possible headers
+     * Attempt to parse the token from some other possible headers.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -46,7 +46,7 @@ class AuthHeaders implements ParserContract
     }
 
     /**
-     * Try to parse the token from the request header
+     * Try to parse the token from the request header.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -64,7 +64,7 @@ class AuthHeaders implements ParserContract
     }
 
     /**
-     * Set the header name
+     * Set the header name.
      *
      * @param  string  $headerName
      *
@@ -78,7 +78,7 @@ class AuthHeaders implements ParserContract
     }
 
     /**
-     * Set the header prefix
+     * Set the header prefix.
      *
      * @param  string  $headerPrefix
      *

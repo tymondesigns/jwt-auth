@@ -20,7 +20,7 @@ abstract class Validator implements ValidatorContract
     use RefreshFlow;
 
     /**
-     * Helper function to return a boolean
+     * Helper function to return a boolean.
      *
      * @param  array  $value
      *
@@ -38,7 +38,7 @@ abstract class Validator implements ValidatorContract
     }
 
     /**
-     * Run the validation
+     * Run the validation.
      *
      * @param  array  $value
      *

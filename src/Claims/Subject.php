@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Claims;
 class Subject extends Claim
 {
     /**
-     * The claim name
+     * The claim name.
      *
      * @var string
      */

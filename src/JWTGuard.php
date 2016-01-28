@@ -43,7 +43,7 @@ class JWTGuard implements Guard
     protected $request;
 
     /**
-     * Instantiate the class
+     * Instantiate the class.
      *
      * @param  \Tymon\JWTAuth\JWT                       $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
@@ -128,7 +128,7 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Refresh the token
+     * Refresh the token.
      *
      * @return  string
      */
@@ -138,7 +138,7 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Create a new token by User id
+     * Create a new token by User id.
      *
      * @param   mixed  $id
      *
@@ -188,7 +188,7 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Alias for onceUsingId
+     * Alias for onceUsingId.
      *
      * @param   mixed  $id
      *
@@ -303,7 +303,7 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Ensure that a token is available in the request
+     * Ensure that a token is available in the request.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException::__construct
      *

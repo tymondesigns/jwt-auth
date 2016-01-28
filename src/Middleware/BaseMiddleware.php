@@ -23,7 +23,7 @@ abstract class BaseMiddleware
     protected $auth;
 
     /**
-     * Create a new BaseMiddleware instance
+     * Create a new BaseMiddleware instance.
      *
      * @param \Tymon\JWTAuth\JWTAuth  $auth
      */
@@ -33,7 +33,7 @@ abstract class BaseMiddleware
     }
 
     /**
-     * Check the request for the presence of a token
+     * Check the request for the presence of a token.
      *
      * @param   \Illuminate\Http\Request $request
      *

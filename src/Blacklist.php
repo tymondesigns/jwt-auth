@@ -22,7 +22,7 @@ class Blacklist
     protected $storage;
 
     /**
-     * The grace period when a token is blacklisted. In seconds
+     * The grace period when a token is blacklisted. In seconds.
      *
      * @var int
      */
@@ -36,7 +36,7 @@ class Blacklist
     protected $refreshTTL = 20160;
 
     /**
-     * The unique key held within the blacklist
+     * The unique key held within the blacklist.
      *
      * @var  string
      */
@@ -51,7 +51,7 @@ class Blacklist
     }
 
     /**
-     * Add the token (jti claim) to the blacklist
+     * Add the token (jti claim) to the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
@@ -75,7 +75,7 @@ class Blacklist
     }
 
     /**
-     * Get the number of minutes until the token expiry
+     * Get the number of minutes until the token expiry.
      *
      * @param   Payload  $payload
      *
@@ -95,7 +95,7 @@ class Blacklist
     }
 
     /**
-     * Add the token (jti claim) to the blacklist indefinitely
+     * Add the token (jti claim) to the blacklist indefinitely.
      *
      * @param  Payload  $payload
      *
@@ -109,7 +109,7 @@ class Blacklist
     }
 
     /**
-     * Determine whether the token has been blacklisted
+     * Determine whether the token has been blacklisted.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
@@ -129,7 +129,7 @@ class Blacklist
     }
 
     /**
-     * Remove the token (jti claim) from the blacklist
+     * Remove the token (jti claim) from the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
@@ -141,7 +141,7 @@ class Blacklist
     }
 
     /**
-     * Remove all tokens from the blacklist
+     * Remove all tokens from the blacklist.
      *
      * @return bool
      */
@@ -154,7 +154,7 @@ class Blacklist
 
     /**
      * Get the timestamp when the blacklist comes into effect
-     * This defaults to immediate (0 seconds)
+     * This defaults to immediate (0 seconds).
      *
      * @return int
      */
@@ -164,7 +164,7 @@ class Blacklist
     }
 
     /**
-     * Set the grace period
+     * Set the grace period.
      *
      * @param  int
      *
@@ -178,7 +178,7 @@ class Blacklist
     }
 
     /**
-     * Get the unique key held within the blacklist
+     * Get the unique key held within the blacklist.
      *
      * @param   Payload  $payload
      *
@@ -190,7 +190,7 @@ class Blacklist
     }
 
     /**
-     * Set the unique key held within the blacklist
+     * Set the unique key held within the blacklist.
      *
      * @param  string  $key
      * @return $this
@@ -203,7 +203,7 @@ class Blacklist
     }
 
     /**
-     * Set the refresh time limit
+     * Set the refresh time limit.
      *
      * @param  int
      *

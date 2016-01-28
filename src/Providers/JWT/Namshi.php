@@ -37,7 +37,7 @@ class Namshi extends Provider implements JWT
     }
 
     /**
-     * Create a JSON Web Token
+     * Create a JSON Web Token.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
@@ -55,7 +55,7 @@ class Namshi extends Provider implements JWT
     }
 
     /**
-     * Decode a JSON Web Token
+     * Decode a JSON Web Token.
      *
      * @param  string  $token
      *

@@ -16,7 +16,7 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 /**
- * Class PayloadValidator
+ * Class PayloadValidator.
  */
 class PayloadValidator extends Validator
 {
@@ -31,7 +31,7 @@ class PayloadValidator extends Validator
     protected $refreshTTL = 20160;
 
     /**
-     * Run the validations on the payload array
+     * Run the validations on the payload array.
      *
      * @param  array  $value
      *
@@ -50,7 +50,7 @@ class PayloadValidator extends Validator
 
     /**
      * Ensure the payload contains the required claims and
-     * the claims have the relevant type
+     * the claims have the relevant type.
      *
      * @param array  $payload
      *
@@ -68,7 +68,7 @@ class PayloadValidator extends Validator
     }
 
     /**
-     * Validate the payload timestamps
+     * Validate the payload timestamps.
      *
      * @param  array  $payload
      *
@@ -95,7 +95,7 @@ class PayloadValidator extends Validator
     }
 
     /**
-     * Check the token in the refresh flow context
+     * Check the token in the refresh flow context.
      *
      * @param  $payload
      *
@@ -113,7 +113,7 @@ class PayloadValidator extends Validator
     }
 
     /**
-     * Set the required claims
+     * Set the required claims.
      *
      * @param array  $claims
      *
@@ -127,7 +127,7 @@ class PayloadValidator extends Validator
     }
 
     /**
-     * Set the refresh ttl
+     * Set the refresh ttl.
      *
      * @param int  $ttl
      * @return $this

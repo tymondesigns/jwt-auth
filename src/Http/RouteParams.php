@@ -17,14 +17,14 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 class RouteParams implements ParserContract
 {
     /**
-     * The route param key
+     * The route param key.
      *
      * @var string
      */
     protected $key = 'token';
 
     /**
-     * Try to get the token from the route parameters
+     * Try to get the token from the route parameters.
      *
      * @param  \Illuminate\Http\Request
      *
@@ -44,7 +44,7 @@ class RouteParams implements ParserContract
     }
 
     /**
-     * Set the query string key
+     * Set the query string key.
      *
      * @param  string  $key
      *

@@ -19,7 +19,7 @@ trait RefreshFlow
     protected $refreshFlow = false;
 
     /**
-     * Set the refresh flow flag
+     * Set the refresh flow flag.
      *
      * @param  bool  $refreshFlow
      *

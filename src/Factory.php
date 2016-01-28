@@ -69,7 +69,7 @@ class Factory
     }
 
     /**
-     * Create the Payload instance
+     * Create the Payload instance.
      *
      * @return \Tymon\JWTAuth\Payload
      */
@@ -81,7 +81,7 @@ class Factory
     }
 
     /**
-     * Add an array of claims to the Payload
+     * Add an array of claims to the Payload.
      *
      * @param  array  $claims
      *
@@ -97,7 +97,7 @@ class Factory
     }
 
     /**
-     * Add a claim to the Payload
+     * Add a claim to the Payload.
      *
      * @param  string  $name
      * @param  mixed   $value
@@ -112,7 +112,7 @@ class Factory
     }
 
     /**
-     * Build the default claims
+     * Build the default claims.
      *
      * @return $this
      */
@@ -135,7 +135,7 @@ class Factory
     }
 
     /**
-     * Build out the Claim DTO's
+     * Build out the Claim DTO's.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -147,7 +147,7 @@ class Factory
     }
 
     /**
-     * Get the Issuer (iss) claim
+     * Get the Issuer (iss) claim.
      *
      * @return string
      */
@@ -157,7 +157,7 @@ class Factory
     }
 
     /**
-     * Get the Issued At (iat) claim
+     * Get the Issued At (iat) claim.
      *
      * @return int
      */
@@ -167,7 +167,7 @@ class Factory
     }
 
     /**
-     * Get the Expiration (exp) claim
+     * Get the Expiration (exp) claim.
      *
      * @return int
      */
@@ -177,7 +177,7 @@ class Factory
     }
 
     /**
-     * Get the Not Before (nbf) claim
+     * Get the Not Before (nbf) claim.
      *
      * @return int
      */
@@ -187,7 +187,7 @@ class Factory
     }
 
     /**
-     * Get a unique id (jti) for the token
+     * Get a unique id (jti) for the token.
      *
      * @return string
      */
@@ -197,7 +197,7 @@ class Factory
     }
 
     /**
-     * Set the token ttl (in minutes)
+     * Set the token ttl (in minutes).
      *
      * @param  int  $ttl
      *
@@ -211,7 +211,7 @@ class Factory
     }
 
     /**
-     * Get the token ttl
+     * Get the token ttl.
      *
      * @return int
      */
@@ -221,7 +221,7 @@ class Factory
     }
 
     /**
-     * Set the default claims to be added to the Payload
+     * Set the default claims to be added to the Payload.
      *
      * @param array $claims
      *
@@ -235,7 +235,7 @@ class Factory
     }
 
     /**
-     * Get the default claims
+     * Get the default claims.
      *
      * @return array
      */
@@ -245,7 +245,7 @@ class Factory
     }
 
     /**
-     * Get the PayloadValidator instance
+     * Get the PayloadValidator instance.
      *
      * @return \Tymon\JWTAuth\Validators\PayloadValidator
      */
@@ -255,7 +255,7 @@ class Factory
     }
 
     /**
-     * Magically add a claim
+     * Magically add a claim.
      *
      * @param  string  $method
      * @param  array   $parameters

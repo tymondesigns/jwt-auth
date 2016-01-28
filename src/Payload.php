@@ -26,14 +26,14 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Countable
 {
     /**
-     * The collection of claims
+     * The collection of claims.
      *
      * @var \Illuminate\Support\Collection
      */
     private $claims;
 
     /**
-     * Build the Payload
+     * Build the Payload.
      *
      * @param \Illuminate\Support\Collection              $claims
      * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
@@ -47,7 +47,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Get the array of claim instances
+     * Get the array of claim instances.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -57,7 +57,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Get the payload
+     * Get the payload.
      *
      * @param  mixed  $claim
      *
@@ -79,7 +79,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Determine whether the payload has the claim (by instance)
+     * Determine whether the payload has the claim (by instance).
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      *
@@ -91,7 +91,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Determine whether the payload has the claim (by key)
+     * Determine whether the payload has the claim (by key).
      *
      * @param   string   $claim
      *
@@ -103,7 +103,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Get the array of claims
+     * Get the array of claims.
      *
      * @return array
      */
@@ -139,7 +139,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Get the payload as a string
+     * Get the payload as a string.
      *
      * @return string
      */
@@ -173,7 +173,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Don't allow changing the payload as it should be immutable
+     * Don't allow changing the payload as it should be immutable.
      *
      * @param  mixed  $key
      * @param  mixed  $value
@@ -186,7 +186,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Don't allow changing the payload as it should be immutable
+     * Don't allow changing the payload as it should be immutable.
      *
      * @param  string  $key
      *
@@ -198,7 +198,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Count the number of claims
+     * Count the number of claims.
      *
      * @return int
      */
@@ -208,7 +208,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Invoke the Payload as a callable function
+     * Invoke the Payload as a callable function.
      *
      * @param   mixed  $claim
      *
@@ -220,7 +220,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
-     * Magically get a claim value
+     * Magically get a claim value.
      *
      * @param  string  $method
      * @param  array   $parameters

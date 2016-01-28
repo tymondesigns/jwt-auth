@@ -41,7 +41,7 @@ class Illuminate implements Storage
     }
 
     /**
-     * Add a new item into storage
+     * Add a new item into storage.
      *
      * @param  string  $key
      * @param  mixed  $value
@@ -55,7 +55,7 @@ class Illuminate implements Storage
     }
 
     /**
-     * Add a new item into storage forever
+     * Add a new item into storage forever.
      *
      * @param  string  $key
      * @param  mixed  $value
@@ -68,7 +68,7 @@ class Illuminate implements Storage
     }
 
     /**
-     * Get an item from storage
+     * Get an item from storage.
      *
      * @param  string  $key
      *
@@ -80,7 +80,7 @@ class Illuminate implements Storage
     }
 
     /**
-     * Remove an item from storage
+     * Remove an item from storage.
      *
      * @param  string  $key
      *
@@ -92,7 +92,7 @@ class Illuminate implements Storage
     }
 
     /**
-     * Remove all items associated with the tag
+     * Remove all items associated with the tag.
      *
      * @return void
      */
@@ -102,7 +102,7 @@ class Illuminate implements Storage
     }
 
     /**
-     * Return the cache instance with tags attached
+     * Return the cache instance with tags attached.
      *
      * @return \Illuminate\Contracts\Cache\Repository
      */

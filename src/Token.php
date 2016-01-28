@@ -21,7 +21,7 @@ class Token
     private $value;
 
     /**
-     * Create a new JSON Web Token
+     * Create a new JSON Web Token.
      *
      * @param string  $value
      */
@@ -33,7 +33,7 @@ class Token
     }
 
     /**
-     * Get the token
+     * Get the token.
      *
      * @return string
      */
@@ -43,7 +43,7 @@ class Token
     }
 
     /**
-     * Get the token when casting to string
+     * Get the token when casting to string.
      *
      * @return string
      */

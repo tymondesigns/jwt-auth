@@ -27,7 +27,7 @@ class Factory
     ];
 
     /**
-     * Get the instance of the claim when passing the name and value
+     * Get the instance of the claim when passing the name and value.
      *
      * @param  string  $name
      * @param  mixed   $value
@@ -44,7 +44,7 @@ class Factory
     }
 
     /**
-     * Check whether the claim exists
+     * Check whether the claim exists.
      *
      * @param  string  $name
      *

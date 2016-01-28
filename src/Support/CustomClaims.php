@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Support;
 trait CustomClaims
 {
     /**
-     * Custom claims
+     * Custom claims.
      *
      * @var array
      */
@@ -47,7 +47,7 @@ trait CustomClaims
     }
 
     /**
-     * Get the custom claims
+     * Get the custom claims.
      *
      * @return  array
      */

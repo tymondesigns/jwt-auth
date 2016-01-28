@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 interface Parser
 {
     /**
-     * Parse the request
+     * Parse the request.
      *
      * @param  \Illuminate\Http\Request $request
      *
