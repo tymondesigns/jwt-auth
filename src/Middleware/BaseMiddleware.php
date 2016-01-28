@@ -51,7 +51,7 @@ abstract class BaseMiddleware
      *
      * @param  string   $event
      * @param  string   $error
-     * @param  integer  $status
+     * @param  int  $status
      * @param  array    $payload
      * @return mixed
      */

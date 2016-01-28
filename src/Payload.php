@@ -86,7 +86,7 @@ class Payload implements \ArrayAccess
      * Determine whether the payload has the claim.
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
-     * @return boolean
+     * @return bool
      */
     public function has(Claim $claim)
     {

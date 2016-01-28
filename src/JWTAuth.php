@@ -149,7 +149,7 @@ class JWTAuth
      *
      * @param mixed $token
      *
-     * @return boolean
+     * @return bool
      */
     public function invalidate($token = false)
     {
@@ -161,7 +161,7 @@ class JWTAuth
     /**
      * Get the token.
      *
-     * @return boolean|string
+     * @return bool|string
      */
     public function getToken()
     {

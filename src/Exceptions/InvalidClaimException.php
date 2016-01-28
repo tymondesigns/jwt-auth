@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Exceptions;
 class InvalidClaimException extends JWTException
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $statusCode = 400;
 }

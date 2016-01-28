@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Carbon\Carbon;
 use Mockery;
-use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\PayloadFactory;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Issuer;

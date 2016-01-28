@@ -15,20 +15,20 @@ interface StorageInterface
 {
     /**
      * @param string $key
-     * @param integer $minutes
+     * @param int $minutes
      * @return void
      */
     public function add($key, $value, $minutes);
 
     /**
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function has($key);
 
     /**
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function destroy($key);
 
