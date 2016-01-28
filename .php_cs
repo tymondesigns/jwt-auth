@@ -59,6 +59,7 @@ $fixers = [
     'phpdoc_no_access',
     'phpdoc_no_package',
     'phpdoc_scalar',
+    'phpdoc_short_description',
     'phpdoc_summary',
     'phpdoc_to_comment',
     'phpdoc_trim',
@@ -92,6 +93,6 @@ $fixers = [
 ];
 
 return Symfony\CS\Config\Config::create()
-        ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
+        ->level(Symfony\CS\FixerInterface::NONE_LEVEL)
         ->fixers($fixers)
         ->finder($finder);
