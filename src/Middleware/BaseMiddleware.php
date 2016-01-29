@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Middleware;
 
-use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\JWTAuth;
 
 abstract class BaseMiddleware
 {
@@ -37,12 +37,12 @@ abstract class BaseMiddleware
      *
      * @param   \Illuminate\Http\Request $request
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     public function checkForToken(Request $request)
     {
-        if (! $this->auth->parser()->setRequest($request)->hasToken()) {
-            throw new BadRequestHttpException('Token not provided');
+        if (!$this->auth->parser()->setRequest($request)->hasToken()) {
+            throw new JWTException('Token not provided');
         }
     }
 }
