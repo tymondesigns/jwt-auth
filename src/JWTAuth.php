@@ -35,11 +35,12 @@ class JWTAuth extends JWT
     /**
      * Attempt to authenticate the user and return the token.
      *
-     * @param array $credentials
-     *
+     * @param  array  $credentials
+     * @param  bool   $remember
+     * @param  bool   $login
      * @return false|string
      */
-    public function attempt(array $credentials)
+    public function attempt(array $credentials = [], $remember = false, $login = true)
     {
         if (! $this->auth->byCredentials($credentials)) {
             return false;
