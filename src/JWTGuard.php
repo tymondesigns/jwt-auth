@@ -74,7 +74,7 @@ class JWTGuard implements Guard
             return;
         }
 
-        $id = $this->jwt->getPayload()->get('sub');
+        $id = $this->jwt->payload()->get('sub');
 
         return $this->user = $this->provider->retrieveById($id);
     }
@@ -210,6 +210,16 @@ class JWTGuard implements Guard
     public function getPayload()
     {
         return $this->requireToken()->getPayload();
+    }
+
+    /**
+     * Alias for getPayload().
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function payload()
+    {
+        return $this->getPayload();
     }
 
     /**
