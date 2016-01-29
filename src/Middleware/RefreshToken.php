@@ -1,9 +1,11 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * @author Sean Tymon <tymon148@gmail.com>
+ * @copyright Copyright (c) Sean Tymon
+ * @link https://github.com/tymondesigns/jwt-auth
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -40,7 +42,7 @@ class RefreshToken extends BaseMiddleware
         }
 
         // send the refreshed token back to the client
-        $response->headers->set('Authorization', 'Bearer '.$token);
+        $response->headers->set('Authorization', 'Bearer ' . $token);
 
         return $response;
     }

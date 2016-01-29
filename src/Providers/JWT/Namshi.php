@@ -1,9 +1,11 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * @author Sean Tymon <tymon148@gmail.com>
+ * @copyright Copyright (c) Sean Tymon
+ * @link https://github.com/tymondesigns/jwt-auth
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -50,7 +52,7 @@ class Namshi extends Provider implements JWT
 
             return (string) $this->jws->getTokenString();
         } catch (Exception $e) {
-            throw new JWTException('Could not create token: '.$e->getMessage());
+            throw new JWTException('Could not create token: ' . $e->getMessage());
         }
     }
 
@@ -69,7 +71,7 @@ class Namshi extends Provider implements JWT
             // let's never allow unsecure tokens
             $jws = $this->jws->load($token, false);
         } catch (Exception $e) {
-            throw new TokenInvalidException('Could not decode token: '.$e->getMessage());
+            throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
         }
 
         if (! $jws->verify($this->secret, $this->algo)) {
