@@ -57,7 +57,7 @@ class JWTGenerateSecretCommand extends Command
 
                 if ($confirmed) {
                     file_put_contents($path, str_replace(
-                        'JWT_SECRET=' . $this->laravel['config']['jwt.secret'], 'JWT_SECRET=' . $key, file_get_contents($path)
+                        'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
                     ));
                 } else {
                     return $this->comment('Phew... No changes were made to your secret key.');
