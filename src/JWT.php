@@ -165,6 +165,16 @@ class JWT
     }
 
     /**
+     * Alias for getPayload().
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function payload()
+    {
+        return $this->getPayload();
+    }
+
+    /**
      * Create a Payload instance.
      *
      * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
