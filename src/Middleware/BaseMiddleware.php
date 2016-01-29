@@ -41,7 +41,7 @@ abstract class BaseMiddleware
      */
     public function checkForToken(Request $request)
     {
-        if (!$this->auth->parser()->setRequest($request)->hasToken()) {
+        if (! $this->auth->parser()->setRequest($request)->hasToken()) {
             throw new JWTException('Token not provided');
         }
     }
