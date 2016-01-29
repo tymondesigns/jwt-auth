@@ -4,7 +4,3 @@ enabled:
   - unalign_double_arrow
 
 linting: true
-
-finder:
-  exclude:
-    - config
