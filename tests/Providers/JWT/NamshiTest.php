@@ -81,6 +81,6 @@ class NamshiTest extends \PHPUnit_Framework_TestCase
     {
         $this->jws->shouldReceive('verify')->andReturn(false);
 
-        $token = $this->provider->decode('foo');
+        $this->provider->decode('foo');
     }
 }
