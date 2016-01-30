@@ -42,7 +42,7 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('getToken')->once()->andReturn(false);
 
         $this->events->shouldReceive('fire')->once()->with('tymon.jwt.absent', [], true);
-        $this->response->shouldReceive('json')->with(['error' => 'token_not_provided'], 400);
+        $this->response->shouldReceive('json')->with(['error' => 'token_not_provided'], 401);
 
         $this->middleware->handle($this->request, function () {});
     }
