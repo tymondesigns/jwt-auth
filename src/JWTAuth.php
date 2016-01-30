@@ -59,7 +59,7 @@ class JWTAuth extends JWT
     {
         $id = $this->getPayload()->get('sub');
 
-        $retrieveUser = config("jwt.retrieve_user_on_authentication", true);
+        $retrieveUser = $this->manager->getRetrieveUserOnAuthentication();
 
         if ($retrieveUser && $this->auth->byId($id)) {
             return $this->user();

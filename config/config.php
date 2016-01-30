@@ -119,7 +119,7 @@ return [
     | After a token has been issued the user id might no longer exists
     | what would let the token out of sync with the database.
     | To ensure that the token is not only valid but also refers to an
-    | existing user the user could be automatically retrived from the database
+    | existing user the user could be automatically retrieved from the database
     | every time a token is validated.
     |
     | Setting it to "true" will retrieve the user every time the token is checked.
