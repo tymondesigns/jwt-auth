@@ -23,7 +23,7 @@ class JWTGenerateSecretCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'jwt:secret {show : Simply display the key instead of modifying files.}';
+    protected $signature = 'jwt:secret {--s|show : Display the key instead of modifying files.}';
 
     /**
      * The console command description.
