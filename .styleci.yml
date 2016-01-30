@@ -1,14 +1,6 @@
 preset: laravel
 
 enabled:
-  - concat_with_spaces
   - unalign_double_arrow
 
-disabled:
-  - concat_without_spaces
-
 linting: true
-
-finder:
-  exclude:
-    - config

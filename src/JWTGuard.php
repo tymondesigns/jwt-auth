@@ -1,9 +1,11 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * @author Sean Tymon <tymon148@gmail.com>
+ * @copyright Copyright (c) Sean Tymon
+ * @link https://github.com/tymondesigns/jwt-auth
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -72,7 +74,7 @@ class JWTGuard implements Guard
             return;
         }
 
-        $id = $this->jwt->getPayload()->get('sub');
+        $id = $this->jwt->payload()->get('sub');
 
         return $this->user = $this->provider->retrieveById($id);
     }
@@ -208,6 +210,16 @@ class JWTGuard implements Guard
     public function getPayload()
     {
         return $this->requireToken()->getPayload();
+    }
+
+    /**
+     * Alias for getPayload().
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function payload()
+    {
+        return $this->getPayload();
     }
 
     /**
