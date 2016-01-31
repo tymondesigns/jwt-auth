@@ -38,7 +38,7 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
     {
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
         $this->jwt->shouldReceive('check')->once()->andReturn(true);
-        $this->jwt->shouldReceive('getPayload->get')
+        $this->jwt->shouldReceive('payload->get')
                   ->once()
                   ->with('sub')
                   ->andReturn(1);
