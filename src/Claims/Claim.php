@@ -53,7 +53,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     public function setValue($value)
     {
         if (! $this->validate($value)) {
-            throw new InvalidClaimException('Invalid value provided for claim "' . $this->getName() . '": ' . $value);
+            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
         }
 
         $this->value = $value;
