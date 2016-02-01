@@ -29,6 +29,7 @@
     },
     "require-dev": {
         "cartalyst/sentinel": "2.0.*",
+        "october/rain": "dev-stable",
         "illuminate/console": "5.1.* || 5.2.*",
         "illuminate/database": "5.1.* || 5.2.*",
         "mockery/mockery": "0.9.*",
