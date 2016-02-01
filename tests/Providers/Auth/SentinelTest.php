@@ -3,6 +3,7 @@
 /*
  * This file is part of jwt-auth.
  *
+ * @package tymon/jwt-auth
  * @author Sean Tymon <tymon148@gmail.com>
  * @copyright Copyright (c) Sean Tymon
  * @link https://github.com/tymondesigns/jwt-auth
