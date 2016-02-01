@@ -1,9 +1,11 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
- * (c) Sean Tymon <tymon148@gmail.com>
+ * @author Sean Tymon <tymon148@gmail.com>
+ * @copyright Copyright (c) Sean Tymon
+ * @link https://github.com/tymondesigns/jwt-auth
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -50,7 +52,7 @@ class October implements Auth
      */
     public function byId($id)
     {
-        if (!is_null($user = $this->october->findUserById($id))) {
+        if (! is_null($user = $this->october->findUserById($id))) {
             $this->october->setUser($user);
 
             return true;
