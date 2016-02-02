@@ -186,4 +186,37 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('foo.bar.baz', $this->guard->tokenById(1));
     }
+
+    /** @test */
+    public function it_should_authenticate_the_user_by_credentials_and_return_boolean()
+    {
+        $credentials = ['foo' => 'bar', 'baz' => 'bob'];
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveByCredentials')
+                       ->once()
+                       ->with($credentials)
+                       ->andReturn($user);
+
+        $this->provider->shouldReceive('validateCredentials')
+                       ->once()
+                       ->with($user, $credentials)
+                       ->andReturn(true);
+
+        $this->assertTrue($this->guard->once($credentials));
+    }
+
+    /** @test */
+    public function it_should_authenticate_the_user_by_id_and_return_boolean()
+    {
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveById')
+                       ->twice()
+                       ->with(1)
+                       ->andReturn($user);
+
+        $this->assertTrue($this->guard->onceUsingId(1)); // once
+        $this->assertTrue($this->guard->byId(1)); // twice
+    }
 }
