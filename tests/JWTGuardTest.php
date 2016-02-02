@@ -63,18 +63,15 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->guard->user());
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     */
-    public function it_should_throw_an_exception_if_no_token_is_provided()
+    /** @test */
+    public function it_should_return_null_if_no_token_is_provided()
     {
         $this->jwt->shouldReceive('getToken')->andReturn(false);
         $this->jwt->shouldReceive('check')->never();
         $this->jwt->shouldReceive('getPayload->get')->never();
         $this->provider->shouldReceive('retrieveById')->never();
 
-        $this->guard->user();
+        $this->assertNull($this->guard->user());
     }
 
     /** @test */

@@ -68,7 +68,7 @@ class JWTGuard implements Guard
             return $this->user;
         }
 
-        if (! $this->requireToken()->check()) {
+        if (! $this->jwt->getToken() || ! $this->jwt->check()) {
             return;
         }
 
