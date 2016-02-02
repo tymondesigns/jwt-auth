@@ -50,17 +50,19 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
 
         // check that the user is stored on the object next time round
         $this->assertSame(1, $this->guard->user()->id);
+        $this->assertTrue($this->guard->check());
     }
 
     /** @test */
     public function it_should_return_null_if_an_invalid_token_is_provided()
     {
-        $this->jwt->shouldReceive('getToken')->once()->andReturn('invalid.token.here');
-        $this->jwt->shouldReceive('check')->once()->andReturn(false);
+        $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
+        $this->jwt->shouldReceive('check')->twice()->andReturn(false);
         $this->jwt->shouldReceive('getPayload->get')->never();
         $this->provider->shouldReceive('retrieveById')->never();
 
-        $this->assertNull($this->guard->user());
+        $this->assertNull($this->guard->user()); // once
+        $this->assertFalse($this->guard->check()); // twice
     }
 
     /** @test */
@@ -72,6 +74,7 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->provider->shouldReceive('retrieveById')->never();
 
         $this->assertNull($this->guard->user());
+        $this->assertFalse($this->guard->check());
     }
 
     /** @test */
