@@ -33,7 +33,8 @@
         "illuminate/console": "5.1.* || 5.2.*",
         "illuminate/database": "5.1.* || 5.2.*",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "^4.0 || ^5.0"
+        "phpunit/phpunit": "^4.0 || ^5.0",
+        "phpro/grumphp": "dev-master"
     },
     "autoload": {
         "psr-4": {
