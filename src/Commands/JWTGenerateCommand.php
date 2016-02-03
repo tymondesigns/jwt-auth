@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
  * (c) Sean Tymon <tymon148@gmail.com>
  *
@@ -41,7 +41,7 @@ class JWTGenerateCommand extends Command
         $key = $this->getRandomKey();
 
         if ($this->option('show')) {
-            return $this->line('<comment>' . $key . '</comment>');
+            return $this->line('<comment>'.$key.'</comment>');
         }
 
         $path = config_path('jwt.php');
