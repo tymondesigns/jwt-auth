@@ -25,8 +25,8 @@ before_install:
 before_script:
   - travis_retry composer self-update
   - if [[ $laravel = '*' ]]; then travis_retry composer install --no-interaction --prefer-source; fi
-  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-source --no-interaction --dev; fi
-  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-source --no-interaction --dev; fi
+  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-source --no-interaction; fi
+  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-source --no-interaction; fi
 
 script:
   - vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
