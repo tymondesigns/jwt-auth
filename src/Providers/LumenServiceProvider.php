@@ -12,9 +12,9 @@
 namespace Tymon\JWTAuth\Providers;
 
 use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Http\Parser;

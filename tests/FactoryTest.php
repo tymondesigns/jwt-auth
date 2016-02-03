@@ -14,13 +14,13 @@ namespace Tymon\JWTAuth\Test;
 use Mockery;
 use Tymon\JWTAuth\Factory;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
+use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\NotBefore;
+use Tymon\JWTAuth\Claims\Expiration;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {

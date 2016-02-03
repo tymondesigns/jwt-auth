@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth\Providers;
 
 use Tymon\JWTAuth\Middleware\Check;
-use Tymon\JWTAuth\Middleware\RefreshToken;
 use Tymon\JWTAuth\Middleware\Authenticate;
+use Tymon\JWTAuth\Middleware\RefreshToken;
 
 class LaravelServiceProvider extends LumenServiceProvider
 {
