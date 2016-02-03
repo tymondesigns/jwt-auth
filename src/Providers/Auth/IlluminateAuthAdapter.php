@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
  * (c) Sean Tymon <tymon148@gmail.com>
  *

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
  * (c) Sean Tymon <tymon148@gmail.com>
  *
@@ -48,7 +48,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
 
             return $this->jws->getTokenString();
         } catch (Exception $e) {
-            throw new JWTException('Could not create token: ' . $e->getMessage());
+            throw new JWTException('Could not create token: '.$e->getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ class NamshiAdapter extends JWTProvider implements JWTInterface
         try {
             $jws = JWS::load($token);
         } catch (Exception $e) {
-            throw new TokenInvalidException('Could not decode token: ' . $e->getMessage());
+            throw new TokenInvalidException('Could not decode token: '.$e->getMessage());
         }
 
         if (! $jws->verify($this->secret, $this->algo)) {

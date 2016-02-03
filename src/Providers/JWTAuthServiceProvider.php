@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
  * (c) Sean Tymon <tymon148@gmail.com>
  *
@@ -35,7 +35,7 @@ class JWTAuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('jwt.php'),
+            __DIR__.'/../config/config.php' => config_path('jwt.php'),
         ], 'config');
 
         $this->bootBindings();
@@ -111,7 +111,7 @@ class JWTAuthServiceProvider extends ServiceProvider
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'jwt');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'jwt');
     }
 
     /**

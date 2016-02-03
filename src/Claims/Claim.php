@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of jwt-auth
+ * This file is part of jwt-auth.
  *
  * (c) Sean Tymon <tymon148@gmail.com>
  *
@@ -47,7 +47,7 @@ abstract class Claim implements ClaimInterface
     public function setValue($value)
     {
         if (! $this->validate($value)) {
-            throw new InvalidClaimException('Invalid value provided for claim "' . $this->getName() . '": ' . $value);
+            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
         }
 
         $this->value = $value;
