@@ -38,8 +38,8 @@ class JWT
     protected $token;
 
     /**
-     * @param \Tymon\JWTAuth\Manager      $manager
-     * @param \Tymon\JWTAuth\Http\Parser  $parser
+     * @param  \Tymon\JWTAuth\Manager  $manager
+     * @param  \Tymon\JWTAuth\Http\Parser  $parser
      */
     public function __construct(Manager $manager, Parser $parser)
     {
@@ -50,7 +50,7 @@ class JWT
     /**
      * Generate a token using the user identifier as the subject claim.
      *
-     * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
      * @return string
      */
@@ -175,7 +175,7 @@ class JWT
     /**
      * Create a Payload instance.
      *
-     * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
      * @return \Tymon\JWTAuth\Payload
      */
@@ -187,7 +187,7 @@ class JWT
     /**
      * Build the claims array and return it.
      *
-     * @param \Tymon\JWTAuth\Contracts\JWTSubject $user
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
      * @return array
      */
@@ -241,7 +241,7 @@ class JWT
     /**
      * Set the request instance.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return $this
      */
@@ -295,8 +295,8 @@ class JWT
     /**
      * Magically call the JWT Manager.
      *
-     * @param string $method
-     * @param array  $parameters
+     * @param  string  $method
+     * @param  array  $parameters
      *
      * @return mixed
      *

@@ -55,9 +55,9 @@ class Factory
     protected $claims;
 
     /**
-     * @param \Tymon\JWTAuth\Claims\Factory               $claimFactory
-     * @param \Illuminate\Http\Request                    $request
-     * @param \Tymon\JWTAuth\Validators\PayloadValidator  $validator
+     * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
     public function __construct(ClaimFactory $claimFactory, Request $request, PayloadValidator $validator)
     {
@@ -100,7 +100,7 @@ class Factory
      * Add a claim to the Payload.
      *
      * @param  string  $name
-     * @param  mixed   $value
+     * @param  mixed  $value
      *
      * @return $this
      */
@@ -223,7 +223,7 @@ class Factory
     /**
      * Set the default claims to be added to the Payload.
      *
-     * @param array $claims
+     * @param  array  $claims
      *
      * @return $this
      */
@@ -258,7 +258,7 @@ class Factory
      * Magically add a claim.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      *
      * @throws \BadMethodCallException
      *

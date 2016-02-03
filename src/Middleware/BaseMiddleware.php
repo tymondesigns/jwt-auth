@@ -25,7 +25,7 @@ abstract class BaseMiddleware
     /**
      * Create a new BaseMiddleware instance.
      *
-     * @param \Tymon\JWTAuth\JWTAuth  $auth
+     * @param  \Tymon\JWTAuth\JWTAuth  $auth
      */
     public function __construct(JWTAuth $auth)
     {
@@ -35,7 +35,7 @@ abstract class BaseMiddleware
     /**
      * Check the request for the presence of a token.
      *
-     * @param   \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */

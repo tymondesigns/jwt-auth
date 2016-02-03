@@ -43,7 +43,7 @@ class Blacklist
     protected $key = 'jti';
 
     /**
-     * @param \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
+     * @param  \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
      */
     public function __construct(Storage $storage)
     {
@@ -79,7 +79,7 @@ class Blacklist
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
-     * @return  int
+     * @return int
      */
     protected function getMinutesUntilExpired(Payload $payload)
     {
@@ -164,8 +164,7 @@ class Blacklist
     /**
      * Set the grace period.
      *
-     * @param  int
-     *
+     * @param  int  $gracePeriod
      * @return $this
      */
     public function setGracePeriod($gracePeriod)
@@ -180,7 +179,7 @@ class Blacklist
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getKey(Payload $payload)
     {
@@ -203,8 +202,7 @@ class Blacklist
     /**
      * Set the refresh time limit.
      *
-     * @param  int
-     *
+     * @param  int  $ttl
      * @return $this
      */
     public function setRefreshTTL($ttl)

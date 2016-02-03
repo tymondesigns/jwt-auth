@@ -16,7 +16,7 @@ use Exception;
 class JWTException extends Exception
 {
     /**
-     * @param string  $message
+     * @param  string  $message
      */
     public function __construct($message = 'An error occurred')
     {

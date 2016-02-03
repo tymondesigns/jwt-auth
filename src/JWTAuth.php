@@ -22,9 +22,9 @@ class JWTAuth extends JWT
     protected $auth;
 
     /**
-     * @param \Tymon\JWTAuth\Manager                   $manager
-     * @param \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
-     * @param \Tymon\JWTAuth\Http\Parser               $parser
+     * @param  \Tymon\JWTAuth\Manager  $manager
+     * @param  \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
+     * @param  \Tymon\JWTAuth\Http\Parser  $parser
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
     {
@@ -35,7 +35,7 @@ class JWTAuth extends JWT
     /**
      * Attempt to authenticate the user and return the token.
      *
-     * @param array $credentials
+     * @param  array  $credentials
      *
      * @return false|string
      */

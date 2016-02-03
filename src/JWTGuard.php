@@ -46,9 +46,9 @@ class JWTGuard implements Guard
     /**
      * Instantiate the class.
      *
-     * @param  \Tymon\JWTAuth\JWT                       $jwt
+     * @param  \Tymon\JWTAuth\JWT  $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
-     * @param  \Illuminate\Http\Request                 $request
+     * @param  \Illuminate\Http\Request  $request
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request)
     {
@@ -80,7 +80,7 @@ class JWTGuard implements Guard
     /**
      * Validate a user's credentials.
      *
-     * @param  array $credentials
+     * @param  array  $credentials
      *
      * @return bool
      */
@@ -131,7 +131,7 @@ class JWTGuard implements Guard
     /**
      * Refresh the token.
      *
-     * @return  string
+     * @return string
      */
     public function refresh()
     {
@@ -141,9 +141,9 @@ class JWTGuard implements Guard
     /**
      * Create a new token by User id.
      *
-     * @param   mixed  $id
+     * @param  mixed  $id
      *
-     * @return  string|null
+     * @return string|null
      */
     public function tokenById($id)
     {
@@ -155,7 +155,7 @@ class JWTGuard implements Guard
     /**
      * Log a user into the application using their credentials.
      *
-     * @param  array $credentials
+     * @param  array  $credentials
      *
      * @return bool
      */
@@ -173,7 +173,7 @@ class JWTGuard implements Guard
     /**
      * Log the given User into the application.
      *
-     * @param  mixed $id
+     * @param  mixed  $id
      *
      * @return bool
      */
@@ -191,9 +191,9 @@ class JWTGuard implements Guard
     /**
      * Alias for onceUsingId.
      *
-     * @param   mixed  $id
+     * @param  mixed  $id
      *
-     * @return  bool
+     * @return bool
      */
     public function byId($id)
     {
@@ -223,7 +223,7 @@ class JWTGuard implements Guard
     /**
      * Set the token.
      *
-     * @param  Token|string  $token
+     * @param  \Tymon\JWTAuth\Token|string  $token
      *
      * @return $this
      */
@@ -281,7 +281,7 @@ class JWTGuard implements Guard
     /**
      * Set the current request instance.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return $this
      */
@@ -334,8 +334,8 @@ class JWTGuard implements Guard
     /**
      * Magically call the JWT instance.
      *
-     * @param string $method
-     * @param array  $parameters
+     * @param  string  $method
+     * @param  array  $parameters
      *
      * @return mixed
      *

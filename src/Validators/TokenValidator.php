@@ -18,7 +18,7 @@ class TokenValidator extends Validator
     /**
      * Check the structure of the token.
      *
-     * @param string  $value
+     * @param  string  $value
      *
      * @return void
      */
