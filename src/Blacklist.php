@@ -77,7 +77,7 @@ class Blacklist
     /**
      * Get the number of minutes until the token expiry.
      *
-     * @param   Payload  $payload
+     * @param  \Tymon\JWTAuth\Payload  $payload
      *
      * @return  int
      */
@@ -95,7 +95,7 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist indefinitely.
      *
-     * @param  Payload  $payload
+     * @param  \Tymon\JWTAuth\Payload  $payload
      *
      * @return bool
      */
@@ -178,7 +178,7 @@ class Blacklist
     /**
      * Get the unique key held within the blacklist.
      *
-     * @param   Payload  $payload
+     * @param  \Tymon\JWTAuth\Payload  $payload
      *
      * @return  mixed
      */
