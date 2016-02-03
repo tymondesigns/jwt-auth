@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
 use Mockery;
-use Tymon\JWTAuth\Providers\Auth\October as Auth;
 use Tymon\JWTAuth\Test\Stubs\OctoberStub;
+use Tymon\JWTAuth\Providers\Auth\October as Auth;
 
 class OctoberTest extends \PHPUnit_Framework_TestCase
 {
