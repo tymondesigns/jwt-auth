@@ -29,7 +29,7 @@ class Token
     {
         (new TokenValidator)->check($value);
 
-        $this->value = $value;
+        $this->value = (string) $value;
     }
 
     /**
@@ -39,7 +39,7 @@ class Token
      */
     public function get()
     {
-        return (string) $this->value;
+        return $this->value;
     }
 
     /**
