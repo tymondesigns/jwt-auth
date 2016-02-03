@@ -65,7 +65,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->jwtAuth->fromUser(new \Tymon\JWTAuth\Test\Stubs\UserStub);
 
-        $this->assertSame($token, 'foo.bar.baz');
+        $this->assertSame($token, 'foo.bar.bazasd');
     }
 
     /** @test */
