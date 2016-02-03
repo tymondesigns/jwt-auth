@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Support\Utils;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;
