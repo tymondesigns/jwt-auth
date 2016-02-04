@@ -27,6 +27,7 @@ class RouteParams implements ParserContract
      * Try to get the token from the route parameters.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return null|string
      */
     public function parse(Request $request)
