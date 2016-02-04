@@ -33,4 +33,4 @@ script:
   - if [[ $laravel = '5.1' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml --exclude-group laravel-5.2; fi
 
 after_success:
-  - codecov
+  - if [[ $laravel != '5.1' ]]; then codecov; fi
