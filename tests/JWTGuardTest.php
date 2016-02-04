@@ -31,7 +31,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         Mockery::close();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided()
     {
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
@@ -53,7 +56,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->guard->check());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_return_null_if_an_invalid_token_is_provided()
     {
         $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
@@ -65,7 +71,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->guard->check()); // twice
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_return_null_if_no_token_is_provided()
     {
         $this->jwt->shouldReceive('getToken')->andReturn(false);
@@ -77,7 +86,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->guard->check());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_return_a_token_if_credentials_are_ok_and_user_is_found()
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
@@ -103,7 +115,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($token, 'foo.bar.baz');
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_return_true_if_credentials_are_ok_and_user_is_found_when_choosing_not_to_login()
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
@@ -123,7 +138,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->guard->validate($credentials)); // twice
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_return_false_if_credentials_are_invalid()
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
@@ -142,14 +160,20 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->guard->attempt($credentials));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_magically_call_the_jwt_instance()
     {
         $this->jwt->shouldReceive('factory')->andReturn(Mockery::mock(Factory::class));
         $this->assertInstanceOf(Factory::class, $this->guard->factory());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_logout_the_user_by_invalidating_the_token()
     {
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
@@ -160,7 +184,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->guard->getUser());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_refresh_the_token()
     {
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
@@ -169,7 +196,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->guard->refresh(), 'foo.bar.baz');
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_generate_a_token_by_id()
     {
         $user = new LaravelUserStub;
@@ -187,7 +217,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('foo.bar.baz', $this->guard->tokenById(1));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_authenticate_the_user_by_credentials_and_return_boolean()
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
@@ -206,7 +239,10 @@ class JWTGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->guard->once($credentials));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_authenticate_the_user_by_id_and_return_boolean()
     {
         $user = new LaravelUserStub;
