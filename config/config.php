@@ -110,6 +110,25 @@ return [
     'blacklist_grace_period' => env('JWT_BLACKLIST_GRACE_PERIOD', 0),
 
     /*
+    | -------------------------------------------------------------------------
+    | Retrieve user on token authentication
+    | -------------------------------------------------------------------------
+    |
+    | After a token has been issued the user id might no longer exists
+    | what would let the token out of sync with the database.
+    | To ensure that the token is not only valid but also refers to an
+    | existing user the user could be automatically retrieved from the database
+    | every time a token is validated.
+    |
+    | Setting it to "true" will retrieve the user every time the token is checked.
+    | Setting it to "false will query the database only when Auth::user() is invoked
+    | for the first time.
+    |
+    */
+
+    'retrieve_user_on_authentication' => true,
+
+    /*
     |--------------------------------------------------------------------------
     | Providers
     |--------------------------------------------------------------------------

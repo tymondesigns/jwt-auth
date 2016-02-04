@@ -143,7 +143,9 @@ class LumenServiceProvider extends ServiceProvider
                 $app['tymon.jwt.payload.factory']
             );
 
-            return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'));
+            return $instance
+                ->setBlacklistEnabled((bool) $this->config('blacklist_enabled'))
+                ->setRetrieveUserOnAuthentication((bool) $this->config('retrieve_user_on_authentication'));
         });
     }
 

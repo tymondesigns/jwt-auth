@@ -42,6 +42,11 @@ class Manager
     protected $blacklistEnabled = true;
 
     /**
+     * @var bool
+     */
+    protected $retrieveUserOnAuthentication = true;
+
+    /**
      *  @param \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      *  @param \Tymon\JWTAuth\Blacklist                $blacklist
      *  @param \Tymon\JWTAuth\Factory                  $payloadFactory
@@ -182,6 +187,30 @@ class Manager
     public function setBlacklistEnabled($enabled)
     {
         $this->blacklistEnabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Determine if a user instance should be retrieved on authentication.
+     *
+     * @return bool
+     */
+    public function getRetrieveUserOnAuthentication()
+    {
+        return $this->retrieveUserOnAuthentication;
+    }
+
+    /**
+     * Set whether the user should be retrieved on authentication.
+     *
+     * @param bool  $retrieveUser
+     *
+     * @return $this
+     */
+    public function setRetrieveUserOnAuthentication($retrieveUser)
+    {
+        $this->retrieveUserOnAuthentication = $retrieveUser;
 
         return $this;
     }
