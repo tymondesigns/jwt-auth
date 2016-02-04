@@ -32,7 +32,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     private $value;
 
     /**
-     * @param mixed  $value
+     * @param  mixed  $value
      */
     public function __construct($value)
     {
@@ -42,7 +42,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      *
@@ -72,7 +72,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     /**
      * Set the claim name.
      *
-     * @param string $name
+     * @param  string  $name
      *
      * @return $this
      */
@@ -96,7 +96,7 @@ abstract class Claim implements ClaimContract, JsonSerializable
     /**
      * Validate the Claim value.
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      *
      * @return bool
      */

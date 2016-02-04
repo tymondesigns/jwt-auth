@@ -24,8 +24,8 @@ abstract class Provider
     protected $algo;
 
     /**
-     * @param string  $secret
-     * @param string  $algo
+     * @param  string  $secret
+     * @param  string  $algo
      */
     public function __construct($secret, $algo)
     {

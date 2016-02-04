@@ -14,8 +14,8 @@ namespace Tymon\JWTAuth\Contracts\Providers;
 interface Storage
 {
     /**
-     * @param  string   $key
-     * @param  mixed    $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @param  int  $minutes
      *
      * @return void
@@ -23,8 +23,8 @@ interface Storage
     public function add($key, $value, $minutes);
 
     /**
-     * @param  string   $key
-     * @param  mixed    $value
+     * @param  string  $key
+     * @param  mixed  $value
      *
      * @return void
      */
@@ -38,7 +38,7 @@ interface Storage
     public function get($key);
 
     /**
-     * @param  string  $key
+     * @param  \\string  $key
      *
      * @return bool
      */

@@ -33,7 +33,7 @@ class Illuminate implements Storage
     protected $supportsTags;
 
     /**
-     * @param \Illuminate\Contracts\Cache\Repository  $cache
+     * @param  \Illuminate\Contracts\Cache\Repository  $cache
      */
     public function __construct(CacheContract $cache)
     {

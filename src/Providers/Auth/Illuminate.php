@@ -22,7 +22,7 @@ class Illuminate implements Auth
     protected $auth;
 
     /**
-     * @param \Illuminate\Contracts\Auth\Guard  $auth
+     * @param  \Illuminate\Contracts\Auth\Guard  $auth
      */
     public function __construct(GuardContract $auth)
     {

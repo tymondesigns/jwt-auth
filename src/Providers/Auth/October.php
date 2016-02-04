@@ -22,7 +22,7 @@ class October implements Auth
     protected $october;
 
     /**
-     * @param \October\Rain\Auth\Manager  $october
+     * @param  \October\Rain\Auth\Manager  $october
      */
     public function __construct(OctoberAuth $october)
     {

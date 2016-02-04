@@ -26,8 +26,8 @@ class Parser
     protected $request;
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param array $chain
+     * @param  \Illuminate\Http\Request  $request
+     * @param  array  $chain
      */
     public function __construct(Request $request, array $chain = [])
     {
@@ -48,7 +48,7 @@ class Parser
     /**
      * Set the order of the parser chain.
      *
-     * @param array $chain
+     * @param  array  $chain
      * @return $this
      */
     public function setChain(array $chain)
@@ -61,7 +61,7 @@ class Parser
     /**
      * Alias for setting the order of the chain.
      *
-     * @param array $chain
+     * @param  array  $chain
      * @return $this
      */
     public function setChainOrder(array $chain)
@@ -93,7 +93,7 @@ class Parser
     /**
      * Check whether a token exists in the chain.
      *
-     * @return  bool
+     * @return bool
      */
     public function hasToken()
     {
@@ -103,7 +103,7 @@ class Parser
     /**
      * Set the request instance.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return $this
      */

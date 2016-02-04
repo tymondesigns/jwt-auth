@@ -52,7 +52,7 @@ class PayloadValidator extends Validator
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param array  $payload
+     * @param  array  $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
@@ -97,8 +97,7 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  $payload
-     *
+     * @param  $payload  $payload
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
      * @return bool
@@ -115,7 +114,7 @@ class PayloadValidator extends Validator
     /**
      * Set the required claims.
      *
-     * @param array  $claims
+     * @param  array  $claims
      *
      * @return $this
      */
@@ -129,7 +128,7 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl.
      *
-     * @param int  $ttl
+     * @param  int  $ttl
      * @return $this
      */
     public function setRefreshTTL($ttl)

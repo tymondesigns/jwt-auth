@@ -30,7 +30,7 @@ class Factory
      * Get the instance of the claim when passing the name and value.
      *
      * @param  string  $name
-     * @param  mixed   $value
+     * @param  mixed  $value
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */

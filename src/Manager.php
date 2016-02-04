@@ -42,9 +42,9 @@ class Manager
     protected $blacklistEnabled = true;
 
     /**
-     *  @param \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
-     *  @param \Tymon\JWTAuth\Blacklist                $blacklist
-     *  @param \Tymon\JWTAuth\Factory                  $payloadFactory
+     *  @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
+     *  @param  \Tymon\JWTAuth\Blacklist  $blacklist
+     *  @param  \Tymon\JWTAuth\Factory  $payloadFactory
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
@@ -70,7 +70,7 @@ class Manager
     /**
      * Decode a Token and return the Payload.
      *
-     * @param  \Tymon\JWTAuth\Token $token
+     * @param  \Tymon\JWTAuth\Token  $token
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
      *
@@ -123,7 +123,7 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
-     * @param  Token    $token
+     * @param  \Tymon\JWTAuth\Token  $token
      * @param  bool  $forceForever
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
@@ -175,7 +175,7 @@ class Manager
     /**
      * Set whether the blacklist is enabled.
      *
-     * @param bool  $enabled
+     * @param  bool  $enabled
      *
      * @return $this
      */

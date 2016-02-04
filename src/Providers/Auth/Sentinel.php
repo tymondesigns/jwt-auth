@@ -22,7 +22,7 @@ class Sentinel implements Auth
     protected $sentinel;
 
     /**
-     * @param \Cartalyst\Sentinel\Sentinel  $sentinel
+     * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
      */
     public function __construct(SentinelAuth $sentinel)
     {
