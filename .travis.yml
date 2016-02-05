@@ -7,10 +7,6 @@ php:
   - 7.0
   - hhvm
 
-env:
-  global:
-    - laravel='*'
-
 matrix:
   include:
     - php: 5.6
@@ -24,7 +20,7 @@ before_install:
 
 before_script:
   - travis_retry composer self-update
-  - if [[ $laravel = '*' ]]; then travis_retry composer install --no-interaction --prefer-source; fi
+  - travis_retry composer install --no-interaction --prefer-source
   - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-source --no-interaction; fi
   - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-source --no-interaction; fi
 

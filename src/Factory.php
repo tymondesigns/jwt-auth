@@ -125,7 +125,7 @@ class Factory
 
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
-            $this->addClaim($claim, call_user_func([$this, $claim]));
+            $this->addClaim($claim, $this->$claim());
         }
 
         // add custom claims on top, allowing them to overwrite defaults
