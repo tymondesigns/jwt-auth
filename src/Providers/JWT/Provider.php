@@ -56,4 +56,18 @@ abstract class Provider
     {
         return $this->algo;
     }
+
+    /**
+     * Set the secret used to sign the token.
+     *
+     * @param  string  $secret
+     *
+     * @return $this
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+
+        return $this;
+    }
 }
