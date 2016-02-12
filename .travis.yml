@@ -2,9 +2,6 @@ sudo: false
 language: php
 
 php:
-  - 5.5.9
-  - 5.6
-  - 7.0
   - hhvm
   
 env:
@@ -13,9 +10,17 @@ env:
 
 matrix:
   include:
+    - php: 5.5.9
+      env: laravel='5.1'
+    - php: 5.5.9
+      env: laravel='5.2'
     - php: 5.6
       env: laravel='5.1'
     - php: 5.6
+      env: laravel='5.2'
+    - php: 7.0
+      env: laravel='5.1'
+    - php: 7.0
       env: laravel='5.2'
   fast_finish: true
 
@@ -24,7 +29,7 @@ before_install:
 
 before_script:
   - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source
+  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-source --no-interaction; fi
   - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-source --no-interaction; fi
   - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-source --no-interaction; fi
 
