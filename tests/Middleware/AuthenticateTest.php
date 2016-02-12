@@ -13,10 +13,11 @@ namespace Tymon\JWTAuth\Test\Middleware;
 
 use Mockery;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Middleware\Authenticate;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class AuthenticateTest extends \PHPUnit_Framework_TestCase
+class AuthenticateTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -35,6 +36,8 @@ class AuthenticateTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');
         $this->request = Mockery::mock('Illuminate\Http\Request');
 
@@ -44,6 +47,8 @@ class AuthenticateTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

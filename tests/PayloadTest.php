@@ -22,7 +22,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 
-class PayloadTest extends \PHPUnit_Framework_TestCase
+class PayloadTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -36,12 +36,14 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(time() + 3600),
-            'nbf' => new NotBefore(time()),
-            'iat' => new IssuedAt(time()),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
 
@@ -54,6 +56,8 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /**

@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\Storage;
 
 use Mockery;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Providers\Storage\Illuminate as Storage;
 
 class TaggedStorage extends Storage
@@ -24,7 +25,7 @@ class TaggedStorage extends Storage
     protected $supportsTags = true;
 }
 
-class IlluminateTest extends \PHPUnit_Framework_TestCase
+class IlluminateTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -38,6 +39,8 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
         $this->storage = new Storage($this->cache);
     }
@@ -45,6 +48,8 @@ class IlluminateTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

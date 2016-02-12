@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
-use Carbon\Carbon;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\JwtId;
@@ -23,7 +22,7 @@ use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 
-class BlacklistTest extends \PHPUnit_Framework_TestCase
+class BlacklistTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -42,7 +41,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
+        parent::setUp();
 
         $this->storage = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Storage');
         $this->blacklist = new Blacklist($this->storage);
@@ -53,8 +52,9 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        Carbon::setTestNow();
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */
@@ -63,14 +63,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 + 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 123], 20161)->once();
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => $this->testNowTimestamp], 20161)->once();
         $this->blacklist->add($payload);
     }
 
@@ -80,8 +80,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -96,14 +96,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 - 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp - 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
 
-        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => 123], 20161)->once();
+        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => $this->testNowTimestamp], 20161)->once();
         $this->assertTrue($this->blacklist->add($payload));
     }
 
@@ -113,14 +113,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 + 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => 123]);
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => $this->testNowTimestamp]);
 
         $this->assertTrue($this->blacklist->has($payload));
     }
@@ -131,9 +131,9 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 + 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -149,9 +149,9 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 + 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -167,9 +167,9 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 + 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -184,14 +184,14 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $claims = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration(123 + 3600),
-            'nbf' => new NotBefore(123),
-            'iat' => new IssuedAt(123),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
 
-        $this->storage->shouldReceive('get')->with(1)->once()->andReturn(['valid_until' => 123]);
+        $this->storage->shouldReceive('get')->with(1)->once()->andReturn(['valid_until' => $this->testNowTimestamp]);
 
         $this->assertTrue($this->blacklist->setKey('sub')->has($payload));
         $this->assertSame(1, $this->blacklist->getKey($payload));
