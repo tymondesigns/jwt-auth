@@ -76,9 +76,9 @@ class ManagerTest extends AbstractTestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -96,9 +96,9 @@ class ManagerTest extends AbstractTestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -126,9 +126,9 @@ class ManagerTest extends AbstractTestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -151,9 +151,9 @@ class ManagerTest extends AbstractTestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 - 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp - 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
@@ -182,9 +182,9 @@ class ManagerTest extends AbstractTestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -209,9 +209,9 @@ class ManagerTest extends AbstractTestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
