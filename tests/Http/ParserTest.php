@@ -18,8 +18,9 @@ use Tymon\JWTAuth\Http\AuthHeaders;
 use Tymon\JWTAuth\Http\QueryString;
 use Tymon\JWTAuth\Http\RouteParams;
 use Tymon\JWTAuth\Http\LumenRouteParams;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends AbstractTestCase
 {
     /** @test */
     public function it_should_return_the_token_from_the_authorization_header()

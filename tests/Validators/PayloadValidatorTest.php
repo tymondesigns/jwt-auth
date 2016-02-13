@@ -11,9 +11,10 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
+class PayloadValidatorTest extends AbstractTestCase
 {
     /**
      * @var \Tymon\JWTAuth\Validators\PayloadValidator
@@ -22,6 +23,8 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->validator = new PayloadValidator();
     }
 
@@ -30,9 +33,9 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time(),
-            'nbf' => time(),
-            'exp' => time() + 3600,
+            'iat' => $this->testNowTimestamp,
+            'nbf' => $this->testNowTimestamp,
+            'exp' => $this->testNowTimestamp + 3600,
             'sub' => 1,
             'jti' => 'foo',
         ];
@@ -48,9 +51,9 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time() - 3660,
-            'nbf' => time() - 3660,
-            'exp' => time() - 1440,
+            'iat' => $this->testNowTimestamp - 3660,
+            'nbf' => $this->testNowTimestamp - 3660,
+            'exp' => $this->testNowTimestamp - 1440,
             'sub' => 1,
             'jti' => 'foo',
         ];
@@ -66,9 +69,9 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time() - 3660,
-            'nbf' => time() + 3660,
-            'exp' => time() + 1440,
+            'iat' => $this->testNowTimestamp - 3660,
+            'nbf' => $this->testNowTimestamp + 3660,
+            'exp' => $this->testNowTimestamp + 1440,
             'sub' => 1,
             'jti' => 'foo',
         ];
@@ -84,9 +87,9 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time() + 3660,
-            'nbf' => time() - 3660,
-            'exp' => time() + 1440,
+            'iat' => $this->testNowTimestamp + 3660,
+            'nbf' => $this->testNowTimestamp - 3660,
+            'exp' => $this->testNowTimestamp + 1440,
             'sub' => 1,
             'jti' => 'foo',
         ];
@@ -116,7 +119,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time() - 3660,
+            'iat' => $this->testNowTimestamp - 3660,
             'exp' => 'foo',
             'sub' => 1,
             'jti' => 'foo',
@@ -141,9 +144,9 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time() - 2600, // this is less than the refresh ttl at 1 hour
-            'nbf' => time(),
-            'exp' => time() - 1000,
+            'iat' => $this->testNowTimestamp - 2600, // this is less than the refresh ttl at 1 hour
+            'nbf' => $this->testNowTimestamp,
+            'exp' => $this->testNowTimestamp - 1000,
             'sub' => 1,
             'jti' => 'foo',
         ];
@@ -161,9 +164,9 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => time() - 5000, // this is MORE than the refresh ttl at 1 hour, so is invalid
-            'nbf' => time(),
-            'exp' => time(),
+            'iat' => $this->testNowTimestamp - 5000, // this is MORE than the refresh ttl at 1 hour, so is invalid
+            'nbf' => $this->testNowTimestamp,
+            'exp' => $this->testNowTimestamp,
             'sub' => 1,
             'jti' => 'foo',
         ];

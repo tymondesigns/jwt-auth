@@ -13,7 +13,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Tymon\JWTAuth\Token;
 
-class TokenTest extends \PHPUnit_Framework_TestCase
+class TokenTest extends AbstractTestCase
 {
     /**
      * @var \Tymon\JWTAuth\Token
@@ -22,6 +22,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->token = new Token('foo.bar.baz');
     }
 

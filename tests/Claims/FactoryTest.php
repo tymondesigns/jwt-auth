@@ -12,8 +12,9 @@
 namespace Tymon\JWTAuth\Test\Validators;
 
 use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends AbstractTestCase
 {
     /**
      * @var \Tymon\JWTAuth\Claims\Factory
@@ -22,6 +23,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->factory = new Factory;
     }
 

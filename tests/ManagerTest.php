@@ -23,7 +23,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -52,6 +52,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
         $this->factory = Mockery::mock('Tymon\JWTAuth\Factory');
@@ -64,6 +66,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */
