@@ -44,7 +44,7 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    public function it_should_throw_an_axception_when_providing_a_malformed_token()
+    public function it_should_throw_an_exception_when_providing_a_malformed_token()
     {
         $this->validator->check('one.two.three.four.five');
     }
