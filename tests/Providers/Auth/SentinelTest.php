@@ -32,7 +32,7 @@ class SentinelTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->sentinel = Mockery::mock('Cartalyst\Sentinel\Sentinel');
+        $this->sentinel = Mockery::mock(\Cartalyst\Sentinel\Sentinel::class);
         $this->auth = new Auth($this->sentinel);
     }
 

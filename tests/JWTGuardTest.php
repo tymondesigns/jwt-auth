@@ -23,8 +23,8 @@ class JWTGuardTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->jwt = Mockery::mock('Tymon\JWTAuth\JWT');
-        $this->provider = Mockery::mock('Illuminate\Contracts\Auth\UserProvider');
+        $this->jwt = Mockery::mock(\Tymon\JWTAuth\JWT::class);
+        $this->provider = Mockery::mock(\Illuminate\Contracts\Auth\UserProvider::class);
         $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
     }
 

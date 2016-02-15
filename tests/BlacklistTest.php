@@ -43,10 +43,10 @@ class BlacklistTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->storage = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\Storage');
+        $this->storage = Mockery::mock(\Tymon\JWTAuth\Contracts\Providers\Storage::class);
         $this->blacklist = new Blacklist($this->storage);
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
     }
 

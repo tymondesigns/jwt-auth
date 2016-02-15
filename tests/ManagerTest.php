@@ -54,12 +54,12 @@ class ManagerTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');
-        $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
-        $this->factory = Mockery::mock('Tymon\JWTAuth\Factory');
+        $this->jwt = Mockery::mock(\Tymon\JWTAuth\Contracts\Providers\JWT::class);
+        $this->blacklist = Mockery::mock(\Tymon\JWTAuth\Blacklist::class);
+        $this->factory = Mockery::mock(\Tymon\JWTAuth\Factory::class);
         $this->manager = new Manager($this->jwt, $this->blacklist, $this->factory);
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
