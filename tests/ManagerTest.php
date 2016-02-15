@@ -23,7 +23,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -52,6 +52,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->jwt = Mockery::mock('Tymon\JWTAuth\Contracts\Providers\JWT');
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
         $this->factory = Mockery::mock('Tymon\JWTAuth\Factory');
@@ -64,6 +66,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */
@@ -72,9 +76,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -92,9 +96,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -122,9 +126,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -147,9 +151,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 - 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp - 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator, true);
@@ -178,9 +182,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);
@@ -205,9 +209,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
-            new Expiration(123 + 3600),
-            new NotBefore(123),
-            new IssuedAt(123),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
         $payload = new Payload(Collection::make($claims), $this->validator);

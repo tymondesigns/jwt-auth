@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class JWTAuthTest extends \PHPUnit_Framework_TestCase
+class JWTAuthTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -47,6 +47,8 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

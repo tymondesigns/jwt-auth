@@ -12,9 +12,10 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
 
-class ProviderTest extends \PHPUnit_Framework_TestCase
+class ProviderTest extends AbstractTestCase
 {
     /**
      * @var \Tymon\JWTAuth\Test\Stubs\JWTProviderStub
@@ -23,12 +24,16 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->provider = new JWTProviderStub('secret', 'HS256');
     }
 
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

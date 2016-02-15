@@ -13,10 +13,11 @@ namespace Middleware;
 
 use Mockery;
 use Illuminate\Http\Response;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Middleware\RefreshToken;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class RefreshTokenTest extends \PHPUnit_Framework_TestCase
+class RefreshTokenTest extends AbstractTestCase
 {
     /**
      * @var \Mockery\MockInterface
@@ -34,6 +35,8 @@ class RefreshTokenTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');
         $this->request = Mockery::mock('Illuminate\Http\Request');
 
@@ -43,6 +46,8 @@ class RefreshTokenTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

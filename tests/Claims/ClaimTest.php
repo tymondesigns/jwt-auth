@@ -12,8 +12,9 @@
 namespace Tymon\JWTAuth\Test\Validators;
 
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 
-class ClaimTest extends \PHPUnit_Framework_TestCase
+class ClaimTest extends AbstractTestCase
 {
     /**
      * @var \Tymon\JWTAuth\Claims\Expiration
@@ -22,7 +23,9 @@ class ClaimTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->claim = new Expiration(123456);
+        parent::setUp();
+
+        $this->claim = new Expiration($this->testNowTimestamp);
     }
 
     /**
@@ -37,7 +40,7 @@ class ClaimTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_convert_the_claim_to_an_array()
     {
-        $this->assertSame(['exp' => 123456], $this->claim->toArray());
+        $this->assertSame(['exp' => $this->testNowTimestamp], $this->claim->toArray());
     }
 
     /** @test */
