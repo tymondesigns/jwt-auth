@@ -71,10 +71,10 @@ class NamshiTest extends AbstractTestCase
     /** @test */
     // public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     // {
-        // $this->jws->shouldReceive('load')->once()->with('foo.bar.baz')->andReturn(true);
-        // $this->jws->shouldReceive('verify')->andReturn(true);
+    //     $this->jws->shouldReceive('load')->once()->with('foo.bar.baz')->andReturn(true);
+    //     $this->jws->shouldReceive('verify')->andReturn(true);
 
-        // $payload = $this->provider->decode('foo.bar.baz');
+    //     $payload = $this->provider->decode('foo.bar.baz');
 
     // }
 

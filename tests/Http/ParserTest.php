@@ -141,7 +141,7 @@ class ParserTest extends AbstractTestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
-            return [false, ['uses' => 'someController'], ['token' => 'foobar']];
+            return [false, ['uses' => 'someController'], ['token' => 'foo.bar.baz']];
         });
 
         $parser = new Parser($request);
@@ -151,7 +151,7 @@ class ParserTest extends AbstractTestCase
             new LumenRouteParams,
         ]);
 
-        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertSame($parser->parseToken(), 'foo.bar.baz');
         $this->assertTrue($parser->hasToken());
     }
 

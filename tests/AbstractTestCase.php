@@ -25,8 +25,10 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        Carbon::setTestNow(Carbon::now());
-        $this->testNowTimestamp = Carbon::now()->timestamp;
+        $now = Carbon::now();
+
+        Carbon::setTestNow($now);
+        $this->testNowTimestamp = $now->timestamp;
     }
 
     public function tearDown()
