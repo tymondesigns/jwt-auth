@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
 use Mockery;
+use October\Rain\Auth\Manager;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Test\Stubs\OctoberStub;
 use Tymon\JWTAuth\Providers\Auth\October as Auth;
@@ -32,7 +33,7 @@ class OctoberTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->october = Mockery::mock(\October\Rain\Auth\Manager::class);
+        $this->october = Mockery::mock(Manager::class);
         $this->auth = new Auth($this->october);
     }
 

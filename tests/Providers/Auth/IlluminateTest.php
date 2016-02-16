@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
 use Mockery;
+use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
 
@@ -31,7 +32,7 @@ class IlluminateTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->authManager = Mockery::mock(\Illuminate\Contracts\Auth\Guard::class);
+        $this->authManager = Mockery::mock(Guard::class);
         $this->auth = new Auth($this->authManager);
     }
 

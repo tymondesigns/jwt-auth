@@ -12,7 +12,10 @@
 namespace Middleware;
 
 use Mockery;
+use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Tymon\JWTAuth\Http\TokenParser;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Middleware\RefreshToken;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -37,8 +40,8 @@ class RefreshTokenTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->auth = Mockery::mock(\Tymon\JWTAuth\JWTAuth::class);
-        $this->request = Mockery::mock(\Illuminate\Http\Request::class);
+        $this->auth = Mockery::mock(JWTAuth::class);
+        $this->request = Mockery::mock(Request::class);
 
         $this->middleware = new RefreshToken($this->auth);
     }
@@ -53,7 +56,7 @@ class RefreshTokenTest extends AbstractTestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $parser = Mockery::mock(\Tymon\JWTAuth\Http\TokenParser::class);
+        $parser = Mockery::mock(TokenParser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -72,7 +75,7 @@ class RefreshTokenTest extends AbstractTestCase
      */
     public function it_should_throw_a_bad_request_exception_if_token_not_provided()
     {
-        $parser = Mockery::mock(\Tymon\JWTAuth\Http\TokenParser::class);
+        $parser = Mockery::mock(TokenParser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -87,7 +90,7 @@ class RefreshTokenTest extends AbstractTestCase
      */
     public function it_should_throw_an_unauthorized_exception_if_token_invalid()
     {
-        $parser = Mockery::mock(\Tymon\JWTAuth\Http\TokenParser::class);
+        $parser = Mockery::mock(TokenParser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
