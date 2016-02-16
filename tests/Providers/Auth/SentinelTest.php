@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
 use Mockery;
+use Cartalyst\Sentinel\Sentinel;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Test\Stubs\SentinelStub;
 use Tymon\JWTAuth\Providers\Auth\Sentinel as Auth;
@@ -32,7 +33,7 @@ class SentinelTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->sentinel = Mockery::mock(\Cartalyst\Sentinel\Sentinel::class);
+        $this->sentinel = Mockery::mock(Sentinel::class);
         $this->auth = new Auth($this->sentinel);
     }
 

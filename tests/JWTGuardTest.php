@@ -13,8 +13,10 @@ namespace Tymon\JWTAuth\Test;
 
 use Mockery;
 use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\UserProvider;
 use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase
@@ -23,8 +25,8 @@ class JWTGuardTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->jwt = Mockery::mock(\Tymon\JWTAuth\JWT::class);
-        $this->provider = Mockery::mock(\Illuminate\Contracts\Auth\UserProvider::class);
+        $this->jwt = Mockery::mock(JWT::class);
+        $this->provider = Mockery::mock(UserProvider::class);
         $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
     }
 

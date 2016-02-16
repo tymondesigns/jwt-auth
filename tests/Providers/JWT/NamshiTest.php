@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
+use Namshi\JOSE\JWS;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
@@ -31,7 +32,7 @@ class NamshiTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->jws = Mockery::mock(\Namshi\JOSE\JWS::class);
+        $this->jws = Mockery::mock(JWS::class);
         $this->provider = new Namshi('secret', 'HS256', $this->jws);
     }
 

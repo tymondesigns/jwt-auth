@@ -21,6 +21,7 @@ use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
 {
@@ -47,7 +48,7 @@ class PayloadTest extends AbstractTestCase
             'jti' => new JwtId('foo'),
         ];
 
-        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
 
         $this->payload = new Payload(Collection::make($claims), $this->validator);

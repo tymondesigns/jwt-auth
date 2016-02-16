@@ -21,6 +21,8 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class BlacklistTest extends AbstractTestCase
 {
@@ -43,10 +45,10 @@ class BlacklistTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->storage = Mockery::mock(\Tymon\JWTAuth\Contracts\Providers\Storage::class);
+        $this->storage = Mockery::mock(Storage::class);
         $this->blacklist = new Blacklist($this->storage);
 
-        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
     }
 

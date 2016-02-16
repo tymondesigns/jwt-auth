@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test\Providers\Storage;
 
 use Mockery;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Illuminate\Contracts\Cache\Repository;
 use Tymon\JWTAuth\Providers\Storage\Illuminate as Storage;
 
 class TaggedStorage extends Storage
@@ -41,7 +42,7 @@ class IlluminateTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->cache = Mockery::mock(\Illuminate\Contracts\Cache\Repository::class);
+        $this->cache = Mockery::mock(Repository::class);
         $this->storage = new Storage($this->cache);
     }
 

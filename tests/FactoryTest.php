@@ -21,6 +21,8 @@ use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class FactoryTest extends AbstractTestCase
 {
@@ -43,8 +45,8 @@ class FactoryTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->claimFactory = Mockery::mock(\Tymon\JWTAuth\Claims\Factory::class);
-        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
+        $this->claimFactory = Mockery::mock(ClaimFactory::class);
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->factory = new Factory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
     }
 
@@ -159,6 +161,6 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_get_the_validator()
     {
-        $this->assertInstanceOf(\Tymon\JWTAuth\Validators\PayloadValidator::class, $this->factory->validator());
+        $this->assertInstanceOf(PayloadValidator::class, $this->factory->validator());
     }
 }

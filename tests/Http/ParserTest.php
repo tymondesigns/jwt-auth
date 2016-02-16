@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test\Http;
 
 use Mockery;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Tymon\JWTAuth\Http\Parser;
 use Tymon\JWTAuth\Http\AuthHeaders;
 use Tymon\JWTAuth\Http\QueryString;
@@ -183,7 +184,7 @@ class ParserTest extends AbstractTestCase
             new RouteParams,
         ];
 
-        $parser = new Parser(Mockery::mock(\Illuminate\Http\Request::class));
+        $parser = new Parser(Mockery::mock(Request::class));
         $parser->setChain($chain);
 
         $this->assertSame($parser->getChain(), $chain);
@@ -191,7 +192,7 @@ class ParserTest extends AbstractTestCase
 
     protected function getRouteMock($expectedParameterValue = null)
     {
-        return Mockery::mock(\Illuminate\Routing\Route::class)
+        return Mockery::mock(Route::class)
             ->shouldReceive('parameter')
             ->with('token')
             ->andReturn($expectedParameterValue)
