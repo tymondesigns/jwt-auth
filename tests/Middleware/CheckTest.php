@@ -38,8 +38,8 @@ class CheckTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');
-        $this->request = Mockery::mock('Illuminate\Http\Request');
+        $this->auth = Mockery::mock(\Tymon\JWTAuth\JWTAuth::class);
+        $this->request = Mockery::mock(\Illuminate\Http\Request::class);
 
         $this->middleware = new Check($this->auth);
     }
@@ -54,7 +54,7 @@ class CheckTest extends AbstractTestCase
     /** @test */
     public function it_should_authenticate_a_user_if_a_token_is_present()
     {
-        $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
+        $parser = Mockery::mock(\Tymon\JWTAuth\Http\TokenParser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -68,7 +68,7 @@ class CheckTest extends AbstractTestCase
     /** @test */
     public function it_should_unset_the_exception_if_a_token_is_present()
     {
-        $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
+        $parser = Mockery::mock(\Tymon\JWTAuth\Http\TokenParser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
@@ -82,7 +82,7 @@ class CheckTest extends AbstractTestCase
     /** @test */
     public function it_should_do_nothing_if_a_token_is_not_present()
     {
-        $parser = Mockery::mock('Tymon\JWTAuth\Http\TokenParser');
+        $parser = Mockery::mock(\Tymon\JWTAuth\Http\TokenParser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
 
         $this->auth->shouldReceive('parser')->andReturn($parser);

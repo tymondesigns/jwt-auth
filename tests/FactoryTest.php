@@ -43,8 +43,8 @@ class FactoryTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->claimFactory = Mockery::mock(\Tymon\JWTAuth\Claims\Factory::class);
+        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
         $this->factory = new Factory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
     }
 

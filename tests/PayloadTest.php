@@ -47,7 +47,7 @@ class PayloadTest extends AbstractTestCase
             'jti' => new JwtId('foo'),
         ];
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock(\Tymon\JWTAuth\Validators\PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
 
         $this->payload = new Payload(Collection::make($claims), $this->validator);

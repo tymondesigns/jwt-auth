@@ -183,7 +183,7 @@ class ParserTest extends AbstractTestCase
             new RouteParams,
         ];
 
-        $parser = new Parser(Mockery::mock('Illuminate\Http\Request'));
+        $parser = new Parser(Mockery::mock(\Illuminate\Http\Request::class));
         $parser->setChain($chain);
 
         $this->assertSame($parser->getChain(), $chain);
@@ -191,7 +191,7 @@ class ParserTest extends AbstractTestCase
 
     protected function getRouteMock($expectedParameterValue = null)
     {
-        return Mockery::mock('Illuminate\Routing\Route')
+        return Mockery::mock(\Illuminate\Routing\Route::class)
             ->shouldReceive('parameter')
             ->with('token')
             ->andReturn($expectedParameterValue)

@@ -41,7 +41,7 @@ class IlluminateTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
+        $this->cache = Mockery::mock(\Illuminate\Contracts\Cache\Repository::class);
         $this->storage = new Storage($this->cache);
     }
 

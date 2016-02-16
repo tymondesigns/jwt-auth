@@ -31,7 +31,7 @@ class IlluminateTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->authManager = Mockery::mock('Illuminate\Contracts\Auth\Guard');
+        $this->authManager = Mockery::mock(\Illuminate\Contracts\Auth\Guard::class);
         $this->auth = new Auth($this->authManager);
     }
 

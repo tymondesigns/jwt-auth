@@ -32,7 +32,7 @@ class OctoberTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->october = Mockery::mock('October\Rain\Auth\Manager');
+        $this->october = Mockery::mock(\October\Rain\Auth\Manager::class);
         $this->auth = new Auth($this->october);
     }
 

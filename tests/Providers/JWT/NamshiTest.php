@@ -31,7 +31,7 @@ class NamshiTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->jws = Mockery::mock('Namshi\JOSE\JWS');
+        $this->jws = Mockery::mock(\Namshi\JOSE\JWS::class);
         $this->provider = new Namshi('secret', 'HS256', $this->jws);
     }
 
