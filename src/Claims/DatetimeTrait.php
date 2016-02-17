@@ -16,7 +16,13 @@ use DateTimeInterface;
 trait DatetimeTrait
 {
     /**
-     * {@inheritdoc}
+     * Set the claim value, and call a validate method.
+     *
+     * @param  mixed  $value
+     *
+     * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     *
+     * @return $this
      */
     public function setValue($value)
     {
