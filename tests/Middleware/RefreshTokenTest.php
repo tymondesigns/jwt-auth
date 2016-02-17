@@ -31,6 +31,7 @@ class RefreshTokenTest extends AbstractTestCase
      * @var \Mockery\MockInterface
      */
     protected $request;
+
     /**
      * @var \Tymon\JWTAuth\Middleware\RefreshToken
      */
