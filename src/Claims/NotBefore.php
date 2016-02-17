@@ -13,22 +13,12 @@ namespace Tymon\JWTAuth\Claims;
 
 class NotBefore extends Claim
 {
+    use DatetimeTrait;
+
     /**
      * The claim name.
      *
      * @var string
      */
     protected $name = 'nbf';
-
-    /**
-     * Validate the not before claim.
-     *
-     * @param  mixed  $value
-     *
-     * @return bool
-     */
-    public function validate($value)
-    {
-        return is_numeric($value);
-    }
 }
