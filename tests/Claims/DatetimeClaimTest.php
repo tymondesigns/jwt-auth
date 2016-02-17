@@ -100,7 +100,7 @@ class DatetimeClaimTest extends AbstractTestCase
         $claimsDatetime = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($testDateTimeCopy->modify('+1 hour')),
+            'exp' => new Expiration($testDateTimeCopy->modify('+3600 seconds')),
             'nbf' => new NotBefore($testDateTime),
             'iat' => new IssuedAt($testDateTime),
             'jti' => new JwtId('foo'),
@@ -123,7 +123,7 @@ class DatetimeClaimTest extends AbstractTestCase
         $claimsDatetime = [
             'sub' => new Subject(1),
             'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($testDateTimeImmutable->modify('+1 hour')),
+            'exp' => new Expiration($testDateTimeImmutable->modify('+3600 seconds')),
             'nbf' => new NotBefore($testDateTimeImmutable),
             'iat' => new IssuedAt($testDateTimeImmutable),
             'jti' => new JwtId('foo'),
