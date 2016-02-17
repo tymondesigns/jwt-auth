@@ -13,22 +13,12 @@ namespace Tymon\JWTAuth\Claims;
 
 class Expiration extends Claim
 {
+    use DatetimeTrait;
+
     /**
      * The claim name.
      *
      * @var string
      */
     protected $name = 'exp';
-
-    /**
-     * Validate the expiry claim.
-     *
-     * @param  mixed  $value
-     *
-     * @return bool
-     */
-    public function validate($value)
-    {
-        return is_numeric($value);
-    }
 }
