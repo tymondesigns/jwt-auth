@@ -260,8 +260,6 @@ class Factory
      * @param  string  $method
      * @param  array  $parameters
      *
-     * @throws \BadMethodCallException
-     *
      * @return $this
      */
     public function __call($method, $parameters)
