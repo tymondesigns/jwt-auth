@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class Expiration extends Claim
+class Expiration extends DatetimeClaim
 {
     /**
      * The claim name.
@@ -29,6 +29,6 @@ class Expiration extends Claim
      */
     public function validate($value)
     {
-        return is_numeric($value);
+        return parent::validate($value);
     }
 }

@@ -11,17 +11,24 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class NotBefore extends DatetimeClaim
+use DateTimeInterface;
+
+abstract class DatetimeClaim extends Claim
 {
     /**
-     * The claim name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
-    protected $name = 'nbf';
+    public function setValue($value)
+    {
+        if ($value instanceof DateTimeInterface) {
+            $value = $value->getTimestamp();
+        }
+
+        return parent::setValue($value);
+    }
 
     /**
-     * Validate the not before claim.
+     * Validate the claim.
      *
      * @param  mixed  $value
      *
@@ -29,6 +36,6 @@ class NotBefore extends DatetimeClaim
      */
     public function validate($value)
     {
-        return parent::validate($value);
+        return is_numeric($value);
     }
 }
