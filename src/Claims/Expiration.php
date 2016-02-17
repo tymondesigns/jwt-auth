@@ -29,6 +29,6 @@ class Expiration extends DatetimeClaim
      */
     public function validate($value)
     {
-        return is_numeric($value);
+        return parent::validate($value);
     }
 }

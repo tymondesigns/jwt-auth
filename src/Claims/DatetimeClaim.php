@@ -26,4 +26,16 @@ abstract class DatetimeClaim extends Claim
 
         return parent::setValue($value);
     }
+
+    /**
+     * Validate the claim.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function validate($value)
+    {
+        return is_numeric($value);
+    }
 }
