@@ -65,9 +65,9 @@ class LumenServiceProvider extends ServiceProvider
         $this->app->configure('jwt');
         $this->extendAuthGuard();
     }
-    
+
     /**
-     * Extend Laravel's Auth
+     * Extend Laravel's Auth.
      */
     protected function extendAuthGuard()
     {
