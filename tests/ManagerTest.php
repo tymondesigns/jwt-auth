@@ -118,7 +118,7 @@ class ManagerTest extends AbstractTestCase
 
         $payload = $this->manager->decode($token);
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
+        $this->assertInstanceOf(Payload::class, $payload);
     }
 
     /**
@@ -176,7 +176,7 @@ class ManagerTest extends AbstractTestCase
         $token = $this->manager->refresh($token);
 
         // $this->assertArrayHasKey('ref', $payload);
-        $this->assertInstanceOf(\Tymon\JWTAuth\Token::class, $token);
+        $this->assertInstanceOf(Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
     }
 

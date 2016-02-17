@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use StdClass;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTAuth;
@@ -192,7 +193,7 @@ class JWTAuthTest extends AbstractTestCase
     {
         $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Token::class, $this->jwtAuth->parseToken()->getToken());
+        $this->assertInstanceOf(Token::class, $this->jwtAuth->parseToken()->getToken());
         $this->assertEquals($this->jwtAuth->getToken(), 'foo.bar.baz');
     }
 
@@ -245,11 +246,11 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_magically_call_the_manager()
     {
-        $this->manager->shouldReceive('getBlacklist')->andReturn(new \StdClass);
+        $this->manager->shouldReceive('getBlacklist')->andReturn(new StdClass);
 
         $blacklist = $this->jwtAuth->getBlacklist();
 
-        $this->assertInstanceOf(\StdClass::class, $blacklist);
+        $this->assertInstanceOf(StdClass::class, $blacklist);
     }
 
     /** @test */
