@@ -35,11 +35,6 @@ class DatetimeClaimTest extends AbstractTestCase
     protected $validator;
 
     /**
-     * @var \Carbon\Carbon
-     */
-    protected $testNowDatetime;
-
-    /**
      * @var array
      */
     protected $claimsTimestamp;
@@ -71,7 +66,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_carbon_claims()
     {
-        $testCarbon = Carbon::now();
+        $testCarbon = Carbon::createFromTimestampUTC($this->testNowTimestamp);
         $testCarbonCopy = clone $testCarbon;
 
         $this->assertInstanceOf(Carbon::class, $testCarbon);
@@ -96,7 +91,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetime_claims()
     {
-        $testDateTime = new DateTime();
+        $testDateTime = DateTime::createFromFormat('U', $this->testNowTimestamp);
         $testDateTimeCopy = clone $testDateTime;
 
         $this->assertInstanceOf(DateTime::class, $testDateTime);
@@ -120,7 +115,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetime_immutable_claims()
     {
-        $testDateTimeImmutable = new DateTimeImmutable();
+        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', $this->testNowTimestamp);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $testDateTimeImmutable);
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);
