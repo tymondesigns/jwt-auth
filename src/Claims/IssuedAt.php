@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class IssuedAt extends Claim
+class IssuedAt extends DatetimeClaim
 {
     /**
      * The claim name.

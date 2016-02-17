@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class NotBefore extends Claim
+class NotBefore extends DatetimeClaim
 {
     /**
      * The claim name.

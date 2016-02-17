@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-class Expiration extends Claim
+class Expiration extends DatetimeClaim
 {
     /**
      * The claim name.
