@@ -139,5 +139,4 @@ class DatetimeClaimTest extends AbstractTestCase
 
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
-
 }
