@@ -11,7 +11,9 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
+use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class FactoryTest extends AbstractTestCase
@@ -31,12 +33,12 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
     {
-        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Subject::class, $this->factory->get('sub', 1));
+        $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));
     }
 
     /** @test */
     public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value()
     {
-        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Custom::class, $this->factory->get('foo', ['bar']));
+        $this->assertInstanceOf(Custom::class, $this->factory->get('foo', ['bar']));
     }
 }

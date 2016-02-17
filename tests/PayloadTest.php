@@ -169,9 +169,9 @@ class PayloadTest extends AbstractTestCase
     {
         $claims = $this->payload->getClaims();
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Expiration::class, $claims['exp']);
-        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\JwtId::class, $claims['jti']);
-        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Subject::class, $claims['sub']);
+        $this->assertInstanceOf(Expiration::class, $claims['exp']);
+        $this->assertInstanceOf(JwtId::class, $claims['jti']);
+        $this->assertInstanceOf(Subject::class, $claims['sub']);
 
         $this->assertContainsOnlyInstancesOf('Tymon\JWTAuth\Claims\Claim', $claims);
     }

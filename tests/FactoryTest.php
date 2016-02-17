@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Mockery;
 use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
@@ -77,7 +78,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($payload->get('iat'), 123);
         $this->assertSame($payload['exp'], $expTime);
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
+        $this->assertInstanceOf(Payload::class, $payload);
     }
 
     /** @test */
@@ -99,7 +100,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($payload->get('jti'), 'foo');
         $this->assertSame($payload->get('foo'), 'baz');
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
+        $this->assertInstanceOf(Payload::class, $payload);
     }
 
     /** @test */
@@ -121,7 +122,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($payload->get('foo'), ['bar' => [0, 0, 0]]);
         $this->assertSame($payload->get('foo.bar'), [0, 0, 0]);
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
+        $this->assertInstanceOf(Payload::class, $payload);
     }
 
     /** @test */
@@ -139,7 +140,7 @@ class FactoryTest extends AbstractTestCase
 
         $this->assertNull($payload->get('exp'));
 
-        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
+        $this->assertInstanceOf(Payload::class, $payload);
     }
 
     /** @test */
