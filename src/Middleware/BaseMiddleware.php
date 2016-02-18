@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Middleware;
 
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 
 abstract class BaseMiddleware
 {
