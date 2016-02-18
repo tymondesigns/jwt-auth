@@ -114,9 +114,9 @@ class Illuminate implements Storage
 
         if ($this->supportsTags) {
             return $this->cache->tags($this->tag);
-        } else {
-            return $this->cache;
         }
+
+        return $this->cache;
     }
 
     /**
