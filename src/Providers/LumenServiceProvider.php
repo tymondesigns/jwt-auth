@@ -66,6 +66,9 @@ class LumenServiceProvider extends ServiceProvider
         $this->extendAuthGuard();
     }
 
+    /**
+     * Extend Laravel's Auth.
+     */
     protected function extendAuthGuard()
     {
         $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
@@ -83,7 +86,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bind some Interfaces and implementations.
+     * Bind some aliases.
      */
     protected function registerAliases()
     {
@@ -161,7 +164,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the main JWTAuth class.
+     * Register the bindings for the main JWT class.
      */
     protected function registerJWT()
     {
@@ -188,7 +191,7 @@ class LumenServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the main JWTAuth class.
+     * Register the bindings for the Blacklist.
      */
     protected function registerJWTBlacklist()
     {
