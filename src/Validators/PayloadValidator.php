@@ -95,6 +95,7 @@ class PayloadValidator extends Validator
      * Check the token in the refresh flow context.
      *
      * @param  $payload  $payload
+     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
      * @return bool
@@ -126,6 +127,7 @@ class PayloadValidator extends Validator
      * Set the refresh ttl.
      *
      * @param  int  $ttl
+     *
      * @return $this
      */
     public function setRefreshTTL($ttl)

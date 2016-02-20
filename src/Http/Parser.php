@@ -38,7 +38,7 @@ class Parser
     /**
      * Get the parser chain.
      *
-     * @return array The chain of ParserContracts that the parser evaluates.
+     * @return array
      */
     public function getChain()
     {

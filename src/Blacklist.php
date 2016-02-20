@@ -86,8 +86,8 @@ class Blacklist
         $exp = Utils::timestamp($payload['exp']);
         $iat = Utils::timestamp($payload['iat']);
 
-        // get the latter of the two expiration dates and
-        // find the number of minutes until the expiration date,
+        // get the latter of the two expiration dates and find
+        // the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
         return $exp->max($iat->addMinutes($this->refreshTTL))->addMinute()->diffInMinutes();
     }
@@ -165,6 +165,7 @@ class Blacklist
      * Set the grace period.
      *
      * @param  int  $gracePeriod
+     *
      * @return $this
      */
     public function setGracePeriod($gracePeriod)
@@ -190,6 +191,7 @@ class Blacklist
      * Set the unique key held within the blacklist.
      *
      * @param  string  $key
+     *
      * @return $this
      */
     public function setKey($key)
@@ -203,6 +205,7 @@ class Blacklist
      * Set the refresh time limit.
      *
      * @param  int  $ttl
+     *
      * @return $this
      */
     public function setRefreshTTL($ttl)

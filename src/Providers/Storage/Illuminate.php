@@ -127,7 +127,8 @@ class Illuminate implements Storage
      */
     protected function determineTagSupport()
     {
-        if (method_exists($this->cache, 'tags')) { // Laravel >= 5.1.28
+        // Laravel >= 5.1.28
+        if (method_exists($this->cache, 'tags')) {
             try {
                 // Attempt the repository tags command, which throws exceptions when unsupported
                 $this->cache->tags($this->tag);
@@ -136,7 +137,8 @@ class Illuminate implements Storage
                 $this->supportsTags = false;
             }
         } else {
-            if (method_exists($this->cache, 'getStore')) { // Laravel <= 5.1.27
+            // Laravel <= 5.1.27
+            if (method_exists($this->cache, 'getStore')) {
                 // Check for the tags function directly on the store
                 $this->supportsTags = method_exists($this->cache->getStore(), 'tags');
             } else {

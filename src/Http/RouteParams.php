@@ -35,8 +35,9 @@ class RouteParams implements ParserContract
         $route = $request->route();
 
         if (! is_callable([$route, 'parameter'])) {
-            // Route may not be an instance of Illuminate\Routing\Route (it's an array
-            // in Lumen <5.2) or not exist at all (if the request was never dispatched)
+            // Route may not be an instance of Illuminate\Routing\Route
+            // (it's an array in Lumen <5.2) or not exist at all
+            // (if the request was never dispatched)
             return;
         }
 
