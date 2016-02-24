@@ -204,6 +204,19 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @group laravel-5.2
+     */
+    public function it_should_throw_an_exception_if_there_is_no_token_present_when_required()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn(false);
+        $this->jwt->shouldReceive('refresh')->never();
+
+        $this->guard->refresh();
+    }
+
+    /**
+     * @test
      * @group laravel-5.2
      */
     public function it_should_generate_a_token_by_id()
@@ -227,7 +240,7 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
-    public function it_should_authenticate_the_user_by_credentials_and_return_boolean()
+    public function it_should_authenticate_the_user_by_credentials_and_return_true_if_valid()
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub;
@@ -243,6 +256,28 @@ class JWTGuardTest extends AbstractTestCase
                        ->andReturn(true);
 
         $this->assertTrue($this->guard->once($credentials));
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_attempt_to_authenticate_the_user_by_credentials_and_return_false_if_invalid()
+    {
+        $credentials = ['foo' => 'bar', 'baz' => 'bob'];
+        $user = new LaravelUserStub;
+
+        $this->provider->shouldReceive('retrieveByCredentials')
+                       ->once()
+                       ->with($credentials)
+                       ->andReturn($user);
+
+        $this->provider->shouldReceive('validateCredentials')
+                       ->once()
+                       ->with($user, $credentials)
+                       ->andReturn(false);
+
+        $this->assertFalse($this->guard->once($credentials));
     }
 
     /**
