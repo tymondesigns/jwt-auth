@@ -36,6 +36,8 @@ class TokenValidator extends Validator
      */
     protected function validateStructure($token)
     {
+        $token = is_array($token) ? $token[array_keys($token)[0]] : $token;
+
         if (count(explode('.', $token)) !== 3) {
             throw new TokenInvalidException('Wrong number of segments');
         }
