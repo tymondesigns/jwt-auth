@@ -16,6 +16,7 @@ use ArrayAccess;
 use JsonSerializable;
 use BadMethodCallException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Claim;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Jsonable;
@@ -231,7 +232,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function __call($method, $parameters)
     {
-        if (starts_with($method, 'get')) {
+        if (Str::startsWith($method, 'get')) {
             $class = sprintf('Tymon\\JWTAuth\\Claims\\%s', substr($method, 3));
 
             foreach ($this->claims as $claim) {
