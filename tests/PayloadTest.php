@@ -65,7 +65,7 @@ class PayloadTest extends AbstractTestCase
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\PayloadException
      */
-    public function it_throws_an_exception_when_trying_to_add_to_the_payload()
+    public function it_should_throw_an_exception_when_trying_to_add_to_the_payload()
     {
         $this->payload['foo'] = 'bar';
     }
@@ -74,7 +74,7 @@ class PayloadTest extends AbstractTestCase
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\PayloadException
      */
-    public function it_throws_an_exception_when_trying_to_remove_a_key_from_the_payload()
+    public function it_should_throw_an_exception_when_trying_to_remove_a_key_from_the_payload()
     {
         unset($this->payload['foo']);
     }
