@@ -93,6 +93,7 @@ class JWTGuard implements Guard
      * Attempt to authenticate the user using the given credentials and return the token.
      *
      * @param  array  $credentials
+     * @param  bool  $login
      *
      * @return bool
      */
