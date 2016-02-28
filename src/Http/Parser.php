@@ -88,8 +88,6 @@ class Parser
                 return $response;
             }
         }
-
-        return;
     }
 
     /**
