@@ -26,7 +26,7 @@ class ProviderTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->provider = new JWTProviderStub('secret', 'HS256');
+        $this->provider = new JWTProviderStub('secret', [], 'HS256');
     }
 
     public function tearDown()

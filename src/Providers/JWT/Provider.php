@@ -11,6 +11,8 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
+use Illuminate\Support\Arr;
+
 abstract class Provider
 {
     /**
@@ -19,17 +21,24 @@ abstract class Provider
     protected $secret;
 
     /**
+     * @var array
+     */
+    protected $keys;
+
+    /**
      * @var string
      */
     protected $algo;
 
     /**
      * @param  string  $secret
+     * @param  array  $keys
      * @param  string  $algo
      */
-    public function __construct($secret, $algo)
+    public function __construct($secret, array $keys, $algo)
     {
         $this->secret = $secret;
+        $this->keys = $keys;
         $this->algo = $algo;
     }
 
@@ -69,5 +78,59 @@ abstract class Provider
         $this->secret = $secret;
 
         return $this;
+    }
+
+    /**
+     * Get the secret used to sign the token.
+     *
+     * @return string
+     */
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+
+    /**
+     * Get the array of keys used to sign tokens
+     * with an asymmetric algorithm.
+     *
+     * @return array
+     */
+    public function getKeys()
+    {
+        return $this->keys;
+    }
+
+    /**
+     * Get the public key used to sign tokens
+     * with an asymmetric algorithm.
+     *
+     * @return resource|string
+     */
+    public function getPublicKey()
+    {
+        return Arr::get($this->getKeys(), 'public');
+    }
+
+    /**
+     * Get the private key used to sign tokens
+     * with an asymmetric algorithm.
+     *
+     * @return resource|string
+     */
+    public function getPrivateKey()
+    {
+        return Arr::get($this->getKeys(), 'private');
+    }
+
+    /**
+     * Get the passphrase used to sign tokens
+     * with an asymmetric algorithm.
+     *
+     * @return string
+     */
+    public function getPassphrase()
+    {
+        return Arr::get($this->getKeys(), 'passphrase');
     }
 }

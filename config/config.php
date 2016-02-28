@@ -20,9 +20,58 @@ return [
     | your tokens. A helper command is provided for this:
     | `php artisan jwt:secret`
     |
+    | Note: This will be used for Symmetric algorithms only (HMAC),
+    | since RSA and ECDSA use a private/public key combo (See below).
+    |
     */
 
     'secret' => env('JWT_SECRET'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | JWT Authentication Keys
+    |--------------------------------------------------------------------------
+    |
+    | Write up coming soon
+    |
+    */
+
+    'keys' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Public Key
+        |--------------------------------------------------------------------------
+        |
+        | A path or resource to your public key
+        |
+        */
+
+        'public' => env('JWT_PUBLIC_KEY'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Private Key
+        |--------------------------------------------------------------------------
+        |
+        | A path or resource to your private key
+        |
+        */
+
+        'private' => env('JWT_PRIVATE_KEY'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Passphrase
+        |--------------------------------------------------------------------------
+        |
+        | The passphrase for your private key.
+        |
+        */
+
+        'passphrase' => env('JWT_PASSPHRASE', '')
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +98,7 @@ return [
     | Specify the length of time (in minutes) that the token can be refreshed
     | within. I.E. The user can refresh their token within a 2 week window of
     | the original token being created until they must re-authenticate.
-    | Defaults to 2 weeks
+    | Defaults to 2 weeks.
     |
     */
 
@@ -62,8 +111,8 @@ return [
     |
     | Specify the hashing algorithm that will be used to sign the token.
     |
-    | See here: https://github.com/namshi/jose/tree/2.2.0/src/Namshi/JOSE/Signer
-    | for possible values
+    | See here: https://github.com/namshi/jose/tree/master/src/Namshi/JOSE/Signer/OpenSSL
+    | for possible values.
     |
     */
 
@@ -147,7 +196,7 @@ return [
         | Storage Provider
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to store tokens in the blacklist
+        | Specify the provider that is used to store tokens in the blacklist.
         |
         */
 

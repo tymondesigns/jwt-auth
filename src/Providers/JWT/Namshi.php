@@ -12,7 +12,10 @@
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
+use ReflectionClass;
 use Namshi\JOSE\JWS;
+use InvalidArgumentException;
+use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -27,11 +30,12 @@ class Namshi extends Provider implements JWT
     /**
      * @param  string  $secret
      * @param  string  $algo
+     * @param  array  $keys
      * @param  string|null  $driver
      */
-    public function __construct($secret, $algo, $driver = null)
+    public function __construct($secret, $algo, array $keys = [], $driver = null)
     {
-        parent::__construct($secret, $algo);
+        parent::__construct($secret, $keys, $algo);
 
         $this->jws = $driver ?: new JWS(['typ' => 'JWT', 'alg' => $algo]);
     }
@@ -46,7 +50,7 @@ class Namshi extends Provider implements JWT
     public function encode(array $payload)
     {
         try {
-            $this->jws->setPayload($payload)->sign($this->secret);
+            $this->jws->setPayload($payload)->sign($this->getSigningKey(), $this->getPassphrase());
 
             return (string) $this->jws->getTokenString();
         } catch (Exception $e) {
@@ -68,14 +72,45 @@ class Namshi extends Provider implements JWT
         try {
             // Let's never allow insecure tokens
             $jws = $this->jws->load($token, false);
-        } catch (Exception $e) {
+        } catch (InvalidArgumentException $e) {
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage());
         }
 
-        if (! $jws->verify($this->secret, $this->algo)) {
+        if (! $jws->verify($this->getVerificationKey(), $this->getAlgo())) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
         return (array) $jws->getPayload();
+    }
+
+    /**
+     * Determine if the algorithm is asymmetric, and thus
+     * requires a public/private key combo.
+     *
+     * @return bool
+     */
+    protected function isAsymmetric()
+    {
+        return (new ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);
+    }
+
+    /**
+     * Get the key used to sign the tokens.
+     *
+     * @return resource|string
+     */
+    protected function getSigningKey()
+    {
+        return $this->isAsymmetric() ? $this->getPrivateKey() : $this->getSecret();
+    }
+
+    /**
+     * Get the key used to verify the tokens.
+     *
+     * @return resource|string
+     */
+    protected function getVerificationKey()
+    {
+        return $this->isAsymmetric() ? $this->getPublicKey() : $this->getSecret();
     }
 }
