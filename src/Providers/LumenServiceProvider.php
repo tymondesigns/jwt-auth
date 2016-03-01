@@ -159,10 +159,14 @@ class LumenServiceProvider extends ServiceProvider
     protected function registerTokenParser()
     {
         $this->app->singleton('tymon.jwt.parser', function ($app) {
-            return new Parser(
+            $parser = new Parser(
                 $app['request'],
                 [new AuthHeaders, new QueryString, new RouteParams]
             );
+
+            $app->refresh('request', $parser, 'setRequest');
+
+            return $parser;
         });
     }
 
@@ -229,6 +233,8 @@ class LumenServiceProvider extends ServiceProvider
                 $app['request'],
                 $app['tymon.jwt.validators.payload']
             );
+
+            $app->refresh('request', $factory, 'setRequest');
 
             return $factory->setTTL($this->config('ttl'));
         });

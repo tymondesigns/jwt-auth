@@ -255,6 +255,20 @@ class Factory
     }
 
     /**
+     * Set the request instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
      * Magically add a claim.
      *
      * @param  string  $method
