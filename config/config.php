@@ -66,7 +66,7 @@ return [
         |
         | A path or resource to your private key
         |
-        | E.g. 'file://private/to/public/key'
+        | E.g. 'file://path/to/private/key'
         |
         */
 
@@ -77,11 +77,11 @@ return [
         | Passphrase
         |--------------------------------------------------------------------------
         |
-        | The passphrase for your private key.
+        | The passphrase for your private key. Can be null if none set
         |
         */
 
-        'passphrase' => env('JWT_PASSPHRASE')
+        'passphrase' => env('JWT_PASSPHRASE'),
 
     ],
 
