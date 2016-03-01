@@ -158,7 +158,7 @@ class Blacklist
      */
     protected function getGraceTimestamp()
     {
-        return Utils::now()->addSeconds($this->gracePeriod)->timestamp;
+        return Utils::now()->addSeconds($this->gracePeriod)->getTimestamp();
     }
 
     /**

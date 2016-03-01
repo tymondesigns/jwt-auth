@@ -163,7 +163,7 @@ class Factory
      */
     public function iat()
     {
-        return Utils::now()->timestamp;
+        return Utils::now()->getTimestamp();
     }
 
     /**
@@ -173,7 +173,7 @@ class Factory
      */
     public function exp()
     {
-        return Utils::now()->addMinutes($this->ttl)->timestamp;
+        return Utils::now()->addMinutes($this->ttl)->getTimestamp();
     }
 
     /**
@@ -183,7 +183,7 @@ class Factory
      */
     public function nbf()
     {
-        return Utils::now()->timestamp;
+        return Utils::now()->getTimestamp();
     }
 
     /**
