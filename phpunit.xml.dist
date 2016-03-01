@@ -18,6 +18,7 @@
         <whitelist>
             <directory suffix=".php">src/</directory>
             <exclude>
+                <file>src/Providers/AbstractServiceProvider.php</file>
                 <file>src/Providers/LaravelServiceProvider.php</file>
                 <file>src/Providers/LumenServiceProvider.php</file>
                 <directory suffix=".php">src/Facades/</directory>

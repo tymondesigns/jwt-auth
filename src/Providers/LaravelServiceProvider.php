@@ -18,7 +18,7 @@ use Tymon\JWTAuth\Middleware\RefreshToken;
 class LaravelServiceProvider extends AbstractServiceProvider
 {
     /**
-     * {@inheritdoc }
+     * {@inheritdoc}
      */
     public function boot()
     {
