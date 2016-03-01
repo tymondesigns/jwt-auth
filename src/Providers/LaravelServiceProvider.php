@@ -15,10 +15,10 @@ use Tymon\JWTAuth\Middleware\Check;
 use Tymon\JWTAuth\Middleware\Authenticate;
 use Tymon\JWTAuth\Middleware\RefreshToken;
 
-class LaravelServiceProvider extends LumenServiceProvider
+class LaravelServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Boot the service provider.
+     * {@inheritdoc }
      */
     public function boot()
     {
