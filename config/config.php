@@ -64,7 +64,7 @@ return [
         | Private Key
         |--------------------------------------------------------------------------
         |
-        | A path or resource to your private key
+        | A path or resource to your private key.
         |
         | E.g. 'file://path/to/private/key'
         |
@@ -77,7 +77,7 @@ return [
         | Passphrase
         |--------------------------------------------------------------------------
         |
-        | The passphrase for your private key. Can be null if none set
+        | The passphrase for your private key. Can be null if none set.
         |
         */
 
