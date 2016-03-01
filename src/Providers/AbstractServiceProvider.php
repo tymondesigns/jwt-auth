@@ -32,6 +32,13 @@ use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 abstract class AbstractServiceProvider extends ServiceProvider
 {
     /**
+     * Boot the service provider.
+     *
+     * @return void
+     */
+    abstract public function boot();
+
+    /**
      * Register the service provider.
      *
      * @return void
