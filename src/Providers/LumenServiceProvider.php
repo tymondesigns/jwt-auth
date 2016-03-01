@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Providers;
 class LumenServiceProvider extends AbstractServiceProvider
 {
     /**
-     * {@inheritdoc }
+     * {@inheritdoc}.
      */
     public function boot()
     {
