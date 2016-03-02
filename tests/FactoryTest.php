@@ -20,6 +20,7 @@ use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
+use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -157,6 +158,26 @@ class FactoryTest extends AbstractTestCase
         $this->factory->setDefaultClaims(['sub', 'iat']);
 
         $this->assertSame($this->factory->getDefaultClaims(), ['sub', 'iat']);
+    }
+
+    /** @test */
+    public function it_should_get_payload_with_a_predefined_collection_of_claims()
+    {
+        $this->validator->shouldReceive('setRefreshFlow->check');
+
+        $claims = [
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
+            'jti' => new JwtId('foo'),
+        ];
+
+        $payload = $this->factory->withClaims(Collection::make($claims));
+
+        $this->assertInstanceOf(Payload::class, $payload);
+        $this->assertSame($payload->get('sub'), 1);
     }
 
     /** @test */

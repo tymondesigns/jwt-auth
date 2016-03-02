@@ -77,7 +77,7 @@ class Factory
     {
         $claims = $this->buildClaims()->resolveClaims();
 
-        return new Payload($claims, $this->validator, $this->refreshFlow);
+        return $this->withClaims($claims);
     }
 
     /**
@@ -147,6 +147,18 @@ class Factory
     }
 
     /**
+     * Get a Payload instance with a claims collection.
+     *
+     * @param  Collection  $claims
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    public function withClaims(Collection $claims)
+    {
+        return new Payload($claims, $this->validator, $this->refreshFlow);
+    }
+
+    /**
      * Get the Issuer (iss) claim.
      *
      * @return string
@@ -194,6 +206,20 @@ class Factory
     protected function jti()
     {
         return md5(sprintf('%s.%s', $this->claims->toJson(), Str::quickRandom()));
+    }
+
+    /**
+     * Set the request instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
     }
 
     /**
@@ -252,20 +278,6 @@ class Factory
     public function validator()
     {
         return $this->validator;
-    }
-
-    /**
-     * Set the request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return $this
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-
-        return $this;
     }
 
     /**
