@@ -68,7 +68,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     {
         $claim = value($claim);
 
-        if (! is_null($claim)) {
+        if ($claim !== null) {
             if (is_array($claim)) {
                 return array_map([$this, 'get'], $claim);
             }
