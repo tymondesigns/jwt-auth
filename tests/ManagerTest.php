@@ -30,17 +30,17 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 class ManagerTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Contracts\Providers\JWT
      */
     protected $jwt;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Blacklist
      */
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Factory
      */
     protected $factory;
 

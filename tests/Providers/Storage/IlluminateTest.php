@@ -29,7 +29,7 @@ class TaggedStorage extends Storage
 class IlluminateTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Illuminate\Contracts\Cache\Repository
      */
     protected $cache;
 

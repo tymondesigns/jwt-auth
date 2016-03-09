@@ -29,12 +29,12 @@ use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 class FactoryTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Claims\Factory
      */
     protected $claimFactory;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 

@@ -20,7 +20,7 @@ use Tymon\JWTAuth\Providers\Auth\Sentinel as Auth;
 class SentinelTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Cartalyst\Sentinel\Sentinel
      */
     protected $sentinel;
 

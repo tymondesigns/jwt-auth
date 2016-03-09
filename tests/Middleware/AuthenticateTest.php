@@ -23,7 +23,7 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class AuthenticateTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\JWTAuth
      */
     protected $auth;
 

@@ -21,6 +21,21 @@ use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\JWT|\Mockery\MockInterface
+     */
+    protected $jwt;
+
+    /**
+     * @var \Illuminate\Contracts\Auth\UserProvider|\Mockery\MockInterface
+     */
+    protected $provider;
+
+    /**
+     * @var \Tymon\JWTAuth\JWTGuard|\Mockery\MockInterface
+     */
+    protected $guard;
+
     public function setUp()
     {
         parent::setUp();
