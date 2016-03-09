@@ -20,7 +20,7 @@ use Tymon\JWTAuth\Providers\Auth\October as Auth;
 class OctoberTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\October\Rain\Auth\Manager
      */
     protected $october;
 

@@ -23,12 +23,12 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class RefreshTokenTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\JWTAuth
      */
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Illuminate\Http\Request
      */
     protected $request;
 

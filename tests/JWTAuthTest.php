@@ -20,6 +20,7 @@ use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -27,19 +28,24 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class JWTAuthTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Manager
      */
     protected $manager;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Contracts\Providers\Auth
      */
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Http\Parser
      */
     protected $parser;
+
+    /**
+     * @var \Tymon\JWTAuth\JWTAuth
+     */
+    protected $jwtAuth;
 
     public function setUp()
     {
@@ -71,7 +77,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
-        $token = $this->jwtAuth->fromUser(new \Tymon\JWTAuth\Test\Stubs\UserStub);
+        $token = $this->jwtAuth->fromUser(new UserStub);
 
         $this->assertSame($token, 'foo.bar.baz');
     }
@@ -91,7 +97,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
         $this->auth->shouldReceive('byCredentials')->once()->andReturn(true);
-        $this->auth->shouldReceive('user')->once()->andReturn(new \Tymon\JWTAuth\Test\Stubs\UserStub);
+        $this->auth->shouldReceive('user')->once()->andReturn(new UserStub);
 
         $token = $this->jwtAuth->attempt(['foo' => 'bar']);
 

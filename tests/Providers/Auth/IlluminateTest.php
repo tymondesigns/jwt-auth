@@ -19,7 +19,7 @@ use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
 class IlluminateTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Illuminate\Contracts\Auth\Guard
      */
     protected $authManager;
 
