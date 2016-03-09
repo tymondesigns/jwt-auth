@@ -38,7 +38,7 @@ interface Storage
     public function get($key);
 
     /**
-     * @param  \\string  $key
+     * @param  string  $key
      *
      * @return bool
      */
