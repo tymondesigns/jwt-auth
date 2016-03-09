@@ -76,15 +76,15 @@ class PayloadValidator extends Validator
      */
     protected function validateTimestamps(array $payload)
     {
-        if (isset($payload['nbf']) && Utils::timestamp($payload['nbf'])->isFuture()) {
+        if (isset($payload['nbf']) && Utils::isFuture($payload['nbf'])) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
         }
 
-        if (isset($payload['iat']) && Utils::timestamp($payload['iat'])->isFuture()) {
+        if (isset($payload['iat']) && Utils::isFuture($payload['iat'])) {
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
         }
 
-        if (isset($payload['exp']) && Utils::timestamp($payload['exp'])->isPast()) {
+        if (isset($payload['exp']) && Utils::isPast($payload['exp'])) {
             throw new TokenExpiredException('Token has expired');
         }
 
@@ -102,7 +102,7 @@ class PayloadValidator extends Validator
      */
     protected function validateRefresh(array $payload)
     {
-        if (isset($payload['iat']) && Utils::timestamp($payload['iat'])->addMinutes($this->refreshTTL)->isPast()) {
+        if (isset($payload['iat']) && Utils::isPast($payload['iat'] + $this->refreshTTL * 60)) {
             throw new TokenExpiredException('Token has expired and can no longer be refreshed');
         }
 
