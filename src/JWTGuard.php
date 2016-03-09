@@ -64,7 +64,7 @@ class JWTGuard implements Guard
      */
     public function user()
     {
-        if (! is_null($this->user)) {
+        if ($this->user !== null) {
             return $this->user;
         }
 
@@ -148,7 +148,7 @@ class JWTGuard implements Guard
      */
     public function tokenById($id)
     {
-        if (! is_null($user = $this->provider->retrieveById($id))) {
+        if ($user = $this->provider->retrieveById($id)) {
             return $this->jwt->fromUser($user);
         }
     }
@@ -180,7 +180,7 @@ class JWTGuard implements Guard
      */
     public function onceUsingId($id)
     {
-        if (! is_null($user = $this->provider->retrieveById($id))) {
+        if ($user = $this->provider->retrieveById($id)) {
             $this->setUser($user);
 
             return true;
@@ -313,7 +313,7 @@ class JWTGuard implements Guard
      */
     protected function hasValidCredentials($user, $credentials)
     {
-        return ! is_null($user) && $this->provider->validateCredentials($user, $credentials);
+        return $user !== null && $this->provider->validateCredentials($user, $credentials);
     }
 
     /**

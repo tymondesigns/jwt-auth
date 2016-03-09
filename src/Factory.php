@@ -119,7 +119,7 @@ class Factory
     protected function buildClaims()
     {
         // remove the exp claim if it exists and the ttl is null
-        if (is_null($this->ttl) && $key = array_search('exp', $this->defaultClaims)) {
+        if ($this->ttl === null && $key = array_search('exp', $this->defaultClaims)) {
             unset($this->defaultClaims[$key]);
         }
 

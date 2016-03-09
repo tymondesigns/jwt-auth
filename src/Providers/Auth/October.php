@@ -50,7 +50,7 @@ class October implements Auth
      */
     public function byId($id)
     {
-        if (! is_null($user = $this->october->findUserById($id))) {
+        if ($user = $this->october->findUserById($id)) {
             $this->october->setUser($user);
 
             return true;

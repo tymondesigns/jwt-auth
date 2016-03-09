@@ -108,7 +108,7 @@ class Illuminate implements Storage
      */
     protected function cache()
     {
-        if (is_null($this->supportsTags)) {
+        if ($this->supportsTags === null) {
             $this->determineTagSupport();
         }
 
