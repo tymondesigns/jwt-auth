@@ -36,8 +36,16 @@ class TokenValidator extends Validator
      */
     protected function validateStructure($token)
     {
-        if (count(explode('.', $token)) !== 3) {
+        $parts = explode('.', $token);
+
+        if (count($parts) !== 3) {
             throw new TokenInvalidException('Wrong number of segments');
+        }
+
+        $parts = array_filter(array_map('trim', $parts));
+
+        if (count($parts) !== 3 || implode('.', $parts) !== $token) {
+            throw new TokenInvalidException('Malformed token');
         }
 
         return true;
