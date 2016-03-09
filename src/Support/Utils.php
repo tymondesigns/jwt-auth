@@ -36,4 +36,28 @@ class Utils
     {
         return Carbon::createFromTimeStampUTC($timestamp);
     }
+
+    /**
+     * Checks if a timestamp is in the past.
+     *
+     * @param  int  $timestamp
+     *
+     * @return bool
+     */
+    public static function isPast($timestamp)
+    {
+        return static::timestamp($timestamp)->isPast();
+    }
+
+    /**
+     * Checks if a timestamp is in the future.
+     *
+     * @param  int  $timestamp
+     *
+     * @return bool
+     */
+    public static function isFuture($timestamp)
+    {
+        return static::timestamp($timestamp)->isFuture();
+    }
 }
