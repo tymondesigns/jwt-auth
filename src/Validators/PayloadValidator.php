@@ -94,7 +94,7 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  $payload  $payload
+     * @param  array  $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
