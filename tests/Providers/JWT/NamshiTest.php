@@ -98,13 +98,13 @@ class NamshiTest extends AbstractTestCase
         $provider = $this->getProvider(
             'does_not_matter',
             'RS256',
-            ['private' => $this->getFakePrivateKey(), 'public' => $this->getFakePublicKey()]
+            ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
         );
 
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
         $this->jws->shouldReceive('setPayload')->once()->with($payload)->andReturn(Mockery::self());
-        $this->jws->shouldReceive('sign')->once()->with($this->getFakePrivateKey(), null)->andReturn(Mockery::self());
+        $this->jws->shouldReceive('sign')->once()->with($this->getDummyPrivateKey(), null)->andReturn(Mockery::self());
         $this->jws->shouldReceive('getTokenString')->once()->andReturn('foo.bar.baz');
 
         $token = $provider->encode($payload);
@@ -118,13 +118,13 @@ class NamshiTest extends AbstractTestCase
         $provider = $this->getProvider(
             'does_not_matter',
             'ES256',
-            ['private' => $this->getFakePrivateKey(), 'public' => $this->getFakePublicKey()]
+            ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
         );
 
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
         $this->jws->shouldReceive('setPayload')->once()->with($payload)->andReturn(Mockery::self());
-        $this->jws->shouldReceive('sign')->once()->with($this->getFakePrivateKey(), null)->andReturn(Mockery::self());
+        $this->jws->shouldReceive('sign')->once()->with($this->getDummyPrivateKey(), null)->andReturn(Mockery::self());
         $this->jws->shouldReceive('getTokenString')->once()->andReturn('foo.bar.baz');
 
         $token = $provider->encode($payload);
@@ -138,13 +138,13 @@ class NamshiTest extends AbstractTestCase
         $provider = $this->getProvider(
             'does_not_matter',
             'RS256',
-            ['private' => $this->getFakePrivateKey(), 'public' => $this->getFakePublicKey()]
+            ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
         );
 
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
         $this->jws->shouldReceive('setPayload')->once()->with($payload)->andReturn(Mockery::self());
-        $this->jws->shouldReceive('sign')->once()->with($this->getFakePrivateKey(), null)->andReturn(Mockery::self());
+        $this->jws->shouldReceive('sign')->once()->with($this->getDummyPrivateKey(), null)->andReturn(Mockery::self());
         $this->jws->shouldReceive('getTokenString')->once()->andReturn('foo.bar.baz');
 
         $token = $provider->encode($payload);
@@ -157,7 +157,7 @@ class NamshiTest extends AbstractTestCase
         return new Namshi($secret, $algo, $keys, $this->jws);
     }
 
-    public function getFakePrivateKey()
+    public function getDummyPrivateKey()
     {
         return '-----BEGIN RSA PRIVATE KEY-----
             MIICWwIBAAKBgHURzSlt138r+y76sFtADAiW3Xc2cvXdyXyc/Xr7EEDLSpqfs+aE
@@ -176,7 +176,7 @@ class NamshiTest extends AbstractTestCase
             -----END RSA PRIVATE KEY-----';
     }
 
-    public function getFakePublicKey()
+    public function getDummyPublicKey()
     {
         return '-----BEGIN PUBLIC KEY-----
             MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHURzSlt138r+y76sFtADAiW3Xc2
