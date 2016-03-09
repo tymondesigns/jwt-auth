@@ -33,7 +33,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        Carbon::setTestNow(null);
+        Carbon::setTestNow();
 
         parent::tearDown();
     }
