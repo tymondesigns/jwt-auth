@@ -149,7 +149,7 @@ class Factory
     /**
      * Get a Payload instance with a claims collection.
      *
-     * @param  Collection  $claims
+     * @param  \Illuminate\Support\Collection  $claims
      *
      * @return \Tymon\JWTAuth\Payload
      */

@@ -91,7 +91,7 @@ class JWT
      * Alias to get the payload, and as a result checks that
      * the token is valid i.e. not expired or blacklisted.
      *
-     * @throws JWTException
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
      * @return \Tymon\JWTAuth\Payload
      */
@@ -119,7 +119,7 @@ class JWT
     /**
      * Get the token.
      *
-     * @return false|Token
+     * @return \Tymon\JWTAuth\Token|false
      */
     public function getToken()
     {
@@ -203,7 +203,7 @@ class JWT
     /**
      * Set the token.
      *
-     * @param  Token|string  $token
+     * @param  \Tymon\JWTAuth\Token|string  $token
      *
      * @return $this
      */
