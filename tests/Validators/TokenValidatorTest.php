@@ -34,18 +34,40 @@ class TokenValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->isValid('one.two.three'));
     }
 
-    /** @test */
-    public function it_should_return_false_when_providing_a_malformed_token()
+    public function dataProviderMalformedTokens()
     {
-        $this->assertFalse($this->validator->isValid('one.two.three.four.five'));
+        return [
+            ['one.two'],
+            ['one.two.three.four'],
+            ['one.two.three.four.five'],
+            ['one.two.'],
+            ['.two.'],
+            ['.two.three'],
+            ['one..three'],
+            ['..'],
+            [' . . '],
+            [' one . two . three '],
+        ];
     }
 
     /**
      * @test
+     * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
+     * @param  string  $token
+     */
+    public function it_should_return_false_when_providing_a_malformed_token($token)
+    {
+        $this->assertFalse($this->validator->isValid($token));
+    }
+
+    /**
+     * @test
+     * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
+     * @param  string  $token
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    public function it_should_throw_an_exception_when_providing_a_malformed_token()
+    public function it_should_throw_an_exception_when_providing_a_malformed_token($token)
     {
-        $this->validator->check('one.two.three.four.five');
+        $this->validator->check($token);
     }
 }
