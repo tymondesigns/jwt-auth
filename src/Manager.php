@@ -42,9 +42,9 @@ class Manager
     protected $blacklistEnabled = true;
 
     /**
-     *  @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
-     *  @param  \Tymon\JWTAuth\Blacklist  $blacklist
-     *  @param  \Tymon\JWTAuth\Factory  $payloadFactory
+     * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
+     * @param  \Tymon\JWTAuth\Blacklist  $blacklist
+     * @param  \Tymon\JWTAuth\Factory  $payloadFactory
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
