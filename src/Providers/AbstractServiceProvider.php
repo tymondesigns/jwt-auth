@@ -26,7 +26,7 @@ use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Commands\JWTGenerateSecretCommand;
+use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
 use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 abstract class AbstractServiceProvider extends ServiceProvider

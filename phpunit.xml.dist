@@ -22,7 +22,7 @@
                 <file>src/Providers/LaravelServiceProvider.php</file>
                 <file>src/Providers/LumenServiceProvider.php</file>
                 <directory suffix=".php">src/Facades/</directory>
-                <directory suffix=".php">src/Commands/</directory>
+                <directory suffix=".php">src/Console/</directory>
             </exclude>
         </whitelist>
     </filter>
