@@ -99,5 +99,4 @@ class TokenValidatorTest extends AbstractTestCase
     {
         $this->validator->check($token);
     }
-
 }
