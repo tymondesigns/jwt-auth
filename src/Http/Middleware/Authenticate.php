@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Middleware;
+namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
 use Tymon\JWTAuth\Exceptions\JWTException;

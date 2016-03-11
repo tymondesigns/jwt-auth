@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Tymon\JWTAuth\Http\Parser;
 use Tymon\JWTAuth\Test\AbstractTestCase;
-use Tymon\JWTAuth\Middleware\RefreshToken;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class RefreshTokenTest extends AbstractTestCase
@@ -33,7 +33,7 @@ class RefreshTokenTest extends AbstractTestCase
     protected $request;
 
     /**
-     * @var \Tymon\JWTAuth\Middleware\RefreshToken
+     * @var \Tymon\JWTAuth\Http\Middleware\RefreshToken
      */
     protected $middleware;
 
