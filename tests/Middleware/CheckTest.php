@@ -15,8 +15,8 @@ use Mockery;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser;
-use Tymon\JWTAuth\Middleware\Check;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -33,7 +33,7 @@ class CheckTest extends AbstractTestCase
     protected $request;
 
     /**
-     * @var \Tymon\JWTAuth\Middleware\Check
+     * @var \Tymon\JWTAuth\Http\Middleware\Check
      */
     protected $middleware;
 

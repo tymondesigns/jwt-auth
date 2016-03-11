@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Test\AbstractTestCase;
-use Tymon\JWTAuth\Middleware\Authenticate;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthenticateTest extends AbstractTestCase
@@ -33,7 +33,7 @@ class AuthenticateTest extends AbstractTestCase
     protected $request;
 
     /**
-     * @var \Tymon\JWTAuth\Middleware\Authenticate
+     * @var \Tymon\JWTAuth\Http\Middleware\Authenticate
      */
     protected $middleware;
 
