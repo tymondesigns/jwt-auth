@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Mockery;
 use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
@@ -173,7 +174,7 @@ class PayloadTest extends AbstractTestCase
         $this->assertInstanceOf(JwtId::class, $claims['jti']);
         $this->assertInstanceOf(Subject::class, $claims['sub']);
 
-        $this->assertContainsOnlyInstancesOf('Tymon\JWTAuth\Claims\Claim', $claims);
+        $this->assertContainsOnlyInstancesOf(Claim::class, $claims);
     }
 
     /** @test */
