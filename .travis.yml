@@ -1,4 +1,9 @@
 sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 language: php
 
 php:
@@ -29,9 +34,9 @@ before_install:
 
 before_script:
   - travis_retry composer self-update
-  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-source --no-interaction; fi
-  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-source --no-interaction; fi
-  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-source --no-interaction; fi
+  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
+  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction; fi
+  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-dist --no-interaction; fi
 
 script:
   - if [[ $laravel = '5.1' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml --exclude-group laravel-5.2; fi
