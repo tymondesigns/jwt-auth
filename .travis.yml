@@ -33,6 +33,7 @@ before_install:
   - if [[ $laravel != '5.1' ]]; then pip install --user codecov; fi
 
 before_script:
+  - phpenv config-rm xdebug.ini
   - travis_retry composer self-update
   - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
   - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction; fi
