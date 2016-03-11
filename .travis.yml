@@ -29,9 +29,6 @@ matrix:
       env: laravel='5.2'
   fast_finish: true
 
-before_install:
-  - if [[ $laravel != '5.1' ]]; then pip install --user codecov; fi
-
 before_script:
   - phpenv config-rm xdebug.ini
   - travis_retry composer self-update
@@ -43,5 +40,3 @@ script:
   - if [[ $laravel = '5.1' ]]; then vendor/bin/phpunit --verbose --exclude-group laravel-5.2; fi
   - if [[ $laravel = '5.2' ]]; then vendor/bin/phpunit --verbose; fi
 
-after_success:
-  - if [[ $laravel != '5.1' ]]; then codecov; fi
