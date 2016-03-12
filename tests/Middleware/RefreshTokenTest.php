@@ -15,7 +15,7 @@ use Mockery;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;

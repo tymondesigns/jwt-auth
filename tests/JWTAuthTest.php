@@ -19,7 +19,7 @@ use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
