@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class JWTAuth extends JWT
@@ -24,7 +24,7 @@ class JWTAuth extends JWT
     /**
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
-     * @param  \Tymon\JWTAuth\Http\Parser  $parser
+     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
     {

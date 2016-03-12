@@ -13,7 +13,7 @@ namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -28,7 +28,7 @@ class JWT
     protected $manager;
 
     /**
-     * @var \Tymon\JWTAuth\Http\Parser
+     * @var \Tymon\JWTAuth\Http\Parser\Parser
      */
     protected $parser;
 
@@ -39,7 +39,7 @@ class JWT
 
     /**
      * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Http\Parser  $parser
+     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
      */
     public function __construct(Manager $manager, Parser $parser)
     {
