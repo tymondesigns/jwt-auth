@@ -14,11 +14,11 @@ namespace Tymon\JWTAuth\Test\Http;
 use Mockery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
-use Tymon\JWTAuth\Http\Parser;
-use Tymon\JWTAuth\Http\AuthHeaders;
-use Tymon\JWTAuth\Http\QueryString;
-use Tymon\JWTAuth\Http\RouteParams;
-use Tymon\JWTAuth\Http\LumenRouteParams;
+use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\QueryString;
+use Tymon\JWTAuth\Http\Parser\RouteParams;
+use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class ParserTest extends AbstractTestCase

@@ -17,7 +17,7 @@ use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Http\Parser;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Http\AuthHeaders;
 use Tymon\JWTAuth\Http\QueryString;
 use Tymon\JWTAuth\Http\RouteParams;

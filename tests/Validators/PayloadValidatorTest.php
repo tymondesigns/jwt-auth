@@ -144,7 +144,7 @@ class PayloadValidatorTest extends AbstractTestCase
     {
         $payload = [
             'iss' => 'http://example.com',
-            'iat' => $this->testNowTimestamp - 2600, // this is less than the refresh ttl at 1 hour
+            'iat' => $this->testNowTimestamp - 2600, // this is LESS than the refresh ttl at 1 hour
             'nbf' => $this->testNowTimestamp,
             'exp' => $this->testNowTimestamp - 1000,
             'sub' => 1,
