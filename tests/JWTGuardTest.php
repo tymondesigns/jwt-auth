@@ -12,8 +12,9 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
-use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\UserProvider;
@@ -310,5 +311,16 @@ class JWTGuardTest extends AbstractTestCase
 
         $this->assertTrue($this->guard->onceUsingId(1)); // once
         $this->assertTrue($this->guard->byId(1)); // twice
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_get_the_payload()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('getPayload')->once()->andReturn(Mockery::mock(Payload::class));
+        $this->assertInstanceOf(Payload::class, $this->guard->payload());
     }
 }
