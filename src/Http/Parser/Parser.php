@@ -68,9 +68,7 @@ class Parser
      */
     public function setChainOrder(array $chain)
     {
-        $this->setChain($chain);
-
-        return $this;
+        return $this->setChain($chain);
     }
 
     /**
