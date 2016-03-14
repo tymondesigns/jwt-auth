@@ -190,6 +190,21 @@ class ParserTest extends AbstractTestCase
         $this->assertSame($parser->getChain(), $chain);
     }
 
+    /** @test */
+    public function it_should_retrieve_the_chain_with_alias()
+    {
+        $chain = [
+            new AuthHeaders,
+            new QueryString,
+            new RouteParams,
+        ];
+
+        $parser = new Parser(Mockery::mock(Request::class));
+        $parser->setChainOrder($chain);
+
+        $this->assertSame($parser->getChain(), $chain);
+    }
+
     protected function getRouteMock($expectedParameterValue = null)
     {
         return Mockery::mock(Route::class)
