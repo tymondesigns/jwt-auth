@@ -265,7 +265,7 @@ class JWT
     /**
      * Get the Parser instance.
      *
-     * @return \Tymon\JWTAuth\Http\Parser
+     * @return \Tymon\JWTAuth\Http\Parser\Parser
      */
     public function parser()
     {
