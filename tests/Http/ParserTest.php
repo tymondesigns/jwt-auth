@@ -31,7 +31,7 @@ class ParserTest extends AbstractTestCase
 
         $parser = new Parser($request);
 
-        $parser->setChainOrder([
+        $parser->setChain([
             new QueryString,
             new AuthHeaders,
             new RouteParams,
@@ -70,7 +70,7 @@ class ParserTest extends AbstractTestCase
         $request = Request::create('foo', 'GET', ['token' => 'foobar']);
 
         $parser = new Parser($request);
-        $parser->setChainOrder([
+        $parser->setChain([
             new AuthHeaders,
             new QueryString,
             new RouteParams,
@@ -89,7 +89,7 @@ class ParserTest extends AbstractTestCase
         });
 
         $parser = new Parser($request);
-        $parser->setChainOrder([
+        $parser->setChain([
             new AuthHeaders,
             new QueryString,
             new RouteParams,
@@ -108,7 +108,7 @@ class ParserTest extends AbstractTestCase
         });
 
         $parser = new Parser($request);
-        $parser->setChainOrder([
+        $parser->setChain([
             new AuthHeaders,
             new QueryString,
             new RouteParams,
@@ -127,7 +127,7 @@ class ParserTest extends AbstractTestCase
         });
 
         $parser = new Parser($request);
-        $parser->setChainOrder([
+        $parser->setChain([
             new AuthHeaders,
             new QueryString,
             new RouteParams,
@@ -146,7 +146,7 @@ class ParserTest extends AbstractTestCase
         });
 
         $parser = new Parser($request);
-        $parser->setChainOrder([
+        $parser->setChain([
             new AuthHeaders,
             new QueryString,
             new LumenRouteParams,
@@ -165,7 +165,7 @@ class ParserTest extends AbstractTestCase
         });
 
         $parser = new Parser($request);
-        $parser->setChainOrder([
+        $parser->setChain([
             new AuthHeaders,
             new QueryString,
             new RouteParams,
