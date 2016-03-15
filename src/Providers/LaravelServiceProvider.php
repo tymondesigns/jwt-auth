@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Providers;
 use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 
 class LaravelServiceProvider extends AbstractServiceProvider
 {
@@ -29,6 +30,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
         $this->app['router']->middleware('jwt.auth', Authenticate::class);
         $this->app['router']->middleware('jwt.refresh', RefreshToken::class);
+        $this->app['router']->middleware('jwt.renew', AuthenticateAndRenew::class);
         $this->app['router']->middleware('jwt.check', Check::class);
 
         $this->extendAuthGuard();
