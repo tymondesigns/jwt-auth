@@ -317,6 +317,24 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
+    public function it_should_create_a_token_from_a_user_object()
+    {
+        $user = new LaravelUserStub;
+
+        $this->jwt->shouldReceive('fromUser')
+                  ->once()
+                  ->with($user)
+                  ->andReturn('foo.bar.baz');
+
+        $token = $this->guard->login($user);
+
+        $this->assertSame('foo.bar.baz', $token);
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_get_the_payload()
     {
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');

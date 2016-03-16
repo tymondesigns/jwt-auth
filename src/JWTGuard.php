@@ -15,6 +15,7 @@ use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
 
@@ -93,7 +94,7 @@ class JWTGuard implements Guard
      * @param  array  $credentials
      * @param  bool  $login
      *
-     * @return bool
+     * @return bool|string
      */
     public function attempt(array $credentials = [], $login = true)
     {
@@ -110,6 +111,20 @@ class JWTGuard implements Guard
         }
 
         return false;
+    }
+
+    /**
+     * Create a token for a user.
+     *
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
+     *
+     * @return  string
+     */
+    public function login(JWTSubject $user)
+    {
+        $this->setUser($user);
+
+        return $this->jwt->fromUser($user);
     }
 
     /**
