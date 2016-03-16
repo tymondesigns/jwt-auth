@@ -103,5 +103,4 @@ class AuthenticateAndRenewTest extends AbstractTestCase
 
         $this->middleware->handle($this->request, function () {});
     }
-
 }
