@@ -12,8 +12,6 @@
 namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticateAndRenew extends BaseMiddleware
 {
@@ -29,13 +27,7 @@ class AuthenticateAndRenew extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $this->checkForToken($request);
-
-        try {
-            $this->auth->parseToken()->authenticate();
-        } catch (JWTException $e) {
-            throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
-        }
+        $this->authenticate($request);
 
         $response = $next($request);
 
