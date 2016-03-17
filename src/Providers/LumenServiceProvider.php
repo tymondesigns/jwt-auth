@@ -12,6 +12,9 @@
 namespace Tymon\JWTAuth\Providers;
 
 use Tymon\JWTAuth\Http\Middleware\Check;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\QueryString;
+use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
 use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
 use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
@@ -36,5 +39,11 @@ class LumenServiceProvider extends AbstractServiceProvider
         ]);
 
         $this->extendAuthGuard();
+
+        $this->app['tymon.jwt.parser']->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new LumenRouteParams,
+        ]);
     }
 }
