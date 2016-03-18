@@ -32,7 +32,7 @@ class LumenServiceProvider extends AbstractServiceProvider
         $this->mergeConfigFrom($path, 'jwt');
 
         $this->app->routeMiddleware([
-            'jwt.auth', Authenticate::class,
+            'jwt.auth' => Authenticate::class,
             'jwt.refresh' => RefreshToken::class,
             'jwt.renew' => AuthenticateAndRenew::class,
             'jwt.check' => Check::class,
