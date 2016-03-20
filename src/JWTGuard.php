@@ -102,9 +102,7 @@ class JWTGuard implements Guard
 
         if ($this->hasValidCredentials($user, $credentials)) {
             if ($login) {
-                $this->setUser($user);
-
-                return $this->jwt->fromUser($user);
+                return $this->jwt->login($user);
             }
 
             return true;

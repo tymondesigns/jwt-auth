@@ -127,7 +127,7 @@ class JWTGuardTest extends AbstractTestCase
                        ->with($user, $credentials)
                        ->andReturn(true);
 
-        $this->jwt->shouldReceive('fromUser')
+        $this->jwt->shouldReceive('login')
                   ->once()
                   ->with($user)
                   ->andReturn('foo.bar.baz');
