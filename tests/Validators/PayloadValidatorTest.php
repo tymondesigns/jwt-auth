@@ -156,6 +156,23 @@ class PayloadValidatorTest extends AbstractTestCase
         );
     }
 
+    /** @test */
+    public function it_should_return_true_if_the_refresh_ttl_is_null()
+    {
+        $payload = [
+            'iss' => 'http://example.com',
+            'iat' => $this->testNowTimestamp - 2600,
+            'nbf' => $this->testNowTimestamp,
+            'exp' => $this->testNowTimestamp - 1000,
+            'sub' => 1,
+            'jti' => 'foo',
+        ];
+
+        $this->assertTrue(
+            $this->validator->setRefreshFlow()->setRefreshTTL(null)->isValid($payload)
+        );
+    }
+
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenExpiredException
