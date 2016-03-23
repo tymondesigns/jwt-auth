@@ -152,6 +152,25 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_return_the_token_from_route_with_a_custom_param()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock('foobar', 'custom_route_param');
+        });
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            (new RouteParams)->setKey('custom_route_param'),
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_ignore_routeless_requests()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
@@ -257,11 +276,11 @@ class ParserTest extends AbstractTestCase
         $this->assertSame($parser->getChain(), $chain);
     }
 
-    protected function getRouteMock($expectedParameterValue = null)
+    protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
     {
         return Mockery::mock(Route::class)
             ->shouldReceive('parameter')
-            ->with('token')
+            ->with($expectedParameterName)
             ->andReturn($expectedParameterValue)
             ->getMock();
     }
