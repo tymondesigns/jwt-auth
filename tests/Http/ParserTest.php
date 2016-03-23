@@ -117,6 +117,22 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_return_the_token_from_the_custom_query_string()
+    {
+        $request = Request::create('foo', 'GET', ['custom_token_key' => 'foobar']);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            (new QueryString)->setKey('custom_token_key'),
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_return_the_token_from_route()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
