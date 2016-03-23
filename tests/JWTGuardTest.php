@@ -256,6 +256,20 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
+    public function it_should_not_generate_a_token_by_id()
+    {
+        $this->provider->shouldReceive('retrieveById')
+                       ->once()
+                       ->with(1)
+                       ->andReturn(null);
+
+        $this->assertNull($this->guard->tokenById(1));
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_authenticate_the_user_by_credentials_and_return_true_if_valid()
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
@@ -311,6 +325,21 @@ class JWTGuardTest extends AbstractTestCase
 
         $this->assertTrue($this->guard->onceUsingId(1)); // once
         $this->assertTrue($this->guard->byId(1)); // twice
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_not_authenticate_the_user_by_id_and_return_boolean()
+    {
+        $this->provider->shouldReceive('retrieveById')
+                       ->twice()
+                       ->with(1)
+                       ->andReturn(null);
+
+        $this->assertFalse($this->guard->onceUsingId(1)); // once
+        $this->assertFalse($this->guard->byId(1)); // twice
     }
 
     /**
