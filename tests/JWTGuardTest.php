@@ -57,6 +57,15 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
+    public function it_should_get_the_request()
+    {
+        $this->assertInstanceOf(Request::class, $this->guard->getRequest());
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided()
     {
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
