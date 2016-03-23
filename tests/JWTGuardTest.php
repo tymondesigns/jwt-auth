@@ -331,7 +331,7 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
-    public function it_should_not_authenticate_the_user_by_id_and_return_boolean()
+    public function it_should_not_authenticate_the_user_by_id_and_return_false()
     {
         $this->provider->shouldReceive('retrieveById')
                        ->twice()
