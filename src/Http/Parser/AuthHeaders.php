@@ -56,7 +56,7 @@ class AuthHeaders implements ParserContract
     {
         $header = $request->headers->get($this->header, $this->fromAltHeaders($request));
 
-        if ($header && Str::startsWith(strtolower($header), $this->prefix)) {
+        if ($header && Str::startsWith(strtolower($header), strtolower($this->prefix))) {
             return trim(str_ireplace($this->prefix, '', $header));
         }
     }

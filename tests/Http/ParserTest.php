@@ -15,11 +15,11 @@ use Mockery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
 use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class ParserTest extends AbstractTestCase
 {
@@ -34,6 +34,42 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new QueryString,
             new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_prefixed_authentication_header()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Custom foobar');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            (new AuthHeaders())->setHeaderPrefix('Custom'),
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_custom_authentication_header()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('custom_authorization', 'Bearer foobar');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            (new AuthHeaders())->setHeaderName('custom_authorization'),
             new RouteParams,
         ]);
 
