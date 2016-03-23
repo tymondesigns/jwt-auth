@@ -11,9 +11,13 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
+use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
+use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
@@ -35,7 +39,11 @@ class FactoryTest extends AbstractTestCase
     public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
     {
         $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));
+        $this->assertInstanceOf(Issuer::class, $this->factory->get('iss', 'http://example.com'));
         $this->assertInstanceOf(Expiration::class, $this->factory->get('exp', $this->testNowTimestamp + 3600));
+        $this->assertInstanceOf(NotBefore::class, $this->factory->get('nbf', $this->testNowTimestamp));
+        $this->assertInstanceOf(IssuedAt::class, $this->factory->get('iat', $this->testNowTimestamp));
+        $this->assertInstanceOf(JwtId::class, $this->factory->get('jti', 'foo'));
     }
 
     /** @test */
