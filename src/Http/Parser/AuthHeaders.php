@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Http\Parser;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
@@ -56,7 +55,7 @@ class AuthHeaders implements ParserContract
     {
         $header = $request->headers->get($this->header, $this->fromAltHeaders($request));
 
-        if ($header && Str::startsWith(strtolower($header), strtolower($this->prefix))) {
+        if ($header && stripos($header, $this->prefix) === 0) {
             return trim(str_ireplace($this->prefix, '', $header));
         }
     }
