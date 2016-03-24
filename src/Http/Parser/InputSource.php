@@ -14,17 +14,17 @@ namespace Tymon\JWTAuth\Http\Parser;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
-class QueryString implements ParserContract
+class InputSource implements ParserContract
 {
     /**
-     * The query string key.
+     * The input source key.
      *
      * @var string
      */
     protected $key = 'token';
 
     /**
-     * Try to parse the token from the request query string.
+     * Try to parse the token from the request input source.
      *
      * @param  \Illuminate\Http\Request  $request
      *
@@ -32,11 +32,11 @@ class QueryString implements ParserContract
      */
     public function parse(Request $request)
     {
-        return $request->query($this->key);
+        return $request->input($this->key);
     }
 
     /**
-     * Set the query string key.
+     * Set the input source key.
      *
      * @param  string  $key
      *
