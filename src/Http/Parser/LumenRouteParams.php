@@ -29,9 +29,9 @@ class LumenRouteParams extends RouteParams
         // It will only work with poorly-specified aspects of certain Lumen releases.
         $route = $request->route();
 
-        if (is_array($route) && Arr::has($route, '2.'.$this->key)) {
+        if (is_array($route) && $token = Arr::get($route, '2.'.$this->key)) {
             // Route is the expected kind of array, and has a parameter with the key we want.
-            return $route[2][$this->key];
+            return $token;
         }
     }
 }
