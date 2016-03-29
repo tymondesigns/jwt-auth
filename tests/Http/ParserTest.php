@@ -143,7 +143,6 @@ class ParserTest extends AbstractTestCase
     public function it_should_return_the_token_from_the_query_string_not_the_input_source()
     {
         $request = Request::create('foo?token=foobar', 'POST', [], [], [], [], json_encode(['token' => 'foobarbaz']));
-        $request->headers->set('Content-Type', 'application/json');
 
         $parser = new Parser($request);
         $parser->setChain([
@@ -161,7 +160,6 @@ class ParserTest extends AbstractTestCase
     public function it_should_return_the_token_from_the_custom_query_string_not_the_custom_input_source()
     {
         $request = Request::create('foo?custom_token_key=foobar', 'POST', [], [], [], [], json_encode(['custom_token_key' => 'foobarbaz']));
-        $request->headers->set('Content-Type', 'application/json');
 
         $parser = new Parser($request);
         $parser->setChain([
