@@ -254,7 +254,7 @@ class ParserTest extends AbstractTestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
-
+            //
         });
 
         $parser = new Parser($request);
