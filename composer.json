@@ -1,6 +1,6 @@
 {
     "name": "mjyaqubi/jwt-multiauth",
-    "description": "JSON Web Token Multi Authentication for Laravel 4 and 5",
+    "description": "JSON Web Token Multi Authentication for Laravel 4 and 5 - Copy from tymon/jwtauth",
     "keywords": [
         "jwt",
         "auth",
@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mjyaqubi\\JWTMultiAuth\\": "src"
+            "Tymon\\JWTAuth\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mjyaqubi\\JWTMultiAuth\\Test\\": "tests"
+            "Tymon\\JWTAuth\\Test\\": "tests"
         }
     },
     "extra": {
