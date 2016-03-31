@@ -1,21 +1,21 @@
 {
-    "name": "tymon/jwt-auth",
-    "description": "JSON Web Token Authentication for Laravel 4 and 5",
+    "name": "mjyaqubi/jwt-multiauth",
+    "description": "JSON Web Token Multi Authentication for Laravel 4 and 5",
     "keywords": [
         "jwt",
         "auth",
+        "multiauth",
         "authentication",
-        "tymon",
         "laravel",
         "json web token"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/mjyaqubi/jwt-multiauth",
     "license": "MIT",
     "authors": [
         {
-            "name": "Sean Tymon",
-            "email": "tymon148@gmail.com",
-            "homepage": "http://tymondesigns.com",
+            "name": "MJ Yaqubi",
+            "email": "mjyaqubi@gmail.com",
+            "homepage": "http://mjyaqubi.com",
             "role": "Developer"
         }
     ],
@@ -24,7 +24,8 @@
         "illuminate/support": "~5.0",
         "illuminate/http": "~5.0",
         "namshi/jose": "5.0.*",
-        "nesbot/carbon": "~1.0"
+        "nesbot/carbon": "~1.0",
+        "sboo/multiauth" : "4.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",
@@ -35,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Tymon\\JWTAuth\\": "src"
+            "Mjyaqubi\\JWTMultiAuth\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tymon\\JWTAuth\\Test\\": "tests"
+            "Mjyaqubi\\JWTMultiAuth\\Test\\": "tests"
         }
     },
     "extra": {
