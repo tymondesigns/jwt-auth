@@ -146,7 +146,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function __toString()
     {
-        return $this->toJson(JSON_UNESCAPED_SLASHES);
+        return $this->toJson(JSON_NUMERIC_CHECK & JSON_UNESCAPED_SLASHES);
     }
 
     /**
