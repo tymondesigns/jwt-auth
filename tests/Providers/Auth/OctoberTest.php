@@ -52,14 +52,14 @@ class OctoberTest extends AbstractTestCase
     }
 
     /** @test */
-    // public function it_should_return_true_if_user_is_found()
-    // {
-    //     $stub = new OctoberStub;
-    //     $this->october->shouldReceive('findUserById')->once()->with(123)->andReturn($stub);
-    //     $this->october->shouldReceive('setUser')->once()->with($stub);
+    public function it_should_return_true_if_user_is_found()
+    {
+        $stub = new OctoberStub;
+        $this->october->shouldReceive('findUserById')->once()->with(123)->andReturn($stub);
+        $this->october->shouldReceive('setUser')->once()->with($stub);
 
-    //     $this->assertTrue($this->auth->byId(123));
-    // }
+        $this->assertTrue($this->auth->byId(123));
+    }
 
     /** @test */
     public function it_should_return_false_if_user_is_not_found()
