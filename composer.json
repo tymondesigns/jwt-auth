@@ -33,7 +33,7 @@
         "illuminate/database": "5.1.* || 5.2.*",
         "illuminate/routing": "5.1.* || 5.2.*",
         "mockery/mockery": "0.9.*",
-        "october/rain": "^1.0",
+        "october/rain": "dev-develop",
         "phpunit/phpunit": "^4.0 || ^5.0"
     },
     "autoload": {
