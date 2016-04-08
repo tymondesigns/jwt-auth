@@ -14,12 +14,13 @@ namespace Tymon\JWTAuth\Test\Http;
 use Mockery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
 use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class ParserTest extends AbstractTestCase
 {
@@ -33,7 +34,46 @@ class ParserTest extends AbstractTestCase
 
         $parser->setChain([
             new QueryString,
+            new InputSource,
             new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_prefixed_authentication_header()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Custom foobar');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            (new AuthHeaders())->setHeaderPrefix('Custom'),
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_custom_authentication_header()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('custom_authorization', 'Bearer foobar');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            (new AuthHeaders())->setHeaderName('custom_authorization'),
             new RouteParams,
         ]);
 
@@ -53,6 +93,7 @@ class ParserTest extends AbstractTestCase
         $parser = new Parser($request1, [
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
         ]);
 
@@ -73,6 +114,94 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_custom_query_string()
+    {
+        $request = Request::create('foo', 'GET', ['custom_token_key' => 'foobar']);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            (new QueryString)->setKey('custom_token_key'),
+            new InputSource,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_query_string_not_the_input_source()
+    {
+        $request = Request::create('foo?token=foobar', 'POST', [], [], [], [], json_encode(['token' => 'foobarbaz']));
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_custom_query_string_not_the_custom_input_source()
+    {
+        $request = Request::create('foo?custom_token_key=foobar', 'POST', [], [], [], [], json_encode(['custom_token_key' => 'foobarbaz']));
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            (new QueryString)->setKey('custom_token_key'),
+            (new InputSource)->setKey('custom_token_key'),
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_input_source()
+    {
+        $request = Request::create('foo', 'POST', [], [], [], [], json_encode(['token' => 'foobar']));
+        $request->headers->set('Content-Type', 'application/json');
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_the_custom_input_source()
+    {
+        $request = Request::create('foo', 'POST', [], [], [], [], json_encode(['custom_token_key' => 'foobar']));
+        $request->headers->set('Content-Type', 'application/json');
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            (new InputSource)->setKey('custom_token_key'),
             new RouteParams,
         ]);
 
@@ -92,7 +221,28 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_route_with_a_custom_param()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock('foobar', 'custom_route_param');
+        });
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            (new RouteParams)->setKey('custom_route_param'),
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
@@ -104,13 +254,14 @@ class ParserTest extends AbstractTestCase
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
         $request->setRouteResolver(function () {
-
+            //
         });
 
         $parser = new Parser($request);
         $parser->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
         ]);
 
@@ -130,6 +281,7 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
         ]);
 
@@ -149,6 +301,7 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new LumenRouteParams,
         ]);
 
@@ -168,6 +321,7 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
         ]);
 
@@ -181,6 +335,7 @@ class ParserTest extends AbstractTestCase
         $chain = [
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
         ];
 
@@ -196,6 +351,7 @@ class ParserTest extends AbstractTestCase
         $chain = [
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new RouteParams,
         ];
 
@@ -205,11 +361,11 @@ class ParserTest extends AbstractTestCase
         $this->assertSame($parser->getChain(), $chain);
     }
 
-    protected function getRouteMock($expectedParameterValue = null)
+    protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
     {
         return Mockery::mock(Route::class)
             ->shouldReceive('parameter')
-            ->with('token')
+            ->with($expectedParameterName)
             ->andReturn($expectedParameterValue)
             ->getMock();
     }
