@@ -185,4 +185,10 @@ class FactoryTest extends AbstractTestCase
     {
         $this->assertInstanceOf(PayloadValidator::class, $this->factory->validator());
     }
+
+    /** @test */
+    public function it_should_set_the_request()
+    {
+        $this->factory->setRequest(Request::create('/foobar', 'GET'));
+    }
 }

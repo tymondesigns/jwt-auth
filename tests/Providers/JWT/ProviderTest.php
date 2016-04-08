@@ -43,4 +43,12 @@ class ProviderTest extends AbstractTestCase
 
         $this->assertSame('HS512', $this->provider->getAlgo());
     }
+
+    /** @test */
+    public function it_should_set_the_secret()
+    {
+        $this->provider->setSecret('foo');
+
+        $this->assertSame('foo', $this->provider->getSecret());
+    }
 }
