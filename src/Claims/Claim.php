@@ -133,7 +133,7 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
      *
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK)
     {
         return json_encode($this->toArray(), $options);
     }
@@ -145,6 +145,6 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
      */
     public function __toString()
     {
-        return $this->toJson(JSON_UNESCAPED_SLASHES);
+        return $this->toJson();
     }
 }

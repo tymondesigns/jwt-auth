@@ -134,7 +134,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      *
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK)
     {
         return json_encode($this->toArray(), $options);
     }
@@ -146,7 +146,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function __toString()
     {
-        return $this->toJson(JSON_UNESCAPED_SLASHES);
+        return $this->toJson();
     }
 
     /**
