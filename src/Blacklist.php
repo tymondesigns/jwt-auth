@@ -44,6 +44,8 @@ class Blacklist
 
     /**
      * @param  \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
+     *
+     * @return void
      */
     public function __construct(Storage $storage)
     {

@@ -28,6 +28,7 @@ class Parser
     /**
      * @param  \Illuminate\Http\Request  $request
      * @param  array  $chain
+     * @return void
      */
     public function __construct(Request $request, array $chain = [])
     {

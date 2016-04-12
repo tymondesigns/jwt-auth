@@ -45,6 +45,7 @@ class Manager
      * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      * @param  \Tymon\JWTAuth\Blacklist  $blacklist
      * @param  \Tymon\JWTAuth\Factory  $payloadFactory
+     * @return void
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
