@@ -39,6 +39,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      * @param  \Illuminate\Support\Collection  $claims
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param  bool  $refreshFlow
+     * @return void
      */
     public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
