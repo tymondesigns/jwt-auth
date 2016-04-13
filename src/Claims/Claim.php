@@ -34,6 +34,7 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
 
     /**
      * @param  mixed  $value
+     *
      * @return void
      */
     public function __construct($value)

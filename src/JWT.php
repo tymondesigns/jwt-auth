@@ -40,6 +40,7 @@ class JWT
     /**
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
+     *
      * @return void
      */
     public function __construct(Manager $manager, Parser $parser)

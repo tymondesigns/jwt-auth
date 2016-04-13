@@ -28,6 +28,7 @@ abstract class BaseMiddleware
      * Create a new BaseMiddleware instance.
      *
      * @param  \Tymon\JWTAuth\JWTAuth  $auth
+     *
      * @return void
      */
     public function __construct(JWTAuth $auth)

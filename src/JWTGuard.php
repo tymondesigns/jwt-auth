@@ -50,6 +50,7 @@ class JWTGuard implements Guard
      * @param  \Tymon\JWTAuth\JWT  $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return void
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request)
