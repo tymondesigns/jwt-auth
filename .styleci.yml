@@ -1,7 +1,7 @@
 preset: laravel
 
 enabled:
-  - unalign_double_arrow
   - phpdoc_separation
+  - unalign_double_arrow
 
 linting: true
