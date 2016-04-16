@@ -38,7 +38,7 @@ class Blacklist
     /**
      * The unique key held within the blacklist.
      *
-     * @var  string
+     * @var string
      */
     protected $key = 'jti';
 
