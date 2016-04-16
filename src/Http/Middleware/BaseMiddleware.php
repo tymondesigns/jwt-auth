@@ -42,6 +42,8 @@ abstract class BaseMiddleware
      * @param  \Illuminate\Http\Request  $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     *
+     * @return void
      */
     public function checkForToken(Request $request)
     {
@@ -56,6 +58,8 @@ abstract class BaseMiddleware
      * @param  \Illuminate\Http\Request  $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+     *
+     * @return void
      */
     public function authenticate(Request $request)
     {
