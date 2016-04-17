@@ -114,7 +114,7 @@ class JWTGuard implements Guard
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
-     * @return  string
+     * @return string
      */
     public function login(JWTSubject $user)
     {
