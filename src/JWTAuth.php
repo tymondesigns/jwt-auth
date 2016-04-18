@@ -85,4 +85,14 @@ class JWTAuth extends JWT
     {
         return $this->auth->user();
     }
+
+    /**
+     * Determine if the user is authenticated.
+     *
+     * @return bool
+     */
+    public function userExists()
+    {
+        return ! is_null($this->user());
+    }
 }

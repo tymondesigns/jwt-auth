@@ -27,7 +27,9 @@ class Authenticate extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $this->authenticate($request);
+        if (! $this->auth->userExists()) {
+            $this->authenticate($request);
+        }
 
         return $next($request);
     }
