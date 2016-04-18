@@ -24,7 +24,7 @@
         "illuminate/contracts": "5.1.* || 5.2.*",
         "illuminate/http": "5.1.* || 5.2.*",
         "illuminate/support": "5.1.* || 5.2.*",
-        "namshi/jose": "^6.0",
+        "namshi/jose": "^7.0",
         "nesbot/carbon": "^1.0"
     },
     "require-dev": {
