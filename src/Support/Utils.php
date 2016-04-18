@@ -20,9 +20,9 @@ class Utils
      *
      * @return \Carbon\Carbon
      */
-    public static function now()
+    public static function now($tz = 'UTC')
     {
-        return Carbon::now();
+        return Carbon::now($tz);
     }
 
     /**
