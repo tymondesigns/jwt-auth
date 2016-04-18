@@ -38,12 +38,14 @@ class Blacklist
     /**
      * The unique key held within the blacklist.
      *
-     * @var  string
+     * @var string
      */
     protected $key = 'jti';
 
     /**
      * @param  \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
+     *
+     * @return void
      */
     public function __construct(Storage $storage)
     {

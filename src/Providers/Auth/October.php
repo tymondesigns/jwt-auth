@@ -23,6 +23,8 @@ class October implements Auth
 
     /**
      * @param  \October\Rain\Auth\Manager  $october
+     *
+     * @return void
      */
     public function __construct(OctoberAuth $october)
     {

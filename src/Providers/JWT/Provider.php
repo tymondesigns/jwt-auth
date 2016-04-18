@@ -34,6 +34,8 @@ abstract class Provider
      * @param  string  $secret
      * @param  array  $keys
      * @param  string  $algo
+     *
+     * @return void
      */
     public function __construct($secret, array $keys, $algo)
     {

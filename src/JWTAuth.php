@@ -25,6 +25,8 @@ class JWTAuth extends JWT
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
+     *
+     * @return void
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
     {

@@ -40,6 +40,8 @@ class JWT
     /**
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
+     *
+     * @return void
      */
     public function __construct(Manager $manager, Parser $parser)
     {
@@ -230,6 +232,8 @@ class JWT
      * Ensure that a token is available.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     *
+     * @return void
      */
     protected function requireToken()
     {
@@ -298,9 +302,9 @@ class JWT
      * @param  string  $method
      * @param  array  $parameters
      *
-     * @return mixed
-     *
      * @throws \BadMethodCallException
+     *
+     * @return mixed
      */
     public function __call($method, $parameters)
     {

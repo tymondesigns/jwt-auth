@@ -23,6 +23,8 @@ class Illuminate implements Auth
 
     /**
      * @param  \Illuminate\Contracts\Auth\Guard  $auth
+     *
+     * @return void
      */
     public function __construct(GuardContract $auth)
     {

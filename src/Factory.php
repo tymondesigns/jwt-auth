@@ -58,6 +58,8 @@ class Factory
      * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
      * @param  \Illuminate\Http\Request  $request
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
+     *
+     * @return void
      */
     public function __construct(ClaimFactory $claimFactory, Request $request, PayloadValidator $validator)
     {

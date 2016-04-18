@@ -32,6 +32,8 @@ class Namshi extends Provider implements JWT
      * @param  string  $algo
      * @param  array  $keys
      * @param  string|null  $driver
+     *
+     * @return void
      */
     public function __construct($secret, $algo, array $keys = [], $driver = null)
     {

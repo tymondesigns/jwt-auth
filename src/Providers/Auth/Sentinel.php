@@ -23,6 +23,8 @@ class Sentinel implements Auth
 
     /**
      * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
+     *
+     * @return void
      */
     public function __construct(SentinelAuth $sentinel)
     {

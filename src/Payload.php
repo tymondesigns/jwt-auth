@@ -39,6 +39,8 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      * @param  \Illuminate\Support\Collection  $claims
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param  bool  $refreshFlow
+     *
+     * @return void
      */
     public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
@@ -192,6 +194,8 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      * @param  string  $key
      *
      * @throws \Tymon\JWTAuth\Exceptions\PayloadException
+     *
+     * @return void
      */
     public function offsetUnset($key)
     {
@@ -226,9 +230,9 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      * @param  string  $method
      * @param  array  $parameters
      *
-     * @return mixed
-     *
      * @throws \BadMethodCallException
+     *
+     * @return mixed
      */
     public function __call($method, $parameters)
     {

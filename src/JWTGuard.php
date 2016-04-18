@@ -50,6 +50,8 @@ class JWTGuard implements Guard
      * @param  \Tymon\JWTAuth\JWT  $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
+     *
+     * @return void
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request)
     {
@@ -112,7 +114,7 @@ class JWTGuard implements Guard
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
-     * @return  string
+     * @return string
      */
     public function login(JWTSubject $user)
     {
@@ -345,9 +347,9 @@ class JWTGuard implements Guard
      * @param  string  $method
      * @param  array  $parameters
      *
-     * @return mixed
-     *
      * @throws \BadMethodCallException
+     *
+     * @return mixed
      */
     public function __call($method, $parameters)
     {
