@@ -20,9 +20,9 @@ class Utils
      *
      * @return \Carbon\Carbon
      */
-    public static function now($tz = 'UTC')
+    public static function now()
     {
-        return Carbon::now($tz);
+        return Carbon::now('UTC');
     }
 
     /**
@@ -34,7 +34,7 @@ class Utils
      */
     public static function timestamp($timestamp)
     {
-        return Carbon::createFromTimeStampUTC($timestamp);
+        return Carbon::createFromTimeStampUTC($timestamp)->timezone('UTC');
     }
 
     /**
