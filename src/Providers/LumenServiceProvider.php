@@ -15,6 +15,7 @@ use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\QueryString;
+use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
 use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
