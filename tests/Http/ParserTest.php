@@ -221,7 +221,7 @@ class ParserTest extends AbstractTestCase
             new QueryString,
             new InputSource,
             new RouteParams,
-            new Cookies
+            new Cookies,
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
