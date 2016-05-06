@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Providers;
 
+use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\QueryString;
@@ -43,7 +44,9 @@ class LumenServiceProvider extends AbstractServiceProvider
         $this->app['tymon.jwt.parser']->setChain([
             new AuthHeaders,
             new QueryString,
+            new InputSource,
             new LumenRouteParams,
+            new Cookies
         ]);
     }
 }
