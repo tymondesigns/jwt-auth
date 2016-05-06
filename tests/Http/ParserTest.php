@@ -14,9 +14,10 @@ namespace Tymon\JWTAuth\Test\Http;
 use Mockery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
-use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
@@ -203,6 +204,24 @@ class ParserTest extends AbstractTestCase
             new QueryString,
             (new InputSource)->setKey('custom_token_key'),
             new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_a_cookie()
+    {
+        $request = Request::create('foo', 'POST', [], ['token' => 'foobar']);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            new RouteParams,
+            new Cookies
         ]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
