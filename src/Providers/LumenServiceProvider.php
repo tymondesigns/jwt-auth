@@ -45,7 +45,7 @@ class LumenServiceProvider extends AbstractServiceProvider
             new AuthHeaders,
             new QueryString,
             new InputSource,
-            new LumenRouteParams
+            new LumenRouteParams,
         ]);
     }
 }
