@@ -27,6 +27,11 @@ class RefreshToken extends BaseMiddleware
     {
         $response = $next($request);
 
+        //do not try to refresh a token if no token is set in request
+        if (!$this->auth->setRequest($request)->getToken()) {
+          return $response;
+        }
+
         try {
             $newToken = $this->auth->setRequest($request)->parseToken()->refresh();
         } catch (TokenExpiredException $e) {
