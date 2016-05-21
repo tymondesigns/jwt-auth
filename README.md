@@ -1,4 +1,4 @@
-[![Beerpay](https://beerpay.io/tymondesigns/jwt-auth/badge.svg?style=flat-square)](https://beerpay.io/tymondesigns/jwt-auth)
+
 ![jwt-auth-banner](https://cloud.githubusercontent.com/assets/1801923/9915273/119b9350-5cae-11e5-850b-c941cac60b32.png)
 
 [![Build Status](http://img.shields.io/travis/tymondesigns/jwt-auth/master.svg?style=flat-square)](https://travis-ci.org/tymondesigns/jwt-auth)
@@ -36,4 +36,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[![Gratipay](https://img.shields.io/gratipay/tymondesigns.svg?style=flat-square)](https://gratipay.com/tymondesigns)
+[![Beerpay](https://beerpay.io/tymondesigns/jwt-auth/badge.svg?style=flat-square)](https://beerpay.io/tymondesigns/jwt-auth)
