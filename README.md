@@ -1,3 +1,4 @@
+
 ![jwt-auth-banner](https://cloud.githubusercontent.com/assets/1801923/9915273/119b9350-5cae-11e5-850b-c941cac60b32.png)
 
 [![Build Status](http://img.shields.io/travis/tymondesigns/jwt-auth/master.svg?style=flat-square)](https://travis-ci.org/tymondesigns/jwt-auth)
@@ -8,6 +9,7 @@
 [![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
 [![Latest Dev Version](https://img.shields.io/packagist/vpre/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth#dev-develop)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
+[![Dependency Status](https://www.versioneye.com/php/tymon:jwt-auth/dev-develop/badge?style=flat)](https://www.versioneye.com/php/tymon:jwt-auth/dev-develop)
 
 See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
 
@@ -35,4 +37,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[![Gratipay](https://img.shields.io/gratipay/tymondesigns.svg?style=flat-square)](https://gratipay.com/tymondesigns)
+[![Beerpay](https://beerpay.io/tymondesigns/jwt-auth/badge.svg?style=flat-square)](https://beerpay.io/tymondesigns/jwt-auth)
