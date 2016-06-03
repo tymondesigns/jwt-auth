@@ -191,7 +191,7 @@ class PayloadFactory
         $sub = array_get($this->claims, 'sub', '');
         $nbf = array_get($this->claims, 'nbf', '');
 
-        if (!is_string($sub)) {
+        if (! is_string($sub)) {
             $sub = json_encode($sub);
         }
 
