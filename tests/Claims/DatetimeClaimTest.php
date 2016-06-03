@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test\Validators;
+namespace Tymon\JWTAuth\Test\Claims;
 
 use Mockery;
 use DateTime;
@@ -134,4 +134,6 @@ class DatetimeClaimTest extends AbstractTestCase
 
         $this->assertEquals($payloadTimestamp, $payloadDatetime);
     }
+
+
 }

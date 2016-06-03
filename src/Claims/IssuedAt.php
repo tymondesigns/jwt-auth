@@ -21,4 +21,16 @@ class IssuedAt extends Claim
      * @var string
      */
     protected $name = 'iat';
+
+    /**
+     * Validate the claim.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function validate($value)
+    {
+        return $this->checkNotFuture($value);
+    }
 }
