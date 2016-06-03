@@ -54,7 +54,7 @@ class PayloadValidator extends AbstractValidator
      */
     protected function validateStructure(array $payload)
     {
-        if (count(array_diff_key($this->requiredClaims, array_keys($payload))) !== 0) {
+        if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
 
