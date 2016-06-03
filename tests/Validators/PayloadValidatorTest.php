@@ -116,19 +116,19 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->validator->check($payload);
     }
-    
+
     /** @test **/
     public function it_should_throw_an_exception_when_required_claims_are_missing()
     {
         $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
-        
+
         $payload = [
             'iss' => 'http://example.com',
             'foo' => 'bar',
             // these are inserted to check for regression to a previous bug
             // where the check would only compare keys of autoindexed name arrays
             // (There are enough to account for all of the required claims' indices)
-            'autoindexed', 
+            'autoindexed',
             'autoindexed',
             'autoindexed',
             'autoindexed',
@@ -136,7 +136,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
             'autoindexed',
             'autoindexed',
         ];
-        
+
         $this->validator->check($payload);
     }
 }

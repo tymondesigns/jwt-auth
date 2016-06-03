@@ -61,22 +61,22 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
-    
+
     /** @test **/
     public function it_should_check_custom_claim_keys_accurately_and_accept_numeric_claims()
     {
         $this->validator->shouldReceive('setRefreshFlow->check');
-        
+
         $this->claimFactory->shouldReceive('get')->once()->with('iss', Mockery::any())->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('exp', 123 + 3600)->andReturn(new Expiration(123 + 3600));
         $this->claimFactory->shouldReceive('get')->once()->with('iat', 123)->andReturn(new IssuedAt(123));
         $this->claimFactory->shouldReceive('get')->once()->with('jti', Mockery::any())->andReturn(new JwtId('foo'));
         $this->claimFactory->shouldReceive('get')->once()->with('nbf', 123)->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('get')->once()->with(1, 'claim one')->andReturn(new Custom(1, 'claim one'));
-        
+
         $payload = $this->factory->make([1 => 'claim one']);
-        
-        // if the checker doesn't compare defaults properly, numeric-keyed claims might be ignored 
+
+        // if the checker doesn't compare defaults properly, numeric-keyed claims might be ignored
         $this->assertEquals('claim one', $payload->get(1));
         // iat is $defaultClaims[1], so verify it wasn't skipped due to a bad k-v comparison
         $this->assertEquals(123, $payload->get('iat'));
