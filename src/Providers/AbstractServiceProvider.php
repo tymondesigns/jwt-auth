@@ -73,7 +73,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function extendAuthGuard()
     {
         $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
-
             $guard = new JwtGuard(
                 $app['tymon.jwt'],
                 $app['auth']->createUserProvider($config['provider']),
@@ -153,7 +152,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerManager()
     {
         $this->app->singleton('tymon.jwt.manager', function ($app) {
-
             $instance = new Manager(
                 $app['tymon.jwt.provider.jwt'],
                 $app['tymon.jwt.blacklist'],
