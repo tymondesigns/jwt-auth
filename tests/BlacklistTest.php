@@ -18,7 +18,7 @@ use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
-use Illuminate\Support\Collection;
+use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
@@ -49,7 +49,6 @@ class BlacklistTest extends AbstractTestCase
         $this->blacklist = new Blacklist($this->storage);
 
         $this->validator = Mockery::mock(PayloadValidator::class);
-        $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
     public function tearDown()
@@ -70,7 +69,12 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('add')->with('foo', ['valid_until' => $this->testNowTimestamp], 20161)->once();
         $this->blacklist->add($payload);
@@ -86,7 +90,11 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('forever')->with('foo', 'forever')->once();
         $this->blacklist->add($payload);
@@ -103,7 +111,11 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator, true);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator, true);
 
         $this->storage->shouldReceive('add')->with('foo', ['valid_until' => $this->testNowTimestamp], 20161)->once();
         $this->assertTrue($this->blacklist->add($payload));
@@ -120,7 +132,12 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => $this->testNowTimestamp]);
 
@@ -138,7 +155,11 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn('forever');
 
@@ -156,7 +177,11 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(null);
 
@@ -174,7 +199,11 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('destroy')->with('foobar')->andReturn(true);
         $this->assertTrue($this->blacklist->remove($payload));
@@ -191,7 +220,11 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
 
         $this->storage->shouldReceive('get')->with(1)->once()->andReturn(['valid_until' => $this->testNowTimestamp]);
 

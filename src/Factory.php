@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;
@@ -47,7 +48,7 @@ class Factory
     /**
      * @var array
      */
-    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
+    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'sub'];
 
     /**
      * @var \Tymon\JWTAuth\Claims\Collection
@@ -127,11 +128,17 @@ class Factory
 
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
-            $this->addClaim($claim, $this->$claim());
+            $this->addClaim($claim, $this->claimFactory->make($claim));
         }
 
         // add custom claims on top, allowing them to overwrite defaults
         $this->addClaims($this->getCustomClaims());
+
+        // add the jti last since it is based on all other claims,
+        // but only if it hasn't already been added.
+        if (! $this->claims->has('jti')) {
+            $this->addClaim('jti', $this->jti());
+        }
 
         return $this;
     }
@@ -139,65 +146,25 @@ class Factory
     /**
      * Build out the Claim DTO's.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Tymon\JWTAuth\Claims\Collection
      */
     protected function resolveClaims()
     {
         return $this->claims->map(function ($value, $name) {
-            return $this->claimFactory->get($name, $value);
+            return $value instanceof Claim ? $value : $this->claimFactory->get($name, $value);
         });
     }
 
     /**
      * Get a Payload instance with a claims collection.
      *
-     * @param  \Illuminate\Support\Collection  $claims
+     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      *
      * @return \Tymon\JWTAuth\Payload
      */
     public function withClaims(Collection $claims)
     {
         return new Payload($claims, $this->validator, $this->refreshFlow);
-    }
-
-    /**
-     * Get the Issuer (iss) claim.
-     *
-     * @return string
-     */
-    public function iss()
-    {
-        return $this->request->url();
-    }
-
-    /**
-     * Get the Issued At (iat) claim.
-     *
-     * @return int
-     */
-    public function iat()
-    {
-        return Utils::now()->getTimestamp();
-    }
-
-    /**
-     * Get the Expiration (exp) claim.
-     *
-     * @return int
-     */
-    public function exp()
-    {
-        return Utils::now()->addMinutes($this->ttl)->getTimestamp();
-    }
-
-    /**
-     * Get the Not Before (nbf) claim.
-     *
-     * @return int
-     */
-    public function nbf()
-    {
-        return Utils::now()->getTimestamp();
     }
 
     /**
@@ -208,44 +175,6 @@ class Factory
     protected function jti()
     {
         return md5(sprintf('%s.%s', $this->claims->toJson(), Str::quickRandom()));
-    }
-
-    /**
-     * Set the request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return $this
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
-    /**
-     * Set the token ttl (in minutes).
-     *
-     * @param  int  $ttl
-     *
-     * @return $this
-     */
-    public function setTTL($ttl)
-    {
-        $this->ttl = $ttl;
-
-        return $this;
-    }
-
-    /**
-     * Get the token ttl.
-     *
-     * @return int
-     */
-    public function getTTL()
-    {
-        return $this->ttl;
     }
 
     /**

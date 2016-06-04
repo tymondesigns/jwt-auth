@@ -17,11 +17,11 @@ use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
-use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
@@ -41,18 +41,20 @@ class PayloadTest extends AbstractTestCase
         parent::setUp();
 
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
         ];
 
-        $this->validator = Mockery::mock(PayloadValidator::class);
-        $this->validator->shouldReceive('setRefreshFlow->check');
+        $collection = Collection::make($claims);
 
-        $this->payload = new Payload(Collection::make($claims), $this->validator);
+        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $this->payload = new Payload($collection, $this->validator);
     }
 
     public function tearDown()

@@ -11,8 +11,30 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Support\Utils;
+
 class Factory
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+
+    /**
+     * @var int
+     */
+    protected $ttl = 60;
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     /**
      * @var array
      */
@@ -53,5 +75,95 @@ class Factory
     public function has($name)
     {
         return array_key_exists($name, self::$classMap);
+    }
+
+    /**
+     * Generate the initial value and return the Claim instance.
+     *
+     * @param  string  $name
+     *
+     * @return \Tymon\JWTAuth\Claims\Claim
+     */
+    public function make($name)
+    {
+        return $this->get($name, $this->$name);
+    }
+
+    /**
+     * Get the Issuer (iss) claim.
+     *
+     * @return string
+     */
+    public function iss()
+    {
+        return $this->request->url();
+    }
+
+    /**
+     * Get the Issued At (iat) claim.
+     *
+     * @return int
+     */
+    public function iat()
+    {
+        return Utils::now()->getTimestamp();
+    }
+
+    /**
+     * Get the Expiration (exp) claim.
+     *
+     * @return int
+     */
+    public function exp()
+    {
+        return Utils::now()->addMinutes($this->ttl)->getTimestamp();
+    }
+
+    /**
+     * Get the Not Before (nbf) claim.
+     *
+     * @return int
+     */
+    public function nbf()
+    {
+        return Utils::now()->getTimestamp();
+    }
+
+    /**
+     * Set the request instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Set the token ttl (in minutes).
+     *
+     * @param  int  $ttl
+     *
+     * @return $this
+     */
+    public function setTTL($ttl)
+    {
+        $this->ttl = $ttl;
+
+        return $this;
+    }
+
+    /**
+     * Get the token ttl.
+     *
+     * @return int
+     */
+    public function getTTL()
+    {
+        return $this->ttl;
     }
 }

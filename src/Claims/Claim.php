@@ -107,8 +107,6 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
     /**
      * Validate the Claim within a Payload context.
      *
-     * @param  mixed  $value
-     *
      * @return bool
      */
     public function validatePayload()
@@ -119,11 +117,11 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
     /**
      * Validate the Claim within a refresh context.
      *
-     * @param  mixed  $value
+     * @param  int  $refreshTTL
      *
      * @return bool
      */
-    public function validateRefresh()
+    public function validateRefresh($refreshTTL)
     {
         return $this->getValue();
     }

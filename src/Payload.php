@@ -18,7 +18,7 @@ use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Claim;
-use Illuminate\Support\Collection;
+use Tymon\JWTAuth\Claims\Collection;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
@@ -29,14 +29,14 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     /**
      * The collection of claims.
      *
-     * @var \Illuminate\Support\Collection
+     * @var \Tymon\JWTAuth\Claims\Collection
      */
     private $claims;
 
     /**
      * Build the Payload.
      *
-     * @param  \Illuminate\Support\Collection  $claims
+     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param  bool  $refreshFlow
      *
@@ -50,7 +50,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     /**
      * Get the array of claim instances.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Tymon\JWTAuth\Claims\Collection
      */
     public function getClaims()
     {
@@ -122,7 +122,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function toArray()
     {
-        $this->claims->toClaimsArray();
+        $this->claims->toPlainArray();
     }
 
     /**

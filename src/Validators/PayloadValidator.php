@@ -62,7 +62,7 @@ class PayloadValidator extends Validator
     /**
      * Validate the payload timestamps.
      *
-     * @param  array  $payload
+     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
@@ -77,23 +77,15 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  array  $payload
+     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
-     * @return bool
+     * @return \Tymon\JWTAuth\Claims\Collection
      */
     protected function validateRefresh($claims)
     {
-        if ($this->refreshTTL === null) {
-            return true;
-        }
-
-        if (isset($payload['iat']) && Utils::isPast($payload['iat'] + $this->refreshTTL * 60)) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
-        }
-
-        return true;
+        return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
 
     /**

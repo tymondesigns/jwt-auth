@@ -21,13 +21,15 @@ class Collection extends IlluminateCollection
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getByClaimName()
+    public function getByClaimName($name)
     {
-        //
+        return $this->filter(function ($claim) use ($name) {
+            return $claim->getName() === $name;
+        })->first();
     }
 
     /**
-     * Validate each Claim under a given context.
+     * Validate each claim under a given context.
      *
      * @param  string  $context
      *
@@ -36,7 +38,10 @@ class Collection extends IlluminateCollection
     public function validate($context = 'payload')
     {
         $this->each(function ($claim) {
-            call_user_func([$claim, 'validate'.Str::ucfirst($context)]);
+            call_user_func_array(
+                [$claim, 'validate'.Str::ucfirst($context)],
+                array_shift(func_get_arg())
+            );
         });
 
         return $this;
@@ -47,12 +52,10 @@ class Collection extends IlluminateCollection
      *
      * @return array
      */
-    public function toClaimsArray()
+    public function toPlainArray()
     {
-        $claims = $this->map(function ($claim) {
+        return $this->map(function ($claim) {
             return $claim->getValue();
-        });
-
-        return $claims->toArray();
+        })->toArray();
     }
 }
