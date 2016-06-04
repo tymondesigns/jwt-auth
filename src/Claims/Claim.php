@@ -53,11 +53,7 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
      */
     public function setValue($value)
     {
-        if (! $this->validate($value)) {
-            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
-        }
-
-        $this->value = $value;
+        $this->value = $this->validateCreate($value);
 
         return $this;
     }
@@ -97,15 +93,39 @@ abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
     }
 
     /**
-     * Validate the Claim value.
+     * Validate the claim in a standalone Claim context.
      *
      * @param  mixed  $value
      *
      * @return bool
      */
-    public function validate($value)
+    public function validateCreate($value)
     {
-        return true;
+        return $value;
+    }
+
+    /**
+     * Validate the Claim within a Payload context.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function validatePayload()
+    {
+        return $this->getValue();
+    }
+
+    /**
+     * Validate the Claim within a refresh context.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function validateRefresh()
+    {
+        return $this->getValue();
     }
 
     /**

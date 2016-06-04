@@ -11,6 +11,10 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
 class NotBefore extends Claim
 {
     use DatetimeTrait;
@@ -23,14 +27,24 @@ class NotBefore extends Claim
     protected $name = 'nbf';
 
     /**
-     * Validate the claim.
-     *
-     * @param  mixed  $value
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function validate($value)
+    public function validateCreate($value)
     {
-        return $this->checkNotFuture($value);
+        if (! is_numeric($value) || $this->isFuture($value)) {
+            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validatePayload()
+    {
+        if ($this->isFuture($this->getValue())) {
+            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
+        }
     }
 }

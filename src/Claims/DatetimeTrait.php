@@ -35,50 +35,26 @@ trait DatetimeTrait
     }
 
     /**
-     * Determine whether the value is numeric
+     * Determine whether the value is in the future
      *
      * @param  mixed  $value
      *
      * @return bool
      */
-    protected function checkNumeric($value)
+    protected function isFuture($value)
     {
-        return is_numeric($value);
+        return Utils::isFuture($value);
     }
 
     /**
-     * Determine whether the value is not in the future
+     * Determine whether the value is in the past
      *
      * @param  mixed  $value
      *
      * @return bool
      */
-    protected function checkNotFuture($value)
+    protected function isPast($value)
     {
-        return $this->checkNumeric($value) && ! Utils::isFuture($value);
-    }
-
-    /**
-     * Determine whether the value is not in the past
-     *
-     * @param  mixed  $value
-     *
-     * @return bool
-     */
-    protected function checkNotPast($value)
-    {
-        return $this->checkNumeric($value) && ! Utils::isPast($value);
-    }
-
-    /**
-     * Validate the claim.
-     *
-     * @param  mixed  $value
-     *
-     * @return bool
-     */
-    public function validate($value)
-    {
-        return $this->checkNumeric($value);
+        return Utils::isPast($value);
     }
 }

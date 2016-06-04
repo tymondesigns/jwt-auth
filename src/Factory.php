@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Support\Utils;
-use Illuminate\Support\Collection;
+use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -50,7 +50,7 @@ class Factory
     protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
 
     /**
-     * @var \Illuminate\Support\Collection
+     * @var \Tymon\JWTAuth\Claims\Collection
      */
     protected $claims;
 

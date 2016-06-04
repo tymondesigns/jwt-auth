@@ -44,9 +44,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
-        $this->claims = $claims;
-
-        $validator->setRefreshFlow($refreshFlow)->check($this->toArray());
+        $this->claims = $validator->setRefreshFlow($refreshFlow)->check($claims);
     }
 
     /**
@@ -82,6 +80,18 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
+     * Get the underlying Claim instance.
+     *
+     * @param  string  $claim
+     *
+     * @return \Tymon\JWTAuth\Claims\Claim
+     */
+    public function getInternal($claim)
+    {
+        return $this->claims->getByClaimName($claim);
+    }
+
+    /**
      * Determine whether the payload has the claim (by instance).
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
@@ -112,11 +122,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function toArray()
     {
-        $collection = $this->claims->map(function (Claim $claim) {
-            return $claim->getValue();
-        });
-
-        return $collection->toArray();
+        $this->claims->toClaimsArray();
     }
 
     /**

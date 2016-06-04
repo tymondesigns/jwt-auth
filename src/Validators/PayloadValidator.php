@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Support\Utils;
+use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -38,30 +39,24 @@ class PayloadValidator extends Validator
     {
         $this->validateStructure($value);
 
-        if (! $this->refreshFlow) {
-            $this->validateTimestamps($value);
-        } else {
-            $this->validateRefresh($value);
-        }
+        return $this->refreshFlow ? $this->validateRefresh($value) : $this->validatePayload($value);
     }
 
     /**
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param  array  $payload
+     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
      * @return bool
      */
-    protected function validateStructure(array $payload)
+    protected function validateStructure(Collection $claims)
     {
-        if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
-            throw new TokenInvalidException('JWT payload does not contain the required claims');
-        }
-
-        return true;
+        // if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
+            // throw new TokenInvalidException('JWT payload does not contain the required claims');
+        // }
     }
 
     /**
@@ -72,23 +67,11 @@ class PayloadValidator extends Validator
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return bool
+     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validateTimestamps(array $payload)
+    protected function validatePayload($claims)
     {
-        if (isset($payload['nbf']) && Utils::isFuture($payload['nbf'])) {
-            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
-        }
-
-        if (isset($payload['iat']) && Utils::isFuture($payload['iat'])) {
-            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
-        }
-
-        if (isset($payload['exp']) && Utils::isPast($payload['exp'])) {
-            throw new TokenExpiredException('Token has expired');
-        }
-
-        return true;
+        return $claims->validate('payload');
     }
 
     /**
@@ -100,7 +83,7 @@ class PayloadValidator extends Validator
      *
      * @return bool
      */
-    protected function validateRefresh(array $payload)
+    protected function validateRefresh($claims)
     {
         if ($this->refreshTTL === null) {
             return true;
