@@ -90,7 +90,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function has(Claim $claim)
     {
-        return in_array($claim, $this->claims->toArray());
+        return $this->claims->has($claim->getName());
     }
 
     /**
