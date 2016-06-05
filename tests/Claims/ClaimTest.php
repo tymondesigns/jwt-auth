@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test\Claims;
 
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Illuminate\Contracts\Support\Arrayable;
 
 class ClaimTest extends AbstractTestCase
 {
@@ -53,5 +54,11 @@ class ClaimTest extends AbstractTestCase
     public function it_should_get_the_object_as_json()
     {
         $this->assertJsonStringEqualsJsonString(json_encode($this->claim), $this->claim->toJson());
+    }
+
+    /** @test */
+    public function it_should_implement_arrayable()
+    {
+        $this->assertInstanceOf(Arrayable::class, $this->claim);
     }
 }
