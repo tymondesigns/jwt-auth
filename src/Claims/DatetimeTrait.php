@@ -35,7 +35,7 @@ trait DatetimeTrait
     }
 
     /**
-     * Determine whether the value is in the future
+     * Determine whether the value is in the future.
      *
      * @param  mixed  $value
      *
@@ -47,7 +47,7 @@ trait DatetimeTrait
     }
 
     /**
-     * Determine whether the value is in the past
+     * Determine whether the value is in the past.
      *
      * @param  mixed  $value
      *
