@@ -21,11 +21,11 @@ class Collection extends IlluminateCollection
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getByClaimName($name)
+    public function getByClaimName($name, callable $callback = null, $default = null)
     {
         return $this->filter(function ($claim) use ($name) {
             return $claim->getName() === $name;
-        })->first();
+        })->first($callback, $default);
     }
 
     /**
@@ -40,7 +40,7 @@ class Collection extends IlluminateCollection
         $this->each(function ($claim) {
             call_user_func_array(
                 [$claim, 'validate'.Str::ucfirst($context)],
-                array_shift(func_get_arg())
+                array_shift(func_get_args())
             );
         });
 
