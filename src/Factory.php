@@ -48,7 +48,7 @@ class Factory
     /**
      * @var array
      */
-    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'sub'];
+    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf'];
 
     /**
      * @var \Tymon\JWTAuth\Claims\Collection
