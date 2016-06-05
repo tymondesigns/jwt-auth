@@ -19,6 +19,10 @@ class Collection extends IlluminateCollection
     /**
      * Get a Claim instance by it's unique name.
      *
+     * @param  string  $name
+     * @param  callable  $callback
+     * @param  mixed  $default
+     *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
     public function getByClaimName($name, callable $callback = null, $default = null)

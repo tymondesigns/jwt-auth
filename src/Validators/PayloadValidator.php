@@ -50,13 +50,13 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return bool
+     * @return void
      */
     protected function validateStructure(Collection $claims)
     {
-        // if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
-            // throw new TokenInvalidException('JWT payload does not contain the required claims');
-        // }
+        if (count(array_diff($this->requiredClaims, array_keys($claims->toPlainArray()))) !== 0) {
+            throw new TokenInvalidException('JWT payload does not contain the required claims');
+        }
     }
 
     /**
@@ -69,7 +69,7 @@ class PayloadValidator extends Validator
      *
      * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validatePayload($claims)
+    protected function validatePayload(Collection $claims)
     {
         return $claims->validate('payload');
     }
@@ -83,7 +83,7 @@ class PayloadValidator extends Validator
      *
      * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validateRefresh($claims)
+    protected function validateRefresh(Collection $claims)
     {
         return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
