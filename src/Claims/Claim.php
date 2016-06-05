@@ -13,10 +13,11 @@ namespace Tymon\JWTAuth\Claims;
 
 use JsonSerializable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim implements ClaimContract, Jsonable, JsonSerializable
+abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
 {
     /**
      * The claim name.
