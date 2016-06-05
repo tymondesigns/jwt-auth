@@ -132,7 +132,7 @@ class BlacklistTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foobar'),
         ];
-        
+
         $collection = Collection::make($claims);
 
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
