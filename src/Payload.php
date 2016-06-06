@@ -73,10 +73,10 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
             return false;
         }
 
-        $claims = new Collection($this->getClaims()->toArray());
+        $claims = $this->getClaims();
 
         foreach ($values as $key => $value) {
-            if ($claims->where($key, $value, $strict)->isEmpty()) {
+            if (! $claims->has($key) || ! $claims->get($key)->matches($value, $strict)) {
                 return false;
             }
         }

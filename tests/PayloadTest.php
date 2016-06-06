@@ -216,23 +216,6 @@ class PayloadTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_match_values_for_dotted_keys()
-    {
-        $this->payload = $this->getTestPayload([
-            'foo' => new Foo([
-                'foo' => 'bar',
-                'bar' => 123,
-            ]),
-        ]);
-
-        $this->assertTrue($this->payload->matchesStrict(['foo.foo' => 'bar', 'foo.bar' => 123]));
-        $this->assertFalse($this->payload->matchesStrict(['foo.foo' => 'bar', 'foo.bar' => '123']));
-
-        $this->assertTrue($this->payload->matches(['foo.foo' => 'bar', 'foo.bar' => 123]));
-        $this->assertFalse($this->payload->matches(['foo.foo' => 'bar', 'foo.bar' => 456]));
-    }
-
-    /** @test */
     public function it_should_match_strict_values()
     {
         $values = $this->payload->toArray();
