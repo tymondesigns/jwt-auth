@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Test\Claims;
 
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
