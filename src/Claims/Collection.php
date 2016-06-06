@@ -17,6 +17,35 @@ use Illuminate\Support\Collection as IlluminateCollection;
 class Collection extends IlluminateCollection
 {
     /**
+     * {@inheritdoc}
+     */
+    public function __construct($items = [])
+    {
+        parent::__construct($this->sanitizeClaims($items));
+    }
+
+    /**
+     * Ensure that the given claims array is keyed by the claim name.
+     *
+     * @param  mixed  $items
+     *
+     * @return array
+     */
+    private function sanitizeClaims($items)
+    {
+        if (array_keys($items) === range(0, count($items) - 1)) {
+            $claims = [];
+            foreach ($items as $value) {
+                $claims[$value->getName()] = $value;
+            }
+
+            return $claims;
+        }
+
+        return $items;
+    }
+
+    /**
      * Get a Claim instance by it's unique name.
      *
      * @param  string  $name
@@ -49,6 +78,18 @@ class Collection extends IlluminateCollection
         });
 
         return $this;
+    }
+
+    /**
+     * Determine of the Collection contains all of the given keys.
+     *
+     * @param  array  $claims
+     *
+     * @return bool
+     */
+    public function hasAllClaims($claims)
+    {
+        return count(array_diff(array_keys($this->toArray()), $claims)) === 0;
     }
 
     /**
