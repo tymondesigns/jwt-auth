@@ -29,7 +29,7 @@ class PayloadValidator extends Validator
     /**
      * Run the validations on the payload array.
      *
-     * @param  array  $value
+     * @param  \Tymon\JWTAuth\Claims\Collection  $value
      *
      * @return void
      */
@@ -48,7 +48,7 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return void
+     * @return \Tymon\JWTAuth\Claims\Collection
      */
     protected function validateStructure(Collection $claims)
     {
