@@ -22,6 +22,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Claims\Collection;
+use Tymon\JWTAuth\Test\Fixtures\Foo;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
@@ -40,6 +41,16 @@ class PayloadTest extends AbstractTestCase
     {
         parent::setUp();
 
+        $this->payload = $this->getTestPayload();
+    }
+
+    /**
+     * @param  array  $extraClaims
+     *
+     * @return \Tymon\JWTAuth\Payload
+     */
+    private function getTestPayload(array $extraClaims = [])
+    {
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -49,12 +60,16 @@ class PayloadTest extends AbstractTestCase
             new JwtId('foo'),
         ];
 
+        if ($extraClaims) {
+            $claims = array_merge($claims, $extraClaims);
+        }
+
         $collection = Collection::make($claims);
 
         $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
 
-        $this->payload = new Payload($collection, $this->validator);
+        return new Payload($collection, $this->validator);
     }
 
     public function tearDown()
@@ -191,5 +206,56 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame(6, $this->payload->count());
         $this->assertSame(6, count($this->payload));
         $this->assertCount(6, $this->payload);
+    }
+
+    /** @test */
+    public function it_should_match_values()
+    {
+        $values = $this->payload->toArray();
+        $values['sub'] = (string) $values['sub'];
+
+        $this->assertTrue($this->payload->matches($values));
+    }
+
+    /** @test */
+    public function it_should_match_strict_values()
+    {
+        $values = $this->payload->toArray();
+
+        $this->assertTrue($this->payload->matchesStrict($values));
+        $this->assertTrue($this->payload->matches($values, true));
+    }
+
+    /** @test */
+    public function it_should_not_match_empty_values()
+    {
+        $this->assertFalse($this->payload->matches([]));
+    }
+
+    /** @test */
+    public function it_should_not_match_values()
+    {
+        $values = $this->payload->toArray();
+        $values['sub'] = 'dummy_subject';
+
+        $this->assertFalse($this->payload->matches($values));
+    }
+
+    /** @test */
+    public function it_should_not_match_strict_values()
+    {
+        $values = $this->payload->toArray();
+        $values['sub'] = (string) $values['sub'];
+
+        $this->assertFalse($this->payload->matchesStrict($values));
+        $this->assertFalse($this->payload->matches($values, true));
+    }
+
+    /** @test */
+    public function it_should_not_match_a_non_existing_claim()
+    {
+        $values = ['foo' => 'bar'];
+
+        $this->assertFalse($this->payload->matches($values));
     }
 }

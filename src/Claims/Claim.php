@@ -127,6 +127,19 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
+     * Checks if the value matches the claim.
+     *
+     * @param  mixed  $value
+     * @param  bool  $strict
+     *
+     * @return bool
+     */
+    public function matches($value, $strict = true)
+    {
+        return $strict ? $this->value === $value : $this->value == $value;
+    }
+
+    /**
      * Convert the object into something JSON serializable.
      *
      * @return array
