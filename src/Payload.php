@@ -60,6 +60,43 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
     }
 
     /**
+     * Checks if a payload matches some expected values.
+     *
+     * @param  array  $values
+     * @param  bool  $strict
+     *
+     * @return bool
+     */
+    public function matches(array $values, $strict = false)
+    {
+        if (empty($values)) {
+            return false;
+        }
+
+        $claims = $this->getClaims();
+
+        foreach ($values as $key => $value) {
+            if (! $claims->has($key) || ! $claims->get($key)->matches($value, $strict)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if a payload strictly matches some expected values.
+     *
+     * @param  array  $values
+     *
+     * @return bool
+     */
+    public function matchesStrict(array $values)
+    {
+        return $this->matches($values, true);
+    }
+
+    /**
      * Get the payload.
      *
      * @param  mixed  $claim
