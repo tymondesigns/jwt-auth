@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Expiration extends Claim
@@ -24,18 +23,6 @@ class Expiration extends Claim
      * @var string
      */
     protected $name = 'exp';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateCreate($value)
-    {
-        if (! is_numeric($value)) {
-            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
-        }
-
-        return $value;
-    }
 
     /**
      * {@inheritdoc}

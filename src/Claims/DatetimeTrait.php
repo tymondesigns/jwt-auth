@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Claims;
 
 use DateTimeInterface;
 use Tymon\JWTAuth\Support\Utils;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 trait DatetimeTrait
 {
@@ -32,6 +33,18 @@ trait DatetimeTrait
         }
 
         return parent::setValue($value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateCreate($value)
+    {
+        if (! is_numeric($value)) {
+            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
+        }
+
+        return $value;
     }
 
     /**
