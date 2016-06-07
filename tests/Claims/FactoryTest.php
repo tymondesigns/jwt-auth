@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -32,7 +33,7 @@ class FactoryTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->factory = new Factory;
+        $this->factory = new Factory(Request::create('/foo', 'GET'));
     }
 
     /** @test */

@@ -70,10 +70,13 @@ class Collection extends IlluminateCollection
      */
     public function validate($context = 'payload')
     {
-        $this->each(function ($claim) {
+        $args = func_get_args();
+        array_shift($args);
+
+        $this->each(function ($claim) use ($context, $args) {
             call_user_func_array(
                 [$claim, 'validate'.Str::ucfirst($context)],
-                array_shift(func_get_args())
+                $args
             );
         });
 

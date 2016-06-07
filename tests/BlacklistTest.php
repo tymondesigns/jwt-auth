@@ -62,12 +62,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_add_a_valid_token_to_the_blacklist()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
         ];
 
         $collection = Collection::make($claims);
@@ -84,11 +84,11 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_add_a_token_with_no_exp_to_the_blacklist_forever()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
         ];
         $collection = Collection::make($claims);
 
@@ -104,12 +104,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_return_true_when_adding_an_expired_token_to_the_blacklist()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp - 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp - 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
         ];
         $collection = Collection::make($claims);
 
@@ -125,12 +125,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_check_whether_a_token_has_been_blacklisted()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foobar'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foobar'),
         ];
 
         $collection = Collection::make($claims);
@@ -148,12 +148,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_check_whether_a_token_has_been_blacklisted_forever()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foobar'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foobar'),
         ];
         $collection = Collection::make($claims);
 
@@ -170,12 +170,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_check_whether_a_token_has_been_blacklisted_when_the_token_is_not_blacklisted()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foobar'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foobar'),
         ];
         $collection = Collection::make($claims);
 
@@ -192,12 +192,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_remove_a_token_from_the_blacklist()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foobar'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foobar'),
         ];
         $collection = Collection::make($claims);
 
@@ -213,12 +213,12 @@ class BlacklistTest extends AbstractTestCase
     public function it_should_set_a_custom_unique_key_for_the_blacklist()
     {
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foobar'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foobar'),
         ];
         $collection = Collection::make($claims);
 

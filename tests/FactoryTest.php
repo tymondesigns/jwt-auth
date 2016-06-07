@@ -49,7 +49,7 @@ class FactoryTest extends AbstractTestCase
 
         $this->claimFactory = Mockery::mock(ClaimFactory::class);
         $this->validator = Mockery::mock(PayloadValidator::class);
-        $this->factory = new Factory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
+        $this->factory = new Factory($this->claimFactory, $this->validator);
     }
 
     public function tearDown()

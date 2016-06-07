@@ -30,11 +30,6 @@ class Factory
     protected $claimFactory;
 
     /**
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
-
-    /**
      * @var \Tymon\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
@@ -56,15 +51,13 @@ class Factory
 
     /**
      * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      *
      * @return void
      */
-    public function __construct(ClaimFactory $claimFactory, Request $request, PayloadValidator $validator)
+    public function __construct(ClaimFactory $claimFactory, PayloadValidator $validator)
     {
         $this->claimFactory = $claimFactory;
-        $this->request = $request;
         $this->validator = $validator;
 
         $this->claims = new Collection;

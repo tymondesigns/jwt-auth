@@ -159,7 +159,7 @@ class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Cou
      */
     public function toArray()
     {
-        $this->claims->toPlainArray();
+        return $this->claims->toPlainArray();
     }
 
     /**
