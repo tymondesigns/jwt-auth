@@ -163,18 +163,19 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_get_payload_with_a_predefined_collection_of_claims()
     {
-        $this->validator->shouldReceive('setRefreshFlow->check');
-
         $claims = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
-            'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
         ];
 
-        $payload = $this->factory->withClaims(Collection::make($claims));
+        $collection = Collection::make($claims);
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = $this->factory->withClaims($collection);
 
         $this->assertInstanceOf(Payload::class, $payload);
         $this->assertSame($payload->get('sub'), 1);

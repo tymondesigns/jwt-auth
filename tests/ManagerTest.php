@@ -64,7 +64,6 @@ class ManagerTest extends AbstractTestCase
         $this->manager = new Manager($this->jwt, $this->blacklist, $this->factory);
 
         $this->validator = Mockery::mock(PayloadValidator::class);
-        $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
     public function tearDown()
@@ -85,7 +84,11 @@ class ManagerTest extends AbstractTestCase
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
 
         $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('foo.bar.baz');
 
@@ -105,7 +108,11 @@ class ManagerTest extends AbstractTestCase
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
+
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -135,7 +142,10 @@ class ManagerTest extends AbstractTestCase
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -160,7 +170,10 @@ class ManagerTest extends AbstractTestCase
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator, true);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -191,7 +204,10 @@ class ManagerTest extends AbstractTestCase
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
@@ -218,7 +234,10 @@ class ManagerTest extends AbstractTestCase
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
-        $payload = new Payload(Collection::make($claims), $this->validator);
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
         $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
