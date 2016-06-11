@@ -149,6 +149,18 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Invalidate the token.
+     *
+     * @param  bool  $forceForever
+     *
+     * @return bool
+     */
+    public function invalidate($forceForever = false)
+    {
+        return $this->requireToken()->invalidate($forceForever);
+    }
+
+    /**
      * Create a new token by User id.
      *
      * @param  mixed  $id
