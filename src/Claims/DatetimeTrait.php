@@ -41,7 +41,7 @@ trait DatetimeTrait
     public function validateCreate($value)
     {
         if (! is_numeric($value)) {
-            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
+            throw new InvalidClaimException($this);
         }
 
         return $value;

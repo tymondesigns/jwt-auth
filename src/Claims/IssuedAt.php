@@ -32,7 +32,7 @@ class IssuedAt extends Claim
     public function validateCreate($value)
     {
         if (! is_numeric($value) || $this->isFuture($value)) {
-            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
+            throw new InvalidClaimException($this);
         }
 
         return $value;
