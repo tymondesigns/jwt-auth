@@ -49,7 +49,7 @@ class JWTGenerateSecretCommand extends Command
 
             // check if there is already a secret set first
             if (! Str::contains(file_get_contents($path), 'JWT_SECRET')) {
-                file_put_contents($path, "\r\nJWT_SECRET=$key", FILE_APPEND);
+                file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
             } else {
 
                 // let's be sure you want to do this

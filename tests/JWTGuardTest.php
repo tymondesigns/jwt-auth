@@ -229,6 +229,18 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
+     * @group laravel-5.2
+     */
+    public function it_should_invalidate_the_token()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
+        $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
+
+        $this->assertTrue($this->guard->invalidate());
+    }
+
+    /**
+     * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
      * @group laravel-5.2
      */

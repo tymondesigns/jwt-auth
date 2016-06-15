@@ -37,4 +37,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[![Beerpay](https://beerpay.io/tymondesigns/jwt-auth/badge.svg?style=flat-square)](https://beerpay.io/tymondesigns/jwt-auth)
+[![Beerpay](https://beerpay.io/tymondesigns/jwt-auth/badge.svg)](https://beerpay.io/tymondesigns/jwt-auth)
