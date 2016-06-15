@@ -16,7 +16,6 @@ use Illuminate\Support\Collection as IlluminateCollection;
 
 class Collection extends IlluminateCollection
 {
-
     /**
      * Get a Claim instance by it's unique name.
      *
