@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
+use Exception;
 use Tymon\JWTAuth\Claims\Claim;
 
 class InvalidClaimException extends JWTException
