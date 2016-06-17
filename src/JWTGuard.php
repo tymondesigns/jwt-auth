@@ -115,6 +115,21 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Determine if the current user is authenticated.
+     *
+     * @return bool
+     */
+    public function check()
+    {
+        try {
+            $this->user();
+            return true;
+        } catch (UserNotDefinedException $e) {
+            return false;
+        }
+    }
+
+    /**
      * Create a token for a user.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
