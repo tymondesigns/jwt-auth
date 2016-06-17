@@ -109,7 +109,7 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
-    public function it_should_return_null_if_no_token_is_provided()
+    public function it_should_throw_an_exception_if_no_token_is_provided()
     {
         $this->expectException(UserNotDefinedException::class);
 

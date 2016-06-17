@@ -15,6 +15,7 @@ use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
+use October\Rain\Auth\Models\User;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
@@ -65,6 +66,7 @@ class JWTGuard implements Guard
      * Get the currently authenticated user.
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @throws UserNotDefinedException
      */
     public function user()
     {
@@ -78,7 +80,7 @@ class JWTGuard implements Guard
             return $this->user = $this->provider->retrieveById($id);
         }
 
-        throw new JWTException();
+        throw new UserNotDefinedException();
     }
 
     /**
