@@ -66,7 +66,7 @@ class JWTGuard implements Guard
      *
      * @throws UserNotDefinedException
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function user()
     {
