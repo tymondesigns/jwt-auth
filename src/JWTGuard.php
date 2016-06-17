@@ -123,7 +123,7 @@ class JWTGuard implements Guard
     {
         try {
             $this->user();
-            
+
             return true;
         } catch (UserNotDefinedException $e) {
             return false;
