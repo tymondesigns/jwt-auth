@@ -17,6 +17,7 @@ use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use Illuminate\Contracts\Auth\UserProvider;
 
 class JWTGuard implements Guard

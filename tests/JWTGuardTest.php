@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Payload;
@@ -91,15 +92,17 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      */
-    public function it_should_return_null_if_an_invalid_token_is_provided()
+    public function it_should_throw_an_exception_if_an_invalid_token_is_provided()
     {
+        $this->expectException(UserNotDefinedException::class);
+
         $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
         $this->jwt->shouldReceive('check')->twice()->andReturn(false);
         $this->jwt->shouldReceive('getPayload->get')->never();
         $this->provider->shouldReceive('retrieveById')->never();
 
-        $this->assertNull($this->guard->user()); // once
-        $this->assertFalse($this->guard->check()); // twice
+        $this->assertFalse($this->guard->check()); // once
+        $this->guard->user(); // twice, throws the exception
     }
 
     /**
@@ -108,13 +111,15 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_return_null_if_no_token_is_provided()
     {
+        $this->expectException(UserNotDefinedException::class);
+
         $this->jwt->shouldReceive('getToken')->andReturn(false);
         $this->jwt->shouldReceive('check')->never();
         $this->jwt->shouldReceive('getPayload->get')->never();
         $this->provider->shouldReceive('retrieveById')->never();
 
-        $this->assertNull($this->guard->user());
         $this->assertFalse($this->guard->check());
+        $this->guard->user(); // throws the exception
     }
 
     /**
