@@ -59,6 +59,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->registerJWT();
         $this->registerJWTAuth();
         $this->registerPayloadValidator();
+        $this->registerClaimFactory();
         $this->registerPayloadFactory();
         $this->registerJWTCommand();
 
@@ -242,6 +243,21 @@ abstract class AbstractServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the bindings for the Claim Factory.
+     *
+     * @return void
+     */
+    protected function registerClaimFactory()
+    {
+        $this->app->singleton('tymon.jwt.claim.factory', function ($app) {
+            $factory = new ClaimFactory($app['request']);
+            $app->refresh('request', $factory, 'setRequest');
+
+            return $factory->setTTL($this->config('ttl'));
+        });
+    }
+
+    /**
      * Register the bindings for the Payload Factory.
      *
      * @return void
@@ -249,15 +265,10 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerPayloadFactory()
     {
         $this->app->singleton('tymon.jwt.payload.factory', function ($app) {
-            $factory = new Factory(
-                new ClaimFactory,
-                $app['request'],
+            return new Factory(
+                $app['tymon.jwt.claim.factory'],
                 $app['tymon.jwt.validators.payload']
             );
-
-            $app->refresh('request', $factory, 'setRequest');
-
-            return $factory->setTTL($this->config('ttl'));
         });
     }
 
