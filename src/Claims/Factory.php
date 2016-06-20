@@ -27,19 +27,9 @@ class Factory
     protected $ttl = 60;
 
     /**
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return void
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    /**
      * @var array
      */
-    private static $classMap = [
+    private $classMap = [
         'aud' => Audience::class,
         'exp' => Expiration::class,
         'iat' => IssuedAt::class,
@@ -48,6 +38,16 @@ class Factory
         'nbf' => NotBefore::class,
         'sub' => Subject::class,
     ];
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     /**
      * Get the instance of the claim when passing the name and value.
@@ -60,7 +60,7 @@ class Factory
     public function get($name, $value)
     {
         if ($this->has($name)) {
-            return new self::$classMap[$name]($value);
+            return new $this->classMap[$name]($value);
         }
 
         return new Custom($name, $value);
@@ -75,7 +75,7 @@ class Factory
      */
     public function has($name)
     {
-        return array_key_exists($name, self::$classMap);
+        return array_key_exists($name, $this->classMap);
     }
 
     /**
@@ -128,6 +128,21 @@ class Factory
     public function nbf()
     {
         return Utils::now()->getTimestamp();
+    }
+
+    /**
+     * Add a new claim mapping.
+     *
+     * @param  string  $name
+     * @param  string  $classPath
+     *
+     * @return $this
+     */
+    public function extend($name, $classPath)
+    {
+        $this->classMap[$name] = $classPath;
+
+        return $this;
     }
 
     /**
