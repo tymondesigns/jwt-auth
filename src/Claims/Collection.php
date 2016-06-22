@@ -63,7 +63,8 @@ class Collection extends IlluminateCollection
      */
     public function hasAllClaims($claims)
     {
-        return $this->keys()->diffReverse($claims)->isEmpty();
+        // return $this->keys()->diffReverse($claims)->isEmpty();
+        return new static($claims)->diffKeys()->isEmpty();
     }
 
     /**
@@ -87,7 +88,7 @@ class Collection extends IlluminateCollection
     }
 
     /**
-     * Get the items in the given items that are not present in the collection.
+     * Get the items in the given claims that are not present in the collection.
      *
      * @param  mixed  $claims
      * 
