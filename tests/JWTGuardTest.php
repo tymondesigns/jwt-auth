@@ -90,6 +90,36 @@ class JWTGuardTest extends AbstractTestCase
     /**
      * @test
      * @group laravel-5.2
+     */
+    public function it_should_return_null_if_an_invalid_token_is_provided()
+    {
+        $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
+        $this->jwt->shouldReceive('check')->twice()->andReturn(false);
+        $this->jwt->shouldReceive('getPayload->get')->never();
+        $this->provider->shouldReceive('retrieveById')->never();
+
+        $this->assertNull($this->guard->user()); // once
+        $this->assertFalse($this->guard->check()); // twice
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_return_null_if_no_token_is_provided()
+    {
+        $this->jwt->shouldReceive('getToken')->andReturn(false);
+        $this->jwt->shouldReceive('check')->never();
+        $this->jwt->shouldReceive('getPayload->get')->never();
+        $this->provider->shouldReceive('retrieveById')->never();
+
+        $this->assertNull($this->guard->user());
+        $this->assertFalse($this->guard->check());
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
      * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
      */
     public function it_should_throw_an_exception_if_an_invalid_token_is_provided()
@@ -100,7 +130,7 @@ class JWTGuardTest extends AbstractTestCase
         $this->provider->shouldReceive('retrieveById')->never();
 
         $this->assertFalse($this->guard->check()); // once
-        $this->guard->user(); // twice, throws the exception
+        $this->guard->userOrFail(); // twice, throws the exception
     }
 
     /**
@@ -116,7 +146,7 @@ class JWTGuardTest extends AbstractTestCase
         $this->provider->shouldReceive('retrieveById')->never();
 
         $this->assertFalse($this->guard->check());
-        $this->guard->user(); // throws the exception
+        $this->guard->userOrFail(); // throws the exception
     }
 
     /**

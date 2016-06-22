@@ -64,8 +64,6 @@ class JWTGuard implements Guard
     /**
      * Get the currently authenticated user.
      *
-     * @throws UserNotDefinedException
-     *
      * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function user()
@@ -79,8 +77,22 @@ class JWTGuard implements Guard
 
             return $this->user = $this->provider->retrieveById($id);
         }
+    }
 
-        throw new UserNotDefinedException();
+    /**
+     * Get the currently authenticated user or throws an exception.
+     *
+     * @throws UserNotDefinedException
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function userOrFail()
+    {
+        if (!$user = $this->user()) {
+            throw new UserNotDefinedException;
+        }
+
+        return $user;
     }
 
     /**
@@ -112,22 +124,6 @@ class JWTGuard implements Guard
         }
 
         return false;
-    }
-
-    /**
-     * Determine if the current user is authenticated.
-     *
-     * @return bool
-     */
-    public function check()
-    {
-        try {
-            $this->user();
-
-            return true;
-        } catch (UserNotDefinedException $e) {
-            return false;
-        }
     }
 
     /**
