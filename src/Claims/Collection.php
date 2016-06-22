@@ -90,7 +90,7 @@ class Collection extends IlluminateCollection
      * Get the items in the given claims that are not present in the collection.
      *
      * @param  mixed  $claims
-     * 
+     *
      * @return static
      */
     public function diffReverse($claims)

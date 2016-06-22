@@ -51,7 +51,7 @@ class CollectionTest extends AbstractTestCase
 
         $this->assertFalse($collection->hasAllClaims(['sub', 'iss']));
         $this->assertFalse($collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti', 'abc']));
-        
+
         $this->assertTrue($collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']));
     }
 
