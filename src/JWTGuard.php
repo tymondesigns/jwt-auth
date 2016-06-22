@@ -88,7 +88,7 @@ class JWTGuard implements Guard
      */
     public function userOrFail()
     {
-        if (!$user = $this->user()) {
+        if (! $user = $this->user()) {
             throw new UserNotDefinedException;
         }
 
