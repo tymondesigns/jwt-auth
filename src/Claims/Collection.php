@@ -57,13 +57,13 @@ class Collection extends IlluminateCollection
     /**
      * Determine of the Collection contains all of the given keys.
      *
-     * @param  array  $claims
+     * @param  mixed  $claims
      *
      * @return bool
      */
-    public function hasAllClaims(array $claims)
+    public function hasAllClaims($claims)
     {
-        return $this->keys()->diff($claims)->isEmpty();
+        return $this->keys()->diffReverse($claims)->isEmpty();
     }
 
     /**
@@ -84,6 +84,18 @@ class Collection extends IlluminateCollection
     protected function getArrayableItems($items)
     {
         return $this->sanitizeClaims(parent::getArrayableItems($items));
+    }
+
+    /**
+     * Get the items in the given items that are not present in the collection.
+     *
+     * @param  mixed  $claims
+     * 
+     * @return static
+     */
+    public function diffReverse($claims)
+    {
+        return new static(array_diff($this->getArrayableItems($items), $this->items));
     }
 
     /**
