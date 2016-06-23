@@ -89,6 +89,31 @@ class JWTGuardTest extends AbstractTestCase
         // also make sure userOrFail does not fail
         $this->assertSame(1, $this->guard->userOrFail()->id);
     }
+    
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('payload->get')
+            ->once()
+            ->with('sub')
+            ->andReturn(1);
+        
+        $this->provider->shouldReceive('retrieveById')
+            ->once()
+            ->with(1)
+            ->andReturn((object) ['id' => 1]);
+        
+        $this->assertSame(1, $this->guard->userOrFail()->id);
+        
+        // check that the user is stored on the object next time round
+        $this->assertSame(1, $this->guard->userOrFail()->id);
+        $this->assertTrue($this->guard->check());
+    }
 
     /**
      * @test
