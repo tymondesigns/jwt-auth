@@ -85,6 +85,9 @@ class JWTGuardTest extends AbstractTestCase
         // check that the user is stored on the object next time round
         $this->assertSame(1, $this->guard->user()->id);
         $this->assertTrue($this->guard->check());
+
+        // also make sure userOrFail does not fail
+        $this->assertSame(1, $this->guard->userOrFail()->id);
     }
 
     /**
