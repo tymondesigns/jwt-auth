@@ -85,6 +85,34 @@ class JWTGuardTest extends AbstractTestCase
         // check that the user is stored on the object next time round
         $this->assertSame(1, $this->guard->user()->id);
         $this->assertTrue($this->guard->check());
+
+        // also make sure userOrFail does not fail
+        $this->assertSame(1, $this->guard->userOrFail()->id);
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception()
+    {
+        $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('payload->get')
+            ->once()
+            ->with('sub')
+            ->andReturn(1);
+
+        $this->provider->shouldReceive('retrieveById')
+            ->once()
+            ->with(1)
+            ->andReturn((object) ['id' => 1]);
+
+        $this->assertSame(1, $this->guard->userOrFail()->id);
+
+        // check that the user is stored on the object next time round
+        $this->assertSame(1, $this->guard->userOrFail()->id);
+        $this->assertTrue($this->guard->check());
     }
 
     /**
@@ -115,6 +143,38 @@ class JWTGuardTest extends AbstractTestCase
 
         $this->assertNull($this->guard->user());
         $this->assertFalse($this->guard->check());
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
+     */
+    public function it_should_throw_an_exception_if_an_invalid_token_is_provided()
+    {
+        $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
+        $this->jwt->shouldReceive('check')->twice()->andReturn(false);
+        $this->jwt->shouldReceive('getPayload->get')->never();
+        $this->provider->shouldReceive('retrieveById')->never();
+
+        $this->assertFalse($this->guard->check()); // once
+        $this->guard->userOrFail(); // twice, throws the exception
+    }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
+     */
+    public function it_should_throw_an_exception_if_no_token_is_provided()
+    {
+        $this->jwt->shouldReceive('getToken')->andReturn(false);
+        $this->jwt->shouldReceive('check')->never();
+        $this->jwt->shouldReceive('getPayload->get')->never();
+        $this->provider->shouldReceive('retrieveById')->never();
+
+        $this->assertFalse($this->guard->check());
+        $this->guard->userOrFail(); // throws the exception
     }
 
     /**

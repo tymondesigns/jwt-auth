@@ -17,6 +17,7 @@ use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use Illuminate\Contracts\Auth\UserProvider;
 
 class JWTGuard implements Guard
@@ -76,6 +77,22 @@ class JWTGuard implements Guard
 
             return $this->user = $this->provider->retrieveById($id);
         }
+    }
+
+    /**
+     * Get the currently authenticated user or throws an exception.
+     *
+     * @throws UserNotDefinedException
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function userOrFail()
+    {
+        if (! $user = $this->user()) {
+            throw new UserNotDefinedException;
+        }
+
+        return $user;
     }
 
     /**
