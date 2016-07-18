@@ -111,7 +111,7 @@ abstract class Provider
      */
     public function getPublicKey()
     {
-        return Arr::get($this->getKeys(), 'public');
+        return Arr::get($this->keys, 'public');
     }
 
     /**
@@ -122,7 +122,7 @@ abstract class Provider
      */
     public function getPrivateKey()
     {
-        return Arr::get($this->getKeys(), 'private');
+        return Arr::get($this->keys, 'private');
     }
 
     /**
@@ -133,6 +133,6 @@ abstract class Provider
      */
     public function getPassphrase()
     {
-        return Arr::get($this->getKeys(), 'passphrase');
+        return Arr::get($this->keys, 'passphrase');
     }
 }
