@@ -21,7 +21,7 @@ class JWTGenerateSecretCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'jwt:secret {--s|show : Display the key instead of modifying files.}';
+    protected $signature = 'jwt:secret {--s|show : Display the key instead of modifying files.} {--f|force : Skip confirmation when overwriting an existing key.}';
 
     /**
      * The console command description.
@@ -52,8 +52,8 @@ class JWTGenerateSecretCommand extends Command
                 file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
             } else {
 
-                // let's be sure you want to do this
-                $confirmed = $this->confirm('This will invalidate all existing tokens. Are you sure you want to override the secret key?');
+                // let's be sure you want to do this, unless you already told us to force it
+                $confirmed = $this->option('force') || $this->confirm('This will invalidate all existing tokens. Are you sure you want to override the secret key?');
 
                 if ($confirmed) {
                     file_put_contents($path, str_replace(
