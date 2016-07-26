@@ -52,7 +52,7 @@ class PayloadValidator extends Validator
      */
     protected function validateStructure(Collection $claims)
     {
-        if (count(array_diff($this->requiredClaims, array_keys($claims->toPlainArray()))) !== 0) {
+        if (! $claims->hasAllClaims($this->requiredClaims)) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
     }
