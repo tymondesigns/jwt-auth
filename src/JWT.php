@@ -197,8 +197,8 @@ class JWT
     {
         return array_merge(
             ['sub' => $user->getJWTIdentifier()],
-            $this->customClaims,
-            $user->getJWTCustomClaims()
+            $this->customClaims, // custom claims from inline setter
+            $user->getJWTCustomClaims() // custom claims from JWTSubject method
         );
     }
 
