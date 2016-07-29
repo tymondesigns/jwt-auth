@@ -30,7 +30,7 @@ class RefreshToken extends BaseMiddleware
     public function handle($request, Closure $next)
     {
         $this->checkForToken($request);
-        
+
         $response = $next($request);
 
         try {
