@@ -10,6 +10,7 @@
 [![Latest Dev Version](https://img.shields.io/packagist/vpre/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth#dev-develop)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
 [![Dependency Status](https://www.versioneye.com/php/tymon:jwt-auth/dev-develop/badge?style=flat)](https://www.versioneye.com/php/tymon:jwt-auth/dev-develop)
+[![PHP-Eye](https://php-eye.com/badge/tymon/jwt-auth/tested.svg?style=flat)](https://php-eye.com/package/tymon/jwt-auth)
 
 See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
 
