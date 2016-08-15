@@ -66,14 +66,19 @@ class FactoryTest extends AbstractTestCase
 
         $expTime = $this->testNowTimestamp + 3600;
 
-        $this->claimFactory->shouldReceive('make')->once()->with('sub')->andReturn(new Subject(1));
-        $this->claimFactory->shouldReceive('make')->once()->with('iss')->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('make')->once()->with('iat')->andReturn(new IssuedAt(123));
-        $this->claimFactory->shouldReceive('make')->once()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->once()->with('nbf')->andReturn(new NotBefore(123));
-        $this->claimFactory->shouldReceive('make')->once()->with('exp')->andReturn(new Expiration($expTime));
+        $this->claimFactory->shouldReceive('make')->once()->with('sub');
+        $this->claimFactory->shouldReceive('make')->once()->with('iss');
+        $this->claimFactory->shouldReceive('make')->once()->with('iat');
+        $this->claimFactory->shouldReceive('make')->once()->with('jti');
+        $this->claimFactory->shouldReceive('make')->once()->with('nbf');
+        $this->claimFactory->shouldReceive('make')->once()->with('exp');
 
-        // $this->claimFactory->shouldReceive('get')->once()->with(Mockery::any())->andReturn(Mockery::any());
+        $this->claimFactory->shouldReceive('get')->once()->with('sub', 1)->andReturn(new Subject(1));
+        $this->claimFactory->shouldReceive('get')->once()->with('iss', '/foo')->andReturn(new Issuer('/foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('iat', 123)->andReturn(new IssuedAt(123));
+        $this->claimFactory->shouldReceive('get')->once()->with('jti', 'foo')->andReturn(new JwtId('foo'));
+        $this->claimFactory->shouldReceive('get')->once()->with('nbf', 123)->andReturn(new NotBefore(123));
+        $this->claimFactory->shouldReceive('get')->once()->with('exp', $expTime)->andReturn(new Expiration($expTime));
 
         $payload = $this->factory->customClaims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
 
