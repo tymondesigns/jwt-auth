@@ -90,7 +90,7 @@ class JWTAuth
      */
     public function fromUser($user, array $customClaims = [])
     {
-        $method = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $this->identifier));
+        $method = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $this->identifier)));
         $payload = $this->makePayload($user->$method(), $customClaims);
 
         return $this->manager->encode($payload)->get();
