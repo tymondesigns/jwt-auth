@@ -27,10 +27,14 @@ matrix:
       env: laravel='5.1'
     - php: 5.6
       env: laravel='5.2'
+    - php: 5.6
+      env: laravel='5.3'
     - php: 7.0
       env: laravel='5.1'
     - php: 7.0
       env: laravel='5.2'
+    - php: 7.0
+      env: laravel='5.3'
   fast_finish: true
 
 before_install:

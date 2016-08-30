@@ -29,9 +29,9 @@
     },
     "require-dev": {
         "cartalyst/sentinel": "2.0.*",
-        "illuminate/console": "5.1.* || 5.2.*",
-        "illuminate/database": "5.1.* || 5.2.*",
-        "illuminate/routing": "5.1.* || 5.2.*",
+        "illuminate/console": "5.1.* || 5.2.* || 5.3.*",
+        "illuminate/database": "5.1.* || 5.2.* || 5.3.*",
+        "illuminate/routing": "5.1.* || 5.2.* || 5.3.*",
         "mockery/mockery": "0.9.*",
         "october/rain": "dev-develop",
         "phpunit/phpunit": "^4.0 || ^5.0"
