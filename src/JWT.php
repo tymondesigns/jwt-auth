@@ -125,7 +125,7 @@ class JWT
      */
     public function getToken()
     {
-        if (! $this->token) {
+        if (! $this->token || \App::environment() == 'testing') {
             try {
                 $this->parseToken();
             } catch (JWTException $e) {
