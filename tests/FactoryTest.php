@@ -127,6 +127,7 @@ class FactoryTest extends AbstractTestCase
         $payload = $this->factory->sub(1)->foo(['bar' => [0, 0, 0]])->make();
 
         $this->assertSame($payload->get('sub'), 1);
+        $this->assertSame($payload->get('jti'), 'foo');
         $this->assertSame($payload->get('foo'), ['bar' => [0, 0, 0]]);
         $this->assertSame($payload->get('foo.bar'), [0, 0, 0]);
 

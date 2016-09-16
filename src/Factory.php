@@ -41,7 +41,7 @@ class Factory
     /**
      * @var array
      */
-    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf'];
+    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
 
     /**
      * @var \Tymon\JWTAuth\Claims\Collection
@@ -123,15 +123,7 @@ class Factory
         }
 
         // add custom claims on top, allowing them to overwrite defaults
-        $this->addClaims($this->getCustomClaims());
-
-        // add the jti last since it is based on all other claims,
-        // but only if it hasn't already been added.
-        if (! $this->claims->has('jti')) {
-            $this->addClaim('jti', $this->jti());
-        }
-
-        return $this;
+        return $this->addClaims($this->getCustomClaims());
     }
 
     /**
@@ -156,16 +148,6 @@ class Factory
     public function withClaims(Collection $claims)
     {
         return new Payload($claims, $this->validator, $this->refreshFlow);
-    }
-
-    /**
-     * Get a unique id (jti) for the token.
-     *
-     * @return string
-     */
-    protected function jti()
-    {
-        return md5(sprintf('%s.%s', $this->claims->toJson(), Str::quickRandom()));
     }
 
     /**

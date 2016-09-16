@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Support\Utils;
 
@@ -128,6 +129,16 @@ class Factory
     public function nbf()
     {
         return Utils::now()->getTimestamp();
+    }
+
+    /**
+     * Get the JWT Id (jti) claim.
+     *
+     * @return string
+     */
+    public function jti()
+    {
+        return Str::quickRandom();
     }
 
     /**
