@@ -88,7 +88,7 @@ class Factory
      */
     public function make($name)
     {
-        return $this->get($name, $this->$name);
+        return $this->get($name, $this->$name());
     }
 
     /**
