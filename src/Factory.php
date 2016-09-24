@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;

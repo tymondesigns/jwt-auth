@@ -11,10 +11,7 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-use Exception;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Spomky extends Provider implements JWT
 {
@@ -58,5 +55,4 @@ class Spomky extends Provider implements JWT
     {
         //
     }
-
 }
