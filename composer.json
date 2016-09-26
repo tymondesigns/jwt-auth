@@ -36,9 +36,6 @@
         "october/rain": "dev-develop",
         "phpunit/phpunit": "^4.0 || ^5.0"
     },
-    "suggest": {
-        "spomky-labs/jose": "Alternative for namshi/jose - Allows the use of JSON Web Encryption"
-    },
     "autoload": {
         "psr-4": {
             "Tymon\\JWTAuth\\": "src/"
