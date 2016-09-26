@@ -32,7 +32,7 @@ return [
     | JWT Authentication Keys
     |--------------------------------------------------------------------------
     |
-    | What algorithm you are using, will determine whether your tokens are
+    | The algorithm you are using, will determine whether your tokens are
     | signed with a random string (defined in `JWT_SECRET`) or using the
     | following public & private keys.
     |
