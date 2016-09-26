@@ -14,7 +14,6 @@ namespace Tymon\JWTAuth\Test;
 use Mockery;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Payload;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -86,7 +85,7 @@ class FactoryTest extends AbstractTestCase
             'sub' => 1,
             'jti' => 'foo',
             'iat' => 123,
-            'nbf' => 123
+            'nbf' => 123,
         ])->buildClaimsCollection();
 
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
