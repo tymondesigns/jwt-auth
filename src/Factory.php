@@ -34,11 +34,6 @@ class Factory
     protected $validator;
 
     /**
-     * @var int
-     */
-    protected $ttl = 60;
-
-    /**
      * @var array
      */
     protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
@@ -69,9 +64,7 @@ class Factory
      */
     public function make()
     {
-        $claims = $this->buildClaims()->resolveClaims();
-
-        return $this->withClaims($claims);
+        return $this->withClaims($this->buildClaimsCollection());
     }
 
     /**
@@ -113,7 +106,7 @@ class Factory
     protected function buildClaims()
     {
         // remove the exp claim if it exists and the ttl is null
-        if ($this->ttl === null && $key = array_search('exp', $this->defaultClaims)) {
+        if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $this->defaultClaims)) {
             unset($this->defaultClaims[$key]);
         }
 
@@ -139,6 +132,16 @@ class Factory
     }
 
     /**
+     * Build and get the Claims Collection.
+     *
+     * @return \Tymon\JWTAuth\Claims\Collection
+     */
+    public function buildClaimsCollection()
+    {
+        return $this->buildClaims()->resolveClaims();
+    }
+
+    /**
      * Get a Payload instance with a claims collection.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $claims
@@ -160,6 +163,20 @@ class Factory
     public function setDefaultClaims(array $claims)
     {
         $this->defaultClaims = $claims;
+
+        return $this;
+    }
+
+    /**
+     * Helper to set the ttl.
+     *
+     * @param  int  $ttl
+     *
+     * @return $this
+     */
+    public function setTTL($ttl)
+    {
+        $this->claimFactory->setTTL($ttl);
 
         return $this;
     }
