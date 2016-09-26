@@ -27,24 +27,27 @@ matrix:
       env: laravel='5.1'
     - php: 5.6
       env: laravel='5.2'
+    - php: 5.6
+      env: laravel='5.3'
     - php: 7.0
       env: laravel='5.1'
     - php: 7.0
       env: laravel='5.2'
+    - php: 7.0
+      env: laravel='5.3'
   fast_finish: true
-
-before_install:
-  - if [[ $laravel != '5.1' ]]; then pip install --user codecov; fi
 
 before_script:
   - travis_retry composer self-update
   - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
   - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction; fi
   - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-dist --no-interaction; fi
+  - if [[ $laravel = '5.3' ]]; then travis_retry composer require "illuminate/contracts=5.3.*" --prefer-dist --no-interaction; fi
 
 script:
   - if [[ $laravel = '5.1' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml --exclude-group laravel-5.2; fi
   - if [[ $laravel = '5.2' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml; fi
+  - if [[ $laravel = '5.3' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml; fi
 
 after_success:
-  - if [[ $laravel != '5.1' ]]; then codecov; fi
+  - if [[ $laravel = '5.3' ]]; then bash <(curl -s https://codecov.io/bash); fi
