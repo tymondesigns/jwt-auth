@@ -77,6 +77,6 @@ class JWTGenerateSecretCommand extends Command
      */
     protected function getRandomKey()
     {
-        return Str::quickRandom(32);
+        return Str::random(32);
     }
 }
