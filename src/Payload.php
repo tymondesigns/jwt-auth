@@ -24,7 +24,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Countable
+class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {
     /**
      * The collection of claims.

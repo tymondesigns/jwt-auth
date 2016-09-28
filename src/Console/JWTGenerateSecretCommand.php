@@ -21,7 +21,9 @@ class JWTGenerateSecretCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'jwt:secret {--s|show : Display the key instead of modifying files.} {--f|force : Skip confirmation when overwriting an existing key.}';
+    protected $signature = 'jwt:secret
+        {--s|show : Display the key instead of modifying files.}
+        {--f|force : Skip confirmation when overwriting an existing key.}';
 
     /**
      * The console command description.

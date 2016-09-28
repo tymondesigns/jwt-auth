@@ -20,7 +20,14 @@ class PayloadValidator extends Validator
     /**
      * @var array
      */
-    protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
+    protected $requiredClaims = [
+        'iss',
+        'iat',
+        'exp',
+        'nbf',
+        'sub',
+        'jti',
+    ];
 
     /**
      * @var int
