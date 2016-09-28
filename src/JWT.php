@@ -14,8 +14,8 @@ namespace Tymon\JWTAuth;
 use BadMethodCallException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class JWT

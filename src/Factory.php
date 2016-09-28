@@ -20,7 +20,7 @@ use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class Factory
 {
-    use RefreshFlow, CustomClaims;
+    use CustomClaims, RefreshFlow;
 
     /**
      * @var \Tymon\JWTAuth\Claims\Factory
@@ -35,7 +35,13 @@ class Factory
     /**
      * @var array
      */
-    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
+    protected $defaultClaims = [
+        'iss',
+        'iat',
+        'exp',
+        'nbf',
+        'jti',
+    ];
 
     /**
      * @var \Tymon\JWTAuth\Claims\Collection
