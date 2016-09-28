@@ -213,7 +213,7 @@ class Factory
      */
     protected function jti()
     {
-        return md5(sprintf('%s.%s', $this->claims->toJson(), Str::quickRandom()));
+        return md5(sprintf('%s.%s', $this->claims->toJson(), Str::random()));
     }
 
     /**
