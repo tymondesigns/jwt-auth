@@ -138,7 +138,7 @@ class Factory
      */
     public function jti()
     {
-        return Str::quickRandom();
+        return Str::random();
     }
 
     /**
