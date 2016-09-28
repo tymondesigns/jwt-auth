@@ -27,7 +27,7 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 class BlacklistTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Tymon\JWTAuth\Contracts\Providers\Storage|\Mockery\MockInterface
      */
     protected $storage;
 
@@ -204,5 +204,19 @@ class BlacklistTest extends AbstractTestCase
     {
         $this->storage->shouldReceive('flush');
         $this->assertTrue($this->blacklist->clear());
+    }
+
+    /** @test */
+    public function it_should_set_and_get_the_blacklist_grace_period()
+    {
+        $this->assertInstanceOf(Blacklist::class, $this->blacklist->setGracePeriod(15));
+        $this->assertSame(15, $this->blacklist->getGracePeriod());
+    }
+
+    /** @test */
+    public function it_should_set_and_get_the_blacklist_refresh_ttl()
+    {
+        $this->assertInstanceOf(Blacklist::class, $this->blacklist->setRefreshTTL(15));
+        $this->assertSame(15, $this->blacklist->getRefreshTTL());
     }
 }

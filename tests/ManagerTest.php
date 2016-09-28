@@ -25,7 +25,6 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class ManagerTest extends AbstractTestCase
@@ -55,11 +54,6 @@ class ManagerTest extends AbstractTestCase
      */
     protected $validator;
 
-    /**
-     * @var \Tymon\JWTAuth\Contracts\Providers\Storage|\Mockery\MockInterface
-     */
-    protected $storage;
-
     public function setUp()
     {
         parent::setUp();
@@ -71,8 +65,6 @@ class ManagerTest extends AbstractTestCase
 
         $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
-
-        $this->storage = Mockery::mock(Storage::class);
     }
 
     public function tearDown()
@@ -269,21 +261,5 @@ class ManagerTest extends AbstractTestCase
     public function it_should_get_the_blacklist()
     {
         $this->assertInstanceOf(Blacklist::class, $this->manager->getBlacklist());
-    }
-
-    /** @test */
-    public function it_should_set_and_get_the_blacklist_grace_period()
-    {
-        $blacklist = new Blacklist($this->storage);
-        $this->assertInstanceOf(Blacklist::class, $blacklist->setGracePeriod(15));
-        $this->assertSame(15, $blacklist->getGracePeriod());
-    }
-
-    /** @test */
-    public function it_should_set_and_get_the_blacklist_refresh_ttl()
-    {
-        $blacklist = new Blacklist($this->storage);
-        $this->assertInstanceOf(Blacklist::class, $blacklist->setRefreshTTL(15));
-        $this->assertSame(15, $blacklist->getRefreshTTL());
     }
 }
