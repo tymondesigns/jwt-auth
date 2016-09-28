@@ -19,7 +19,7 @@ use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 class Manager
 {
-    use RefreshFlow, CustomClaims;
+    use CustomClaims, RefreshFlow;
 
     /**
      * @var \Tymon\JWTAuth\Contracts\Providers\JWT
