@@ -187,6 +187,16 @@ class Factory
     }
 
     /**
+     * Helper to get the ttl.
+     *
+     * @return int
+     */
+    public function getTTL()
+    {
+        return $this->claimFactory->getTTL();
+    }
+
+    /**
      * Get the default claims.
      *
      * @return array
