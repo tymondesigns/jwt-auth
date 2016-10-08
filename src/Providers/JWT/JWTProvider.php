@@ -55,4 +55,28 @@ abstract class JWTProvider
     {
         return $this->algo;
     }
+
+    /**
+     * Set the secret used to sign the token.
+     *
+     * @param  string  $secret
+     *
+     * @return $this
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+
+        return $this;
+    }
+
+    /**
+     * Get the secret used to sign the token.
+     *
+     * @return string
+     */
+    public function getSecret()
+    {
+        return $this->secret;
+    }
 }
