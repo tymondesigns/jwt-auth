@@ -78,7 +78,6 @@ class NamshiTest extends AbstractTestCase
         $this->jws->shouldReceive('getPayload')->andReturn([]);
 
         $payload = $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
-
     }
 
     /**
