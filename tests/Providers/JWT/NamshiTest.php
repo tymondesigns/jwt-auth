@@ -71,26 +71,41 @@ class NamshiTest extends AbstractTestCase
     }
 
     /** @test */
-    // public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
-    // {
-    //     $this->jws->shouldReceive('load')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-    //     $this->jws->shouldReceive('verify')->andReturn(true);
+    public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
+    {
+        $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andReturn(Mockery::self());
+        $this->jws->shouldReceive('verify')->once()->with('secret', 'HS256')->andReturn(true);
+        $this->jws->shouldReceive('getPayload')->andReturn([]);
 
-    //     $payload = $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
+        $payload = $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
 
-    // }
+    }
 
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    // public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
-    // {
-    //     $this->jws->shouldReceive('load')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-    //     $this->jws->shouldReceive('verify')->once()->with('secret', null)->andReturn(false);
+    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
+    {
+        $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andReturn(Mockery::self());
+        $this->jws->shouldReceive('verify')->once()->with('secret', 'HS256')->andReturn(false);
+        $this->jws->shouldReceive('getPayload')->never();
 
-    //     $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
-    // }
+        $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
+    }
+
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     */
+    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
+    {
+        $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andThrow(new \InvalidArgumentException());
+        $this->jws->shouldReceive('verify')->never();
+        $this->jws->shouldReceive('getPayload')->never();
+
+        $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
+    }
 
     /** @test */
     public function it_should_generate_a_token_when_using_an_rsa_algorithm()

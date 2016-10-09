@@ -20,6 +20,7 @@ use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Test\Fixtures\Foo;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class FactoryTest extends AbstractTestCase
@@ -51,5 +52,36 @@ class FactoryTest extends AbstractTestCase
     public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value()
     {
         $this->assertInstanceOf(Custom::class, $this->factory->get('foo', ['bar']));
+    }
+
+    /** @test */
+    public function it_should_make_a_claim_instance_with_a_value()
+    {
+        $iat = $this->factory->make('iat');
+        $this->assertSame($iat->getValue(), $this->testNowTimestamp);
+        $this->assertInstanceOf(IssuedAt::class, $iat);
+
+        $nbf = $this->factory->make('nbf');
+        $this->assertSame($nbf->getValue(), $this->testNowTimestamp);
+        $this->assertInstanceOf(NotBefore::class, $nbf);
+
+        $iss = $this->factory->make('iss');
+        $this->assertSame($iss->getValue(), 'http://localhost/foo');
+        $this->assertInstanceOf(Issuer::class, $iss);
+
+        $exp = $this->factory->make('exp');
+        $this->assertSame($exp->getValue(), $this->testNowTimestamp + 3600);
+        $this->assertInstanceOf(Expiration::class, $exp);
+
+        $jti = $this->factory->make('jti');
+        $this->assertInstanceOf(JwtId::class, $jti);
+    }
+
+    /** @test */
+    public function it_should_extend_claim_factory_to_add_a_custom_claim()
+    {
+        $this->factory->extend('foo', Foo::class);
+
+        $this->assertInstanceOf(Foo::class, $this->factory->get('foo', 'bar'));
     }
 }
