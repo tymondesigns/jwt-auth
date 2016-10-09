@@ -66,13 +66,17 @@ class JWT
     /**
      * Refresh an expired token.
      *
+     * @param  bool  $forceForever
+     *
      * @return string
      */
-    public function refresh()
+    public function refresh($forceForever = false)
     {
         $this->requireToken();
 
-        return $this->manager->customClaims($this->getCustomClaims())->refresh($this->token)->get();
+        return $this->manager->customClaims($this->getCustomClaims())
+                             ->refresh($this->token, $forceForever)
+                             ->get();
     }
 
     /**

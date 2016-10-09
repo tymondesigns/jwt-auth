@@ -55,7 +55,7 @@ class Collection extends IlluminateCollection
     }
 
     /**
-     * Determine of the Collection contains all of the given keys.
+     * Determine if the Collection contains all of the given keys.
      *
      * @param  mixed  $claims
      *

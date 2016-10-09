@@ -98,17 +98,18 @@ class Manager
      * Refresh a Token and return a new Token.
      *
      * @param  \Tymon\JWTAuth\Token  $token
+     * @param  bool  $forceForever
      *
      * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token)
+    public function refresh(Token $token, $forceForever = false)
     {
-        $payload = $this->setRefreshFlow()->decode($token);
-
         if ($this->blacklistEnabled) {
             // invalidate old token
-            $this->blacklist->add($payload);
+            $this->invalidate($token, $forceForever);
         }
+
+        $payload = $this->setRefreshFlow()->decode($token);
 
         // persist the subject and issued at claims
         $claims = array_merge(
