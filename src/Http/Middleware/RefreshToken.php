@@ -29,6 +29,16 @@ class RefreshToken extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if ($this->auth->userExists() && ! $this->auth->check()) {
+            return $next($request);
+        }
+
+        $response = $next($request);
+
+        if (! is_null($response->exception)) {
+            return $response;
+        }
+
         $this->checkForToken($request);
 
         try {
@@ -36,8 +46,6 @@ class RefreshToken extends BaseMiddleware
         } catch (JWTException $e) {
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
         }
-
-        $response = $next($request);
 
         // send the refreshed token back to the client
         $response->headers->set('Authorization', 'Bearer '.$token);
