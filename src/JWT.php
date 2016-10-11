@@ -84,13 +84,15 @@ class JWT
      *
      * @param  bool  $forceForever
      *
-     * @return bool
+     * @return $this
      */
     public function invalidate($forceForever = false)
     {
         $this->requireToken();
 
-        return $this->manager->invalidate($this->token, $forceForever);
+        $this->manager->invalidate($this->token, $forceForever);
+
+        return $this;
     }
 
     /**
