@@ -240,6 +240,20 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Add any custom claims.
+     *
+     * @param  array  $claims
+     *
+     * @return $this
+     */
+    public function claims(array $claims)
+    {
+        $this->jwt->claims($claims);
+
+        return $this;
+    }
+
+    /**
      * Get the raw Payload instance.
      *
      * @return \Tymon\JWTAuth\Payload
@@ -363,7 +377,7 @@ class JWTGuard implements Guard
      */
     protected function requireToken()
     {
-        if (! $this->jwt->getToken()) {
+        if (! $this->jwt->setRequest($this->getRequest())->getToken()) {
             throw new JWTException('Token could not be parsed from the request.');
         }
 

@@ -177,9 +177,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('invalidate')->once()->with($token, false)->andReturn(true);
 
-        $result = $this->jwtAuth->setToken($token)->invalidate();
-
-        $this->assertTrue($result);
+        $this->jwtAuth->setToken($token)->invalidate();
     }
 
     /** @test */
@@ -189,9 +187,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('invalidate')->once()->with($token, true)->andReturn(true);
 
-        $result = $this->jwtAuth->setToken($token)->invalidate(true);
-
-        $this->assertTrue($result);
+        $this->jwtAuth->setToken($token)->invalidate(true);
     }
 
     /** @test */

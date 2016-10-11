@@ -68,6 +68,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
         $this->jwt->shouldReceive('check')->once()->andReturn(true);
         $this->jwt->shouldReceive('payload->get')
@@ -96,6 +97,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
         $this->jwt->shouldReceive('check')->once()->andReturn(true);
         $this->jwt->shouldReceive('payload->get')
@@ -267,6 +269,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_logout_the_user_by_invalidating_the_token()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
         $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
         $this->jwt->shouldReceive('unsetToken')->once();
@@ -281,6 +284,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_refresh_the_token()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
         $this->jwt->shouldReceive('refresh')->once()->andReturn('foo.bar.baz');
 
@@ -293,6 +297,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_invalidate_the_token()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
         $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
 
@@ -306,6 +311,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_if_there_is_no_token_present_when_required()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(false);
         $this->jwt->shouldReceive('refresh')->never();
 
@@ -447,6 +453,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_get_the_payload()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
         $this->jwt->shouldReceive('getPayload')->once()->andReturn(Mockery::mock(Payload::class));
         $this->assertInstanceOf(Payload::class, $this->guard->payload());
