@@ -27,11 +27,11 @@ class AuthenticateAndRenew extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (! $this->auth->userExists()) {
-            $this->authenticate($request);
-        } elseif (! $this->auth->check()) {
+        if ($this->auth->userExists() && ! $this->auth->check()) {
             return $next($request);
         }
+
+        $this->authenticate($request);
 
         $response = $next($request);
 

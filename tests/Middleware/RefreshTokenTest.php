@@ -63,11 +63,24 @@ class RefreshTokenTest extends AbstractTestCase
         $this->auth->shouldReceive('parser')->andReturn($parser);
 
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+
+        $this->auth->shouldReceive('userExists')->once()->andReturn(false);
+
         $this->auth->shouldReceive('parseToken->refresh')->once()->andReturn('foo.bar.baz');
 
         $response = $this->middleware->handle($this->request, function () { return new Response; });
 
         $this->assertSame($response->headers->get('authorization'), 'Bearer foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_not_refresh_a_token_if_user_is_already_set()
+    {
+        $this->auth->shouldReceive('userExists')->once()->andReturn(true);
+
+        $this->auth->shouldReceive('check')->once()->andReturn(false);
+
+        $this->middleware->handle($this->request, function () {});
     }
 
     /**
@@ -81,6 +94,8 @@ class RefreshTokenTest extends AbstractTestCase
 
         $this->auth->shouldReceive('parser')->andReturn($parser);
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+
+        $this->auth->shouldReceive('userExists')->once()->andReturn(false);
 
         $this->middleware->handle($this->request, function () {});
     }
@@ -97,6 +112,9 @@ class RefreshTokenTest extends AbstractTestCase
         $this->auth->shouldReceive('parser')->andReturn($parser);
 
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+
+        $this->auth->shouldReceive('userExists')->once()->andReturn(false);
+
         $this->auth->shouldReceive('parseToken->refresh')->once()->andThrow(new TokenInvalidException);
 
         $this->middleware->handle($this->request, function () {});

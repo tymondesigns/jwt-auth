@@ -35,7 +35,7 @@ class RefreshToken extends BaseMiddleware
 
         $response = $next($request);
 
-        if (! is_null($response->exception)) {
+        if (isset($response->exception) && ! is_null($response->exception)) {
             return $response;
         }
 

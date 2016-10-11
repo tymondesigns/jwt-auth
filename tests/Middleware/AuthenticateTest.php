@@ -63,7 +63,18 @@ class AuthenticateTest extends AbstractTestCase
         $this->auth->shouldReceive('parser')->andReturn($parser);
 
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+
+        $this->auth->shouldReceive('userExists')->once()->andReturn(false);
+
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andReturn(new UserStub);
+
+        $this->middleware->handle($this->request, function () {});
+    }
+
+    /** @test */
+    public function it_should_authenticate_a_user_without_token_if_user_is_already_set()
+    {
+        $this->auth->shouldReceive('userExists')->once()->andReturn(true);
 
         $this->middleware->handle($this->request, function () {});
     }
@@ -80,6 +91,8 @@ class AuthenticateTest extends AbstractTestCase
         $this->auth->shouldReceive('parser')->andReturn($parser);
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
 
+        $this->auth->shouldReceive('userExists')->once()->andReturn(false);
+
         $this->middleware->handle($this->request, function () {});
     }
 
@@ -95,6 +108,8 @@ class AuthenticateTest extends AbstractTestCase
         $this->auth->shouldReceive('parser')->andReturn($parser);
 
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+        $this->auth->shouldReceive('userExists')->once()->andReturn(false);
+
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException);
 
         $this->middleware->handle($this->request, function () {});
