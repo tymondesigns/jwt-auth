@@ -126,6 +126,7 @@ class ManagerTest extends AbstractTestCase
         $payload = $this->manager->decode($token);
 
         $this->assertInstanceOf(Payload::class, $payload);
+        $this->assertSame($payload->count(), 6);
     }
 
     /**
