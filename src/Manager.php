@@ -73,12 +73,13 @@ class Manager
      * Decode a Token and return the Payload.
      *
      * @param  \Tymon\JWTAuth\Token  $token
+     * @param  bool  $checkBlacklist
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function decode(Token $token)
+    public function decode(Token $token, $checkBlacklist = true)
     {
         $payloadArray = $this->provider->decode($token->get());
 
@@ -87,7 +88,7 @@ class Manager
                         ->customClaims($payloadArray)
                         ->make();
 
-        if ($this->blacklistEnabled && $this->blacklist->has($payload)) {
+        if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');
         }
 
@@ -141,7 +142,7 @@ class Manager
 
         return call_user_func(
             [$this->blacklist, $forceForever ? 'addForever' : 'add'],
-            $this->decode($token)
+            $this->decode($token, false)
         );
     }
 
