@@ -110,7 +110,7 @@ class Manager
             $this->invalidate($token, $forceForever);
         }
 
-        $payload = $this->setRefreshFlow()->decode($token);
+        $payload = $this->setRefreshFlow()->decode($token, false);
 
         // persist the subject and issued at claims
         $claims = array_merge(
