@@ -95,19 +95,15 @@ class Collection extends IlluminateCollection
      */
     private function sanitizeClaims($items)
     {
-        if (array_keys($items) === range(0, count($items) - 1)) {
-            $claims = [];
-            foreach ($items as $key => $value) {
-                if ($value instanceof Claim) {
-                    $claims[$value->getName()] = $value;
-                } else {
-                    $claims[$key] = $value;
-                }
+        $claims = [];
+        foreach ($items as $key => $value) {
+            if (! is_string($key) && $value instanceof Claim) {
+                $claims[$value->getName()] = $value;
+            } else {
+                $claims[$key] = $value;
             }
-
-            return $claims;
         }
 
-        return $items;
+        return $claims;
     }
 }
