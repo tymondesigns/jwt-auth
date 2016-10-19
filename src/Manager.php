@@ -84,7 +84,7 @@ class Manager
         $payloadArray = $this->provider->decode($token->get());
 
         $payload = $this->payloadFactory
-                        ->setRefreshFlow($this->refreshFlow)
+                        ->setRefreshFlow()
                         ->customClaims($payloadArray)
                         ->make();
 
