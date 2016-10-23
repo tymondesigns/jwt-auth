@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Contracts;
 interface JWTSubject
 {
     /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
+     * Get the identifier that will be stored in the identifier field claim of the JWT.
      *
      * @return mixed
      */
