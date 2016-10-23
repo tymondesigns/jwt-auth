@@ -113,9 +113,10 @@ class Manager
         $payload = $this->setRefreshFlow()->decode($token, false);
 
         // persist the subject and issued at claims
+        $identifier_field = config('jwt.identifier_claim_field', 'sub');
         $claims = array_merge(
             $this->customClaims,
-            ['sub' => $payload['sub'], 'iat' => $payload['iat']]
+            [$identifier_field => $payload[$identifier_field], 'iat' => $payload['iat']]
         );
 
         // return the new token

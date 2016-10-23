@@ -157,6 +157,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Identifier Claim Field
+    |--------------------------------------------------------------------------
+    |
+    | Specify the field to be used by JWTAuth for determining the unique
+    | identifier. Usually this is 'sub', but Firebase and other services
+    | may use another field, like 'uid'.
+    */
+
+    'identifier_claim_field' => env('JWT_IDENTIFIER_CLAIM_FIELD', 'sub'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Blacklist Enabled
     |--------------------------------------------------------------------------
     |
