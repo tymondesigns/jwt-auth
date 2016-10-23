@@ -201,8 +201,9 @@ class JWT
      */
     protected function getClaimsArray(JWTSubject $user)
     {
+        $identifier_field = config('jwt.identifier_claim_field', 'sub');
         return array_merge(
-            ['sub' => $user->getJWTIdentifier()],
+            [$identifier_field => $user->getJWTIdentifier()],
             $this->customClaims, // custom claims from inline setter
             $user->getJWTCustomClaims() // custom claims from JWTSubject method
         );

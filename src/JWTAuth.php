@@ -57,7 +57,8 @@ class JWTAuth extends JWT
      */
     public function authenticate()
     {
-        $id = $this->getPayload()->get('sub');
+        $identifier_field = config('jwt.identifier_claim_field', 'sub');
+        $id = $this->getPayload()->get($identifier_field);
 
         if (! $this->auth->byId($id)) {
             return false;
