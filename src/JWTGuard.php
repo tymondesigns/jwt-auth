@@ -400,17 +400,6 @@ class JWTGuard implements Guard
 
         return $this->user();
     }
-    
-    protected function authenticate()
-    {
-        $id = $this->jwt->payload()->get('sub');
-
-        if (! $this->byId($id)) {
-            return false;
-        }
-
-        return $this->user();
-    }
 
     /**
      * Magically call the JWT instance.
