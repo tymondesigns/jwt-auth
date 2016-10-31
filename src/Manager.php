@@ -105,12 +105,14 @@ class Manager
      */
     public function refresh(Token $token, $forceForever = false)
     {
+        $this->setRefreshFlow();
+        
         if ($this->blacklistEnabled) {
             // invalidate old token
             $this->invalidate($token, $forceForever);
         }
 
-        $payload = $this->setRefreshFlow()->decode($token, false);
+        $payload = $this->decode($token, false);
 
         // persist the subject and issued at claims
         $claims = array_merge(
