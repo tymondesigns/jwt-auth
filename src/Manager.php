@@ -42,6 +42,14 @@ class Manager
     protected $blacklistEnabled = true;
 
     /**
+     * @var array
+     */
+    protected $persistentClaims = [
+        'sub',
+        'iat',
+    ];
+
+    /**
      * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      * @param  \Tymon\JWTAuth\Blacklist  $blacklist
      * @param  \Tymon\JWTAuth\Factory  $payloadFactory
@@ -112,10 +120,13 @@ class Manager
 
         $payload = $this->setRefreshFlow()->decode($token, false);
 
-        // persist the subject and issued at claims
+        // assign the payload values as variables for use later
+        extract($payload->toArray());
+
+        // persist the relevant claims
         $claims = array_merge(
             $this->customClaims,
-            ['sub' => $payload['sub'], 'iat' => $payload['iat']]
+            compact($this->persistentClaims)
         );
 
         // return the new token
@@ -186,6 +197,20 @@ class Manager
     public function setBlacklistEnabled($enabled)
     {
         $this->blacklistEnabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Set the claims to be persisted when refreshing a token.
+     *
+     * @param  array  $claims
+     *
+     * @return $this
+     */
+    public function setPersistentClaims(array $claims)
+    {
+        $this->persistentClaims = $claims;
 
         return $this;
     }

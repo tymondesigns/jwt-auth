@@ -159,7 +159,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
                 $app['tymon.jwt.payload.factory']
             );
 
-            return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'));
+            return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'))
+                            ->setPersistentClaims($this->config('persistent_claims'));
         });
     }
 
