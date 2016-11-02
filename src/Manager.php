@@ -113,12 +113,14 @@ class Manager
      */
     public function refresh(Token $token, $forceForever = false)
     {
+        $this->setRefreshFlow();
+        
         if ($this->blacklistEnabled) {
             // invalidate old token
             $this->invalidate($token, $forceForever);
         }
 
-        $payload = $this->setRefreshFlow()->decode($token, false);
+        $payload = $this->decode($token, false);
 
         // assign the payload values as variables for use later
         extract($payload->toArray());
