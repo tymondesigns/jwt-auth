@@ -180,7 +180,7 @@ class ManagerTest extends AbstractTestCase
         $this->jwt->shouldReceive('decode')->twice()->with('foo.bar.baz')->andReturn($payload->toArray());
         $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('baz.bar.foo');
 
-        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
+        $this->factory->shouldReceive('setRefreshFlow')->with(true)->andReturn($this->factory);
         $this->factory->shouldReceive('customClaims')->andReturn($this->factory);
         $this->factory->shouldReceive('make')->andReturn($payload);
 

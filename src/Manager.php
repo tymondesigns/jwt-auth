@@ -44,10 +44,7 @@ class Manager
     /**
      * @var array
      */
-    protected $persistentClaims = [
-        'sub',
-        'iat',
-    ];
+    protected $persistentClaims = [];
 
     /**
      * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
@@ -113,12 +110,14 @@ class Manager
      */
     public function refresh(Token $token, $forceForever = false)
     {
+        $this->setRefreshFlow();
+
         if ($this->blacklistEnabled) {
             // invalidate old token
             $this->invalidate($token, $forceForever);
         }
 
-        $payload = $this->setRefreshFlow()->decode($token, false);
+        $payload = $this->decode($token, false);
 
         // assign the payload values as variables for use later
         extract($payload->toArray());
@@ -126,7 +125,7 @@ class Manager
         // persist the relevant claims
         $claims = array_merge(
             $this->customClaims,
-            compact($this->persistentClaims)
+            compact($this->persistentClaims, 'sub', 'iat')
         );
 
         // return the new token

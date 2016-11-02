@@ -160,14 +160,17 @@ return [
     | Persistent Claims
     |--------------------------------------------------------------------------
     |
-    | Specify the claims to be persisted when refreshing a token.
-    | Note: If a claim does not exists then it will be ignored.
+    | Specify the claim keys to be persisted when refreshing a token.
+    | `sub` and `iat` will automatically be persisted, in
+    | addition to the these claims.
+    |
+    | Note: If a claim does not exist then it will be ignored.
     |
     */
 
     'persistent_claims' => [
-        'sub',
-        'iat',
+        // 'foo',
+        // 'bar',
     ],
 
     /*
