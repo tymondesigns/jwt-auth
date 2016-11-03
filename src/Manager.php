@@ -112,12 +112,12 @@ class Manager
     {
         $this->setRefreshFlow();
 
+        $payload = $this->decode($token);
+        
         if ($this->blacklistEnabled) {
             // invalidate old token
             $this->invalidate($token, $forceForever);
         }
-
-        $payload = $this->decode($token, false);
 
         // assign the payload values as variables for use later
         extract($payload->toArray());
