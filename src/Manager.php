@@ -113,7 +113,7 @@ class Manager
         $this->setRefreshFlow();
 
         $payload = $this->decode($token);
-        
+
         if ($this->blacklistEnabled) {
             // invalidate old token
             $this->invalidate($token, $forceForever);
