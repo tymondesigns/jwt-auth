@@ -290,6 +290,18 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Set the token ttl.
+     *
+     * @param  int  $ttl
+     */
+    public function setTTL($ttl)
+    {
+        $this->jwt->factory()->setTTL($ttl);
+
+        return $this;
+    }
+
+    /**
      * Get the user provider used by the guard.
      *
      * @return \Illuminate\Contracts\Auth\UserProvider
