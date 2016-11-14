@@ -9,21 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Test;
+namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Tymon\JWTAuth\Token;
 
-class TokenTest extends AbstractTestCase
+class TokenTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var \Tymon\JWTAuth\Token
-     */
-    protected $token;
-
     public function setUp()
     {
-        parent::setUp();
-
         $this->token = new Token('foo.bar.baz');
     }
 

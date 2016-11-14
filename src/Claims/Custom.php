@@ -14,10 +14,8 @@ namespace Tymon\JWTAuth\Claims;
 class Custom extends Claim
 {
     /**
-     * @param  string  $name
-     * @param  mixed  $value
-     *
-     * @return void
+     * @param string  $name
+     * @param mixed   $value
      */
     public function __construct($name, $value)
     {

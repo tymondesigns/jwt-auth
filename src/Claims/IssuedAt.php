@@ -11,14 +11,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-
 class IssuedAt extends Claim
 {
-    use DatetimeTrait;
-
     /**
      * The claim name.
      *
@@ -27,34 +21,13 @@ class IssuedAt extends Claim
     protected $name = 'iat';
 
     /**
-     * {@inheritdoc}
+     * Validate the issued at claim.
+     *
+     * @param  mixed  $value
+     * @return bool
      */
-    public function validateCreate($value)
+    protected function validate($value)
     {
-        if (! is_numeric($value) || $this->isFuture($value)) {
-            throw new InvalidClaimException($this);
-        }
-
-        return $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validatePayload()
-    {
-        if ($this->isFuture($this->getValue())) {
-            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateRefresh($refreshTTL)
-    {
-        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
-        }
+        return is_numeric($value);
     }
 }

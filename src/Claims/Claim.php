@@ -11,12 +11,9 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use JsonSerializable;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
-use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
+abstract class Claim implements ClaimInterface
 {
     /**
      * The claim name.
@@ -33,9 +30,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     private $value;
 
     /**
-     * @param  mixed  $value
-     *
-     * @return void
+     * @param mixed  $value
      */
     public function __construct($value)
     {
@@ -43,17 +38,19 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
-     * Set the claim value, and call a validate method.
+     * Set the claim value, and call a validate method if available.
      *
-     * @param  mixed  $value
-     *
+     * @param $value
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     *
      * @return $this
      */
     public function setValue($value)
     {
-        $this->value = $this->validateCreate($value);
+        if (! $this->validate($value)) {
+            throw new InvalidClaimException('Invalid value provided for claim "'.$this->getName().'": '.$value);
+        }
+
+        $this->value = $value;
 
         return $this;
     }
@@ -71,8 +68,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim name.
      *
-     * @param  string  $name
-     *
+     * @param string $name
      * @return $this
      */
     public function setName($name)
@@ -93,60 +89,14 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
-     * Validate the claim in a standalone Claim context.
+     * Validate the Claim value.
      *
-     * @param  mixed  $value
-     *
+     * @param  $value
      * @return bool
      */
-    public function validateCreate($value)
+    protected function validate($value)
     {
-        return $value;
-    }
-
-    /**
-     * Validate the Claim within a Payload context.
-     *
-     * @return bool
-     */
-    public function validatePayload()
-    {
-        return $this->getValue();
-    }
-
-    /**
-     * Validate the Claim within a refresh context.
-     *
-     * @param  int  $refreshTTL
-     *
-     * @return bool
-     */
-    public function validateRefresh($refreshTTL)
-    {
-        return $this->getValue();
-    }
-
-    /**
-     * Checks if the value matches the claim.
-     *
-     * @param  mixed  $value
-     * @param  bool  $strict
-     *
-     * @return bool
-     */
-    public function matches($value, $strict = true)
-    {
-        return $strict ? $this->value === $value : $this->value == $value;
-    }
-
-    /**
-     * Convert the object into something JSON serializable.
-     *
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
+        return true;
     }
 
     /**
@@ -160,24 +110,12 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
-     * Get the claim as JSON.
-     *
-     * @param  int  $options
-     *
-     * @return string
-     */
-    public function toJson($options = JSON_UNESCAPED_SLASHES)
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
-    /**
-     * Get the payload as a string.
+     * Get the claim as a string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->toJson();
+        return json_encode($this->toArray(), JSON_UNESCAPED_SLASHES);
     }
 }

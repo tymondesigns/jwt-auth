@@ -12,96 +12,77 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
-use StdClass;
-use Tymon\JWTAuth\Token;
-use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Token;
 
-class JWTAuthTest extends AbstractTestCase
+class JWTAuthTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Manager
-     */
-    protected $manager;
-
-    /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Contracts\Providers\Auth
-     */
-    protected $auth;
-
-    /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Http\Parser
-     */
-    protected $parser;
-
-    /**
-     * @var \Tymon\JWTAuth\JWTAuth
-     */
-    protected $jwtAuth;
-
     public function setUp()
     {
-        $this->manager = Mockery::mock(Manager::class);
-        $this->auth = Mockery::mock(Auth::class);
-        $this->parser = Mockery::mock(Parser::class);
+        $this->user = Mockery::mock('Tymon\JWTAuth\Providers\User\UserInterface');
+        $this->manager = Mockery::mock('Tymon\JWTAuth\JWTManager');
+        $this->auth = Mockery::mock('Tymon\JWTAuth\Providers\Auth\AuthInterface');
 
-        $this->jwtAuth = new JWTAuth($this->manager, $this->auth, $this->parser);
+        $this->jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, Request::create('/foo', 'GET'));
     }
 
     public function tearDown()
     {
         Mockery::close();
+    }
 
-        parent::tearDown();
+    /** @test */
+    public function it_should_return_a_user_when_passing_a_token_containing_a_valid_subject_claim()
+    {
+        $payload = Mockery::mock('Tymon\JWTAuth\Payload');
+        $payload->shouldReceive('offsetGet')->once()->andReturn(1);
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+        $this->user->shouldReceive('getBy')->once()->andReturn((object) ['id' => 1]);
+
+        $user = $this->jwtAuth->toUser('foo.bar.baz');
+
+        $this->assertEquals(1, $user->id);
+    }
+
+    /** @test */
+    public function it_should_return_false_when_passing_a_token_containing_an_invalid_subject_claim()
+    {
+        $payload = Mockery::mock('Tymon\JWTAuth\Payload');
+        $payload->shouldReceive('offsetGet')->once()->andReturn(1);
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+        $this->user->shouldReceive('getBy')->once()->andReturn(false);
+
+        $user = $this->jwtAuth->toUser('foo.bar.baz');
+
+        $this->assertFalse($user);
     }
 
     /** @test */
     public function it_should_return_a_token_when_passing_a_user()
     {
-        $payloadFactory = Mockery::mock(Factory::class);
-        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
-
-        $this->manager
-             ->shouldReceive('getPayloadFactory->customClaims')
-             ->once()
-             ->with(['sub' => 1, 'foo' => 'bar', 'role' => 'admin'])
-             ->andReturn($payloadFactory);
-
+        $this->manager->shouldReceive('getPayloadFactory->make')->once()->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
-        $token = $this->jwtAuth->fromUser(new UserStub);
+        $token = $this->jwtAuth->fromUser((object) ['id' => 1]);
 
-        $this->assertSame($token, 'foo.bar.baz');
+        $this->assertEquals($token, 'foo.bar.baz');
     }
 
     /** @test */
     public function it_should_return_a_token_when_passing_valid_credentials_to_attempt_method()
     {
-        $payloadFactory = Mockery::mock(Factory::class);
-        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
-
-        $this->manager
-             ->shouldReceive('getPayloadFactory->customClaims')
-             ->once()
-             ->with(['sub' => 1, 'foo' => 'bar', 'role' => 'admin'])
-             ->andReturn($payloadFactory);
-
+        $this->manager->shouldReceive('getPayloadFactory->make')->once()->andReturn(Mockery::mock('Tymon\JWTAuth\Payload'));
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
 
         $this->auth->shouldReceive('byCredentials')->once()->andReturn(true);
-        $this->auth->shouldReceive('user')->once()->andReturn(new UserStub);
+        $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
-        $token = $this->jwtAuth->attempt(['foo' => 'bar']);
+        $token = $this->jwtAuth->attempt();
 
-        $this->assertSame($token, 'foo.bar.baz');
+        $this->assertEquals($token, 'foo.bar.baz');
     }
 
     /** @test */
@@ -111,24 +92,23 @@ class JWTAuthTest extends AbstractTestCase
         $this->auth->shouldReceive('byCredentials')->once()->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
-        $token = $this->jwtAuth->attempt(['foo' => 'bar']);
+        $token = $this->jwtAuth->attempt();
 
         $this->assertFalse($token);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_not_providing_a_token()
     {
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+
         $this->jwtAuth->toUser();
     }
 
     /** @test */
     public function it_should_return_the_owning_user_from_a_token_containing_an_existing_user()
     {
-        $payload = Mockery::mock(Payload::class);
+        $payload = Mockery::mock('Tymon\JWTAuth\Payload');
         $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
@@ -136,15 +116,15 @@ class JWTAuthTest extends AbstractTestCase
         $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
-        $user = $this->jwtAuth->setToken('foo.bar.baz')->customClaims(['foo' => 'bar'])->authenticate();
+        $user = $this->jwtAuth->authenticate('foo.bar.baz');
 
-        $this->assertSame($user->id, 1);
+        $this->assertEquals($user->id, 1);
     }
 
     /** @test */
     public function it_should_return_false_when_passing_a_token_not_containing_an_existing_user()
     {
-        $payload = Mockery::mock(Payload::class);
+        $payload = Mockery::mock('Tymon\JWTAuth\Payload');
         $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
@@ -152,7 +132,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(false);
         $this->auth->shouldReceive('user')->never();
 
-        $user = $this->jwtAuth->setToken('foo.bar.baz')->authenticate();
+        $user = $this->jwtAuth->authenticate('foo.bar.baz');
 
         $this->assertFalse($user);
     }
@@ -160,99 +140,80 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $newToken = Mockery::mock(Token::class);
+        $newToken = Mockery::mock('Tymon\JWTAuth\Token');
         $newToken->shouldReceive('get')->once()->andReturn('baz.bar.foo');
 
-        $this->manager->shouldReceive('customClaims->refresh')->once()->andReturn($newToken);
+        $this->manager->shouldReceive('refresh')->once()->andReturn($newToken);
 
         $result = $this->jwtAuth->setToken('foo.bar.baz')->refresh();
 
-        $this->assertSame($result, 'baz.bar.foo');
+        $this->assertEquals($result, 'baz.bar.foo');
     }
 
     /** @test */
     public function it_should_invalidate_a_token()
     {
-        $token = new Token('foo.bar.baz');
+        $this->manager->shouldReceive('invalidate')->once()->andReturn(true);
 
-        $this->manager->shouldReceive('invalidate')->once()->with($token, false)->andReturn(true);
+        $result = $this->jwtAuth->invalidate('foo.bar.baz');
 
-        $this->jwtAuth->setToken($token)->invalidate();
+        $this->assertTrue($result);
     }
 
     /** @test */
-    public function it_should_force_invalidate_a_token_forever()
+    public function it_should_retrieve_the_token_from_the_auth_header()
     {
-        $token = new Token('foo.bar.baz');
+        $request = Request::create('/foo', 'GET');
+        $request->headers->set('authorization', 'Bearer foo.bar.baz');
+        $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
-        $this->manager->shouldReceive('invalidate')->once()->with($token, true)->andReturn(true);
-
-        $this->jwtAuth->setToken($token)->invalidate(true);
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
+        $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
     }
 
     /** @test */
-    public function it_should_retrieve_the_token_from_the_request()
+    public function it_should_retrieve_the_token_from_the_query_string()
     {
-        $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
+        $request = Request::create('/foo', 'GET', ['token' => 'foo.bar.baz']);
+        $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
-        $this->assertInstanceOf(Token::class, $this->jwtAuth->parseToken()->getToken());
-        $this->assertEquals($this->jwtAuth->getToken(), 'foo.bar.baz');
+        $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
+        $this->assertEquals($jwtAuth->getToken(), 'foo.bar.baz');
     }
 
     /** @test */
-    public function it_should_get_the_authenticated_user()
-    {
-        $manager = $this->jwtAuth->manager();
-        $this->assertInstanceOf(Manager::class, $manager);
-    }
-
-    /** @test */
-    public function it_should_return_false_if_the_token_is_invalid()
-    {
-        $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
-        $this->manager->shouldReceive('decode')->once()->andThrow(new TokenInvalidException);
-
-        $this->assertFalse($this->jwtAuth->parseToken()->check());
-    }
-
-    /** @test */
-    public function it_should_return_true_if_the_token_is_valid()
-    {
-        $payload = Mockery::mock(Payload::class);
-
-        $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
-
-        $this->assertTrue($this->jwtAuth->parseToken()->check());
-    }
-
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     */
     public function it_should_throw_an_exception_when_token_not_present_in_request()
     {
-        $this->parser->shouldReceive('parseToken')->andReturn(false);
+        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
 
-        $this->jwtAuth->parseToken();
+        $request = Request::create('/foo', 'GET');
+        $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
+
+        $jwtAuth->parseToken();
     }
 
     /** @test */
     public function it_should_return_false_when_no_token_is_set()
     {
-        $this->parser->shouldReceive('parseToken')->andReturn(false);
-
         $this->assertFalse($this->jwtAuth->getToken());
+    }
+
+    /** @test */
+    public function it_should_set_the_identifier()
+    {
+        $this->jwtAuth->setIdentifier('foo');
+
+        $this->assertEquals($this->jwtAuth->getIdentifier(), 'foo');
     }
 
     /** @test */
     public function it_should_magically_call_the_manager()
     {
-        $this->manager->shouldReceive('getBlacklist')->andReturn(new StdClass);
+        $this->manager->shouldReceive('getBlacklist')->andReturn(new \StdClass);
 
         $blacklist = $this->jwtAuth->getBlacklist();
 
-        $this->assertInstanceOf(StdClass::class, $blacklist);
+        $this->assertInstanceOf('StdClass', $blacklist);
     }
 
     /** @test */
@@ -260,37 +221,15 @@ class JWTAuthTest extends AbstractTestCase
     {
         $request = Request::create('/foo', 'GET', ['token' => 'some.random.token']);
 
-        $this->parser->shouldReceive('setRequest')->once()->with($request);
-        $this->parser->shouldReceive('parseToken')->andReturn('some.random.token');
-
         $token = $this->jwtAuth->setRequest($request)->getToken();
 
         $this->assertEquals('some.random.token', $token);
     }
 
     /** @test */
-    public function it_should_unset_the_token()
-    {
-        $this->parser->shouldReceive('parseToken')->andThrow(new JWTException);
-        $token = new Token('foo.bar.baz');
-        $this->jwtAuth->setToken($token);
-
-        $this->assertSame($this->jwtAuth->getToken(), $token);
-        $this->jwtAuth->unsetToken();
-        $this->assertFalse($this->jwtAuth->getToken());
-    }
-
-    /** @test */
     public function it_should_get_the_manager_instance()
     {
         $manager = $this->jwtAuth->manager();
-        $this->assertInstanceOf(Manager::class, $manager);
-    }
-
-    /** @test */
-    public function it_should_get_the_parser_instance()
-    {
-        $parser = $this->jwtAuth->parser();
-        $this->assertInstanceOf(Parser::class, $parser);
+        $this->assertInstanceOf('Tymon\JWTAuth\JWTManager', $manager);
     }
 }

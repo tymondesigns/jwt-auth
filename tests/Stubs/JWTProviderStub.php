@@ -11,9 +11,8 @@
 
 namespace Tymon\JWTAuth\Test\Stubs;
 
-use Tymon\JWTAuth\Providers\JWT\Provider;
+use Tymon\JWTAuth\Providers\JWT\JWTProvider;
 
-class JWTProviderStub extends Provider
+class JWTProviderStub extends JWTProvider
 {
-    //
 }

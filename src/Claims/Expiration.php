@@ -11,12 +11,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-
 class Expiration extends Claim
 {
-    use DatetimeTrait;
-
     /**
      * The claim name.
      *
@@ -25,12 +21,13 @@ class Expiration extends Claim
     protected $name = 'exp';
 
     /**
-     * {@inheritdoc}
+     * Validate the expiry claim.
+     *
+     * @param  mixed  $value
+     * @return bool
      */
-    public function validatePayload()
+    protected function validate($value)
     {
-        if ($this->isPast($this->getValue())) {
-            throw new TokenExpiredException('Token has expired');
-        }
+        return is_numeric($value);
     }
 }
