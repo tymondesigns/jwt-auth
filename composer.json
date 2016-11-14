@@ -1,5 +1,5 @@
 {
-    "name": "tymon/jwt-auth",
+    "name": "umertasov/jwt-auth",
     "description": "JSON Web Token Authentication for Laravel and Lumen",
     "keywords": [
         "auth",
@@ -8,7 +8,7 @@
         "jwt",
         "laravel"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/umertasov/jwt-auth",
     "license": "MIT",
     "authors": [
         {
