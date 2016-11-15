@@ -18,25 +18,25 @@ use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Claims\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
+class Payload implements ArrayAccess, Arrayable, JsonSerializable, Jsonable, Countable
 {
     /**
      * The collection of claims.
      *
-     * @var \Tymon\JWTAuth\Claims\Collection
+     * @var \Illuminate\Support\Collection
      */
     private $claims;
 
     /**
      * Build the Payload.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  \Illuminate\Support\Collection  $claims
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param  bool  $refreshFlow
      *
@@ -44,13 +44,15 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      */
     public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
     {
-        $this->claims = $validator->setRefreshFlow($refreshFlow)->check($claims);
+        $this->claims = $claims;
+
+        $validator->setRefreshFlow($refreshFlow)->check($this->toArray());
     }
 
     /**
      * Get the array of claim instances.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function getClaims()
     {
@@ -117,18 +119,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     }
 
     /**
-     * Get the underlying Claim instance.
-     *
-     * @param  string  $claim
-     *
-     * @return \Tymon\JWTAuth\Claims\Claim
-     */
-    public function getInternal($claim)
-    {
-        return $this->claims->getByClaimName($claim);
-    }
-
-    /**
      * Determine whether the payload has the claim (by instance).
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
@@ -159,7 +149,11 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      */
     public function toArray()
     {
-        return $this->claims->toPlainArray();
+        $collection = $this->claims->map(function (Claim $claim) {
+            return $claim->getValue();
+        });
+
+        return $collection->toArray();
     }
 
     /**

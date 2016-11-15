@@ -178,16 +178,6 @@ class Blacklist
     }
 
     /**
-     * Get the grace period.
-     *
-     * @return int
-     */
-    public function getGracePeriod()
-    {
-        return $this->gracePeriod;
-    }
-
-    /**
      * Get the unique key held within the blacklist.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
@@ -225,15 +215,5 @@ class Blacklist
         $this->refreshTTL = (int) $ttl;
 
         return $this;
-    }
-
-    /**
-     * Get the refresh time limit.
-     *
-     * @return int
-     */
-    public function getRefreshTTL()
-    {
-        return $this->refreshTTL;
     }
 }

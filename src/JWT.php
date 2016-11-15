@@ -14,8 +14,8 @@ namespace Tymon\JWTAuth;
 use BadMethodCallException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class JWT
@@ -66,17 +66,13 @@ class JWT
     /**
      * Refresh an expired token.
      *
-     * @param  bool  $forceForever
-     *
      * @return string
      */
-    public function refresh($forceForever = false)
+    public function refresh()
     {
         $this->requireToken();
 
-        return $this->manager->customClaims($this->getCustomClaims())
-                             ->refresh($this->token, $forceForever)
-                             ->get();
+        return $this->manager->customClaims($this->getCustomClaims())->refresh($this->token)->get();
     }
 
     /**
@@ -84,15 +80,13 @@ class JWT
      *
      * @param  bool  $forceForever
      *
-     * @return $this
+     * @return bool
      */
     public function invalidate($forceForever = false)
     {
         $this->requireToken();
 
-        $this->manager->invalidate($this->token, $forceForever);
-
-        return $this;
+        return $this->manager->invalidate($this->token, $forceForever);
     }
 
     /**
@@ -203,8 +197,8 @@ class JWT
     {
         return array_merge(
             ['sub' => $user->getJWTIdentifier()],
-            $this->customClaims, // custom claims from inline setter
-            $user->getJWTCustomClaims() // custom claims from JWTSubject method
+            $this->customClaims,
+            $user->getJWTCustomClaims()
         );
     }
 

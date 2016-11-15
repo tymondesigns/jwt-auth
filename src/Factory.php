@@ -11,8 +11,10 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Claims\Claim;
-use Tymon\JWTAuth\Claims\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Support\Utils;
+use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -20,7 +22,7 @@ use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class Factory
 {
-    use CustomClaims, RefreshFlow;
+    use RefreshFlow, CustomClaims;
 
     /**
      * @var \Tymon\JWTAuth\Claims\Factory
@@ -28,35 +30,41 @@ class Factory
     protected $claimFactory;
 
     /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+
+    /**
      * @var \Tymon\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 
     /**
-     * @var array
+     * @var int
      */
-    protected $defaultClaims = [
-        'iss',
-        'iat',
-        'exp',
-        'nbf',
-        'jti',
-    ];
+    protected $ttl = 60;
 
     /**
-     * @var \Tymon\JWTAuth\Claims\Collection
+     * @var array
+     */
+    protected $defaultClaims = ['iss', 'iat', 'exp', 'nbf', 'jti'];
+
+    /**
+     * @var \Illuminate\Support\Collection
      */
     protected $claims;
 
     /**
      * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
+     * @param  \Illuminate\Http\Request  $request
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      *
      * @return void
      */
-    public function __construct(ClaimFactory $claimFactory, PayloadValidator $validator)
+    public function __construct(ClaimFactory $claimFactory, Request $request, PayloadValidator $validator)
     {
         $this->claimFactory = $claimFactory;
+        $this->request = $request;
         $this->validator = $validator;
 
         $this->claims = new Collection;
@@ -69,7 +77,9 @@ class Factory
      */
     public function make()
     {
-        return $this->withClaims($this->buildClaimsCollection());
+        $claims = $this->buildClaims()->resolveClaims();
+
+        return $this->withClaims($claims);
     }
 
     /**
@@ -111,51 +121,131 @@ class Factory
     protected function buildClaims()
     {
         // remove the exp claim if it exists and the ttl is null
-        if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $this->defaultClaims)) {
+        if ($this->ttl === null && $key = array_search('exp', $this->defaultClaims)) {
             unset($this->defaultClaims[$key]);
         }
 
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
-            $this->addClaim($claim, $this->claimFactory->make($claim));
+            $this->addClaim($claim, $this->$claim());
         }
 
         // add custom claims on top, allowing them to overwrite defaults
-        return $this->addClaims($this->getCustomClaims());
+        $this->addClaims($this->getCustomClaims());
+
+        return $this;
     }
 
     /**
      * Build out the Claim DTO's.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return \Illuminate\Support\Collection
      */
     protected function resolveClaims()
     {
         return $this->claims->map(function ($value, $name) {
-            return $value instanceof Claim ? $value : $this->claimFactory->get($name, $value);
+            return $this->claimFactory->get($name, $value);
         });
-    }
-
-    /**
-     * Build and get the Claims Collection.
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
-     */
-    public function buildClaimsCollection()
-    {
-        return $this->buildClaims()->resolveClaims();
     }
 
     /**
      * Get a Payload instance with a claims collection.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  \Illuminate\Support\Collection  $claims
      *
      * @return \Tymon\JWTAuth\Payload
      */
     public function withClaims(Collection $claims)
     {
         return new Payload($claims, $this->validator, $this->refreshFlow);
+    }
+
+    /**
+     * Get the Issuer (iss) claim.
+     *
+     * @return string
+     */
+    public function iss()
+    {
+        return $this->request->url();
+    }
+
+    /**
+     * Get the Issued At (iat) claim.
+     *
+     * @return int
+     */
+    public function iat()
+    {
+        return Utils::now()->getTimestamp();
+    }
+
+    /**
+     * Get the Expiration (exp) claim.
+     *
+     * @return int
+     */
+    public function exp()
+    {
+        return Utils::now()->addMinutes($this->ttl)->getTimestamp();
+    }
+
+    /**
+     * Get the Not Before (nbf) claim.
+     *
+     * @return int
+     */
+    public function nbf()
+    {
+        return Utils::now()->getTimestamp();
+    }
+
+    /**
+     * Get a unique id (jti) for the token.
+     *
+     * @return string
+     */
+    protected function jti()
+    {
+        return md5(sprintf('%s.%s', $this->claims->toJson(), Str::quickRandom()));
+    }
+
+    /**
+     * Set the request instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Set the token ttl (in minutes).
+     *
+     * @param  int  $ttl
+     *
+     * @return $this
+     */
+    public function setTTL($ttl)
+    {
+        $this->ttl = $ttl;
+
+        return $this;
+    }
+
+    /**
+     * Get the token ttl.
+     *
+     * @return int
+     */
+    public function getTTL()
+    {
+        return $this->ttl;
     }
 
     /**
@@ -170,30 +260,6 @@ class Factory
         $this->defaultClaims = $claims;
 
         return $this;
-    }
-
-    /**
-     * Helper to set the ttl.
-     *
-     * @param  int  $ttl
-     *
-     * @return $this
-     */
-    public function setTTL($ttl)
-    {
-        $this->claimFactory->setTTL($ttl);
-
-        return $this;
-    }
-
-    /**
-     * Helper to get the ttl.
-     *
-     * @return int
-     */
-    public function getTTL()
-    {
-        return $this->claimFactory->getTTL();
     }
 
     /**

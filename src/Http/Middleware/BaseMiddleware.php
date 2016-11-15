@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Http\Middleware;
 
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -68,7 +69,13 @@ abstract class BaseMiddleware
         try {
             $this->auth->parseToken()->authenticate();
         } catch (JWTException $e) {
-            throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
+            if ($e->getMessage() == 'Token has expired') {
+                $newToken = $this->auth->setRequest($request)->parseToken()->refresh();
+                header('Authorization: ' . $newToken);
+                throw new \Exception('Token has expired', 401);
+            } else {
+                throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
+            }
         }
     }
 }

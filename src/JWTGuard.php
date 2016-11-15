@@ -17,8 +17,8 @@ use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Contracts\Auth\UserProvider;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class JWTGuard implements Guard
 {
@@ -158,13 +158,11 @@ class JWTGuard implements Guard
     /**
      * Refresh the token.
      *
-     * @param  bool  $forceForever
-     *
      * @return string
      */
-    public function refresh($forceForever = false)
+    public function refresh()
     {
-        return $this->requireToken()->refresh($forceForever);
+        return $this->requireToken()->refresh();
     }
 
     /**
@@ -242,20 +240,6 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Add any custom claims.
-     *
-     * @param  array  $claims
-     *
-     * @return $this
-     */
-    public function claims(array $claims)
-    {
-        $this->jwt->claims($claims);
-
-        return $this;
-    }
-
-    /**
      * Get the raw Payload instance.
      *
      * @return \Tymon\JWTAuth\Payload
@@ -285,18 +269,6 @@ class JWTGuard implements Guard
     public function setToken($token)
     {
         $this->jwt->setToken($token);
-
-        return $this;
-    }
-
-    /**
-     * Set the token ttl.
-     *
-     * @param  int  $ttl
-     */
-    public function setTTL($ttl)
-    {
-        $this->jwt->factory()->setTTL($ttl);
 
         return $this;
     }
@@ -391,7 +363,7 @@ class JWTGuard implements Guard
      */
     protected function requireToken()
     {
-        if (! $this->jwt->setRequest($this->getRequest())->getToken()) {
+        if (! $this->jwt->getToken()) {
             throw new JWTException('Token could not be parsed from the request.');
         }
 

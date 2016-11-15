@@ -32,7 +32,7 @@ return [
     | JWT Authentication Keys
     |--------------------------------------------------------------------------
     |
-    | The algorithm you are using, will determine whether your tokens are
+    | What algorithm you are using, will determine whether your tokens are
     | signed with a random string (defined in `JWT_SECRET`) or using the
     | following public & private keys.
     |
@@ -146,32 +146,7 @@ return [
     |
     */
 
-    'required_claims' => [
-        'iss',
-        'iat',
-        'exp',
-        'nbf',
-        'sub',
-        'jti',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Persistent Claims
-    |--------------------------------------------------------------------------
-    |
-    | Specify the claim keys to be persisted when refreshing a token.
-    | `sub` and `iat` will automatically be persisted, in
-    | addition to the these claims.
-    |
-    | Note: If a claim does not exist then it will be ignored.
-    |
-    */
-
-    'persistent_claims' => [
-        // 'foo',
-        // 'bar',
-    ],
+    'required_claims' => ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'],
 
     /*
     |--------------------------------------------------------------------------

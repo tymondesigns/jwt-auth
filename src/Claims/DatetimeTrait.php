@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Claims;
 
 use DateTimeInterface;
 use Tymon\JWTAuth\Support\Utils;
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 trait DatetimeTrait
 {
@@ -36,38 +35,50 @@ trait DatetimeTrait
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function validateCreate($value)
-    {
-        if (! is_numeric($value)) {
-            throw new InvalidClaimException($this);
-        }
-
-        return $value;
-    }
-
-    /**
-     * Determine whether the value is in the future.
+     * Determine whether the value is numeric.
      *
      * @param  mixed  $value
      *
      * @return bool
      */
-    protected function isFuture($value)
+    protected function checkNumeric($value)
     {
-        return Utils::isFuture($value);
+        return is_numeric($value);
     }
 
     /**
-     * Determine whether the value is in the past.
+     * Determine whether the value is not in the future.
      *
      * @param  mixed  $value
      *
      * @return bool
      */
-    protected function isPast($value)
+    protected function checkNotFuture($value)
     {
-        return Utils::isPast($value);
+        return $this->checkNumeric($value) && ! Utils::isFuture($value);
+    }
+
+    /**
+     * Determine whether the value is not in the past.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    protected function checkNotPast($value)
+    {
+        return $this->checkNumeric($value) && ! Utils::isPast($value);
+    }
+
+    /**
+     * Validate the claim.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function validate($value)
+    {
+        return $this->checkNumeric($value);
     }
 }

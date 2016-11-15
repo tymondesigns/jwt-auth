@@ -54,5 +54,5 @@ interface Claim
      *
      * @return bool
      */
-    public function validateCreate($value);
+    public function validate($value);
 }

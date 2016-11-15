@@ -24,7 +24,7 @@ class TokenValidator extends Validator
      */
     public function check($value)
     {
-        return $this->validateStructure($value);
+        $this->validateStructure($value);
     }
 
     /**
@@ -48,6 +48,6 @@ class TokenValidator extends Validator
             throw new TokenInvalidException('Malformed token');
         }
 
-        return $token;
+        return true;
     }
 }

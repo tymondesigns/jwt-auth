@@ -19,7 +19,7 @@ use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 class Manager
 {
-    use CustomClaims, RefreshFlow;
+    use RefreshFlow, CustomClaims;
 
     /**
      * @var \Tymon\JWTAuth\Contracts\Providers\JWT
@@ -40,11 +40,6 @@ class Manager
      * @var bool
      */
     protected $blacklistEnabled = true;
-
-    /**
-     * @var array
-     */
-    protected $persistentClaims = [];
 
     /**
      * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
@@ -78,13 +73,12 @@ class Manager
      * Decode a Token and return the Payload.
      *
      * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $checkBlacklist
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function decode(Token $token, $checkBlacklist = true)
+    public function decode(Token $token)
     {
         $payloadArray = $this->provider->decode($token->get());
 
@@ -93,7 +87,7 @@ class Manager
                         ->customClaims($payloadArray)
                         ->make();
 
-        if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
+        if ($this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');
         }
 
@@ -104,28 +98,22 @@ class Manager
      * Refresh a Token and return a new Token.
      *
      * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $forceForever
      *
      * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token, $forceForever = false)
+    public function refresh(Token $token)
     {
-        $this->setRefreshFlow();
+        $payload = $this->setRefreshFlow()->decode($token);
 
         if ($this->blacklistEnabled) {
             // invalidate old token
-            $this->invalidate($token, $forceForever);
+            $this->blacklist->add($payload);
         }
 
-        $payload = $this->decode($token, false);
-
-        // assign the payload values as variables for use later
-        extract($payload->toArray());
-
-        // persist the relevant claims
+        // persist the subject and issued at claims
         $claims = array_merge(
             $this->customClaims,
-            compact($this->persistentClaims, 'sub', 'iat')
+            ['sub' => $payload['sub'], 'iat' => $payload['iat']]
         );
 
         // return the new token
@@ -152,7 +140,7 @@ class Manager
 
         return call_user_func(
             [$this->blacklist, $forceForever ? 'addForever' : 'add'],
-            $this->decode($token, false)
+            $this->decode($token)
         );
     }
 
@@ -196,20 +184,6 @@ class Manager
     public function setBlacklistEnabled($enabled)
     {
         $this->blacklistEnabled = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * Set the claims to be persisted when refreshing a token.
-     *
-     * @param  array  $claims
-     *
-     * @return $this
-     */
-    public function setPersistentClaims(array $claims)
-    {
-        $this->persistentClaims = $claims;
 
         return $this;
     }

@@ -11,7 +11,8 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Claims\Collection;
+use Tymon\JWTAuth\Support\Utils;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class PayloadValidator extends Validator
@@ -19,14 +20,7 @@ class PayloadValidator extends Validator
     /**
      * @var array
      */
-    protected $requiredClaims = [
-        'iss',
-        'iat',
-        'exp',
-        'nbf',
-        'sub',
-        'jti',
-    ];
+    protected $requiredClaims = ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'];
 
     /**
      * @var int
@@ -36,7 +30,7 @@ class PayloadValidator extends Validator
     /**
      * Run the validations on the payload array.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $value
+     * @param  array  $value
      *
      * @return void
      */
@@ -44,53 +38,79 @@ class PayloadValidator extends Validator
     {
         $this->validateStructure($value);
 
-        return $this->refreshFlow ? $this->validateRefresh($value) : $this->validatePayload($value);
+        if (! $this->refreshFlow) {
+            $this->validateTimestamps($value);
+        } else {
+            $this->validateRefresh($value);
+        }
     }
 
     /**
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  array  $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return bool
      */
-    protected function validateStructure(Collection $claims)
+    protected function validateStructure(array $payload)
     {
-        if (! $claims->hasAllClaims($this->requiredClaims)) {
+        if (count(array_diff($this->requiredClaims, array_keys($payload))) !== 0) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
+
+        return true;
     }
 
     /**
      * Validate the payload timestamps.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  array  $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return bool
      */
-    protected function validatePayload(Collection $claims)
+    protected function validateTimestamps(array $payload)
     {
-        return $claims->validate('payload');
+        if (isset($payload['nbf']) && Utils::isFuture($payload['nbf'])) {
+            throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
+        }
+
+        if (isset($payload['iat']) && Utils::isFuture($payload['iat'])) {
+            throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
+        }
+
+        if (isset($payload['exp']) && Utils::isPast($payload['exp'])) {
+            throw new TokenExpiredException('Token has expired');
+        }
+
+        return true;
     }
 
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  array  $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return bool
      */
-    protected function validateRefresh(Collection $claims)
+    protected function validateRefresh(array $payload)
     {
-        return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
+        if ($this->refreshTTL === null) {
+            return true;
+        }
+
+        if (isset($payload['iat']) && Utils::isPast($payload['iat'] + $this->refreshTTL * 60)) {
+            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
+        }
+
+        return true;
     }
 
     /**

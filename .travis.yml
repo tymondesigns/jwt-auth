@@ -1,53 +1,20 @@
 sudo: false
-
-cache:
-  directories:
-    - $HOME/.composer/cache
-
 language: php
 
 php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
   - hhvm
-  
-env:
-  global:
-    - laravel='*'
 
 matrix:
-  include:
-    - php: 5.5.9
-      env: laravel='5.1'
-    - php: 5.5.9
-      env: laravel='5.2'
-    - php: 5.5
-      env: laravel='5.1'
-    - php: 5.5
-      env: laravel='5.2'
-    - php: 5.6
-      env: laravel='5.1'
-    - php: 5.6
-      env: laravel='5.2'
-    - php: 5.6
-      env: laravel='5.3'
-    - php: 7.0
-      env: laravel='5.1'
-    - php: 7.0
-      env: laravel='5.2'
-    - php: 7.0
-      env: laravel='5.3'
-  fast_finish: true
+    allow_failures:
+        - php: 7.0
 
 before_script:
   - travis_retry composer self-update
-  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.3' ]]; then travis_retry composer require "illuminate/contracts=5.3.*" --prefer-dist --no-interaction; fi
+  - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - if [[ $laravel = '5.1' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml --exclude-group laravel-5.2; fi
-  - if [[ $laravel = '5.2' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml; fi
-  - if [[ $laravel = '5.3' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml; fi
-
-after_success:
-  - if [[ $laravel = '5.3' ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - phpunit --coverage-text --coverage-clover=coverage.clover
