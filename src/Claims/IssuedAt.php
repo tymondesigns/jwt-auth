@@ -13,6 +13,8 @@ namespace Tymon\JWTAuth\Claims;
 
 class IssuedAt extends Claim
 {
+    use DatetimeTrait;
+
     /**
      * The claim name.
      *
@@ -21,13 +23,14 @@ class IssuedAt extends Claim
     protected $name = 'iat';
 
     /**
-     * Validate the issued at claim.
+     * Validate the claim.
      *
      * @param  mixed  $value
+     *
      * @return bool
      */
-    protected function validate($value)
+    public function validate($value)
     {
-        return is_numeric($value);
+        return $this->checkNotFuture($value);
     }
 }

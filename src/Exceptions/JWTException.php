@@ -11,39 +11,19 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
-class JWTException extends \Exception
+use Exception;
+
+class JWTException extends Exception
 {
     /**
-     * @var int
+     * @param  string  $message
+     * @param  int  $code
+     * @param  \Exception|null  $previous
+     *
+     * @return void
      */
-    protected $statusCode = 500;
-
-    /**
-     * @param string  $message
-     * @param int $statusCode
-     */
-    public function __construct($message = 'An error occurred', $statusCode = null)
+    public function __construct($message = 'An error occurred', $code = 0, Exception $previous = null)
     {
-        parent::__construct($message);
-
-        if (! is_null($statusCode)) {
-            $this->setStatusCode($statusCode);
-        }
-    }
-
-    /**
-     * @param int $statusCode
-     */
-    public function setStatusCode($statusCode)
-    {
-        $this->statusCode = $statusCode;
-    }
-
-    /**
-     * @return int the status code
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
+        parent::__construct($message, $code, $previous);
     }
 }

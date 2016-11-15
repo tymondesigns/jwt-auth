@@ -13,12 +13,13 @@ namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class TokenValidator extends AbstractValidator
+class TokenValidator extends Validator
 {
     /**
      * Check the structure of the token.
      *
-     * @param string  $value
+     * @param  string  $value
+     *
      * @return void
      */
     public function check($value)
@@ -28,13 +29,23 @@ class TokenValidator extends AbstractValidator
 
     /**
      * @param  string  $token
+     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     *
      * @return bool
      */
     protected function validateStructure($token)
     {
-        if (count(explode('.', $token)) !== 3) {
+        $parts = explode('.', $token);
+
+        if (count($parts) !== 3) {
             throw new TokenInvalidException('Wrong number of segments');
+        }
+
+        $parts = array_filter(array_map('trim', $parts));
+
+        if (count($parts) !== 3 || implode('.', $parts) !== $token) {
+            throw new TokenInvalidException('Malformed token');
         }
 
         return true;

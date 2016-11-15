@@ -9,16 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace Tymon\JWTAuth\Contracts\Http;
 
-class Expiration extends Claim
+use Illuminate\Http\Request;
+
+interface Parser
 {
-    use DatetimeTrait;
-
     /**
-     * The claim name.
+     * Parse the request.
      *
-     * @var string
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return null|string
      */
-    protected $name = 'exp';
+    public function parse(Request $request);
 }

@@ -9,16 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Claims;
+namespace Tymon\JWTAuth\Exceptions;
 
-class Expiration extends Claim
+class UserNotDefinedException extends JWTException
 {
-    use DatetimeTrait;
-
-    /**
-     * The claim name.
-     *
-     * @var string
-     */
-    protected $name = 'exp';
+    //
 }

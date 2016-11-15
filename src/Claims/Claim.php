@@ -11,9 +11,13 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use JsonSerializable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
-abstract class Claim implements ClaimInterface
+abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
 {
     /**
      * The claim name.
@@ -30,7 +34,9 @@ abstract class Claim implements ClaimInterface
     private $value;
 
     /**
-     * @param mixed  $value
+     * @param  mixed  $value
+     *
+     * @return void
      */
     public function __construct($value)
     {
@@ -38,10 +44,12 @@ abstract class Claim implements ClaimInterface
     }
 
     /**
-     * Set the claim value, and call a validate method if available.
+     * Set the claim value, and call a validate method.
      *
-     * @param $value
+     * @param  mixed  $value
+     *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     *
      * @return $this
      */
     public function setValue($value)
@@ -68,7 +76,8 @@ abstract class Claim implements ClaimInterface
     /**
      * Set the claim name.
      *
-     * @param string $name
+     * @param  string  $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -91,12 +100,36 @@ abstract class Claim implements ClaimInterface
     /**
      * Validate the Claim value.
      *
-     * @param  $value
+     * @param  mixed  $value
+     *
      * @return bool
      */
-    protected function validate($value)
+    public function validate($value)
     {
         return true;
+    }
+
+    /**
+     * Checks if the value matches the claim.
+     *
+     * @param  mixed  $value
+     * @param  bool  $strict
+     *
+     * @return bool
+     */
+    public function matches($value, $strict = true)
+    {
+        return $strict ? $this->value === $value : $this->value == $value;
+    }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 
     /**
@@ -110,12 +143,24 @@ abstract class Claim implements ClaimInterface
     }
 
     /**
-     * Get the claim as a string.
+     * Get the claim as JSON.
+     *
+     * @param  int  $options
+     *
+     * @return string
+     */
+    public function toJson($options = JSON_UNESCAPED_SLASHES)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * Get the payload as a string.
      *
      * @return string
      */
     public function __toString()
     {
-        return json_encode($this->toArray(), JSON_UNESCAPED_SLASHES);
+        return $this->toJson();
     }
 }
