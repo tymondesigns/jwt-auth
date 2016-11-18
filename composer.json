@@ -52,5 +52,8 @@
         }
     },
     "prefer-stable": true,
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "scripts": {
+        "test" : "phpunit"
+    }
 }
