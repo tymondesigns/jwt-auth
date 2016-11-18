@@ -73,11 +73,13 @@ class NamshiTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     {
+        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+
         $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andReturn(Mockery::self());
         $this->jws->shouldReceive('verify')->once()->with('secret', 'HS256')->andReturn(true);
-        $this->jws->shouldReceive('getPayload')->andReturn([]);
+        $this->jws->shouldReceive('getPayload')->andReturn($payload);
 
-        $payload = $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
+        $this->assertEquals($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
 
     /**
