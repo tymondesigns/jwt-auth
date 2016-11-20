@@ -41,6 +41,8 @@ class CollectionTest extends AbstractTestCase
     {
         $collection = $this->getCollection();
 
+        // var_dump($collection);
+
         $this->assertSame(array_keys($collection->toArray()), ['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']);
     }
 
