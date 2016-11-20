@@ -168,6 +168,18 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
+    /**
+     * @test
+     * @expectedException \ReflectionException
+     */
+    public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
+    {
+        $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andReturn(Mockery::self());
+        $this->jws->shouldReceive('verify')->with('secret', 'AlgorithmWrong')->andReturn(true);
+
+        $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
+    }
+
     public function getProvider($secret, $algo, array $keys = [])
     {
         return new Namshi($secret, $algo, $keys, $this->jws);
