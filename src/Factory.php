@@ -69,7 +69,10 @@ class Factory
      */
     public function make()
     {
-        return $this->withClaims($this->buildClaimsCollection());
+        $payload = $this->withClaims($this->buildClaimsCollection());
+        $this->claims = new Collection;
+
+        return $payload;
     }
 
     /**
