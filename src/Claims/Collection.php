@@ -20,6 +20,7 @@ class Collection extends IlluminateCollection
      * Create a new collection.
      *
      * @param  mixed  $items
+     *
      * @return void
      */
     public function __construct($items = [])
