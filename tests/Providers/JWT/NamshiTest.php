@@ -170,7 +170,7 @@ class NamshiTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \ReflectionException
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
      */
     public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
     {

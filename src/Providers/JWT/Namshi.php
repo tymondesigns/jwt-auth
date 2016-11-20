@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Providers\JWT;
 use Exception;
 use ReflectionClass;
 use Namshi\JOSE\JWS;
+use ReflectionException;
 use InvalidArgumentException;
 use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
@@ -95,7 +96,11 @@ class Namshi extends Provider implements JWT
      */
     protected function isAsymmetric()
     {
-        return (new ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);
+        try {
+            return (new ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);
+        } catch (ReflectionException $e) {
+            throw new JWTException('The given algorithm could not be found', $e->getCode(), $e);
+        }
     }
 
     /**

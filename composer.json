@@ -54,6 +54,7 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "scripts": {
-        "test" : "phpunit"
+        "test" : "phpunit",
+        "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
     }
 }

@@ -8,7 +8,7 @@ language: php
 
 php:
   - hhvm
-  
+
 env:
   global:
     - laravel='*'
@@ -45,9 +45,9 @@ before_script:
   - if [[ $laravel = '5.3' ]]; then travis_retry composer require "illuminate/contracts=5.3.*" --prefer-dist --no-interaction; fi
 
 script:
-  - if [[ $laravel = '5.1' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml --exclude-group laravel-5.2; fi
-  - if [[ $laravel = '5.2' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml; fi
-  - if [[ $laravel = '5.3' ]]; then vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml; fi
+  - if [[ $laravel = '5.1' ]]; then composer test:ci -- --exclude-group laravel-5.2; fi
+  - if [[ $laravel = '5.2' ]]; then composer test:ci; fi
+  - if [[ $laravel = '5.3' ]]; then composer test:ci; fi
 
 after_success:
   - if [[ $laravel = '5.3' ]]; then bash <(curl -s https://codecov.io/bash); fi
