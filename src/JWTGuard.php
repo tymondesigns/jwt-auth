@@ -159,12 +159,13 @@ class JWTGuard implements Guard
      * Refresh the token.
      *
      * @param  bool  $forceForever
+     * @param  bool  $resetClaims
      *
      * @return string
      */
-    public function refresh($forceForever = false)
+    public function refresh($forceForever = false, $resetClaims = false)
     {
-        return $this->requireToken()->refresh($forceForever);
+        return $this->requireToken()->refresh($forceForever, $resetClaims);
     }
 
     /**

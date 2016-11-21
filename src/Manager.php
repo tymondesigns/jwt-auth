@@ -105,10 +105,11 @@ class Manager
      *
      * @param  \Tymon\JWTAuth\Token  $token
      * @param  bool  $forceForever
+     * @param  bool  $resetClaims
      *
      * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token, $forceForever = false)
+    public function refresh(Token $token, $forceForever = false, $resetClaims = false)
     {
         $this->setRefreshFlow();
 
@@ -117,20 +118,11 @@ class Manager
             $this->invalidate($token, $forceForever);
         }
 
-        $payload = $this->decode($token, false);
-
-        // assign the payload values as variables for use later
-        extract($payload->toArray());
-
-        // persist the relevant claims
-        $claims = array_merge(
-            $this->customClaims,
-            compact($this->persistentClaims, 'sub', 'iat')
-        );
+        $claims = $this->buildRefreshClaims($this->decode($token, false));
 
         // return the new token
         return $this->encode(
-            $this->payloadFactory->customClaims($claims)->make()
+            $this->payloadFactory->customClaims($claims)->make($resetClaims)
         );
     }
 
@@ -153,6 +145,25 @@ class Manager
         return call_user_func(
             [$this->blacklist, $forceForever ? 'addForever' : 'add'],
             $this->decode($token, false)
+        );
+    }
+
+    /**
+     * Build the claims to go into the refreshed token.
+     *
+     * @param  Payload $payload
+     *
+     * @return array
+     */
+    protected function buildRefreshClaims(Payload $payload)
+    {
+        // assign the payload values as variables for use later
+        extract($payload->toArray());
+
+        // persist the relevant claims
+        return array_merge(
+            $this->customClaims,
+            compact($this->persistentClaims, 'sub', 'iat')
         );
     }
 

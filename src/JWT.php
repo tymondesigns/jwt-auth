@@ -67,15 +67,16 @@ class JWT
      * Refresh an expired token.
      *
      * @param  bool  $forceForever
+     * @param  bool  $resetClaims
      *
      * @return string
      */
-    public function refresh($forceForever = false)
+    public function refresh($forceForever = false, $resetClaims = false)
     {
         $this->requireToken();
 
         return $this->manager->customClaims($this->getCustomClaims())
-                             ->refresh($this->token, $forceForever)
+                             ->refresh($this->token, $forceForever, $resetClaims)
                              ->get();
     }
 

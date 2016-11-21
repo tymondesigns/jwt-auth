@@ -198,7 +198,7 @@ class FactoryTest extends AbstractTestCase
 
         $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
         $this->claimFactory->shouldReceive('get')->with('foo', 'bar')->twice()->andReturn($fooClaim);
-        $this->claimFactory->shouldReceive('get')->with('baz', 'qux')->once()->andReturn($barClaim);
+        $this->claimFactory->shouldReceive('get')->with('baz', 'qux')->twice()->andReturn($barClaim);
         $this->validator->shouldReceive('setRefreshFlow->check')->once()->andReturn(new Collection([$fooClaim, $barClaim]));
 
         $payload = $this->factory->setDefaultClaims([])
@@ -212,7 +212,7 @@ class FactoryTest extends AbstractTestCase
 
         $this->validator->shouldReceive('setRefreshFlow->check')->once()->andReturn(new Collection([$fooClaim]));
 
-        $payload = $this->factory->setDefaultClaims([])->customClaims(['foo' => 'bar'])->make();
+        $payload = $this->factory->setDefaultClaims([])->customClaims(['foo' => 'bar'])->make(true);
 
         $this->assertSame($payload->get('foo'), 'bar');
         $this->assertFalse($payload->hasKey('baz'));

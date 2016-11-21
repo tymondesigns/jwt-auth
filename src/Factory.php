@@ -65,14 +65,31 @@ class Factory
     /**
      * Create the Payload instance.
      *
+     * @param  bool  $resetClaims
+     *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function make()
+    public function make($resetClaims = false)
     {
         $payload = $this->withClaims($this->buildClaimsCollection());
-        $this->claims = new Collection;
+
+        if ($resetClaims) {
+            $this->emptyClaims();
+        }
 
         return $payload;
+    }
+
+    /**
+     * Empty the claims collection.
+     *
+     * @return $this
+     */
+    public function emptyClaims()
+    {
+        $this->claims = new Collection;
+
+        return $this;
     }
 
     /**
