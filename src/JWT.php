@@ -50,7 +50,21 @@ class JWT
     }
 
     /**
-     * Generate a token using the user identifier as the subject claim.
+     * Generate a token for a given subject.
+     *
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     *
+     * @return string
+     */
+    public function fromSubject(JWTSubject $subject)
+    {
+        $payload = $this->makePayload($subject);
+
+        return $this->manager->encode($payload)->get();
+    }
+
+    /**
+     * Alias to generate a token for a given user.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
@@ -58,9 +72,7 @@ class JWT
      */
     public function fromUser(JWTSubject $user)
     {
-        $payload = $this->makePayload($user);
-
-        return $this->manager->encode($payload)->get();
+        return $this->fromSubject($user);
     }
 
     /**
@@ -196,28 +208,28 @@ class JWT
     /**
      * Create a Payload instance.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function makePayload(JWTSubject $user)
+    public function makePayload(JWTSubject $subject)
     {
-        return $this->factory()->customClaims($this->getClaimsArray($user))->make();
+        return $this->factory()->customClaims($this->getClaimsArray($subject))->make();
     }
 
     /**
      * Build the claims array and return it.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      *
      * @return array
      */
-    protected function getClaimsArray(JWTSubject $user)
+    protected function getClaimsArray(JWTSubject $subject)
     {
         return array_merge(
-            ['sub' => $user->getJWTIdentifier()],
+            ['sub' => $subject->getJWTIdentifier()],
             $this->customClaims, // custom claims from inline setter
-            $user->getJWTCustomClaims() // custom claims from JWTSubject method
+            $subject->getJWTCustomClaims() // custom claims from JWTSubject method
         );
     }
 
