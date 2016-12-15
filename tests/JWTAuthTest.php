@@ -302,6 +302,6 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
-        $this->assertSame($this->jwtAuth->getClaim('sub'), 1);
+        $this->assertSame($this->jwtAuth->setToken('foo.bar.baz')->getClaim('sub'), 1);
     }
 }
