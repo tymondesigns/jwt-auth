@@ -293,4 +293,15 @@ class JWTAuthTest extends AbstractTestCase
         $parser = $this->jwtAuth->parser();
         $this->assertInstanceOf(Parser::class, $parser);
     }
+
+    /** @test */
+    public function it_should_get_a_claim_value()
+    {
+        $payload = Mockery::mock(Payload::class);
+        $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+
+        $this->assertSame($this->jwtAuth->getClaim('sub'), 1);
+    }
 }

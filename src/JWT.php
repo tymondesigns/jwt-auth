@@ -182,6 +182,18 @@ class JWT
     }
 
     /**
+     * Convenience method to get a claim value.
+     *
+     * @param  string  $claim
+     *
+     * @return mixed
+     */
+    public function getClaim($claim)
+    {
+        return $this->payload()->get($claim);
+    }
+
+    /**
      * Create a Payload instance.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
