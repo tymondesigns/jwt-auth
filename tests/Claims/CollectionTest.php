@@ -16,8 +16,8 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Claims\Collection;
+use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class CollectionTest extends AbstractTestCase

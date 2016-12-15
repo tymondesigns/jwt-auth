@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
-use ReflectionClass;
 use Namshi\JOSE\JWS;
+use ReflectionClass;
 use ReflectionException;
 use InvalidArgumentException;
 use Namshi\JOSE\Signer\OpenSSL\PublicKey;
