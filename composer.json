@@ -51,6 +51,9 @@
             "dev-develop": "1.0-dev"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
     "prefer-stable": true,
     "minimum-stability": "dev",
     "scripts": {
