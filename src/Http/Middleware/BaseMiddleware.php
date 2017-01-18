@@ -27,7 +27,7 @@ abstract class BaseMiddleware
     /**
      * Create a new BaseMiddleware instance.
      *
-     * @param  \Tymon\JWTAuth\JWTAuth  $auth
+     * @param  \Tymon\JWTAuth\JWTAuth $auth
      *
      * @return void
      */
@@ -39,7 +39,7 @@ abstract class BaseMiddleware
     /**
      * Check the request for the presence of a token.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      *
@@ -47,7 +47,7 @@ abstract class BaseMiddleware
      */
     public function checkForToken(Request $request)
     {
-        if (! $this->auth->parser()->setRequest($request)->hasToken()) {
+        if (!$this->auth->parser()->setRequest($request)->hasToken()) {
             throw new BadRequestHttpException('Token not provided');
         }
     }
@@ -55,7 +55,7 @@ abstract class BaseMiddleware
     /**
      * Attempt to authenticate a user via the token in the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      *

@@ -20,7 +20,7 @@ trait DatetimeTrait
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      *
@@ -40,7 +40,7 @@ trait DatetimeTrait
      */
     public function validateCreate($value)
     {
-        if (! is_numeric($value)) {
+        if (!is_numeric($value)) {
             throw new InvalidClaimException($this);
         }
 
@@ -50,7 +50,7 @@ trait DatetimeTrait
     /**
      * Determine whether the value is in the future.
      *
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @return bool
      */
@@ -62,7 +62,7 @@ trait DatetimeTrait
     /**
      * Determine whether the value is in the past.
      *
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @return bool
      */

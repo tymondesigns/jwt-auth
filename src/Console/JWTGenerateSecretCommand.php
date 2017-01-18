@@ -50,8 +50,8 @@ class JWTGenerateSecretCommand extends Command
         if (file_exists($path)) {
 
             // check if there is already a secret set first
-            if (! Str::contains(file_get_contents($path), 'JWT_SECRET')) {
-                file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
+            if (!Str::contains(file_get_contents($path), 'JWT_SECRET')) {
+                file_put_contents($path, PHP_EOL . "JWT_SECRET=$key", FILE_APPEND);
             } else {
 
                 // let's be sure you want to do this, unless you already told us to force it
@@ -59,7 +59,7 @@ class JWTGenerateSecretCommand extends Command
 
                 if ($confirmed) {
                     file_put_contents($path, str_replace(
-                        'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
+                        'JWT_SECRET=' . $this->laravel['config']['jwt.secret'], 'JWT_SECRET=' . $key, file_get_contents($path)
                     ));
                 } else {
                     return $this->comment('Phew... No changes were made to your secret key.');

@@ -16,9 +16,9 @@ use Exception;
 class JWTException extends Exception
 {
     /**
-     * @param  string  $message
-     * @param  int  $code
-     * @param  \Exception|null  $previous
+     * @param  string $message
+     * @param  int $code
+     * @param  \Exception|null $previous
      *
      * @return void
      */

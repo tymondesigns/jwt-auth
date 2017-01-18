@@ -41,7 +41,7 @@ class Factory
     ];
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return void
      */
@@ -53,8 +53,8 @@ class Factory
     /**
      * Get the instance of the claim when passing the name and value.
      *
-     * @param  string  $name
-     * @param  mixed  $value
+     * @param  string $name
+     * @param  mixed $value
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
@@ -70,7 +70,7 @@ class Factory
     /**
      * Check whether the claim exists.
      *
-     * @param  string  $name
+     * @param  string $name
      *
      * @return bool
      */
@@ -82,7 +82,7 @@ class Factory
     /**
      * Generate the initial value and return the Claim instance.
      *
-     * @param  string  $name
+     * @param  string $name
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
@@ -144,8 +144,8 @@ class Factory
     /**
      * Add a new claim mapping.
      *
-     * @param  string  $name
-     * @param  string  $classPath
+     * @param  string $name
+     * @param  string $classPath
      *
      * @return $this
      */
@@ -159,7 +159,7 @@ class Factory
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return $this
      */
@@ -173,7 +173,7 @@ class Factory
     /**
      * Set the token ttl (in minutes).
      *
-     * @param  int  $ttl
+     * @param  int $ttl
      *
      * @return $this
      */

@@ -36,9 +36,9 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Build the Payload.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
-     * @param  bool  $refreshFlow
+     * @param  \Tymon\JWTAuth\Claims\Collection $claims
+     * @param  \Tymon\JWTAuth\Validators\PayloadValidator $validator
+     * @param  bool $refreshFlow
      *
      * @return void
      */
@@ -60,8 +60,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Checks if a payload matches some expected values.
      *
-     * @param  array  $values
-     * @param  bool  $strict
+     * @param  array $values
+     * @param  bool $strict
      *
      * @return bool
      */
@@ -74,7 +74,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
         $claims = $this->getClaims();
 
         foreach ($values as $key => $value) {
-            if (! $claims->has($key) || ! $claims->get($key)->matches($value, $strict)) {
+            if (!$claims->has($key) || !$claims->get($key)->matches($value, $strict)) {
                 return false;
             }
         }
@@ -85,7 +85,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Checks if a payload strictly matches some expected values.
      *
-     * @param  array  $values
+     * @param  array $values
      *
      * @return bool
      */
@@ -97,7 +97,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the payload.
      *
-     * @param  mixed  $claim
+     * @param  mixed $claim
      *
      * @return mixed
      */
@@ -119,7 +119,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the underlying Claim instance.
      *
-     * @param  string  $claim
+     * @param  string $claim
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
@@ -131,7 +131,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine whether the payload has the claim (by instance).
      *
-     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
+     * @param  \Tymon\JWTAuth\Claims\Claim $claim
      *
      * @return bool
      */
@@ -143,7 +143,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine whether the payload has the claim (by key).
      *
-     * @param  string  $claim
+     * @param  string $claim
      *
      * @return bool
      */
@@ -175,7 +175,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the payload as JSON.
      *
-     * @param  int  $options
+     * @param  int $options
      *
      * @return string
      */
@@ -197,7 +197,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Determine if an item exists at an offset.
      *
-     * @param  mixed  $key
+     * @param  mixed $key
      *
      * @return bool
      */
@@ -209,7 +209,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get an item at a given offset.
      *
-     * @param  mixed  $key
+     * @param  mixed $key
      *
      * @return mixed
      */
@@ -221,8 +221,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param  mixed $key
+     * @param  mixed $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\PayloadException
      */
@@ -234,7 +234,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  string  $key
+     * @param  string $key
      *
      * @throws \Tymon\JWTAuth\Exceptions\PayloadException
      *
@@ -258,7 +258,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Invoke the Payload as a callable function.
      *
-     * @param  mixed  $claim
+     * @param  mixed $claim
      *
      * @return mixed
      */
@@ -270,8 +270,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Magically get a claim value.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param  string $method
+     * @param  array $parameters
      *
      * @throws \BadMethodCallException
      *

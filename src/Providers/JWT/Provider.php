@@ -31,9 +31,9 @@ abstract class Provider
     protected $algo;
 
     /**
-     * @param  string  $secret
-     * @param  array  $keys
-     * @param  string  $algo
+     * @param  string $secret
+     * @param  array $keys
+     * @param  string $algo
      *
      * @return void
      */
@@ -47,7 +47,7 @@ abstract class Provider
     /**
      * Set the algorithm used to sign the token.
      *
-     * @param  string  $algo
+     * @param  string $algo
      *
      * @return $this
      */
@@ -71,7 +71,7 @@ abstract class Provider
     /**
      * Set the secret used to sign the token.
      *
-     * @param  string  $secret
+     * @param  string $secret
      *
      * @return $this
      */

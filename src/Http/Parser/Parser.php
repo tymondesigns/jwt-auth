@@ -26,8 +26,8 @@ class Parser
     protected $request;
 
     /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  array  $chain
+     * @param  \Illuminate\Http\Request $request
+     * @param  array $chain
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class Parser
     /**
      * Set the order of the parser chain.
      *
-     * @param  array  $chain
+     * @param  array $chain
      *
      * @return $this
      */
@@ -64,7 +64,7 @@ class Parser
     /**
      * Alias for setting the order of the chain.
      *
-     * @param  array  $chain
+     * @param  array $chain
      *
      * @return $this
      */
@@ -103,7 +103,7 @@ class Parser
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return $this
      */

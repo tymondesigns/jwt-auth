@@ -160,8 +160,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
                 $app['tymon.jwt.payload.factory']
             );
 
-            return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'))
-                            ->setPersistentClaims($this->config('persistent_claims'));
+            return $instance->setBlacklistEnabled((bool)$this->config('blacklist_enabled'))
+                ->setPersistentClaims($this->config('persistent_claims'));
         });
     }
 
@@ -226,7 +226,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $instance = new Blacklist($app['tymon.jwt.provider.storage']);
 
             return $instance->setGracePeriod($this->config('blacklist_grace_period'))
-                            ->setRefreshTTL($this->config('refresh_ttl'));
+                ->setRefreshTTL($this->config('refresh_ttl'));
         });
     }
 
@@ -289,8 +289,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Helper to get the config values.
      *
-     * @param  string  $key
-     * @param  string  $default
+     * @param  string $key
+     * @param  string $default
      *
      * @return mixed
      */
@@ -302,7 +302,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Get an instantiable configuration instance.
      *
-     * @param  string  $key
+     * @param  string $key
      *
      * @return mixed
      */
