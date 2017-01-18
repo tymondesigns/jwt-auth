@@ -115,10 +115,10 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $provider = $this->config('providers.jwt');
 
             return new $provider(
-				$this->config('secret'), 
-				$this->config('algo'), 
-				$this->config('keys')
-			);
+                $this->config('secret'),
+                $this->config('algo'),
+                $this->config('keys')
+            );
         });
     }
 
