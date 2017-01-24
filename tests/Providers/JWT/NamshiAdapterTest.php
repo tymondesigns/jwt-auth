@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Carbon\Carbon;
 use Mockery;
+use Carbon\Carbon;
 use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
 
 class NamshiAdapterTest extends \PHPUnit_Framework_TestCase

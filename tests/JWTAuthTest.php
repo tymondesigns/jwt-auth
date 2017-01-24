@@ -12,9 +12,9 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Token;
 
 class JWTAuthTest extends \PHPUnit_Framework_TestCase
 {
