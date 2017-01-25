@@ -38,8 +38,8 @@ class JWT
     protected $token;
 
     /**
-     * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
+     * @param  \Tymon\JWTAuth\Manager $manager
+     * @param  \Tymon\JWTAuth\Http\Parser\Parser $parser
      *
      * @return void
      */
@@ -52,7 +52,7 @@ class JWT
     /**
      * Generate a token for a given subject.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject $subject
      *
      * @return string
      */
@@ -66,7 +66,7 @@ class JWT
     /**
      * Alias to generate a token for a given user.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject $user
      *
      * @return string
      */
@@ -78,8 +78,8 @@ class JWT
     /**
      * Refresh an expired token.
      *
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
+     * @param  bool $forceForever
+     * @param  bool $resetClaims
      *
      * @return string
      */
@@ -88,14 +88,14 @@ class JWT
         $this->requireToken();
 
         return $this->manager->customClaims($this->getCustomClaims())
-                             ->refresh($this->token, $forceForever, $resetClaims)
-                             ->get();
+            ->refresh($this->token, $forceForever, $resetClaims)
+            ->get();
     }
 
     /**
      * Invalidate a token (add it to the blacklist).
      *
-     * @param  bool  $forceForever
+     * @param  bool $forceForever
      *
      * @return $this
      */
@@ -144,7 +144,7 @@ class JWT
      */
     public function getToken()
     {
-        if (! $this->token) {
+        if (!$this->token) {
             try {
                 $this->parseToken();
             } catch (JWTException $e) {
@@ -164,7 +164,7 @@ class JWT
      */
     public function parseToken()
     {
-        if (! $token = $this->parser->parseToken()) {
+        if (!$token = $this->parser->parseToken()) {
             throw new JWTException('The token could not be parsed from the request');
         }
 
@@ -196,7 +196,7 @@ class JWT
     /**
      * Convenience method to get a claim value.
      *
-     * @param  string  $claim
+     * @param  string $claim
      *
      * @return mixed
      */
@@ -208,7 +208,7 @@ class JWT
     /**
      * Create a Payload instance.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject $subject
      *
      * @return \Tymon\JWTAuth\Payload
      */
@@ -220,7 +220,7 @@ class JWT
     /**
      * Build the claims array and return it.
      *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject $subject
      *
      * @return array
      */
@@ -236,7 +236,7 @@ class JWT
     /**
      * Set the token.
      *
-     * @param  \Tymon\JWTAuth\Token|string  $token
+     * @param  \Tymon\JWTAuth\Token|string $token
      *
      * @return $this
      */
@@ -268,7 +268,7 @@ class JWT
      */
     protected function requireToken()
     {
-        if (! $this->token) {
+        if (!$this->token) {
             throw new JWTException('A token is required');
         }
     }
@@ -276,7 +276,7 @@ class JWT
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return $this
      */
@@ -330,8 +330,8 @@ class JWT
     /**
      * Magically call the JWT Manager.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param  string $method
+     * @param  array $parameters
      *
      * @throws \BadMethodCallException
      *

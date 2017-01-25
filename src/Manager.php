@@ -47,9 +47,9 @@ class Manager
     protected $persistentClaims = [];
 
     /**
-     * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
-     * @param  \Tymon\JWTAuth\Blacklist  $blacklist
-     * @param  \Tymon\JWTAuth\Factory  $payloadFactory
+     * @param  \Tymon\JWTAuth\Contracts\Providers\JWT $provider
+     * @param  \Tymon\JWTAuth\Blacklist $blacklist
+     * @param  \Tymon\JWTAuth\Factory $payloadFactory
      *
      * @return void
      */
@@ -63,7 +63,7 @@ class Manager
     /**
      * Encode a Payload and return the Token.
      *
-     * @param  \Tymon\JWTAuth\Payload  $payload
+     * @param  \Tymon\JWTAuth\Payload $payload
      *
      * @return \Tymon\JWTAuth\Token
      */
@@ -77,8 +77,8 @@ class Manager
     /**
      * Decode a Token and return the Payload.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $checkBlacklist
+     * @param  \Tymon\JWTAuth\Token $token
+     * @param  bool $checkBlacklist
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
      *
@@ -89,9 +89,9 @@ class Manager
         $payloadArray = $this->provider->decode($token->get());
 
         $payload = $this->payloadFactory
-                        ->setRefreshFlow($this->refreshFlow)
-                        ->customClaims($payloadArray)
-                        ->make();
+            ->setRefreshFlow($this->refreshFlow)
+            ->customClaims($payloadArray)
+            ->make();
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');
@@ -103,9 +103,9 @@ class Manager
     /**
      * Refresh a Token and return a new Token.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
+     * @param  \Tymon\JWTAuth\Token $token
+     * @param  bool $forceForever
+     * @param  bool $resetClaims
      *
      * @return \Tymon\JWTAuth\Token
      */
@@ -129,8 +129,8 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $forceForever
+     * @param  \Tymon\JWTAuth\Token $token
+     * @param  bool $forceForever
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
@@ -138,7 +138,7 @@ class Manager
      */
     public function invalidate(Token $token, $forceForever = false)
     {
-        if (! $this->blacklistEnabled) {
+        if (!$this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
         }
 
@@ -200,7 +200,7 @@ class Manager
     /**
      * Set whether the blacklist is enabled.
      *
-     * @param  bool  $enabled
+     * @param  bool $enabled
      *
      * @return $this
      */
@@ -214,7 +214,7 @@ class Manager
     /**
      * Set the claims to be persisted when refreshing a token.
      *
-     * @param  array  $claims
+     * @param  array $claims
      *
      * @return $this
      */

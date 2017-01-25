@@ -33,7 +33,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     private $value;
 
     /**
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @return void
      */
@@ -45,7 +45,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim value, and call a validate method.
      *
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      *
@@ -71,7 +71,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim name.
      *
-     * @param  string  $name
+     * @param  string $name
      *
      * @return $this
      */
@@ -95,7 +95,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Validate the claim in a standalone Claim context.
      *
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @return bool
      */
@@ -117,7 +117,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Validate the Claim within a refresh context.
      *
-     * @param  int  $refreshTTL
+     * @param  int $refreshTTL
      *
      * @return bool
      */
@@ -129,8 +129,8 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Checks if the value matches the claim.
      *
-     * @param  mixed  $value
-     * @param  bool  $strict
+     * @param  mixed $value
+     * @param  bool $strict
      *
      * @return bool
      */
@@ -162,7 +162,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Get the claim as JSON.
      *
-     * @param  int  $options
+     * @param  int $options
      *
      * @return string
      */

@@ -23,7 +23,7 @@ trait CustomClaims
     /**
      * Set the custom claims.
      *
-     * @param  array  $customClaims
+     * @param  array $customClaims
      *
      * @return $this
      */
@@ -37,7 +37,7 @@ trait CustomClaims
     /**
      * Alias to set the custom claims.
      *
-     * @param  array  $customClaims
+     * @param  array $customClaims
      *
      * @return $this
      */

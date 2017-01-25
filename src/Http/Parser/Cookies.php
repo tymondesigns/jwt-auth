@@ -26,7 +26,7 @@ class Cookies implements ParserContract
     /**
      * Try to parse the token from the request cookies.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return null|string
      */
@@ -38,7 +38,7 @@ class Cookies implements ParserContract
     /**
      * Set the cookie key.
      *
-     * @param  string  $key
+     * @param  string $key
      *
      * @return $this
      */

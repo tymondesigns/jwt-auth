@@ -36,7 +36,7 @@ class PayloadValidator extends Validator
     /**
      * Run the validations on the payload array.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $value
+     * @param  \Tymon\JWTAuth\Claims\Collection $value
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class PayloadValidator extends Validator
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  \Tymon\JWTAuth\Claims\Collection $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
@@ -59,7 +59,7 @@ class PayloadValidator extends Validator
      */
     protected function validateStructure(Collection $claims)
     {
-        if (! $claims->hasAllClaims($this->requiredClaims)) {
+        if (!$claims->hasAllClaims($this->requiredClaims)) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
     }
@@ -67,7 +67,7 @@ class PayloadValidator extends Validator
     /**
      * Validate the payload timestamps.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  \Tymon\JWTAuth\Claims\Collection $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
@@ -82,7 +82,7 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
+     * @param  \Tymon\JWTAuth\Claims\Collection $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
@@ -96,7 +96,7 @@ class PayloadValidator extends Validator
     /**
      * Set the required claims.
      *
-     * @param  array  $claims
+     * @param  array $claims
      *
      * @return $this
      */
@@ -110,7 +110,7 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl.
      *
-     * @param  int  $ttl
+     * @param  int $ttl
      *
      * @return $this
      */

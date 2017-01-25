@@ -22,7 +22,7 @@ class October implements Auth
     protected $october;
 
     /**
-     * @param  \October\Rain\Auth\Manager  $october
+     * @param  \October\Rain\Auth\Manager $october
      *
      * @return void
      */
@@ -34,7 +34,7 @@ class October implements Auth
     /**
      * Check a user's credentials.
      *
-     * @param  array  $credentials
+     * @param  array $credentials
      *
      * @return mixed
      */
@@ -46,7 +46,7 @@ class October implements Auth
     /**
      * Authenticate a user via the id.
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      *
      * @return bool
      */

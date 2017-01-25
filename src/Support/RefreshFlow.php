@@ -21,7 +21,7 @@ trait RefreshFlow
     /**
      * Set the refresh flow flag.
      *
-     * @param  bool  $refreshFlow
+     * @param  bool $refreshFlow
      *
      * @return $this
      */

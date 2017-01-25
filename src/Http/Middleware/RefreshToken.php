@@ -20,8 +20,8 @@ class RefreshToken extends BaseMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      *
@@ -40,7 +40,7 @@ class RefreshToken extends BaseMiddleware
         $response = $next($request);
 
         // send the refreshed token back to the client
-        $response->headers->set('Authorization', 'Bearer '.$token);
+        $response->headers->set('Authorization', 'Bearer ' . $token);
 
         return $response;
     }

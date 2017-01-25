@@ -22,9 +22,9 @@ class JWTAuth extends JWT
     protected $auth;
 
     /**
-     * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
-     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
+     * @param  \Tymon\JWTAuth\Manager $manager
+     * @param  \Tymon\JWTAuth\Contracts\Providers\Auth $auth
+     * @param  \Tymon\JWTAuth\Http\Parser\Parser $parser
      *
      * @return void
      */
@@ -37,13 +37,13 @@ class JWTAuth extends JWT
     /**
      * Attempt to authenticate the user and return the token.
      *
-     * @param  array  $credentials
+     * @param  array $credentials
      *
      * @return false|string
      */
     public function attempt(array $credentials)
     {
-        if (! $this->auth->byCredentials($credentials)) {
+        if (!$this->auth->byCredentials($credentials)) {
             return false;
         }
 
@@ -59,7 +59,7 @@ class JWTAuth extends JWT
     {
         $id = $this->getPayload()->get('sub');
 
-        if (! $this->auth->byId($id)) {
+        if (!$this->auth->byId($id)) {
             return false;
         }
 

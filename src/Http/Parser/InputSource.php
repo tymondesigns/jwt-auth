@@ -26,7 +26,7 @@ class InputSource implements ParserContract
     /**
      * Try to parse the token from the request input source.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return null|string
      */
@@ -38,7 +38,7 @@ class InputSource implements ParserContract
     /**
      * Set the input source key.
      *
-     * @param  string  $key
+     * @param  string $key
      *
      * @return $this
      */

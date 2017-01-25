@@ -22,7 +22,7 @@ class Sentinel implements Auth
     protected $sentinel;
 
     /**
-     * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
+     * @param  \Cartalyst\Sentinel\Sentinel $sentinel
      *
      * @return void
      */
@@ -34,7 +34,7 @@ class Sentinel implements Auth
     /**
      * Check a user's credentials.
      *
-     * @param  array  $credentials
+     * @param  array $credentials
      *
      * @return mixed
      */
@@ -46,7 +46,7 @@ class Sentinel implements Auth
     /**
      * Authenticate a user via the id.
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      *
      * @return bool
      */

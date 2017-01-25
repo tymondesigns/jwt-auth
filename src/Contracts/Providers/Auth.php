@@ -16,7 +16,7 @@ interface Auth
     /**
      * Check a user's credentials.
      *
-     * @param  array  $credentials
+     * @param  array $credentials
      *
      * @return mixed
      */
@@ -25,7 +25,7 @@ interface Auth
     /**
      * Authenticate a user via the id.
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      *
      * @return mixed
      */

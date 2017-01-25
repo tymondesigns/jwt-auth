@@ -29,10 +29,10 @@ class Namshi extends Provider implements JWT
     protected $jws;
 
     /**
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
-     * @param  string|null  $driver
+     * @param  string $secret
+     * @param  string $algo
+     * @param  array $keys
+     * @param  string|null $driver
      *
      * @return void
      */
@@ -46,7 +46,7 @@ class Namshi extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param  array  $payload
+     * @param  array $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
@@ -57,16 +57,16 @@ class Namshi extends Provider implements JWT
         try {
             $this->jws->setPayload($payload)->sign($this->getSigningKey(), $this->getPassphrase());
 
-            return (string) $this->jws->getTokenString();
+            return (string)$this->jws->getTokenString();
         } catch (Exception $e) {
-            throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
+            throw new JWTException('Could not create token: ' . $e->getMessage(), $e->getCode(), $e);
         }
     }
 
     /**
      * Decode a JSON Web Token.
      *
-     * @param  string  $token
+     * @param  string $token
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
@@ -78,14 +78,14 @@ class Namshi extends Provider implements JWT
             // Let's never allow insecure tokens
             $jws = $this->jws->load($token, false);
         } catch (InvalidArgumentException $e) {
-            throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
+            throw new TokenInvalidException('Could not decode token: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
-        if (! $jws->verify($this->getVerificationKey(), $this->getAlgo())) {
+        if (!$jws->verify($this->getVerificationKey(), $this->getAlgo())) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return (array) $jws->getPayload();
+        return (array)$jws->getPayload();
     }
 
     /**

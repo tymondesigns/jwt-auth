@@ -19,7 +19,7 @@ class Collection extends IlluminateCollection
     /**
      * Create a new collection.
      *
-     * @param  mixed  $items
+     * @param  mixed $items
      *
      * @return void
      */
@@ -31,9 +31,9 @@ class Collection extends IlluminateCollection
     /**
      * Get a Claim instance by it's unique name.
      *
-     * @param  string  $name
-     * @param  callable  $callback
-     * @param  mixed  $default
+     * @param  string $name
+     * @param  callable $callback
+     * @param  mixed $default
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
@@ -47,7 +47,7 @@ class Collection extends IlluminateCollection
     /**
      * Validate each claim under a given context.
      *
-     * @param  string  $context
+     * @param  string $context
      *
      * @return $this
      */
@@ -58,7 +58,7 @@ class Collection extends IlluminateCollection
 
         $this->each(function ($claim) use ($context, $args) {
             call_user_func_array(
-                [$claim, 'validate'.Str::ucfirst($context)],
+                [$claim, 'validate' . Str::ucfirst($context)],
                 $args
             );
         });
@@ -69,7 +69,7 @@ class Collection extends IlluminateCollection
     /**
      * Determine if the Collection contains all of the given keys.
      *
-     * @param  mixed  $claims
+     * @param  mixed $claims
      *
      * @return bool
      */
@@ -101,7 +101,7 @@ class Collection extends IlluminateCollection
     /**
      * Ensure that the given claims array is keyed by the claim name.
      *
-     * @param  mixed  $items
+     * @param  mixed $items
      *
      * @return array
      */
@@ -109,7 +109,7 @@ class Collection extends IlluminateCollection
     {
         $claims = [];
         foreach ($items as $key => $value) {
-            if (! is_string($key) && $value instanceof Claim) {
+            if (!is_string($key) && $value instanceof Claim) {
                 $claims[$value->getName()] = $value;
             } else {
                 $claims[$key] = $value;

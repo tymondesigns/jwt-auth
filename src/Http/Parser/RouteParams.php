@@ -26,7 +26,7 @@ class RouteParams implements ParserContract
     /**
      * Try to get the token from the route parameters.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return null|string
      */
@@ -45,7 +45,7 @@ class RouteParams implements ParserContract
     /**
      * Set the query string key.
      *
-     * @param  string  $key
+     * @param  string $key
      *
      * @return $this
      */
