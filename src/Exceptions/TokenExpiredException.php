@@ -24,5 +24,4 @@ class TokenExpiredException extends JWTException
     {
         parent::__construct($message, $code, $previous);
     }
-
 }
