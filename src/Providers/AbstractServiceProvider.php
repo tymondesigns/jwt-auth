@@ -18,6 +18,7 @@ use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\Cookies;
 use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\InputSource;
@@ -175,7 +176,13 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt.parser', function ($app) {
             $parser = new Parser(
                 $app['request'],
-                [new AuthHeaders, new QueryString, new InputSource, new RouteParams]
+                [
+                    new AuthHeaders,
+                    new QueryString,
+                    new InputSource,
+                    new RouteParams,
+                    new Cookies,
+                ]
             );
 
             $app->refresh('request', $parser, 'setRequest');
@@ -311,7 +318,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $instance = $this->config($key);
 
         if (is_string($instance)) {
-            return $this->app->make($instance);
+            return new $instance;
         }
 
         return $instance;

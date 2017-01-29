@@ -28,18 +28,31 @@ class LaravelServiceProvider extends AbstractServiceProvider
         $this->publishes([$path => config_path('jwt.php')], 'config');
         $this->mergeConfigFrom($path, 'jwt');
 
-        if (method_exists($this->app['router'], 'aliasMiddleware')) {
-            $this->app['router']->aliasMiddleware('jwt.auth', Authenticate::class);
-            $this->app['router']->aliasMiddleware('jwt.refresh', RefreshToken::class);
-            $this->app['router']->aliasMiddleware('jwt.renew', AuthenticateAndRenew::class);
-            $this->app['router']->aliasMiddleware('jwt.check', Check::class);
-        } else {
-            $this->app['router']->middleware('jwt.auth', Authenticate::class);
-            $this->app['router']->middleware('jwt.refresh', RefreshToken::class);
-            $this->app['router']->middleware('jwt.renew', AuthenticateAndRenew::class);
-            $this->app['router']->middleware('jwt.check', Check::class);
-        }
+        $this->aliasMiddleware('jwt.auth', Authenticate::class);
+        $this->aliasMiddleware('jwt.refresh', RefreshToken::class);
+        $this->aliasMiddleware('jwt.renew', AuthenticateAndRenew::class);
+        $this->aliasMiddleware('jwt.check', Check::class);
 
         $this->extendAuthGuard();
+    }
+
+    /**
+     * Register a middleware alias.
+     *
+     * @param  string $name
+     * @param  string $class
+     *
+     * @return \Illuminate\Routing\Router
+     */
+    protected function aliasMiddleware($name, $class)
+    {
+        $router = $this->app['router'];
+
+        // the method name was changed in Laravel 5.4
+        if (method_exists($router, 'aliasMiddleware')) {
+            return $router->aliasMiddleware($name, $class);
+        }
+
+        return $router->middleware($name, $class);
     }
 }
