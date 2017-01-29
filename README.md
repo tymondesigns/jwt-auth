@@ -17,7 +17,7 @@ See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Sean Tymon
+Copyright (c) 2017 Sean Tymon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
