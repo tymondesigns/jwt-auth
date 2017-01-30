@@ -318,7 +318,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $instance = $this->config($key);
 
         if (is_string($instance)) {
-            return new $instance;
+            return $this->app->make($instance);
         }
 
         return $instance;
