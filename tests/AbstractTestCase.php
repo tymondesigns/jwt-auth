@@ -12,9 +12,9 @@
 namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /**
      * @var int
