@@ -28,7 +28,7 @@ class AuthHeaders implements ParserContract
      *
      * @var string
      */
-    protected $prefix = 'bearer';
+    protected $prefix = 'Bearer';
 
     /**
      * Attempt to parse the token from some other possible headers.
