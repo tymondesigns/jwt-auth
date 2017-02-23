@@ -21,7 +21,7 @@ class AuthHeaders implements ParserContract
      *
      * @var string
      */
-    protected $header = 'authorization';
+    protected $header = 'Authorization';
 
     /**
      * The header prefix.
