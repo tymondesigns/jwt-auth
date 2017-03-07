@@ -11,6 +11,8 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
+use Exception;
+
 class TokenExpiredException extends JWTException
 {
     /**
