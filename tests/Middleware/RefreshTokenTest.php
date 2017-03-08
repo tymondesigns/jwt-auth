@@ -74,7 +74,7 @@ class RefreshTokenTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      */
     public function it_should_throw_a_bad_request_exception_if_token_not_provided()
     {
