@@ -48,7 +48,7 @@ abstract class BaseMiddleware
     public function checkForToken(Request $request)
     {
         if (! $this->auth->parser()->setRequest($request)->hasToken()) {
-            throw new BadRequestHttpException('Token not provided');
+            throw new UnauthorizedHttpException('Token not provided');
         }
     }
 
