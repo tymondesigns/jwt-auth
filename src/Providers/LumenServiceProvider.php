@@ -11,14 +11,10 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
 use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 
 class LumenServiceProvider extends AbstractServiceProvider
 {
@@ -32,12 +28,7 @@ class LumenServiceProvider extends AbstractServiceProvider
         $path = realpath(__DIR__.'/../../config/config.php');
         $this->mergeConfigFrom($path, 'jwt');
 
-        $this->app->routeMiddleware([
-            'jwt.auth' => Authenticate::class,
-            'jwt.refresh' => RefreshToken::class,
-            'jwt.renew' => AuthenticateAndRenew::class,
-            'jwt.check' => Check::class,
-        ]);
+        $this->app->routeMiddleware($this->middlewareAliases);
 
         $this->extendAuthGuard();
 
