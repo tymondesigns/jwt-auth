@@ -39,6 +39,14 @@ matrix:
       env: laravel='5.3'
     - php: 7.0
       env: laravel='5.4'
+    - php: 7.1
+      env: laravel='5.1'
+    - php: 7.1
+      env: laravel='5.2'
+    - php: 7.1
+      env: laravel='5.3'
+    - php: 7.1
+      env: laravel='5.4'
   fast_finish: true
 
 before_script:
