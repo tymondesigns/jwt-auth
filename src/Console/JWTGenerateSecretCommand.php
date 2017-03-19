@@ -42,7 +42,8 @@ class JWTGenerateSecretCommand extends Command
         $key = $this->getRandomKey();
 
         if ($this->option('show')) {
-             $this->comment($key);
+            $this->comment($key);
+
             return;
         }
 
@@ -63,7 +64,8 @@ class JWTGenerateSecretCommand extends Command
                         'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
                     ));
                 } else {
-                     $this->comment('Phew... No changes were made to your secret key.');
+                    $this->comment('Phew... No changes were made to your secret key.');
+
                     return;
                 }
             }
