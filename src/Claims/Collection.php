@@ -17,18 +17,6 @@ use Illuminate\Support\Collection as IlluminateCollection;
 class Collection extends IlluminateCollection
 {
     /**
-     * Create a new collection.
-     *
-     * @param  mixed  $items
-     *
-     * @return void
-     */
-    public function __construct($items = [])
-    {
-        $this->items = $this->getArrayableItems($items);
-    }
-
-    /**
      * Get a Claim instance by it's unique name.
      *
      * @param  string  $name

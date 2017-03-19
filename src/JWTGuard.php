@@ -25,6 +25,13 @@ class JWTGuard implements Guard
     use GuardHelpers;
 
     /**
+     * The currently authenticated user.
+     *
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    protected $user;
+
+    /**
      * The user we last attempted to retrieve.
      *
      * @var \Illuminate\Contracts\Auth\Authenticatable
