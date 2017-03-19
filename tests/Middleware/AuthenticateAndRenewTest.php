@@ -34,7 +34,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
     protected $request;
 
     /**
-     * @var \Tymon\JWTAuth\Http\Middleware\Authenticate
+     * @var \Tymon\JWTAuth\Http\Middleware\Authenticate|\Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew
      */
     protected $middleware;
 

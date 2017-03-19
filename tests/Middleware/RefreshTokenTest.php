@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Middleware;
+namespace Tymon\JWTAuth\Test\Middleware;
 
 use Mockery;
 use Tymon\JWTAuth\JWTAuth;
