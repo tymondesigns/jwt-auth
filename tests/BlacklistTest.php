@@ -37,7 +37,7 @@ class BlacklistTest extends AbstractTestCase
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\Validator
      */
     protected $validator;
 
