@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
-use Tymon\JWTAuth\Contracts\Validator;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\JwtId;
