@@ -33,7 +33,7 @@ class JWT
     protected $parser;
 
     /**
-     * @var \Tymon\JWTAuth\Token
+     * @var \Tymon\JWTAuth\Token|null
      */
     protected $token;
 
