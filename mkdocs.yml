@@ -1,0 +1,9 @@
+site_name: jwt-auth
+pages:
+    - Home: index.md
+    - Laravel Installation: laravel-installation.md
+    - Lumen Installation: lumen-installation.md
+    - Configuration: configuration.md
+    - General usage: general-usage.md
+    - Resources: resources.md
+theme: readthedocs
