@@ -35,7 +35,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
      *
      * @return void
      */
-    protected function aliasMiddleware($aliases)
+    protected function aliasMiddleware(array $aliases)
     {
         $router = $this->app['router'];
 
