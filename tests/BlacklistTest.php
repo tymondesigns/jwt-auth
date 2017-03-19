@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Tymon\JWTAuth\Contracts\Validator;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\JwtId;
@@ -37,7 +38,7 @@ class BlacklistTest extends AbstractTestCase
     protected $blacklist;
 
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Contracts\Validator
      */
     protected $validator;
 
