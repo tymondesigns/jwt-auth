@@ -23,21 +23,29 @@ class JWT
     use CustomClaims;
 
     /**
+     * The authentication manager.
+     *
      * @var \Tymon\JWTAuth\Manager
      */
     protected $manager;
 
     /**
+     * The HTTP parser.
+     *
      * @var \Tymon\JWTAuth\Http\Parser\Parser
      */
     protected $parser;
 
     /**
-     * @var \Tymon\JWTAuth\Token
+     * The token.
+     *
+     * @var \Tymon\JWTAuth\Token|null
      */
     protected $token;
 
     /**
+     * JWT constructor.
+     *
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
      *
