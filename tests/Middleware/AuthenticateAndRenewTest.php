@@ -87,6 +87,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 
@@ -105,6 +106,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException);
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 }
