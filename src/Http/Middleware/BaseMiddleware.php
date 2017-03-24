@@ -66,13 +66,11 @@ abstract class BaseMiddleware
         $this->checkForToken($request);
 
         try {
-            $user = $this->auth->parseToken()->authenticate();
+            if (! $this->auth->parseToken()->authenticate()) {
+                throw new UnauthorizedHttpException('jwt-auth', 'User not found');
+            }
         } catch (JWTException $e) {
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
-        }
-
-        if (! $user) {
-            throw new UnauthorizedHttpException('jwt-auth', 'User not found');
         }
     }
 }
