@@ -119,7 +119,7 @@ class Manager
             // invalidate old token
             $this->invalidate($token, $forceForever);
         }
-        
+
         // return the new token
         return $this->encode(
             $this->payloadFactory->customClaims($claims)->make($resetClaims)
