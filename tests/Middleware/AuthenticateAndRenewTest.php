@@ -78,7 +78,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
      * @test
      * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      */
-    public function it_should_throw_a_bad_request_exception_if_token_not_provided()
+    public function it_should_throw_an_unauthorized_exception_if_token_not_provided()
     {
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
