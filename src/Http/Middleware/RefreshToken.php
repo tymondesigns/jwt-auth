@@ -31,13 +31,13 @@ class RefreshToken extends BaseMiddleware
     {
         $this->checkForToken($request);
 
+        $response = $next($request);
+
         try {
             $token = $this->auth->parseToken()->refresh();
         } catch (JWTException $e) {
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
         }
-
-        $response = $next($request);
 
         // send the refreshed token back to the client
         $response->headers->set('Authorization', 'Bearer '.$token);
