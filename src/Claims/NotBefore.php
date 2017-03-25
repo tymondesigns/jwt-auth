@@ -19,9 +19,7 @@ class NotBefore extends Claim
     use DatetimeTrait;
 
     /**
-     * The claim name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $name = 'nbf';
 

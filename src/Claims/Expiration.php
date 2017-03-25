@@ -18,9 +18,7 @@ class Expiration extends Claim
     use DatetimeTrait;
 
     /**
-     * The claim name.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $name = 'exp';
 
