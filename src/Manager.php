@@ -118,7 +118,7 @@ class Manager
             $this->invalidate($token, $forceForever);
         }
 
-        $claims = $this->buildRefreshClaims($this->decode($token, false));
+        $claims = $this->buildRefreshClaims($this->decode($token));
 
         // return the new token
         return $this->encode(
