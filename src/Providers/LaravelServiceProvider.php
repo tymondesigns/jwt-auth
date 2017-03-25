@@ -23,7 +23,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
         $this->publishes([$path => config_path('jwt.php')], 'config');
         $this->mergeConfigFrom($path, 'jwt');
 
-        $this->aliasMiddleware($this->middlewareAliases);
+        $this->aliasMiddleware();
 
         $this->extendAuthGuard();
     }
@@ -31,17 +31,15 @@ class LaravelServiceProvider extends AbstractServiceProvider
     /**
      * Alias the middleware.
      *
-     * @param  array  $aliases
-     *
      * @return void
      */
-    protected function aliasMiddleware(array $aliases)
+    protected function aliasMiddleware()
     {
         $router = $this->app['router'];
 
         $method = method_exists($router, 'aliasMiddleware') ? 'aliasMiddleware' : 'middleware';
 
-        foreach ($aliases as $alias => $middleware) {
+        foreach ($this->middlewareAliases as $alias => $middleware) {
             $router->$method($alias, $middleware);
         }
     }
