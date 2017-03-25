@@ -113,13 +113,13 @@ class Manager
     {
         $this->setRefreshFlow();
 
+        $claims = $this->buildRefreshClaims($this->decode($token));
+
         if ($this->blacklistEnabled) {
             // invalidate old token
             $this->invalidate($token, $forceForever);
         }
-
-        $claims = $this->buildRefreshClaims($this->decode($token));
-
+        
         // return the new token
         return $this->encode(
             $this->payloadFactory->customClaims($claims)->make($resetClaims)
