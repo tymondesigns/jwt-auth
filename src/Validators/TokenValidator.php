@@ -20,7 +20,7 @@ class TokenValidator extends Validator
      *
      * @param  string  $value
      *
-     * @return void
+     * @return string
      */
     public function check($value)
     {
@@ -32,7 +32,7 @@ class TokenValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return bool
+     * @return string
      */
     protected function validateStructure($token)
     {
