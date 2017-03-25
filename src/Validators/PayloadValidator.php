@@ -38,7 +38,7 @@ class PayloadValidator extends Validator
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $value
      *
-     * @return void
+     * @return \Tymon\JWTAuth\Claims\Collection
      */
     public function check($value)
     {

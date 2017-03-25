@@ -173,7 +173,7 @@ class JWTGuard implements Guard
      *
      * @param  bool  $forceForever
      *
-     * @return bool
+     * @return \Tymon\JWTAuth\JWT
      */
     public function invalidate($forceForever = false)
     {

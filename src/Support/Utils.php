@@ -34,7 +34,7 @@ class Utils
      */
     public static function timestamp($timestamp)
     {
-        return Carbon::createFromTimeStampUTC($timestamp)->timezone('UTC');
+        return Carbon::createFromTimestampUTC($timestamp)->timezone('UTC');
     }
 
     /**
