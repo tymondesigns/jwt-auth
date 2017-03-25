@@ -25,7 +25,7 @@ class Collection extends IlluminateCollection
      */
     public function __construct($items = [])
     {
-        $this->items = $this->getArrayableItems($items);
+        parent::__construct($this->getArrayableItems($items));
     }
 
     /**
