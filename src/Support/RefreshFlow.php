@@ -14,6 +14,8 @@ namespace Tymon\JWTAuth\Support;
 trait RefreshFlow
 {
     /**
+     * The refresh flow flag.
+     *
      * @var bool
      */
     protected $refreshFlow = false;

@@ -18,11 +18,15 @@ use Illuminate\Contracts\Cache\Repository as CacheContract;
 class Illuminate implements Storage
 {
     /**
+     * The cache repository contract.
+     *
      * @var \Illuminate\Contracts\Cache\Repository
      */
     protected $cache;
 
     /**
+     * The used cache tag.
+     *
      * @var string
      */
     protected $tag = 'tymon.jwt';
@@ -33,6 +37,8 @@ class Illuminate implements Storage
     protected $supportsTags;
 
     /**
+     * Constructor.
+     *
      * @param  \Illuminate\Contracts\Cache\Repository  $cache
      *
      * @return void

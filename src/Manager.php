@@ -22,31 +22,43 @@ class Manager
     use CustomClaims, RefreshFlow;
 
     /**
+     * The provider.
+     *
      * @var \Tymon\JWTAuth\Contracts\Providers\JWT
      */
     protected $provider;
 
     /**
+     * The blacklist.
+     *
      * @var \Tymon\JWTAuth\Blacklist
      */
     protected $blacklist;
 
     /**
+     * the payload factory.
+     *
      * @var \Tymon\JWTAuth\Factory
      */
     protected $payloadFactory;
 
     /**
+     * The blacklist flag.
+     *
      * @var bool
      */
     protected $blacklistEnabled = true;
 
     /**
+     * the persistent claims.
+     *
      * @var array
      */
     protected $persistentClaims = [];
 
     /**
+     * Constructor.
+     *
      * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      * @param  \Tymon\JWTAuth\Blacklist  $blacklist
      * @param  \Tymon\JWTAuth\Factory  $payloadFactory
@@ -116,11 +128,11 @@ class Manager
         $claims = $this->buildRefreshClaims($this->decode($token));
 
         if ($this->blacklistEnabled) {
-            // invalidate old token
+            // Invalidate old token
             $this->invalidate($token, $forceForever);
         }
 
-        // return the new token
+        // Return the new token
         return $this->encode(
             $this->payloadFactory->customClaims($claims)->make($resetClaims)
         );
@@ -151,7 +163,7 @@ class Manager
     /**
      * Build the claims to go into the refreshed token.
      *
-     * @param  Payload $payload
+     * @param \Tymon\JWTAuth\Payload $payload
      *
      * @return array
      */

@@ -30,7 +30,7 @@ class Check extends BaseMiddleware
             try {
                 $this->auth->parseToken()->authenticate();
             } catch (Exception $e) {
-                unset($e);
+                //
             }
         }
 
