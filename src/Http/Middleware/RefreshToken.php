@@ -39,9 +39,7 @@ class RefreshToken extends BaseMiddleware
 
         $response = $next($request);
 
-        // send the refreshed token back to the client
-        $response->headers->set('Authorization', 'Bearer '.$token);
-
-        return $response;
+        // Send the refreshed token back to the client.
+        return $this->setAuthenticationHeader($response, $token);
     }
 }
