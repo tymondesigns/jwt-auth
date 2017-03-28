@@ -74,4 +74,20 @@ abstract class BaseMiddleware
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
         }
     }
+
+    /**
+     * Set the authentication header.
+     *
+     * @param \Illuminate\Http\Response|\Illuminate\Http\JsonResponse $response
+     * @param string|null $token
+     *
+     * @return  \Illuminate\Http\Response|\Illuminate\Http\JsonResponse mixed
+     */
+    protected function setAuthenticationHeader($response, $token = null)
+    {
+        $token = $token ?: $this->auth->refresh();
+        $response->headers->set('Authorization', 'Bearer '.$token);
+
+        return $response;
+    }
 }
