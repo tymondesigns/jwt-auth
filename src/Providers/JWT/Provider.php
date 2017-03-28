@@ -16,21 +16,29 @@ use Illuminate\Support\Arr;
 abstract class Provider
 {
     /**
+     * The secret.
+     *
      * @var string
      */
     protected $secret;
 
     /**
+     * The array of keys.
+     *
      * @var array
      */
     protected $keys;
 
     /**
+     * The used algorithm.
+     *
      * @var string
      */
     protected $algo;
 
     /**
+     * Constructor.
+     *
      * @param  string  $secret
      * @param  array  $keys
      * @param  string  $algo

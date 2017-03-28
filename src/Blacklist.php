@@ -17,6 +17,8 @@ use Tymon\JWTAuth\Contracts\Providers\Storage;
 class Blacklist
 {
     /**
+     * The storage.
+     *
      * @var \Tymon\JWTAuth\Contracts\Providers\Storage
      */
     protected $storage;
@@ -43,6 +45,8 @@ class Blacklist
     protected $key = 'jti';
 
     /**
+     * Constructor.
+     *
      * @param  \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
      *
      * @return void

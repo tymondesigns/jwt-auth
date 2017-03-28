@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 abstract class BaseMiddleware
 {
     /**
+     * The JWT Authenticator.
+     *
      * @var \Tymon\JWTAuth\JWTAuth
      */
     protected $auth;

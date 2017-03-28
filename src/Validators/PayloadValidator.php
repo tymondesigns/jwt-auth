@@ -17,6 +17,8 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class PayloadValidator extends Validator
 {
     /**
+     * The required claims.
+     *
      * @var array
      */
     protected $requiredClaims = [
@@ -29,6 +31,8 @@ class PayloadValidator extends Validator
     ];
 
     /**
+     * The refresh TTL.
+     *
      * @var int
      */
     protected $refreshTTL = 20160;
@@ -55,7 +59,7 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * @return void
      */
     protected function validateStructure(Collection $claims)
     {
