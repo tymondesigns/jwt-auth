@@ -17,6 +17,8 @@ use Tymon\JWTAuth\Claims\Claim;
 class InvalidClaimException extends JWTException
 {
     /**
+     * Constructor.
+     *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      * @param  int  $code
      * @param  \Exception|null  $previous

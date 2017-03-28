@@ -24,11 +24,15 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class Namshi extends Provider implements JWT
 {
     /**
+     * The JWS.
+     *
      * @var \Namshi\JOSE\JWS
      */
     protected $jws;
 
     /**
+     * Constructor.
+     *
      * @param  string  $secret
      * @param  string  $algo
      * @param  array  $keys
@@ -91,6 +95,8 @@ class Namshi extends Provider implements JWT
     /**
      * Determine if the algorithm is asymmetric, and thus
      * requires a public/private key combo.
+     *
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
      * @return bool
      */

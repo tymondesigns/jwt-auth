@@ -23,16 +23,22 @@ class Factory
     use CustomClaims, RefreshFlow;
 
     /**
+     * The claim factory.
+     *
      * @var \Tymon\JWTAuth\Claims\Factory
      */
     protected $claimFactory;
 
     /**
+     * The validator.
+     *
      * @var \Tymon\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 
     /**
+     * The default claims.
+     *
      * @var array
      */
     protected $defaultClaims = [
@@ -44,11 +50,15 @@ class Factory
     ];
 
     /**
+     * The claims collection.
+     *
      * @var \Tymon\JWTAuth\Claims\Collection
      */
     protected $claims;
 
     /**
+     * Constructor.
+     *
      * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      *
@@ -58,7 +68,6 @@ class Factory
     {
         $this->claimFactory = $claimFactory;
         $this->validator = $validator;
-
         $this->claims = new Collection;
     }
 

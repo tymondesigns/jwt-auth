@@ -18,16 +18,22 @@ use Tymon\JWTAuth\Support\Utils;
 class Factory
 {
     /**
+     * The request.
+     *
      * @var \Illuminate\Http\Request
      */
     protected $request;
 
     /**
+     * The TTL.
+     *
      * @var int
      */
     protected $ttl = 60;
 
     /**
+     * The classes map.
+     *
      * @var array
      */
     private $classMap = [
@@ -41,6 +47,8 @@ class Factory
     ];
 
     /**
+     * Constructor.
+     *
      * @param  \Illuminate\Http\Request  $request
      *
      * @return void
