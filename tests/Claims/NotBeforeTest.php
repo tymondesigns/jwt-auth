@@ -16,11 +16,6 @@ use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class NotBeforeTest extends AbstractTestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException

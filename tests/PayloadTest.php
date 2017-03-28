@@ -44,6 +44,13 @@ class PayloadTest extends AbstractTestCase
         $this->payload = $this->getTestPayload();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+
+        parent::tearDown();
+    }
+
     /**
      * @param  array  $extraClaims
      *
@@ -70,13 +77,6 @@ class PayloadTest extends AbstractTestCase
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
 
         return new Payload($collection, $this->validator);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
     }
 
     /**
