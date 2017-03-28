@@ -79,7 +79,7 @@ class NamshiTest extends AbstractTestCase
         $this->jws->shouldReceive('verify')->once()->with('secret', 'HS256')->andReturn(true);
         $this->jws->shouldReceive('getPayload')->andReturn($payload);
 
-        $this->assertEquals($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
+        $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
 
     /**
