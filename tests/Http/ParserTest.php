@@ -374,7 +374,10 @@ class ParserTest extends AbstractTestCase
             new RouteParams,
         ];
 
-        $parser = new Parser(Mockery::mock(Request::class));
+        /* @var \Illuminate\Http\Request $request */
+        $request = Mockery::mock(Request::class);
+
+        $parser = new Parser($request);
         $parser->setChainOrder($chain);
 
         $this->assertSame($parser->getChain(), $chain);

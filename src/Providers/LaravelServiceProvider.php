@@ -11,11 +11,6 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\Http\Middleware\Check;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
-
 class LaravelServiceProvider extends AbstractServiceProvider
 {
     /**
@@ -28,31 +23,24 @@ class LaravelServiceProvider extends AbstractServiceProvider
         $this->publishes([$path => config_path('jwt.php')], 'config');
         $this->mergeConfigFrom($path, 'jwt');
 
-        $this->aliasMiddleware('jwt.auth', Authenticate::class);
-        $this->aliasMiddleware('jwt.refresh', RefreshToken::class);
-        $this->aliasMiddleware('jwt.renew', AuthenticateAndRenew::class);
-        $this->aliasMiddleware('jwt.check', Check::class);
+        $this->aliasMiddleware();
 
         $this->extendAuthGuard();
     }
 
     /**
-     * Register a middleware alias.
+     * Alias the middleware.
      *
-     * @param  string $name
-     * @param  string $class
-     *
-     * @return \Illuminate\Routing\Router
+     * @return void
      */
-    protected function aliasMiddleware($name, $class)
+    protected function aliasMiddleware()
     {
         $router = $this->app['router'];
 
-        // the method name was changed in Laravel 5.4
-        if (method_exists($router, 'aliasMiddleware')) {
-            return $router->aliasMiddleware($name, $class);
-        }
+        $method = method_exists($router, 'aliasMiddleware') ? 'aliasMiddleware' : 'middleware';
 
-        return $router->middleware($name, $class);
+        foreach ($this->middlewareAliases as $alias => $middleware) {
+            $router->$method($alias, $middleware);
+        }
     }
 }

@@ -25,7 +25,7 @@ class Collection extends IlluminateCollection
      */
     public function __construct($items = [])
     {
-        $this->items = $this->getArrayableItems($items);
+        parent::__construct($this->getArrayableItems($items));
     }
 
     /**
@@ -39,7 +39,7 @@ class Collection extends IlluminateCollection
      */
     public function getByClaimName($name, callable $callback = null, $default = null)
     {
-        return $this->filter(function ($claim) use ($name) {
+        return $this->filter(function (Claim $claim) use ($name) {
             return $claim->getName() === $name;
         })->first($callback, $default);
     }
@@ -85,7 +85,7 @@ class Collection extends IlluminateCollection
      */
     public function toPlainArray()
     {
-        return $this->map(function ($claim) {
+        return $this->map(function (Claim $claim) {
             return $claim->getValue();
         })->toArray();
     }
@@ -110,10 +110,10 @@ class Collection extends IlluminateCollection
         $claims = [];
         foreach ($items as $key => $value) {
             if (! is_string($key) && $value instanceof Claim) {
-                $claims[$value->getName()] = $value;
-            } else {
-                $claims[$key] = $value;
+                $key = $value->getName();
             }
+
+            $claims[$key] = $value;
         }
 
         return $claims;

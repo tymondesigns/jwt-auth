@@ -39,15 +39,23 @@ matrix:
       env: laravel='5.3'
     - php: 7.0
       env: laravel='5.4'
+    - php: 7.1
+      env: laravel='5.1'
+    - php: 7.1
+      env: laravel='5.2'
+    - php: 7.1
+      env: laravel='5.3'
+    - php: 7.1
+      env: laravel='5.4'
   fast_finish: true
 
 before_script:
   - travis_retry composer self-update
-  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.3' ]]; then travis_retry composer require "illuminate/contracts=5.3.*" --prefer-dist --no-interaction; fi
-  - if [[ $laravel = '5.4' ]]; then travis_retry composer require "illuminate/contracts=5.4.*" --prefer-dist --no-interaction; fi
+  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $laravel = '5.3' ]]; then travis_retry composer require "illuminate/contracts=5.3.*" --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $laravel = '5.4' ]]; then travis_retry composer require "illuminate/contracts=5.4.*" --prefer-dist --no-interaction --no-suggest; fi
 
 script:
   - if [[ $laravel = '5.1' ]]; then composer test:ci -- --exclude-group laravel-5.2; fi

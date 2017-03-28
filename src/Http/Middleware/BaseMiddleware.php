@@ -14,12 +14,13 @@ namespace Tymon\JWTAuth\Http\Middleware;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 abstract class BaseMiddleware
 {
     /**
+     * The JWT Authenticator.
+     *
      * @var \Tymon\JWTAuth\JWTAuth
      */
     protected $auth;
@@ -48,7 +49,7 @@ abstract class BaseMiddleware
     public function checkForToken(Request $request)
     {
         if (! $this->auth->parser()->setRequest($request)->hasToken()) {
-            throw new BadRequestHttpException('Token not provided');
+            throw new UnauthorizedHttpException('Token not provided');
         }
     }
 
@@ -66,9 +67,27 @@ abstract class BaseMiddleware
         $this->checkForToken($request);
 
         try {
-            $this->auth->parseToken()->authenticate();
+            if (! $this->auth->parseToken()->authenticate()) {
+                throw new UnauthorizedHttpException('jwt-auth', 'User not found');
+            }
         } catch (JWTException $e) {
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
         }
+    }
+
+    /**
+     * Set the authentication header.
+     *
+     * @param \Illuminate\Http\Response|\Illuminate\Http\JsonResponse $response
+     * @param string|null $token
+     *
+     * @return  \Illuminate\Http\Response|\Illuminate\Http\JsonResponse mixed
+     */
+    protected function setAuthenticationHeader($response, $token = null)
+    {
+        $token = $token ?: $this->auth->refresh();
+        $response->headers->set('Authorization', 'Bearer '.$token);
+
+        return $response;
     }
 }

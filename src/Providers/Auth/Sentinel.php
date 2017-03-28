@@ -17,11 +17,15 @@ use Cartalyst\Sentinel\Sentinel as SentinelAuth;
 class Sentinel implements Auth
 {
     /**
+     * The sentinel authentication.
+     *
      * @var \Cartalyst\Sentinel\Sentinel
      */
     protected $sentinel;
 
     /**
+     * Constructor.
+     *
      * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
      *
      * @return void

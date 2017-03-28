@@ -20,6 +20,7 @@ use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Http\Parser\Cookies;
 use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\QueryString;
@@ -27,12 +28,27 @@ use Tymon\JWTAuth\Http\Parser\RouteParams;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 abstract class AbstractServiceProvider extends ServiceProvider
 {
+    /**
+     * The middleware aliases.
+     *
+     * @var array
+     */
+    protected $middlewareAliases = [
+        'jwt.auth' => Authenticate::class,
+        'jwt.check' => Check::class,
+        'jwt.refresh' => RefreshToken::class,
+        'jwt.renew' => AuthenticateAndRenew::class,
+    ];
+
     /**
      * Boot the service provider.
      *

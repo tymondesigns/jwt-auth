@@ -34,7 +34,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
     protected $request;
 
     /**
-     * @var \Tymon\JWTAuth\Http\Middleware\Authenticate
+     * @var \Tymon\JWTAuth\Http\Middleware\Authenticate|\Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew
      */
     protected $middleware;
 
@@ -76,9 +76,9 @@ class AuthenticateAndRenewTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      */
-    public function it_should_throw_a_bad_request_exception_if_token_not_provided()
+    public function it_should_throw_an_unauthorized_exception_if_token_not_provided()
     {
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
@@ -87,6 +87,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
         $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 
@@ -105,6 +106,7 @@ class AuthenticateAndRenewTest extends AbstractTestCase
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException);
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 }

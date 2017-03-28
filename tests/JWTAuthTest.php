@@ -250,7 +250,7 @@ class JWTAuthTest extends AbstractTestCase
     {
         $this->manager->shouldReceive('getBlacklist')->andReturn(new StdClass);
 
-        $blacklist = $this->jwtAuth->getBlacklist();
+        $blacklist = $this->jwtAuth->manager()->getBlacklist();
 
         $this->assertInstanceOf(StdClass::class, $blacklist);
     }

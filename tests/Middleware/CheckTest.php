@@ -66,6 +66,7 @@ class CheckTest extends AbstractTestCase
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andReturn(new UserStub);
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 
@@ -81,6 +82,7 @@ class CheckTest extends AbstractTestCase
         $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException);
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 
@@ -96,6 +98,7 @@ class CheckTest extends AbstractTestCase
         $this->auth->shouldReceive('parseToken->authenticate')->never();
 
         $this->middleware->handle($this->request, function () {
+            //
         });
     }
 }
