@@ -8,8 +8,6 @@ composer require tymon/jwt-auth
 
 -------------------------------------------------------------------------------
 
-## Laravel Installation
-
 ### Add service provider
 
 Add the service provider to the `providers` array in the `config/app.php` config file as follows:

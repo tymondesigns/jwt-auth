@@ -2,8 +2,9 @@ site_name: jwt-auth
 pages:
     - Home: index.md
     - Laravel Installation: laravel-installation.md
-    - Lumen Installation: lumen-installation.md
+    - Lumen Installation (incomplete): lumen-installation.md
+    - Quick start: quick-start.md
     - Configuration: configuration.md
-    - General usage: general-usage.md
+    - Exception Handling: exception-handling.md
     - Resources: resources.md
 theme: readthedocs
