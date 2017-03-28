@@ -6,3 +6,5 @@ First up is:
 ```
 'secret' => env('JWT_SECRET'),
 ```
+
+Coming soon...
