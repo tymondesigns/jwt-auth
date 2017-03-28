@@ -17,7 +17,7 @@ use Illuminate\Contracts\Auth\Guard as GuardContract;
 class Illuminate implements Auth
 {
     /**
-     * teh authentication guard.
+     * The authentication guard.
      *
      * @var \Illuminate\Contracts\Auth\Guard
      */
