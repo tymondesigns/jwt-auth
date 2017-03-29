@@ -49,8 +49,6 @@ class FactoryTest extends AbstractTestCase
         $this->claimFactory = Mockery::mock(ClaimFactory::class);
         $this->validator = Mockery::mock(PayloadValidator::class);
         $this->factory = new Factory($this->claimFactory, $this->validator);
-
-        // $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
     }
 
     public function tearDown()

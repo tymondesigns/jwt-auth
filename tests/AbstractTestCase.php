@@ -25,9 +25,7 @@ abstract class AbstractTestCase extends TestCase
     {
         parent::setUp();
 
-        $now = Carbon::now();
-
-        Carbon::setTestNow($now);
+        Carbon::setTestNow($now = Carbon::now());
         $this->testNowTimestamp = $now->getTimestamp();
     }
 

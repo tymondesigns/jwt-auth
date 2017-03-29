@@ -47,7 +47,6 @@ class BlacklistTest extends AbstractTestCase
 
         $this->storage = Mockery::mock(Storage::class);
         $this->blacklist = new Blacklist($this->storage);
-
         $this->validator = Mockery::mock(PayloadValidator::class);
     }
 

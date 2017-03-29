@@ -38,7 +38,7 @@ class JWTAuthTest extends AbstractTestCase
     protected $auth;
 
     /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Http\Parser
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Http\Parser\Parser
      */
     protected $parser;
 
@@ -52,7 +52,6 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager = Mockery::mock(Manager::class);
         $this->auth = Mockery::mock(Auth::class);
         $this->parser = Mockery::mock(Parser::class);
-
         $this->jwtAuth = new JWTAuth($this->manager, $this->auth, $this->parser);
     }
 
