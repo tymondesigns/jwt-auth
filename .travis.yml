@@ -55,7 +55,7 @@ matrix:
   fast_finish: true
 
 before_install:
-  - if [[ $xdebug = 'skip']]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $xdebug = 'skip' ]]; then phpenv config-rm xdebug.ini; fi
 
 before_script:
   - travis_retry composer self-update
