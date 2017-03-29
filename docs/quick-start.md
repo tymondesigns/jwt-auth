@@ -182,15 +182,15 @@ class AuthController extends Controller
      *
      * @param  string $token
      *
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
     {
-        return [
+        return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60
-        ];
+        ]);
     }
 
     /**
