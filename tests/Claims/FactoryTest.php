@@ -53,8 +53,8 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_get_the_ttl()
     {
-        $this->factory->setTTL(30);
-        $this->assertSame(20, $this->factory->getTTL());
+        $this->factory->setTTL($ttl = 30);
+        $this->assertSame($ttl, $this->factory->getTTL());
     }
 
     /** @test */
