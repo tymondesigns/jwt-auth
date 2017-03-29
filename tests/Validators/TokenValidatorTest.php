@@ -25,7 +25,7 @@ class TokenValidatorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->validator = new TokenValidator();
+        $this->validator = new TokenValidator;
     }
 
     /** @test */

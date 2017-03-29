@@ -28,7 +28,7 @@ use Tymon\JWTAuth\Validators\PayloadValidator;
 class PayloadTest extends AbstractTestCase
 {
     /**
-     * @var \Mockery\MockInterface
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\PayloadValidator
      */
     protected $validator;
 
