@@ -38,6 +38,26 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_set_the_request()
+    {
+        $factory = $this->factory->setRequest(Request::create('/bar', 'GET'));
+        $this->assertInstanceOf(Factory::class, $factory);
+    }
+
+    /** @test */
+    public function it_should_set_the_ttl()
+    {
+        $this->assertInstanceOf(Factory::class, $this->factory->setTTL(30));
+    }
+
+    /** @test */
+    public function it_should_get_the_ttl()
+    {
+        $this->factory->setTTL($ttl = 30);
+        $this->assertSame($ttl, $this->factory->getTTL());
+    }
+
+    /** @test */
     public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
     {
         $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));

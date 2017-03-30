@@ -383,6 +383,13 @@ class ParserTest extends AbstractTestCase
         $this->assertSame($parser->getChain(), $chain);
     }
 
+    /** @test */
+    public function it_should_set_the_cookie_key()
+    {
+        $cookies = (new Cookies)->setKey('test');
+        $this->assertInstanceOf(Cookies::class, $cookies);
+    }
+
     protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
     {
         return Mockery::mock(Route::class)
