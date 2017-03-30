@@ -1,20 +1,25 @@
 sudo: false
 
+git:
+  depth: 1
+
 cache:
   directories:
     - $HOME/.composer/cache
 
 language: php
 
-php:
-  - hhvm
-
 env:
   global:
-    - laravel='*'
+    - laravel='*' coverage='false' xdebug='skip'
 
 matrix:
   include:
+    - php: hhvm-3.18
+      sudo: required
+      dist: trusty
+      env: xdebug='keep'
+      group: edge
     - php: 5.5.9
       env: laravel='5.1'
     - php: 5.5.9
@@ -46,8 +51,11 @@ matrix:
     - php: 7.1
       env: laravel='5.3'
     - php: 7.1
-      env: laravel='5.4'
+      env: laravel='5.4' coverage='true' xdebug='keep'
   fast_finish: true
+
+before_install:
+  - if [[ $xdebug = 'skip' ]]; then phpenv config-rm xdebug.ini; fi
 
 before_script:
   - travis_retry composer self-update
@@ -64,4 +72,4 @@ script:
   - if [[ $laravel = '5.4' ]]; then composer test:ci; fi
 
 after_success:
-  - if [[ $laravel = '5.4' ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
