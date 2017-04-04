@@ -115,7 +115,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetime_immutable_claims()
     {
-        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', $this->testNowTimestamp);
+        $testDateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $this->testNowTimestamp);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $testDateTimeImmutable);
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);
