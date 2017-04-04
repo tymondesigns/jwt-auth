@@ -11,65 +11,60 @@ language: php
 
 env:
   global:
-    - laravel='*' coverage='false' xdebug='skip'
+    - COVERAGE=0 XDEBUG=0
 
 matrix:
   include:
     - php: hhvm-3.18
       sudo: required
       dist: trusty
-      env: xdebug='keep'
+      env: LARAVEL='5.4.*' XDEBUG=1
       group: edge
     - php: 5.5.9
-      env: laravel='5.1'
+      env: LARAVEL='5.1.*'
     - php: 5.5.9
-      env: laravel='5.2'
+      env: LARAVEL='5.2.*'
     - php: 5.5
-      env: laravel='5.1'
+      env: LARAVEL='5.1.*'
     - php: 5.5
-      env: laravel='5.2'
+      env: LARAVEL='5.2.*'
     - php: 5.6
-      env: laravel='5.1'
+      env: LARAVEL='5.1.*'
     - php: 5.6
-      env: laravel='5.2'
+      env: LARAVEL='5.2.*'
     - php: 5.6
-      env: laravel='5.3'
+      env: LARAVEL='5.3.*'
     - php: 5.6
-      env: laravel='5.4'
+      env: LARAVEL='5.4.*'
     - php: 7.0
-      env: laravel='5.1'
+      env: LARAVEL='5.1.*'
     - php: 7.0
-      env: laravel='5.2'
+      env: LARAVEL='5.2.*'
     - php: 7.0
-      env: laravel='5.3'
+      env: LARAVEL='5.3.*'
     - php: 7.0
-      env: laravel='5.4'
+      env: LARAVEL='5.4.*'
     - php: 7.1
-      env: laravel='5.1'
+      env: LARAVEL='5.1.*'
     - php: 7.1
-      env: laravel='5.2'
+      env: LARAVEL='5.2.*'
     - php: 7.1
-      env: laravel='5.3'
+      env: LARAVEL='5.3.*'
     - php: 7.1
-      env: laravel='5.4' coverage='true' xdebug='keep'
+      env: COVERAGE=1 LARAVEL='5.4.*' XDEBUG=1
   fast_finish: true
 
 before_install:
-  - if [[ $xdebug = 'skip' ]]; then phpenv config-rm xdebug.ini; fi
-
-before_script:
+  - if [[ $XDEBUG = 0 ]]; then phpenv config-rm xdebug.ini; fi
   - travis_retry composer self-update
-  - if [[ $laravel = '*' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $laravel = '5.1' ]]; then travis_retry composer require "illuminate/contracts=5.1.*" --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $laravel = '5.2' ]]; then travis_retry composer require "illuminate/contracts=5.2.*" --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $laravel = '5.3' ]]; then travis_retry composer require "illuminate/contracts=5.3.*" --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $laravel = '5.4' ]]; then travis_retry composer require "illuminate/contracts=5.4.*" --prefer-dist --no-interaction --no-suggest; fi
+  - travis_retry composer require "illuminate/contracts:${LARAVEL}" --no-interaction --no-update
+
+install:
+  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
 
 script:
-  - if [[ $laravel = '5.1' ]]; then composer test:ci -- --exclude-group laravel-5.2; fi
-  - if [[ $laravel = '5.2' ]]; then composer test:ci; fi
-  - if [[ $laravel = '5.3' ]]; then composer test:ci; fi
-  - if [[ $laravel = '5.4' ]]; then composer test:ci; fi
+  - if [[ $LARAVEL = '5.1.*' ]]; then composer test:ci -- --exclude-group laravel-5.2; fi
+  - if [[ $LARAVEL != '5.1.*' ]]; then composer test:ci; fi
 
 after_success:
-  - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
