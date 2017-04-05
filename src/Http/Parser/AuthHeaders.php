@@ -53,6 +53,14 @@ class AuthHeaders implements ParserContract
     {
         $header = $request->headers->get($this->header) ?: $this->fromAltHeaders($request);
 
+        if (is_null($header)) {
+            $headers = array_change_key_case(getallheaders(), CASE_LOWER);
+
+            if (array_key_exists($this->header, $headers)) {
+                $header = $headers[$this->header];
+            }
+        }
+
         if ($header && stripos($header, $this->prefix) === 0) {
             return trim(str_ireplace($this->prefix, '', $header));
         }
