@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
@@ -188,14 +189,7 @@ class PayloadFactory
      */
     protected function jti()
     {
-        $sub = array_get($this->claims, 'sub', '');
-        $nbf = array_get($this->claims, 'nbf', '');
-
-        if (! is_string($sub)) {
-            $sub = json_encode($sub);
-        }
-
-        return md5(sprintf('jti.%s.%s', $sub, $nbf));
+        return Str::random();
     }
 
     /**
