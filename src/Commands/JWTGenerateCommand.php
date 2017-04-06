@@ -39,22 +39,34 @@ class JWTGenerateCommand extends Command
     public function fire()
     {
         $key = $this->getRandomKey();
-
         if ($this->option('show')) {
             return $this->line('<comment>'.$key.'</comment>');
         }
 
-        $path = config_path('jwt.php');
-
-        if (file_exists($path)) {
-            file_put_contents($path, str_replace(
-                $this->laravel['config']['jwt.secret'], $key, file_get_contents($path)
-            ));
+        if (! $this->writeNewEnvironmentFileWith($key)) {
+            return;
         }
 
         $this->laravel['config']['jwt.secret'] = $key;
 
         $this->info("jwt-auth secret [$key] set successfully.");
+    }
+
+    /**
+     * Write a new environment file with the given key.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    protected function writeNewEnvironmentFileWith($key)
+    {
+        file_put_contents($this->laravel->environmentFilePath(), preg_replace(
+            $this->keyReplacementPattern(),
+            'JWT_SECRET='.$key,
+            file_get_contents($this->laravel->environmentFilePath())
+        ));
+
+        return true;
     }
 
     /**
@@ -65,6 +77,18 @@ class JWTGenerateCommand extends Command
     protected function getRandomKey()
     {
         return Str::random(32);
+    }
+
+    /**
+     * Get a regex pattern that will match env APP_KEY with any random key.
+     *
+     * @return string
+     */
+    protected function keyReplacementPattern()
+    {
+        $escaped = preg_quote('='.$this->laravel['config']['jwt.secret'], '/');
+
+        return "/^JWT_SECRET{$escaped}/m";
     }
 
     /**
