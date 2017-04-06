@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
