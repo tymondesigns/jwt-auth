@@ -131,6 +131,7 @@ class ManagerTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
+     * @expectedExceptionMessage The token has been blacklisted
      */
     public function it_should_throw_exception_when_token_is_blacklisted()
     {
@@ -256,6 +257,7 @@ class ManagerTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @expectedExceptionMessage You must have the blacklist enabled to invalidate a token.
      */
     public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
     {

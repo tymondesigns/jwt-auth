@@ -118,6 +118,7 @@ class JWTAuthTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @expectedExceptionMessage A token is required
      */
     public function it_should_throw_an_exception_when_not_providing_a_token()
     {
@@ -228,6 +229,7 @@ class JWTAuthTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @expectedExceptionMessage The token could not be parsed from the request
      */
     public function it_should_throw_an_exception_when_token_not_present_in_request()
     {
