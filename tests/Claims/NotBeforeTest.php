@@ -19,6 +19,7 @@ class NotBeforeTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     * @expectedExceptionMessage Invalid value provided for claim [nbf]
      */
     public function it_should_throw_an_exception_when_passing_a_future_timestamp()
     {
@@ -28,6 +29,7 @@ class NotBeforeTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
+     * @expectedExceptionMessage Invalid value provided for claim [nbf]
      */
     public function it_should_throw_an_exception_when_passing_an_invalid_value()
     {

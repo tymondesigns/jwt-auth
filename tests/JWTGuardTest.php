@@ -151,6 +151,7 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
+     * @expectedExceptionMessage An error occurred
      */
     public function it_should_throw_an_exception_if_an_invalid_token_is_provided()
     {
@@ -167,6 +168,7 @@ class JWTGuardTest extends AbstractTestCase
      * @test
      * @group laravel-5.2
      * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
+     * @expectedExceptionMessage An error occurred
      */
     public function it_should_throw_an_exception_if_no_token_is_provided()
     {
@@ -306,8 +308,9 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
      * @group laravel-5.2
+     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @expectedExceptionMessage Token could not be parsed from the request.
      */
     public function it_should_throw_an_exception_if_there_is_no_token_present_when_required()
     {

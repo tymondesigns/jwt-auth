@@ -59,6 +59,7 @@ class NamshiTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @expectedExceptionMessage Could not create token:
      */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
@@ -85,6 +86,7 @@ class NamshiTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     * @expectedExceptionMessage Token Signature could not be verified.
      */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
     {
@@ -98,6 +100,7 @@ class NamshiTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     * @expectedExceptionMessage Could not decode token:
      */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
@@ -171,6 +174,7 @@ class NamshiTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
+     * @expectedExceptionMessage The given algorithm could not be found
      */
     public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
     {

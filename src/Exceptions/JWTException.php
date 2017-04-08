@@ -16,16 +16,7 @@ use Exception;
 class JWTException extends Exception
 {
     /**
-     * Constructor.
-     *
-     * @param  string  $message
-     * @param  int  $code
-     * @param  \Exception|null  $previous
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function __construct($message = 'An error occurred', $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    protected $message = 'An error occurred';
 }
