@@ -12,7 +12,9 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
+use Exception;
 use Namshi\JOSE\JWS;
+use InvalidArgumentException;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
@@ -66,7 +68,7 @@ class NamshiTest extends AbstractTestCase
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
         $this->jws->shouldReceive('setPayload')->once()->with($payload)->andReturn(Mockery::self());
-        $this->jws->shouldReceive('sign')->andThrow(new \Exception);
+        $this->jws->shouldReceive('sign')->andThrow(new Exception);
 
         $this->getProvider('secret', 'HS256')->encode($payload);
     }
@@ -104,7 +106,7 @@ class NamshiTest extends AbstractTestCase
      */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
-        $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andThrow(new \InvalidArgumentException());
+        $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andThrow(new InvalidArgumentException);
         $this->jws->shouldReceive('verify')->never();
         $this->jws->shouldReceive('getPayload')->never();
 
