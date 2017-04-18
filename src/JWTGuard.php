@@ -115,7 +115,7 @@ class JWTGuard implements Guard
      *
      * @return bool|string
      */
-    public function attempt(array $credentials = [], $login = true)
+    public function attempt(array $credentials = [], $remember = false, $login = true)
     {
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
 
