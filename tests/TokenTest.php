@@ -30,7 +30,7 @@ class TokenTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_token_when_casting_to_a_string()
     {
-        $this->assertEquals((string) $this->token, $this->token);
+        $this->assertSame($this->token, $this->token);
     }
 
     /** @test */
