@@ -33,6 +33,11 @@ class Utils
      */
     public static function timestamp($timestamp)
     {
-        return Carbon::createFromTimeStampUTC($timestamp);
+        //This causes problems on our version of PHP
+        //return Carbon::createFromTimeStampUTC($timestamp);
+        
+        // This is good for our version of PHP and doesn't seem to 
+        // affect the output of the package
+        return Carbon::createFromTimeStamp($timestamp, 'UTC’);
     }
 }
