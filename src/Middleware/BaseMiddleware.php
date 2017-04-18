@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Middleware;
 
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 
 abstract class BaseMiddleware
 {
@@ -35,13 +34,12 @@ abstract class BaseMiddleware
     /**
      * Create a new BaseMiddleware instance.
      *
-     * @param \Illuminate\Contracts\Routing\ResponseFactory  $response
      * @param \Illuminate\Contracts\Events\Dispatcher  $events
      * @param \Tymon\JWTAuth\JWTAuth  $auth
      */
-    public function __construct(ResponseFactory $response, Dispatcher $events, JWTAuth $auth)
+    public function __construct(Dispatcher $events, JWTAuth $auth)
     {
-        $this->response = $response;
+        $this->response = response();
         $this->events = $events;
         $this->auth = $auth;
     }
