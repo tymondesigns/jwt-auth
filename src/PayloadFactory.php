@@ -108,6 +108,18 @@ class PayloadFactory
     }
 
     /**
+     * Set claims array to default.
+     *
+     * @return $this
+     */
+    public function refreshClaims()
+    {
+        $this->claims = [];
+
+        return $this;
+    }
+
+    /**
      * Build the default claims.
      *
      * @param  array  $customClaims
