@@ -16,12 +16,7 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class RouteParams implements ParserContract
 {
-    /**
-     * The route param key.
-     *
-     * @var string
-     */
-    protected $key = 'token';
+    use KeyTrait;
 
     /**
      * Try to get the token from the route parameters.
@@ -40,19 +35,5 @@ class RouteParams implements ParserContract
         if (is_callable([$route, 'parameter'])) {
             return $route->parameter($this->key);
         }
-    }
-
-    /**
-     * Set the query string key.
-     *
-     * @param  string  $key
-     *
-     * @return $this
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-
-        return $this;
     }
 }
