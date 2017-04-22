@@ -16,12 +16,7 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class Cookies implements ParserContract
 {
-    /**
-     * The input source key.
-     *
-     * @var string
-     */
-    protected $key = 'token';
+    use KeyTrait;
 
     /**
      * Try to parse the token from the request cookies.
@@ -33,19 +28,5 @@ class Cookies implements ParserContract
     public function parse(Request $request)
     {
         return $request->cookie($this->key);
-    }
-
-    /**
-     * Set the cookie key.
-     *
-     * @param  string  $key
-     *
-     * @return $this
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-
-        return $this;
     }
 }

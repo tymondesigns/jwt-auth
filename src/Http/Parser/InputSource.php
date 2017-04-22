@@ -16,12 +16,7 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class InputSource implements ParserContract
 {
-    /**
-     * The input source key.
-     *
-     * @var string
-     */
-    protected $key = 'token';
+    use KeyTrait;
 
     /**
      * Try to parse the token from the request input source.
@@ -33,19 +28,5 @@ class InputSource implements ParserContract
     public function parse(Request $request)
     {
         return $request->input($this->key);
-    }
-
-    /**
-     * Set the input source key.
-     *
-     * @param  string  $key
-     *
-     * @return $this
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-
-        return $this;
     }
 }

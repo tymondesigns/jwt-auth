@@ -16,12 +16,7 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class QueryString implements ParserContract
 {
-    /**
-     * The query string key.
-     *
-     * @var string
-     */
-    protected $key = 'token';
+    use KeyTrait;
 
     /**
      * Try to parse the token from the request query string.
@@ -33,19 +28,5 @@ class QueryString implements ParserContract
     public function parse(Request $request)
     {
         return $request->query($this->key);
-    }
-
-    /**
-     * Set the query string key.
-     *
-     * @param  string  $key
-     *
-     * @return $this
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-
-        return $this;
     }
 }
