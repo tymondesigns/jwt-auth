@@ -9,6 +9,10 @@
         "laravel"
     ],
     "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "support": {
+        "issues": "https://github.com/tymondesigns/jwt-auth/issues",
+        "source": "https://github.com/tymondesigns/jwt-auth"
+    },
     "license": "MIT",
     "authors": [
         {
