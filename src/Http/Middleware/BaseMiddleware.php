@@ -78,10 +78,10 @@ abstract class BaseMiddleware
     /**
      * Set the authentication header.
      *
-     * @param \Illuminate\Http\Response|\Illuminate\Http\JsonResponse $response
-     * @param string|null $token
+     * @param  \Illuminate\Http\Response|\Illuminate\Http\JsonResponse  $response
+     * @param  string|null  $token
      *
-     * @return  \Illuminate\Http\Response|\Illuminate\Http\JsonResponse mixed
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
     protected function setAuthenticationHeader($response, $token = null)
     {

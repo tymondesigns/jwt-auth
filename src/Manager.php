@@ -163,7 +163,7 @@ class Manager
     /**
      * Build the claims to go into the refreshed token.
      *
-     * @param \Tymon\JWTAuth\Payload $payload
+     * @param  \Tymon\JWTAuth\Payload  $payload
      *
      * @return array
      */
