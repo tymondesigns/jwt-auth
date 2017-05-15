@@ -39,7 +39,7 @@ class JWTGenerateSecretCommand extends Command
      */
     public function fire()
     {
-        $key = $this->getRandomKey();
+        $key = Str::random(32);
 
         if ($this->option('show')) {
             $this->comment($key);
@@ -47,42 +47,52 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        $path = base_path('.env');
-
-        if (file_exists($path)) {
-
-            // check if there is already a secret set first
-            if (! Str::contains(file_get_contents($path), 'JWT_SECRET')) {
-                file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
-            } else {
-
-                // let's be sure you want to do this, unless you already told us to force it
-                $confirmed = $this->option('force') || $this->confirm('This will invalidate all existing tokens. Are you sure you want to override the secret key?');
-
-                if ($confirmed) {
-                    file_put_contents($path, str_replace(
-                        'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
-                    ));
-                } else {
-                    $this->comment('Phew... No changes were made to your secret key.');
-
-                    return;
-                }
-            }
+        if (file_exists($path = base_path('.env')) === false) {
+            return $this->displayKey($key);
         }
 
+        // check if there is already a secret set first
+        if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
+            file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
+        } elseif ($this->isConfirmed() === false) {
+            $this->comment('Phew... No changes were made to your secret key.');
+
+            return;
+        }
+
+        // let's be sure you want to do this, unless you already told us to force it
+        file_put_contents($path, str_replace(
+            'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
+        ));
+
+        $this->displayKey($key);
+    }
+
+    /**
+     * Display the key.
+     *
+     * @param  string  $key
+     *
+     * @return void
+     */
+    protected function displayKey($key)
+    {
         $this->laravel['config']['jwt.secret'] = $key;
 
         $this->info("jwt-auth secret [$key] set successfully.");
     }
 
     /**
-     * Generate a random key for the JWT Auth secret.
+     * Check if the modification is conformed.
      *
-     * @return string
+     * @return bool
      */
-    protected function getRandomKey()
+    protected function isConfirmed()
     {
-        return Str::random(32);
+        if ($this->option('force') === true) {
+            return true;
+        }
+
+        return $this->confirm('This will invalidate all existing tokens. Are you sure you want to override the secret key?');
     }
 }
