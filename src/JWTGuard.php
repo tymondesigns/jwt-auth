@@ -275,6 +275,16 @@ class JWTGuard implements Guard
     {
         return $this->getPayload();
     }
+    
+    /**
+     * Check the token is valid
+     * 
+     * @return bool
+     */
+    public function check()
+    {
+        return $this->jwt->check();
+    }
 
     /**
      * Set the token.
