@@ -108,7 +108,7 @@ class Factory
      *
      * @return $this
      */
-    public function addClaims(array $claims)
+    protected function addClaims(array $claims)
     {
         foreach ($claims as $name => $value) {
             $this->addClaim($name, $value);
@@ -125,7 +125,7 @@ class Factory
      *
      * @return $this
      */
-    public function addClaim($name, $value)
+    protected function addClaim($name, $value)
     {
         $this->claims->put($name, $value);
 
