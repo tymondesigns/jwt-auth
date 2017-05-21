@@ -77,6 +77,8 @@ class JWTGuard implements Guard
 
             return $this->user = $this->provider->retrieveById($id);
         }
+
+        throw new JWTException();
     }
 
     /**
