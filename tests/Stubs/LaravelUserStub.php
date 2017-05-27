@@ -58,14 +58,4 @@ class LaravelUserStub implements Authenticatable, JWTSubject
     {
         //
     }
-
-    /**
-     * Get the Guard that will be stored in the guard claim of the JWT.
-     *
-     * @return mixed
-     */
-    public function getJWTGuard()
-    {
-        return 'api';
-    }
 }

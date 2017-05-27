@@ -77,9 +77,12 @@ class JWTGuardTest extends AbstractTestCase
                   ->andReturn(1);
         $this->jwt->shouldReceive('payload->get')
                   ->once()
-                  ->with('guard')
-                  ->andReturn('api');
+                  ->with('prv')
+                  ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
 
+        $this->provider->shouldReceive('getModel')
+                       ->once()
+                       ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
         $this->provider->shouldReceive('retrieveById')
                        ->once()
                        ->with(1)
@@ -110,9 +113,12 @@ class JWTGuardTest extends AbstractTestCase
             ->andReturn(1);
         $this->jwt->shouldReceive('payload->get')
                   ->once()
-                  ->with('guard')
-                  ->andReturn('api');
+                  ->with('prv')
+                  ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
 
+        $this->provider->shouldReceive('getModel')
+                       ->once()
+                       ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
         $this->provider->shouldReceive('retrieveById')
             ->once()
             ->with(1)

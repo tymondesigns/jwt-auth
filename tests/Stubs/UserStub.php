@@ -27,9 +27,4 @@ class UserStub implements JWTSubject
             'role' => 'admin',
         ];
     }
-
-    public function getJWTGuard()
-    {
-        return 'api';
-    }
 }
