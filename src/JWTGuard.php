@@ -46,19 +46,29 @@ class JWTGuard implements Guard
     protected $request;
 
     /**
+     * The name of the Guard.
+     * Corresponds to guard name in authentication configuration.
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
      * Instantiate the class.
      *
      * @param  \Tymon\JWTAuth\JWT  $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
+     * @param string  $name
      *
      * @return void
      */
-    public function __construct(JWT $jwt, UserProvider $provider, Request $request)
+    public function __construct(JWT $jwt, UserProvider $provider, Request $request, $name)
     {
         $this->jwt = $jwt;
         $this->provider = $provider;
         $this->request = $request;
+        $this->name = $name;
     }
 
     /**
@@ -74,8 +84,9 @@ class JWTGuard implements Guard
 
         if ($this->jwt->getToken() && $this->jwt->check()) {
             $id = $this->jwt->payload()->get('sub');
+            $guard = $this->jwt->payload()->get('guard');
 
-            return $this->user = $this->provider->retrieveById($id);
+            return $this->user = ($guard == null || $this->name == $guard) ? $this->provider->retrieveById($id) : null;
         }
     }
 

@@ -71,7 +71,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
              ->once()
-             ->with(['sub' => 1, 'foo' => 'bar', 'role' => 'admin'])
+             ->with(['sub' => 1, 'guard' => 'api', 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
@@ -90,7 +90,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
              ->once()
-             ->with(['sub' => 1, 'foo' => 'bar', 'role' => 'admin'])
+             ->with(['sub' => 1, 'guard' => 'api', 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
