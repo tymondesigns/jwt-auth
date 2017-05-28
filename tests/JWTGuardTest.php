@@ -43,7 +43,7 @@ class JWTGuardTest extends AbstractTestCase
 
         $this->jwt = Mockery::mock(JWT::class);
         $this->provider = Mockery::mock(UserProvider::class);
-        $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'), 'api');
+        $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
     }
 
     public function tearDown()
