@@ -14,24 +14,30 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 use Mockery;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Providers\JWT\JWTInterface;
+use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class JWTManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->jwt = Mockery::mock('Tymon\JWTAuth\Providers\JWT\JWTInterface');
-        $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
-        $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
+        $this->jwt = Mockery::mock(JWTInterface::class);
+        $this->blacklist = Mockery::mock(Blacklist::class);
+        $this->factory = Mockery::mock(PayloadFactory::class);
         $this->manager = new JWTManager($this->jwt, $this->blacklist, $this->factory);
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
     }
 
@@ -80,13 +86,13 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->manager->decode($token);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
     public function it_should_throw_exception_when_token_is_blacklisted()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenBlacklistedException');
+        $this->setExpectedException(TokenBlacklistedException::class);
 
         $claims = [
             new Subject(1),
@@ -131,7 +137,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->manager->refresh($token);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Token', $token);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
     }
 
@@ -161,7 +167,7 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+        $this->setExpectedException(JWTException::class);
 
         $token = new Token('foo.bar.baz');
 
@@ -171,18 +177,18 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_get_the_payload_factory()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\PayloadFactory', $this->manager->getPayloadFactory());
+        $this->assertInstanceOf(PayloadFactory::class, $this->manager->getPayloadFactory());
     }
 
     /** @test */
     public function it_should_get_the_jwt_provider()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Providers\JWT\JWTInterface', $this->manager->getJWTProvider());
+        $this->assertInstanceOf(JWTInterface::class, $this->manager->getJWTProvider());
     }
 
     /** @test */
     public function it_should_get_the_blacklist()
     {
-        $this->assertInstanceOf('Tymon\JWTAuth\Blacklist', $this->manager->getBlacklist());
+        $this->assertInstanceOf(Blacklist::class, $this->manager->getBlacklist());
     }
 }

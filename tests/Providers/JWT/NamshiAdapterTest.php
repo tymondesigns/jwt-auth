@@ -13,7 +13,9 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
 use Carbon\Carbon;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,7 +49,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\JWTException');
+        $this->setExpectedException(JWTException::class);
 
         $this->jws->shouldReceive('sign')->andThrow(new \Exception);
 
@@ -68,7 +70,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $this->jws->shouldReceive('verify')->andReturn(false);
 

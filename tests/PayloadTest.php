@@ -21,6 +21,8 @@ use Tymon\JWTAuth\Claims\Audience;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +39,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
             new JwtId('foo'),
         ];
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
 
         $this->payload = new Payload($claims, $this->validator);
@@ -51,7 +53,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_throws_an_exception_when_trying_to_add_to_the_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\PayloadException');
+        $this->setExpectedException(PayloadException::class);
 
         $this->payload['foo'] = 'bar';
     }
@@ -59,7 +61,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_throws_an_exception_when_trying_to_remove_a_key_from_the_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\PayloadException');
+        $this->setExpectedException(PayloadException::class);
 
         unset($this->payload['foo']);
     }
@@ -130,7 +132,7 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     {
         $claims = $this->payload->getClaims();
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\Expiration', $claims[2]);
-        $this->assertInstanceOf('Tymon\JWTAuth\Claims\JwtId', $claims[5]);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\Expiration::class, $claims[2]);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Claims\JwtId::class, $claims[5]);
     }
 }

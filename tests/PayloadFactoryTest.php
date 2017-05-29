@@ -17,11 +17,13 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\Factory;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,8 +31,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     {
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
-        $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->claimFactory = Mockery::mock(Factory::class);
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->factory = new PayloadFactory($this->claimFactory, Request::create('/foo', 'GET'), $this->validator);
     }
 
@@ -59,7 +61,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($payload->get('iat'), 123);
         $this->assertEquals($payload['exp'], $expTime);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test **/
@@ -101,7 +103,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($payload->get('jti'), 'foo');
         $this->assertEquals($payload->get('foo'), 'baz');
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
@@ -123,7 +125,7 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($payload->get('sub'), $userObject);
         $this->assertEquals($payload->get('foo'), ['bar' => [0, 0, 0]]);
 
-        $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
+        $this->assertInstanceOf(\Tymon\JWTAuth\Payload::class, $payload);
     }
 
     /** @test */
