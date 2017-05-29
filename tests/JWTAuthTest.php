@@ -43,7 +43,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->jwtAuth->toUser('foo.bar.baz');
 
-        $this->assertEquals(1, $user->id);
+        $this->assertSame(1, $user->id);
     }
 
     /** @test */
@@ -68,7 +68,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->jwtAuth->fromUser((object) ['id' => 1]);
 
-        $this->assertEquals($token, 'foo.bar.baz');
+        $this->assertSame($token, 'foo.bar.baz');
     }
 
     /** @test */
@@ -82,7 +82,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->jwtAuth->attempt();
 
-        $this->assertEquals($token, 'foo.bar.baz');
+        $this->assertSame($token, 'foo.bar.baz');
     }
 
     /** @test */
@@ -118,7 +118,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->jwtAuth->authenticate('foo.bar.baz');
 
-        $this->assertEquals($user->id, 1);
+        $this->assertSame($user->id, 1);
     }
 
     /** @test */
@@ -147,7 +147,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->jwtAuth->setToken('foo.bar.baz')->refresh();
 
-        $this->assertEquals($result, 'baz.bar.foo');
+        $this->assertSame($result, 'baz.bar.foo');
     }
 
     /** @test */
@@ -203,7 +203,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->jwtAuth->setIdentifier('foo');
 
-        $this->assertEquals($this->jwtAuth->getIdentifier(), 'foo');
+        $this->assertSame($this->jwtAuth->getIdentifier(), 'foo');
     }
 
     /** @test */
