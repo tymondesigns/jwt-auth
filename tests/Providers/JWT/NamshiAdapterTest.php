@@ -17,8 +17,20 @@ use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
 
 class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Namshi\JOSE\JWS|\Mockery\MockInterface
+     */
+    protected $jws;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\JWT\NamshiAdapter
+     */
+    protected $provider;
+
     public function setUp()
     {
+        parent::setUp();
+
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
         $this->jws = Mockery::mock('Namshi\JOSE\JWS');
@@ -28,6 +40,8 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

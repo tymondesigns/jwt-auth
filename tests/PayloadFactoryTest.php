@@ -25,8 +25,25 @@ use Tymon\JWTAuth\Claims\Expiration;
 
 class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Claims\Factory|\Mockery\MockInterface
+     */
+    protected $claimFactory;
+
+    /**
+     * @var \Tymon\JWTAuth\Validators\PayloadValidator|\Mockery\MockInterface
+     */
+    protected $validator;
+
+    /**
+     * @var \Tymon\JWTAuth\PayloadFactory
+     */
+    protected $factory;
+
     public function setUp()
     {
+        parent::setUp();
+
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
         $this->claimFactory = Mockery::mock('Tymon\JWTAuth\Claims\Factory');
@@ -37,6 +54,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

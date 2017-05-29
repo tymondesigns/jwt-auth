@@ -16,8 +16,15 @@ use Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter;
 
 class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Illuminate\Auth\AuthManager|\Mockery\MockInterface
+     */
+    protected $authManager;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->authManager = Mockery::mock('Illuminate\Auth\AuthManager');
         $this->auth = new IlluminateAuthAdapter($this->authManager);
     }
@@ -25,6 +32,8 @@ class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

@@ -18,8 +18,30 @@ use Illuminate\Http\Request;
 
 class JWTAuthTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Providers\User\UserInterface|\Mockery\MockInterface
+     */
+    protected $user;
+
+    /**
+     * @var \Tymon\JWTAuth\JWTManager|\Mockery\MockInterface
+     */
+    protected $manager;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\Auth\AuthInterface|\Mockery\MockInterface
+     */
+    protected $auth;
+
+    /**
+     * @var \Tymon\JWTAuth\JWTAuth
+     */
+    protected $jwtAuth;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->user = Mockery::mock('Tymon\JWTAuth\Providers\User\UserInterface');
         $this->manager = Mockery::mock('Tymon\JWTAuth\JWTManager');
         $this->auth = Mockery::mock('Tymon\JWTAuth\Providers\Auth\AuthInterface');
@@ -30,6 +52,8 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

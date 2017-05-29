@@ -16,8 +16,20 @@ use Tymon\JWTAuth\Providers\Storage\IlluminateCacheAdapter;
 
 class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Illuminate\Cache\CacheManager|\Mockery\MockInterface
+     */
+    protected $cache;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\Storage\IlluminateCacheAdapter
+     */
+    protected $storage;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->cache = Mockery::mock('Illuminate\Cache\CacheManager');
         $this->storage = new IlluminateCacheAdapter($this->cache);
 
@@ -27,6 +39,8 @@ class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

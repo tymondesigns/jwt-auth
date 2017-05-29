@@ -19,8 +19,20 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class JWTGenerateCommandTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Commands\JWTGenerateCommand
+     */
+    protected $command;
+
+    /**
+     * @var \Symfony\Component\Console\Tester\CommandTester
+     */
+    protected $tester;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->command = new JWTGenerateCommand();
         $this->tester = new CommandTester($this->command);
     }

@@ -16,8 +16,25 @@ use Tymon\JWTAuth\Providers\User\EloquentUserAdapter;
 
 class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Illuminate\Database\Query\Builder|\Mockery\MockInterface
+     */
+    protected $builder;
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Model|\Mockery\MockInterface
+     */
+    protected $model;
+
+    /**
+     * @var \Tymon\JWTAuth\Providers\User\EloquentUserAdapter
+     */
+    protected $user;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->builder = Mockery::mock('Illuminate\Database\Query\Builder');
         $this->model = Mockery::mock('Illuminate\Database\Eloquent\Model');
         $this->user = new EloquentUserAdapter($this->model);
@@ -26,6 +43,8 @@ class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */
