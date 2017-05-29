@@ -13,8 +13,8 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
 use Carbon\Carbon;
-use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Payload;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;

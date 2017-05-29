@@ -12,10 +12,10 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\JWTManager;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;

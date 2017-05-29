@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Token;
+use PHPUnit_Framework_TestCase;
 
 class TokenTest extends PHPUnit_Framework_TestCase
 {
