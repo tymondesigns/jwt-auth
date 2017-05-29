@@ -12,9 +12,10 @@
 namespace Tymon\JWTAuth\Test\Providers\Storage;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Providers\Storage\IlluminateCacheAdapter;
 
-class IlluminateCacheAdapterTest extends \PHPUnit_Framework_TestCase
+class IlluminateCacheAdapterTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

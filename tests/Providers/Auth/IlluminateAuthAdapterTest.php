@@ -12,9 +12,10 @@
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter;
 
-class IlluminateAuthAdapterTest extends \PHPUnit_Framework_TestCase
+class IlluminateAuthAdapterTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

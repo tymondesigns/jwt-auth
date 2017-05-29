@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\JWTManager;
@@ -22,7 +23,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 
-class JWTManagerTest extends \PHPUnit_Framework_TestCase
+class JWTManagerTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

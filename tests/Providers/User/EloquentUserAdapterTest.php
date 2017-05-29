@@ -12,9 +12,10 @@
 namespace Tymon\JWTAuth\Test\Providers\User;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Providers\User\EloquentUserAdapter;
 
-class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
+class EloquentUserAdapterTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

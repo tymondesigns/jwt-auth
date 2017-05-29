@@ -12,9 +12,10 @@
 namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
-class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
+class PayloadValidatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

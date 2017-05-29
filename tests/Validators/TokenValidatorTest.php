@@ -11,9 +11,10 @@
 
 namespace Tymon\JWTAuth\Test;
 
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Validators\TokenValidator;
 
-class TokenValidatorTest extends \PHPUnit_Framework_TestCase
+class TokenValidatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

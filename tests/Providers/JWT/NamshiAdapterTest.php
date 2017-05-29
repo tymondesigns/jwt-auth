@@ -13,9 +13,10 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
 use Carbon\Carbon;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Providers\JWT\NamshiAdapter;
 
-class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
+class NamshiAdapterTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
