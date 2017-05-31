@@ -22,7 +22,6 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Test\Fixtures\Foo;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class PayloadTest extends AbstractTestCase
