@@ -294,6 +294,8 @@ class JWTGuard implements Guard
      * Set the token ttl.
      *
      * @param  int  $ttl
+     *
+     * @return $this
      */
     public function setTTL($ttl)
     {
