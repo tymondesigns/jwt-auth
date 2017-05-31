@@ -104,7 +104,7 @@ class JWTGuard implements Guard
      */
     public function validate(array $credentials = [])
     {
-        return $this->attempt($credentials, false);
+        return (bool) $this->attempt($credentials, false);
     }
 
     /**
@@ -294,6 +294,8 @@ class JWTGuard implements Guard
      * Set the token ttl.
      *
      * @param  int  $ttl
+     *
+     * @return $this
      */
     public function setTTL($ttl)
     {
