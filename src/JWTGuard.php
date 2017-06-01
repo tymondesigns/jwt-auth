@@ -72,10 +72,8 @@ class JWTGuard implements Guard
             return $this->user;
         }
 
-        if ($this->jwt->getToken() && $this->jwt->check()) {
-            $id = $this->jwt->payload()->get('sub');
-
-            return $this->user = $this->provider->retrieveById($id);
+        if ($this->jwt->getToken() && $this->jwt->check() && $this->jwt->checkProvider($this->provider->getModel())) {
+            return $this->user = $this->provider->retrieveById($this->jwt->payload()->get('sub'));
         }
     }
 

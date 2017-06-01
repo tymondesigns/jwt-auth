@@ -236,9 +236,34 @@ class JWT
     {
         return array_merge(
             ['sub' => $subject->getJWTIdentifier()],
+            ['prv' => $this->hashProvider($subject)],
             $this->customClaims, // custom claims from inline setter
             $subject->getJWTCustomClaims() // custom claims from JWTSubject method
         );
+    }
+
+    /**
+     * Hash the provider and return it.
+     *
+     * @param  string|object  $provider
+     *
+     * @return string
+     */
+    protected function hashProvider($provider)
+    {
+        return hash('sha256', is_object($provider) ? get_class($provider) : $provider);
+    }
+
+    /**
+     * Check if the provider matches the one saved in the token.
+     *
+     * @param  string|object  $provider
+     *
+     * @return bool
+     */
+    public function checkProvider($provider)
+    {
+        return $this->hashProvider($provider) === $this->payload()->get('prv');
     }
 
     /**
