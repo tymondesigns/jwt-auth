@@ -71,7 +71,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
              ->once()
-             ->with(['sub' => 1, 'prv' => hash('sha256', 'Tymon\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
+             ->with(['sub' => 1, 'prv' => md5('Tymon\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
@@ -88,7 +88,7 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
                        ->with('prv')
-                       ->andReturn(hash('sha256', 'Tymon\JWTAuth\Test\Stubs\UserStub'));
+                       ->andReturn(md5('Tymon\JWTAuth\Test\Stubs\UserStub'));
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
@@ -102,7 +102,7 @@ class JWTAuthTest extends AbstractTestCase
         $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
         $payloadFactory->shouldReceive('get')
                        ->with('prv')
-                       ->andReturn(hash('sha256', 'Tymon\JWTAuth\Test\Stubs\UserStub1'));
+                       ->andReturn(md5('Tymon\JWTAuth\Test\Stubs\UserStub1'));
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
@@ -118,7 +118,7 @@ class JWTAuthTest extends AbstractTestCase
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
              ->once()
-             ->with(['sub' => 1, 'prv' => hash('sha256', 'Tymon\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
+             ->with(['sub' => 1, 'prv' => md5('Tymon\JWTAuth\Test\Stubs\UserStub'), 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
         $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');

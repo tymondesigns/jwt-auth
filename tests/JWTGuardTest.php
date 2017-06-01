@@ -68,17 +68,16 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided()
     {
+        $payload = Mockery::mock(Payload::class);
+        $payload->shouldReceive('offsetGet')->once()->with('sub')->andReturn(1);
+
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
-        $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
         $this->jwt->shouldReceive('checkProvider')
                   ->once()
                   ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
                   ->andReturn(true);
-        $this->jwt->shouldReceive('payload->get')
-                  ->once()
-                  ->with('sub')
-                  ->andReturn(1);
 
         $this->provider->shouldReceive('getModel')
                        ->once()
@@ -104,25 +103,24 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception()
     {
+        $payload = Mockery::mock(Payload::class);
+        $payload->shouldReceive('offsetGet')->once()->with('sub')->andReturn(1);
+
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
-        $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
         $this->jwt->shouldReceive('checkProvider')
                   ->once()
                   ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
                   ->andReturn(true);
-        $this->jwt->shouldReceive('payload->get')
-            ->once()
-            ->with('sub')
-            ->andReturn(1);
 
         $this->provider->shouldReceive('getModel')
                        ->once()
                        ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
         $this->provider->shouldReceive('retrieveById')
-            ->once()
-            ->with(1)
-            ->andReturn((object) ['id' => 1]);
+             ->once()
+             ->with(1)
+             ->andReturn((object) ['id' => 1]);
 
         $this->assertSame(1, $this->guard->userOrFail()->id);
 

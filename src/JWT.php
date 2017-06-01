@@ -132,17 +132,19 @@ class JWT
     /**
      * Check that the token is valid.
      *
-     * @return bool
+     * @param  bool  $getPayload
+     *
+     * @return \Tymon\JWTAuth\Payload|bool
      */
-    public function check()
+    public function check($getPayload = false)
     {
         try {
-            $this->checkOrFail();
+            $payload = $this->checkOrFail();
         } catch (JWTException $e) {
             return false;
         }
 
-        return true;
+        return $getPayload ? $payload : true;
     }
 
     /**
@@ -235,11 +237,25 @@ class JWT
     protected function getClaimsArray(JWTSubject $subject)
     {
         return array_merge(
-            ['sub' => $subject->getJWTIdentifier()],
-            ['prv' => $this->hashProvider($subject)],
+            $this->getClaimsForSubject($subject),
             $this->customClaims, // custom claims from inline setter
             $subject->getJWTCustomClaims() // custom claims from JWTSubject method
         );
+    }
+
+    /**
+     * Get the claims associated with a given subject.
+     *
+     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
+     *
+     * @return array
+     */
+    protected function getClaimsForSubject(JWTSubject $subject)
+    {
+        return [
+            'sub' => $subject->getJWTIdentifier(),
+            'prv' => $this->hashProvider($subject),
+        ];
     }
 
     /**
@@ -251,7 +267,7 @@ class JWT
      */
     protected function hashProvider($provider)
     {
-        return hash('sha256', is_object($provider) ? get_class($provider) : $provider);
+        return md5(is_object($provider) ? get_class($provider) : $provider);
     }
 
     /**
