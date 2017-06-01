@@ -18,7 +18,7 @@
         {
             "name": "Sean Tymon",
             "email": "tymon148@gmail.com",
-            "homepage": "http://tymon.xyz",
+            "homepage": "https://tymon.xyz",
             "role": "Developer"
         }
     ],
@@ -60,7 +60,7 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "scripts": {
-        "test" : "phpunit --colors=always",
+        "test": "phpunit --colors=always",
         "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
     }
 }
