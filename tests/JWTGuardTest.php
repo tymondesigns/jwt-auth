@@ -71,14 +71,14 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
         $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('checkProvider')
+                  ->once()
+                  ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
+                  ->andReturn(true);
         $this->jwt->shouldReceive('payload->get')
                   ->once()
                   ->with('sub')
                   ->andReturn(1);
-        $this->jwt->shouldReceive('payload->get')
-                  ->once()
-                  ->with('prv')
-                  ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
 
         $this->provider->shouldReceive('getModel')
                        ->once()
@@ -107,14 +107,14 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
         $this->jwt->shouldReceive('check')->once()->andReturn(true);
+        $this->jwt->shouldReceive('checkProvider')
+                  ->once()
+                  ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
+                  ->andReturn(true);
         $this->jwt->shouldReceive('payload->get')
             ->once()
             ->with('sub')
             ->andReturn(1);
-        $this->jwt->shouldReceive('payload->get')
-                  ->once()
-                  ->with('prv')
-                  ->andReturn('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub');
 
         $this->provider->shouldReceive('getModel')
                        ->once()
