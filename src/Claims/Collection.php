@@ -32,16 +32,15 @@ class Collection extends IlluminateCollection
      * Get a Claim instance by it's unique name.
      *
      * @param  string  $name
-     * @param  callable  $callback
      * @param  mixed  $default
      *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getByClaimName($name, callable $callback = null, $default = null)
+    public function getByClaimName($name, $default = null)
     {
-        return $this->filter(function (Claim $claim) use ($name) {
+        return $this->first(function (Claim $claim) use ($name) {
             return $claim->getName() === $name;
-        })->first($callback, $default);
+        }, $default);
     }
 
     /**
@@ -69,13 +68,17 @@ class Collection extends IlluminateCollection
     /**
      * Determine if the Collection contains all of the given keys.
      *
-     * @param  mixed  $claims
+     * @param  array  $claims
      *
      * @return bool
      */
     public function hasAllClaims($claims)
     {
-        return count($claims) && (new static($claims))->diff($this->keys())->isEmpty();
+        if (count($claims) === 0) {
+            return false;
+        }
+
+        return static::make($claims)->diff($this->keys())->isEmpty();
     }
 
     /**
