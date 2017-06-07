@@ -12,9 +12,10 @@
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
 
-class JWTProviderTest extends \PHPUnit_Framework_TestCase
+class JWTProviderTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

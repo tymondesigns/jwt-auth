@@ -12,11 +12,12 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Middleware\GetUserFromToken;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
+class GetUserFromTokenTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 use Mockery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PHPUnit_Framework_TestCase;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -23,7 +24,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
 
-class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
+class PayloadFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

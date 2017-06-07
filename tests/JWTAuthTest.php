@@ -15,8 +15,9 @@ use Mockery;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
+use PHPUnit_Framework_TestCase;
 
-class JWTAuthTest extends \PHPUnit_Framework_TestCase
+class JWTAuthTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
