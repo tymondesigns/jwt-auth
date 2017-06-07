@@ -308,7 +308,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $token = $this->jwtAuth->setRequest($request)->getToken();
 
-        $this->assertEquals('some.random.token', $token);
+        $this->assertSame('some.random.token', $token);
     }
 
     /** @test */

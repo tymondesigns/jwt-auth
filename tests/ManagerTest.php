@@ -191,7 +191,7 @@ class ManagerTest extends AbstractTestCase
 
         // $this->assertArrayHasKey('ref', $payload);
         $this->assertInstanceOf(Token::class, $token);
-        $this->assertEquals('baz.bar.foo', $token);
+        $this->assertSame('baz.bar.foo', $token);
     }
 
     /** @test */
