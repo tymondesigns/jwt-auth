@@ -21,6 +21,8 @@ use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Providers\Storage\StorageInterface;
 
 class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,11 +30,11 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     {
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
-        $this->storage = Mockery::mock('Tymon\JWTAuth\Providers\Storage\StorageInterface');
+        $this->storage = Mockery::mock(StorageInterface::class);
         $this->blacklist = new Blacklist($this->storage);
         $this->blacklist->setRefreshTTL(20160);
 
-        $this->validator = Mockery::mock('Tymon\JWTAuth\Validators\PayloadValidator');
+        $this->validator = Mockery::mock(PayloadValidator::class);
         $this->validator->shouldReceive('setRefreshFlow->check');
     }
 

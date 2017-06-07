@@ -12,7 +12,11 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
+use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Events\Dispatcher;
 use Tymon\JWTAuth\Middleware\GetUserFromToken;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -20,11 +24,11 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->events = Mockery::mock('Illuminate\Contracts\Events\Dispatcher');
-        $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');
+        $this->events = Mockery::mock(Dispatcher::class);
+        $this->auth = Mockery::mock(JWTAuth::class);
 
-        $this->request = Mockery::mock('Illuminate\Http\Request');
-        $this->response = Mockery::mock('Illuminate\Contracts\Routing\ResponseFactory');
+        $this->request = Mockery::mock(Request::class);
+        $this->response = Mockery::mock(ResponseFactory::class);
 
         $this->middleware = new GetUserFromToken($this->response, $this->events, $this->auth);
 

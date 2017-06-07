@@ -13,6 +13,8 @@ namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,7 +42,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_expired_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenExpiredException');
+        $this->setExpectedException(TokenExpiredException::class);
 
         $payload = [
             'iss' => 'http://example.com',
@@ -57,7 +59,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $payload = [
             'iss' => 'http://example.com',
@@ -74,7 +76,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_iat_claim()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $payload = [
             'iss' => 'http://example.com',
@@ -91,7 +93,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $payload = [
             'iss' => 'http://example.com',
@@ -104,7 +106,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_expiry()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $payload = [
             'iss' => 'http://example.com',
@@ -120,7 +122,7 @@ class PayloadValidatorTest extends \PHPUnit_Framework_TestCase
     /** @test **/
     public function it_should_throw_an_exception_when_required_claims_are_missing()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $payload = [
             'iss' => 'http://example.com',

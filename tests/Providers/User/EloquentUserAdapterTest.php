@@ -12,14 +12,16 @@
 namespace Tymon\JWTAuth\Test\Providers\User;
 
 use Mockery;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Providers\User\EloquentUserAdapter;
 
 class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->builder = Mockery::mock('Illuminate\Database\Query\Builder');
-        $this->model = Mockery::mock('Illuminate\Database\Eloquent\Model');
+        $this->builder = Mockery::mock(Builder::class);
+        $this->model = Mockery::mock(Model::class);
         $this->user = new EloquentUserAdapter($this->model);
     }
 

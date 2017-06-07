@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Tymon\JWTAuth\Validators\TokenValidator;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class TokenValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,9 +34,9 @@ class TokenValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_should_throw_an_axception_when_providing_a_malformed_token()
+    public function it_should_throw_an_exception_when_providing_a_malformed_token()
     {
-        $this->setExpectedException('Tymon\JWTAuth\Exceptions\TokenInvalidException');
+        $this->setExpectedException(TokenInvalidException::class);
 
         $this->validator->check('one.two.three.four.five');
     }
