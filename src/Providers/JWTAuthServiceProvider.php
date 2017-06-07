@@ -48,45 +48,45 @@ class JWTAuthServiceProvider extends ServiceProvider
      */
     protected function bootBindings()
     {
-        $this->app['Tymon\JWTAuth\JWTAuth'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\JWTAuth', function ($app) {
             return $app['tymon.jwt.auth'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Providers\User\UserInterface'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Providers\User\UserInterface', function ($app) {
             return $app['tymon.jwt.provider.user'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Providers\JWT\JWTInterface'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Providers\JWT\JWTInterface', function ($app) {
             return $app['tymon.jwt.provider.jwt'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Providers\Auth\AuthInterface'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Providers\Auth\AuthInterface', function ($app) {
             return $app['tymon.jwt.provider.auth'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Providers\Storage\StorageInterface'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Providers\Storage\StorageInterface', function ($app) {
             return $app['tymon.jwt.provider.storage'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\JWTManager'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\JWTManager', function ($app) {
             return $app['tymon.jwt.manager'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Blacklist'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Blacklist', function ($app) {
             return $app['tymon.jwt.blacklist'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\PayloadFactory'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\PayloadFactory', function ($app) {
             return $app['tymon.jwt.payload.factory'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Claims\Factory'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Claims\Factory', function ($app) {
             return $app['tymon.jwt.claim.factory'];
-        };
+        });
 
-        $this->app['Tymon\JWTAuth\Validators\PayloadValidator'] = function ($app) {
+        $this->app->singleton('Tymon\JWTAuth\Validators\PayloadValidator', function ($app) {
             return $app['tymon.jwt.validators.payload'];
-        };
+        });
     }
 
     /**
