@@ -36,6 +36,6 @@ class EloquentUserAdapterTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->user->getBy('foo', 'bar');
 
-        $this->assertEquals(1, $user->id);
+        $this->assertSame(1, $user->id);
     }
 }

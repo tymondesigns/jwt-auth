@@ -41,7 +41,7 @@ class NamshiAdapterTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->provider->encode($payload);
 
-        $this->assertEquals('foo.bar.baz', $token);
+        $this->assertSame('foo.bar.baz', $token);
     }
 
     /** @test */

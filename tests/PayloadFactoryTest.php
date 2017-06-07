@@ -55,9 +55,9 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->make(['sub' => 1, 'jti' => 'foo', 'iat' => 123]);
 
-        $this->assertEquals($payload->get('sub'), 1);
-        $this->assertEquals($payload->get('iat'), 123);
-        $this->assertEquals($payload['exp'], $expTime);
+        $this->assertSame($payload->get('sub'), 1);
+        $this->assertSame($payload->get('iat'), 123);
+        $this->assertSame($payload['exp'], $expTime);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -77,9 +77,9 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
         $payload = $this->factory->make([1 => 'claim one']);
 
         // if the checker doesn't compare defaults properly, numeric-keyed claims might be ignored
-        $this->assertEquals('claim one', $payload->get(1));
+        $this->assertSame('claim one', $payload->get(1));
         // iat is $defaultClaims[1], so verify it wasn't skipped due to a bad k-v comparison
-        $this->assertEquals(123, $payload->get('iat'));
+        $this->assertSame(123, $payload->get('iat'));
     }
 
     /** @test */
@@ -97,9 +97,9 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->sub(1)->foo('baz')->make();
 
-        $this->assertEquals($payload['sub'], 1);
-        $this->assertEquals($payload->get('jti'), 'foo');
-        $this->assertEquals($payload->get('foo'), 'baz');
+        $this->assertSame($payload['sub'], 1);
+        $this->assertSame($payload->get('jti'), 'foo');
+        $this->assertSame($payload->get('foo'), 'baz');
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -120,8 +120,8 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
 
         $payload = $this->factory->sub($userObject)->foo(['bar' => [0, 0, 0]])->make();
 
-        $this->assertEquals($payload->get('sub'), $userObject);
-        $this->assertEquals($payload->get('foo'), ['bar' => [0, 0, 0]]);
+        $this->assertSame($payload->get('sub'), $userObject);
+        $this->assertSame($payload->get('foo'), ['bar' => [0, 0, 0]]);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Payload', $payload);
     }
@@ -131,6 +131,6 @@ class PayloadFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->factory->setTTL(12345);
 
-        $this->assertEquals($this->factory->getTTL(), 12345);
+        $this->assertSame($this->factory->getTTL(), 12345);
     }
 }
