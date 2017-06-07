@@ -24,8 +24,25 @@ use Tymon\JWTAuth\Claims\Expiration;
 
 class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Providers\Storage\StorageInterface|\Mockery\MockInterface
+     */
+    protected $storage;
+
+    /**
+     * @var \Tymon\JWTAuth\Blacklist
+     */
+    protected $blacklist;
+
+    /**
+     * @var \Tymon\JWTAuth\Validators\PayloadValidator|\Mockery\MockInterface
+     */
+    protected $validator;
+
     public function setUp()
     {
+        parent::setUp();
+
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
         $this->storage = Mockery::mock('Tymon\JWTAuth\Providers\Storage\StorageInterface');
@@ -39,6 +56,8 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

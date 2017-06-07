@@ -24,8 +24,35 @@ use Tymon\JWTAuth\Claims\Expiration;
 
 class JWTManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Providers\JWT\JWTInterface|\Mockery\MockInterface
+     */
+    protected $jwt;
+
+    /**
+     * @var \Tymon\JWTAuth\Blacklist|\Mockery\MockInterface
+     */
+    protected $blacklist;
+
+    /**
+     * @var \Tymon\JWTAuth\PayloadFactory|\Mockery\MockInterface
+     */
+    protected $factory;
+
+    /**
+     * @var \Tymon\JWTAuth\JWTManager
+     */
+    protected $manager;
+
+    /**
+     * @var \Tymon\JWTAuth\Validators\PayloadValidator|\Mockery\MockInterface
+     */
+    protected $validator;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->jwt = Mockery::mock('Tymon\JWTAuth\Providers\JWT\JWTInterface');
         $this->blacklist = Mockery::mock('Tymon\JWTAuth\Blacklist');
         $this->factory = Mockery::mock('Tymon\JWTAuth\PayloadFactory');
@@ -38,6 +65,8 @@ class JWTManagerTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

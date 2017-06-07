@@ -24,8 +24,20 @@ use Tymon\JWTAuth\Claims\Expiration;
 
 class PayloadTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Validators\PayloadValidator|\Mockery\MockInterface
+     */
+    protected $validator;
+
+    /**
+     * @var \Tymon\JWTAuth\Payload
+     */
+    protected $payload;
+
     public function setUp()
     {
+        parent::setUp();
+
         Carbon::setTestNow(Carbon::createFromTimeStampUTC(123));
 
         $claims = [
@@ -46,6 +58,8 @@ class PayloadTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

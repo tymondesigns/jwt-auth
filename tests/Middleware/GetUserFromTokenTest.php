@@ -18,11 +18,37 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Illuminate\Contracts\Events\Dispatcher|\Mockery\MockInterface
+     */
+    protected $events;
+
+    /**
+     * @var \Tymon\JWTAuth\JWTAuth|\Mockery\MockInterface
+     */
+    protected $auth;
+
+    /**
+     * @var \Illuminate\Http\Request|\Mockery\MockInterface
+     */
+    protected $request;
+
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory|\Mockery\MockInterface
+     */
+    protected $response;
+
+    /**
+     * @var \Tymon\JWTAuth\Middleware\GetUserFromToken
+     */
+    protected $middleware;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->events = Mockery::mock('Illuminate\Contracts\Events\Dispatcher');
         $this->auth = Mockery::mock('Tymon\JWTAuth\JWTAuth');
-
         $this->request = Mockery::mock('Illuminate\Http\Request');
         $this->response = Mockery::mock('Illuminate\Contracts\Routing\ResponseFactory');
 
@@ -34,6 +60,8 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */

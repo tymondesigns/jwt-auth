@@ -16,14 +16,23 @@ use Tymon\JWTAuth\Test\Stubs\JWTProviderStub;
 
 class JWTProviderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Tymon\JWTAuth\Test\Stubs\JWTProviderStub
+     */
+    protected $provider;
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->provider = new JWTProviderStub('secret', 'HS256');
     }
 
     public function tearDown()
     {
         Mockery::close();
+
+        parent::tearDown();
     }
 
     /** @test */
