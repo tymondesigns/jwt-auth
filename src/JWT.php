@@ -279,7 +279,11 @@ class JWT
      */
     public function checkProvider($provider)
     {
-        return $this->hashProvider($provider) === $this->payload()->get('prv');
+        if (is_null($prv = $this->payload()->get('prv'))) {
+            return true;
+        }
+
+        return $this->hashProvider($provider) === $prv;
     }
 
     /**

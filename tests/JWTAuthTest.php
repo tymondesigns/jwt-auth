@@ -96,6 +96,20 @@ class JWTAuthTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_pass_provider_check_if_hash_matches_when_provider_is_null()
+    {
+        $payloadFactory = Mockery::mock(Factory::class);
+        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
+        $payloadFactory->shouldReceive('get')
+                       ->with('prv')
+                       ->andReturnNull();
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
+
+        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkProvider('Tymon\JWTAuth\Test\Stubs\UserStub'));
+    }
+
+    /** @test */
     public function it_should_not_pass_provider_check_if_hash_not_match()
     {
         $payloadFactory = Mockery::mock(Factory::class);
