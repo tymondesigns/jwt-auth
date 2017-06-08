@@ -11,7 +11,19 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
+use Exception;
+
 class TokenExpiredException extends JWTException
 {
-    //
+    /**
+     * @param  string  $message default: 'Token Expired'
+     * @param  int  $code default: 498
+     * @param  \Exception|null  $previous default: null
+     *
+     * @return void
+     */
+    public function __construct($message = 'Token Expired', $code = 498, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
 }
