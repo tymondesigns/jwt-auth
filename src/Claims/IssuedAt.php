@@ -12,7 +12,7 @@
 namespace Tymon\JWTAuth\Claims;
 
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\RefreshTokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class IssuedAt extends Claim
@@ -52,7 +52,7 @@ class IssuedAt extends Claim
     public function validateRefresh($refreshTTL)
     {
         if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
+            throw new RefreshTokenExpiredException('Token has expired and can no longer be refreshed');
         }
     }
 }
