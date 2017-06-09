@@ -37,13 +37,6 @@ class NamshiTest extends AbstractTestCase
         $this->jws = Mockery::mock(JWS::class);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_return_the_token_when_passing_a_valid_payload_to_encode()
     {

@@ -36,13 +36,6 @@ class IlluminateTest extends AbstractTestCase
         $this->auth = new Auth($this->authManager);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_return_true_if_credentials_are_valid()
     {

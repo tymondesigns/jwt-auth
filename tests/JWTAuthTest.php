@@ -55,13 +55,6 @@ class JWTAuthTest extends AbstractTestCase
         $this->jwtAuth = new JWTAuth($this->manager, $this->auth, $this->parser);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_return_a_token_when_passing_a_user()
     {

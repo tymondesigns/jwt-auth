@@ -51,13 +51,6 @@ class FactoryTest extends AbstractTestCase
         $this->factory = new Factory($this->claimFactory, $this->validator);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_return_a_payload_when_passing_an_array_of_claims()
     {
