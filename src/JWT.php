@@ -267,7 +267,7 @@ class JWT
      */
     protected function hashProvider($provider)
     {
-        return md5(is_object($provider) ? get_class($provider) : $provider);
+        return sha1(is_object($provider) ? get_class($provider) : $provider);
     }
 
     /**
