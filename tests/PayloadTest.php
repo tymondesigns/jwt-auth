@@ -43,13 +43,6 @@ class PayloadTest extends AbstractTestCase
         $this->payload = $this->getTestPayload();
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /**
      * @param  array  $extraClaims
      *

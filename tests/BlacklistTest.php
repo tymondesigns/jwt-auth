@@ -50,13 +50,6 @@ class BlacklistTest extends AbstractTestCase
         $this->validator = Mockery::mock(PayloadValidator::class);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_add_a_valid_token_to_the_blacklist()
     {

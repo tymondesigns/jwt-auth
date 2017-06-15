@@ -46,13 +46,6 @@ class JWTGuardTest extends AbstractTestCase
         $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /**
      * @test
      * @group laravel-5.2

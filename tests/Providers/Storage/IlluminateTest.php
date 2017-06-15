@@ -37,13 +37,6 @@ class IlluminateTest extends AbstractTestCase
         $this->storage = new Storage($this->cache);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_add_the_item_to_storage()
     {

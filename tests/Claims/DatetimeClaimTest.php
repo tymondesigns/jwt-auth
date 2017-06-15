@@ -56,13 +56,6 @@ class DatetimeClaimTest extends AbstractTestCase
         ];
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_handle_carbon_claims()
     {

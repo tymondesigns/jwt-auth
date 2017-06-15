@@ -65,13 +65,6 @@ class ManagerTest extends AbstractTestCase
         $this->validator = Mockery::mock(PayloadValidator::class);
     }
 
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_should_encode_a_payload()
     {

@@ -35,11 +35,4 @@ abstract class AbstractMiddlewareTest extends AbstractTestCase
         $this->auth = Mockery::mock(JWTAuth::class);
         $this->request = Mockery::mock(Request::class);
     }
-
-    public function tearDown()
-    {
-        Mockery::close();
-
-        parent::tearDown();
-    }
 }
