@@ -55,7 +55,7 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new QueryString,
             new InputSource,
-            (new AuthHeaders())->setHeaderPrefix('Custom'),
+            (new AuthHeaders)->setHeaderPrefix('Custom'),
             new RouteParams,
         ]);
 
@@ -74,7 +74,7 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             new QueryString,
             new InputSource,
-            (new AuthHeaders())->setHeaderName('custom_authorization'),
+            (new AuthHeaders)->setHeaderName('custom_authorization'),
             new RouteParams,
         ]);
 
