@@ -238,8 +238,8 @@ class JWT
     {
         return array_merge(
             $this->getClaimsForSubject($subject),
-            $subject->getJWTCustomClaims() // custom claims from JWTSubject method
-            $this->customClaims, // custom claims from inline setter
+            $subject->getJWTCustomClaims(), // custom claims from JWTSubject method
+            $this->customClaims // custom claims from inline setter
         );
     }
 
