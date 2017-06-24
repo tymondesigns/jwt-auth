@@ -128,13 +128,8 @@ class Blacklist
             return true;
         }
 
-        // exit with false if key isn't found
-        if ($val === null || empty($val)) {
-            return false;
-        }
-
         // check whether the expiry + grace has past
-        return $val !== null && ! Utils::isFuture($val['valid_until']);
+        return ! empty($val) && ! Utils::isFuture($val['valid_until']);
     }
 
     /**
