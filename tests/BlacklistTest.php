@@ -137,6 +137,40 @@ class BlacklistTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_check_whether_a_token_has_not_been_blacklisted()
+    {
+        $claims = [
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foobar'),
+        ];
+
+        $collection = Collection::make($claims);
+
+        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
+
+        $payload = new Payload($collection, $this->validator);
+
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(null);
+        $this->assertFalse($this->blacklist->has($payload));
+
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(0);
+        $this->assertFalse($this->blacklist->has($payload));
+
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn('');
+        $this->assertFalse($this->blacklist->has($payload));
+
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn([]);
+        $this->assertFalse($this->blacklist->has($payload));
+
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => strtotime('+1day')]);
+        $this->assertFalse($this->blacklist->has($payload));
+    }
+
+    /** @test */
     public function it_should_check_whether_a_token_has_been_blacklisted_forever()
     {
         $claims = [
