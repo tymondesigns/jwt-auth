@@ -128,6 +128,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_return_null_if_an_invalid_token_is_provided()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
         $this->jwt->shouldReceive('check')->twice()->andReturn(false);
         $this->jwt->shouldReceive('getPayload->get')->never();
@@ -143,6 +144,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_return_null_if_no_token_is_provided()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->andReturn(false);
         $this->jwt->shouldReceive('check')->never();
         $this->jwt->shouldReceive('getPayload->get')->never();
@@ -160,6 +162,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_if_an_invalid_token_is_provided()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->twice()->andReturn('invalid.token.here');
         $this->jwt->shouldReceive('check')->twice()->andReturn(false);
         $this->jwt->shouldReceive('getPayload->get')->never();
@@ -177,6 +180,7 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_if_no_token_is_provided()
     {
+        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->andReturn(false);
         $this->jwt->shouldReceive('check')->never();
         $this->jwt->shouldReceive('getPayload->get')->never();
