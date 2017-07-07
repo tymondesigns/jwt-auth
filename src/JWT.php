@@ -97,7 +97,7 @@ class JWT
 
         $this->token = $this->manager->customClaims($this->getCustomClaims())
                              ->refresh($this->token, $forceForever, $resetClaims);
-        
+
         return $this->token->get();
     }
 
