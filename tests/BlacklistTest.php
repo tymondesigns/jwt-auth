@@ -136,8 +136,24 @@ class BlacklistTest extends AbstractTestCase
         $this->assertTrue($this->blacklist->has($payload));
     }
 
-    /** @test */
-    public function it_should_check_whether_a_token_has_not_been_blacklisted()
+    public function blacklist_provider()
+    {
+        return [
+            [null],
+            [0],
+            [''],
+            [[]],
+            [['valid_until' => strtotime('+1day')]],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider blacklist_provider
+     *
+     * @param mixed $result
+     */
+    public function it_should_check_whether_a_token_has_not_been_blacklisted($result)
     {
         $claims = [
             new Subject(1),
@@ -154,19 +170,7 @@ class BlacklistTest extends AbstractTestCase
 
         $payload = new Payload($collection, $this->validator);
 
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(null);
-        $this->assertFalse($this->blacklist->has($payload));
-
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(0);
-        $this->assertFalse($this->blacklist->has($payload));
-
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn('');
-        $this->assertFalse($this->blacklist->has($payload));
-
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn([]);
-        $this->assertFalse($this->blacklist->has($payload));
-
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => strtotime('+1day')]);
+        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn($result);
         $this->assertFalse($this->blacklist->has($payload));
     }
 
