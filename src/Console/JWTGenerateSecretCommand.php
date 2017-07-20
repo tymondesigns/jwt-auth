@@ -33,8 +33,7 @@ class JWTGenerateSecretCommand extends Command
     protected $description = 'Set the JWTAuth secret key used to sign the tokens';
 
     /**
-     * This method deligates to Laravel 5.5 would look for
-     * "handle" method instead of fire.
+     * Compatiblity for Laravel 5.5.
      *
      * @return void
      */
