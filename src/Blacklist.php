@@ -200,7 +200,7 @@ class Blacklist
      */
     public function getKey(Payload $payload)
     {
-        return $payload->get($this->key);
+        return $payload($this->key);
     }
 
     /**
