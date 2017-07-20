@@ -1,6 +1,8 @@
 preset: laravel
 
 enabled:
+  - is_null
+  - no_useless_else
   - phpdoc_order
   - phpdoc_separation
   - unalign_double_arrow
