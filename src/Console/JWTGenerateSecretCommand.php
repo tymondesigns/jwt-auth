@@ -63,7 +63,7 @@ class JWTGenerateSecretCommand extends Command
 
         // check if there is already a secret set first
         if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
-            file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
+            return file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
         } elseif ($this->isConfirmed() === false) {
             $this->comment('Phew... No changes were made to your secret key.');
 
@@ -99,10 +99,8 @@ class JWTGenerateSecretCommand extends Command
      */
     protected function isConfirmed()
     {
-        if ($this->option('force') === true) {
-            return true;
-        }
-
-        return $this->confirm('This will invalidate all existing tokens. Are you sure you want to override the secret key?');
+        return $this->option('force') ? true : $this->confirm(
+            'This will invalidate all existing tokens. Are you sure you want to override the secret key?'
+        );
     }
 }
