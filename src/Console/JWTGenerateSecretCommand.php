@@ -57,7 +57,7 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        if (file_exists($path = base_path('.env')) === false) {
+        if (file_exists($path = $this->laravel->environmentFilePath()) === false) {
             return $this->displayKey($key);
         }
 
@@ -70,9 +70,9 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        // let's be sure you want to do this, unless you already told us to force it
         file_put_contents($path, str_replace(
-            'JWT_SECRET='.$this->laravel['config']['jwt.secret'], 'JWT_SECRET='.$key, file_get_contents($path)
+            'JWT_SECRET='.$this->laravel['config']['jwt.secret'],
+            'JWT_SECRET='.$key, file_get_contents($path)
         ));
 
         $this->displayKey($key);
@@ -93,7 +93,7 @@ class JWTGenerateSecretCommand extends Command
     }
 
     /**
-     * Check if the modification is conformed.
+     * Check if the modification is confirmed.
      *
      * @return bool
      */
