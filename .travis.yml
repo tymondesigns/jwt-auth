@@ -44,6 +44,8 @@ matrix:
       env: LARAVEL='5.3.*'
     - php: 7.0
       env: LARAVEL='5.4.*'
+    - php: 7.0
+      env: LARAVEL='5.5.*'
     - php: 7.1
       env: LARAVEL='5.1.*'
     - php: 7.1
@@ -51,7 +53,9 @@ matrix:
     - php: 7.1
       env: LARAVEL='5.3.*'
     - php: 7.1
-      env: COVERAGE=1 LARAVEL='5.4.*' XDEBUG=1
+      env: LARAVEL='5.4.*'
+    - php: 7.1
+      env: COVERAGE=1 LARAVEL='5.5.*' XDEBUG=1
   fast_finish: true
 
 before_install:
