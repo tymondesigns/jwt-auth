@@ -179,6 +179,34 @@ class NamshiTest extends AbstractTestCase
         $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
     }
 
+    /**
+     * @test
+     */
+    public function it_should_return_the_public_key()
+    {
+        $provider = $this->getProvider(
+            'does_not_matter',
+            'RS256',
+            $keys = ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
+        );
+
+        $this->assertSame($keys['public'], $provider->getPublicKey());
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_the_keys()
+    {
+        $provider = $this->getProvider(
+            'does_not_matter',
+            'RS256',
+            $keys = ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
+        );
+
+        $this->assertSame($keys, $provider->getKeys());
+    }
+
     public function getProvider($secret, $algo, array $keys = [])
     {
         return new Namshi($secret, $algo, $keys, $this->jws);
