@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Providers\Storage;
 
 use BadMethodCallException;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
 
 class Illuminate implements Storage
@@ -136,7 +137,7 @@ class Illuminate implements Storage
     protected function determineTagSupport()
     {
         // Laravel >= 5.1.28
-        if (method_exists($this->cache, 'tags')) {
+        if (method_exists($this->cache, 'tags') || $this->cache instanceof PsrCacheInterface) {
             try {
                 // Attempt the repository tags command, which throws exceptions when unsupported
                 $this->cache->tags($this->tag);
