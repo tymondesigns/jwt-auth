@@ -33,21 +33,11 @@ class JWTGenerateSecretCommand extends Command
     protected $description = 'Set the JWTAuth secret key used to sign the tokens';
 
     /**
-     * Compatiblity for Laravel 5.5.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        $this->fire();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $key = Str::random(32);
 
@@ -61,13 +51,15 @@ class JWTGenerateSecretCommand extends Command
             return $this->displayKey($key);
         }
 
-        // check if there is already a secret set first
-        if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
-            return file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
-        } elseif ($this->isConfirmed() === false) {
+        if ($this->isConfirmed() === false) {
             $this->comment('Phew... No changes were made to your secret key.');
 
             return;
+        }
+        
+        if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
+            // update existing key
+            return file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
         }
 
         file_put_contents($path, str_replace(
