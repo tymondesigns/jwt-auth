@@ -56,7 +56,7 @@ class JWTGenerateSecretCommand extends Command
 
             return;
         }
-        
+
         if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
             // update existing key
             return file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
