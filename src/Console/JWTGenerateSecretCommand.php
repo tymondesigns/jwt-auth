@@ -58,14 +58,15 @@ class JWTGenerateSecretCommand extends Command
         }
 
         if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
-            // update existing key
-            return file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
+            // update existing entry
+            file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
+        } else {
+            // create new entry
+            file_put_contents($path, str_replace(
+                'JWT_SECRET='.$this->laravel['config']['jwt.secret'],
+                'JWT_SECRET='.$key, file_get_contents($path)
+            ));
         }
-
-        file_put_contents($path, str_replace(
-            'JWT_SECRET='.$this->laravel['config']['jwt.secret'],
-            'JWT_SECRET='.$key, file_get_contents($path)
-        ));
 
         $this->displayKey($key);
     }
