@@ -67,6 +67,9 @@ matrix:
     - php: 7.2
       env: COVERAGE=1 LARAVEL='5.5.*' XDEBUG=1
   fast_finish: true
+  allow_failures:
+        - php: 7.2
+
 
 before_install:
   - if [[ $XDEBUG = 0 ]]; then phpenv config-rm xdebug.ini; fi
