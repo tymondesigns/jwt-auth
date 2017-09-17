@@ -78,4 +78,8 @@ class JWTGenerateCommand extends Command
             ['show', null, InputOption::VALUE_NONE, 'Simply display the key instead of modifying files.'],
         ];
     }
+    
+    public function handle(){
+        $this->fire();
+    }
 }
