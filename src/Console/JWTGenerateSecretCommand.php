@@ -37,7 +37,7 @@ class JWTGenerateSecretCommand extends Command
      *
      * @return void
      */
-    public function handle()
+    public function fire()
     {
         $key = Str::random(32);
 
@@ -70,7 +70,16 @@ class JWTGenerateSecretCommand extends Command
 
         $this->displayKey($key);
     }
-
+    
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $this->fire();    
+    }
     /**
      * Display the key.
      *
