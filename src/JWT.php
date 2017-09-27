@@ -167,8 +167,10 @@ class JWT
 
     /**
      * Get the token to string
-     * @author  [Layo Demetrio] <layoazevedo@gmail.com>
-     * @return String
+     *
+     * @author [Layo Demetrio] <layoazevedo@gmail.com>
+     *
+     * @return string
      */
     public function toString()
     {
