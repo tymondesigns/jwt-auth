@@ -166,7 +166,7 @@ class JWT
     }
 
     /**
-     * Get the token to string
+     * Get the token to string.
      *
      * @author [Layo Demetrio] <layoazevedo@gmail.com>
      *
