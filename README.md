@@ -12,6 +12,10 @@
 
 See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/5S8eNjgwCUjgucKT89buNKez/tymondesigns/jwt-auth'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/5S8eNjgwCUjgucKT89buNKez/tymondesigns/jwt-auth.svg' />
+</a>
+
 ## License
 
 The MIT License (MIT)
