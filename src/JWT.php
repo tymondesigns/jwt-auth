@@ -166,6 +166,22 @@ class JWT
     }
 
     /**
+     * Get the token to string
+     * @author  [Layo Demetrio] <layoazevedo@gmail.com>
+     * @return String
+     */
+    public function toString()
+    {
+        if ($this->token) {
+            try {
+                return (string) $this->token;
+            } catch (JWTException $e) {
+                return false;
+            }
+        }
+    }
+
+    /**
      * Parse the token from the request.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
