@@ -84,7 +84,6 @@ First let's add some routes in `routes/api.php` as follows:
 Route::group([
 
     'middleware' => 'api',
-    'namespace' => 'App\Http\Controllers',
     'prefix' => 'auth'
 
 ], function ($router) {
