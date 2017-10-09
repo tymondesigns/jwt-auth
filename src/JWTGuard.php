@@ -74,7 +74,7 @@ class JWTGuard implements Guard
 
         if ($this->jwt->setRequest($this->request)->getToken() &&
             ($payload = $this->jwt->check(true)) &&
-            $this->jwt->checkProvider($this->provider->getModel())
+            $this->validateSubject()
         ) {
             return $this->user = $this->provider->retrieveById($payload['sub']);
         }
@@ -384,6 +384,22 @@ class JWTGuard implements Guard
     protected function hasValidCredentials($user, $credentials)
     {
         return $user !== null && $this->provider->validateCredentials($user, $credentials);
+    }
+
+    /**
+     * Ensure the JWTSubject matches what is in the token.
+     *
+     * @return  bool
+     */
+    protected function validateSubject()
+    {
+        // If the provider doesn't have the necessary method
+        // to get the underlying model name then allow.
+        if (! method_exists($this->provider, 'getModel')) {
+            return true;
+        }
+
+        return $this->jwt->checkProvider($this->provider->getModel());
     }
 
     /**
