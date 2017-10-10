@@ -1,5 +1,5 @@
 Before continuing, make sure you have installed the package as per the installation instructions for
-[Laravel](laravel-installation) or [Lumen](lumen-installation).
+[Laravel](laravel-installation.md) or [Lumen](lumen-installation.md).
 
 ### Update your User model
 
