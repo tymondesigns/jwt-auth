@@ -44,10 +44,10 @@ class Check extends BaseMiddleware
                 } elseif ($exception instanceof PayloadException) {
                     throw new PayloadException();
                 }
-                throw new JWTException('unknown_issue');
+                throw new JWTException('unknown error occured');
             }
         } else {
-            throw new JWTException('no_token');
+            throw new JWTException('no token provided');
         }
 
         return $next($request);
