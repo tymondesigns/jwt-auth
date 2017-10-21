@@ -13,6 +13,11 @@ namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
 use Exception;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 
 class Check extends BaseMiddleware
 {
@@ -30,8 +35,19 @@ class Check extends BaseMiddleware
             try {
                 $this->auth->parseToken()->authenticate();
             } catch (Exception $e) {
-                //
+                if ($exception instanceof TokenInvalidException) {
+                    throw new TokenInvalidException();
+                } elseif ($exception instanceof TokenExpiredException) {
+                    throw new TokenExpiredException();
+                } elseif ($exception instanceof TokenBlacklistedException) {
+                    throw new TokenBlacklistedException();
+                } elseif ($exception instanceof PayloadException) {
+                    throw new PayloadException();
+                }
+                throw new JWTException('unknown error occured');
             }
+        } else {
+            throw new JWTException('no token provided');
         }
 
         return $next($request);
