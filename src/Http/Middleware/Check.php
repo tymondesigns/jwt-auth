@@ -43,8 +43,9 @@ class Check extends BaseMiddleware
                     throw new TokenBlacklistedException();
                 } elseif ($exception instanceof PayloadException) {
                     throw new PayloadException();
-                } 
-                throw new JWTException('unknown issue');
+                } else {
+                    throw new JWTException('unknown issue');
+                }
             }
         } else {
             throw new JWTException('no token');
