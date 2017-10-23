@@ -10,7 +10,19 @@
 [![Dependency Status](https://www.versioneye.com/php/tymon:jwt-auth/dev-develop/badge?style=flat-square)](https://www.versioneye.com/php/tymon:jwt-auth/dev-develop)
 [![PHP-Eye](https://php-eye.com/badge/tymon/jwt-auth/tested.svg?style=flat-square)](https://php-eye.com/package/tymon/jwt-auth)
 
-See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
+## Documentation
+
+For version `0.5.*` See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation.
+
+Documentation for `1.0.0` is coming soon, but there is an unfinished guide [here](http://jwt-auth.readthedocs.io/en/docs/laravel-installation)
+
+-----------------------------------
+
+### Supported by Auth0 <span><img src="https://user-images.githubusercontent.com/1801923/31792116-d4fca9ec-b512-11e7-92eb-56e8d3df8e70.png" height="28" align="top"></span>
+
+If you want to easily add secure authentication to Laravel apps, feel free to check out Auth0's SDK and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=jwt-auth&utm_content=auth)
+
+------------------------------------
 
 <a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/5S8eNjgwCUjgucKT89buNKez/tymondesigns/jwt-auth'>
   <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/5S8eNjgwCUjgucKT89buNKez/tymondesigns/jwt-auth.svg' />
