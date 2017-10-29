@@ -12,11 +12,24 @@
 namespace Tymon\JWTAuth\Http\Parser;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class Cookies implements ParserContract
 {
     use KeyTrait;
+
+    /**
+     * Decrypt or not the cookie while parsing.
+     *
+     * @var bool
+     */
+    private $decrypt;
+
+    public function __construct($decrypt = true)
+    {
+        $this->decrypt = $decrypt;
+    }
 
     /**
      * Try to parse the token from the request cookies.
@@ -27,6 +40,10 @@ class Cookies implements ParserContract
      */
     public function parse(Request $request)
     {
+        if ($this->decrypt) {
+            return Crypt::decrypt($request->cookie($this->key));
+        }
+
         return $request->cookie($this->key);
     }
 }

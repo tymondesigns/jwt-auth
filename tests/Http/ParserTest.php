@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Test\Http;
 use Mockery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Crypt;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Test\AbstractTestCase;
@@ -211,7 +212,7 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_token_from_a_cookie()
+    public function it_should_return_the_token_from_an_unencrypted_cookie()
     {
         $request = Request::create('foo', 'POST', [], ['token' => 'foobar']);
 
@@ -221,8 +222,36 @@ class ParserTest extends AbstractTestCase
             new QueryString,
             new InputSource,
             new RouteParams,
-            new Cookies,
+            new Cookies(false),
         ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_return_the_token_from_a_crypted_cookie()
+    {
+        Crypt::shouldReceive('encrypt')
+            ->with('foobar')
+            ->once()
+            ->andReturn('cryptedFoobar');
+
+        $request = Request::create('foo', 'POST', [], ['token' => Crypt::encrypt('foobar')]);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            new RouteParams,
+            new Cookies(true),
+        ]);
+
+        Crypt::shouldReceive('decrypt')
+            ->with('cryptedFoobar')
+            ->times(2)
+            ->andReturn('foobar');
 
         $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());

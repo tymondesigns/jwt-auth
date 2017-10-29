@@ -202,6 +202,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Cookies encryption
+    |--------------------------------------------------------------------------
+    |
+    | By default Laravel encrypt cookies for security reason.
+    | If you decide to not decrypt cookies, you will have to configure Laravel
+    | to not encrypt your cookie token by adding its name into the $except
+    | array available in the middleware "EncryptCookies" provided by Laravel.
+    | see https://laravel.com/docs/master/responses#cookies-and-encryption
+    | for details.
+    |
+    | Set it to false if you don't want to decrypt cookies.
+    |
+    */
+    'decrypt_cookies' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Providers
     |--------------------------------------------------------------------------
     |
