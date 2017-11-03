@@ -215,6 +215,7 @@ return [
     | Set it to false if you don't want to decrypt cookies.
     |
     */
+    
     'decrypt_cookies' => true,
 
     /*
