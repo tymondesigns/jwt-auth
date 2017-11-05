@@ -32,6 +32,15 @@ class JWTGenerateSecretCommand extends Command
      */
     protected $description = 'Set the JWTAuth secret key used to sign the tokens';
 
+      /**
+     * @return mixed
+     */
+    public function handle()
+    {
+
+        return $this->fire();
+
+    }
     /**
      * Execute the console command.
      *
