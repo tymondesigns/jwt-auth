@@ -154,7 +154,7 @@ class JWT
      */
     public function getToken()
     {
-        if ($this->token === NULL) {
+        if ($this->token === null) {
             try {
                 $this->parseToken();
             } catch (JWTException $e) {
