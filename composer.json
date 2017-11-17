@@ -36,7 +36,7 @@
         "illuminate/console": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
         "illuminate/database": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
         "illuminate/routing": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
-        "mockery/mockery": "0.9.*",
+        "mockery/mockery": ">=0.9.9",
         "phpunit/phpunit": "~4.8 || ~6.0"
     },
     "autoload": {
