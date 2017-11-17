@@ -7,7 +7,7 @@ Firstly you need to implement the `Tymon\JWTAuth\Contracts\JWTSubject` contract 
 which requires that you implement the 2 methods `getJWTIdentifier()` and `getJWTCustomClaims()`.
 
 The example below should give you an idea of how this could look. Obviously you should make any
-changes necessary to suit your own needs.
+changes, as necessary, to suit your own needs.
 
 ```php
 <?php
@@ -127,7 +127,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Get a JWT token via given credentials.
+     * Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -143,7 +143,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the authenticated User
+     * Get the authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -153,7 +153,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Log the user out (Invalidate the token)
+     * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
      */
