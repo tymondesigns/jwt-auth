@@ -53,7 +53,7 @@ class AuthHeaders implements ParserContract
     {
         $header = $request->headers->get($this->header) ?: $this->fromAltHeaders($request);
 
-        if ($header && preg_match('/'.$this->prefix.'\s*(.*)\b/i', $header, $matches)) {
+        if ($header && preg_match('/'.$this->prefix.'\s*(\S+)\b/i', $header, $matches)) {
             return $matches[1];
         }
     }
