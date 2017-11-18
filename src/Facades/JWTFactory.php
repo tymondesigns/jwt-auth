@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -18,9 +18,8 @@ class JWTFactory extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'tymon.jwt.payload.factory';
     }

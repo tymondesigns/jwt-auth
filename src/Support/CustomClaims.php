@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -51,7 +51,7 @@ trait CustomClaims
      *
      * @return array
      */
-    public function getCustomClaims()
+    public function getCustomClaims(): array
     {
         return $this->customClaims;
     }

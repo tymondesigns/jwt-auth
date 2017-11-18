@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth\Test\Providers\Storage;
 
-use Mockery;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 use Illuminate\Contracts\Cache\Repository;
-use Tymon\JWTAuth\Test\Stubs\TaggedStorage;
+use Mockery;
 use Tymon\JWTAuth\Providers\Storage\Illuminate as Storage;
+use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Test\Stubs\TaggedStorage;
 
 class IlluminateTest extends AbstractTestCase
 {
@@ -83,7 +83,6 @@ class IlluminateTest extends AbstractTestCase
      * Replace the storage with our one above that overrides the tag flag, and
      * define expectations for tags() method.
      *
-     * @return void
      */
     private function emulateTags()
     {

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,29 +11,29 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Manager;
-use Tymon\JWTAuth\JWTGuard;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Parser\Cookies;
 use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\Http\Middleware\Check;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\Http\Parser\RouteParams;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Tymon\JWTAuth\Validators\PayloadValidator;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use Tymon\JWTAuth\Http\Middleware\Check;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\Cookies;
+use Tymon\JWTAuth\Http\Parser\InputSource;
+use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\QueryString;
+use Tymon\JWTAuth\Http\Parser\RouteParams;
+use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\JWTGuard;
+use Tymon\JWTAuth\Manager;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 abstract class AbstractServiceProvider extends ServiceProvider
 {
@@ -59,7 +59,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the service provider.
      *
-     * @return void
      */
     public function register()
     {
@@ -86,7 +85,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Extend Laravel's Auth.
      *
-     * @return void
      */
     protected function extendAuthGuard()
     {
@@ -106,7 +104,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Bind some aliases.
      *
-     * @return void
      */
     protected function registerAliases()
     {
@@ -124,7 +121,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the JSON Web Token provider.
      *
-     * @return void
      */
     protected function registerJWTProvider()
     {
@@ -142,7 +138,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the Auth provider.
      *
-     * @return void
      */
     protected function registerAuthProvider()
     {
@@ -154,7 +149,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the Storage provider.
      *
-     * @return void
      */
     protected function registerStorageProvider()
     {
@@ -166,7 +160,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the JWT Manager.
      *
-     * @return void
      */
     protected function registerManager()
     {
@@ -185,7 +178,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the Token Parser.
      *
-     * @return void
      */
     protected function registerTokenParser()
     {
@@ -210,7 +202,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the main JWT class.
      *
-     * @return void
      */
     protected function registerJWT()
     {
@@ -225,7 +216,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the main JWTAuth class.
      *
-     * @return void
      */
     protected function registerJWTAuth()
     {
@@ -241,7 +231,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the Blacklist.
      *
-     * @return void
      */
     protected function registerJWTBlacklist()
     {
@@ -256,7 +245,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the payload validator.
      *
-     * @return void
      */
     protected function registerPayloadValidator()
     {
@@ -270,7 +258,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the Claim Factory.
      *
-     * @return void
      */
     protected function registerClaimFactory()
     {
@@ -285,7 +272,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the bindings for the Payload Factory.
      *
-     * @return void
      */
     protected function registerPayloadFactory()
     {
@@ -300,7 +286,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Register the Artisan command.
      *
-     * @return void
      */
     protected function registerJWTCommand()
     {
@@ -317,7 +302,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return mixed
      */
-    protected function config($key, $default = null)
+    protected function config(string $key, string $default = null)
     {
         return config("jwt.$key", $default);
     }
@@ -329,7 +314,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return mixed
      */
-    protected function getConfigInstance($key)
+    protected function getConfigInstance(string $key)
     {
         $instance = $this->config($key);
 

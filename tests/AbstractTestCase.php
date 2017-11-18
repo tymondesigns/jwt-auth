@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Test;
 
-use Mockery;
 use Carbon\Carbon;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase

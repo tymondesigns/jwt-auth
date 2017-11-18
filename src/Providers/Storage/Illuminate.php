@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -12,9 +12,9 @@
 namespace Tymon\JWTAuth\Providers\Storage;
 
 use BadMethodCallException;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
+use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Illuminate implements Storage
 {
@@ -42,7 +42,6 @@ class Illuminate implements Storage
      *
      * @param  \Illuminate\Contracts\Cache\Repository  $cache
      *
-     * @return void
      */
     public function __construct(CacheContract $cache)
     {
@@ -56,9 +55,8 @@ class Illuminate implements Storage
      * @param  mixed  $value
      * @param  int  $minutes
      *
-     * @return void
      */
-    public function add($key, $value, $minutes)
+    public function add(string $key, $value, $minutes)
     {
         $this->cache()->put($key, $value, $minutes);
     }
@@ -69,9 +67,8 @@ class Illuminate implements Storage
      * @param  string  $key
      * @param  mixed  $value
      *
-     * @return void
      */
-    public function forever($key, $value)
+    public function forever(string $key, $value)
     {
         $this->cache()->forever($key, $value);
     }
@@ -83,7 +80,7 @@ class Illuminate implements Storage
      *
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->cache()->get($key);
     }
@@ -93,9 +90,8 @@ class Illuminate implements Storage
      *
      * @param  string  $key
      *
-     * @return bool
      */
-    public function destroy($key)
+    public function destroy(string $key): bool
     {
         return $this->cache()->forget($key);
     }
@@ -103,7 +99,6 @@ class Illuminate implements Storage
     /**
      * Remove all items associated with the tag.
      *
-     * @return void
      */
     public function flush()
     {
@@ -113,9 +108,8 @@ class Illuminate implements Storage
     /**
      * Return the cache instance with tags attached.
      *
-     * @return \Illuminate\Contracts\Cache\Repository
      */
-    protected function cache()
+    protected function cache(): \Illuminate\Contracts\Cache\Repository
     {
         if ($this->supportsTags === null) {
             $this->determineTagSupport();
@@ -132,7 +126,6 @@ class Illuminate implements Storage
      * Detect as best we can whether tags are supported with this repository & store,
      * and save our result on the $supportsTags flag.
      *
-     * @return void
      */
     protected function determineTagSupport()
     {

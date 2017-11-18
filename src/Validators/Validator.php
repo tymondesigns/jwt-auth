@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Support\RefreshFlow;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Support\RefreshFlow;
 
 abstract class Validator implements ValidatorContract
 {
@@ -24,9 +24,8 @@ abstract class Validator implements ValidatorContract
      *
      * @param  array  $value
      *
-     * @return bool
      */
-    public function isValid($value)
+    public function isValid(array $value): bool
     {
         try {
             $this->check($value);
@@ -42,7 +41,7 @@ abstract class Validator implements ValidatorContract
      *
      * @param  array  $value
      *
-     * @return void
+     * @return mixed
      */
     abstract public function check($value);
 }

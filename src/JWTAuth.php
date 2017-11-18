@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Http\Parser\Parser;
 
 class JWTAuth extends JWT
 {
@@ -30,7 +30,6 @@ class JWTAuth extends JWT
      * @param  \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
      *
-     * @return void
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
     {
@@ -83,9 +82,8 @@ class JWTAuth extends JWT
     /**
      * Get the authenticated user.
      *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject
      */
-    public function user()
+    public function user(): \Tymon\JWTAuth\Contracts\JWTSubject
     {
         return $this->auth->user();
     }

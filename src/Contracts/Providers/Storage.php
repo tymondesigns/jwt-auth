@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -20,7 +20,7 @@ interface Storage
      *
      * @return void
      */
-    public function add($key, $value, $minutes);
+    public function add(string $key, $value, $minutes);
 
     /**
      * @param  string  $key
@@ -28,21 +28,20 @@ interface Storage
      *
      * @return void
      */
-    public function forever($key, $value);
+    public function forever(string $key, $value);
 
     /**
      * @param  string  $key
      *
      * @return mixed
      */
-    public function get($key);
+    public function get(string $key);
 
     /**
      * @param  string  $key
      *
-     * @return bool
      */
-    public function destroy($key);
+    public function destroy(string $key): bool;
 
     /**
      * @return void

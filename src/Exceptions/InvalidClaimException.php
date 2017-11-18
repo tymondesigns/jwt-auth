@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Exceptions;
 
-use Exception;
 use Tymon\JWTAuth\Claims\Claim;
 
 class InvalidClaimException extends JWTException
@@ -23,9 +22,8 @@ class InvalidClaimException extends JWTException
      * @param  int  $code
      * @param  \Exception|null  $previous
      *
-     * @return void
      */
-    public function __construct(Claim $claim, $code = 0, Exception $previous = null)
+    public function __construct(Claim $claim, int $code = 0, Throwable $previous = null)
     {
         parent::__construct('Invalid value provided for claim ['.$claim->getName().']', $code, $previous);
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Cartalyst\Sentinel\Sentinel as SentinelAuth;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class Sentinel implements Auth
 {
@@ -28,7 +28,6 @@ class Sentinel implements Auth
      *
      * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
      *
-     * @return void
      */
     public function __construct(SentinelAuth $sentinel)
     {
@@ -52,9 +51,8 @@ class Sentinel implements Auth
      *
      * @param  mixed  $id
      *
-     * @return bool
      */
-    public function byId($id)
+    public function byId($id): bool
     {
         if ($user = $this->sentinel->getUserRepository()->findById($id)) {
             $this->sentinel->setUser($user);
@@ -68,9 +66,8 @@ class Sentinel implements Auth
     /**
      * Get the currently authenticated user.
      *
-     * @return \Cartalyst\Sentinel\Users\UserInterface
      */
-    public function user()
+    public function user(): \Cartalyst\Sentinel\Users\UserInterface
     {
         return $this->sentinel->getUser();
     }

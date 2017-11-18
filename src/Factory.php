@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -13,10 +13,10 @@ namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Support\RefreshFlow;
-use Tymon\JWTAuth\Support\CustomClaims;
-use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
+use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class Factory
 {
@@ -62,7 +62,6 @@ class Factory
      * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      *
-     * @return void
      */
     public function __construct(ClaimFactory $claimFactory, PayloadValidator $validator)
     {
@@ -76,9 +75,8 @@ class Factory
      *
      * @param  bool  $resetClaims
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function make($resetClaims = false)
+    public function make(bool $resetClaims = false): \Tymon\JWTAuth\Payload
     {
         $payload = $this->withClaims($this->buildClaimsCollection());
 
@@ -125,7 +123,7 @@ class Factory
      *
      * @return $this
      */
-    protected function addClaim($name, $value)
+    protected function addClaim(string $name, $value)
     {
         $this->claims->put($name, $value);
 
@@ -156,9 +154,8 @@ class Factory
     /**
      * Build out the Claim DTO's.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function resolveClaims()
+    protected function resolveClaims(): \Tymon\JWTAuth\Claims\Collection
     {
         return $this->claims->map(function ($value, $name) {
             return $value instanceof Claim ? $value : $this->claimFactory->get($name, $value);
@@ -168,9 +165,8 @@ class Factory
     /**
      * Build and get the Claims Collection.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    public function buildClaimsCollection()
+    public function buildClaimsCollection(): \Tymon\JWTAuth\Claims\Collection
     {
         return $this->buildClaims()->resolveClaims();
     }
@@ -180,9 +176,8 @@ class Factory
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function withClaims(Collection $claims)
+    public function withClaims(Collection $claims): \Tymon\JWTAuth\Payload
     {
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
@@ -208,7 +203,7 @@ class Factory
      *
      * @return $this
      */
-    public function setTTL($ttl)
+    public function setTTL(int $ttl)
     {
         $this->claimFactory->setTTL($ttl);
 
@@ -218,9 +213,8 @@ class Factory
     /**
      * Helper to get the ttl.
      *
-     * @return int
      */
-    public function getTTL()
+    public function getTTL(): int
     {
         return $this->claimFactory->getTTL();
     }
@@ -230,7 +224,7 @@ class Factory
      *
      * @return array
      */
-    public function getDefaultClaims()
+    public function getDefaultClaims(): array
     {
         return $this->defaultClaims;
     }
@@ -238,9 +232,8 @@ class Factory
     /**
      * Get the PayloadValidator instance.
      *
-     * @return \Tymon\JWTAuth\Validators\PayloadValidator
      */
-    public function validator()
+    public function validator(): \Tymon\JWTAuth\Validators\PayloadValidator
     {
         return $this->validator;
     }
@@ -253,7 +246,7 @@ class Factory
      *
      * @return $this
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         $this->addClaim($method, $parameters[0]);
 

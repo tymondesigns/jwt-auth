@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Illuminate\Contracts\Auth\Guard as GuardContract;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class Illuminate implements Auth
 {
@@ -28,7 +28,6 @@ class Illuminate implements Auth
      *
      * @param  \Illuminate\Contracts\Auth\Guard  $auth
      *
-     * @return void
      */
     public function __construct(GuardContract $auth)
     {
@@ -40,9 +39,8 @@ class Illuminate implements Auth
      *
      * @param  array  $credentials
      *
-     * @return bool
      */
-    public function byCredentials(array $credentials)
+    public function byCredentials(array $credentials): bool
     {
         return $this->auth->once($credentials);
     }
@@ -52,9 +50,8 @@ class Illuminate implements Auth
      *
      * @param  mixed  $id
      *
-     * @return bool
      */
-    public function byId($id)
+    public function byId($id): bool
     {
         return $this->auth->onceUsingId($id);
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -16,14 +16,13 @@ interface JWT
     /**
      * @param  array  $payload
      *
-     * @return string
      */
-    public function encode(array $payload);
+    public function encode(array $payload): string;
 
     /**
      * @param  string  $token
      *
      * @return array
      */
-    public function decode($token);
+    public function decode(string $token): array;
 }

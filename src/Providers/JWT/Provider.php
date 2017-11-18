@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -43,9 +43,8 @@ abstract class Provider
      * @param  array  $keys
      * @param  string  $algo
      *
-     * @return void
      */
-    public function __construct($secret, array $keys, $algo)
+    public function __construct(string $secret, array $keys, string $algo)
     {
         $this->secret = $secret;
         $this->keys = $keys;
@@ -59,7 +58,7 @@ abstract class Provider
      *
      * @return $this
      */
-    public function setAlgo($algo)
+    public function setAlgo(string $algo)
     {
         $this->algo = $algo;
 
@@ -69,9 +68,8 @@ abstract class Provider
     /**
      * Get the algorithm used to sign the token.
      *
-     * @return string
      */
-    public function getAlgo()
+    public function getAlgo(): string
     {
         return $this->algo;
     }
@@ -83,7 +81,7 @@ abstract class Provider
      *
      * @return $this
      */
-    public function setSecret($secret)
+    public function setSecret(string $secret)
     {
         $this->secret = $secret;
 
@@ -93,9 +91,8 @@ abstract class Provider
     /**
      * Get the secret used to sign the token.
      *
-     * @return string
      */
-    public function getSecret()
+    public function getSecret(): string
     {
         return $this->secret;
     }
@@ -106,7 +103,7 @@ abstract class Provider
      *
      * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return $this->keys;
     }
@@ -137,9 +134,8 @@ abstract class Provider
      * Get the passphrase used to sign tokens
      * with an asymmetric algorithm.
      *
-     * @return string
      */
-    public function getPassphrase()
+    public function getPassphrase(): string
     {
         return Arr::get($this->keys, 'passphrase');
     }

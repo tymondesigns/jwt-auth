@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -25,9 +25,8 @@ class Token
      *
      * @param  string  $value
      *
-     * @return void
      */
-    public function __construct($value)
+    public function __construct(string $value)
     {
         $this->value = (string) (new TokenValidator)->check($value);
     }
@@ -35,9 +34,8 @@ class Token
     /**
      * Get the token.
      *
-     * @return string
      */
-    public function get()
+    public function get(): string
     {
         return $this->value;
     }
@@ -45,9 +43,8 @@ class Token
     /**
      * Get the token when casting to string.
      *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->get();
     }

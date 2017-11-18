@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -35,7 +35,6 @@ class Parser
      * @param  \Illuminate\Http\Request  $request
      * @param  array  $chain
      *
-     * @return void
      */
     public function __construct(Request $request, array $chain = [])
     {
@@ -48,7 +47,7 @@ class Parser
      *
      * @return array
      */
-    public function getChain()
+    public function getChain(): array
     {
         return $this->chain;
     }
@@ -97,9 +96,8 @@ class Parser
     /**
      * Check whether a token exists in the chain.
      *
-     * @return bool
      */
-    public function hasToken()
+    public function hasToken(): bool
     {
         return $this->parseToken() !== null;
     }

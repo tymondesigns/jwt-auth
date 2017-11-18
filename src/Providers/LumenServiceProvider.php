@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -13,8 +13,8 @@ namespace Tymon\JWTAuth\Providers;
 
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
+use Tymon\JWTAuth\Http\Parser\QueryString;
 
 class LumenServiceProvider extends AbstractServiceProvider
 {

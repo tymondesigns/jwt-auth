@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,15 +11,15 @@
 
 namespace Tymon\JWTAuth;
 
-use Countable;
 use ArrayAccess;
-use JsonSerializable;
 use BadMethodCallException;
+use Countable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
+use JsonSerializable;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
@@ -39,9 +39,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      * @param  bool  $refreshFlow
      *
-     * @return void
      */
-    public function __construct(Collection $claims, PayloadValidator $validator, $refreshFlow = false)
+    public function __construct(Collection $claims, PayloadValidator $validator, bool $refreshFlow = false)
     {
         $this->claims = $validator->setRefreshFlow($refreshFlow)->check($claims);
     }
@@ -49,9 +48,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the array of claim instances.
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    public function getClaims()
+    public function getClaims(): \Tymon\JWTAuth\Claims\Collection
     {
         return $this->claims;
     }
@@ -62,9 +60,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * @param  array  $values
      * @param  bool  $strict
      *
-     * @return bool
      */
-    public function matches(array $values, $strict = false)
+    public function matches(array $values, bool $strict = false): bool
     {
         if (empty($values)) {
             return false;
@@ -86,9 +83,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  array  $values
      *
-     * @return bool
      */
-    public function matchesStrict(array $values)
+    public function matchesStrict(array $values): bool
     {
         return $this->matches($values, true);
     }
@@ -120,9 +116,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  string  $claim
      *
-     * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getInternal($claim)
+    public function getInternal(string $claim): \Tymon\JWTAuth\Claims\Claim
     {
         return $this->claims->getByClaimName($claim);
     }
@@ -132,9 +127,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      *
-     * @return bool
      */
-    public function has(Claim $claim)
+    public function has(Claim $claim): bool
     {
         return $this->claims->has($claim->getName());
     }
@@ -144,9 +138,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  string  $claim
      *
-     * @return bool
      */
-    public function hasKey($claim)
+    public function hasKey(string $claim): bool
     {
         return $this->offsetExists($claim);
     }
@@ -156,7 +149,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->claims->toPlainArray();
     }
@@ -166,19 +159,15 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
 
     /**
      * Get the payload as JSON.
-     *
-     * @param  int  $options
-     *
-     * @return string
      */
-    public function toJson($options = JSON_UNESCAPED_SLASHES)
+    public function toJson(int $options = JSON_UNESCAPED_SLASHES): string
     {
         return json_encode($this->toArray(), $options);
     }
@@ -186,9 +175,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the payload as a string.
      *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toJson();
     }
@@ -198,9 +186,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @param  mixed  $key
      *
-     * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return Arr::has($this->toArray(), $key);
     }
@@ -236,8 +223,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      * @param  string  $key
      *
      * @throws \Tymon\JWTAuth\Exceptions\PayloadException
-     *
-     * @return void
      */
     public function offsetUnset($key)
     {
@@ -247,9 +232,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Count the number of claims.
      *
-     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->toArray());
     }
@@ -276,7 +260,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      *
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         if (preg_match('/get(.+)\b/i', $method, $matches)) {
             foreach ($this->claims as $claim) {

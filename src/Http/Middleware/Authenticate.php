@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -25,7 +25,7 @@ class Authenticate extends BaseMiddleware
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         $this->authenticate($request);
 

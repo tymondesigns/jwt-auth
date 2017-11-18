@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -41,10 +41,8 @@ class PayloadValidator extends Validator
      * Run the validations on the payload array.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $value
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    public function check($value)
+    public function check($value): \Tymon\JWTAuth\Claims\Collection
     {
         $this->validateStructure($value);
 
@@ -59,7 +57,6 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return void
      */
     protected function validateStructure(Collection $claims)
     {
@@ -76,9 +73,8 @@ class PayloadValidator extends Validator
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validatePayload(Collection $claims)
+    protected function validatePayload(Collection $claims): \Tymon\JWTAuth\Claims\Collection
     {
         return $claims->validate('payload');
     }
@@ -90,9 +86,8 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validateRefresh(Collection $claims)
+    protected function validateRefresh(Collection $claims): \Tymon\JWTAuth\Claims\Collection
     {
         return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
@@ -118,7 +113,7 @@ class PayloadValidator extends Validator
      *
      * @return $this
      */
-    public function setRefreshTTL($ttl)
+    public function setRefreshTTL(int $ttl)
     {
         $this->refreshTTL = $ttl;
 

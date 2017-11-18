@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -13,8 +13,8 @@ namespace Tymon\JWTAuth\Claims;
 
 use DateInterval;
 use DateTimeInterface;
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Support\Utils;
 
 trait DatetimeTrait
 {
@@ -57,9 +57,8 @@ trait DatetimeTrait
      *
      * @param  mixed  $value
      *
-     * @return bool
      */
-    protected function isFuture($value)
+    protected function isFuture($value): bool
     {
         return Utils::isFuture($value);
     }
@@ -69,9 +68,8 @@ trait DatetimeTrait
      *
      * @param  mixed  $value
      *
-     * @return bool
      */
-    protected function isPast($value)
+    protected function isPast($value): bool
     {
         return Utils::isPast($value);
     }

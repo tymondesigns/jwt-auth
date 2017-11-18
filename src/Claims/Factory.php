@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Support\Utils;
 
 class Factory
@@ -51,7 +51,6 @@ class Factory
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return void
      */
     public function __construct(Request $request)
     {
@@ -64,9 +63,8 @@ class Factory
      * @param  string  $name
      * @param  mixed  $value
      *
-     * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function get($name, $value)
+    public function get(string $name, $value): \Tymon\JWTAuth\Claims\Claim
     {
         if ($this->has($name)) {
             return new $this->classMap[$name]($value);
@@ -80,9 +78,8 @@ class Factory
      *
      * @param  string  $name
      *
-     * @return bool
      */
-    public function has($name)
+    public function has(string $name): bool
     {
         return array_key_exists($name, $this->classMap);
     }
@@ -92,9 +89,8 @@ class Factory
      *
      * @param  string  $name
      *
-     * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function make($name)
+    public function make(string $name): \Tymon\JWTAuth\Claims\Claim
     {
         return $this->get($name, $this->$name());
     }
@@ -102,9 +98,8 @@ class Factory
     /**
      * Get the Issuer (iss) claim.
      *
-     * @return string
      */
-    public function iss()
+    public function iss(): string
     {
         return $this->request->url();
     }
@@ -112,9 +107,8 @@ class Factory
     /**
      * Get the Issued At (iat) claim.
      *
-     * @return int
      */
-    public function iat()
+    public function iat(): int
     {
         return Utils::now()->getTimestamp();
     }
@@ -122,9 +116,8 @@ class Factory
     /**
      * Get the Expiration (exp) claim.
      *
-     * @return int
      */
-    public function exp()
+    public function exp(): int
     {
         return Utils::now()->addMinutes($this->ttl)->getTimestamp();
     }
@@ -132,9 +125,8 @@ class Factory
     /**
      * Get the Not Before (nbf) claim.
      *
-     * @return int
      */
-    public function nbf()
+    public function nbf(): int
     {
         return Utils::now()->getTimestamp();
     }
@@ -142,9 +134,8 @@ class Factory
     /**
      * Get the JWT Id (jti) claim.
      *
-     * @return string
      */
-    public function jti()
+    public function jti(): string
     {
         return Str::random();
     }
@@ -157,7 +148,7 @@ class Factory
      *
      * @return $this
      */
-    public function extend($name, $classPath)
+    public function extend(string $name, string $classPath)
     {
         $this->classMap[$name] = $classPath;
 
@@ -185,7 +176,7 @@ class Factory
      *
      * @return $this
      */
-    public function setTTL($ttl)
+    public function setTTL(int $ttl)
     {
         $this->ttl = $ttl;
 
@@ -195,9 +186,8 @@ class Factory
     /**
      * Get the token ttl.
      *
-     * @return int
      */
-    public function getTTL()
+    public function getTTL(): int
     {
         return $this->ttl;
     }

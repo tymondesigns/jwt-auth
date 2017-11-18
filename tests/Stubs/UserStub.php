@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -20,7 +20,7 @@ class UserStub implements JWTSubject
         return 1;
     }
 
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [
             'foo' => 'bar',

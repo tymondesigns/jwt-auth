@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -13,10 +13,10 @@ namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Support\CustomClaims;
 
 class JWT
 {
@@ -49,7 +49,6 @@ class JWT
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
      *
-     * @return void
      */
     public function __construct(Manager $manager, Parser $parser)
     {
@@ -62,9 +61,8 @@ class JWT
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      *
-     * @return string
      */
-    public function fromSubject(JWTSubject $subject)
+    public function fromSubject(JWTSubject $subject): string
     {
         $payload = $this->makePayload($subject);
 
@@ -76,9 +74,8 @@ class JWT
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      *
-     * @return string
      */
-    public function fromUser(JWTSubject $user)
+    public function fromUser(JWTSubject $user): string
     {
         return $this->fromSubject($user);
     }
@@ -89,9 +86,8 @@ class JWT
      * @param  bool  $forceForever
      * @param  bool  $resetClaims
      *
-     * @return string
      */
-    public function refresh($forceForever = false, $resetClaims = false)
+    public function refresh(bool $forceForever = false, bool $resetClaims = false): string
     {
         $this->requireToken();
 
@@ -107,7 +103,7 @@ class JWT
      *
      * @return $this
      */
-    public function invalidate($forceForever = false)
+    public function invalidate(bool $forceForever = false)
     {
         $this->requireToken();
 
@@ -122,9 +118,8 @@ class JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function checkOrFail()
+    public function checkOrFail(): \Tymon\JWTAuth\Payload
     {
         return $this->getPayload();
     }
@@ -136,7 +131,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Payload|bool
      */
-    public function check($getPayload = false)
+    public function check(bool $getPayload = false)
     {
         try {
             $payload = $this->checkOrFail();
@@ -184,9 +179,8 @@ class JWT
     /**
      * Get the raw Payload instance.
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function getPayload()
+    public function getPayload(): \Tymon\JWTAuth\Payload
     {
         $this->requireToken();
 
@@ -196,9 +190,8 @@ class JWT
     /**
      * Alias for getPayload().
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function payload()
+    public function payload(): \Tymon\JWTAuth\Payload
     {
         return $this->getPayload();
     }
@@ -210,7 +203,7 @@ class JWT
      *
      * @return mixed
      */
-    public function getClaim($claim)
+    public function getClaim(string $claim)
     {
         return $this->payload()->get($claim);
     }
@@ -220,9 +213,8 @@ class JWT
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function makePayload(JWTSubject $subject)
+    public function makePayload(JWTSubject $subject): \Tymon\JWTAuth\Payload
     {
         return $this->factory()->customClaims($this->getClaimsArray($subject))->make();
     }
@@ -234,7 +226,7 @@ class JWT
      *
      * @return array
      */
-    protected function getClaimsArray(JWTSubject $subject)
+    protected function getClaimsArray(JWTSubject $subject): array
     {
         return array_merge(
             $this->getClaimsForSubject($subject),
@@ -250,7 +242,7 @@ class JWT
      *
      * @return array
      */
-    protected function getClaimsForSubject(JWTSubject $subject)
+    protected function getClaimsForSubject(JWTSubject $subject): array
     {
         return [
             'sub' => $subject->getJWTIdentifier(),
@@ -263,9 +255,8 @@ class JWT
      *
      * @param  string|object  $provider
      *
-     * @return string
      */
-    protected function hashProvider($provider)
+    protected function hashProvider($provider): string
     {
         return sha1(is_object($provider) ? get_class($provider) : $provider);
     }
@@ -275,9 +266,8 @@ class JWT
      *
      * @param  string|object  $provider
      *
-     * @return bool
      */
-    public function checkProvider($provider)
+    public function checkProvider($provider): bool
     {
         if (($prv = $this->payload()->get('prv')) === null) {
             return true;
@@ -317,7 +307,6 @@ class JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
-     * @return void
      */
     protected function requireToken()
     {
@@ -343,9 +332,8 @@ class JWT
     /**
      * Get the Manager instance.
      *
-     * @return \Tymon\JWTAuth\Manager
      */
-    public function manager()
+    public function manager(): \Tymon\JWTAuth\Manager
     {
         return $this->manager;
     }
@@ -353,9 +341,8 @@ class JWT
     /**
      * Get the Parser instance.
      *
-     * @return \Tymon\JWTAuth\Http\Parser\Parser
      */
-    public function parser()
+    public function parser(): \Tymon\JWTAuth\Http\Parser\Parser
     {
         return $this->parser;
     }
@@ -363,9 +350,8 @@ class JWT
     /**
      * Get the Payload Factory.
      *
-     * @return \Tymon\JWTAuth\Factory
      */
-    public function factory()
+    public function factory(): \Tymon\JWTAuth\Factory
     {
         return $this->manager->getPayloadFactory();
     }
@@ -373,9 +359,8 @@ class JWT
     /**
      * Get the Blacklist.
      *
-     * @return \Tymon\JWTAuth\Blacklist
      */
-    public function blacklist()
+    public function blacklist(): \Tymon\JWTAuth\Blacklist
     {
         return $this->manager->getBlacklist();
     }
@@ -390,7 +375,7 @@ class JWT
      *
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         if (method_exists($this->manager, $method)) {
             return call_user_func_array([$this->manager, $method], $parameters);

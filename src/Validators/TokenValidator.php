@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -19,10 +19,8 @@ class TokenValidator extends Validator
      * Check the structure of the token.
      *
      * @param  string  $value
-     *
-     * @return string
      */
-    public function check($value)
+    public function check($value): string
     {
         return $this->validateStructure($value);
     }
@@ -32,9 +30,8 @@ class TokenValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      *
-     * @return string
      */
-    protected function validateStructure($token)
+    protected function validateStructure(string $token): string
     {
         $parts = explode('.', $token);
 

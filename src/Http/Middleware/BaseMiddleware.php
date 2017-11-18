@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,10 +11,10 @@
 
 namespace Tymon\JWTAuth\Http\Middleware;
 
-use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\JWTAuth;
 
 abstract class BaseMiddleware
 {
@@ -30,7 +30,6 @@ abstract class BaseMiddleware
      *
      * @param  \Tymon\JWTAuth\JWTAuth  $auth
      *
-     * @return void
      */
     public function __construct(JWTAuth $auth)
     {
@@ -44,7 +43,6 @@ abstract class BaseMiddleware
      *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      *
-     * @return void
      */
     public function checkForToken(Request $request)
     {
@@ -60,7 +58,6 @@ abstract class BaseMiddleware
      *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      *
-     * @return void
      */
     public function authenticate(Request $request)
     {

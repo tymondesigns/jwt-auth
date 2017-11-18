@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Support\RefreshFlow;
-use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
+use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Support\RefreshFlow;
 
 class Manager
 {
@@ -63,7 +63,6 @@ class Manager
      * @param  \Tymon\JWTAuth\Blacklist  $blacklist
      * @param  \Tymon\JWTAuth\Factory  $payloadFactory
      *
-     * @return void
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
@@ -77,9 +76,8 @@ class Manager
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
      *
-     * @return \Tymon\JWTAuth\Token
      */
-    public function encode(Payload $payload)
+    public function encode(Payload $payload): \Tymon\JWTAuth\Token
     {
         $token = $this->provider->encode($payload->get());
 
@@ -94,9 +92,8 @@ class Manager
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
      *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function decode(Token $token, $checkBlacklist = true)
+    public function decode(Token $token, bool $checkBlacklist = true): \Tymon\JWTAuth\Payload
     {
         $payloadArray = $this->provider->decode($token->get());
 
@@ -119,9 +116,8 @@ class Manager
      * @param  bool  $forceForever
      * @param  bool  $resetClaims
      *
-     * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token, $forceForever = false, $resetClaims = false)
+    public function refresh(Token $token, bool $forceForever = false, bool $resetClaims = false): \Tymon\JWTAuth\Token
     {
         $this->setRefreshFlow();
 
@@ -146,9 +142,8 @@ class Manager
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
-     * @return bool
      */
-    public function invalidate(Token $token, $forceForever = false)
+    public function invalidate(Token $token, bool $forceForever = false): bool
     {
         if (! $this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
@@ -167,7 +162,7 @@ class Manager
      *
      * @return array
      */
-    protected function buildRefreshClaims(Payload $payload)
+    protected function buildRefreshClaims(Payload $payload): array
     {
         // assign the payload values as variables for use later
         extract($payload->toArray());
@@ -182,9 +177,8 @@ class Manager
     /**
      * Get the Payload Factory instance.
      *
-     * @return \Tymon\JWTAuth\Factory
      */
-    public function getPayloadFactory()
+    public function getPayloadFactory(): \Tymon\JWTAuth\Factory
     {
         return $this->payloadFactory;
     }
@@ -192,9 +186,8 @@ class Manager
     /**
      * Get the JWTProvider instance.
      *
-     * @return \Tymon\JWTAuth\Contracts\Providers\JWT
      */
-    public function getJWTProvider()
+    public function getJWTProvider(): \Tymon\JWTAuth\Contracts\Providers\JWT
     {
         return $this->provider;
     }
@@ -202,9 +195,8 @@ class Manager
     /**
      * Get the Blacklist instance.
      *
-     * @return \Tymon\JWTAuth\Blacklist
      */
-    public function getBlacklist()
+    public function getBlacklist(): \Tymon\JWTAuth\Blacklist
     {
         return $this->blacklist;
     }
@@ -216,7 +208,7 @@ class Manager
      *
      * @return $this
      */
-    public function setBlacklistEnabled($enabled)
+    public function setBlacklistEnabled(bool $enabled)
     {
         $this->blacklistEnabled = $enabled;
 

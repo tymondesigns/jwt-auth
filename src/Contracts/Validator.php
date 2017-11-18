@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -27,7 +27,6 @@ interface Validator
      *
      * @param  array  $value
      *
-     * @return bool
      */
-    public function isValid($value);
+    public function isValid(array $value): bool;
 }

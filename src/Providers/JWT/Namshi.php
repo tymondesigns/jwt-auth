@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,12 +11,11 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-use Exception;
+use InvalidArgumentException;
 use Namshi\JOSE\JWS;
+use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use ReflectionClass;
 use ReflectionException;
-use InvalidArgumentException;
-use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -38,9 +37,8 @@ class Namshi extends Provider implements JWT
      * @param  array  $keys
      * @param  string|null  $driver
      *
-     * @return void
      */
-    public function __construct($secret, $algo, array $keys = [], $driver = null)
+    public function __construct(string $secret, string $algo, array $keys = [], string $driver = null)
     {
         parent::__construct($secret, $keys, $algo);
 
@@ -54,15 +52,14 @@ class Namshi extends Provider implements JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
-     * @return string
      */
-    public function encode(array $payload)
+    public function encode(array $payload): string
     {
         try {
             $this->jws->setPayload($payload)->sign($this->getSigningKey(), $this->getPassphrase());
 
             return (string) $this->jws->getTokenString();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -76,7 +73,7 @@ class Namshi extends Provider implements JWT
      *
      * @return array
      */
-    public function decode($token)
+    public function decode(string $token): array
     {
         try {
             // Let's never allow insecure tokens
@@ -98,9 +95,8 @@ class Namshi extends Provider implements JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      *
-     * @return bool
      */
-    protected function isAsymmetric()
+    protected function isAsymmetric(): bool
     {
         try {
             return (new ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);

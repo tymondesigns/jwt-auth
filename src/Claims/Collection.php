@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection as IlluminateCollection;
+use Illuminate\Support\Str;
 
 class Collection extends IlluminateCollection
 {
@@ -21,7 +21,6 @@ class Collection extends IlluminateCollection
      *
      * @param  mixed  $items
      *
-     * @return void
      */
     public function __construct($items = [])
     {
@@ -35,9 +34,8 @@ class Collection extends IlluminateCollection
      * @param  callable  $callback
      * @param  mixed  $default
      *
-     * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getByClaimName($name, callable $callback = null, $default = null)
+    public function getByClaimName(string $name, callable $callback = null, $default = null): \Tymon\JWTAuth\Claims\Claim
     {
         return $this->filter(function (Claim $claim) use ($name) {
             return $claim->getName() === $name;
@@ -51,7 +49,7 @@ class Collection extends IlluminateCollection
      *
      * @return $this
      */
-    public function validate($context = 'payload')
+    public function validate(string $context = 'payload')
     {
         $args = func_get_args();
         array_shift($args);
@@ -71,9 +69,8 @@ class Collection extends IlluminateCollection
      *
      * @param  mixed  $claims
      *
-     * @return bool
      */
-    public function hasAllClaims($claims)
+    public function hasAllClaims($claims): bool
     {
         return count($claims) && (new static($claims))->diff($this->keys())->isEmpty();
     }
@@ -83,7 +80,7 @@ class Collection extends IlluminateCollection
      *
      * @return array
      */
-    public function toPlainArray()
+    public function toPlainArray(): array
     {
         return $this->map(function (Claim $claim) {
             return $claim->getValue();
@@ -105,7 +102,7 @@ class Collection extends IlluminateCollection
      *
      * @return array
      */
-    private function sanitizeClaims($items)
+    private function sanitizeClaims($items): array
     {
         $claims = [];
         foreach ($items as $key => $value) {
