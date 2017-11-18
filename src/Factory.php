@@ -61,7 +61,6 @@ class Factory
      *
      * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
      * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
-     *
      */
     public function __construct(ClaimFactory $claimFactory, PayloadValidator $validator)
     {
@@ -72,9 +71,6 @@ class Factory
 
     /**
      * Create the Payload instance.
-     *
-     * @param  bool  $resetClaims
-     *
      */
     public function make(bool $resetClaims = false): \Tymon\JWTAuth\Payload
     {
@@ -102,7 +98,6 @@ class Factory
     /**
      * Add an array of claims to the Payload.
      *
-     * @param  array  $claims
      *
      * @return $this
      */
@@ -118,7 +113,6 @@ class Factory
     /**
      * Add a claim to the Payload.
      *
-     * @param  string  $name
      * @param  mixed  $value
      *
      * @return $this
@@ -153,7 +147,6 @@ class Factory
 
     /**
      * Build out the Claim DTO's.
-     *
      */
     protected function resolveClaims(): \Tymon\JWTAuth\Claims\Collection
     {
@@ -164,7 +157,6 @@ class Factory
 
     /**
      * Build and get the Claims Collection.
-     *
      */
     public function buildClaimsCollection(): \Tymon\JWTAuth\Claims\Collection
     {
@@ -175,7 +167,6 @@ class Factory
      * Get a Payload instance with a claims collection.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     *
      */
     public function withClaims(Collection $claims): \Tymon\JWTAuth\Payload
     {
@@ -185,7 +176,6 @@ class Factory
     /**
      * Set the default claims to be added to the Payload.
      *
-     * @param  array  $claims
      *
      * @return $this
      */
@@ -199,7 +189,6 @@ class Factory
     /**
      * Helper to set the ttl.
      *
-     * @param  int  $ttl
      *
      * @return $this
      */
@@ -212,7 +201,6 @@ class Factory
 
     /**
      * Helper to get the ttl.
-     *
      */
     public function getTTL(): int
     {
@@ -221,8 +209,6 @@ class Factory
 
     /**
      * Get the default claims.
-     *
-     * @return array
      */
     public function getDefaultClaims(): array
     {
@@ -231,7 +217,6 @@ class Factory
 
     /**
      * Get the PayloadValidator instance.
-     *
      */
     public function validator(): \Tymon\JWTAuth\Validators\PayloadValidator
     {
@@ -241,8 +226,6 @@ class Factory
     /**
      * Magically add a claim.
      *
-     * @param  string  $method
-     * @param  array  $parameters
      *
      * @return $this
      */

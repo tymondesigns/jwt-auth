@@ -30,7 +30,6 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
     /**
      * Alias the middleware.
-     *
      */
     protected function aliasMiddleware()
     {

@@ -42,7 +42,6 @@ interface Claim
 
     /**
      * Get the claim name.
-     *
      */
     public function getName(): string;
 

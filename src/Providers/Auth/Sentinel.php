@@ -27,7 +27,6 @@ class Sentinel implements Auth
      * Constructor.
      *
      * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
-     *
      */
     public function __construct(SentinelAuth $sentinel)
     {
@@ -37,7 +36,6 @@ class Sentinel implements Auth
     /**
      * Check a user's credentials.
      *
-     * @param  array  $credentials
      *
      * @return mixed
      */
@@ -50,7 +48,6 @@ class Sentinel implements Auth
      * Authenticate a user via the id.
      *
      * @param  mixed  $id
-     *
      */
     public function byId($id): bool
     {
@@ -65,7 +62,6 @@ class Sentinel implements Auth
 
     /**
      * Get the currently authenticated user.
-     *
      */
     public function user(): \Cartalyst\Sentinel\Users\UserInterface
     {

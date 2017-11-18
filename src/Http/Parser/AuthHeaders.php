@@ -61,7 +61,6 @@ class AuthHeaders implements ParserContract
     /**
      * Set the header name.
      *
-     * @param  string  $headerName
      *
      * @return $this
      */
@@ -75,7 +74,6 @@ class AuthHeaders implements ParserContract
     /**
      * Set the header prefix.
      *
-     * @param  string  $headerPrefix
      *
      * @return $this
      */

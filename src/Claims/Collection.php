@@ -20,7 +20,6 @@ class Collection extends IlluminateCollection
      * Create a new collection.
      *
      * @param  mixed  $items
-     *
      */
     public function __construct($items = [])
     {
@@ -30,10 +29,8 @@ class Collection extends IlluminateCollection
     /**
      * Get a Claim instance by it's unique name.
      *
-     * @param  string  $name
      * @param  callable  $callback
      * @param  mixed  $default
-     *
      */
     public function getByClaimName(string $name, callable $callback = null, $default = null): \Tymon\JWTAuth\Claims\Claim
     {
@@ -45,7 +42,6 @@ class Collection extends IlluminateCollection
     /**
      * Validate each claim under a given context.
      *
-     * @param  string  $context
      *
      * @return $this
      */
@@ -68,7 +64,6 @@ class Collection extends IlluminateCollection
      * Determine if the Collection contains all of the given keys.
      *
      * @param  mixed  $claims
-     *
      */
     public function hasAllClaims($claims): bool
     {
@@ -77,8 +72,6 @@ class Collection extends IlluminateCollection
 
     /**
      * Get the claims as key/val array.
-     *
-     * @return array
      */
     public function toPlainArray(): array
     {
@@ -99,8 +92,6 @@ class Collection extends IlluminateCollection
      * Ensure that the given claims array is keyed by the claim name.
      *
      * @param  mixed  $items
-     *
-     * @return array
      */
     private function sanitizeClaims($items): array
     {

@@ -21,9 +21,6 @@ abstract class Validator implements ValidatorContract
 
     /**
      * Helper function to return a boolean.
-     *
-     * @param  array  $value
-     *
      */
     public function isValid(array $value): bool
     {

@@ -26,10 +26,7 @@ class TokenValidator extends Validator
     }
 
     /**
-     * @param  string  $token
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     *
      */
     protected function validateStructure(string $token): string
     {

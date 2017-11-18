@@ -50,7 +50,6 @@ class Factory
      * Constructor.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      */
     public function __construct(Request $request)
     {
@@ -60,9 +59,7 @@ class Factory
     /**
      * Get the instance of the claim when passing the name and value.
      *
-     * @param  string  $name
      * @param  mixed  $value
-     *
      */
     public function get(string $name, $value): \Tymon\JWTAuth\Claims\Claim
     {
@@ -75,9 +72,6 @@ class Factory
 
     /**
      * Check whether the claim exists.
-     *
-     * @param  string  $name
-     *
      */
     public function has(string $name): bool
     {
@@ -86,9 +80,6 @@ class Factory
 
     /**
      * Generate the initial value and return the Claim instance.
-     *
-     * @param  string  $name
-     *
      */
     public function make(string $name): \Tymon\JWTAuth\Claims\Claim
     {
@@ -97,7 +88,6 @@ class Factory
 
     /**
      * Get the Issuer (iss) claim.
-     *
      */
     public function iss(): string
     {
@@ -106,7 +96,6 @@ class Factory
 
     /**
      * Get the Issued At (iat) claim.
-     *
      */
     public function iat(): int
     {
@@ -115,7 +104,6 @@ class Factory
 
     /**
      * Get the Expiration (exp) claim.
-     *
      */
     public function exp(): int
     {
@@ -124,7 +112,6 @@ class Factory
 
     /**
      * Get the Not Before (nbf) claim.
-     *
      */
     public function nbf(): int
     {
@@ -133,7 +120,6 @@ class Factory
 
     /**
      * Get the JWT Id (jti) claim.
-     *
      */
     public function jti(): string
     {
@@ -143,8 +129,6 @@ class Factory
     /**
      * Add a new claim mapping.
      *
-     * @param  string  $name
-     * @param  string  $classPath
      *
      * @return $this
      */
@@ -172,7 +156,6 @@ class Factory
     /**
      * Set the token ttl (in minutes).
      *
-     * @param  int  $ttl
      *
      * @return $this
      */
@@ -185,7 +168,6 @@ class Factory
 
     /**
      * Get the token ttl.
-     *
      */
     public function getTTL(): int
     {

@@ -34,7 +34,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * @param  mixed  $value
-     *
      */
     public function __construct($value)
     {
@@ -70,7 +69,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim name.
      *
-     * @param  string  $name
      *
      * @return $this
      */
@@ -83,7 +81,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Get the claim name.
-     *
      */
     public function getName(): string
     {
@@ -129,7 +126,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @param  mixed  $value
      * @param  bool  $strict
-     *
      */
     public function matches($value, $strict = true): bool
     {
@@ -138,8 +134,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Convert the object into something JSON serializable.
-     *
-     * @return array
      */
     public function jsonSerialize(): array
     {
@@ -148,8 +142,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Build a key value array comprising of the claim name and value.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -166,7 +158,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Get the payload as a string.
-     *
      */
     public function __toString(): string
     {

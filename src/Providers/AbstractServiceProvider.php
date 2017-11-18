@@ -51,14 +51,11 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Boot the service provider.
-     *
-     * @return void
      */
     abstract public function boot();
 
     /**
      * Register the service provider.
-     *
      */
     public function register()
     {
@@ -84,7 +81,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Extend Laravel's Auth.
-     *
      */
     protected function extendAuthGuard()
     {
@@ -103,7 +99,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Bind some aliases.
-     *
      */
     protected function registerAliases()
     {
@@ -120,7 +115,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the JSON Web Token provider.
-     *
      */
     protected function registerJWTProvider()
     {
@@ -137,7 +131,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the Auth provider.
-     *
      */
     protected function registerAuthProvider()
     {
@@ -148,7 +141,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the Storage provider.
-     *
      */
     protected function registerStorageProvider()
     {
@@ -159,7 +151,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the JWT Manager.
-     *
      */
     protected function registerManager()
     {
@@ -177,7 +168,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the Token Parser.
-     *
      */
     protected function registerTokenParser()
     {
@@ -201,7 +191,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the main JWT class.
-     *
      */
     protected function registerJWT()
     {
@@ -215,7 +204,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the main JWTAuth class.
-     *
      */
     protected function registerJWTAuth()
     {
@@ -230,7 +218,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the Blacklist.
-     *
      */
     protected function registerJWTBlacklist()
     {
@@ -244,7 +231,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the payload validator.
-     *
      */
     protected function registerPayloadValidator()
     {
@@ -257,7 +243,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the Claim Factory.
-     *
      */
     protected function registerClaimFactory()
     {
@@ -271,7 +256,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the bindings for the Payload Factory.
-     *
      */
     protected function registerPayloadFactory()
     {
@@ -285,7 +269,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Register the Artisan command.
-     *
      */
     protected function registerJWTCommand()
     {
@@ -297,8 +280,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Helper to get the config values.
      *
-     * @param  string  $key
-     * @param  string  $default
      *
      * @return mixed
      */
@@ -310,7 +291,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
     /**
      * Get an instantiable configuration instance.
      *
-     * @param  string  $key
      *
      * @return mixed
      */

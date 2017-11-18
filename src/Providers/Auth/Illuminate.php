@@ -27,7 +27,6 @@ class Illuminate implements Auth
      * Constructor.
      *
      * @param  \Illuminate\Contracts\Auth\Guard  $auth
-     *
      */
     public function __construct(GuardContract $auth)
     {
@@ -36,9 +35,6 @@ class Illuminate implements Auth
 
     /**
      * Check a user's credentials.
-     *
-     * @param  array  $credentials
-     *
      */
     public function byCredentials(array $credentials): bool
     {
@@ -49,7 +45,6 @@ class Illuminate implements Auth
      * Authenticate a user via the id.
      *
      * @param  mixed  $id
-     *
      */
     public function byId($id): bool
     {

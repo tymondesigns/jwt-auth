@@ -36,7 +36,6 @@ trait KeyTrait
 
     /**
      * Get the key.
-     *
      */
     public function getKey(): string
     {

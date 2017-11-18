@@ -38,11 +38,6 @@ abstract class Provider
 
     /**
      * Constructor.
-     *
-     * @param  string  $secret
-     * @param  array  $keys
-     * @param  string  $algo
-     *
      */
     public function __construct(string $secret, array $keys, string $algo)
     {
@@ -54,7 +49,6 @@ abstract class Provider
     /**
      * Set the algorithm used to sign the token.
      *
-     * @param  string  $algo
      *
      * @return $this
      */
@@ -67,7 +61,6 @@ abstract class Provider
 
     /**
      * Get the algorithm used to sign the token.
-     *
      */
     public function getAlgo(): string
     {
@@ -77,7 +70,6 @@ abstract class Provider
     /**
      * Set the secret used to sign the token.
      *
-     * @param  string  $secret
      *
      * @return $this
      */
@@ -90,7 +82,6 @@ abstract class Provider
 
     /**
      * Get the secret used to sign the token.
-     *
      */
     public function getSecret(): string
     {
@@ -100,8 +91,6 @@ abstract class Provider
     /**
      * Get the array of keys used to sign tokens
      * with an asymmetric algorithm.
-     *
-     * @return array
      */
     public function getKeys(): array
     {
@@ -133,7 +122,6 @@ abstract class Provider
     /**
      * Get the passphrase used to sign tokens
      * with an asymmetric algorithm.
-     *
      */
     public function getPassphrase(): string
     {

@@ -17,16 +17,12 @@ interface Storage
      * @param  string  $key
      * @param  mixed  $value
      * @param  int  $minutes
-     *
-     * @return void
      */
     public function add(string $key, $value, $minutes);
 
     /**
      * @param  string  $key
      * @param  mixed  $value
-     *
-     * @return void
      */
     public function forever(string $key, $value);
 
@@ -39,12 +35,8 @@ interface Storage
 
     /**
      * @param  string  $key
-     *
      */
     public function destroy(string $key): bool;
 
-    /**
-     * @return void
-     */
     public function flush();
 }

@@ -34,7 +34,6 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Execute the console command.
-     *
      */
     public function handle()
     {
@@ -72,9 +71,6 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Display the key.
-     *
-     * @param  string  $key
-     *
      */
     protected function displayKey(string $key)
     {
@@ -85,7 +81,6 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Check if the modification is confirmed.
-     *
      */
     protected function isConfirmed(): bool
     {
@@ -96,7 +91,6 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Get the .env file path.
-     *
      */
     protected function envPath(): string
     {

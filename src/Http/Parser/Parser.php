@@ -33,8 +33,6 @@ class Parser
      * Constructor.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  $chain
-     *
      */
     public function __construct(Request $request, array $chain = [])
     {
@@ -44,8 +42,6 @@ class Parser
 
     /**
      * Get the parser chain.
-     *
-     * @return array
      */
     public function getChain(): array
     {
@@ -55,7 +51,6 @@ class Parser
     /**
      * Set the order of the parser chain.
      *
-     * @param  array  $chain
      *
      * @return $this
      */
@@ -69,7 +64,6 @@ class Parser
     /**
      * Alias for setting the order of the chain.
      *
-     * @param  array  $chain
      *
      * @return $this
      */
@@ -95,7 +89,6 @@ class Parser
 
     /**
      * Check whether a token exists in the chain.
-     *
      */
     public function hasToken(): bool
     {

@@ -48,7 +48,6 @@ class JWT
      *
      * @param  \Tymon\JWTAuth\Manager  $manager
      * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
-     *
      */
     public function __construct(Manager $manager, Parser $parser)
     {
@@ -60,7 +59,6 @@ class JWT
      * Generate a token for a given subject.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
      */
     public function fromSubject(JWTSubject $subject): string
     {
@@ -73,7 +71,6 @@ class JWT
      * Alias to generate a token for a given user.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
-     *
      */
     public function fromUser(JWTSubject $user): string
     {
@@ -82,10 +79,6 @@ class JWT
 
     /**
      * Refresh an expired token.
-     *
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
-     *
      */
     public function refresh(bool $forceForever = false, bool $resetClaims = false): string
     {
@@ -99,7 +92,6 @@ class JWT
     /**
      * Invalidate a token (add it to the blacklist).
      *
-     * @param  bool  $forceForever
      *
      * @return $this
      */
@@ -117,7 +109,6 @@ class JWT
      * the token is valid i.e. not expired or blacklisted.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
      */
     public function checkOrFail(): \Tymon\JWTAuth\Payload
     {
@@ -127,7 +118,6 @@ class JWT
     /**
      * Check that the token is valid.
      *
-     * @param  bool  $getPayload
      *
      * @return \Tymon\JWTAuth\Payload|bool
      */
@@ -178,7 +168,6 @@ class JWT
 
     /**
      * Get the raw Payload instance.
-     *
      */
     public function getPayload(): \Tymon\JWTAuth\Payload
     {
@@ -189,7 +178,6 @@ class JWT
 
     /**
      * Alias for getPayload().
-     *
      */
     public function payload(): \Tymon\JWTAuth\Payload
     {
@@ -199,7 +187,6 @@ class JWT
     /**
      * Convenience method to get a claim value.
      *
-     * @param  string  $claim
      *
      * @return mixed
      */
@@ -212,7 +199,6 @@ class JWT
      * Create a Payload instance.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
      */
     public function makePayload(JWTSubject $subject): \Tymon\JWTAuth\Payload
     {
@@ -223,8 +209,6 @@ class JWT
      * Build the claims array and return it.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
-     * @return array
      */
     protected function getClaimsArray(JWTSubject $subject): array
     {
@@ -239,8 +223,6 @@ class JWT
      * Get the claims associated with a given subject.
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
-     * @return array
      */
     protected function getClaimsForSubject(JWTSubject $subject): array
     {
@@ -254,7 +236,6 @@ class JWT
      * Hash the provider and return it.
      *
      * @param  string|object  $provider
-     *
      */
     protected function hashProvider($provider): string
     {
@@ -265,7 +246,6 @@ class JWT
      * Check if the provider matches the one saved in the token.
      *
      * @param  string|object  $provider
-     *
      */
     public function checkProvider($provider): bool
     {
@@ -306,7 +286,6 @@ class JWT
      * Ensure that a token is available.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
      */
     protected function requireToken()
     {
@@ -331,7 +310,6 @@ class JWT
 
     /**
      * Get the Manager instance.
-     *
      */
     public function manager(): \Tymon\JWTAuth\Manager
     {
@@ -340,7 +318,6 @@ class JWT
 
     /**
      * Get the Parser instance.
-     *
      */
     public function parser(): \Tymon\JWTAuth\Http\Parser\Parser
     {
@@ -349,7 +326,6 @@ class JWT
 
     /**
      * Get the Payload Factory.
-     *
      */
     public function factory(): \Tymon\JWTAuth\Factory
     {
@@ -358,7 +334,6 @@ class JWT
 
     /**
      * Get the Blacklist.
-     *
      */
     public function blacklist(): \Tymon\JWTAuth\Blacklist
     {
@@ -368,8 +343,6 @@ class JWT
     /**
      * Magically call the JWT Manager.
      *
-     * @param  string  $method
-     * @param  array  $parameters
      *
      * @throws \BadMethodCallException
      *

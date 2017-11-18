@@ -17,7 +17,6 @@ class Utils
 {
     /**
      * Get the Carbon instance for the current time.
-     *
      */
     public static function now(): \Carbon\Carbon
     {
@@ -26,9 +25,6 @@ class Utils
 
     /**
      * Get the Carbon instance for the timestamp.
-     *
-     * @param  int  $timestamp
-     *
      */
     public static function timestamp(int $timestamp): \Carbon\Carbon
     {
@@ -37,9 +33,6 @@ class Utils
 
     /**
      * Checks if a timestamp is in the past.
-     *
-     * @param  int  $timestamp
-     *
      */
     public static function isPast(int $timestamp): bool
     {
@@ -48,9 +41,6 @@ class Utils
 
     /**
      * Checks if a timestamp is in the future.
-     *
-     * @param  int  $timestamp
-     *
      */
     public static function isFuture(int $timestamp): bool
     {

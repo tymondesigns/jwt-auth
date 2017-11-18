@@ -32,11 +32,7 @@ class Namshi extends Provider implements JWT
     /**
      * Constructor.
      *
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
      * @param  string|null  $driver
-     *
      */
     public function __construct(string $secret, string $algo, array $keys = [], string $driver = null)
     {
@@ -48,10 +44,8 @@ class Namshi extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param  array  $payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
      */
     public function encode(array $payload): string
     {
@@ -67,11 +61,8 @@ class Namshi extends Provider implements JWT
     /**
      * Decode a JSON Web Token.
      *
-     * @param  string  $token
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return array
      */
     public function decode(string $token): array
     {
@@ -94,7 +85,6 @@ class Namshi extends Provider implements JWT
      * requires a public/private key combo.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
      */
     protected function isAsymmetric(): bool
     {

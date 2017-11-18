@@ -22,9 +22,6 @@ class Token
 
     /**
      * Create a new JSON Web Token.
-     *
-     * @param  string  $value
-     *
      */
     public function __construct(string $value)
     {
@@ -33,7 +30,6 @@ class Token
 
     /**
      * Get the token.
-     *
      */
     public function get(): string
     {
@@ -42,7 +38,6 @@ class Token
 
     /**
      * Get the token when casting to string.
-     *
      */
     public function __toString(): string
     {

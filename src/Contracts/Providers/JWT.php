@@ -15,7 +15,6 @@ interface JWT
 {
     /**
      * @param  array  $payload
-     *
      */
     public function encode(array $payload): string;
 

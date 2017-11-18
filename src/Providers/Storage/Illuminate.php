@@ -41,7 +41,6 @@ class Illuminate implements Storage
      * Constructor.
      *
      * @param  \Illuminate\Contracts\Cache\Repository  $cache
-     *
      */
     public function __construct(CacheContract $cache)
     {
@@ -51,10 +50,8 @@ class Illuminate implements Storage
     /**
      * Add a new item into storage.
      *
-     * @param  string  $key
      * @param  mixed  $value
      * @param  int  $minutes
-     *
      */
     public function add(string $key, $value, $minutes)
     {
@@ -64,9 +61,7 @@ class Illuminate implements Storage
     /**
      * Add a new item into storage forever.
      *
-     * @param  string  $key
      * @param  mixed  $value
-     *
      */
     public function forever(string $key, $value)
     {
@@ -76,7 +71,6 @@ class Illuminate implements Storage
     /**
      * Get an item from storage.
      *
-     * @param  string  $key
      *
      * @return mixed
      */
@@ -87,9 +81,6 @@ class Illuminate implements Storage
 
     /**
      * Remove an item from storage.
-     *
-     * @param  string  $key
-     *
      */
     public function destroy(string $key): bool
     {
@@ -98,7 +89,6 @@ class Illuminate implements Storage
 
     /**
      * Remove all items associated with the tag.
-     *
      */
     public function flush()
     {
@@ -107,7 +97,6 @@ class Illuminate implements Storage
 
     /**
      * Return the cache instance with tags attached.
-     *
      */
     protected function cache(): \Illuminate\Contracts\Cache\Repository
     {
@@ -125,7 +114,6 @@ class Illuminate implements Storage
     /**
      * Detect as best we can whether tags are supported with this repository & store,
      * and save our result on the $supportsTags flag.
-     *
      */
     protected function determineTagSupport()
     {

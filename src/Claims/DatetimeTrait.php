@@ -56,7 +56,6 @@ trait DatetimeTrait
      * Determine whether the value is in the future.
      *
      * @param  mixed  $value
-     *
      */
     protected function isFuture($value): bool
     {
@@ -67,7 +66,6 @@ trait DatetimeTrait
      * Determine whether the value is in the past.
      *
      * @param  mixed  $value
-     *
      */
     protected function isPast($value): bool
     {
