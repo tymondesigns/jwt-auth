@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Closure;
 use Throwable;
+use Illuminate\Http\Request;
 
 class Check extends BaseMiddleware
 {
