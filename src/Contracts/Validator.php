@@ -23,7 +23,7 @@ interface Validator
     /**
      * Helper function to return a boolean.
      *
-     * @param  array  $value
+     * @param  array|mixed  $value
      */
-    public function isValid(array $value): bool;
+    public function isValid($value): bool;
 }

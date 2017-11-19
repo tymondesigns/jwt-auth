@@ -145,8 +145,10 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Get the payload as JSON.
+     *
+     * @param int $options
      */
-    public function toJson(int $options = JSON_UNESCAPED_SLASHES): string
+    public function toJson($options = JSON_UNESCAPED_SLASHES): string
     {
         return json_encode($this->toArray(), $options);
     }

@@ -69,7 +69,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim name.
      *
-     *
      * @return $this
      */
     public function setName(string $name)
@@ -116,7 +115,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @return bool
      */
-    public function validateRefresh()
+    public function validateRefresh($refreshTTL)
     {
         return $this->getValue();
     }
@@ -150,8 +149,10 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Get the claim as JSON.
+     *
+     * @param int $options
      */
-    public function toJson(int $options = JSON_UNESCAPED_SLASHES): string
+    public function toJson($options = JSON_UNESCAPED_SLASHES): string
     {
         return json_encode($this->toArray(), $options);
     }
