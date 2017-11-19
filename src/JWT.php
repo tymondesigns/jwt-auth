@@ -110,7 +110,7 @@ class JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    public function checkOrFail(): \Tymon\JWTAuth\Payload
+    public function checkOrFail(): Payload
     {
         return $this->getPayload();
     }
@@ -119,7 +119,7 @@ class JWT
      * Check that the token is valid.
      *
      *
-     * @return \Tymon\JWTAuth\Payload|bool
+     * @return Payload|bool
      */
     public function check(bool $getPayload = false)
     {
@@ -169,7 +169,7 @@ class JWT
     /**
      * Get the raw Payload instance.
      */
-    public function getPayload(): \Tymon\JWTAuth\Payload
+    public function getPayload(): Payload
     {
         $this->requireToken();
 
@@ -179,7 +179,7 @@ class JWT
     /**
      * Alias for getPayload().
      */
-    public function payload(): \Tymon\JWTAuth\Payload
+    public function payload(): Payload
     {
         return $this->getPayload();
     }
@@ -200,7 +200,7 @@ class JWT
      *
      * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      */
-    public function makePayload(JWTSubject $subject): \Tymon\JWTAuth\Payload
+    public function makePayload(JWTSubject $subject): Payload
     {
         return $this->factory()->customClaims($this->getClaimsArray($subject))->make();
     }

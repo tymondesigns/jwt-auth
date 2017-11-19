@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
+use Throwable;
 
 class Check extends BaseMiddleware
 {
