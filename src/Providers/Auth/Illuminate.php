@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +13,8 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
-use Illuminate\Contracts\Auth\Guard as GuardContract;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Illuminate\Contracts\Auth\Guard as GuardContract;
 
 class Illuminate implements Auth
 {

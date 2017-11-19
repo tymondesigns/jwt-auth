@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,12 +13,12 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Illuminate\Http\Response;
 use Mockery;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 
 class AuthenticateAndRenewTest extends AbstractMiddlewareTest
 {

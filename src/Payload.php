@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,15 +13,15 @@
 
 namespace Tymon\JWTAuth;
 
-use ArrayAccess;
-use BadMethodCallException;
 use Countable;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Support\Arr;
+use ArrayAccess;
 use JsonSerializable;
+use BadMethodCallException;
+use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +13,8 @@
 
 namespace Tymon\JWTAuth\Http\Parser;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 
 class LumenRouteParams extends RouteParams
 {

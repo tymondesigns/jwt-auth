@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +13,8 @@
 
 namespace Tymon\JWTAuth\Test\Stubs;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class LaravelUserStub extends UserStub implements Authenticatable, JWTSubject
 {

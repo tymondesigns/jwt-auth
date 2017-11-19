@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,10 +13,10 @@
 
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
-use Illuminate\Contracts\Auth\Guard;
 use Mockery;
-use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
+use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Providers\Auth\Illuminate as Auth;
 
 class IlluminateTest extends AbstractTestCase
 {

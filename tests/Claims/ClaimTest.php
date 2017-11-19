@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,9 +13,9 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Illuminate\Contracts\Support\Arrayable;
 
 class ClaimTest extends AbstractTestCase
 {

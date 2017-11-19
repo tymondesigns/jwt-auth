@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +13,8 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
-use Cartalyst\Sentinel\Sentinel as SentinelAuth;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Cartalyst\Sentinel\Sentinel as SentinelAuth;
 
 class Sentinel implements Auth
 {

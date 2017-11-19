@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -13,10 +15,10 @@ namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class Factory
 {

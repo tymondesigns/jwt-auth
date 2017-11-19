@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,9 +13,9 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
 
 abstract class Validator implements ValidatorContract
 {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,11 +13,11 @@
 
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
-use Cartalyst\Sentinel\Sentinel;
 use Mockery;
-use Tymon\JWTAuth\Providers\Auth\Sentinel as Auth;
+use Cartalyst\Sentinel\Sentinel;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Test\Stubs\SentinelStub;
+use Tymon\JWTAuth\Providers\Auth\Sentinel as Auth;
 
 class SentinelTest extends AbstractTestCase
 {

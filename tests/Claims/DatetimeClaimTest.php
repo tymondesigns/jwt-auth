@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,20 +13,20 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
-use Carbon\Carbon;
-use DateInterval;
+use Mockery;
 use DateTime;
+use DateInterval;
+use Carbon\Carbon;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Mockery;
+use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -12,9 +14,9 @@
 namespace Tymon\JWTAuth\Providers\Storage;
 
 use BadMethodCallException;
-use Illuminate\Contracts\Cache\Repository as CacheContract;
-use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
+use Illuminate\Contracts\Cache\Repository as CacheContract;
 
 class Illuminate implements Storage
 {

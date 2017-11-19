@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,18 +13,18 @@
 
 namespace Tymon\JWTAuth\Test\Http;
 
+use Mockery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
-use Mockery;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\Cookies;
-use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\Cookies;
+use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
-use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Http\Parser\LumenRouteParams;
 
 class ParserTest extends AbstractTestCase
 {

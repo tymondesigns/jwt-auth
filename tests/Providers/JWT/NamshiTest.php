@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,10 +13,10 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Exception;
-use InvalidArgumentException;
 use Mockery;
+use Exception;
 use Namshi\JOSE\JWS;
+use InvalidArgumentException;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 

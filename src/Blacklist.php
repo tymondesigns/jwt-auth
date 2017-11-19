@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +13,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Support\Utils;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Blacklist
 {

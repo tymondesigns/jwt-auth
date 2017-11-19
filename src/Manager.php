@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,11 +13,11 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
+use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Support\CustomClaims;
-use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 class Manager
 {

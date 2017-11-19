@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,19 +13,19 @@
 
 namespace Tymon\JWTAuth\Test;
 
-use Illuminate\Http\Request;
 use Mockery;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Blacklist;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class JWTAuthTest extends AbstractTestCase
 {

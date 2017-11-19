@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -12,9 +14,9 @@
 namespace Tymon\JWTAuth;
 
 use stdClass;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Http\Parser\Parser;
 
 class JWTAuth extends JWT
 {

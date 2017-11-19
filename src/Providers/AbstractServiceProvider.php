@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,29 +13,29 @@
 
 namespace Tymon\JWTAuth\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Tymon\JWTAuth\Blacklist;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
-use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
+use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
-use Tymon\JWTAuth\Http\Middleware\Check;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\Cookies;
-use Tymon\JWTAuth\Http\Parser\InputSource;
+use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Manager;
+use Tymon\JWTAuth\JWTGuard;
+use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Http\Parser\Cookies;
+use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Http\Middleware\Check;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\JWTGuard;
-use Tymon\JWTAuth\Manager;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
+use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
 abstract class AbstractServiceProvider extends ServiceProvider
 {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,13 +13,13 @@
 
 namespace Tymon\JWTAuth\Test;
 
-use Illuminate\Auth\EloquentUserProvider;
-use Illuminate\Http\Request;
 use Mockery;
-use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\JWTGuard;
+use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\JWTGuard;
+use Illuminate\Http\Request;
+use Illuminate\Auth\EloquentUserProvider;
 use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
 
 class JWTGuardTest extends AbstractTestCase

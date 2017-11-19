@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -13,10 +15,10 @@ namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class JWT
 {

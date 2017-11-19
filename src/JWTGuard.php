@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,15 +13,15 @@
 
 namespace Tymon\JWTAuth;
 
-use BadMethodCallException;
-use Illuminate\Auth\GuardHelpers;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Http\Request;
 use stdClass;
+use BadMethodCallException;
+use Illuminate\Http\Request;
+use Illuminate\Auth\GuardHelpers;
+use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard

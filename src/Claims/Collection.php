@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,8 +13,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Support\Collection as IlluminateCollection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection as IlluminateCollection;
 
 class Collection extends IlluminateCollection
 {

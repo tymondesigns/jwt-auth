@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of jwt-auth.
@@ -11,9 +13,9 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
