@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Claims\Claim;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Support\Utils;
@@ -61,7 +62,7 @@ class Factory
      *
      * @param  mixed  $value
      */
-    public function get(string $name, $value): \Tymon\JWTAuth\Claims\Claim
+    public function get(string $name, $value): Claim
     {
         if ($this->has($name)) {
             return new $this->classMap[$name]($value);
@@ -81,7 +82,7 @@ class Factory
     /**
      * Generate the initial value and return the Claim instance.
      */
-    public function make(string $name): \Tymon\JWTAuth\Claims\Claim
+    public function make(string $name): Claim
     {
         return $this->get($name, $this->$name());
     }

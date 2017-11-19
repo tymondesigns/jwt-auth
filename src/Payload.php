@@ -45,7 +45,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the array of claim instances.
      */
-    public function getClaims(): \Tymon\JWTAuth\Claims\Collection
+    public function getClaims(): Collection
     {
         return $this->claims;
     }
@@ -103,7 +103,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the underlying Claim instance.
      */
-    public function getInternal(string $claim): \Tymon\JWTAuth\Claims\Claim
+    public function getInternal(string $claim): Claim
     {
         return $this->claims->getByClaimName($claim);
     }

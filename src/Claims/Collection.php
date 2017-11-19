@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Claims\Claim;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection as IlluminateCollection;
 
@@ -34,7 +35,7 @@ class Collection extends IlluminateCollection
      * @param  callable  $callback
      * @param  mixed  $default
      */
-    public function getByClaimName(string $name, callable $callback = null, $default = null): \Tymon\JWTAuth\Claims\Claim
+    public function getByClaimName(string $name, callable $callback = null, $default = null): Claim
     {
         return $this->filter(function (Claim $claim) use ($name) {
             return $claim->getName() === $name;

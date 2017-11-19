@@ -20,7 +20,7 @@ class Utils
     /**
      * Get the Carbon instance for the current time.
      */
-    public static function now(): \Carbon\Carbon
+    public static function now(): Carbon
     {
         return Carbon::now('UTC');
     }
@@ -28,7 +28,7 @@ class Utils
     /**
      * Get the Carbon instance for the timestamp.
      */
-    public static function timestamp(int $timestamp): \Carbon\Carbon
+    public static function timestamp(int $timestamp): Carbon
     {
         return Carbon::createFromTimestampUTC($timestamp)->timezone('UTC');
     }

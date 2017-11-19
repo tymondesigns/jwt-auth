@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -26,7 +27,7 @@ class RefreshToken extends BaseMiddleware
      *
      * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $this->checkForToken($request);
 

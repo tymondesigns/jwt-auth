@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 use Throwable;
 
@@ -23,7 +24,7 @@ class Check extends BaseMiddleware
      *
      * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if ($this->auth->parser()->setRequest($request)->hasToken()) {
             try {
