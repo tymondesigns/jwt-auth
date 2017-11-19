@@ -52,15 +52,12 @@ class Factory
     /**
      * The claims collection.
      *
-     * @var \Tymon\JWTAuth\Claims\Collection
+     * @var Collection
      */
     protected $claims;
 
     /**
      * Constructor.
-     *
-     * @param  \Tymon\JWTAuth\Claims\Factory  $claimFactory
-     * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
     public function __construct(ClaimFactory $claimFactory, PayloadValidator $validator)
     {
@@ -72,7 +69,7 @@ class Factory
     /**
      * Create the Payload instance.
      */
-    public function make(bool $resetClaims = false): \Tymon\JWTAuth\Payload
+    public function make(bool $resetClaims = false): Payload
     {
         $payload = $this->withClaims($this->buildClaimsCollection());
 
@@ -97,7 +94,6 @@ class Factory
 
     /**
      * Add an array of claims to the Payload.
-     *
      *
      * @return $this
      */
@@ -148,7 +144,7 @@ class Factory
     /**
      * Build out the Claim DTO's.
      */
-    protected function resolveClaims(): \Tymon\JWTAuth\Claims\Collection
+    protected function resolveClaims(): Collection
     {
         return $this->claims->map(function ($value, $name) {
             return $value instanceof Claim ? $value : $this->claimFactory->get($name, $value);
@@ -158,24 +154,21 @@ class Factory
     /**
      * Build and get the Claims Collection.
      */
-    public function buildClaimsCollection(): \Tymon\JWTAuth\Claims\Collection
+    public function buildClaimsCollection(): Collection
     {
         return $this->buildClaims()->resolveClaims();
     }
 
     /**
      * Get a Payload instance with a claims collection.
-     *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      */
-    public function withClaims(Collection $claims): \Tymon\JWTAuth\Payload
+    public function withClaims(Collection $claims): Payload
     {
         return new Payload($claims, $this->validator, $this->refreshFlow);
     }
 
     /**
      * Set the default claims to be added to the Payload.
-     *
      *
      * @return $this
      */
@@ -188,7 +181,6 @@ class Factory
 
     /**
      * Helper to set the ttl.
-     *
      *
      * @return $this
      */
@@ -225,7 +217,6 @@ class Factory
 
     /**
      * Magically add a claim.
-     *
      *
      * @return $this
      */

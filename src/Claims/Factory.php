@@ -48,8 +48,6 @@ class Factory
 
     /**
      * Constructor.
-     *
-     * @param  \Illuminate\Http\Request  $request
      */
     public function __construct(Request $request)
     {
@@ -129,7 +127,6 @@ class Factory
     /**
      * Add a new claim mapping.
      *
-     *
      * @return $this
      */
     public function extend(string $name, string $classPath)
@@ -142,8 +139,6 @@ class Factory
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
@@ -155,7 +150,6 @@ class Factory
 
     /**
      * Set the token ttl (in minutes).
-     *
      *
      * @return $this
      */

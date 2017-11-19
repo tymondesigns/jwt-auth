@@ -45,7 +45,6 @@ class Namshi extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     public function encode(array $payload): string
@@ -61,7 +60,6 @@ class Namshi extends Provider implements JWT
 
     /**
      * Decode a JSON Web Token.
-     *
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */

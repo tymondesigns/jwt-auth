@@ -49,10 +49,6 @@ class JWTGuard implements Guard
 
     /**
      * Instantiate the class.
-     *
-     * @param  \Tymon\JWTAuth\JWT  $jwt
-     * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
-     * @param  \Illuminate\Http\Request  $request
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request)
     {
@@ -122,8 +118,6 @@ class JWTGuard implements Guard
 
     /**
      * Create a token for a user.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      */
     public function login(JWTSubject $user): string
     {
@@ -218,7 +212,6 @@ class JWTGuard implements Guard
     /**
      * Add any custom claims.
      *
-     *
      * @return $this
      */
     public function claims(array $claims)
@@ -261,7 +254,6 @@ class JWTGuard implements Guard
     /**
      * Set the token ttl.
      *
-     *
      * @return $this
      */
     public function setTTL(int $ttl)
@@ -281,8 +273,6 @@ class JWTGuard implements Guard
 
     /**
      * Set the user provider used by the guard.
-     *
-     * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      *
      * @return $this
      */
@@ -313,8 +303,6 @@ class JWTGuard implements Guard
 
     /**
      * Set the current request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return $this
      */
@@ -374,7 +362,6 @@ class JWTGuard implements Guard
 
     /**
      * Magically call the JWT instance.
-     *
      *
      * @throws \BadMethodCallException
      *

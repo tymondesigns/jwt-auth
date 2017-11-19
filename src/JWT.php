@@ -45,9 +45,6 @@ class JWT
 
     /**
      * JWT constructor.
-     *
-     * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
      */
     public function __construct(Manager $manager, Parser $parser)
     {
@@ -57,8 +54,6 @@ class JWT
 
     /**
      * Generate a token for a given subject.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      */
     public function fromSubject(JWTSubject $subject): string
     {
@@ -69,8 +64,6 @@ class JWT
 
     /**
      * Alias to generate a token for a given user.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
      */
     public function fromUser(JWTSubject $user): string
     {
@@ -91,7 +84,6 @@ class JWT
 
     /**
      * Invalidate a token (add it to the blacklist).
-     *
      *
      * @return $this
      */
@@ -117,7 +109,6 @@ class JWT
 
     /**
      * Check that the token is valid.
-     *
      *
      * @return Payload|bool
      */
@@ -187,7 +178,6 @@ class JWT
     /**
      * Convenience method to get a claim value.
      *
-     *
      * @return mixed
      */
     public function getClaim(string $claim)
@@ -197,8 +187,6 @@ class JWT
 
     /**
      * Create a Payload instance.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      */
     public function makePayload(JWTSubject $subject): Payload
     {
@@ -207,8 +195,6 @@ class JWT
 
     /**
      * Build the claims array and return it.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      */
     protected function getClaimsArray(JWTSubject $subject): array
     {
@@ -221,8 +207,6 @@ class JWT
 
     /**
      * Get the claims associated with a given subject.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
      */
     protected function getClaimsForSubject(JWTSubject $subject): array
     {
@@ -297,8 +281,6 @@ class JWT
     /**
      * Set the request instance.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
@@ -342,7 +324,6 @@ class JWT
 
     /**
      * Magically call the JWT Manager.
-     *
      *
      * @throws \BadMethodCallException
      *

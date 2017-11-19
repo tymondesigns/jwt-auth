@@ -34,9 +34,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Build the Payload.
-     *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     * @param  \Tymon\JWTAuth\Validators\PayloadValidator  $validator
      */
     public function __construct(Collection $claims, PayloadValidator $validator, bool $refreshFlow = false)
     {
@@ -111,8 +108,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Determine whether the payload has the claim (by instance).
-     *
-     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      */
     public function has(Claim $claim): bool
     {
@@ -230,7 +225,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Magically get a claim value.
-     *
      *
      * @throws \BadMethodCallException
      *

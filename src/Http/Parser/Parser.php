@@ -31,8 +31,6 @@ class Parser
 
     /**
      * Constructor.
-     *
-     * @param  \Illuminate\Http\Request  $request
      */
     public function __construct(Request $request, array $chain = [])
     {
@@ -51,7 +49,6 @@ class Parser
     /**
      * Set the order of the parser chain.
      *
-     *
      * @return $this
      */
     public function setChain(array $chain)
@@ -63,7 +60,6 @@ class Parser
 
     /**
      * Alias for setting the order of the chain.
-     *
      *
      * @return $this
      */
@@ -97,8 +93,6 @@ class Parser
 
     /**
      * Set the request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return $this
      */

@@ -49,7 +49,6 @@ abstract class Provider
     /**
      * Set the algorithm used to sign the token.
      *
-     *
      * @return $this
      */
     public function setAlgo(string $algo)
@@ -69,7 +68,6 @@ abstract class Provider
 
     /**
      * Set the secret used to sign the token.
-     *
      *
      * @return $this
      */

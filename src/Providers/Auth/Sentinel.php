@@ -36,7 +36,6 @@ class Sentinel implements Auth
     /**
      * Check a user's credentials.
      *
-     *
      * @return mixed
      */
     public function byCredentials(array $credentials)

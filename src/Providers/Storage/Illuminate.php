@@ -71,7 +71,6 @@ class Illuminate implements Storage
     /**
      * Get an item from storage.
      *
-     *
      * @return mixed
      */
     public function get(string $key)

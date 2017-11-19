@@ -42,7 +42,6 @@ class Collection extends IlluminateCollection
     /**
      * Validate each claim under a given context.
      *
-     *
      * @return $this
      */
     public function validate(string $context = 'payload')

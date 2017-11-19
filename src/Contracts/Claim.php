@@ -50,7 +50,6 @@ interface Claim
      *
      * @param  mixed  $value
      *
-     *
      * @return bool|mixed
      */
     public function validateCreate($value);

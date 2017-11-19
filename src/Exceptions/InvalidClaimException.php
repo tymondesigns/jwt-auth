@@ -18,7 +18,6 @@ class InvalidClaimException extends JWTException
     /**
      * Constructor.
      *
-     * @param  \Tymon\JWTAuth\Claims\Claim  $claim
      * @param  \Exception|null  $previous
      */
     public function __construct(Claim $claim, int $code = 0, Throwable $previous = null)
