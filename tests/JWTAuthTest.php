@@ -67,7 +67,10 @@ class JWTAuthTest extends AbstractTestCase
              ->with(['sub' => 1, 'prv' => sha1(UserStub::class), 'foo' => 'bar', 'role' => 'admin'])
              ->andReturn($payloadFactory);
 
-        $this->manager->shouldReceive('encode->get')->once()->andReturn('foo.bar.baz');
+        $this->manager
+            ->shouldReceive('encode->get')
+            ->once()
+            ->andReturn('foo.bar.baz');
 
         $token = $this->jwtAuth->fromUser(new UserStub);
 

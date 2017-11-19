@@ -11,6 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
+use stdClass;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Http\Parser\Parser;
 
@@ -54,7 +56,7 @@ class JWTAuth extends JWT
     /**
      * Authenticate a user via a token.
      *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject|false
+     * @return JWTSubject|false
      */
     public function authenticate()
     {
@@ -70,7 +72,7 @@ class JWTAuth extends JWT
     /**
      * Alias for authenticate().
      *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject|false
+     * @return JWTSubject|false
      */
     public function toUser()
     {
@@ -79,8 +81,10 @@ class JWTAuth extends JWT
 
     /**
      * Get the authenticated user.
+     *
+     * @return JWTSubject|stdClass
      */
-    public function user(): \Tymon\JWTAuth\Contracts\JWTSubject
+    public function user()
     {
         return $this->auth->user();
     }
