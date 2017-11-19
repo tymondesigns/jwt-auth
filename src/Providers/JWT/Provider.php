@@ -122,8 +122,10 @@ abstract class Provider
     /**
      * Get the passphrase used to sign tokens
      * with an asymmetric algorithm.
+     *
+     * @return string|null
      */
-    public function getPassphrase(): string
+    public function getPassphrase()
     {
         return Arr::get($this->keys, 'passphrase');
     }

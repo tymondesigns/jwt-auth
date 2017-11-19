@@ -111,7 +111,7 @@ class Blacklist
      */
     public function has(Payload $payload): bool
     {
-        $val = $this->storage->get($this->getKey($payload));
+        $val = $this->storage->get((string) $this->getKey($payload));
 
         // exit early if the token was blacklisted forever,
         if ($val === 'forever') {

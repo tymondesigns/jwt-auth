@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Auth\GuardHelpers;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
@@ -83,7 +84,7 @@ class JWTGuard implements Guard
      *
      * @throws \Tymon\JWTAuth\Exceptions\UserNotDefinedException
      */
-    public function userOrFail(): \Illuminate\Contracts\Auth\Authenticatable
+    public function userOrFail(): Authenticatable
     {
         if (! $user = $this->user()) {
             throw new UserNotDefinedException;
@@ -102,7 +103,6 @@ class JWTGuard implements Guard
 
     /**
      * Attempt to authenticate the user using the given credentials and return the token.
-     *
      *
      * @return bool|string
      */
@@ -150,8 +150,10 @@ class JWTGuard implements Guard
 
     /**
      * Invalidate the token.
+     *
+     * @return \Tymon\JWTAuth\JWT|bool
      */
-    public function invalidate(bool $forceForever = false): \Tymon\JWTAuth\JWT
+    public function invalidate(bool $forceForever = false)
     {
         return $this->requireToken()->invalidate($forceForever);
     }

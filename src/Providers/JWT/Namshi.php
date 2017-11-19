@@ -16,6 +16,7 @@ use Namshi\JOSE\JWS;
 use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use ReflectionClass;
 use ReflectionException;
+use Throwable;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -32,9 +33,9 @@ class Namshi extends Provider implements JWT
     /**
      * Constructor.
      *
-     * @param  string|null  $driver
+     * @param  string|null|object  $driver
      */
-    public function __construct(string $secret, string $algo, array $keys = [], string $driver = null)
+    public function __construct(string $secret, string $algo, array $keys = [], $driver = null)
     {
         parent::__construct($secret, $keys, $algo);
 
