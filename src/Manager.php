@@ -58,10 +58,6 @@ class Manager
 
     /**
      * Constructor.
-     *
-     * @param  JWTContract $provider
-     * @param  Blacklist  $blacklist
-     * @param  Factory $payloadFactory
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {

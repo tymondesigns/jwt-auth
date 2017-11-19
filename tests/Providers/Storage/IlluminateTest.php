@@ -82,7 +82,6 @@ class IlluminateTest extends AbstractTestCase
     /**
      * Replace the storage with our one above that overrides the tag flag, and
      * define expectations for tags() method.
-     *
      */
     private function emulateTags()
     {

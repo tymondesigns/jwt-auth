@@ -43,10 +43,6 @@ class PayloadTest extends AbstractTestCase
         $this->payload = $this->getTestPayload();
     }
 
-    /**
-     * @param  array  $extraClaims
-     *
-     */
     private function getTestPayload(array $extraClaims = []): \Tymon\JWTAuth\Payload
     {
         $claims = [
