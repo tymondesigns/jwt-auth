@@ -135,7 +135,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = $this->guard()->attempt($credentials)) {
+        if (! isset($credentials['email']) || ! $token = $this->guard()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
