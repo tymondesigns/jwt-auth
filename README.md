@@ -22,12 +22,6 @@ Documentation for `1.0.0` is coming soon, but there is an unfinished guide [here
 
 If you want to easily add secure authentication to Laravel apps, feel free to check out Auth0's SDK and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=jwt-auth&utm_content=auth)
 
-------------------------------------
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/5S8eNjgwCUjgucKT89buNKez/tymondesigns/jwt-auth'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/5S8eNjgwCUjgucKT89buNKez/tymondesigns/jwt-auth.svg' />
-</a>
-
 ## License
 
 The MIT License (MIT)
