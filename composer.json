@@ -59,7 +59,7 @@
                 "JWTFactory": "Tymon\\JWTAuth\\Facades\\JWTFactory"
             },
             "providers": [
-                "Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
+                "Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider"
             ]
         }
     },
