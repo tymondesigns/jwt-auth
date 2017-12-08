@@ -199,7 +199,6 @@ class PayloadTest extends AbstractTestCase
     public function it_should_count_the_claims()
     {
         $this->assertSame(6, $this->payload->count());
-        $this->assertSame(6, count($this->payload));
         $this->assertCount(6, $this->payload);
     }
 
