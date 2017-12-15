@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -34,8 +36,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * @param  mixed  $value
-     *
-     * @return void
      */
     public function __construct($value)
     {
@@ -71,11 +71,9 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Set the claim name.
      *
-     * @param  string  $name
-     *
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -84,10 +82,8 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 
     /**
      * Get the claim name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -131,30 +127,24 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @param  mixed  $value
      * @param  bool  $strict
-     *
-     * @return bool
      */
-    public function matches($value, $strict = true)
+    public function matches($value, $strict = true): bool
     {
         return $strict ? $this->value === $value : $this->value == $value;
     }
 
     /**
      * Convert the object into something JSON serializable.
-     *
-     * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
 
     /**
      * Build a key value array comprising of the claim name and value.
-     *
-     * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [$this->getName() => $this->getValue()];
     }
@@ -162,21 +152,17 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Get the claim as JSON.
      *
-     * @param  int  $options
-     *
-     * @return string
+     * @param int $options
      */
-    public function toJson($options = JSON_UNESCAPED_SLASHES)
+    public function toJson($options = JSON_UNESCAPED_SLASHES): string
     {
         return json_encode($this->toArray(), $options);
     }
 
     /**
      * Get the payload as a string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toJson();
     }

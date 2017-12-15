@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -30,8 +32,6 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
     /**
      * Alias the middleware.
-     *
-     * @return void
      */
     protected function aliasMiddleware()
     {

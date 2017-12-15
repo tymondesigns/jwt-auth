@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -20,8 +22,6 @@ class InputSource implements ParserContract
 
     /**
      * Try to parse the token from the request input source.
-     *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return null|string
      */

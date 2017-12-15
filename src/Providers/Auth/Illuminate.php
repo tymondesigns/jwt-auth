@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -27,8 +29,6 @@ class Illuminate implements Auth
      * Constructor.
      *
      * @param  \Illuminate\Contracts\Auth\Guard  $auth
-     *
-     * @return void
      */
     public function __construct(GuardContract $auth)
     {
@@ -37,12 +37,8 @@ class Illuminate implements Auth
 
     /**
      * Check a user's credentials.
-     *
-     * @param  array  $credentials
-     *
-     * @return bool
      */
-    public function byCredentials(array $credentials)
+    public function byCredentials(array $credentials): bool
     {
         return $this->auth->once($credentials);
     }
@@ -51,10 +47,8 @@ class Illuminate implements Auth
      * Authenticate a user via the id.
      *
      * @param  mixed  $id
-     *
-     * @return bool
      */
-    public function byId($id)
+    public function byId($id): bool
     {
         return $this->auth->onceUsingId($id);
     }

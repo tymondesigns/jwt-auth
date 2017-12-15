@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -12,20 +14,18 @@
 namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class AuthenticateAndRenew extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $this->authenticate($request);
 

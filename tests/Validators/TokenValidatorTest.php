@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -50,10 +52,8 @@ class TokenValidatorTest extends AbstractTestCase
     /**
      * @test
      * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
-     *
-     * @param  string  $token
      */
-    public function it_should_return_false_when_providing_a_malformed_token($token)
+    public function it_should_return_false_when_providing_a_malformed_token(string $token)
     {
         $this->assertFalse($this->validator->isValid($token));
     }
@@ -62,11 +62,10 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
      *
-     * @param  string  $token
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @expectedExceptionMessage Malformed token
      */
-    public function it_should_throw_an_exception_when_providing_a_malformed_token($token)
+    public function it_should_throw_an_exception_when_providing_a_malformed_token(string $token)
     {
         $this->validator->check($token);
     }
@@ -83,10 +82,8 @@ class TokenValidatorTest extends AbstractTestCase
     /**
      * @test
      * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
-     *
-     * @param  string  $token
      */
-    public function it_should_return_false_when_providing_a_token_with_wrong_segments_number($token)
+    public function it_should_return_false_when_providing_a_token_with_wrong_segments_number(string $token)
     {
         $this->assertFalse($this->validator->isValid($token));
     }
@@ -95,11 +92,10 @@ class TokenValidatorTest extends AbstractTestCase
      * @test
      * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderTokensWithWrongSegmentsNumber
      *
-     * @param  string  $token
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @expectedExceptionMessage Wrong number of segments
      */
-    public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number($token)
+    public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number(string $token)
     {
         $this->validator->check($token);
     }

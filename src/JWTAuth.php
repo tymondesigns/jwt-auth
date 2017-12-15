@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -11,7 +13,9 @@
 
 namespace Tymon\JWTAuth;
 
+use stdClass;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class JWTAuth extends JWT
@@ -25,12 +29,6 @@ class JWTAuth extends JWT
 
     /**
      * Constructor.
-     *
-     * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Contracts\Providers\Auth  $auth
-     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
-     *
-     * @return void
      */
     public function __construct(Manager $manager, Auth $auth, Parser $parser)
     {
@@ -40,8 +38,6 @@ class JWTAuth extends JWT
 
     /**
      * Attempt to authenticate the user and return the token.
-     *
-     * @param  array  $credentials
      *
      * @return false|string
      */
@@ -57,7 +53,7 @@ class JWTAuth extends JWT
     /**
      * Authenticate a user via a token.
      *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject|false
+     * @return JWTSubject|false
      */
     public function authenticate()
     {
@@ -73,7 +69,7 @@ class JWTAuth extends JWT
     /**
      * Alias for authenticate().
      *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject|false
+     * @return JWTSubject|false
      */
     public function toUser()
     {
@@ -83,7 +79,7 @@ class JWTAuth extends JWT
     /**
      * Get the authenticated user.
      *
-     * @return \Tymon\JWTAuth\Contracts\JWTSubject
+     * @return JWTSubject|stdClass
      */
     public function user()
     {

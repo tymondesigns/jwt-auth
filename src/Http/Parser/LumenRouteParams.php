@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -18,8 +20,6 @@ class LumenRouteParams extends RouteParams
 {
     /**
      * Try to get the token from the route parameters.
-     *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return null|string
      */

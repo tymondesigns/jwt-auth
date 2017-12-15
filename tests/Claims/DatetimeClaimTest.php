@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -85,7 +87,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetime_claims()
     {
-        $testDateTime = DateTime::createFromFormat('U', $this->testNowTimestamp);
+        $testDateTime = DateTime::createFromFormat('U', (string) $this->testNowTimestamp);
         $testDateTimeCopy = clone $testDateTime;
 
         $this->assertInstanceOf(DateTime::class, $testDateTime);

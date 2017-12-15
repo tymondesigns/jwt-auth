@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -34,8 +36,6 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle()
     {
@@ -64,7 +64,8 @@ class JWTGenerateSecretCommand extends Command
             // create new entry
             file_put_contents($path, str_replace(
                 'JWT_SECRET='.$this->laravel['config']['jwt.secret'],
-                'JWT_SECRET='.$key, file_get_contents($path)
+                'JWT_SECRET='.$key,
+                file_get_contents($path)
             ));
         }
 
@@ -73,12 +74,8 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Display the key.
-     *
-     * @param  string  $key
-     *
-     * @return void
      */
-    protected function displayKey($key)
+    protected function displayKey(string $key)
     {
         $this->laravel['config']['jwt.secret'] = $key;
 
@@ -87,10 +84,8 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Check if the modification is confirmed.
-     *
-     * @return bool
      */
-    protected function isConfirmed()
+    protected function isConfirmed(): bool
     {
         return $this->option('force') ? true : $this->confirm(
             'This will invalidate all existing tokens. Are you sure you want to override the secret key?'
@@ -99,10 +94,8 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Get the .env file path.
-     *
-     * @return string
      */
-    protected function envPath()
+    protected function envPath(): string
     {
         if (method_exists($this->laravel, 'environmentFilePath')) {
             return $this->laravel->environmentFilePath();

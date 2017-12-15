@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -12,24 +14,22 @@
 namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
-use Exception;
+use Throwable;
+use Illuminate\Http\Request;
 
 class Check extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if ($this->auth->parser()->setRequest($request)->hasToken()) {
             try {
                 $this->auth->parseToken()->authenticate();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 //
             }
         }

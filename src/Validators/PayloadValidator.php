@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -41,10 +43,8 @@ class PayloadValidator extends Validator
      * Run the validations on the payload array.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $value
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    public function check($value)
+    public function check($value): Collection
     {
         $this->validateStructure($value);
 
@@ -55,11 +55,7 @@ class PayloadValidator extends Validator
      * Ensure the payload contains the required claims and
      * the claims have the relevant type.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     *
-     * @return void
      */
     protected function validateStructure(Collection $claims)
     {
@@ -71,14 +67,10 @@ class PayloadValidator extends Validator
     /**
      * Validate the payload timestamps.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validatePayload(Collection $claims)
+    protected function validatePayload(Collection $claims): Collection
     {
         return $claims->validate('payload');
     }
@@ -86,21 +78,15 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validateRefresh(Collection $claims)
+    protected function validateRefresh(Collection $claims): Collection
     {
         return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
 
     /**
      * Set the required claims.
-     *
-     * @param  array  $claims
      *
      * @return $this
      */
@@ -114,7 +100,7 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl.
      *
-     * @param  int  $ttl
+     * @param int|null $ttl
      *
      * @return $this
      */

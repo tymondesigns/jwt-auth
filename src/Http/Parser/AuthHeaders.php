@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -33,8 +35,6 @@ class AuthHeaders implements ParserContract
     /**
      * Attempt to parse the token from some other possible headers.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
      * @return null|string
      */
     protected function fromAltHeaders(Request $request)
@@ -44,8 +44,6 @@ class AuthHeaders implements ParserContract
 
     /**
      * Try to parse the token from the request header.
-     *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return null|string
      */
@@ -61,11 +59,9 @@ class AuthHeaders implements ParserContract
     /**
      * Set the header name.
      *
-     * @param  string  $headerName
-     *
      * @return $this
      */
-    public function setHeaderName($headerName)
+    public function setHeaderName(string $headerName)
     {
         $this->header = $headerName;
 
@@ -75,11 +71,9 @@ class AuthHeaders implements ParserContract
     /**
      * Set the header prefix.
      *
-     * @param  string  $headerPrefix
-     *
      * @return $this
      */
-    public function setHeaderPrefix($headerPrefix)
+    public function setHeaderPrefix(string $headerPrefix)
     {
         $this->prefix = $headerPrefix;
 

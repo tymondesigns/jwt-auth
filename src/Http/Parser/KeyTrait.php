@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -27,7 +29,7 @@ trait KeyTrait
      *
      * @return $this
      */
-    public function setKey($key)
+    public function setKey(string $key)
     {
         $this->key = $key;
 
@@ -36,10 +38,8 @@ trait KeyTrait
 
     /**
      * Get the key.
-     *
-     * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }

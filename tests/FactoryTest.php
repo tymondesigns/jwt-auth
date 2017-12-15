@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -169,12 +171,12 @@ class FactoryTest extends AbstractTestCase
         $this->claimFactory->shouldReceive('getTTL')->andReturn(null);
 
         // once
-        $claims = $this->factory->setTTL(null)->sub(1)->buildClaimsCollection();
+        $claims = $this->factory->setTTL(0)->sub(1)->buildClaimsCollection();
 
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
 
         // twice
-        $payload = $this->factory->setTTL(null)->sub(1)->make();
+        $payload = $this->factory->setTTL(0)->sub(1)->make();
 
         $this->assertNull($payload->get('exp'));
 

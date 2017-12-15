@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -17,17 +19,13 @@ interface Validator
      * Perform some checks on the value.
      *
      * @param  mixed  $value
-     *
-     * @return void
      */
     public function check($value);
 
     /**
      * Helper function to return a boolean.
      *
-     * @param  array  $value
-     *
-     * @return bool
+     * @param  array|mixed  $value
      */
-    public function isValid($value);
+    public function isValid($value): bool;
 }

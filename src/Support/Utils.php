@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -17,46 +19,32 @@ class Utils
 {
     /**
      * Get the Carbon instance for the current time.
-     *
-     * @return \Carbon\Carbon
      */
-    public static function now()
+    public static function now(): Carbon
     {
         return Carbon::now('UTC');
     }
 
     /**
      * Get the Carbon instance for the timestamp.
-     *
-     * @param  int  $timestamp
-     *
-     * @return \Carbon\Carbon
      */
-    public static function timestamp($timestamp)
+    public static function timestamp(int $timestamp): Carbon
     {
         return Carbon::createFromTimestampUTC($timestamp)->timezone('UTC');
     }
 
     /**
      * Checks if a timestamp is in the past.
-     *
-     * @param  int  $timestamp
-     *
-     * @return bool
      */
-    public static function isPast($timestamp)
+    public static function isPast(int $timestamp): bool
     {
         return static::timestamp($timestamp)->isPast();
     }
 
     /**
      * Checks if a timestamp is in the future.
-     *
-     * @param  int  $timestamp
-     *
-     * @return bool
      */
-    public static function isFuture($timestamp)
+    public static function isFuture(int $timestamp): bool
     {
         return static::timestamp($timestamp)->isFuture();
     }

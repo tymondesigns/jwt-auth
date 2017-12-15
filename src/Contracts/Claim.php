@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -38,21 +40,19 @@ interface Claim
      *
      * @return $this
      */
-    public function setName($name);
+    public function setName(string $name);
 
     /**
      * Get the claim name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Validate the Claim value.
      *
      * @param  mixed  $value
      *
-     * @return bool
+     * @return bool|mixed
      */
     public function validateCreate($value);
 }

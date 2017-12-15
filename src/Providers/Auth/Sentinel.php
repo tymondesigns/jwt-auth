@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -27,8 +29,6 @@ class Sentinel implements Auth
      * Constructor.
      *
      * @param  \Cartalyst\Sentinel\Sentinel  $sentinel
-     *
-     * @return void
      */
     public function __construct(SentinelAuth $sentinel)
     {
@@ -37,8 +37,6 @@ class Sentinel implements Auth
 
     /**
      * Check a user's credentials.
-     *
-     * @param  array  $credentials
      *
      * @return mixed
      */
@@ -51,10 +49,8 @@ class Sentinel implements Auth
      * Authenticate a user via the id.
      *
      * @param  mixed  $id
-     *
-     * @return bool
      */
-    public function byId($id)
+    public function byId($id): bool
     {
         if ($user = $this->sentinel->getUserRepository()->findById($id)) {
             $this->sentinel->setUser($user);
@@ -67,10 +63,8 @@ class Sentinel implements Auth
 
     /**
      * Get the currently authenticated user.
-     *
-     * @return \Cartalyst\Sentinel\Users\UserInterface
      */
-    public function user()
+    public function user(): \Cartalyst\Sentinel\Users\UserInterface
     {
         return $this->sentinel->getUser();
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -27,10 +29,6 @@ abstract class BaseMiddleware
 
     /**
      * Create a new BaseMiddleware instance.
-     *
-     * @param  \Tymon\JWTAuth\JWTAuth  $auth
-     *
-     * @return void
      */
     public function __construct(JWTAuth $auth)
     {
@@ -40,11 +38,7 @@ abstract class BaseMiddleware
     /**
      * Check the request for the presence of a token.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     *
-     * @return void
      */
     public function checkForToken(Request $request)
     {
@@ -56,11 +50,7 @@ abstract class BaseMiddleware
     /**
      * Attempt to authenticate a user via the token in the request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     *
-     * @return void
      */
     public function authenticate(Request $request)
     {

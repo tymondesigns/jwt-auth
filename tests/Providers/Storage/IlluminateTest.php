@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -82,8 +84,6 @@ class IlluminateTest extends AbstractTestCase
     /**
      * Replace the storage with our one above that overrides the tag flag, and
      * define expectations for tags() method.
-     *
-     * @return void
      */
     private function emulateTags()
     {

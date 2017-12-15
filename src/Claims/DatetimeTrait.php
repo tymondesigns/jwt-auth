@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -56,10 +58,8 @@ trait DatetimeTrait
      * Determine whether the value is in the future.
      *
      * @param  mixed  $value
-     *
-     * @return bool
      */
-    protected function isFuture($value)
+    protected function isFuture($value): bool
     {
         return Utils::isFuture($value);
     }
@@ -68,10 +68,8 @@ trait DatetimeTrait
      * Determine whether the value is in the past.
      *
      * @param  mixed  $value
-     *
-     * @return bool
      */
-    protected function isPast($value)
+    protected function isPast($value): bool
     {
         return Utils::isPast($value);
     }

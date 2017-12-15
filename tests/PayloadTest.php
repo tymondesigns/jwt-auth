@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -43,12 +45,7 @@ class PayloadTest extends AbstractTestCase
         $this->payload = $this->getTestPayload();
     }
 
-    /**
-     * @param  array  $extraClaims
-     *
-     * @return \Tymon\JWTAuth\Payload
-     */
-    private function getTestPayload(array $extraClaims = [])
+    private function getTestPayload(array $extraClaims = []): \Tymon\JWTAuth\Payload
     {
         $claims = [
             new Subject(1),

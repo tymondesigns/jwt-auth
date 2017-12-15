@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -46,10 +48,6 @@ class Blacklist
 
     /**
      * Constructor.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\Providers\Storage  $storage
-     *
-     * @return void
      */
     public function __construct(Storage $storage)
     {
@@ -58,12 +56,8 @@ class Blacklist
 
     /**
      * Add the token (jti claim) to the blacklist.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return bool
      */
-    public function add(Payload $payload)
+    public function add(Payload $payload): bool
     {
         // if there is no exp claim then add the jwt to
         // the blacklist indefinitely
@@ -82,12 +76,8 @@ class Blacklist
 
     /**
      * Get the number of minutes until the token expiry.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return int
      */
-    protected function getMinutesUntilExpired(Payload $payload)
+    protected function getMinutesUntilExpired(Payload $payload): int
     {
         $exp = Utils::timestamp($payload['exp']);
         $iat = Utils::timestamp($payload['iat']);
@@ -100,12 +90,8 @@ class Blacklist
 
     /**
      * Add the token (jti claim) to the blacklist indefinitely.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return bool
      */
-    public function addForever(Payload $payload)
+    public function addForever(Payload $payload): bool
     {
         $this->storage->forever($this->getKey($payload), 'forever');
 
@@ -114,14 +100,10 @@ class Blacklist
 
     /**
      * Determine whether the token has been blacklisted.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return bool
      */
-    public function has(Payload $payload)
+    public function has(Payload $payload): bool
     {
-        $val = $this->storage->get($this->getKey($payload));
+        $val = $this->storage->get((string) $this->getKey($payload));
 
         // exit early if the token was blacklisted forever,
         if ($val === 'forever') {
@@ -134,22 +116,16 @@ class Blacklist
 
     /**
      * Remove the token (jti claim) from the blacklist.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return bool
      */
-    public function remove(Payload $payload)
+    public function remove(Payload $payload): bool
     {
         return $this->storage->destroy($this->getKey($payload));
     }
 
     /**
      * Remove all tokens from the blacklist.
-     *
-     * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         $this->storage->flush();
 
@@ -159,10 +135,8 @@ class Blacklist
     /**
      * Get the timestamp when the blacklist comes into effect
      * This defaults to immediate (0 seconds).
-     *
-     * @return int
      */
-    protected function getGraceTimestamp()
+    protected function getGraceTimestamp(): int
     {
         return Utils::now()->addSeconds($this->gracePeriod)->getTimestamp();
     }
@@ -170,11 +144,9 @@ class Blacklist
     /**
      * Set the grace period.
      *
-     * @param  int  $gracePeriod
-     *
      * @return $this
      */
-    public function setGracePeriod($gracePeriod)
+    public function setGracePeriod(int $gracePeriod)
     {
         $this->gracePeriod = (int) $gracePeriod;
 
@@ -183,18 +155,14 @@ class Blacklist
 
     /**
      * Get the grace period.
-     *
-     * @return int
      */
-    public function getGracePeriod()
+    public function getGracePeriod(): int
     {
         return $this->gracePeriod;
     }
 
     /**
      * Get the unique key held within the blacklist.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
      *
      * @return mixed
      */
@@ -206,11 +174,9 @@ class Blacklist
     /**
      * Set the unique key held within the blacklist.
      *
-     * @param  string  $key
-     *
      * @return $this
      */
-    public function setKey($key)
+    public function setKey(string $key)
     {
         $this->key = value($key);
 
@@ -220,11 +186,9 @@ class Blacklist
     /**
      * Set the refresh time limit.
      *
-     * @param  int  $ttl
-     *
      * @return $this
      */
-    public function setRefreshTTL($ttl)
+    public function setRefreshTTL(int $ttl)
     {
         $this->refreshTTL = (int) $ttl;
 
@@ -233,10 +197,8 @@ class Blacklist
 
     /**
      * Get the refresh time limit.
-     *
-     * @return int
      */
-    public function getRefreshTTL()
+    public function getRefreshTTL(): int
     {
         return $this->refreshTTL;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -11,7 +13,7 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-use Exception;
+use Throwable;
 use Namshi\JOSE\JWS;
 use ReflectionClass;
 use ReflectionException;
@@ -33,14 +35,9 @@ class Namshi extends Provider implements JWT
     /**
      * Constructor.
      *
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
-     * @param  string|null  $driver
-     *
-     * @return void
+     * @param  string|null|object  $driver
      */
-    public function __construct($secret, $algo, array $keys = [], $driver = null)
+    public function __construct(string $secret, string $algo, array $keys = [], $driver = null)
     {
         parent::__construct($secret, $keys, $algo);
 
@@ -50,19 +47,15 @@ class Namshi extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param  array  $payload
-     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return string
      */
-    public function encode(array $payload)
+    public function encode(array $payload): string
     {
         try {
             $this->jws->setPayload($payload)->sign($this->getSigningKey(), $this->getPassphrase());
 
             return (string) $this->jws->getTokenString();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
@@ -70,13 +63,9 @@ class Namshi extends Provider implements JWT
     /**
      * Decode a JSON Web Token.
      *
-     * @param  string  $token
-     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return array
      */
-    public function decode($token)
+    public function decode(string $token): array
     {
         try {
             // Let's never allow insecure tokens
@@ -97,10 +86,8 @@ class Namshi extends Provider implements JWT
      * requires a public/private key combo.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return bool
      */
-    protected function isAsymmetric()
+    protected function isAsymmetric(): bool
     {
         try {
             return (new ReflectionClass(sprintf('Namshi\\JOSE\\Signer\\OpenSSL\\%s', $this->getAlgo())))->isSubclassOf(PublicKey::class);

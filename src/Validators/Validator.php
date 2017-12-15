@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -22,11 +24,9 @@ abstract class Validator implements ValidatorContract
     /**
      * Helper function to return a boolean.
      *
-     * @param  array  $value
-     *
-     * @return bool
+     * @param array|object $value
      */
-    public function isValid($value)
+    public function isValid($value): bool
     {
         try {
             $this->check($value);
@@ -42,7 +42,7 @@ abstract class Validator implements ValidatorContract
      *
      * @param  array  $value
      *
-     * @return void
+     * @return mixed
      */
     abstract public function check($value);
 }
