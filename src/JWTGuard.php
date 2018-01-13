@@ -342,7 +342,7 @@ class JWTGuard implements Guard
     /**
      * Get the current request instance.
      *
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return \Illuminate\Http\Request
      */
     public function getRequest()
     {
