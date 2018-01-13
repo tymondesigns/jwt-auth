@@ -18,7 +18,7 @@ matrix:
     - php: hhvm-3.18
       sudo: required
       dist: trusty
-      env: LARAVEL='5.4.*' XDEBUG=1
+      env: LARAVEL='5.5.*' XDEBUG=1
       group: edge
     - php: 5.5.9
       env: LARAVEL='5.1.*'
