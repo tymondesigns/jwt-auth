@@ -399,7 +399,7 @@ class JWTGuard implements Guard
             return true;
         }
 
-        return $this->jwt->checkProvider($this->provider->getModel());
+        return $this->jwt->checkSubjectModel($this->provider->getModel());
     }
 
     /**

@@ -215,10 +215,10 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerJWT()
     {
         $this->app->singleton('tymon.jwt', function ($app) {
-            return new JWT(
+            return (new JWT(
                 $app['tymon.jwt.manager'],
                 $app['tymon.jwt.parser']
-            );
+            ))->lockSubject($this->config('lock_subject'));
         });
     }
 

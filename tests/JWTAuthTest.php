@@ -85,7 +85,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
-        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkProvider('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -99,7 +99,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
-        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkProvider('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -113,7 +113,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
 
-        $this->assertFalse($this->jwtAuth->setToken('foo.bar.baz')->checkProvider('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertFalse($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -278,7 +278,7 @@ class JWTAuthTest extends AbstractTestCase
     {
         $this->parser->shouldReceive('parseToken')->andReturn(false);
 
-        $this->assertFalse($this->jwtAuth->getToken());
+        $this->assertNull($this->jwtAuth->getToken());
     }
 
     /** @test */
@@ -313,7 +313,7 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->assertSame($this->jwtAuth->getToken(), $token);
         $this->jwtAuth->unsetToken();
-        $this->assertFalse($this->jwtAuth->getToken());
+        $this->assertNull($this->jwtAuth->getToken());
     }
 
     /** @test */
