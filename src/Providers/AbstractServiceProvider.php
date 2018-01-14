@@ -139,6 +139,11 @@ abstract class AbstractServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Register the bindings for the Lcobucci JWT provider.
+     *
+     * @return void
+     */
     protected function registerLcobucciProvider()
     {
         $this->app->singleton('tymon.jwt.provider.jwt.lcobucci', function ($app) {
