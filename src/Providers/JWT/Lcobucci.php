@@ -1,21 +1,30 @@
 <?php
 
+/*
+ * This file is part of jwt-auth.
+ *
+ * (c) Sean Tymon <tymon148@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Rsa;
-use Lcobucci\JWT\Signer\Ecdsa;
 use InvalidArgumentException;
+use Lcobucci\JWT\Signer\Ecdsa;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
 use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
+use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as HS256;
-use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
 use Lcobucci\JWT\Signer\Hmac\Sha384 as HS384;
+use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256 as ES256;
 use Lcobucci\JWT\Signer\Ecdsa\Sha384 as ES384;
 use Lcobucci\JWT\Signer\Ecdsa\Sha512 as ES512;
@@ -46,7 +55,7 @@ class Lcobucci extends Provider implements JWT
     }
 
     /**
-     * Signers that this provider supports
+     * Signers that this provider supports.
      *
      * @var array
      */
@@ -73,7 +82,7 @@ class Lcobucci extends Provider implements JWT
      */
     public function encode(array $payload)
     {
-        foreach($payload as $key => $value) {
+        foreach ($payload as $key => $value) {
             $this->builder->set($key, $value);
         }
 
@@ -135,7 +144,7 @@ class Lcobucci extends Provider implements JWT
     {
         $reflect = new ReflectionClass($this->signer);
 
-        return ($reflect->isSubclassOf(Rsa::class) || $reflect->isSubclassOf(Ecdsa::class));
+        return $reflect->isSubclassOf(Rsa::class) || $reflect->isSubclassOf(Ecdsa::class);
     }
 
     /**
