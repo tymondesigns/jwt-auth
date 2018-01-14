@@ -16,7 +16,6 @@ use ReflectionClass;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Rsa;
-use InvalidArgumentException;
 use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Keychain;
 use Illuminate\Support\Collection;
@@ -128,7 +127,7 @@ class Lcobucci extends Provider implements JWT
     {
         try {
             $jwt = $this->parser->parse($token);
-        } catch (InvalidArgumentException $e) {
+        } catch (Exception $e) {
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
