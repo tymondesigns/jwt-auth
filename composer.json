@@ -28,6 +28,7 @@
         "illuminate/contracts": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
         "illuminate/http": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
         "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+        "lcobucci/jwt": "^3.2",
         "namshi/jose": "^7.0",
         "nesbot/carbon": "^1.0"
     },

@@ -12,24 +12,27 @@
 namespace Tymon\JWTAuth\Providers;
 
 use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTAuth;
+use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Lcobucci\JWT\Parser as JWTParser;
 use Tymon\JWTAuth\Http\Parser\Cookies;
 use Illuminate\Support\ServiceProvider;
+use Lcobucci\JWT\Builder as JWTBuilder;
 use Tymon\JWTAuth\Http\Middleware\Check;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Providers\JWT\Lcobucci;
 use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\QueryString;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
+use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Console\JWTGenerateSecretCommand;
 use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
@@ -113,6 +116,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt', JWT::class);
         $this->app->alias('tymon.jwt.auth', JWTAuth::class);
         $this->app->alias('tymon.jwt.provider.jwt', JWTContract::class);
+        $this->app->alias('tymon.jwt.provider.jwt.lcobucci', Lcobucci::class);
         $this->app->alias('tymon.jwt.provider.auth', Auth::class);
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
         $this->app->alias('tymon.jwt.manager', Manager::class);
@@ -128,14 +132,21 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerJWTProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
-            $provider = $this->config('providers.jwt');
+        $this->registerLcobucciProvider();
 
-            return new $provider(
-                $this->config('secret'),
-                $this->config('algo'),
-                $this->config('keys')
-            );
+        $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
+            return $this->app->make($this->config('providers.jwt'));
+        });
+    }
+
+    protected function registerLcobucciProvider()
+    {
+        $this->app->singleton('tymon.jwt.provider.jwt.lcobucci', function ($app) {
+            $provider = new Lcobucci(new JWTBuilder(), new JWTParser());
+
+            return $provider->setSecret($this->config('secret'))
+                            ->setAlgo($this->config('algo'))
+                            ->setKeys($this->config('keys'));
         });
     }
 
