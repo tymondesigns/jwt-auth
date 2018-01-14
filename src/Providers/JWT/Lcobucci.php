@@ -19,6 +19,7 @@ use Lcobucci\JWT\Signer\Rsa;
 use InvalidArgumentException;
 use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Keychain;
+use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
@@ -135,7 +136,9 @@ class Lcobucci extends Provider implements JWT
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return $jwt->getClaims();
+        return (new Collection($jwt->getClaims()))->map(function ($claim) {
+            return $claim->getValue();
+        })->toArray();
     }
 
     /**
