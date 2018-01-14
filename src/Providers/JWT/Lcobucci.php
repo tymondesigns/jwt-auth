@@ -53,14 +53,23 @@ class Lcobucci extends Provider implements JWT
      *
      * @param  \Lcobucci\JWT\Builder  $builder
      * @param  \Lcobucci\JWT\Parser  $parser
+     * @param  string  $secret
+     * @param  string  $algo
+     * @param  array  $keys
      *
      * @return void
      */
-    public function __construct(Builder $builder, Parser $parser)
-    {
+    public function __construct(
+        Builder $builder,
+        Parser $parser,
+        $secret,
+        $algo,
+        array $keys
+    ) {
+        parent::__construct($secret, $algo, $keys);
+
         $this->builder = $builder;
         $this->parser = $parser;
-
         $this->signer = $this->getSigner();
     }
 

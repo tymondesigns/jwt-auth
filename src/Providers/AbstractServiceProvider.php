@@ -11,23 +11,25 @@
 
 namespace Tymon\JWTAuth\Providers;
 
+use Namshi\JOSE\JWS;
 use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Blacklist;
 use Lcobucci\JWT\Parser as JWTParser;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Http\Parser\Cookies;
-use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Builder as JWTBuilder;
+use Tymon\JWTAuth\Providers\JWT\Namshi;
+use Illuminate\Support\ServiceProvider;
 use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Providers\JWT\Lcobucci;
-use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\InputSource;
-use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Http\Parser\RouteParams;
+use Tymon\JWTAuth\Http\Parser\AuthHeaders;
+use Tymon\JWTAuth\Http\Parser\QueryString;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -116,6 +118,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt', JWT::class);
         $this->app->alias('tymon.jwt.auth', JWTAuth::class);
         $this->app->alias('tymon.jwt.provider.jwt', JWTContract::class);
+        $this->app->alias('tymon.jwt.provider.jwt.namshi', Namshi::class);
         $this->app->alias('tymon.jwt.provider.jwt.lcobucci', Lcobucci::class);
         $this->app->alias('tymon.jwt.provider.auth', Auth::class);
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
@@ -132,6 +135,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerJWTProvider()
     {
+        $this->registerNamshiProvider();
         $this->registerLcobucciProvider();
 
         $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
@@ -144,14 +148,33 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    protected function registerNamshiProvider()
+    {
+        $this->app->singleton('tymon.jwt.provider.jwt.namshi', function ($app) {
+            return new Namshi(
+                new JWS(['typ' => 'JWT', 'alg' => $this->config('algo')]),
+                $this->config('secret'),
+                $this->config('algo'),
+                $this->config('keys')
+            );
+        });
+    }
+
+    /**
+     * Register the bindings for the Lcobucci JWT provider.
+     *
+     * @return void
+     */
     protected function registerLcobucciProvider()
     {
         $this->app->singleton('tymon.jwt.provider.jwt.lcobucci', function ($app) {
-            $provider = new Lcobucci(new JWTBuilder(), new JWTParser());
-
-            return $provider->setSecret($this->config('secret'))
-                            ->setAlgo($this->config('algo'))
-                            ->setKeys($this->config('keys'));
+            return new Lcobucci(
+                new JWTBuilder(),
+                new JWTParser(),
+                $this->config('secret'),
+                $this->config('algo'),
+                $this->config('keys')
+            );
         });
     }
 

@@ -37,6 +37,22 @@ abstract class Provider
     protected $algo;
 
     /**
+     * Constructor.
+     *
+     * @param  string  $secret
+     * @param  string  $algo
+     * @param  array  $keys
+     *
+     * @return void
+     */
+    public function __construct($secret, $algo, array $keys)
+    {
+        $this->secret = $secret;
+        $this->algo = $algo;
+        $this->keys = $keys;
+    }
+
+    /**
      * Set the algorithm used to sign the token.
      *
      * @param  string  $algo
