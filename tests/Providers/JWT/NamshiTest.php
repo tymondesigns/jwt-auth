@@ -209,7 +209,7 @@ class NamshiTest extends AbstractTestCase
 
     public function getProvider($secret, $algo, array $keys = [])
     {
-        return new Namshi($secret, $algo, $keys, $this->jws);
+        return new Namshi($this->jws, $secret, $algo, $keys);
     }
 
     public function getDummyPrivateKey()
