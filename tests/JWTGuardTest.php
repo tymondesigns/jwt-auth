@@ -214,8 +214,14 @@ class JWTGuardTest extends AbstractTestCase
                   ->with($user)
                   ->andReturn('foo.bar.baz');
 
-        $token = $this->guard->attempt($credentials);
+        $this->jwt->shouldReceive('claims')
+                  ->once()
+                  ->with(['foo' => 'bar'])
+                  ->andReturnSelf();
 
+        $token = $this->guard->claims(['foo' => 'bar'])->attempt($credentials);
+
+        $this->assertSame($this->guard->getLastAttempted(), $user);
         $this->assertSame($token, 'foo.bar.baz');
     }
 
