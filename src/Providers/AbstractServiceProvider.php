@@ -139,7 +139,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->registerLcobucciProvider();
 
         $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
-            return $this->app->make($this->config('providers.jwt'));
+            return $this->getConfigInstance('providers.jwt');
         });
     }
 
@@ -317,7 +317,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $factory = new ClaimFactory($app['request']);
             $app->refresh('request', $factory, 'setRequest');
 
-            return $factory->setTTL($this->config('ttl'));
+            return $factory->setTTL($this->config('ttl'))
+                           ->setLeeway($this->config('leeway'));
         });
     }
 

@@ -32,6 +32,13 @@ class Factory
     protected $ttl = 60;
 
     /**
+     * Time leeway in seconds.
+     *
+     * @var int
+     */
+    protected $leeway = 0;
+
+    /**
      * The classes map.
      *
      * @var array
@@ -69,7 +76,11 @@ class Factory
     public function get($name, $value)
     {
         if ($this->has($name)) {
-            return new $this->classMap[$name]($value);
+            $claim = new $this->classMap[$name]($value);
+
+            return method_exists($claim, 'setLeeway') ?
+                $claim->setLeeway($this->leeway) :
+                $claim;
         }
 
         return new Custom($name, $value);
@@ -200,5 +211,19 @@ class Factory
     public function getTTL()
     {
         return $this->ttl;
+    }
+
+    /**
+     * Set the leeway in seconds.
+     *
+     * @param  int  $leeway
+     *
+     * @return $this
+     */
+    public function setLeeway($leeway)
+    {
+        $this->leeway = $leeway;
+
+        return $this;
     }
 }
