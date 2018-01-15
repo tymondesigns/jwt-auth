@@ -8,7 +8,7 @@ composer require tymon/jwt-auth
 
 -------------------------------------------------------------------------------
 
-### Add service provider
+### Add service provider ( Laravel 5.4 or below )
 
 Add the service provider to the `providers` array in the `config/app.php` config file as follows:
 
