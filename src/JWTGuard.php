@@ -136,9 +136,10 @@ class JWTGuard implements Guard
      */
     public function login(JWTSubject $user)
     {
-        $this->setUser($user);
+        $token = $this->jwt->fromUser($user);
+        $this->setToken($token)->setUser($user);
 
-        return $this->jwt->fromUser($user);
+        return $token;
     }
 
     /**

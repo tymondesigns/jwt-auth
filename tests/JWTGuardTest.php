@@ -214,6 +214,11 @@ class JWTGuardTest extends AbstractTestCase
                   ->with($user)
                   ->andReturn('foo.bar.baz');
 
+        $this->jwt->shouldReceive('setToken')
+                  ->once()
+                  ->with('foo.bar.baz')
+                  ->andReturnSelf();
+
         $this->jwt->shouldReceive('claims')
                   ->once()
                   ->with(['foo' => 'bar'])
@@ -459,6 +464,11 @@ class JWTGuardTest extends AbstractTestCase
                   ->once()
                   ->with($user)
                   ->andReturn('foo.bar.baz');
+
+        $this->jwt->shouldReceive('setToken')
+                  ->once()
+                  ->with('foo.bar.baz')
+                  ->andReturnSelf();
 
         $token = $this->guard->login($user);
 
