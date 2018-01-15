@@ -136,7 +136,7 @@ class Lcobucci extends Provider implements JWT
         }
 
         return (new Collection($jwt->getClaims()))->map(function ($claim) {
-            return $claim->getValue();
+            return is_object($claim) ? $claim->getValue() : $claim;
         })->toArray();
     }
 
