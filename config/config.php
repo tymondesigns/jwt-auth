@@ -194,6 +194,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Leeway
+    |--------------------------------------------------------------------------
+    |
+    | This property gives the jwt timestamp claims some "leeway".
+    | Meaning that if you have any unavoidable slight clock skew on
+    | any of your servers then this will afford you some level of cushioning.
+    |
+    | This applies to the claims `iat`, `nbf` and `exp`.
+    |
+    | Specify in seconds - only if you know you need it.
+    |
+    */
+
+    'leeway' => env('JWT_LEEWAY', 0),
+
+    /*
+    |--------------------------------------------------------------------------
     | Blacklist Enabled
     |--------------------------------------------------------------------------
     |
@@ -257,7 +274,7 @@ return [
         |
         */
 
-        'jwt' => Tymon\JWTAuth\Providers\JWT\Namshi::class,
+        'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
 
         /*
         |--------------------------------------------------------------------------

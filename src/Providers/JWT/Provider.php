@@ -40,16 +40,16 @@ abstract class Provider
      * Constructor.
      *
      * @param  string  $secret
-     * @param  array  $keys
      * @param  string  $algo
+     * @param  array  $keys
      *
      * @return void
      */
-    public function __construct($secret, array $keys, $algo)
+    public function __construct($secret, $algo, array $keys)
     {
         $this->secret = $secret;
-        $this->keys = $keys;
         $this->algo = $algo;
+        $this->keys = $keys;
     }
 
     /**
@@ -101,6 +101,20 @@ abstract class Provider
     }
 
     /**
+     * Set the keys used to sign the token.
+     *
+     * @param  array  $keys
+     *
+     * @return $this
+     */
+    public function setKeys(array $keys)
+    {
+        $this->keys = $keys;
+
+        return $this;
+    }
+
+    /**
      * Get the array of keys used to sign tokens
      * with an asymmetric algorithm.
      *
@@ -143,4 +157,34 @@ abstract class Provider
     {
         return Arr::get($this->keys, 'passphrase');
     }
+
+    /**
+     * Get the key used to sign the tokens.
+     *
+     * @return resource|string
+     */
+    protected function getSigningKey()
+    {
+        return $this->isAsymmetric() ? $this->getPrivateKey() : $this->getSecret();
+    }
+
+    /**
+     * Get the key used to verify the tokens.
+     *
+     * @return resource|string
+     */
+    protected function getVerificationKey()
+    {
+        return $this->isAsymmetric() ? $this->getPublicKey() : $this->getSecret();
+    }
+
+    /**
+     * Determine if the algorithm is asymmetric, and thus
+     * requires a public/private key combo.
+     *
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
+     *
+     * @return bool
+     */
+    abstract protected function isAsymmetric();
 }

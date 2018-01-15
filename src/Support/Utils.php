@@ -41,23 +41,25 @@ class Utils
      * Checks if a timestamp is in the past.
      *
      * @param  int  $timestamp
+     * @param  int  $leeway
      *
      * @return bool
      */
-    public static function isPast($timestamp)
+    public static function isPast($timestamp, $leeway = 0)
     {
-        return static::timestamp($timestamp)->isPast();
+        return static::timestamp($timestamp)->addSeconds($leeway)->isPast();
     }
 
     /**
      * Checks if a timestamp is in the future.
      *
      * @param  int  $timestamp
+     * @param  int  $leeway
      *
      * @return bool
      */
-    public static function isFuture($timestamp)
+    public static function isFuture($timestamp, $leeway = 0)
     {
-        return static::timestamp($timestamp)->isFuture();
+        return static::timestamp($timestamp)->subSeconds($leeway)->isFuture();
     }
 }

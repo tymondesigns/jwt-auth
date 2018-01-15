@@ -82,7 +82,7 @@ class FactoryTest extends AbstractTestCase
         $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
 
         // twice
-        $payload = $this->factory->customClaims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
+        $payload = $this->factory->claims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
 
         $this->assertSame($payload->get('sub'), 1);
         $this->assertSame($payload->get('iat'), 123);

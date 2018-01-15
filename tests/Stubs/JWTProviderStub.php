@@ -15,5 +15,11 @@ use Tymon\JWTAuth\Providers\JWT\Provider;
 
 class JWTProviderStub extends Provider
 {
-    //
+    /**
+     * {@inheritdoc}
+     */
+    protected function isAsymmetric()
+    {
+        return false;
+    }
 }
