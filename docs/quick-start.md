@@ -135,7 +135,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = $this->guard()->attempt($credentials)) {
+        if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -149,7 +149,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json($this->guard()->user());
+        return response()->json(auth()->user());
     }
 
     /**
@@ -159,7 +159,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        $this->guard()->logout();
+        auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -171,7 +171,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken($this->guard()->refresh());
+        return $this->respondWithToken(auth()->refresh());
     }
 
     /**
@@ -186,18 +186,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60
         ]);
-    }
-
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    protected function guard()
-    {
-        return Auth::guard();
     }
 }
 ```
