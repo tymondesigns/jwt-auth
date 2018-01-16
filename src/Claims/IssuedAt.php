@@ -17,7 +17,9 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class IssuedAt extends Claim
 {
-    use DatetimeTrait;
+    use DatetimeTrait {
+        validateCreate as commonValidateCreate;
+    }
 
     /**
      * {@inheritdoc}
@@ -29,7 +31,9 @@ class IssuedAt extends Claim
      */
     public function validateCreate($value)
     {
-        if (! is_numeric($value) || $this->isFuture($value)) {
+        $this->commonValidateCreate($value);
+
+        if ($this->isFuture($value)) {
             throw new InvalidClaimException($this);
         }
 
