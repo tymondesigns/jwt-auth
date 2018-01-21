@@ -50,6 +50,7 @@ class LcobucciTest extends AbstractTestCase
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
+        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
         $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret');
         $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
@@ -68,6 +69,7 @@ class LcobucciTest extends AbstractTestCase
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
+        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
         $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret')->andThrow(new Exception);
 
@@ -125,6 +127,7 @@ class LcobucciTest extends AbstractTestCase
 
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
+        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
         $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), Mockery::type(Key::class));
         $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
