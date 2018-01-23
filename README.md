@@ -13,7 +13,7 @@
 
 For version `0.5.*` See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation.
 
-Documentation for `1.0.0` is coming soon, but there is an unfinished guide [here](http://jwt-auth.readthedocs.io/en/docs/laravel-installation)
+Documentation for `1.0.0` is coming soon, but there is an unfinished guide [here](http://jwt-auth.readthedocs.io)
 
 -----------------------------------
 
