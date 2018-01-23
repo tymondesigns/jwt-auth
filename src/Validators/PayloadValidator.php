@@ -38,6 +38,13 @@ class PayloadValidator extends Validator
     protected $refreshTTL = 20160;
 
     /**
+     * The TTL.
+     *
+     * @var int
+     */
+    protected $ttl = 60;
+
+    /**
      * Run the validations on the payload array.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $value
@@ -63,7 +70,7 @@ class PayloadValidator extends Validator
      */
     protected function validateStructure(Collection $claims)
     {
-        if (! $claims->hasAllClaims($this->requiredClaims)) {
+        if (! $claims->hasAllClaims($this->getRequiredClaims())) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');
         }
     }
@@ -112,6 +119,21 @@ class PayloadValidator extends Validator
     }
 
     /**
+     * Get the required claims.
+     *
+     * @return array
+     */
+    public function getRequiredClaims()
+    {
+        $requiredClaims = $this->requiredClaims;
+        if ($this->ttl === null && $key = array_search('exp', $requiredClaims)) {
+            unset($requiredClaims[$key]);
+        }
+
+        return $requiredClaims;
+    }
+
+    /**
      * Set the refresh ttl.
      *
      * @param  int  $ttl
@@ -121,6 +143,20 @@ class PayloadValidator extends Validator
     public function setRefreshTTL($ttl)
     {
         $this->refreshTTL = $ttl;
+
+        return $this;
+    }
+
+    /**
+     * Set the refresh ttl.
+     *
+     * @param  int  $ttl
+     *
+     * @return $this
+     */
+    public function setTTL($ttl)
+    {
+        $this->ttl = $ttl;
 
         return $this;
     }

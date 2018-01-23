@@ -301,6 +301,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     {
         $this->app->singleton('tymon.jwt.validators.payload', function () {
             return (new PayloadValidator)
+                ->setTTL($this->config('ttl'))
                 ->setRefreshTTL($this->config('refresh_ttl'))
                 ->setRequiredClaims($this->config('required_claims'));
         });
