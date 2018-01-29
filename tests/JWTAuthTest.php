@@ -317,6 +317,28 @@ class JWTAuthTest extends AbstractTestCase
     }
 
     /** @test */
+    public function if_the_token_has_been_flushed_it_should_not_try_to_parse_from_the_request()
+    {
+        $this->parser->shouldNotReceive('parseToken');
+        $token = new Token('foo.bar.baz');
+        $this->jwtAuth->setToken($token);
+
+        $this->jwtAuth->flushToken();
+        $this->assertNull($this->jwtAuth->getToken());
+    }
+
+    /** @test */
+    public function it_returns_a_token_if_it_has_been_set_after_being_flushed()
+    {
+        $this->parser->shouldNotReceive('parseToken');
+        $this->jwtAuth->flushToken();
+
+        $token = new Token('foo.bar.baz');
+        $this->jwtAuth->setToken($token);
+        $this->assertSame('foo.bar.baz', $this->jwtAuth->getToken()->get());
+    }
+
+    /** @test */
     public function it_should_get_the_manager_instance()
     {
         $manager = $this->jwtAuth->manager();
