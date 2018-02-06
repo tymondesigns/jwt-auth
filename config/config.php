@@ -248,11 +248,11 @@ return [
     | see https://laravel.com/docs/master/responses#cookies-and-encryption
     | for details.
     |
-    | Set it to false if you don't want to decrypt cookies.
+    | Set it to true if you want to decrypt cookies.
     |
     */
 
-    'decrypt_cookies' => true,
+    'decrypt_cookies' => false,
 
     /*
     |--------------------------------------------------------------------------
