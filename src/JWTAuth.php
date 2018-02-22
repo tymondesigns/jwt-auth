@@ -44,6 +44,16 @@ class JWTAuth
     protected $identifier = 'id';
 
     /**
+     * @var string
+     */
+    protected $header;
+
+    /**
+     * @var string
+     */
+    protected $header_method;
+
+    /**
      * @var \Tymon\JWTAuth\Token
      */
     protected $token;
@@ -60,6 +70,8 @@ class JWTAuth
         $this->user = $user;
         $this->auth = $auth;
         $this->request = $request;
+        $this->header = config('jwt.header');
+        $this->header_method = config('jwt.header_method');
     }
 
     /**
@@ -197,8 +209,11 @@ class JWTAuth
      *
      * @return JWTAuth
      */
-    public function parseToken($method = 'bearer', $header = 'authorization', $query = 'token')
+    public function parseToken($method = null, $header = null, $query = 'token')
     {
+        if (empty($method)) $method = $this->header_method;
+        if (empty($header)) $header = $this->header;
+
         if (! $token = $this->parseAuthHeader($header, $method)) {
             if (! $token = $this->request->query($query, false)) {
                 throw new JWTException('The token could not be parsed from the request', 400);
@@ -216,8 +231,11 @@ class JWTAuth
      *
      * @return false|string
      */
-    protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
+    protected function parseAuthHeader($header = null, $method = null)
     {
+        if (empty($method)) $method = $this->header_method;
+        if (empty($header)) $header = $this->header;
+
         $header = $this->request->headers->get($header);
 
         if (! starts_with(strtolower($header), $method)) {

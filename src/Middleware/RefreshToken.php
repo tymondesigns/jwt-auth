@@ -36,7 +36,7 @@ class RefreshToken extends BaseMiddleware
         }
 
         // send the refreshed token back to the client
-        $response->headers->set('Authorization', 'Bearer '.$newToken);
+        $response->headers->set(config('jwt.header'), config('jwt.header_method').' '.$newToken);
 
         return $response;
     }
