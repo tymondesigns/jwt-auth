@@ -40,10 +40,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Header name
+    | Header method
     |--------------------------------------------------------------------------
     |
-    | By default the Auth header name is Authorization.
+    | By default the Auth header method is bearer.
     | You can set it to a custom one if you are using HTTP BASIC AUTH with
     | JWT Authorization for example. Otherwise you will get a conflict in
     | Authorization Headers.
