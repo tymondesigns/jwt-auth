@@ -25,6 +25,35 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Header name
+    |--------------------------------------------------------------------------
+    |
+    | By default the Auth header name is Authorization.
+    | You can set it to a custom one if you are using HTTP BASIC AUTH with
+    | JWT Authorization for example. Otherwise you will get a conflict in
+    | Authorization Headers.
+    |
+    */
+
+    'header' => env('JWT_HEADER', 'authorization'),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header name
+    |--------------------------------------------------------------------------
+    |
+    | By default the Auth header name is Authorization.
+    | You can set it to a custom one if you are using HTTP BASIC AUTH with
+    | JWT Authorization for example. Otherwise you will get a conflict in
+    | Authorization Headers.
+    |
+    */
+
+    'header_method' => env('JWT_HEADER_METHOD', 'bearer'),
+
+    /*
+    |--------------------------------------------------------------------------
     | JWT time to live
     |--------------------------------------------------------------------------
     |

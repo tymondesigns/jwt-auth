@@ -164,7 +164,7 @@ class JWTAuthTest extends \PHPUnit_Framework_TestCase
     public function it_should_retrieve_the_token_from_the_auth_header()
     {
         $request = Request::create('/foo', 'GET');
-        $request->headers->set('authorization', 'Bearer foo.bar.baz');
+        $request->headers->set(config('jwt.header'), config('jwt.header_method').' foo.bar.baz');
         $jwtAuth = new JWTAuth($this->manager, $this->user, $this->auth, $request);
 
         $this->assertInstanceOf('Tymon\JWTAuth\Token', $jwtAuth->parseToken()->getToken());
