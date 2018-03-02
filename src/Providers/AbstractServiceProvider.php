@@ -232,11 +232,11 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $parser = new Parser(
                 $app['request'],
                 [
-                    new AuthHeaders,
-                    new QueryString,
-                    new InputSource,
-                    new RouteParams,
-                    new Cookies($this->config('decrypt_cookies')),
+                    AuthHeaders::class => new AuthHeaders,
+                    QueryString::class => new QueryString,
+                    InputSource::class => new InputSource,
+                    RouteParams::class => new RouteParams,
+                    Cookies::class => new Cookies($this->config('decrypt_cookies')),
                 ]
             );
 
