@@ -60,7 +60,6 @@ class FactoryTest extends AbstractTestCase
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('make')->twice()->with('exp')->andReturn(new Expiration($expTime));
         $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt(123));
 
         // custom claims that override
@@ -102,7 +101,6 @@ class FactoryTest extends AbstractTestCase
         $this->claimFactory->shouldReceive('make')->twice()->with('exp')->andReturn(new Expiration($this->testNowTimestamp + 3600));
         $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt($this->testNowTimestamp));
         $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore($this->testNowTimestamp));
 
         $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
 
@@ -122,13 +120,12 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_a_payload_when_passing_miltidimensional_array_as_custom_claim_to_make_method()
+    public function it_should_return_a_payload_when_passing_multidimensional_array_as_custom_claim_to_make_method()
     {
         // these are added from default claims
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('make')->twice()->with('exp')->andReturn(new Expiration($this->testNowTimestamp + 3600));
         $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt(123));
 
         // custom claims that override
@@ -159,7 +156,6 @@ class FactoryTest extends AbstractTestCase
         // these are added from default claims
         $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
         $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore(123));
         $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt(123));
 
         // custom claims that override

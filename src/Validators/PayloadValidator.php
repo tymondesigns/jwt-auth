@@ -25,7 +25,6 @@ class PayloadValidator extends Validator
         'iss',
         'iat',
         'exp',
-        'nbf',
         'sub',
         'jti',
     ];
