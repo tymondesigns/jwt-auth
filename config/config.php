@@ -128,8 +128,11 @@ return [
     |
     | Specify the hashing algorithm that will be used to sign the token.
     |
-    | See here: https://github.com/namshi/jose/tree/master/src/Namshi/JOSE/Signer/OpenSSL
-    | for possible values.
+    | Possible values:
+    |
+    | 'HS256', 'HS384', 'HS512',
+    | 'RS256', 'RS384', 'RS512',
+    | 'ES256', 'ES384', 'ES512'
     |
     */
 
@@ -274,17 +277,6 @@ return [
         */
 
         'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Authentication Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to authenticate users.
-        |
-        */
-
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
 
         /*
         |--------------------------------------------------------------------------
