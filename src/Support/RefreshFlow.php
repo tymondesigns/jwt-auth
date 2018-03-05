@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -23,11 +25,9 @@ trait RefreshFlow
     /**
      * Set the refresh flow flag.
      *
-     * @param  bool  $refreshFlow
-     *
      * @return $this
      */
-    public function setRefreshFlow($refreshFlow = true)
+    public function setRefreshFlow(bool $refreshFlow = true)
     {
         $this->refreshFlow = $refreshFlow;
 
