@@ -65,7 +65,6 @@ class JWTTest extends AbstractTestCase
 
         $payloadFactory->shouldReceive('make')->andReturn($payload = Mockery::mock(Payload::class));
 
-
         $this->manager->shouldReceive('getPayloadFactory')->andReturn($payloadFactory);
         $this->manager->shouldReceive('encode')
              ->once()
