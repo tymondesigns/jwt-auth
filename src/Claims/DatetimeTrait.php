@@ -66,10 +66,8 @@ trait DatetimeTrait
      * Determine whether the value is in the future.
      *
      * @param  mixed  $value
-     *
-     * @return bool
      */
-    protected function isFuture($value)
+    protected function isFuture($value): bool
     {
         return Utils::isFuture($value, $this->leeway);
     }
@@ -78,10 +76,8 @@ trait DatetimeTrait
      * Determine whether the value is in the past.
      *
      * @param  mixed  $value
-     *
-     * @return bool
      */
-    protected function isPast($value)
+    protected function isPast($value): bool
     {
         return Utils::isPast($value, $this->leeway);
     }
