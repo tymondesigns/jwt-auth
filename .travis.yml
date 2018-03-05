@@ -53,7 +53,7 @@ matrix:
 
 before_install:
   - if [[ $XDEBUG = 0 ]]; then phpenv config-rm xdebug.ini; fi
-  - echo hhvm.php7.all=1 >> /etc/hhvm/php.ini
+  - echo "hhvm.php7.all=1" >> /tmp/hhvm.php.ini
   - travis_retry composer self-update
   - travis_retry composer require "illuminate/contracts:${LARAVEL}" --no-interaction --no-update
 
