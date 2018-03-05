@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -58,12 +60,6 @@ class Manager
 
     /**
      * Constructor.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
-     * @param  \Tymon\JWTAuth\Blacklist  $blacklist
-     * @param  \Tymon\JWTAuth\Factory  $payloadFactory
-     *
-     * @return void
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
     {
@@ -74,12 +70,8 @@ class Manager
 
     /**
      * Encode a Payload and return the Token.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return \Tymon\JWTAuth\Token
      */
-    public function encode(Payload $payload)
+    public function encode(Payload $payload): Token
     {
         $token = $this->provider->encode($payload->get());
 
@@ -89,14 +81,9 @@ class Manager
     /**
      * Decode a Token and return the Payload.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $checkBlacklist
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
-     *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function decode(Token $token, $checkBlacklist = true)
+    public function decode(Token $token, bool $checkBlacklist = true): Payload
     {
         $payloadArray = $this->provider->decode($token->get());
 
@@ -114,14 +101,8 @@ class Manager
 
     /**
      * Refresh a Token and return a new Token.
-     *
-     * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
-     *
-     * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token, $forceForever = false, $resetClaims = false)
+    public function refresh(Token $token, bool $forceForever = false, bool $resetClaims = false): Token
     {
         $this->setRefreshFlow();
 
@@ -141,14 +122,9 @@ class Manager
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
-     * @param  \Tymon\JWTAuth\Token  $token
-     * @param  bool  $forceForever
-     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return bool
      */
-    public function invalidate(Token $token, $forceForever = false)
+    public function invalidate(Token $token, bool $forceForever = false): bool
     {
         if (! $this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
@@ -162,12 +138,8 @@ class Manager
 
     /**
      * Build the claims to go into the refreshed token.
-     *
-     * @param  \Tymon\JWTAuth\Payload  $payload
-     *
-     * @return array
      */
-    protected function buildRefreshClaims(Payload $payload)
+    protected function buildRefreshClaims(Payload $payload): array
     {
         // assign the payload values as variables for use later
         extract($payload->toArray());
@@ -184,27 +156,23 @@ class Manager
      *
      * @return \Tymon\JWTAuth\Factory
      */
-    public function getPayloadFactory()
+    public function getPayloadFactory(): Factory
     {
         return $this->payloadFactory;
     }
 
     /**
      * Get the JWTProvider instance.
-     *
-     * @return \Tymon\JWTAuth\Contracts\Providers\JWT
      */
-    public function getJWTProvider()
+    public function getJWTProvider(): JWTContract
     {
         return $this->provider;
     }
 
     /**
      * Get the Blacklist instance.
-     *
-     * @return \Tymon\JWTAuth\Blacklist
      */
-    public function getBlacklist()
+    public function getBlacklist(): Blacklist
     {
         return $this->blacklist;
     }
@@ -212,11 +180,9 @@ class Manager
     /**
      * Set whether the blacklist is enabled.
      *
-     * @param  bool  $enabled
-     *
      * @return $this
      */
-    public function setBlacklistEnabled($enabled)
+    public function setBlacklistEnabled(bool $enabled)
     {
         $this->blacklistEnabled = $enabled;
 
@@ -225,8 +191,6 @@ class Manager
 
     /**
      * Set the claims to be persisted when refreshing a token.
-     *
-     * @param  array  $claims
      *
      * @return $this
      */

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -22,22 +24,16 @@ class Token
 
     /**
      * Create a new JSON Web Token.
-     *
-     * @param  string  $value
-     *
-     * @return void
      */
-    public function __construct($value)
+    public function __construct(string $value)
     {
         $this->value = (string) (new TokenValidator)->check($value);
     }
 
     /**
      * Get the token.
-     *
-     * @return string
      */
-    public function get()
+    public function get(): string
     {
         return $this->value;
     }
@@ -47,7 +43,7 @@ class Token
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->get();
     }

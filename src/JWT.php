@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -52,11 +54,6 @@ class JWT
 
     /**
      * JWT constructor.
-     *
-     * @param  \Tymon\JWTAuth\Manager  $manager
-     * @param  \Tymon\JWTAuth\Http\Parser\Parser  $parser
-     *
-     * @return void
      */
     public function __construct(Manager $manager, Parser $parser)
     {
@@ -66,12 +63,8 @@ class JWT
 
     /**
      * Generate a token for a given subject.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
-     * @return string
      */
-    public function fromSubject(JWTSubject $subject)
+    public function fromSubject(JWTSubject $subject): string
     {
         $payload = $this->makePayload($subject);
 
@@ -80,25 +73,16 @@ class JWT
 
     /**
      * Alias to generate a token for a given user.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $user
-     *
-     * @return string
      */
-    public function fromUser(JWTSubject $user)
+    public function fromUser(JWTSubject $user): string
     {
         return $this->fromSubject($user);
     }
 
     /**
      * Refresh an expired token.
-     *
-     * @param  bool  $forceForever
-     * @param  bool  $resetClaims
-     *
-     * @return string
      */
-    public function refresh($forceForever = false, $resetClaims = false)
+    public function refresh(bool $forceForever = false, bool $resetClaims = false): string
     {
         $this->requireToken();
 
@@ -110,11 +94,9 @@ class JWT
     /**
      * Invalidate a token (add it to the blacklist).
      *
-     * @param  bool  $forceForever
-     *
      * @return $this
      */
-    public function invalidate($forceForever = false)
+    public function invalidate(bool $forceForever = false)
     {
         $this->requireToken();
 
@@ -128,10 +110,8 @@ class JWT
      * the token is valid i.e. not expired or blacklisted.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function checkOrFail()
+    public function checkOrFail(): Payload
     {
         return $this->getPayload();
     }
@@ -143,7 +123,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Payload|bool
      */
-    public function check($getPayload = false)
+    public function check(bool $getPayload = false)
     {
         try {
             $payload = $this->checkOrFail();
@@ -193,7 +173,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function getPayload()
+    public function getPayload(): Payload
     {
         $this->requireToken();
 
@@ -205,7 +185,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Payload
      */
-    public function payload()
+    public function payload(): Payload
     {
         return $this->getPayload();
     }
@@ -213,35 +193,25 @@ class JWT
     /**
      * Convenience method to get a claim value.
      *
-     * @param  string  $claim
-     *
      * @return mixed
      */
-    public function getClaim($claim)
+    public function getClaim(string $claim)
     {
         return $this->payload()->get($claim);
     }
 
     /**
      * Create a Payload instance.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
-     * @return \Tymon\JWTAuth\Payload
      */
-    public function makePayload(JWTSubject $subject)
+    public function makePayload(JWTSubject $subject): Payload
     {
         return $this->factory()->customClaims($this->getClaimsArray($subject))->make();
     }
 
     /**
      * Build the claims array and return it.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
-     * @return array
      */
-    protected function getClaimsArray(JWTSubject $subject)
+    protected function getClaimsArray(JWTSubject $subject): array
     {
         return array_merge(
             $this->getClaimsForSubject($subject),
@@ -252,12 +222,8 @@ class JWT
 
     /**
      * Get the claims associated with a given subject.
-     *
-     * @param  \Tymon\JWTAuth\Contracts\JWTSubject  $subject
-     *
-     * @return array
      */
-    protected function getClaimsForSubject(JWTSubject $subject)
+    protected function getClaimsForSubject(JWTSubject $subject): array
     {
         return array_merge([
             'sub' => $subject->getJWTIdentifier(),
@@ -268,10 +234,8 @@ class JWT
      * Hash the subject model and return it.
      *
      * @param  string|object  $model
-     *
-     * @return string
      */
-    protected function hashSubjectModel($model)
+    protected function hashSubjectModel($model): string
     {
         return sha1(is_object($model) ? get_class($model) : $model);
     }
@@ -280,10 +244,8 @@ class JWT
      * Check if the subject model matches the one saved in the token.
      *
      * @param  string|object  $model
-     *
-     * @return bool
      */
-    public function checkSubjectModel($model)
+    public function checkSubjectModel($model): bool
     {
         if (($prv = $this->payload()->get('prv')) === null) {
             return true;
@@ -322,8 +284,6 @@ class JWT
      * Ensure that a token is available.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return void
      */
     protected function requireToken()
     {
@@ -334,8 +294,6 @@ class JWT
 
     /**
      * Set the request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return $this
      */
@@ -349,11 +307,9 @@ class JWT
     /**
      * Set whether the subject should be "locked".
      *
-     * @param  bool  $lock
-     *
      * @return $this
      */
-    public function lockSubject($lock)
+    public function lockSubject(bool $lock)
     {
         $this->lockSubject = $lock;
 
@@ -365,7 +321,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Manager
      */
-    public function manager()
+    public function manager(): Manager
     {
         return $this->manager;
     }
@@ -375,7 +331,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Http\Parser\Parser
      */
-    public function parser()
+    public function parser(): Parser
     {
         return $this->parser;
     }
@@ -385,7 +341,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Factory
      */
-    public function factory()
+    public function factory(): Factory
     {
         return $this->manager->getPayloadFactory();
     }
@@ -395,7 +351,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Blacklist
      */
-    public function blacklist()
+    public function blacklist(): Blacklist
     {
         return $this->manager->getBlacklist();
     }
