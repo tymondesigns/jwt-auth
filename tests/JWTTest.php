@@ -16,7 +16,6 @@ use stdClass;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Factory;
-use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
