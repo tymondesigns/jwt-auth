@@ -15,30 +15,24 @@ namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
 use ReflectionClass;
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Rsa;
+use Lcobucci\JWT\Signer\Ecdsa;
+use Lcobucci\JWT\Signer\Keychain;
 use Illuminate\Support\Collection;
-use Lcobucci\JWT\{ Parser, Builder, Signer };
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Lcobucci\JWT\Signer\{
-    Rsa,
-    Ecdsa,
-    Keychain
-};
-use Lcobucci\JWT\Signer\Rsa\{
-    Sha256 as RS256,
-    Sha384 as RS384,
-    Sha512 as RS512
-};
-use Lcobucci\JWT\Signer\Hmac\{
-    Sha256 as HS256,
-    Sha384 as HS384,
-    Sha512 as HS512
-};
-use Lcobucci\JWT\Signer\Ecdsa\{
-    Sha256 as ES256,
-    Sha384 as ES384,
-    Sha512 as ES512
-};
+use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
+use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
+use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
+use Lcobucci\JWT\Signer\Hmac\Sha256 as HS256;
+use Lcobucci\JWT\Signer\Hmac\Sha384 as HS384;
+use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
+use Lcobucci\JWT\Signer\Ecdsa\Sha256 as ES256;
+use Lcobucci\JWT\Signer\Ecdsa\Sha384 as ES384;
+use Lcobucci\JWT\Signer\Ecdsa\Sha512 as ES512;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Lcobucci extends Provider implements JWT
