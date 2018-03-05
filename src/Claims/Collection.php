@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -31,13 +33,9 @@ class Collection extends IlluminateCollection
     /**
      * Get a Claim instance by it's unique name.
      *
-     * @param  string  $name
-     * @param  callable  $callback
-     * @param  mixed  $default
-     *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getByClaimName($name, callable $callback = null, $default = null)
+    public function getByClaimName(string $name, callable $callback = null, $default = null)
     {
         return $this->filter(function (Claim $claim) use ($name) {
             return $claim->getName() === $name;
@@ -47,11 +45,9 @@ class Collection extends IlluminateCollection
     /**
      * Validate each claim under a given context.
      *
-     * @param  string  $context
-     *
      * @return $this
      */
-    public function validate($context = 'payload')
+    public function validate(string $context = 'payload')
     {
         $args = func_get_args();
         array_shift($args);
@@ -70,20 +66,16 @@ class Collection extends IlluminateCollection
      * Determine if the Collection contains all of the given keys.
      *
      * @param  mixed  $claims
-     *
-     * @return bool
      */
-    public function hasAllClaims($claims)
+    public function hasAllClaims($claims): bool
     {
         return count($claims) && (new static($claims))->diff($this->keys())->isEmpty();
     }
 
     /**
      * Get the claims as key/val array.
-     *
-     * @return array
      */
-    public function toPlainArray()
+    public function toPlainArray(): array
     {
         return $this->map(function (Claim $claim) {
             return $claim->getValue();
@@ -102,10 +94,8 @@ class Collection extends IlluminateCollection
      * Ensure that the given claims array is keyed by the claim name.
      *
      * @param  mixed  $items
-     *
-     * @return array
      */
-    private function sanitizeClaims($items)
+    private function sanitizeClaims($items): array
     {
         $claims = [];
         foreach ($items as $key => $value) {

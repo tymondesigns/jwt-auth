@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -33,7 +35,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     private $value;
 
     /**
-     * @param  mixed  $value
+     * Constructor.
      */
     public function __construct($value)
     {
