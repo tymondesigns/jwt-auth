@@ -93,10 +93,8 @@ class JWT
 
     /**
      * Invalidate a token (add it to the blacklist).
-     *
-     * @return $this
      */
-    public function invalidate(bool $forceForever = false)
+    public function invalidate(bool $forceForever = false): self
     {
         $this->requireToken();
 
@@ -156,10 +154,8 @@ class JWT
      * Parse the token from the request.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return $this
      */
-    public function parseToken()
+    public function parseToken(): self
     {
         if (! $token = $this->parser->parseToken()) {
             throw new JWTException('The token could not be parsed from the request');
@@ -170,8 +166,6 @@ class JWT
 
     /**
      * Get the raw Payload instance.
-     *
-     * @return \Tymon\JWTAuth\Payload
      */
     public function getPayload(): Payload
     {
@@ -182,8 +176,6 @@ class JWT
 
     /**
      * Alias for getPayload().
-     *
-     * @return \Tymon\JWTAuth\Payload
      */
     public function payload(): Payload
     {
@@ -258,10 +250,8 @@ class JWT
      * Set the token.
      *
      * @param  \Tymon\JWTAuth\Token|string  $token
-     *
-     * @return $this
      */
-    public function setToken($token)
+    public function setToken($token): self
     {
         $this->token = $token instanceof Token ? $token : new Token($token);
 
@@ -270,10 +260,8 @@ class JWT
 
     /**
      * Unset the current token.
-     *
-     * @return $this
      */
-    public function unsetToken()
+    public function unsetToken(): self
     {
         $this->token = null;
 
@@ -294,10 +282,8 @@ class JWT
 
     /**
      * Set the request instance.
-     *
-     * @return $this
      */
-    public function setRequest(Request $request)
+    public function setRequest(Request $request): self
     {
         $this->parser->setRequest($request);
 
@@ -306,10 +292,8 @@ class JWT
 
     /**
      * Set whether the subject should be "locked".
-     *
-     * @return $this
      */
-    public function lockSubject(bool $lock)
+    public function lockSubject(bool $lock): self
     {
         $this->lockSubject = $lock;
 
@@ -359,14 +343,11 @@ class JWT
     /**
      * Magically call the JWT Manager.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     *
      * @throws \BadMethodCallException
      *
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         if (method_exists($this->manager, $method)) {
             return call_user_func_array([$this->manager, $method], $parameters);

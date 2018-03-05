@@ -18,23 +18,19 @@ class TokenValidator extends Validator
     /**
      * Check the structure of the token.
      *
-     * @param  string  $value
-     *
-     * @return string
+     * @param  mixed  $value
      */
-    public function check($value)
+    public function check($value): string
     {
         return $this->validateStructure($value);
     }
 
     /**
-     * @param  string  $token
+     * Validate the token structure
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     *
-     * @return string
      */
-    protected function validateStructure($token)
+    protected function validateStructure(string $token): string
     {
         $parts = explode('.', $token);
 

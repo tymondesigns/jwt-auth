@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Claims;
 use DateInterval;
 use DateTimeInterface;
 use Tymon\JWTAuth\Support\Utils;
+use Tymon\JWTAuth\Contracts\Claim;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 trait DatetimeTrait
@@ -34,7 +35,7 @@ trait DatetimeTrait
      *
      * @return $this
      */
-    public function setValue($value)
+    public function setValue($value): Claim
     {
         if ($value instanceof DateInterval) {
             $value = Utils::now()->add($value);

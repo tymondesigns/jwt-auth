@@ -81,7 +81,7 @@ class JWTGuard implements Guard
      *
      * @throws \Tymon\JWTAuth\Exceptions\UserNotDefinedException
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function userOrFail()
     {
@@ -148,12 +148,12 @@ class JWTGuard implements Guard
 
     /**
      * Invalidate the token.
-     *
-     * @return $this
      */
-    public function invalidate(bool $forceForever = false)
+    public function invalidate(bool $forceForever = false): self
     {
-        return $this->requireToken()->invalidate($forceForever);
+        $this->requireToken()->invalidate($forceForever);
+
+        return $this;
     }
 
     /**
@@ -212,10 +212,8 @@ class JWTGuard implements Guard
 
     /**
      * Add any custom claims.
-     *
-     * @return $this
      */
-    public function claims(array $claims)
+    public function claims(array $claims): self
     {
         $this->jwt->claims($claims);
 
@@ -242,10 +240,8 @@ class JWTGuard implements Guard
      * Set the token.
      *
      * @param  \Tymon\JWTAuth\Token|string  $token
-     *
-     * @return $this
      */
-    public function setToken($token)
+    public function setToken($token): self
     {
         $this->jwt->setToken($token);
 
@@ -254,10 +250,8 @@ class JWTGuard implements Guard
 
     /**
      * Set the token ttl.
-     *
-     * @return $this
      */
-    public function setTTL(int $ttl)
+    public function setTTL(int $ttl): self
     {
         $this->jwt->factory()->setTTL($ttl);
 
@@ -274,10 +268,8 @@ class JWTGuard implements Guard
 
     /**
      * Set the user provider used by the guard.
-     *
-     * @return $this
      */
-    public function setProvider(UserProvider $provider)
+    public function setProvider(UserProvider $provider): self
     {
         $this->provider = $provider;
 
@@ -299,15 +291,13 @@ class JWTGuard implements Guard
      */
     public function getRequest(): Request
     {
-        return $this->request ?: Request::createFromGlobals();
+        return $this->request ?? Request::createFromGlobals();
     }
 
     /**
      * Set the current request instance.
-     *
-     * @return $this
      */
-    public function setRequest(Request $request)
+    public function setRequest(Request $request): self
     {
         $this->request = $request;
 

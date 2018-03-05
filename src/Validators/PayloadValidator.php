@@ -40,10 +40,8 @@ class PayloadValidator extends Validator
      * Run the validations on the payload array.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $value
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    public function check($value)
+    public function check($value): Collection
     {
         $this->validateStructure($value);
 
@@ -57,8 +55,6 @@ class PayloadValidator extends Validator
      * @param  \Tymon\JWTAuth\Claims\Collection  $claims
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     *
-     * @return void
      */
     protected function validateStructure(Collection $claims)
     {
@@ -70,14 +66,10 @@ class PayloadValidator extends Validator
     /**
      * Validate the payload timestamps.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validatePayload(Collection $claims)
+    protected function validatePayload(Collection $claims): Collection
     {
         return $claims->validate('payload');
     }
@@ -85,25 +77,17 @@ class PayloadValidator extends Validator
     /**
      * Check the token in the refresh flow context.
      *
-     * @param  \Tymon\JWTAuth\Claims\Collection  $claims
-     *
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
-    protected function validateRefresh(Collection $claims)
+    protected function validateRefresh(Collection $claims): Collection
     {
         return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
 
     /**
      * Set the required claims.
-     *
-     * @param  array  $claims
-     *
-     * @return $this
      */
-    public function setRequiredClaims(array $claims)
+    public function setRequiredClaims(array $claims): self
     {
         $this->requiredClaims = $claims;
 
@@ -113,11 +97,9 @@ class PayloadValidator extends Validator
     /**
      * Set the refresh ttl.
      *
-     * @param  int  $ttl
-     *
-     * @return $this
+     * @param  int|null  $ttl
      */
-    public function setRefreshTTL($ttl)
+    public function setRefreshTTL($ttl): self
     {
         $this->refreshTTL = $ttl;
 

@@ -40,8 +40,6 @@ class Token
 
     /**
      * Get the token when casting to string.
-     *
-     * @return string
      */
     public function __toString(): string
     {

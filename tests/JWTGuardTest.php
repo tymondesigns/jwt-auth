@@ -281,10 +281,11 @@ class JWTGuardTest extends AbstractTestCase
     {
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
-        $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
         $this->jwt->shouldReceive('unsetToken')->once();
+        $this->jwt->shouldReceive('invalidate')->once()->andReturnSelf();
 
         $this->guard->logout();
+
         $this->assertNull($this->guard->getUser());
     }
 
@@ -307,9 +308,9 @@ class JWTGuardTest extends AbstractTestCase
     {
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
-        $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
+        $this->jwt->shouldReceive('invalidate')->once()->andReturnSelf();
 
-        $this->assertTrue($this->guard->invalidate());
+        $this->guard->invalidate();
     }
 
     /**

@@ -83,10 +83,8 @@ class Factory
 
     /**
      * Empty the claims collection.
-     *
-     * @return $this
      */
-    public function emptyClaims()
+    public function emptyClaims(): self
     {
         $this->claims = new Collection;
 
@@ -95,10 +93,8 @@ class Factory
 
     /**
      * Add an array of claims to the Payload.
-     *
-     * @return $this
      */
-    protected function addClaims(array $claims)
+    protected function addClaims(array $claims): self
     {
         foreach ($claims as $name => $value) {
             $this->addClaim($name, $value);
@@ -110,12 +106,9 @@ class Factory
     /**
      * Add a claim to the Payload.
      *
-     * @param  string  $name
      * @param  mixed  $value
-     *
-     * @return $this
      */
-    protected function addClaim(string $name, $value)
+    protected function addClaim(string $name, $value): self
     {
         $this->claims->put($name, $value);
 
@@ -124,10 +117,8 @@ class Factory
 
     /**
      * Build the default claims.
-     *
-     * @return $this
      */
-    protected function buildClaims()
+    protected function buildClaims(): self
     {
         // remove the exp claim if it exists and the ttl is null
         if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $this->defaultClaims)) {
@@ -145,8 +136,6 @@ class Factory
 
     /**
      * Build out the Claim DTO's.
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
     protected function resolveClaims(): Collection
     {
@@ -157,8 +146,6 @@ class Factory
 
     /**
      * Build and get the Claims Collection.
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
      */
     public function buildClaimsCollection(): Collection
     {
@@ -175,10 +162,8 @@ class Factory
 
     /**
      * Set the default claims to be added to the Payload.
-     *
-     * @return $this
      */
-    public function setDefaultClaims(array $claims)
+    public function setDefaultClaims(array $claims): self
     {
         $this->defaultClaims = $claims;
 
@@ -189,10 +174,8 @@ class Factory
      * Helper to set the ttl.
      *
      * @param  int|null  $ttl
-     *
-     * @return $this
      */
-    public function setTTL($ttl)
+    public function setTTL($ttl): self
     {
         $this->claimFactory->setTTL($ttl);
 
@@ -225,10 +208,8 @@ class Factory
 
     /**
      * Magically add a claim.
-     *
-     * @return $this
      */
-    public function __call(string $method, array $parameters)
+    public function __call(string $method, array $parameters): self
     {
         $this->addClaim($method, $parameters[0]);
 

@@ -104,10 +104,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * Get the underlying Claim instance.
-     *
-     * @param  string  $claim
-     *
-     * @return \Tymon\JWTAuth\Claims\Claim
      */
     public function getInternal(string $claim): Claim
     {

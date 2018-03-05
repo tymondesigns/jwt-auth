@@ -179,10 +179,8 @@ class Manager
 
     /**
      * Set whether the blacklist is enabled.
-     *
-     * @return $this
      */
-    public function setBlacklistEnabled(bool $enabled)
+    public function setBlacklistEnabled(bool $enabled): self
     {
         $this->blacklistEnabled = $enabled;
 
@@ -191,10 +189,8 @@ class Manager
 
     /**
      * Set the claims to be persisted when refreshing a token.
-     *
-     * @return $this
      */
-    public function setPersistentClaims(array $claims)
+    public function setPersistentClaims(array $claims): self
     {
         $this->persistentClaims = $claims;
 
