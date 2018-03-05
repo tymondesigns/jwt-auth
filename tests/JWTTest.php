@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test;
 
 use Mockery;
-use stdClass;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Factory;

@@ -26,7 +26,7 @@ class TokenValidator extends Validator
     }
 
     /**
-     * Validate the token structure
+     * Validate the token structure.
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
