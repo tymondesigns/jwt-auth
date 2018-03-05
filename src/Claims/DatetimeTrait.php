@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -91,7 +93,7 @@ trait DatetimeTrait
      *
      * @return $this
      */
-    public function setLeeway($leeway)
+    public function setLeeway(int $leeway)
     {
         $this->leeway = $leeway;
 
