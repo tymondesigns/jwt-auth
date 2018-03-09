@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Validators\TokenValidator;
-
 class RefreshToken extends Token
 {
     //

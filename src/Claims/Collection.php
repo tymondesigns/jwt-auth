@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection as IlluminateCollection;
 
 class Collection extends IlluminateCollection
