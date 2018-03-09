@@ -12,28 +12,20 @@
 namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
 
-abstract class Validator implements ValidatorContract
+abstract class Validator
 {
     /**
      * Helper function to return a boolean.
-     *
-     * @param  mixed  $value
      */
-    public static function isValid($value): bool
+    public static function isValid(...$args): bool
     {
         try {
-            static::check($value);
+            forward_static_call('static::check', ...$args);
         } catch (JWTException $e) {
             return false;
         }
-    }
 
-    /**
-     * Run the validation.
-     *
-     * @param  mixed  $value
-     */
-    abstract public static function check($value);
+        return true;
+    }
 }

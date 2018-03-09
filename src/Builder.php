@@ -52,6 +52,13 @@ class Builder
     protected $leeway = 0;
 
     /**
+     * The required claims.
+     *
+     * @var array
+     */
+    protected $requiredClaims;
+
+    /**
      * The default claims to add.
      *
      * @var array
@@ -76,7 +83,8 @@ class Builder
     public function makePayload(JWTSubject $subject, array $claims = []): Payload
     {
         return Factory::make($this->getClaimsArray($subject, $claims), [
-            'leeway' => $this->leeway
+            'leeway' => $this->leeway,
+            'required_claims' => $this->requiredClaims,
         ]);
     }
 
@@ -205,6 +213,16 @@ class Builder
     public function setDefaultClaims(array $claims = []): self
     {
         $this->defaultClaims = $claims;
+
+        return $this;
+    }
+
+    /**
+     * Set the default claims.
+     */
+    public function setRequiredClaims(array $claims = []): self
+    {
+        $this->requiredClaims = $claims;
 
         return $this;
     }

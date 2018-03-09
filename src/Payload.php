@@ -23,7 +23,6 @@ use Tymon\JWTAuth\Claims\Collection;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
-use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {
@@ -35,17 +34,15 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     private $claims;
 
     /**
-     * Build the Payload.
+     * Constructor.
      */
     public function __construct(Collection $claims)
     {
-        $this->claims = PayloadValidator::check($claims);
+        $this->claims = $claims;
     }
 
     /**
-     * Get the array of claim instances.
-     *
-     * @return \Tymon\JWTAuth\Claims\Collection
+     * Get the collection of claim instances.
      */
     public function getClaims(): Collection
     {

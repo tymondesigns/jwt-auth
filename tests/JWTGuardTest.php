@@ -15,6 +15,7 @@ use Mockery;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Builder;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
 use Illuminate\Auth\EloquentUserProvider;
@@ -270,8 +271,8 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_magically_call_the_jwt_instance()
     {
-        $this->jwt->shouldReceive('factory')->andReturn(Mockery::mock(Factory::class));
-        $this->assertInstanceOf(Factory::class, $this->guard->factory());
+        $this->jwt->shouldReceive('builder')->andReturn(Mockery::mock(Builder::class));
+        $this->assertInstanceOf(Builder::class, $this->guard->builder());
     }
 
     /**
@@ -459,9 +460,10 @@ class JWTGuardTest extends AbstractTestCase
      */
     public function it_should_get_the_payload()
     {
-        $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
+        $this->jwt->shouldReceive('setRequest')->andReturnSelf();
         $this->jwt->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
-        $this->jwt->shouldReceive('getPayload')->once()->andReturn(Mockery::mock(Payload::class));
+        $this->jwt->shouldReceive('payload')->once()->andReturn(Mockery::mock(Payload::class));
+
         $this->assertInstanceOf(Payload::class, $this->guard->payload());
     }
 }

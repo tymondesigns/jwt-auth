@@ -54,16 +54,6 @@ class IssuedAt extends Claim
     /**
      * {@inheritdoc}
      */
-    public function validateRefresh(int $refreshTTL)
-    {
-        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public static function make($value = null): Claim
     {
         return new static($value ?? Utils::now()->getTimestamp());

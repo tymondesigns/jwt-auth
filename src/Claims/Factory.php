@@ -37,15 +37,13 @@ class Factory
      */
     public static function get(string $name, $value = null, array $options = []): Claim
     {
-        if (static::has($name)) {
-            $claim = call_user_func([static::$classMap[$name], 'make'], $value);
+        $claim = static::has($name)
+            ? call_user_func([static::$classMap[$name], 'make'], $value)
+            : new Custom($name, $value);
 
-            return method_exists($claim, 'setLeeway') ?
-                $claim->setLeeway(Arr::get($options, 'leeway', 0)) :
-                $claim;
-        }
-
-        return new Custom($name, $value);
+        return method_exists($claim, 'setLeeway')
+            ? $claim->setLeeway(Arr::get($options, 'leeway', 0))
+            : $claim;
     }
 
     /**

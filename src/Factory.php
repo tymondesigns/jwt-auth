@@ -15,6 +15,7 @@ namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class Factory
@@ -24,7 +25,7 @@ class Factory
      */
     public static function make(array $claims = [], array $options = []): Payload
     {
-        $collection = Collection::make($claims)->map(function ($value, $key) {
+        $collection = Collection::make($claims)->map(function ($value, $key) use ($options) {
             if ($value instanceof Claim) {
                 return $value;
             }
@@ -35,6 +36,12 @@ class Factory
 
             return ClaimFactory::get($key, $value, $options);
         });
+
+        // Validate the claims
+        $collection = PayloadValidator::check(
+            $collection,
+            Arr::get($options, 'required_claims', [])
+        );
 
         return new Payload($collection);
     }

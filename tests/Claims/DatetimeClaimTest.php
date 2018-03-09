@@ -145,8 +145,8 @@ class DatetimeClaimTest extends AbstractTestCase
             'jti' => new JwtId('foo'),
         ];
 
-        $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp), $this->validator);
-        $payloadDateInterval = new Payload(Collection::make($claimsDateInterval), $this->validator);
+        $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp));
+        $payloadDateInterval = new Payload(Collection::make($claimsDateInterval));
 
         $this->assertEquals($payloadTimestamp, $payloadDateInterval);
     }

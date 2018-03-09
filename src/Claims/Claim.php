@@ -107,16 +107,6 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
-     * Validate the Claim within a refresh context.
-     *
-     * @return mixed
-     */
-    public function validateRefresh(int $refreshTTL)
-    {
-        return $this->getValue();
-    }
-
-    /**
      * Create an instance of the claim.
      */
     public static function make($value = null): Claim

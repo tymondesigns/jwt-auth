@@ -19,11 +19,7 @@ use Illuminate\Support\Collection as IlluminateCollection;
 class Collection extends IlluminateCollection
 {
     /**
-     * Create a new collection.
-     *
-     * @param  mixed  $items
-     *
-     * @return void
+     * Constructor.
      */
     public function __construct($items = [])
     {
@@ -47,16 +43,10 @@ class Collection extends IlluminateCollection
      *
      * @return $this
      */
-    public function validate(string $context = 'payload')
+    public function validate()
     {
-        $args = func_get_args();
-        array_shift($args);
-
-        $this->each(function ($claim) use ($context, $args) {
-            call_user_func_array(
-                [$claim, 'validate'.Str::ucfirst($context)],
-                $args
-            );
+        $this->each(function ($claim) {
+            $claim->validatePayload();
         });
 
         return $this;
