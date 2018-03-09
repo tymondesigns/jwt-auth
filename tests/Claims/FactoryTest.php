@@ -38,13 +38,6 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_set_the_request()
-    {
-        $factory = $this->factory->setRequest(Request::create('/bar', 'GET'));
-        $this->assertInstanceOf(Factory::class, $factory);
-    }
-
-    /** @test */
     public function it_should_set_the_ttl()
     {
         $this->assertInstanceOf(Factory::class, $this->factory->setTTL(30));
@@ -78,30 +71,22 @@ class FactoryTest extends AbstractTestCase
     public function it_should_make_a_claim_instance_with_a_value()
     {
         $iat = $this->factory->make('iat');
-        $this->assertSame($iat->getValue(), $this->testNowTimestamp);
+        $this->assertSame($this->testNowTimestamp, $iat->getValue());
         $this->assertInstanceOf(IssuedAt::class, $iat);
 
         $nbf = $this->factory->make('nbf');
-        $this->assertSame($nbf->getValue(), $this->testNowTimestamp);
+        $this->assertSame($this->testNowTimestamp, $nbf->getValue());
         $this->assertInstanceOf(NotBefore::class, $nbf);
 
         $iss = $this->factory->make('iss');
-        $this->assertSame($iss->getValue(), 'http://localhost/foo');
+        $this->assertSame('http://localhost/foo', $iss->getValue());
         $this->assertInstanceOf(Issuer::class, $iss);
 
         $exp = $this->factory->make('exp');
-        $this->assertSame($exp->getValue(), $this->testNowTimestamp + 3600);
+        $this->assertSame($this->testNowTimestamp + 3600, $exp->getValue());
         $this->assertInstanceOf(Expiration::class, $exp);
 
         $jti = $this->factory->make('jti');
         $this->assertInstanceOf(JwtId::class, $jti);
-    }
-
-    /** @test */
-    public function it_should_extend_claim_factory_to_add_a_custom_claim()
-    {
-        $this->factory->extend('foo', Foo::class);
-
-        $this->assertInstanceOf(Foo::class, $this->factory->get('foo', 'bar'));
     }
 }

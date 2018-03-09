@@ -11,10 +11,20 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Illuminate\Support\Str;
+
 class JwtId extends Claim
 {
     /**
      * {@inheritdoc}
      */
     protected $name = 'jti';
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function make($value = null): Claim
+    {
+        return new static($value ?? Str::random(16));
+    }
 }

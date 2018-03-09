@@ -11,28 +11,23 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Support\RefreshFlow;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Validator as ValidatorContract;
 
 abstract class Validator implements ValidatorContract
 {
-    use RefreshFlow;
-
     /**
      * Helper function to return a boolean.
      *
      * @param  mixed  $value
      */
-    public function isValid($value): bool
+    public static function isValid($value): bool
     {
         try {
-            $this->check($value);
+            static::check($value);
         } catch (JWTException $e) {
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -40,5 +35,5 @@ abstract class Validator implements ValidatorContract
      *
      * @param  mixed  $value
      */
-    abstract public function check($value);
+    abstract public static function check($value);
 }

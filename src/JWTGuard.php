@@ -221,19 +221,11 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Get the raw Payload instance.
-     */
-    public function getPayload(): Payload
-    {
-        return $this->requireToken()->getPayload();
-    }
-
-    /**
      * Alias for getPayload().
      */
     public function payload(): Payload
     {
-        return $this->getPayload();
+        return $this->requireToken()->payload();
     }
 
     /**
@@ -253,7 +245,7 @@ class JWTGuard implements Guard
      */
     public function setTTL(int $ttl): self
     {
-        $this->jwt->factory()->setTTL($ttl);
+        $this->jwt->builder()->setTTL($ttl);
 
         return $this;
     }

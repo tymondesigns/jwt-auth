@@ -17,35 +17,17 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class PayloadValidator extends Validator
 {
     /**
-     * The required claims.
-     *
-     * @var array
-     */
-    protected $requiredClaims = [
-        'iss',
-        'iat',
-        'exp',
-        'sub',
-        'jti',
-    ];
-
-    /**
-     * The refresh TTL.
-     *
-     * @var int
-     */
-    protected $refreshTTL = 20160;
-
-    /**
      * Run the validations on the payload array.
      *
      * @param  \Tymon\JWTAuth\Claims\Collection  $value
      */
-    public function check($value): Collection
+    public static function check($value): Collection
     {
-        $this->validateStructure($value);
+        return $value;
 
-        return $this->refreshFlow ? $this->validateRefresh($value) : $this->validatePayload($value);
+        static::validateStructure($value);
+
+        // return $this->refreshFlow ? $this->validateRefresh($value) : $this->validatePayload($value);
     }
 
     /**
@@ -56,11 +38,11 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    protected function validateStructure(Collection $claims)
+    protected static function validateStructure(Collection $claims)
     {
-        if (! $claims->hasAllClaims($this->requiredClaims)) {
-            throw new TokenInvalidException('JWT payload does not contain the required claims');
-        }
+        // if (! $claims->hasAllClaims($this->requiredClaims)) {
+        //     throw new TokenInvalidException('JWT payload does not contain the required claims');
+        // }
     }
 
     /**
@@ -81,28 +63,6 @@ class PayloadValidator extends Validator
      */
     protected function validateRefresh(Collection $claims): Collection
     {
-        return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
-    }
-
-    /**
-     * Set the required claims.
-     */
-    public function setRequiredClaims(array $claims): self
-    {
-        $this->requiredClaims = $claims;
-
-        return $this;
-    }
-
-    /**
-     * Set the refresh ttl.
-     *
-     * @param  int|null  $ttl
-     */
-    public function setRefreshTTL($ttl): self
-    {
-        $this->refreshTTL = $ttl;
-
-        return $this;
+        // return $this->refreshTTL === null ? $claims : $claims->validate('refresh', $this->refreshTTL);
     }
 }

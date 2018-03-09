@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -14,12 +16,12 @@ namespace Tymon\JWTAuth\Claims;
 class Custom extends Claim
 {
     /**
+     * Constructor.
+     *
      * @param  string  $name
      * @param  mixed  $value
-     *
-     * @return void
      */
-    public function __construct($name, $value)
+    public function __construct(string $name, $value)
     {
         parent::__construct($value);
         $this->setName($name);

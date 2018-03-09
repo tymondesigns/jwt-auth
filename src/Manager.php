@@ -38,13 +38,6 @@ class Manager
     protected $blacklist;
 
     /**
-     * the payload factory.
-     *
-     * @var \Tymon\JWTAuth\Factory
-     */
-    protected $payloadFactory;
-
-    /**
      * The blacklist flag.
      *
      * @var bool
@@ -61,11 +54,10 @@ class Manager
     /**
      * Constructor.
      */
-    public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
+    public function __construct(JWTContract $provider, Blacklist $blacklist)
     {
         $this->provider = $provider;
         $this->blacklist = $blacklist;
-        $this->payloadFactory = $payloadFactory;
     }
 
     /**
@@ -73,9 +65,7 @@ class Manager
      */
     public function encode(Payload $payload): Token
     {
-        $token = $this->provider->encode($payload->get());
-
-        return new Token($token);
+        return $this->provider->token($payload->get());
     }
 
     /**
@@ -85,12 +75,7 @@ class Manager
      */
     public function decode(Token $token, bool $checkBlacklist = true): Payload
     {
-        $payloadArray = $this->provider->decode($token->get());
-
-        $payload = $this->payloadFactory
-                        ->setRefreshFlow($this->refreshFlow)
-                        ->customClaims($payloadArray)
-                        ->make();
+        $payload = $this->provider->payload($token->get());
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');
@@ -149,16 +134,6 @@ class Manager
             $this->customClaims,
             compact($this->persistentClaims, 'sub', 'iat')
         );
-    }
-
-    /**
-     * Get the Payload Factory instance.
-     *
-     * @return \Tymon\JWTAuth\Factory
-     */
-    public function getPayloadFactory(): Factory
-    {
-        return $this->payloadFactory;
     }
 
     /**

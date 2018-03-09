@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
+use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
 
 abstract class Provider
@@ -46,6 +49,22 @@ abstract class Provider
         $this->secret = $secret;
         $this->algo = $algo;
         $this->keys = $keys;
+    }
+
+    /**
+     * Get the decoded token as a Payload instance.
+     */
+    public function payload(string $token): Payload
+    {
+        return Factory::make($this->decode($token));
+    }
+
+    /**
+     * Get an encoded Token instance.
+     */
+    public function token(array $claims): Token
+    {
+        return new Token($this->encode($claims));
     }
 
     /**

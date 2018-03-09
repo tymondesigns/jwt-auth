@@ -31,11 +31,6 @@ class Parser
 
     /**
      * Constructor.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  array  $chain
-     *
-     * @return void
      */
     public function __construct(Request $request, array $chain = [])
     {
@@ -48,15 +43,13 @@ class Parser
      *
      * @return array
      */
-    public function getChain()
+    public function getChain(): array
     {
         return $this->chain;
     }
 
     /**
      * Set the order of the parser chain.
-     *
-     * @param  array  $chain
      *
      * @return $this
      */
@@ -69,8 +62,6 @@ class Parser
 
     /**
      * Alias for setting the order of the chain.
-     *
-     * @param  array  $chain
      *
      * @return $this
      */
@@ -88,33 +79,35 @@ class Parser
     public function parseToken()
     {
         foreach ($this->chain as $parser) {
-            if ($response = $parser->parse($this->request)) {
-                return $response;
+            if ($token = $parser->parse($this->request)) {
+                return $token;
             }
         }
     }
 
     /**
      * Check whether a token exists in the chain.
-     *
-     * @return bool
      */
-    public function hasToken()
+    public function hasToken(): bool
     {
         return $this->parseToken() !== null;
     }
 
     /**
      * Set the request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return $this
      */
-    public function setRequest(Request $request)
+    public function setRequest(Request $request): self
     {
         $this->request = $request;
 
         return $this;
+    }
+
+    /**
+     * Get the request instance
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
     }
 }

@@ -18,16 +18,14 @@ interface Validator
      *
      * @param  mixed  $value
      *
-     * @return void
+     * @return mixed
      */
-    public function check($value);
+    public static function check($value);
 
     /**
      * Helper function to return a boolean.
      *
-     * @param  array  $value
-     *
-     * @return bool
+     * @param  mixed  $value
      */
-    public function isValid($value);
+    public static function isValid($value): bool;
 }

@@ -25,6 +25,13 @@ class JWT
     use CustomClaims;
 
     /**
+     * The payload builder.
+     *
+     * @var \Tymon\JWTAuth\Builder
+     */
+    protected $builder;
+
+    /**
      * The authentication manager.
      *
      * @var \Tymon\JWTAuth\Manager
@@ -46,17 +53,11 @@ class JWT
     protected $token;
 
     /**
-     * Lock the subject.
-     *
-     * @var bool
-     */
-    protected $lockSubject = true;
-
-    /**
      * JWT constructor.
      */
-    public function __construct(Manager $manager, Parser $parser)
+    public function __construct(Builder $builder, Manager $manager, Parser $parser)
     {
+        $this->builder = $builder;
         $this->manager = $manager;
         $this->parser = $parser;
     }
@@ -66,7 +67,7 @@ class JWT
      */
     public function fromSubject(JWTSubject $subject): string
     {
-        $payload = $this->makePayload($subject);
+        $payload = $this->builder->makePayload($subject, $this->customClaims);
 
         return $this->manager->encode($payload)->get();
     }
@@ -77,18 +78,6 @@ class JWT
     public function fromUser(JWTSubject $user): string
     {
         return $this->fromSubject($user);
-    }
-
-    /**
-     * Refresh an expired token.
-     */
-    public function refresh(bool $forceForever = false, bool $resetClaims = false): string
-    {
-        $this->requireToken();
-
-        return $this->manager->customClaims($this->getCustomClaims())
-                             ->refresh($this->token, $forceForever, $resetClaims)
-                             ->get();
     }
 
     /**
@@ -111,13 +100,11 @@ class JWT
      */
     public function checkOrFail(): Payload
     {
-        return $this->getPayload();
+        return $this->payload();
     }
 
     /**
      * Check that the token is valid.
-     *
-     * @param  bool  $getPayload
      *
      * @return \Tymon\JWTAuth\Payload|bool
      */
@@ -167,19 +154,11 @@ class JWT
     /**
      * Get the raw Payload instance.
      */
-    public function getPayload(): Payload
+    public function payload(): Payload
     {
         $this->requireToken();
 
         return $this->manager->decode($this->token);
-    }
-
-    /**
-     * Alias for getPayload().
-     */
-    public function payload(): Payload
-    {
-        return $this->getPayload();
     }
 
     /**
@@ -193,46 +172,6 @@ class JWT
     }
 
     /**
-     * Create a Payload instance.
-     */
-    public function makePayload(JWTSubject $subject): Payload
-    {
-        return $this->factory()->customClaims($this->getClaimsArray($subject))->make();
-    }
-
-    /**
-     * Build the claims array and return it.
-     */
-    protected function getClaimsArray(JWTSubject $subject): array
-    {
-        return array_merge(
-            $this->getClaimsForSubject($subject),
-            $subject->getJWTCustomClaims(), // custom claims from JWTSubject method
-            $this->customClaims // custom claims from inline setter
-        );
-    }
-
-    /**
-     * Get the claims associated with a given subject.
-     */
-    protected function getClaimsForSubject(JWTSubject $subject): array
-    {
-        return array_merge([
-            'sub' => $subject->getJWTIdentifier(),
-        ], $this->lockSubject ? ['prv' => $this->hashSubjectModel($subject)] : []);
-    }
-
-    /**
-     * Hash the subject model and return it.
-     *
-     * @param  string|object  $model
-     */
-    protected function hashSubjectModel($model): string
-    {
-        return sha1(is_object($model) ? get_class($model) : $model);
-    }
-
-    /**
      * Check if the subject model matches the one saved in the token.
      *
      * @param  string|object  $model
@@ -243,7 +182,7 @@ class JWT
             return true;
         }
 
-        return $this->hashSubjectModel($model) === $prv;
+        return $this->builder->hashSubjectModel($model) === $prv;
     }
 
     /**
@@ -285,19 +224,20 @@ class JWT
      */
     public function setRequest(Request $request): self
     {
+        $this->builder->setRequest($request);
         $this->parser->setRequest($request);
 
         return $this;
     }
 
     /**
-     * Set whether the subject should be "locked".
+     * Get the Builder instance.
+     *
+     * @return \Tymon\JWTAuth\Builder
      */
-    public function lockSubject(bool $lock): self
+    public function builder(): Builder
     {
-        $this->lockSubject = $lock;
-
-        return $this;
+        return $this->builder;
     }
 
     /**
@@ -321,16 +261,6 @@ class JWT
     }
 
     /**
-     * Get the Payload Factory.
-     *
-     * @return \Tymon\JWTAuth\Factory
-     */
-    public function factory(): Factory
-    {
-        return $this->manager->getPayloadFactory();
-    }
-
-    /**
      * Get the Blacklist.
      *
      * @return \Tymon\JWTAuth\Blacklist
@@ -338,6 +268,28 @@ class JWT
     public function blacklist(): Blacklist
     {
         return $this->manager->getBlacklist();
+    }
+
+    /**
+     * Set the token ttl (in minutes).
+     *
+     * @param  int|null  $ttl
+     */
+    public function setTTL($ttl): self
+    {
+        $this->builder->setTTL($ttl);
+
+        return $this;
+    }
+
+    /**
+     * Get the token ttl.
+     *
+     * @return int|null
+     */
+    public function getTTL()
+    {
+        return $this->builder->getTTL();
     }
 
     /**

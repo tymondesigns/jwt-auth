@@ -34,8 +34,6 @@ trait DatetimeTrait
      * @param  mixed  $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     *
-     * @return $this
      */
     public function setValue($value): Claim
     {
@@ -84,12 +82,8 @@ trait DatetimeTrait
 
     /**
      * Set the leeway in seconds.
-     *
-     * @param  int  $leeway
-     *
-     * @return $this
      */
-    public function setLeeway(int $leeway)
+    public function setLeeway(int $leeway): self
     {
         $this->leeway = $leeway;
 

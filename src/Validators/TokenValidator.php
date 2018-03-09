@@ -11,26 +11,19 @@
 
 namespace Tymon\JWTAuth\Validators;
 
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class TokenValidator extends Validator
+class TokenValidator
 {
     /**
      * Check the structure of the token.
      *
      * @param  mixed  $value
-     */
-    public function check($value): string
-    {
-        return $this->validateStructure($value);
-    }
-
-    /**
-     * Validate the token structure.
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    protected function validateStructure(string $token): string
+    public static function check($token): string
     {
         $parts = explode('.', $token);
 
