@@ -204,11 +204,11 @@ abstract class AbstractServiceProvider extends ServiceProvider
     {
         $this->app->singleton('tymon.jwt.parser', function ($app) {
             $parser = new Parser($app['request'], [
-                'headers' => new AuthHeaders,
+                'header' => new AuthHeaders,
                 'query' => new QueryString,
                 'input' => new InputSource,
                 'route' => new RouteParams,
-                'cookies' => new Cookies($this->config('decrypt_cookies')),
+                'cookie' => new Cookies($this->config('decrypt_cookies')),
             ]);
 
             $app->refresh('request', $parser, 'setRequest');
