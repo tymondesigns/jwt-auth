@@ -56,9 +56,11 @@ class ParserTest extends AbstractTestCase
         $parser->setChain([
             'query' => new QueryString,
             'input' => new InputSource,
-            'headers' => (new AuthHeaders)->setHeaderPrefix('Custom'),
+            'headers' => new AuthHeaders,
             'route' => new RouteParams,
         ]);
+
+        $parser->get('headers')->setHeaderPrefix('Custom');
 
         $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());

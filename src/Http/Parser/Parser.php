@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Http\Parser;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
