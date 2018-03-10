@@ -59,7 +59,11 @@ class Collection extends IlluminateCollection
      */
     public function hasAllClaims($claims): bool
     {
-        return count($claims) && (new static($claims))->diff($this->keys())->isEmpty();
+        if (empty($claims)) {
+            return true;
+        }
+
+        return (new static($claims))->diff($this->keys())->isEmpty();
     }
 
     /**

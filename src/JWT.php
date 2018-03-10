@@ -232,8 +232,6 @@ class JWT
 
     /**
      * Get the Builder instance.
-     *
-     * @return \Tymon\JWTAuth\Builder
      */
     public function builder(): Builder
     {
@@ -242,8 +240,6 @@ class JWT
 
     /**
      * Get the Manager instance.
-     *
-     * @return \Tymon\JWTAuth\Manager
      */
     public function manager(): Manager
     {
@@ -253,17 +249,15 @@ class JWT
     /**
      * Get the Parser instance.
      *
-     * @return \Tymon\JWTAuth\Http\Parser\Parser
+     * @return \Tymon\JWTAuth\Http\Parser\Parser|\Tymon\JWTAuth\Contracts\Http\Parser
      */
-    public function parser(): Parser
+    public function parser($key = null)
     {
-        return $this->parser;
+        return $key === null ? $this->parser : $this->parser->get($key);
     }
 
     /**
      * Get the Blacklist.
-     *
-     * @return \Tymon\JWTAuth\Blacklist
      */
     public function blacklist(): Blacklist
     {

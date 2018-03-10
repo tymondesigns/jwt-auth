@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Http\Parser;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 
 class Parser
 {
@@ -71,6 +72,14 @@ class Parser
     }
 
     /**
+     * Get a parser by key.
+     */
+    public function get(string $key): ParserContract
+    {
+        return Arr::get($this->chain, $key);
+    }
+
+    /**
      * Iterate through the parsers and attempt to retrieve
      * a value, otherwise return null.
      *
@@ -78,7 +87,7 @@ class Parser
      */
     public function parseToken()
     {
-        foreach ($this->chain as $parser) {
+        foreach ($this->chain as $key => $parser) {
             if ($token = $parser->parse($this->request)) {
                 return $token;
             }

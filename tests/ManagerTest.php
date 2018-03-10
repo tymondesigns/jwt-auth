@@ -144,7 +144,7 @@ class ManagerTest extends AbstractTestCase
         $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
+        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
 
         $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
         $this->factory->shouldReceive('customClaims')->with($payload->toArray())->andReturn($this->factory);

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Validators\PayloadValidator;

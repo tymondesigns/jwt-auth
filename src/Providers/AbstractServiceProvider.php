@@ -204,16 +204,13 @@ abstract class AbstractServiceProvider extends ServiceProvider
     protected function registerTokenParser()
     {
         $this->app->singleton('tymon.jwt.parser', function ($app) {
-            $parser = new Parser(
-                $app['request'],
-                [
-                    new AuthHeaders,
-                    new QueryString,
-                    new InputSource,
-                    new RouteParams,
-                    new Cookies($this->config('decrypt_cookies')),
-                ]
-            );
+            $parser = new Parser($app['request'], [
+                'headers' => new AuthHeaders,
+                'query' => new QueryString,
+                'input' => new InputSource,
+                'route' => new RouteParams,
+                'cookies' => new Cookies($this->config('decrypt_cookies')),
+            ]);
 
             $app->refresh('request', $parser, 'setRequest');
 

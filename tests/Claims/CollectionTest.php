@@ -24,16 +24,14 @@ class CollectionTest extends AbstractTestCase
 {
     private function getCollection()
     {
-        $claims = [
+        return new Collection([
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration($this->testNowTimestamp + 3600),
             new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
-        ];
-
-        return new Collection($claims);
+        ]);
     }
 
     /** @test */
@@ -51,8 +49,8 @@ class CollectionTest extends AbstractTestCase
 
         $this->assertFalse($collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti', 'abc']));
         $this->assertFalse($collection->hasAllClaims(['foo', 'bar']));
-        $this->assertFalse($collection->hasAllClaims([]));
 
+        $this->assertTrue($collection->hasAllClaims([]));
         $this->assertTrue($collection->hasAllClaims(['sub', 'iss']));
         $this->assertTrue($collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']));
     }

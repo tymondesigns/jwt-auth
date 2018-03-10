@@ -19,8 +19,6 @@ class Utils
 {
     /**
      * Get the Carbon instance for the current time.
-     *
-     * @return \Carbon\Carbon
      */
     public static function now(): Carbon
     {
@@ -29,10 +27,6 @@ class Utils
 
     /**
      * Get the Carbon instance for the timestamp.
-     *
-     * @param  int  $timestamp
-     *
-     * @return \Carbon\Carbon
      */
     public static function timestamp(int $timestamp): Carbon
     {
@@ -44,7 +38,11 @@ class Utils
      */
     public static function isPast(int $timestamp, int $leeway = 0): bool
     {
-        return static::timestamp($timestamp)->addSeconds($leeway)->isPast();
+        $timestamp = static::timestamp($timestamp);
+
+        return $leeway > 0
+            ? $timestamp->addSeconds($leeway)->isPast()
+            : $timestamp->isPast();
     }
 
     /**
@@ -52,6 +50,10 @@ class Utils
      */
     public static function isFuture(int $timestamp, int $leeway = 0): bool
     {
-        return static::timestamp($timestamp)->subSeconds($leeway)->isFuture();
+        $timestamp = static::timestamp($timestamp);
+
+        return $leeway > 0
+            ? $timestamp->subSeconds($leeway)->isFuture()
+            : $timestamp->isFuture();
     }
 }

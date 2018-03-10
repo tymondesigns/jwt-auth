@@ -117,7 +117,7 @@ class PayloadValidatorTest extends AbstractTestCase
 
         $collection = Collection::make($claims);
 
-        PayloadValidator::check($collection);
+        PayloadValidator::check($collection, ['foo']);
     }
 
     /**
