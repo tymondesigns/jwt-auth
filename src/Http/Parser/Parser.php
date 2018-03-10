@@ -114,7 +114,7 @@ class Parser
     }
 
     /**
-     * Get the request instance
+     * Get the request instance.
      */
     public function getRequest(): Request
     {

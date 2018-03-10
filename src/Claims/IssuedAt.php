@@ -13,7 +13,6 @@ namespace Tymon\JWTAuth\Claims;
 
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class IssuedAt extends Claim
