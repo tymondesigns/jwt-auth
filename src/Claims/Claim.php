@@ -109,7 +109,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Create an instance of the claim.
      */
-    public static function make($value = null): Claim
+    public static function make($value = null): self
     {
         return new static($value);
     }

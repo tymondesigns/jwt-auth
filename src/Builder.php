@@ -15,8 +15,8 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
@@ -133,7 +133,7 @@ class Builder
     protected function expClaim(): Expiration
     {
         return ClaimFactory::get('exp', Utils::now()->addMinutes($this->getTTL())->getTimestamp(), [
-            'leeway' => $this->leeway
+            'leeway' => $this->leeway,
         ]);
     }
 
