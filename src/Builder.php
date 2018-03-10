@@ -152,7 +152,7 @@ class Builder
      *
      * @param  string|object  $model
      */
-    protected function hashSubjectModel($model): string
+    public function hashSubjectModel($model): string
     {
         return sha1(is_object($model) ? get_class($model) : $model);
     }

@@ -186,8 +186,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt.manager', function ($app) {
             $manager = new Manager(
                 $app['tymon.jwt.provider.jwt'],
-                $app['tymon.jwt.blacklist'],
-                $app['tymon.jwt.payload.factory']
+                $app['tymon.jwt.blacklist']
             );
 
             return $manager->setBlacklistEnabled((bool) $this->config('blacklist_enabled'))
