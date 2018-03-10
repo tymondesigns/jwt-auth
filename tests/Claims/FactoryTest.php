@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
 use Tymon\JWTAuth\Claims\Issuer;
