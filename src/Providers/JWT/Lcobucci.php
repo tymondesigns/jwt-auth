@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -14,6 +16,7 @@ namespace Tymon\JWTAuth\Providers\JWT;
 use Exception;
 use ReflectionClass;
 use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Rsa;
 use Lcobucci\JWT\Signer\Ecdsa;
@@ -49,21 +52,13 @@ class Lcobucci extends Provider implements JWT
     protected $parser;
 
     /**
-     * Create the Lcobucci provider.
-     *
-     * @param  \Lcobucci\JWT\Builder  $builder
-     * @param  \Lcobucci\JWT\Parser  $parser
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
-     *
-     * @return void
+     * Constructor.
      */
     public function __construct(
         Builder $builder,
         Parser $parser,
-        $secret,
-        $algo,
+        string $secret,
+        string $algo,
         array $keys
     ) {
         parent::__construct($secret, $algo, $keys);
@@ -93,13 +88,9 @@ class Lcobucci extends Provider implements JWT
     /**
      * Create a JSON Web Token.
      *
-     * @param  array  $payload
-     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return string
      */
-    public function encode(array $payload)
+    public function encode(array $payload): string
     {
         // Remove the signature on the builder instance first.
         $this->builder->unsign();
@@ -119,13 +110,9 @@ class Lcobucci extends Provider implements JWT
     /**
      * Decode a JSON Web Token.
      *
-     * @param  string  $token
-     *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return array
      */
-    public function decode($token)
+    public function decode(string $token): array
     {
         try {
             $jwt = $this->parser->parse($token);
@@ -137,7 +124,7 @@ class Lcobucci extends Provider implements JWT
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return (new Collection($jwt->getClaims()))->map(function ($claim) {
+        return Collection::make($jwt->getClaims())->map(function ($claim) {
             return is_object($claim) ? $claim->getValue() : $claim;
         })->toArray();
     }
@@ -149,7 +136,7 @@ class Lcobucci extends Provider implements JWT
      *
      * @return \Lcobucci\JWT\Signer
      */
-    protected function getSigner()
+    protected function getSigner(): Signer
     {
         if (! array_key_exists($this->algo, $this->signers)) {
             throw new JWTException('The given algorithm could not be found');
@@ -161,7 +148,7 @@ class Lcobucci extends Provider implements JWT
     /**
      * {@inheritdoc}
      */
-    protected function isAsymmetric()
+    protected function isAsymmetric(): bool
     {
         $reflect = new ReflectionClass($this->signer);
 
@@ -173,9 +160,9 @@ class Lcobucci extends Provider implements JWT
      */
     protected function getSigningKey()
     {
-        return $this->isAsymmetric() ?
-            (new Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase()) :
-            $this->getSecret();
+        return $this->isAsymmetric()
+            ? (new Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase())
+            : $this->getSecret();
     }
 
     /**
@@ -183,8 +170,8 @@ class Lcobucci extends Provider implements JWT
      */
     protected function getVerificationKey()
     {
-        return $this->isAsymmetric() ?
-            (new Keychain())->getPublicKey($this->getPublicKey()) :
-            $this->getSecret();
+        return $this->isAsymmetric()
+            ? (new Keychain())->getPublicKey($this->getPublicKey())
+            : $this->getSecret();
     }
 }

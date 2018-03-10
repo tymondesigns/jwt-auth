@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -19,10 +21,8 @@ interface Claim
      * @param  mixed  $value
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     *
-     * @return $this
      */
-    public function setValue($value);
+    public function setValue($value): self;
 
     /**
      * Get the claim value.
@@ -33,26 +33,20 @@ interface Claim
 
     /**
      * Set the claim name.
-     *
-     * @param  string  $name
-     *
-     * @return $this
      */
-    public function setName($name);
+    public function setName(string $name): self;
 
     /**
      * Get the claim name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Validate the Claim value.
      *
      * @param  mixed  $value
      *
-     * @return bool
+     * @return mixed
      */
     public function validateCreate($value);
 }

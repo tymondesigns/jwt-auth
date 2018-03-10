@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Test;
 
-use Mockery;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Claims\JwtId;
@@ -20,227 +19,55 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Validators\PayloadValidator;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class FactoryTest extends AbstractTestCase
 {
-    /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Claims\Factory
-     */
-    protected $claimFactory;
-
-    /**
-     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Validators\PayloadValidator
-     */
-    protected $validator;
-
-    /**
-     * @var \Tymon\JWTAuth\Factory
-     */
-    protected $factory;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->claimFactory = Mockery::mock(ClaimFactory::class);
-        $this->validator = Mockery::mock(PayloadValidator::class);
-        $this->factory = new Factory($this->claimFactory, $this->validator);
-    }
-
     /** @test */
     public function it_should_return_a_payload_when_passing_an_array_of_claims()
     {
-        $expTime = $this->testNowTimestamp + 3600;
-
-        // these are added from default claims
-        $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('exp')->andReturn(new Expiration($expTime));
-        $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore(123));
-        $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt(123));
-
-        // custom claims that override
-        $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
-        $this->claimFactory->shouldReceive('get')->twice()->with('jti', 'foo')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('get')->twice()->with('nbf', 123)->andReturn(new NotBefore(123));
-        $this->claimFactory->shouldReceive('get')->twice()->with('iat', 123)->andReturn(new IssuedAt(123));
-
-        $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
-
-        // once
-        $claims = $this->factory->customClaims([
+        $payload = Factory::make([
+            'jti', // auto generated
+            'iat', // auto generated
+            'nbf', // auto generated
             'sub' => 1,
+            'foo' => 'bar',
+        ]);
+
+        $this->assertSame($payload->get('sub'), 1);
+        $this->assertSame($payload('iat'), $this->testNowTimestamp);
+        $this->assertSame($payload('nbf'), $this->testNowTimestamp);
+        $this->assertSame($payload['foo'], 'bar');
+
+        $this->assertInstanceOf(Payload::class, $payload);
+        $this->assertInstanceOf(Subject::class, $payload->getInternal('sub'));
+        $this->assertInstanceOf(IssuedAt::class, $payload->getInternal('iat'));
+        $this->assertInstanceOf(JwtId::class, $payload->getInternal('jti'));
+        $this->assertInstanceOf(NotBefore::class, $payload->getInternal('nbf'));
+        $this->assertInstanceOf(Custom::class, $payload->getInternal('foo'));
+    }
+
+    /** @test */
+    public function it_should_return_a_payload_when_passing_an_array_of_claims_with_values()
+    {
+        $payload = Factory::make([
             'jti' => 'foo',
-            'iat' => 123,
-            'nbf' => 123,
-        ])->buildClaimsCollection();
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
-
-        // twice
-        $payload = $this->factory->claims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
-
-        $this->assertSame($payload->get('sub'), 1);
-        $this->assertSame($payload->get('iat'), 123);
-        $this->assertSame($payload['exp'], $expTime);
-        $this->assertSame($payload['jti'], 'foo');
-
-        $this->assertInstanceOf(Payload::class, $payload);
-    }
-
-    /** @test */
-    public function it_should_return_a_payload_when_chaining_claim_methods()
-    {
-        $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
-        $this->claimFactory->shouldReceive('get')->twice()->with('foo', 'baz')->andReturn(new Custom('foo', 'baz'));
-
-        $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('exp')->andReturn(new Expiration($this->testNowTimestamp + 3600));
-        $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt($this->testNowTimestamp));
-        $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore($this->testNowTimestamp));
-
-        $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
-
-        // once
-        $claims = $this->factory->sub(1)->foo('baz')->buildClaimsCollection();
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
-
-        // twice
-        $payload = $this->factory->sub(1)->foo('baz')->make();
-
-        $this->assertSame($payload['sub'], 1);
-        $this->assertSame($payload->get('jti'), 'foo');
-        $this->assertSame($payload->get('foo'), 'baz');
-
-        $this->assertInstanceOf(Payload::class, $payload);
-    }
-
-    /** @test */
-    public function it_should_return_a_payload_when_passing_miltidimensional_array_as_custom_claim_to_make_method()
-    {
-        // these are added from default claims
-        $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('exp')->andReturn(new Expiration($this->testNowTimestamp + 3600));
-        $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore(123));
-        $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt(123));
-
-        // custom claims that override
-        $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
-        $this->claimFactory->shouldReceive('get')->twice()->with('foo', ['bar' => [0, 0, 0]])->andReturn(new Custom('foo', ['bar' => [0, 0, 0]]));
-
-        $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
-
-        // once
-        $claims = $this->factory->sub(1)->foo(['bar' => [0, 0, 0]])->buildClaimsCollection();
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
-
-        // twice
-        $payload = $this->factory->sub(1)->foo(['bar' => [0, 0, 0]])->make();
+            'iat' => $this->testNowTimestamp - 3600,
+            'iss' => 'example.com',
+            'sub' => 1,
+            'foo' => 'bar',
+        ]);
 
         $this->assertSame($payload->get('sub'), 1);
         $this->assertSame($payload->get('jti'), 'foo');
-        $this->assertSame($payload->get('foo'), ['bar' => [0, 0, 0]]);
-        $this->assertSame($payload->get('foo.bar'), [0, 0, 0]);
+        $this->assertSame($payload('iat'), $this->testNowTimestamp - 3600);
+        $this->assertSame($payload['foo'], 'bar');
+        $this->assertSame($payload['iss'], 'example.com');
 
         $this->assertInstanceOf(Payload::class, $payload);
-    }
-
-    /** @test */
-    public function it_should_exclude_the_exp_claim_when_setting_ttl_to_null()
-    {
-        // these are added from default claims
-        $this->claimFactory->shouldReceive('make')->twice()->with('iss')->andReturn(new Issuer('/foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('jti')->andReturn(new JwtId('foo'));
-        $this->claimFactory->shouldReceive('make')->twice()->with('nbf')->andReturn(new NotBefore(123));
-        $this->claimFactory->shouldReceive('make')->twice()->with('iat')->andReturn(new IssuedAt(123));
-
-        // custom claims that override
-        $this->claimFactory->shouldReceive('get')->twice()->with('sub', 1)->andReturn(new Subject(1));
-
-        $this->claimFactory->shouldReceive('setTTL')->with(null)->andReturn($this->claimFactory);
-        $this->claimFactory->shouldReceive('getTTL')->andReturn(null);
-
-        // once
-        $claims = $this->factory->setTTL(null)->sub(1)->buildClaimsCollection();
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($claims);
-
-        // twice
-        $payload = $this->factory->setTTL(null)->sub(1)->make();
-
-        $this->assertNull($payload->get('exp'));
-
-        $this->assertInstanceOf(Payload::class, $payload);
-    }
-
-    /** @test */
-    public function it_should_exclude_claims_from_previous_payloads()
-    {
-        $fooClaim = new Custom('foo', 'bar');
-        $barClaim = new Custom('baz', 'qux');
-
-        $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
-        $this->claimFactory->shouldReceive('get')->with('foo', 'bar')->twice()->andReturn($fooClaim);
-        $this->claimFactory->shouldReceive('get')->with('baz', 'qux')->twice()->andReturn($barClaim);
-        $this->validator->shouldReceive('setRefreshFlow->check')->once()->andReturn(new Collection([$fooClaim, $barClaim]));
-
-        $payload = $this->factory->setDefaultClaims([])
-            ->customClaims([
-                'foo' => 'bar',
-                'baz' => 'qux',
-            ])->make();
-
-        $this->assertSame($payload->get('foo'), 'bar');
-        $this->assertSame($payload->get('baz'), 'qux');
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->once()->andReturn(new Collection([$fooClaim]));
-
-        $payload = $this->factory->setDefaultClaims([])->customClaims(['foo' => 'bar'])->make(true);
-
-        $this->assertSame($payload->get('foo'), 'bar');
-        $this->assertFalse($payload->hasKey('baz'));
-    }
-
-    /** @test */
-    public function it_should_set_the_default_claims()
-    {
-        $this->factory->setDefaultClaims(['sub', 'iat']);
-
-        $this->assertSame($this->factory->getDefaultClaims(), ['sub', 'iat']);
-    }
-
-    /** @test */
-    public function it_should_get_payload_with_a_predefined_collection_of_claims()
-    {
-        $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration($this->testNowTimestamp + 3600),
-            new NotBefore($this->testNowTimestamp),
-            new IssuedAt($this->testNowTimestamp),
-            new JwtId('foo'),
-        ];
-
-        $collection = Collection::make($claims);
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-
-        $payload = $this->factory->withClaims($collection);
-
-        $this->assertInstanceOf(Payload::class, $payload);
-        $this->assertSame($payload->get('sub'), 1);
-    }
-
-    /** @test */
-    public function it_should_get_the_validator()
-    {
-        $this->assertInstanceOf(PayloadValidator::class, $this->factory->validator());
+        $this->assertInstanceOf(Subject::class, $payload->getInternal('sub'));
+        $this->assertInstanceOf(IssuedAt::class, $payload->getInternal('iat'));
+        $this->assertInstanceOf(JwtId::class, $payload->getInternal('jti'));
+        $this->assertInstanceOf(Issuer::class, $payload->getInternal('iss'));
+        $this->assertInstanceOf(Custom::class, $payload->getInternal('foo'));
     }
 }

@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -47,5 +48,13 @@ class NotBefore extends Claim
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function make($value = null): Claim
+    {
+        return new static($value ?? Utils::now()->getTimestamp());
     }
 }

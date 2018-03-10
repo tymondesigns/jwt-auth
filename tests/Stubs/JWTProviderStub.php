@@ -18,7 +18,7 @@ class JWTProviderStub extends Provider
     /**
      * {@inheritdoc}
      */
-    protected function isAsymmetric()
+    protected function isAsymmetric(): bool
     {
         return false;
     }

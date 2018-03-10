@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of jwt-auth.
  *
@@ -11,6 +13,9 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
+use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
 
 abstract class Provider
@@ -38,14 +43,8 @@ abstract class Provider
 
     /**
      * Constructor.
-     *
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
-     *
-     * @return void
      */
-    public function __construct($secret, $algo, array $keys)
+    public function __construct(string $secret, string $algo, array $keys)
     {
         $this->secret = $secret;
         $this->algo = $algo;
@@ -53,13 +52,27 @@ abstract class Provider
     }
 
     /**
+     * Get the decoded token as a Payload instance.
+     */
+    public function payload(string $token): Payload
+    {
+        return Factory::make($this->decode($token));
+    }
+
+    /**
+     * Get an encoded Token instance.
+     */
+    public function token(array $claims): Token
+    {
+        return new Token($this->encode($claims));
+    }
+
+    /**
      * Set the algorithm used to sign the token.
-     *
-     * @param  string  $algo
      *
      * @return $this
      */
-    public function setAlgo($algo)
+    public function setAlgo(string $algo)
     {
         $this->algo = $algo;
 
@@ -68,10 +81,8 @@ abstract class Provider
 
     /**
      * Get the algorithm used to sign the token.
-     *
-     * @return string
      */
-    public function getAlgo()
+    public function getAlgo(): string
     {
         return $this->algo;
     }
@@ -79,11 +90,9 @@ abstract class Provider
     /**
      * Set the secret used to sign the token.
      *
-     * @param  string  $secret
-     *
      * @return $this
      */
-    public function setSecret($secret)
+    public function setSecret(string $secret)
     {
         $this->secret = $secret;
 
@@ -103,8 +112,6 @@ abstract class Provider
     /**
      * Set the keys used to sign the token.
      *
-     * @param  array  $keys
-     *
      * @return $this
      */
     public function setKeys(array $keys)
@@ -120,7 +127,7 @@ abstract class Provider
      *
      * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return $this->keys;
     }
@@ -183,8 +190,6 @@ abstract class Provider
      * requires a public/private key combo.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return bool
      */
-    abstract protected function isAsymmetric();
+    abstract protected function isAsymmetric(): bool;
 }

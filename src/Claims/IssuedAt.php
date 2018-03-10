@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -48,15 +49,20 @@ class IssuedAt extends Claim
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
         }
+
+        if ($this->maxRefreshPeriod !== null) {
+            $max = Utils::timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod);
+            if ($max->greaterThanOrEqualTo(Utils::now())) {
+                throw new TokenExpiredException('Token has expired');
+            }
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function validateRefresh($refreshTTL)
+    public static function make($value = null): Claim
     {
-        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
-        }
+        return new static($value ?? Utils::now()->getTimestamp());
     }
 }

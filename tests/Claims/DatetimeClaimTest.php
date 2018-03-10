@@ -17,6 +17,7 @@ use DateInterval;
 use Carbon\Carbon;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Carbon\CarbonInterval;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -132,9 +133,11 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetinterval_claims()
     {
-        $testDateInterval = DateInterval::createFromDateString('PT1H');
+        $testDateInterval = new DateInterval('PT1H');
+        $carbonDateInterval = CarbonInterval::hours(1);
 
         $this->assertInstanceOf(DateInterval::class, $testDateInterval);
+        $this->assertInstanceOf(DateInterval::class, $carbonDateInterval);
 
         $claimsDateInterval = [
             'sub' => new Subject(1),
@@ -145,9 +148,21 @@ class DatetimeClaimTest extends AbstractTestCase
             'jti' => new JwtId('foo'),
         ];
 
-        $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp), $this->validator);
-        $payloadDateInterval = new Payload(Collection::make($claimsDateInterval), $this->validator);
+        $claimsCarbonInterval = [
+            'sub' => new Subject(1),
+            'iss' => new Issuer('http://example.com'),
+            'exp' => new Expiration($carbonDateInterval),
+            'nbf' => new NotBefore($this->testNowTimestamp),
+            'iat' => new IssuedAt($this->testNowTimestamp),
+            'jti' => new JwtId('foo'),
+        ];
+
+        $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp));
+
+        $payloadDateInterval = new Payload(Collection::make($claimsDateInterval));
+        $payloadClaimInterval = new Payload(Collection::make($claimsCarbonInterval));
 
         $this->assertEquals($payloadTimestamp, $payloadDateInterval);
+        $this->assertEquals($payloadTimestamp, $payloadClaimInterval);
     }
 }

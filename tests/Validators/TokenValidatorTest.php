@@ -16,22 +16,10 @@ use Tymon\JWTAuth\Validators\TokenValidator;
 
 class TokenValidatorTest extends AbstractTestCase
 {
-    /**
-     * @var \Tymon\JWTAuth\Validators\TokenValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->validator = new TokenValidator;
-    }
-
     /** @test */
     public function it_should_return_true_when_providing_a_well_formed_token()
     {
-        $this->assertTrue($this->validator->isValid('one.two.three'));
+        $this->assertTrue(TokenValidator::isValid('one.two.three'));
     }
 
     public function dataProviderMalformedTokens()
@@ -55,7 +43,7 @@ class TokenValidatorTest extends AbstractTestCase
      */
     public function it_should_return_false_when_providing_a_malformed_token($token)
     {
-        $this->assertFalse($this->validator->isValid($token));
+        $this->assertFalse(TokenValidator::isValid($token));
     }
 
     /**
@@ -68,7 +56,7 @@ class TokenValidatorTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_when_providing_a_malformed_token($token)
     {
-        $this->validator->check($token);
+        TokenValidator::check($token);
     }
 
     public function dataProviderTokensWithWrongSegmentsNumber()
@@ -88,7 +76,7 @@ class TokenValidatorTest extends AbstractTestCase
      */
     public function it_should_return_false_when_providing_a_token_with_wrong_segments_number($token)
     {
-        $this->assertFalse($this->validator->isValid($token));
+        $this->assertFalse(TokenValidator::isValid($token));
     }
 
     /**
@@ -101,6 +89,6 @@ class TokenValidatorTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number($token)
     {
-        $this->validator->check($token);
+        TokenValidator::check($token);
     }
 }

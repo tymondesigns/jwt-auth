@@ -22,7 +22,6 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -68,21 +67,18 @@ class ManagerTest extends AbstractTestCase
     /** @test */
     public function it_should_encode_a_payload()
     {
-        $claims = [
+        $payload = Factory::make([
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration($this->testNowTimestamp + 3600),
             new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
-        ];
+        ]);
 
-        $collection = Collection::make($claims);
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-        $payload = new Payload($collection, $this->validator);
-
-        $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('token')
+            ->with($payload->toArray())
+            ->andReturn(new Token('foo.bar.baz'));
 
         $token = $this->manager->encode($payload);
 
@@ -92,26 +88,18 @@ class ManagerTest extends AbstractTestCase
     /** @test */
     public function it_should_decode_a_token()
     {
-        $claims = [
+        $payload = Factory::make([
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration($this->testNowTimestamp + 3600),
             new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
-        ];
-        $collection = Collection::make($claims);
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-        $payload = new Payload($collection, $this->validator);
+        ]);
 
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-
-        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
-        $this->factory->shouldReceive('customClaims')->andReturn($this->factory);
-        $this->factory->shouldReceive('make')->andReturn($payload);
+        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
 
@@ -128,25 +116,18 @@ class ManagerTest extends AbstractTestCase
      */
     public function it_should_throw_exception_when_token_is_blacklisted()
     {
-        $claims = [
+        $payload = Factory::make([
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration($this->testNowTimestamp + 3600),
             new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
-        ];
-        $collection = Collection::make($claims);
+        ]);
 
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-
-        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
-        $this->factory->shouldReceive('customClaims')->with($payload->toArray())->andReturn($this->factory);
-        $this->factory->shouldReceive('make')->andReturn($payload);
+        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
 
@@ -156,33 +137,31 @@ class ManagerTest extends AbstractTestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $claims = [
+        $payload = Factory::make([
             new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration($this->testNowTimestamp - 3600),
-            new NotBefore($this->testNowTimestamp),
+            new Issuer('example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
-        ];
-        $collection = Collection::make($claims);
+        ]);
 
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('decode')->twice()->with('foo.bar.baz')->andReturn($payload->toArray());
-        $this->jwt->shouldReceive('encode')->with($payload->toArray())->andReturn('baz.bar.foo');
+        $this->jwt->shouldReceive('payload')
+            ->twice()
+            ->with('foo.bar.baz')
+            ->andReturn($payload);
 
-        $this->factory->shouldReceive('setRefreshFlow')->with(true)->andReturn($this->factory);
-        $this->factory->shouldReceive('customClaims')->andReturn($this->factory);
-        $this->factory->shouldReceive('make')->andReturn($payload);
+        $this->jwt->shouldReceive('token')
+            ->once()
+            ->with(Mockery::type('array'))
+            ->andReturn(new Token('baz.bar.foo'));
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
         $this->blacklist->shouldReceive('add')->once()->with($payload);
 
-        $token = $this->manager->refresh($token);
+        $token = $this->manager->refresh($token, 60);
 
-        // $this->assertArrayHasKey('ref', $payload);
         $this->assertInstanceOf(Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
     }
@@ -190,61 +169,24 @@ class ManagerTest extends AbstractTestCase
     /** @test */
     public function it_should_invalidate_a_token()
     {
-        $claims = [
+        $payload = Factory::make([
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration($this->testNowTimestamp + 3600),
             new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
-        ];
-        $collection = Collection::make($claims);
+        ]);
 
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-        $payload = new Payload($collection, $this->validator);
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-
-        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
-        $this->factory->shouldReceive('customClaims')->with($payload->toArray())->andReturn($this->factory);
-        $this->factory->shouldReceive('make')->andReturn($payload);
+        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
 
         $this->blacklist->shouldReceive('add')->with($payload)->andReturn(true);
 
         $this->manager->invalidate($token);
-    }
-
-    /** @test */
-    public function it_should_force_invalidate_a_token_forever()
-    {
-        $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration($this->testNowTimestamp + 3600),
-            new NotBefore($this->testNowTimestamp),
-            new IssuedAt($this->testNowTimestamp),
-            new JwtId('foo'),
-        ];
-        $collection = Collection::make($claims);
-
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-        $payload = new Payload($collection, $this->validator);
-        $token = new Token('foo.bar.baz');
-
-        $this->jwt->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload->toArray());
-
-        $this->factory->shouldReceive('setRefreshFlow')->andReturn($this->factory);
-        $this->factory->shouldReceive('customClaims')->with($payload->toArray())->andReturn($this->factory);
-        $this->factory->shouldReceive('make')->andReturn($payload);
-
-        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
-
-        $this->blacklist->shouldReceive('addForever')->with($payload)->andReturn(true);
-
-        $this->manager->invalidate($token, true);
     }
 
     /**
@@ -257,12 +199,6 @@ class ManagerTest extends AbstractTestCase
         $token = new Token('foo.bar.baz');
 
         $this->manager->setBlacklistEnabled(false)->invalidate($token);
-    }
-
-    /** @test */
-    public function it_should_get_the_payload_factory()
-    {
-        $this->assertInstanceOf(Factory::class, $this->manager->getPayloadFactory());
     }
 
     /** @test */
