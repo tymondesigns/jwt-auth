@@ -76,14 +76,23 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_pass_provider_check_if_hash_matches()
     {
+        $hash = sha1(UserStub::class);
+
         $payload = Mockery::mock(Payload::class)->shouldReceive('get')
                 ->with('prv')
-                ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub'))
+                ->andReturn($hash)
                 ->getMock();
 
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+        $this->manager->shouldReceive('decode')
+            ->once()
+            ->andReturn($payload);
 
-        $this->assertTrue($this->jwt->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->builder->shouldReceive('hashSubjectModel')
+            ->once()
+            ->with(UserStub::class)
+            ->andReturn($hash);
+
+        $this->assertTrue($this->jwt->setToken('foo.bar.baz')->checkSubjectModel(UserStub::class));
     }
 
     /** @test */
