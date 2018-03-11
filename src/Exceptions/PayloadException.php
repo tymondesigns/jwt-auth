@@ -13,5 +13,5 @@ namespace Tymon\JWTAuth\Exceptions;
 
 class PayloadException extends JWTException
 {
-    //
+    protected $message = 'The payload is immutable';
 }

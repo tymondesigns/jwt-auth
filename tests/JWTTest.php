@@ -66,11 +66,12 @@ class JWTTest extends AbstractTestCase
         $this->manager->shouldReceive('encode')
             ->once()
             ->with($payload)
-            ->andReturn(new Token('foo.bar.baz'));
+            ->andReturn($token = new Token('foo.bar.baz'));
 
-        $token = $this->jwt->claims(['foo' => 'bar'])->fromUser($user);
+        $jwt = $this->jwt->claims(['foo' => 'bar'])->fromUser($user);
 
-        $this->assertSame($token, 'foo.bar.baz');
+        $this->assertSame($jwt, $token);
+        $this->assertSame((string) $jwt, 'foo.bar.baz');
     }
 
     /** @test */

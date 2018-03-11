@@ -124,7 +124,7 @@ class Lcobucci extends Provider implements JWT
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return (new Collection($jwt->getClaims()))->map(function ($claim) {
+        return Collection::make($jwt->getClaims())->map(function ($claim) {
             return is_object($claim) ? $claim->getValue() : $claim;
         })->toArray();
     }
@@ -160,9 +160,9 @@ class Lcobucci extends Provider implements JWT
      */
     protected function getSigningKey()
     {
-        return $this->isAsymmetric() ?
-            (new Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase()) :
-            $this->getSecret();
+        return $this->isAsymmetric()
+            ? (new Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase())
+            : $this->getSecret();
     }
 
     /**
@@ -170,8 +170,8 @@ class Lcobucci extends Provider implements JWT
      */
     protected function getVerificationKey()
     {
-        return $this->isAsymmetric() ?
-            (new Keychain())->getPublicKey($this->getPublicKey()) :
-            $this->getSecret();
+        return $this->isAsymmetric()
+            ? (new Keychain())->getPublicKey($this->getPublicKey())
+            : $this->getSecret();
     }
 }

@@ -187,19 +187,19 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      */
     public function offsetSet($key, $value)
     {
-        throw new PayloadException('The payload is immutable');
+        throw new PayloadException();
     }
 
     /**
      * Don't allow changing the payload as it should be immutable.
      *
-     * @param  string  $key
+     * @param  mixed  $key
      *
      * @throws \Tymon\JWTAuth\Exceptions\PayloadException
      */
     public function offsetUnset($key)
     {
-        throw new PayloadException('The payload is immutable');
+        throw new PayloadException();
     }
 
     /**

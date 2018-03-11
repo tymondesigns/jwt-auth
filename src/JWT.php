@@ -65,17 +65,17 @@ class JWT
     /**
      * Generate a token for a given subject.
      */
-    public function fromSubject(JWTSubject $subject): string
+    public function fromSubject(JWTSubject $subject): Token
     {
         $payload = $this->builder->makePayload($subject, $this->customClaims);
 
-        return $this->manager->encode($payload)->get();
+        return $this->manager->encode($payload);
     }
 
     /**
      * Alias to generate a token for a given user.
      */
-    public function fromUser(JWTSubject $user): string
+    public function fromUser(JWTSubject $user): Token
     {
         return $this->fromSubject($user);
     }

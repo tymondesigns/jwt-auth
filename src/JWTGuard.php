@@ -103,7 +103,7 @@ class JWTGuard implements Guard
     /**
      * Attempt to authenticate the user using the given credentials and return the token.
      *
-     * @return bool|string
+     * @return bool|Token
      */
     public function attempt(array $credentials = [], bool $login = true)
     {
@@ -119,7 +119,7 @@ class JWTGuard implements Guard
     /**
      * Create a token for a user.
      */
-    public function login(JWTSubject $user): string
+    public function login(JWTSubject $user): Token
     {
         $token = $this->jwt->fromUser($user);
         $this->setToken($token)->setUser($user);

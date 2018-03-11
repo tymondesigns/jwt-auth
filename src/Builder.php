@@ -35,7 +35,7 @@ class Builder
      *
      * @var int
      */
-    protected $ttl = 60;
+    protected $ttl = 30;
 
     /**
      * Lock the subject.
