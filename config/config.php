@@ -104,25 +104,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Refresh time to live
-    |--------------------------------------------------------------------------
-    |
-    | Specify the length of time (in minutes) that the token can be refreshed
-    | within. i.e. The user can refresh their token within a 1 week window of
-    | the original token being issued until they must re-authenticate.
-    | Defaults to 1 week.
-    |
-    | You can also set this to null, to yield an infinite refresh time.
-    | Some may want this instead of never expiring tokens for e.g. a mobile app.
-    | This is not particularly recommended, so make sure you have appropriate
-    | systems in place to revoke the token if necessary.
-    |
-    */
-
-    'refresh_ttl' => env('JWT_REFRESH_TTL', 10080),
-
-    /*
-    |--------------------------------------------------------------------------
     | JWT hashing algorithm
     |--------------------------------------------------------------------------
     |
@@ -155,24 +136,6 @@ return [
         'exp',
         'sub',
         'jti',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Persistent Claims
-    |--------------------------------------------------------------------------
-    |
-    | Specify the claim keys to be persisted when refreshing a token.
-    | `sub` and `iat` will automatically be persisted, in
-    | addition to the these claims.
-    |
-    | Note: If a claim does not exist then it will be ignored.
-    |
-    */
-
-    'persistent_claims' => [
-        // 'foo',
-        // 'bar',
     ],
 
     /*

@@ -13,5 +13,8 @@ namespace Tymon\JWTAuth\Exceptions;
 
 class TokenBlacklistedException extends TokenInvalidException
 {
-    //
+    /**
+     * @var string
+     */
+    protected $message = 'The token has been blacklisted';
 }

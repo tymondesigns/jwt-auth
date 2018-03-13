@@ -44,13 +44,6 @@ class Manager
     protected $blacklistEnabled = true;
 
     /**
-     * the persistent claims.
-     *
-     * @var array
-     */
-    protected $persistentClaims = [];
-
-    /**
      * Constructor.
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist)
@@ -77,63 +70,52 @@ class Manager
         $payload = $this->provider->payload($token->get());
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
-            throw new TokenBlacklistedException('The token has been blacklisted');
+            throw new TokenBlacklistedException();
         }
 
         return $payload;
     }
 
-    // /**
-    //  * Refresh a Token and return a new Token.
-    //  */
-    // public function refresh(Token $token, bool $forceForever = false, bool $resetClaims = false): Token
-    // {
-    //     $this->setRefreshFlow();
+    /**
+     * Refresh a Token and return a new Token.
+     */
+    public function refresh(Token $token): Token
+    {
+        $claims = $this->buildRefreshClaims($this->decode($token));
 
-    //     $claims = $this->buildRefreshClaims($this->decode($token));
+        if ($this->blacklistEnabled) {
+            // Invalidate old token
+            $this->invalidate($token);
+        }
 
-    //     if ($this->blacklistEnabled) {
-    //         // Invalidate old token
-    //         $this->invalidate($token, $forceForever);
-    //     }
-
-    //     // Return the new token
-    //     return $this->encode(
-    //         $this->payloadFactory->customClaims($claims)->make($resetClaims)
-    //     );
-    // }
+        // Return the new token
+        return $this->encode(Factory::make($claims));
+    }
 
     /**
      * Invalidate a Token by adding it to the blacklist.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    public function invalidate(Token $token, bool $forceForever = false): bool
+    public function invalidate(Token $token): bool
     {
         if (! $this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
         }
 
-        return call_user_func(
-            [$this->blacklist, $forceForever ? 'addForever' : 'add'],
-            $this->decode($token, false)
-        );
+        return $this->blacklist->add($this->decode($token, false));
     }
 
-    // /**
-    //  * Build the claims to go into the refreshed token.
-    //  */
-    // protected function buildRefreshClaims(Payload $payload): array
-    // {
-    //     // assign the payload values as variables for use later
-    //     extract($payload->toArray());
-
-    //     // persist the relevant claims
-    //     return array_merge(
-    //         $this->customClaims,
-    //         compact($this->persistentClaims, 'sub', 'iat')
-    //     );
-    // }
+    /**
+     * Build the claims to go into the refreshed token.
+     */
+    protected function buildRefreshClaims(Payload $payload): array
+    {
+        return array_merge($payload->toArray(), [
+            // TODO: extend exp
+            // 'exp' => $payload['exp']
+        ]);
+    }
 
     /**
      * Get the JWTProvider instance.

@@ -130,9 +130,9 @@ class JWTGuard implements Guard
     /**
      * Logout the user, thus invalidating the token.
      */
-    public function logout(bool $forceForever = false)
+    public function logout()
     {
-        $this->requireToken()->invalidate($forceForever);
+        $this->requireToken()->invalidate();
 
         $this->user = null;
         $this->jwt->unsetToken();
@@ -141,17 +141,17 @@ class JWTGuard implements Guard
     /**
      * Refresh the token.
      */
-    public function refresh(bool $forceForever = false, bool $resetClaims = false): string
+    public function refresh(): Token
     {
-        return $this->requireToken()->refresh($forceForever, $resetClaims);
+        return $this->requireToken()->refresh();
     }
 
     /**
      * Invalidate the token.
      */
-    public function invalidate(bool $forceForever = false): self
+    public function invalidate(): self
     {
-        $this->requireToken()->invalidate($forceForever);
+        $this->requireToken()->invalidate();
 
         return $this;
     }

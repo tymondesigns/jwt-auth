@@ -297,10 +297,11 @@ class JWTGuardTest extends AbstractTestCase
     public function it_should_refresh_the_token()
     {
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
-        $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
-        $this->jwt->shouldReceive('refresh')->once()->andReturn('foo.bar.baz');
+        $this->jwt->shouldReceive('getToken')->twice()->andReturn(true);
+        $this->jwt->shouldReceive('refresh')->twice()->andReturn($token = new Token('foo.bar.baz'));
 
-        $this->assertSame($this->guard->refresh(), 'foo.bar.baz');
+        $this->assertSame($this->guard->refresh(), $token); // once
+        $this->assertSame((string) $this->guard->refresh(), 'foo.bar.baz'); // twice
     }
 
     /**

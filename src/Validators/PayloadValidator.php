@@ -25,7 +25,7 @@ class PayloadValidator extends Validator
     public static function check(Collection $claims, array $requiredClaims = []): Collection
     {
         if (! $claims->hasAllClaims($requiredClaims)) {
-            throw new TokenInvalidException('JWT payload does not contain the required claims');
+            throw new TokenInvalidException('JWT does not contain the required claims');
         }
 
         return $claims->validate();

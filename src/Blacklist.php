@@ -33,18 +33,18 @@ class Blacklist
     protected $gracePeriod = 0;
 
     /**
-     * Number of minutes from issue date in which a JWT can be refreshed.
-     *
-     * @var int
-     */
-    protected $refreshTTL = 20160;
-
-    /**
      * The unique key held within the blacklist.
      *
      * @var string
      */
     protected $key = 'jti';
+
+    /**
+     * The value to store when blacklisting forever.
+     *
+     * @const string
+     */
+    const FOREVER = 'FOREVER';
 
     /**
      * Constructor.
@@ -80,12 +80,10 @@ class Blacklist
     protected function getMinutesUntilExpired(Payload $payload): int
     {
         $exp = Utils::timestamp($payload['exp']);
-        $iat = Utils::timestamp($payload['iat']);
 
-        // get the latter of the two expiration dates and find
-        // the number of minutes until the expiration date,
+        // find the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
-        return $exp->max($iat->addMinutes($this->refreshTTL))->addMinute()->diffInMinutes();
+        return Utils::now()->subMinute()->diffInMinutes($exp);
     }
 
     /**
@@ -93,7 +91,7 @@ class Blacklist
      */
     public function addForever(Payload $payload): bool
     {
-        $this->storage->forever($this->getKey($payload), 'forever');
+        $this->storage->forever($this->getKey($payload), static::FOREVER);
 
         return true;
     }
@@ -106,7 +104,7 @@ class Blacklist
         $val = $this->storage->get($this->getKey($payload));
 
         // exit early if the token was blacklisted forever,
-        if ($val === 'forever') {
+        if ($val === static::FOREVER) {
             return true;
         }
 
@@ -177,23 +175,5 @@ class Blacklist
         $this->key = value($key);
 
         return $this;
-    }
-
-    /**
-     * Set the refresh time limit.
-     */
-    public function setRefreshTTL(int $ttl): self
-    {
-        $this->refreshTTL = (int) $ttl;
-
-        return $this;
-    }
-
-    /**
-     * Get the refresh time limit.
-     */
-    public function getRefreshTTL(): int
-    {
-        return $this->refreshTTL;
     }
 }

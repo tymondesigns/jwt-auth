@@ -83,13 +83,23 @@ class JWT
     /**
      * Invalidate a token (add it to the blacklist).
      */
-    public function invalidate(bool $forceForever = false): self
+    public function invalidate(): self
     {
         $this->requireToken();
 
-        $this->manager->invalidate($this->token, $forceForever);
+        $this->manager->invalidate($this->token);
 
         return $this;
+    }
+
+    /**
+     * Refresh a token.
+     */
+    public function refresh(): Token
+    {
+        $this->requireToken();
+
+        return $this->manager->refresh($this->token);
     }
 
     /**

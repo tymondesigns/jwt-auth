@@ -106,7 +106,7 @@ class PayloadValidatorTest extends AbstractTestCase
     /**
      * @test
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage JWT payload does not contain the required claims
+     * @expectedExceptionMessage JWT does not contain the required claims
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {

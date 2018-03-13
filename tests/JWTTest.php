@@ -122,37 +122,25 @@ class JWTTest extends AbstractTestCase
         $this->assertFalse($this->jwt->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
 
-    // /** @test */
-    // public function it_should_refresh_a_token()
-    // {
-    //     $newToken = Mockery::mock(Token::class);
-    //     $newToken->shouldReceive('get')->once()->andReturn('baz.bar.foo');
+    /** @test */
+    public function it_should_refresh_a_token()
+    {
+        $this->manager->shouldReceive('refresh')->once()->andReturn($token = new Token('baz.bar.foo'));
 
-    //     $this->manager->shouldReceive('customClaims->refresh')->once()->andReturn($newToken);
+        $result = $this->jwt->setToken('foo.bar.baz')->refresh();
 
-    //     $result = $this->jwt->setToken('foo.bar.baz')->refresh();
-
-    //     $this->assertSame($result, 'baz.bar.foo');
-    // }
+        $this->assertSame($result, $token);
+        $this->assertSame((string) $result, 'baz.bar.foo');
+    }
 
     /** @test */
     public function it_should_invalidate_a_token()
     {
         $token = new Token('foo.bar.baz');
 
-        $this->manager->shouldReceive('invalidate')->once()->with($token, false)->andReturn(true);
+        $this->manager->shouldReceive('invalidate')->once()->with($token)->andReturn(true);
 
         $this->jwt->setToken($token)->invalidate();
-    }
-
-    /** @test */
-    public function it_should_force_invalidate_a_token_forever()
-    {
-        $token = new Token('foo.bar.baz');
-
-        $this->manager->shouldReceive('invalidate')->once()->with($token, true)->andReturn(true);
-
-        $this->jwt->setToken($token)->invalidate(true);
     }
 
     /** @test */
