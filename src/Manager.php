@@ -116,7 +116,7 @@ class Manager
     {
         return array_merge($payload->toArray(), [
             'jti' => ClaimFactory::get('jti'),
-            'exp' => Utils::timestamp($payload['exp'])->addMinutes($ttl)->getTimestamp()
+            'exp' => Utils::timestamp($payload['exp'])->addMinutes($ttl)->getTimestamp(),
         ]);
     }
 
