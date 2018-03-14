@@ -15,7 +15,6 @@ namespace Tymon\JWTAuth\Http;
 
 use Tymon\JWTAuth\Token;
 use Illuminate\Http\JsonResponse;
-use Tymon\JWTAuth\Validators\TokenValidator;
 use Illuminate\Contracts\Support\Responsable;
 
 class TokenResponse implements Responsable
@@ -52,14 +51,14 @@ class TokenResponse implements Responsable
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function toResponse($request)
     {
         return new JsonResponse([
             'access_token' => $this->token->get(),
             'token_type' => $this->type,
-            'expires_in' => $this->ttl * 60
+            'expires_in' => $this->ttl * 60,
         ]);
     }
 
