@@ -100,7 +100,7 @@ class JWT
     {
         $this->requireToken();
 
-        return $this->manager->refresh($this->token, $this->builder->getTTL());
+        return $this->manager->refresh($this->token, $this->getTTL());
     }
 
     /**
@@ -186,6 +186,7 @@ class JWT
      * Check if the subject model matches the one saved in the token.
      *
      * @param  string|object  $model
+     * @param  \Tymon\JWTAuth\Payload|null  $payload
      */
     public function checkSubjectModel($model, $payload = null): bool
     {

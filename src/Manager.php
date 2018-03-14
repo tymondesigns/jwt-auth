@@ -83,7 +83,7 @@ class Manager
      */
     public function refresh(Token $token, int $ttl): Token
     {
-        // Get the claims collection for the new token
+        // Get the claims for the new token
         $claims = $this->buildRefreshClaims($this->decode($token), $ttl);
 
         if ($this->blacklistEnabled) {

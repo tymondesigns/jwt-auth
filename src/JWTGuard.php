@@ -338,6 +338,8 @@ class JWTGuard implements Guard
 
     /**
      * Ensure the JWTSubject matches what is in the token.
+     *
+     * @param  \Tymon\JWTAuth\Payload|null  $payload
      */
     protected function validateSubject($payload = null): bool
     {
