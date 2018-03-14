@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth\Claims;
 
 use DateInterval;
-use Carbon\Carbon;
 use DateTimeInterface;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Claim;
