@@ -17,6 +17,7 @@ use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
+use Tymon\JWTAuth\Http\TokenResponse;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
@@ -116,12 +117,12 @@ class JWTGuard implements Guard
     /**
      * Create a token for a user.
      */
-    public function login(JWTSubject $user): Token
+    public function login(JWTSubject $user): TokenResponse
     {
         $token = $this->jwt->fromUser($user);
         $this->setToken($token)->setUser($user);
 
-        return $token;
+        return $this->tokenResponse($token);
     }
 
     /**
@@ -138,9 +139,11 @@ class JWTGuard implements Guard
     /**
      * Refresh the token.
      */
-    public function refresh(): Token
+    public function refresh(): TokenResponse
     {
-        return $this->requireToken()->refresh();
+        $token = $this->requireToken()->refresh();
+
+        return $this->tokenResponse($token);
     }
 
     /**
@@ -301,6 +304,14 @@ class JWTGuard implements Guard
     public function getLastAttempted()
     {
         return $this->lastAttempted;
+    }
+
+    /**
+     * Get the responsable Token.
+     */
+    protected function tokenResponse(Token $token): TokenResponse
+    {
+        return new TokenResponse($token, $this->jwt->getTTL());
     }
 
     /**

@@ -39,6 +39,14 @@ class Token
     }
 
     /**
+     * Checks if a token matches this one.
+     */
+    public function matches($token): bool
+    {
+        return (string) $this->get() === (string) $token;
+    }
+
+    /**
      * Get the token when casting to string.
      */
     public function __toString(): string

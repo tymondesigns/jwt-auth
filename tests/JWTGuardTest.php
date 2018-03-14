@@ -217,10 +217,14 @@ class JWTGuardTest extends AbstractTestCase
                   ->with(['foo' => 'bar'])
                   ->andReturnSelf();
 
+        $this->jwt->shouldReceive('getTTl')
+                  ->once()
+                  ->andReturn(30);
+
         $jwt = $this->guard->claims(['foo' => 'bar'])->attempt($credentials);
 
         $this->assertSame($this->guard->getLastAttempted(), $user);
-        $this->assertSame($jwt, $token);
+        $this->assertTrue($jwt->matches($token));
         $this->assertSame((string) $jwt, 'foo.bar.baz');
     }
 
@@ -299,8 +303,9 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->twice()->andReturn(true);
         $this->jwt->shouldReceive('refresh')->twice()->andReturn($token = new Token('foo.bar.baz'));
+        $this->jwt->shouldReceive('getTTl')->twice()->andReturn(30);
 
-        $this->assertSame($this->guard->refresh(), $token); // once
+        $this->assertTrue($token->matches($this->guard->refresh())); // once
         $this->assertSame((string) $this->guard->refresh(), 'foo.bar.baz'); // twice
     }
 
@@ -453,10 +458,12 @@ class JWTGuardTest extends AbstractTestCase
                   ->with($token)
                   ->andReturnSelf();
 
+        $this->jwt->shouldReceive('getTTl')->once()->andReturn(30);
+
         $jwt = $this->guard->login($user);
 
+        $this->assertTrue($jwt->matches($token));
         $this->assertSame('foo.bar.baz', (string) $jwt);
-        $this->assertSame($token, $jwt);
     }
 
     /**
