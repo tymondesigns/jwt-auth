@@ -100,7 +100,7 @@ class JWT
     {
         $this->requireToken();
 
-        return $this->manager->refresh($this->token, $this->getTTL());
+        return $this->manager->refresh($this->token, $this->builder->getTTL());
     }
 
     /**
