@@ -125,7 +125,8 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $this->manager->shouldReceive('refresh')->once()->andReturn($token = new Token('baz.bar.foo'));
+        $this->builder->shouldReceive('getTTL')->once()->andReturn(60);
+        $this->manager->shouldReceive('refresh', 60)->once()->andReturn($token = new Token('baz.bar.foo'));
 
         $result = $this->jwt->setToken('foo.bar.baz')->refresh();
 

@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
@@ -79,9 +81,10 @@ class Manager
     /**
      * Refresh a Token and return a new Token.
      */
-    public function refresh(Token $token): Token
+    public function refresh(Token $token, int $ttl): Token
     {
-        $claims = $this->buildRefreshClaims($this->decode($token));
+        // Get the claims collection for the new token
+        $claims = $this->buildRefreshClaims($this->decode($token), $ttl);
 
         if ($this->blacklistEnabled) {
             // Invalidate old token
@@ -109,11 +112,11 @@ class Manager
     /**
      * Build the claims to go into the refreshed token.
      */
-    protected function buildRefreshClaims(Payload $payload): array
+    protected function buildRefreshClaims(Payload $payload, int $ttl): array
     {
         return array_merge($payload->toArray(), [
-            // TODO: extend exp
-            // 'exp' => $payload['exp']
+            'jti' => ClaimFactory::get('jti'),
+            'exp' => Utils::timestamp($payload['exp'])->addMinutes($ttl)->getTimestamp()
         ]);
     }
 

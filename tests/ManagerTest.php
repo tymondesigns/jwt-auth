@@ -140,22 +140,28 @@ class ManagerTest extends AbstractTestCase
     {
         $payload = Factory::make([
             new Subject(1),
-            new Issuer('http://example.com'),
+            new Issuer('example.com'),
             new Expiration($this->testNowTimestamp + 3600),
-            new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ]);
 
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('payload')->twice()->with('foo.bar.baz')->andReturn($payload);
-        $this->jwt->shouldReceive('token')->with($payload->toArray())->andReturn(new Token('baz.bar.foo'));
+        $this->jwt->shouldReceive('payload')
+            ->twice()
+            ->with('foo.bar.baz')
+            ->andReturn($payload);
+
+        $this->jwt->shouldReceive('token')
+            ->once()
+            ->with(Mockery::type('array'))
+            ->andReturn(new Token('baz.bar.foo'));
 
         $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
         $this->blacklist->shouldReceive('add')->once()->with($payload);
 
-        $token = $this->manager->refresh($token);
+        $token = $this->manager->refresh($token, 60);
 
         $this->assertInstanceOf(Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
