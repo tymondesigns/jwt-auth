@@ -30,6 +30,13 @@ trait DatetimeTrait
     protected $leeway = 0;
 
     /**
+     * Max refresh period in minutes.
+     *
+     * @var int|null
+     */
+    protected $maxRefreshPeriod;
+
+    /**
      * Set the claim value, and call a validate method.
      *
      * @param  mixed  $value
@@ -87,6 +94,18 @@ trait DatetimeTrait
     public function setLeeway(int $leeway): self
     {
         $this->leeway = $leeway;
+
+        return $this;
+    }
+
+    /**
+     * Set the max refresh period in minutes.
+     *
+     * @param int|null $period
+     */
+    public function setMaxRefreshPeriod($period): self
+    {
+        $this->maxRefreshPeriod = $period;
 
         return $this;
     }

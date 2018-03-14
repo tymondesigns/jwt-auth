@@ -79,7 +79,12 @@ class JWTTest extends AbstractTestCase
     {
         $hash = sha1(UserStub::class);
 
-        $payload = Mockery::mock(Payload::class)->shouldReceive('get')
+        $payload = Mockery::mock(Payload::class)->shouldReceive('offsetExists')
+                ->with('prv')
+                ->andReturn(true)
+                ->getMock();
+
+        $payload->shouldReceive('offsetGet')
                 ->with('prv')
                 ->andReturn($hash)
                 ->getMock();
@@ -99,9 +104,9 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_pass_provider_check_if_hash_matches_when_provider_is_null()
     {
-        $payload = Mockery::mock(Payload::class)->shouldReceive('get')
+        $payload = Mockery::mock(Payload::class)->shouldReceive('offsetExists')
                 ->with('prv')
-                ->andReturnNull()
+                ->andReturn(false)
                 ->getMock();
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
@@ -112,7 +117,12 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_not_pass_provider_check_if_hash_not_match()
     {
-        $payload = Mockery::mock(Payload::class)->shouldReceive('get')
+        $payload = Mockery::mock(Payload::class)->shouldReceive('offsetExists')
+                ->with('prv')
+                ->andReturn(true)
+                ->getMock();
+
+        $payload->shouldReceive('offsetGet')
                 ->with('prv')
                 ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub1'))
                 ->getMock();

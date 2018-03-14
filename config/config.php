@@ -104,6 +104,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Max refresh period
+    |--------------------------------------------------------------------------
+    |
+    | Specify the length of time (in minutes) that the token will be
+    | refreshable for.
+    |
+    | Defaults to null, which will allow tokens to be refreshable forever.
+    |
+    */
+
+    'max_refresh_period' => env('JWT_MAX_REFRESH_PERIOD'),
+
+    /*
+    |--------------------------------------------------------------------------
     | JWT hashing algorithm
     |--------------------------------------------------------------------------
     |

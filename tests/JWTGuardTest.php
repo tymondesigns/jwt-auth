@@ -68,7 +68,7 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
         $this->jwt->shouldReceive('checkSubjectModel')
                   ->once()
-                  ->with(LaravelUserStub::class)
+                  ->with(LaravelUserStub::class, $payload)
                   ->andReturn(true);
 
         $this->provider->shouldReceive('getModel')
@@ -102,7 +102,7 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('check')->once()->with(true)->andReturn($payload);
         $this->jwt->shouldReceive('checkSubjectModel')
                   ->once()
-                  ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub')
+                  ->with('\Tymon\JWTAuth\Test\Stubs\LaravelUserStub', $payload)
                   ->andReturn(true);
 
         $this->provider->shouldReceive('getModel')

@@ -158,7 +158,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
             return $builder->lockSubject($this->config('lock_subject'))
                            ->setTTL($this->config('ttl'))
                            ->setRequiredClaims($this->config('required_claims'))
-                           ->setLeeway($this->config('leeway'));
+                           ->setLeeway($this->config('leeway'))
+                           ->setMaxRefreshPeriod($this->config('max_refresh_period'));
         });
     }
 

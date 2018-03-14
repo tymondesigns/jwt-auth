@@ -41,8 +41,12 @@ class Factory
             ? call_user_func([static::$classMap[$name], 'make'], $value)
             : new Custom($name, $value);
 
-        return method_exists($claim, 'setLeeway')
+        $claim = method_exists($claim, 'setLeeway')
             ? $claim->setLeeway(Arr::get($options, 'leeway', 0))
+            : $claim;
+
+        return method_exists($claim, 'setMaxRefreshPeriod')
+            ? $claim->setMaxRefreshPeriod(Arr::get($options, 'max_refresh_period'))
             : $claim;
     }
 

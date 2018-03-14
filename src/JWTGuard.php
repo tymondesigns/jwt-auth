@@ -68,10 +68,7 @@ class JWTGuard implements Guard
             return $this->user;
         }
 
-        if ($this->jwt->setRequest($this->request)->getToken() &&
-            ($payload = $this->jwt->check(true)) &&
-            $this->validateSubject()
-        ) {
+        if (($payload = $this->getPayload()) && $this->validateSubject($payload)) {
             return $this->user = $this->provider->retrieveById($payload['sub']);
         }
     }
@@ -307,6 +304,18 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Get the payload from a token that may exist in the request.
+     *
+     * @return \Tymon\JWTAuth\Payload|null
+     */
+    protected function getPayload()
+    {
+        if ($this->jwt->setRequest($this->request)->getToken()) {
+            return $this->jwt->check(true);
+        }
+    }
+
+    /**
      * Determine if the user matches the credentials.
      *
      * @param  mixed  $user
@@ -319,7 +328,7 @@ class JWTGuard implements Guard
     /**
      * Ensure the JWTSubject matches what is in the token.
      */
-    protected function validateSubject(): bool
+    protected function validateSubject($payload = null): bool
     {
         // If the provider doesn't have the necessary method
         // to get the underlying model name then allow.
@@ -327,7 +336,7 @@ class JWTGuard implements Guard
             return true;
         }
 
-        return $this->jwt->checkSubjectModel($this->provider->getModel());
+        return $this->jwt->checkSubjectModel($this->provider->getModel(), $payload);
     }
 
     /**

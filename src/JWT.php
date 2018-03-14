@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -186,9 +187,11 @@ class JWT
      *
      * @param  string|object  $model
      */
-    public function checkSubjectModel($model): bool
+    public function checkSubjectModel($model, $payload = null): bool
     {
-        if (($prv = $this->payload()->get('prv')) === null) {
+        $prv = Arr::get($payload ?? $this->payload(), 'prv');
+
+        if ($prv === null) {
             return true;
         }
 

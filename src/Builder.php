@@ -52,6 +52,13 @@ class Builder
     protected $leeway = 0;
 
     /**
+     * Max refresh period in minutes.
+     *
+     * @var int|null
+     */
+    protected $maxRefreshPeriod;
+
+    /**
      * The required claims.
      *
      * @var array
@@ -85,6 +92,7 @@ class Builder
         return Factory::make($this->getClaimsArray($subject, $claims), [
             'leeway' => $this->leeway,
             'required_claims' => $this->requiredClaims,
+            'max_refresh_period' => $this->maxRefreshPeriod,
         ]);
     }
 
@@ -233,6 +241,18 @@ class Builder
     public function setLeeway(int $leeway): self
     {
         $this->leeway = $leeway;
+
+        return $this;
+    }
+
+    /**
+     * Set the max refresh period in minutes.
+     *
+     * @param int|null $period
+     */
+    public function setMaxRefreshPeriod($period): self
+    {
+        $this->maxRefreshPeriod = $period;
 
         return $this;
     }
