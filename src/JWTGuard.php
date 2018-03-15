@@ -49,7 +49,7 @@ class JWTGuard implements Guard
     protected $request;
 
     /**
-     * The flag to use the Laravel Responsable interface
+     * The flag to use the Laravel Responsable interface.
      *
      * @var bool
      */
