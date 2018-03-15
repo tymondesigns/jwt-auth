@@ -89,7 +89,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
             $app->refresh('request', $guard, 'setRequest');
 
-            return $guard;
+            return $guard->useResponsable(version_compare($this->app->version(), '5.5', '>='));
         });
     }
 

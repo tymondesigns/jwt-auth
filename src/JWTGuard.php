@@ -49,6 +49,13 @@ class JWTGuard implements Guard
     protected $request;
 
     /**
+     * The flag to use the Laravel Responsable interface
+     *
+     * @var bool
+     */
+    protected $useResponsable = true;
+
+    /**
      * Instantiate the class.
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request)
@@ -116,8 +123,10 @@ class JWTGuard implements Guard
 
     /**
      * Create a token for a user.
+     *
+     * @return \Tymon\JWTAuth\Http\TokenResponse|string
      */
-    public function login(JWTSubject $user): TokenResponse
+    public function login(JWTSubject $user)
     {
         $token = $this->jwt->fromUser($user);
         $this->setToken($token)->setUser($user);
@@ -138,8 +147,10 @@ class JWTGuard implements Guard
 
     /**
      * Refresh the token.
+     *
+     * @return \Tymon\JWTAuth\Http\TokenResponse|string
      */
-    public function refresh(): TokenResponse
+    public function refresh()
     {
         $token = $this->requireToken()->refresh();
 
@@ -221,7 +232,7 @@ class JWTGuard implements Guard
     }
 
     /**
-     * Alias for getPayload().
+     * Get the payload.
      */
     public function payload(): Payload
     {
@@ -308,10 +319,16 @@ class JWTGuard implements Guard
 
     /**
      * Get the responsable Token.
+     *
+     * @return \Tymon\JWTAuth\Http\TokenResponse|string
      */
     protected function tokenResponse(Token $token): TokenResponse
     {
-        return new TokenResponse($token, $this->jwt->getTTL());
+        if ($this->useResponsable) {
+            return new TokenResponse($token, $this->jwt->getTTL());
+        }
+
+        return $token->get();
     }
 
     /**
@@ -364,6 +381,16 @@ class JWTGuard implements Guard
         }
 
         return $this->jwt;
+    }
+
+    /**
+     * Determine whether to use Laravel Responsable interface.
+     */
+    public function useResponsable(bool $use = true): self
+    {
+        $this->useResponsable = $use;
+
+        return $this;
     }
 
     /**
