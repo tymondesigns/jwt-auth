@@ -124,7 +124,7 @@ class JWTGuard implements Guard
     /**
      * Create a token for a user.
      *
-     * @return \Tymon\JWTAuth\Http\TokenResponse|string
+     * @return \Tymon\JWTAuth\Http\TokenResponse|\Tymon\JWTAuth\Token
      */
     public function login(JWTSubject $user)
     {
@@ -148,7 +148,7 @@ class JWTGuard implements Guard
     /**
      * Refresh the token.
      *
-     * @return \Tymon\JWTAuth\Http\TokenResponse|string
+     * @return \Tymon\JWTAuth\Http\TokenResponse|\Tymon\JWTAuth\Token
      */
     public function refresh()
     {
@@ -320,15 +320,13 @@ class JWTGuard implements Guard
     /**
      * Get the responsable Token.
      *
-     * @return \Tymon\JWTAuth\Http\TokenResponse|string
+     * @return \Tymon\JWTAuth\Http\TokenResponse|\Tymon\JWTAuth\Token
      */
-    protected function tokenResponse(Token $token): TokenResponse
+    protected function tokenResponse(Token $token)
     {
-        if ($this->useResponsable) {
-            return new TokenResponse($token, $this->jwt->getTTL());
-        }
-
-        return $token->get();
+        return $this->useResponsable
+            ? new TokenResponse($token, $this->jwt->getTTL())
+            : $token;
     }
 
     /**

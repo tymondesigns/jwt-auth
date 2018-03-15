@@ -45,6 +45,7 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt = Mockery::mock(JWT::class);
         $this->provider = Mockery::mock(EloquentUserProvider::class);
         $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
+        $this->guard->useResponsable(false);
     }
 
     /**
@@ -217,10 +218,6 @@ class JWTGuardTest extends AbstractTestCase
                   ->with(['foo' => 'bar'])
                   ->andReturnSelf();
 
-        $this->jwt->shouldReceive('getTTL')
-                  ->once()
-                  ->andReturn(30);
-
         $jwt = $this->guard->claims(['foo' => 'bar'])->attempt($credentials);
 
         $this->assertSame($this->guard->getLastAttempted(), $user);
@@ -303,7 +300,6 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->twice()->andReturn(true);
         $this->jwt->shouldReceive('refresh')->twice()->andReturn($token = new Token('foo.bar.baz'));
-        $this->jwt->shouldReceive('getTTL')->twice()->andReturn(30);
 
         $this->assertTrue($token->matches($this->guard->refresh())); // once
         $this->assertSame((string) $this->guard->refresh(), 'foo.bar.baz'); // twice
@@ -353,7 +349,6 @@ class JWTGuardTest extends AbstractTestCase
                   ->andReturn($token = new Token('foo.bar.baz'));
 
         $this->assertSame($token, $this->guard->tokenById(1));
-        // $this->assertSame('foo.bar.baz', (string) $this->guard->tokenById(1));
     }
 
     /**
@@ -457,8 +452,6 @@ class JWTGuardTest extends AbstractTestCase
                   ->once()
                   ->with($token)
                   ->andReturnSelf();
-
-        $this->jwt->shouldReceive('getTTL')->once()->andReturn(30);
 
         $jwt = $this->guard->login($user);
 
