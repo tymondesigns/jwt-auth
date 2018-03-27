@@ -210,7 +210,7 @@ class Builder
      *
      * @return int|null
      */
-    public function getTTL()
+    public function getTTL(): ?int
     {
         return $this->ttl;
     }

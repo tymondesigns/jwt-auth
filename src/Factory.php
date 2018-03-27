@@ -38,11 +38,16 @@ class Factory
             return ClaimFactory::get($key, $value, $options);
         });
 
+        $requiredClaims = Arr::get($options, 'required_claims', []);
+
+        // If the collection doesn't have an exp then remove it from
+        // the required claims.
+        if (! $collection->has('exp')) {
+            $requiredClaims = Arr::except($requiredClaims, ['exp']);
+        }
+
         // Validate the claims
-        $collection = PayloadValidator::check(
-            $collection,
-            Arr::get($options, 'required_claims', [])
-        );
+        $collection = PayloadValidator::check($collection, $requiredClaims);
 
         return new Payload($collection);
     }

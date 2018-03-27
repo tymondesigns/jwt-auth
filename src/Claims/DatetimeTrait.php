@@ -102,7 +102,7 @@ trait DatetimeTrait
      *
      * @param int|null $period
      */
-    public function setMaxRefreshPeriod($period): self
+    public function setMaxRefreshPeriod(?int $period): self
     {
         $this->maxRefreshPeriod = $period;
 
