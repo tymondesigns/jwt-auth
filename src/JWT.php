@@ -135,7 +135,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Token|null
      */
-    public function getToken()
+    public function getToken(): ?Token
     {
         if ($this->token === null) {
             try {
@@ -188,7 +188,7 @@ class JWT
      * @param  string|object  $model
      * @param  \Tymon\JWTAuth\Payload|null  $payload
      */
-    public function checkSubjectModel($model, $payload = null): bool
+    public function checkSubjectModel($model, ?Payload $payload = null): bool
     {
         $prv = Arr::get($payload ?? $this->payload(), 'prv');
 
@@ -265,7 +265,7 @@ class JWT
      *
      * @return \Tymon\JWTAuth\Http\Parser\Parser|\Tymon\JWTAuth\Contracts\Http\Parser
      */
-    public function parser($key = null)
+    public function parser(?string $key = null)
     {
         return $key === null ? $this->parser : $this->parser->get($key);
     }
@@ -283,7 +283,7 @@ class JWT
      *
      * @param  int|null  $ttl
      */
-    public function setTTL($ttl): self
+    public function setTTL(?int $ttl): self
     {
         $this->builder->setTTL($ttl);
 

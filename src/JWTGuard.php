@@ -172,7 +172,7 @@ class JWTGuard implements Guard
      *
      * @param  mixed  $id
      *
-     * @return string|null
+     * @return \Tymon\JWTAuth\Token|null
      */
     public function tokenById($id)
     {

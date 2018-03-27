@@ -198,7 +198,7 @@ class Builder
      *
      * @param  int|null  $ttl
      */
-    public function setTTL($ttl): self
+    public function setTTL(?int $ttl): self
     {
         $this->ttl = $ttl;
 
@@ -250,7 +250,7 @@ class Builder
      *
      * @param int|null $period
      */
-    public function setMaxRefreshPeriod($period): self
+    public function setMaxRefreshPeriod(?int $period): self
     {
         $this->maxRefreshPeriod = $period;
 
