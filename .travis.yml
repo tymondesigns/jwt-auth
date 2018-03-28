@@ -15,14 +15,6 @@ env:
 
 matrix:
   include:
-    - php: 7.0
-      env: LARAVEL='5.2.*'
-    - php: 7.0
-      env: LARAVEL='5.3.*'
-    - php: 7.0
-      env: LARAVEL='5.4.*'
-    - php: 7.0
-      env: LARAVEL='5.5.*'
     - php: 7.1
       env: LARAVEL='5.2.*'
     - php: 7.1
