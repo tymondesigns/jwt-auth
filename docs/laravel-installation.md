@@ -1,4 +1,4 @@
-### Install via composer
+### Install via composer ( Laravel 5.4 or below )
 
 Run the following command to pull in the latest version:
 
@@ -6,6 +6,10 @@ Run the following command to pull in the latest version:
 composer require tymon/jwt-auth
 ```
 
+### Install via composer ( Laravel 5.5 or above)
+```bash
+composer require tymon/jwt-auth:dev-develop --prefer-source
+```
 -------------------------------------------------------------------------------
 
 ### Add service provider ( Laravel 5.4 or below )
