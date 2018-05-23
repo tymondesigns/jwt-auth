@@ -142,17 +142,17 @@ return [
     |
     | Specify the required claims that must exist in any token.
     | A TokenInvalidException will be thrown if any of these claims are not
-    | present in the payload.
+    | present in the payload. By default, there are no required claims.
     |
     */
 
     'required_claims' => [
-        'iss',
-        'iat',
-        'exp',
-        'nbf',
-        'sub',
-        'jti',
+        // 'iss',
+        // 'iat',
+        // 'exp',
+        // 'nbf',
+        // 'sub',
+        // 'jti',
     ],
 
     /*
