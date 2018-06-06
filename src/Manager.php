@@ -70,6 +70,9 @@ class Manager
         $this->provider = $provider;
         $this->blacklist = $blacklist;
         $this->payloadFactory = $payloadFactory;
+
+        Token::setJwtProvider($this->provider);
+        Token::setPayloadFactory($this->payloadFactory);
     }
 
     /**
@@ -81,9 +84,7 @@ class Manager
      */
     public function encode(Payload $payload)
     {
-        $token = $this->provider->encode($payload->get());
-
-        return new Token($token);
+        return new Token($payload);
     }
 
     /**
@@ -98,12 +99,7 @@ class Manager
      */
     public function decode(Token $token, $checkBlacklist = true)
     {
-        $payloadArray = $this->provider->decode($token->get());
-
-        $payload = $this->payloadFactory
-                        ->setRefreshFlow($this->refreshFlow)
-                        ->customClaims($payloadArray)
-                        ->make();
+        $payload = $token->getPayload($this->refreshFlow);
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException('The token has been blacklisted');

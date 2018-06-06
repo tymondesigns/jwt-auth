@@ -11,10 +11,26 @@
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Validators\TokenValidator;
 
 class Token
 {
+    /**
+     * @var \Tymon\JWTAuth\Contracts\Providers\JWT
+     */
+    protected static $jwtProvider;
+
+    /**
+     * @var \Tymon\JWTAuth\Factory
+     */
+    protected static $payloadFactory;
+
+    /**
+     * @var \Tymon\JWTAuth\Payload
+     */
+    private $payload;
+
     /**
      * @var string
      */
@@ -23,13 +39,17 @@ class Token
     /**
      * Create a new JSON Web Token.
      *
-     * @param  string  $value
+     * @param  \Tymon\JWTAuth\Payload|string  $value
      *
      * @return void
      */
     public function __construct($value)
     {
-        $this->value = (string) (new TokenValidator)->check($value);
+        if (is_string($value)) {
+            $this->value = (string) (new TokenValidator)->check($value);
+        } else {
+            $this->payload = $value;
+        }
     }
 
     /**
@@ -39,7 +59,30 @@ class Token
      */
     public function get()
     {
+        if (is_null($this->value)) {
+            $this->value = self::$jwtProvider->encode($this->payload->toArray());
+        }
+
         return $this->value;
+    }
+
+    /**
+     * Get the payload.
+     *
+     * @param bool $refreshFlow
+     * @return array|Payload
+     */
+    public function getPayload($refreshFlow)
+    {
+        if (is_null($this->payload)) {
+            $payloadArray = self::$jwtProvider->decode($this->value);
+
+            $this->payload = self::$payloadFactory->setRefreshFlow($refreshFlow)
+                ->customClaims($payloadArray)
+                ->make();
+        }
+
+        return $this->payload;
     }
 
     /**
@@ -50,5 +93,25 @@ class Token
     public function __toString()
     {
         return $this->get();
+    }
+
+    /**
+     * Set jwt provider
+     *
+     * @param \Tymon\JWTAuth\Contracts\Providers\JWT $provider
+     */
+    public static function setJwtProvider(JWT $provider)
+    {
+        self::$jwtProvider = $provider;
+    }
+
+    /**
+     * Set payload factory
+     *
+     * @param \Tymon\JWTAuth\Factory $factory
+     */
+    public static function setPayloadFactory(Factory $factory)
+    {
+        self::$payloadFactory = $factory;
     }
 }
