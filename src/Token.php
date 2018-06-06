@@ -70,6 +70,7 @@ class Token
      * Get the payload.
      *
      * @param bool $refreshFlow
+     *
      * @return array|Payload
      */
     public function getPayload($refreshFlow)
