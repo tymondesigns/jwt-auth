@@ -59,7 +59,7 @@ class Token
      */
     public function get()
     {
-        if (is_null($this->value)) {
+        if (null === $this->value) {
             $this->value = self::$jwtProvider->encode($this->payload->toArray());
         }
 
@@ -74,7 +74,7 @@ class Token
      */
     public function getPayload($refreshFlow)
     {
-        if (is_null($this->payload)) {
+        if (null === $this->payload) {
             $payloadArray = self::$jwtProvider->decode($this->value);
 
             $this->payload = self::$payloadFactory->setRefreshFlow($refreshFlow)
@@ -96,7 +96,7 @@ class Token
     }
 
     /**
-     * Set jwt provider
+     * Set jwt provider.
      *
      * @param \Tymon\JWTAuth\Contracts\Providers\JWT $provider
      */
@@ -106,7 +106,7 @@ class Token
     }
 
     /**
-     * Set payload factory
+     * Set payload factory.
      *
      * @param \Tymon\JWTAuth\Factory $factory
      */
