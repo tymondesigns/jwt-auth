@@ -92,7 +92,7 @@ class JWTAuthTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_pass_provider_check_if_hash_matches_when_provider_is_null()
+    public function it_should_pass_provider_check_if_hash_matches_when_provider_is_null_without_lock_subject()
     {
         $payload = Mockery::mock(Payload::class);
         $payloadFactory = Mockery::mock(Factory::class);
@@ -105,7 +105,24 @@ class JWTAuthTest extends AbstractTestCase
 
         $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
-        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->lockSubject(false)->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+    }
+
+    /** @test */
+    public function it_should_not_pass_provider_check_if_hash_matches_when_provider_is_null_with_lock_subject()
+    {
+        $payload = Mockery::mock(Payload::class);
+        $payloadFactory = Mockery::mock(Factory::class);
+
+        $payloadFactory->shouldReceive('make')->andReturn($payload);
+
+        $payload->shouldReceive('get')
+            ->with('prv')
+            ->andReturnNull();
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+
+        $this->assertFalse($this->jwtAuth->setToken('foo.bar.baz')->lockSubject(true)->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
 
     /** @test */
@@ -246,7 +263,7 @@ class JWTAuthTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_the_authenticated_user()
+    public function it_should_get_the_manager()
     {
         $manager = $this->jwtAuth->manager();
         $this->assertInstanceOf(Manager::class, $manager);

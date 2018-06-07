@@ -285,11 +285,13 @@ class JWT
      */
     public function checkSubjectModel($model)
     {
-        if (($prv = $this->payload()->get('prv')) === null) {
-            return true;
+        $prv = $this->payload()->get('prv');
+
+        if ($this->lockSubject || null !== $prv) {
+            return $this->hashSubjectModel($model) === $prv;
         }
 
-        return $this->hashSubjectModel($model) === $prv;
+        return true;
     }
 
     /**
