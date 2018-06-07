@@ -11,17 +11,18 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Mockery;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Http\Parser\Parser;
+use Mockery;
+use Tymon\JWTAuth\JWTGuard;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 
 class AuthenticateAndRenewTest extends AbstractMiddlewareTest
 {
     /**
-     * @var \Tymon\JWTAuth\Http\Middleware\Authenticate|\Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew
+     * @var \Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew
      */
     protected $middleware;
 
@@ -29,20 +30,18 @@ class AuthenticateAndRenewTest extends AbstractMiddlewareTest
     {
         parent::setUp();
 
+        $this->auth = Mockery::mock(AuthFactory::class);
         $this->middleware = new AuthenticateAndRenew($this->auth);
     }
 
     /** @test */
     public function it_should_authenticate_a_user_and_return_a_new_token()
     {
-        $parser = Mockery::mock(Parser::class);
-        $parser->shouldReceive('hasToken')->once()->andReturn(true);
-        $this->auth->shouldReceive('parser')->andReturn($parser);
-        $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
+        $guard = Mockery::mock(JWTGuard::class);
 
-        $this->auth->shouldReceive('parseToken->authenticate')->once()->andReturn(new UserStub);
-
-        $this->auth->shouldReceive('refresh')->once()->andReturn('foo.bar.baz');
+        $this->auth->shouldReceive('guard')->andReturn($guard);
+        $this->auth->shouldReceive('authenticate')->andReturn(new UserStub);
+        $guard->shouldReceive('refresh')->andReturn('foo.bar.baz');
 
         $response = $this->middleware->handle($this->request, function () {
             return new Response;
@@ -53,34 +52,14 @@ class AuthenticateAndRenewTest extends AbstractMiddlewareTest
 
     /**
      * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+     * @expectedException \Illuminate\Auth\AuthenticationException
      */
-    public function it_should_throw_an_unauthorized_exception_if_token_not_provided()
+    public function it_should_throw_an_unauthorized_exception_if_authenticate_failed()
     {
-        $parser = Mockery::mock(Parser::class);
-        $parser->shouldReceive('hasToken')->once()->andReturn(false);
+        $guard = Mockery::mock(JWTGuard::class);
 
-        $this->auth->shouldReceive('parser')->andReturn($parser);
-        $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
-
-        $this->middleware->handle($this->request, function () {
-            //
-        });
-    }
-
-    /**
-     * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
-    public function it_should_throw_an_unauthorized_exception_if_token_invalid()
-    {
-        $parser = Mockery::mock(Parser::class);
-        $parser->shouldReceive('hasToken')->once()->andReturn(true);
-
-        $this->auth->shouldReceive('parser')->andReturn($parser);
-
-        $this->auth->parser()->shouldReceive('setRequest')->once()->with($this->request)->andReturn($this->auth->parser());
-        $this->auth->shouldReceive('parseToken->authenticate')->once()->andThrow(new TokenInvalidException);
+        $this->auth->shouldReceive('guard')->andReturn($guard);
+        $this->auth->shouldReceive('authenticate')->andThrow(new AuthenticationException);
 
         $this->middleware->handle($this->request, function () {
             //

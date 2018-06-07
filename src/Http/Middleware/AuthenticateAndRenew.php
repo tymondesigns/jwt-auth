@@ -12,26 +12,90 @@
 namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Tymon\JWTAuth\JWTGuard;
 
-class AuthenticateAndRenew extends BaseMiddleware
+class AuthenticateAndRenew
 {
+    /**
+     * The authentication factory instance.
+     *
+     * @var \Illuminate\Contracts\Auth\Factory
+     */
+    protected $auth;
+
+    /**
+     * Create a new middleware instance.
+     *
+     * @param  \Illuminate\Contracts\Auth\Factory  $auth
+     */
+    public function __construct(AuthFactory $auth)
+    {
+        $this->auth = $auth;
+    }
+
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     *
+     * @param  string[]  ...$guards
      * @return mixed
+     *
+     * @throws \Illuminate\Auth\AuthenticationException
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, ...$guards)
     {
-        $this->authenticate($request);
+        $this->authenticate($guards);
 
         $response = $next($request);
 
-        // Send the refreshed token back to the client.
-        return $this->setAuthenticationHeader($response);
+        $guard = $this->auth->guard();
+
+        if (! $guard instanceof JWTGuard) {
+            return $response;
+        }
+
+        return $this->setAuthenticationHeader($response, $guard);
+    }
+
+    /**
+     * Determine if the user is logged in to any of the given guards.
+     *
+     * @param  array  $guards
+     * @return void
+     *
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
+    protected function authenticate(array $guards)
+    {
+        if (empty($guards)) {
+            return $this->auth->authenticate();
+        }
+
+        foreach ($guards as $guard) {
+            if ($this->auth->guard($guard)->check()) {
+                return $this->auth->shouldUse($guard);
+            }
+        }
+
+        throw new AuthenticationException('Unauthenticated.', $guards);
+    }
+
+    /**
+     * Set the authentication header.
+     *
+     * @param  \Illuminate\Http\Response|\Illuminate\Http\JsonResponse  $response
+     * @param  \Tymon\JWTAuth\JWTGuard  $guard
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     */
+    protected function setAuthenticationHeader($response, $guard)
+    {
+        $token = $guard->refresh();
+        $response->headers->set('Authorization', "Bearer {$token}");
+
+        return $response;
     }
 }
