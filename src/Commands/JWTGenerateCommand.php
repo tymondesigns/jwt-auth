@@ -36,6 +36,7 @@ class JWTGenerateCommand extends Command
      *
      * @return void
      */
+    public function handle() { $this->fire(); }
     public function fire()
     {
         $key = $this->getRandomKey();
