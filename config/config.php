@@ -123,6 +123,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Refresh period
+    |--------------------------------------------------------------------------
+    |
+    | Refresh token automatically by server when clients access. It works in
+    | the `jwt.renew` middleware.
+    | Set the period in seconds that the token can be refreshed automatically
+    | before expiring. Defaults to 1 day.
+    |
+    | You can also set this to 0, to refresh every request.
+    | But this is not particularly recommended.
+    |
+    */
+
+    'refresh_period' => env('JWT_REFRESH_PERIOD', 3600 * 24),
+
+    /*
+    |--------------------------------------------------------------------------
     | JWT hashing algorithm
     |--------------------------------------------------------------------------
     |

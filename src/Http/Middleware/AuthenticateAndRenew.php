@@ -55,7 +55,7 @@ class AuthenticateAndRenew
 
         $guard = $this->auth->guard();
 
-        if (! $guard instanceof JWTGuard) {
+        if (! $guard instanceof JWTGuard || $response->headers->has('Authorization')) {
             return $response;
         }
 
@@ -96,13 +96,20 @@ class AuthenticateAndRenew
      */
     protected function setAuthenticationHeader($response, $guard)
     {
-        try {
-            $token = $guard->refresh();
-        } catch (TokenExpiredException $e) {
+        $period = config('jwt.refresh_period');
+        $expire = $guard->getPayload()->get('exp');
+
+        if (! $expire || ($period && $expire - time() > $period)) {
             return $response;
         }
 
-        $response->headers->set('Authorization', "Bearer {$token}");
+        try {
+            $token = $guard->refresh();
+
+            $response->headers->set('Authorization', "Bearer {$token}");
+        } catch (TokenExpiredException $e) {
+            // do nothing
+        }
 
         return $response;
     }
