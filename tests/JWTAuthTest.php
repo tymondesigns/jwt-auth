@@ -77,13 +77,16 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_pass_provider_check_if_hash_matches()
     {
+        $payload = Mockery::mock(Payload::class);
         $payloadFactory = Mockery::mock(Factory::class);
-        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
-        $payloadFactory->shouldReceive('get')
-                       ->with('prv')
-                       ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub'));
 
-        $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
+        $payloadFactory->shouldReceive('make')->andReturn($payload);
+
+        $payload->shouldReceive('get')
+                ->with('prv')
+                ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub'));
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
         $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
@@ -91,13 +94,16 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_pass_provider_check_if_hash_matches_when_provider_is_null()
     {
+        $payload = Mockery::mock(Payload::class);
         $payloadFactory = Mockery::mock(Factory::class);
-        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
-        $payloadFactory->shouldReceive('get')
-                       ->with('prv')
-                       ->andReturnNull();
 
-        $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
+        $payloadFactory->shouldReceive('make')->andReturn($payload);
+
+        $payload->shouldReceive('get')
+                ->with('prv')
+                ->andReturnNull();
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
         $this->assertTrue($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
@@ -105,13 +111,16 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_not_pass_provider_check_if_hash_not_match()
     {
+        $payload = Mockery::mock(Payload::class);
         $payloadFactory = Mockery::mock(Factory::class);
-        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
-        $payloadFactory->shouldReceive('get')
-                       ->with('prv')
-                       ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub1'));
 
-        $this->manager->shouldReceive('decode')->once()->andReturn($payloadFactory);
+        $payloadFactory->shouldReceive('make')->andReturn($payload);
+
+        $payload->shouldReceive('get')
+                ->with('prv')
+                ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub1'));
+
+        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
 
         $this->assertFalse($this->jwtAuth->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
     }
@@ -119,8 +128,10 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_return_a_token_when_passing_valid_credentials_to_attempt_method()
     {
+        $payload = Mockery::mock(Payload::class);
         $payloadFactory = Mockery::mock(Factory::class);
-        $payloadFactory->shouldReceive('make')->andReturn(Mockery::mock(Payload::class));
+
+        $payloadFactory->shouldReceive('make')->andReturn($payload);
 
         $this->manager
              ->shouldReceive('getPayloadFactory->customClaims')
