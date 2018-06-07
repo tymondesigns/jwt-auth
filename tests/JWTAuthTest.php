@@ -180,23 +180,17 @@ class JWTAuthTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage A token is required
      */
-    public function it_should_throw_an_exception_when_not_providing_a_token()
+    public function it_should_return_false_when_not_providing_a_token()
     {
-        $this->jwtAuth->toUser();
+        $this->auth->shouldReceive('user')->once()->andReturnNull();
+
+        $this->assertFalse($this->jwtAuth->toUser());
     }
 
     /** @test */
     public function it_should_return_the_owning_user_from_a_token_containing_an_existing_user()
     {
-        $payload = Mockery::mock(Payload::class);
-        $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
-
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
-
-        $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(true);
         $this->auth->shouldReceive('user')->once()->andReturn((object) ['id' => 1]);
 
         $user = $this->jwtAuth->setToken('foo.bar.baz')->customClaims(['foo' => 'bar'])->authenticate();
@@ -207,13 +201,7 @@ class JWTAuthTest extends AbstractTestCase
     /** @test */
     public function it_should_return_false_when_passing_a_token_not_containing_an_existing_user()
     {
-        $payload = Mockery::mock(Payload::class);
-        $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
-
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
-
-        $this->auth->shouldReceive('byId')->once()->with(1)->andReturn(false);
-        $this->auth->shouldReceive('user')->never();
+        $this->auth->shouldReceive('user')->once()->andReturnNull();
 
         $user = $this->jwtAuth->setToken('foo.bar.baz')->authenticate();
 
