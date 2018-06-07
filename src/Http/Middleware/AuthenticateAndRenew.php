@@ -41,9 +41,10 @@ class AuthenticateAndRenew
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @param  string[]  ...$guards
-     * @return mixed
      *
      * @throws \Illuminate\Auth\AuthenticationException
+     *
+     * @return mixed
      */
     public function handle($request, Closure $next, ...$guards)
     {
@@ -64,9 +65,10 @@ class AuthenticateAndRenew
      * Determine if the user is logged in to any of the given guards.
      *
      * @param  array  $guards
-     * @return void
      *
      * @throws \Illuminate\Auth\AuthenticationException
+     *
+     * @return void
      */
     protected function authenticate(array $guards)
     {
