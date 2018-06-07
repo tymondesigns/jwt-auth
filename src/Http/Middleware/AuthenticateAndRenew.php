@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Http\Middleware;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\JWTGuard;
 
 class AuthenticateAndRenew
@@ -95,7 +96,12 @@ class AuthenticateAndRenew
      */
     protected function setAuthenticationHeader($response, $guard)
     {
-        $token = $guard->refresh();
+        try {
+            $token = $guard->refresh();
+        } catch (TokenExpiredException $e) {
+            return $response;
+        }
+
         $response->headers->set('Authorization', "Bearer {$token}");
 
         return $response;
