@@ -233,10 +233,10 @@ abstract class AbstractServiceProvider extends ServiceProvider
                 $app['request'],
                 [
                     new AuthHeaders,
-                    new QueryString,
-                    new InputSource,
-                    new RouteParams,
-                    new Cookies($this->config('decrypt_cookies')),
+                    (new QueryString)->setKey($this->config('token_key_name')),
+                    (new InputSource)->setKey($this->config('token_key_name')),
+                    (new RouteParams)->setKey($this->config('token_key_name')),
+                    (new Cookies($this->config('decrypt_cookies')))->setKey($this->config('token_key_name')),
                 ]
             );
 
