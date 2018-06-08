@@ -41,13 +41,33 @@ class AuthenticateAndRenewTest extends AbstractMiddlewareTest
 
         $this->auth->shouldReceive('guard')->andReturn($guard);
         $this->auth->shouldReceive('authenticate')->andReturn(new UserStub);
+        $guard->shouldReceive('getPayload->get')->with('exp')->andReturn($this->testNowTimestamp + 60);
         $guard->shouldReceive('refresh')->andReturn('foo.bar.baz');
 
+        $this->middleware->refreshPeriod = 80;
         $response = $this->middleware->handle($this->request, function () {
             return new Response;
         });
 
         $this->assertSame($response->headers->get('authorization'), 'Bearer foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_authenticate_a_user_and_not_return_a_new_token()
+    {
+        $guard = Mockery::mock(JWTGuard::class);
+
+        $this->auth->shouldReceive('guard')->andReturn($guard);
+        $this->auth->shouldReceive('authenticate')->andReturn(new UserStub);
+        $guard->shouldReceive('getPayload->get')->with('exp')->andReturn($this->testNowTimestamp + 60);
+        $guard->shouldReceive('refresh')->never();
+
+        $this->middleware->refreshPeriod = 40;
+        $response = $this->middleware->handle($this->request, function () {
+            return new Response;
+        });
+
+        $this->assertNull($response->headers->get('authorization'));
     }
 
     /**

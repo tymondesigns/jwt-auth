@@ -20,6 +20,13 @@ use Tymon\JWTAuth\JWTGuard;
 class AuthenticateAndRenew
 {
     /**
+     * Refresh period in seconds.
+     *
+     * @var int
+     */
+    public $refreshPeriod;
+
+    /**
      * The authentication factory instance.
      *
      * @var \Illuminate\Contracts\Auth\Factory
@@ -96,7 +103,7 @@ class AuthenticateAndRenew
      */
     protected function setAuthenticationHeader($response, $guard)
     {
-        $period = config('jwt.refresh_period');
+        $period = $this->getRefreshPeriod();
         $expire = $guard->getPayload()->get('exp');
 
         if (! $expire || ($period && $expire - time() > $period)) {
@@ -112,5 +119,19 @@ class AuthenticateAndRenew
         }
 
         return $response;
+    }
+
+    /**
+     * Get refresh period.
+     *
+     * @return int
+     */
+    protected function getRefreshPeriod()
+    {
+        if (null === $this->refreshPeriod) {
+            $this->refreshPeriod = intval(config('jwt.refresh_period'));
+        }
+
+        return $this->refreshPeriod;
     }
 }
