@@ -11,12 +11,12 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Illuminate\Http\Response;
 use Mockery;
 use Tymon\JWTAuth\JWTGuard;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 
 class AuthenticateAndRenewTest extends AbstractMiddlewareTest

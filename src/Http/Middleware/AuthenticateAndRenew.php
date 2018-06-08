@@ -12,10 +12,10 @@
 namespace Tymon\JWTAuth\Http\Middleware;
 
 use Closure;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\JWTGuard;
+use Illuminate\Auth\AuthenticationException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
 class AuthenticateAndRenew
 {
