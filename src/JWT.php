@@ -132,8 +132,6 @@ class JWT
 
     /**
      * Get the token.
-     *
-     * @return \Tymon\JWTAuth\Token|null
      */
     public function getToken(): ?Token
     {
@@ -280,8 +278,6 @@ class JWT
 
     /**
      * Set the token ttl (in minutes).
-     *
-     * @param  int|null  $ttl
      */
     public function setTTL(?int $ttl): self
     {
@@ -295,7 +291,7 @@ class JWT
      *
      * @return int|null
      */
-    public function getTTL()
+    public function getTTL(): ?int
     {
         return $this->builder->getTTL();
     }

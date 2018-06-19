@@ -41,9 +41,7 @@ class Collection extends IlluminateCollection
     }
 
     /**
-     * Validate each claim under a given context.
-     *
-     * @return $this
+     * Validate each claim.
      */
     public function validate()
     {
@@ -81,7 +79,7 @@ class Collection extends IlluminateCollection
     /**
      * {@inheritdoc}
      */
-    protected function getArrayableItems($items)
+    protected function getArrayableItems($items): array
     {
         return $this->sanitizeClaims($items);
     }

@@ -152,7 +152,9 @@ class Builder
     {
         return array_merge([
             'sub' => $subject->getJWTIdentifier(),
-        ], $this->lockSubject ? ['prv' => $this->hashSubjectModel($subject)] : []);
+        ], $this->lockSubject ? [
+            'prv' => $this->hashSubjectModel($subject)
+        ] : []);
     }
 
     /**
@@ -195,8 +197,6 @@ class Builder
 
     /**
      * Set the token ttl (in minutes).
-     *
-     * @param  int|null  $ttl
      */
     public function setTTL(?int $ttl): self
     {

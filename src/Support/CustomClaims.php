@@ -27,7 +27,7 @@ trait CustomClaims
      *
      * @return $this
      */
-    public function customClaims(array $customClaims)
+    public function customClaims(array $customClaims): self
     {
         $this->customClaims = $customClaims;
 
@@ -39,7 +39,7 @@ trait CustomClaims
      *
      * @return $this
      */
-    public function claims(array $customClaims)
+    public function claims(array $customClaims): self
     {
         return $this->customClaims($customClaims);
     }

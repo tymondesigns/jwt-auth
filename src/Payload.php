@@ -239,6 +239,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
             }
         }
 
-        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', $method));
+        throw new BadMethodCallException(
+            sprintf('The claim [%s] does not exist on the payload.', $method)
+        );
     }
 }

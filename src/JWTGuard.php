@@ -175,14 +175,12 @@ class JWTGuard implements Guard
      * Create a new token by User id.
      *
      * @param  mixed  $id
-     *
-     * @return \Tymon\JWTAuth\Token|null
      */
-    public function tokenById($id)
+    public function tokenById($id): ?Token
     {
-        if ($user = $this->provider->retrieveById($id)) {
-            return $this->jwt->fromUser($user);
-        }
+        return ($user = $this->provider->retrieveById($id))
+            ? $this->jwt->fromUser($user)
+            : null;
     }
 
     /**
