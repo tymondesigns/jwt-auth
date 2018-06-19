@@ -184,15 +184,18 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_exclude_claims_from_previous_payloads()
     {
+        $validator = new PayloadValidator();
+        $factory = new Factory($this->claimFactory, $validator);
+
         $fooClaim = new Custom('foo', 'bar');
         $barClaim = new Custom('baz', 'qux');
 
         $this->claimFactory->shouldReceive('getTTL')->andReturn(60);
         $this->claimFactory->shouldReceive('get')->with('foo', 'bar')->twice()->andReturn($fooClaim);
-        $this->claimFactory->shouldReceive('get')->with('baz', 'qux')->twice()->andReturn($barClaim);
-        $this->validator->shouldReceive('setRefreshFlow->check')->once()->andReturn(new Collection([$fooClaim, $barClaim]));
+        $this->claimFactory->shouldReceive('get')->with('baz', 'qux')->once()->andReturn($barClaim);
 
-        $payload = $this->factory->setDefaultClaims([])
+        $validator->setRequiredClaims([]);
+        $payload = $factory->setDefaultClaims([])
             ->customClaims([
                 'foo' => 'bar',
                 'baz' => 'qux',
@@ -201,9 +204,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame($payload->get('foo'), 'bar');
         $this->assertSame($payload->get('baz'), 'qux');
 
-        $this->validator->shouldReceive('setRefreshFlow->check')->once()->andReturn(new Collection([$fooClaim]));
-
-        $payload = $this->factory->setDefaultClaims([])->customClaims(['foo' => 'bar'])->make(true);
+        $payload = $factory->setDefaultClaims([])->customClaims(['foo' => 'bar'])->make(true);
 
         $this->assertSame($payload->get('foo'), 'bar');
         $this->assertFalse($payload->hasKey('baz'));
