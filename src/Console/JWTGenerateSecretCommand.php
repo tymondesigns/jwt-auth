@@ -110,7 +110,7 @@ class JWTGenerateSecretCommand extends Command
 
         // check if laravel version Less than 5.4.17
         if (version_compare($this->laravel->version(), '5.4.17', '<')) {
-            return $this->laravel->basePath() . DIRECTORY_SEPARATOR . '.env';
+            return $this->laravel->basePath().DIRECTORY_SEPARATOR.'.env';
         }
 
         return $this->laravel->basePath('.env');
