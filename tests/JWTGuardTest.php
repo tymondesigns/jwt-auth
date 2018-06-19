@@ -486,4 +486,17 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('getPayload')->once()->andReturn(Mockery::mock(Payload::class));
         $this->assertInstanceOf(Payload::class, $this->guard->payload());
     }
+
+    /**
+     * @test
+     * @group laravel-5.2
+     */
+    public function it_should_be_macroable()
+    {
+        $this->guard->macro('foo', function () {
+            return 'bar';
+        });
+
+        $this->assertEquals('bar', $this->guard->foo());
+    }
 }
