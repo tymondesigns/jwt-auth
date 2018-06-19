@@ -19,6 +19,7 @@ use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Http\TokenResponse;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Traits\Macroable;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
@@ -26,6 +27,9 @@ use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 class JWTGuard implements Guard
 {
     use GuardHelpers;
+    use Macroable {
+        __call as macroCall;
+    }
 
     /**
      * The user we last attempted to retrieve.
@@ -400,6 +404,10 @@ class JWTGuard implements Guard
     {
         if (method_exists($this->jwt, $method)) {
             return call_user_func_array([$this->jwt, $method], $parameters);
+        }
+
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $parameters);
         }
 
         throw new BadMethodCallException("Method [$method] does not exist.");
