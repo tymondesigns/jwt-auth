@@ -254,7 +254,7 @@ class JWTGuard implements Guard
     /**
      * Set the token ttl.
      */
-    public function setTTL(int $ttl): self
+    public function setTTL(?int $ttl): self
     {
         $this->jwt->builder()->setTTL($ttl);
 
@@ -353,10 +353,8 @@ class JWTGuard implements Guard
 
     /**
      * Ensure the JWTSubject matches what is in the token.
-     *
-     * @param  \Tymon\JWTAuth\Payload|null  $payload
      */
-    protected function validateSubject($payload = null): bool
+    protected function validateSubject(?Payload $payload = null): bool
     {
         // If the provider doesn't have the necessary method
         // to get the underlying model name then allow.
