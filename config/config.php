@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'token_key_name' => env('JWT_TOKEN_KEY_NAME', 'token'),
+    'token_key_name' => 'token',
 
     /*
     |--------------------------------------------------------------------------
