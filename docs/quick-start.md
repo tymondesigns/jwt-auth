@@ -123,7 +123,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'refresh']]);
     }
 
     /**
@@ -171,7 +171,18 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        try {
+            return $this->respondWithToken(auth()->refresh());
+        } catch (TokenExpiredException $e) {
+            //Do something
+            //return $e->getMessage();
+        } catch (TokenBlacklistedException $e) {
+            //Do something
+            //return $e->getMessage();
+        } catch (\Exception $e) {
+            //Do something
+            //return $e->getMessage();
+        }
     }
 
     /**
