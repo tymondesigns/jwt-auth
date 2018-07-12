@@ -11,8 +11,30 @@
 
 namespace Tymon\JWTAuth\Facades;
 
+use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Manager;
+use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Blacklist;
+use Tymon\JWTAuth\Claims\Factory;
 use Illuminate\Support\Facades\Facade;
+use Tymon\JWTAuth\Contracts\Providers\JWT as Provider;
 
+/**
+ * List all of the public methods of JWTAuth\Manager, since this class exposes them
+ * via composition.
+ *
+ * @method static Token   encode(Payload $payload)
+ * @method static Payload decode(Token $token, bool $checkBlacklist = true)
+ * @method Factory   getPayloadFactory()
+ * @method Provider  getJWTProvider()
+ * @method Blacklist getBlacklist()
+ * @method bool      setBlacklistEnabled($enabled)
+ * @method Manager   setPersistentClaims(array $claims)
+ * @method Manager   customClaims(array $customClaims)
+ * @method Manager   claims(array $customClaims)
+ * @method array     getCustomClaims()
+ * @method Manager   setRefreshFlow($refreshFlow = true)
+ */
 class JWTAuth extends Facade
 {
     /**

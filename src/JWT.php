@@ -17,7 +17,24 @@ use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Contracts\Providers\JWT as Provider;
 
+/**
+ * List all of the public methods of JWTAuth\Manager, since this class exposes them
+ * via composition.
+ *
+ * @method Token     encode(Payload $payload)
+ * @method Payload   decode(Token $token, bool $checkBlacklist = true)
+ * @method Factory   getPayloadFactory()
+ * @method Provider  getJWTProvider()
+ * @method Blacklist getBlacklist()
+ * @method bool      setBlacklistEnabled($enabled)
+ * @method Manager   setPersistentClaims(array $claims)
+ * @method Manager   customClaims(array $customClaims)
+ * @method Manager   claims(array $customClaims)
+ * @method array     getCustomClaims()
+ * @method Manager   setRefreshFlow($refreshFlow = true)
+ */
 class JWT
 {
     use CustomClaims;
