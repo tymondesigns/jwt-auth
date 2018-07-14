@@ -23,6 +23,7 @@ use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Http\Parser\Cookies;
 use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Builder as JWTBuilder;
+use Tymon\JWTAuth\Providers\JWT\Adhocore;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Providers\JWT\Lcobucci;
@@ -118,8 +119,9 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt', JWT::class);
         $this->app->alias('tymon.jwt.auth', JWTAuth::class);
         $this->app->alias('tymon.jwt.provider.jwt', JWTContract::class);
-        $this->app->alias('tymon.jwt.provider.jwt.namshi', Namshi::class);
+        $this->app->alias('tymon.jwt.provider.jwt.adhocore', Adhocore::class);
         $this->app->alias('tymon.jwt.provider.jwt.lcobucci', Lcobucci::class);
+        $this->app->alias('tymon.jwt.provider.jwt.namshi', Namshi::class);
         $this->app->alias('tymon.jwt.provider.auth', Auth::class);
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
         $this->app->alias('tymon.jwt.manager', Manager::class);
@@ -135,11 +137,30 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerJWTProvider()
     {
+        $this->registerAdhocoreProvider();
         $this->registerNamshiProvider();
         $this->registerLcobucciProvider();
 
         $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
             return $this->getConfigInstance('providers.jwt');
+        });
+    }
+
+    /**
+     * Register the bindings for Adhocore JWT provider.
+     *
+     * @return void
+     */
+    protected function registerAdhocoreProvider()
+    {
+        $this->app->singleton('tymon.jwt.provider.jwt.adhocore', function ($app) {
+            return new Adhocore(
+                $this->config('secret'),
+                $this->config('algo'),
+                $this->config('keys'),
+                $this->config('ttl') * 60,
+                $this->config('leeway')
+            );
         });
     }
 
