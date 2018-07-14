@@ -120,8 +120,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->alias('tymon.jwt.auth', JWTAuth::class);
         $this->app->alias('tymon.jwt.provider.jwt', JWTContract::class);
         $this->app->alias('tymon.jwt.provider.jwt.adhocore', Adhocore::class);
-        $this->app->alias('tymon.jwt.provider.jwt.lcobucci', Lcobucci::class);
         $this->app->alias('tymon.jwt.provider.jwt.namshi', Namshi::class);
+        $this->app->alias('tymon.jwt.provider.jwt.lcobucci', Lcobucci::class);
         $this->app->alias('tymon.jwt.provider.auth', Auth::class);
         $this->app->alias('tymon.jwt.provider.storage', Storage::class);
         $this->app->alias('tymon.jwt.manager', Manager::class);
