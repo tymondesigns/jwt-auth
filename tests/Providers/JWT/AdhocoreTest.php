@@ -13,11 +13,10 @@ namespace Tymon\JWTAuth\Test\Providers\JWT;
 
 use Mockery;
 use Exception;
-use InvalidArgumentException;
 use Ahc\Jwt\JWT;
-use Ahc\Jwt\JWTException as ProviderException;
-use Tymon\JWTAuth\Providers\JWT\Adhocore;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Providers\JWT\Adhocore;
+use Ahc\Jwt\JWTException as ProviderException;
 
 class AdhocoreTest extends AbstractTestCase
 {
@@ -78,8 +77,7 @@ class AdhocoreTest extends AbstractTestCase
 
         $this->handler
             ->shouldReceive('encode')->once()->with($payload)->andReturn('foo.bar.baz')
-            ->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload)
-        ;
+            ->shouldReceive('decode')->once()->with('foo.bar.baz')->andReturn($payload);
 
         $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode(
             $this->getProvider('secret', 'HS256')->encode($payload)

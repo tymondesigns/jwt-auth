@@ -13,10 +13,10 @@ namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
 use Ahc\Jwt\JWT;
-use Ahc\Jwt\JWTException as ProviderException;
-use Tymon\JWTAuth\Contracts\Providers\JWT as Contract;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Ahc\Jwt\JWTException as ProviderException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Contracts\Providers\JWT as Contract;
 
 class Adhocore extends Provider implements Contract
 {
@@ -54,7 +54,7 @@ class Adhocore extends Provider implements Contract
      */
     public function __construct($secret, $algo, array $keys, $ttl, $leeway)
     {
-        $this->ttl    = $ttl;
+        $this->ttl = $ttl;
         $this->leeway = $leeway;
 
         parent::__construct($secret, $algo, $keys);
@@ -67,11 +67,11 @@ class Adhocore extends Provider implements Contract
      */
     public function getHandler()
     {
-        if (!in_array($this->algo, ['HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512'])) {
+        if (! in_array($this->algo, ['HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512'])) {
             throw new JWTException('The given algorithm could not be found');
         }
 
-        if (!$this->handler) {
+        if (! $this->handler) {
             $key = $this->isAsymmetric() ? $this->getPrivateKey() : $this->secret;
 
             $this->handler = new JWT($key, $this->algo, $this->ttl, $this->leeway, $this->getPassphrase());
@@ -108,7 +108,7 @@ class Adhocore extends Provider implements Contract
         try {
             return $this->getHandler()->encode($payload);
         } catch (Exception $e) {
-            throw new JWTException('Could not create token: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -126,7 +126,7 @@ class Adhocore extends Provider implements Contract
         try {
             return $this->getHandler()->decode($token);
         } catch (Exception $e) {
-            $message = 'Could not decode token: ' . $e->getMessage();
+            $message = 'Could not decode token: '.$e->getMessage();
         }
 
         if ($e instanceof ProviderException && $e->getCode() === JWT::ERROR_SIGNATURE_FAILED) {
