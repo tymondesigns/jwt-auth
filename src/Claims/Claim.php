@@ -15,6 +15,7 @@ use JsonSerializable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializable
 {
@@ -53,7 +54,11 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      */
     public function setValue($value)
     {
-        $this->value = $this->validateCreate($value);
+        if (! $this->validateCreate($value)) {
+            throw new InvalidClaimException($value);
+        }
+
+        $this->value = $value;
 
         return $this;
     }
@@ -111,7 +116,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      */
     public function validatePayload()
     {
-        return $this->getValue();
+        return (bool) $this->getValue();
     }
 
     /**
@@ -123,7 +128,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      */
     public function validateRefresh($refreshTTL)
     {
-        return $this->getValue();
+        return (bool) $this->getValue();
     }
 
     /**
