@@ -2,3 +2,8 @@
 composer.lock
 build
 coverage.xml
+
+# IntelliJ
+/.idea
+/*.iml
+/.phpstorm_helpers/
