@@ -36,6 +36,8 @@ class RefreshToken extends BaseMiddleware
         } catch (JWTException $e) {
             throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
         }
+        
+        $request->merge(compact('token'));
 
         $response = $next($request);
 
