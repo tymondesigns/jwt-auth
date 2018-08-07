@@ -17,7 +17,7 @@ Add the service provider to the `providers` array in the `config/app.php` config
 
     ...
 
-    Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+    Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 ]
 ```
 
@@ -28,7 +28,7 @@ Add the service provider to the `providers` array in the `config/app.php` config
 Run the following command to publish the package config file:
 
 ```bash
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
 ```
 
 You should now have a `config/jwt.php` file that allows you to configure the basics of this package.
@@ -40,7 +40,7 @@ You should now have a `config/jwt.php` file that allows you to configure the bas
 I have included a helper command to generate a key for you:
 
 ```bash
-php artisan jwt:secret
+php artisan jwt:generate
 ```
 
 This will update your `.env` file with something like `JWT_SECRET=foobar`
