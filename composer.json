@@ -1,5 +1,5 @@
 {
-    "name": "tymon/jwt-auth",
+    "name": "hackedmac/jwt-auth",
     "description": "JSON Web Token Authentication for Laravel and Lumen",
     "keywords": [
         "auth",
@@ -8,10 +8,10 @@
         "jwt",
         "laravel"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/hackedmac/jwt-auth",
     "support": {
-        "issues": "https://github.com/tymondesigns/jwt-auth/issues",
-        "source": "https://github.com/tymondesigns/jwt-auth"
+        "issues": "https://github.com/hackedmac/jwt-auth/issues",
+        "source": "https://github.com/hackedmac/jwt-auth"
     },
     "license": "MIT",
     "authors": [
