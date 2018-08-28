@@ -40,12 +40,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Hackedmac\\JWTAuth\\": "src/"
+            "Tymon\\JWTAuth\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Hackedmac\\JWTAuth\\Test\\": "tests/"
+            "Tymon\\JWTAuth\\Test\\": "tests/"
         }
     },
     "extra": {
@@ -54,11 +54,11 @@
         },
         "laravel": {
             "aliases": {
-                "JWTAuth": "Hackedmac\\JWTAuth\\Facades\\JWTAuth",
-                "JWTFactory": "Hackedmac\\JWTAuth\\Facades\\JWTFactory"
+                "JWTAuth": "Tymon\\JWTAuth\\Facades\\JWTAuth",
+                "JWTFactory": "Tymon\\JWTAuth\\Facades\\JWTFactory"
             },
             "providers": [
-                "Hackedmac\\JWTAuth\\Providers\\LaravelServiceProvider"
+                "Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
             ]
         }
     },
