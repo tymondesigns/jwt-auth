@@ -1,5 +1,5 @@
 {
-    "name": "tymon/jwt-auth",
+    "name": "hackedmac/jwt-auth",
     "description": "JSON Web Token Authentication for Laravel and Lumen",
     "keywords": [
         "auth",
@@ -8,10 +8,10 @@
         "jwt",
         "laravel"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/hackedmac/jwt-auth",
     "support": {
-        "issues": "https://github.com/tymondesigns/jwt-auth/issues",
-        "source": "https://github.com/tymondesigns/jwt-auth"
+        "issues": "https://github.com/hackedmac/jwt-auth/issues",
+        "source": "https://github.com/hackedmac/jwt-auth"
     },
     "license": "MIT",
     "authors": [
@@ -40,12 +40,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Tymon\\JWTAuth\\": "src/"
+            "Hackedmac\\JWTAuth\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tymon\\JWTAuth\\Test\\": "tests/"
+            "Hackedmac\\JWTAuth\\Test\\": "tests/"
         }
     },
     "extra": {
@@ -54,11 +54,11 @@
         },
         "laravel": {
             "aliases": {
-                "JWTAuth": "Tymon\\JWTAuth\\Facades\\JWTAuth",
-                "JWTFactory": "Tymon\\JWTAuth\\Facades\\JWTFactory"
+                "JWTAuth": "Hackedmac\\JWTAuth\\Facades\\JWTAuth",
+                "JWTFactory": "Hackedmac\\JWTAuth\\Facades\\JWTFactory"
             },
             "providers": [
-                "Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
+                "Hackedmac\\JWTAuth\\Providers\\LaravelServiceProvider"
             ]
         }
     },
