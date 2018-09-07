@@ -41,13 +41,10 @@ class Factory
             ? call_user_func([static::$classMap[$name], 'make'], $value)
             : new Custom($name, $value);
 
-        $claim = method_exists($claim, 'setLeeway')
-            ? $claim->setLeeway(Arr::get($options, 'leeway', 0))
-            : $claim;
-
-        return method_exists($claim, 'setMaxRefreshPeriod')
-            ? $claim->setMaxRefreshPeriod(Arr::get($options, 'max_refresh_period'))
-            : $claim;
+        return static::applyClaimMethods($claim, [
+            'setLeeway' => Arr::get($options, 'leeway', 0),
+            'setMaxRefreshPeriod' => Arr::get($options, 'max_refresh_period'),
+        ]);
     }
 
     /**
@@ -56,5 +53,27 @@ class Factory
     public static function has(string $name): bool
     {
         return array_key_exists($name, static::$classMap);
+    }
+
+    /**
+     * Apply a method to the given claim if it exists.
+     */
+    protected static function applyClaimMethod(Claim $claim, string $methodName, $value): Claim
+    {
+        return method_exists($claim, $methodName)
+            ? $claim->{$methodName}($value)
+            : $claim;
+    }
+
+    /**
+     * Apply a multiple methods to the given claim if they exist.
+     */
+    protected static function applyClaimMethods(Claim $claim, array $data): Claim
+    {
+        foreach ($data as $method => $value) {
+            $claim = static::applyClaimMethod($claim, $method, $value);
+        }
+
+        return $claim;
     }
 }

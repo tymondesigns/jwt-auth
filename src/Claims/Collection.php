@@ -35,9 +35,8 @@ class Collection extends IlluminateCollection
         ?callable $callback = null,
         $default = null
     ): ?Claim {
-        return $this->filter(function (Claim $claim) use ($name) {
-            return $claim->getName() === $name;
-        })->first($callback, $default);
+        return $this->filter->matchesName($name)
+            ->first($callback, $default);
     }
 
     /**
@@ -45,9 +44,7 @@ class Collection extends IlluminateCollection
      */
     public function validate()
     {
-        $this->each(function ($claim) {
-            $claim->validatePayload();
-        });
+        $this->each->validatePayload();
 
         return $this;
     }
@@ -71,9 +68,7 @@ class Collection extends IlluminateCollection
      */
     public function toPlainArray(): array
     {
-        return $this->map(function (Claim $claim) {
-            return $claim->getValue();
-        })->toArray();
+        return $this->map->getValue()->toArray();
     }
 
     /**

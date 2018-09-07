@@ -43,7 +43,7 @@ class TokenResponse implements Responsable
     /**
      * Constructor.
      */
-    public function __construct(Token $token, int $ttl, $type = 'bearer')
+    public function __construct(Token $token, int $ttl, string $type = 'bearer')
     {
         $this->token = $token;
         $this->ttl = $ttl;

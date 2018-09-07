@@ -288,8 +288,6 @@ class JWT
 
     /**
      * Get the token ttl.
-     *
-     * @return int|null
      */
     public function getTTL(): ?int
     {

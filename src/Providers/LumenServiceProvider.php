@@ -29,8 +29,6 @@ class LumenServiceProvider extends AbstractServiceProvider
         $path = realpath(__DIR__.'/../../config/config.php');
         $this->mergeConfigFrom($path, 'jwt');
 
-        $this->app->routeMiddleware($this->middlewareAliases);
-
         $this->extendAuthGuard();
 
         $this->app['tymon.jwt.parser']->setChain([

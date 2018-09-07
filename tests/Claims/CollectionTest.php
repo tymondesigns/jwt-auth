@@ -22,18 +22,6 @@ use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class CollectionTest extends AbstractTestCase
 {
-    private function getCollection()
-    {
-        return new Collection([
-            new Subject(1),
-            new Issuer('http://example.com'),
-            new Expiration($this->testNowTimestamp + 3600),
-            new NotBefore($this->testNowTimestamp),
-            new IssuedAt($this->testNowTimestamp),
-            new JwtId('foo'),
-        ]);
-    }
-
     /** @test */
     public function it_should_sanitize_the_claims_to_associative_array()
     {
@@ -62,5 +50,19 @@ class CollectionTest extends AbstractTestCase
 
         $this->assertInstanceOf(Expiration::class, $collection->getByClaimName('exp'));
         $this->assertInstanceOf(Subject::class, $collection->getByClaimName('sub'));
+        $this->assertInstanceOf(Issuer::class, $collection->getByClaimName('iss'));
+        $this->assertInstanceOf(JwtId::class, $collection->getByClaimName('jti'));
+    }
+
+    private function getCollection()
+    {
+        return new Collection([
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
+        ]);
     }
 }

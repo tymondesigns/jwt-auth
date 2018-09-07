@@ -98,6 +98,14 @@ trait DatetimeTrait
     }
 
     /**
+     * Get the leeway.
+     */
+    public function getLeeway(): int
+    {
+        return $this->leeway;
+    }
+
+    /**
      * Set the max refresh period in minutes.
      *
      * @param int|null $period
@@ -107,5 +115,13 @@ trait DatetimeTrait
         $this->maxRefreshPeriod = $period;
 
         return $this;
+    }
+
+    /**
+     * Get the max refresh period.
+     */
+    public function getMaxRefreshPeriod(): ?int
+    {
+        return $this->maxRefreshPeriod;
     }
 }

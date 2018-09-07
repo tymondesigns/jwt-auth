@@ -31,7 +31,7 @@ class Builder
     protected $request;
 
     /**
-     * The TTL.
+     * The TTL in minutes.
      *
      * @var int
      */

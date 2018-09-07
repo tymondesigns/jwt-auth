@@ -44,13 +44,23 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_make_a_claim_instance_for_inferred_claims()
     {
-        $iat = Factory::get('iat');
+        $iat = Factory::get('iat', null, [
+            'leeway' => 10,
+            'max_refresh_period' => 2,
+        ]);
         $this->assertSame($this->testNowTimestamp, $iat->getValue());
         $this->assertInstanceOf(IssuedAt::class, $iat);
+        $this->assertEquals($iat->getLeeway(), 10);
+        $this->assertEquals($iat->getMaxRefreshPeriod(), 2);
 
-        $nbf = Factory::get('nbf');
+        $nbf = Factory::get('nbf', null, [
+            'leeway' => 20,
+            'max_refresh_period' => 1,
+        ]);
         $this->assertSame($this->testNowTimestamp, $nbf->getValue());
         $this->assertInstanceOf(NotBefore::class, $nbf);
+        $this->assertEquals($nbf->getLeeway(), 20);
+        $this->assertEquals($nbf->getMaxRefreshPeriod(), 1);
 
         $jti = Factory::get('jti');
         $this->assertInstanceOf(JwtId::class, $jti);

@@ -258,7 +258,7 @@ class JWTGuard implements Guard
      */
     public function setTTL(?int $ttl): self
     {
-        $this->jwt->builder()->setTTL($ttl);
+        $this->jwt->setTTL($ttl);
 
         return $this;
     }
