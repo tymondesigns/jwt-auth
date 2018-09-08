@@ -153,7 +153,7 @@ class Builder
         return array_merge([
             'sub' => $subject->getJWTIdentifier(),
         ], $this->lockSubject ? [
-            'prv' => $this->hashSubjectModel($subject)
+            'prv' => $this->hashSubjectModel($subject),
         ] : []);
     }
 
