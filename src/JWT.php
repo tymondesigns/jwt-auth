@@ -182,9 +182,6 @@ class JWT
 
     /**
      * Check if the subject model matches the one saved in the token.
-     *
-     * @param  string|object  $model
-     * @param  \Tymon\JWTAuth\Payload|null  $payload
      */
     public function checkSubjectModel($model, ?Payload $payload = null): bool
     {
@@ -204,7 +201,9 @@ class JWT
      */
     public function setToken($token): self
     {
-        $this->token = $token instanceof Token ? $token : new Token($token);
+        $this->token = $token instanceof Token
+            ? $token
+            : new Token($token);
 
         return $this;
     }

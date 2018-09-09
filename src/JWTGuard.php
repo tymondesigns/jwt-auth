@@ -90,7 +90,7 @@ class JWTGuard implements Guard
      *
      * @throws \Tymon\JWTAuth\Exceptions\UserNotDefinedException
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function userOrFail()
     {
@@ -333,14 +333,14 @@ class JWTGuard implements Guard
 
     /**
      * Get the payload from a token that may exist in the request.
-     *
-     * @return \Tymon\JWTAuth\Payload|null
      */
-    protected function getPayload()
+    protected function getPayload(): ?Payload
     {
-        if ($this->jwt->setRequest($this->request)->getToken()) {
-            return $this->jwt->check(true);
+        if ($this->jwt->setRequest($this->request)->getToken() === null) {
+            return null;
         }
+
+        return $this->jwt->check(true) ?: null;
     }
 
     /**

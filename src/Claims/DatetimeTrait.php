@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth\Claims;
 
 use DateInterval;
+use Carbon\Carbon;
 use DateTimeInterface;
+use Carbon\CarbonInterval;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Claim;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
@@ -123,5 +125,21 @@ trait DatetimeTrait
     public function getMaxRefreshPeriod(): ?int
     {
         return $this->maxRefreshPeriod;
+    }
+
+    /**
+     * Get the claim value as a Carbon instance.
+     */
+    public function asCarbon(): Carbon
+    {
+        return Utils::timestamp($this->getValue());
+    }
+
+    /**
+     * Get the claim value as a CarbonInterval instance.
+     */
+    public function asCarbonInterval(): CarbonInterval
+    {
+        return Utils::now()->diffAsCarbonInterval($this->asCarbon());
     }
 }
