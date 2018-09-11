@@ -18,14 +18,6 @@ use Illuminate\Support\Collection as IlluminateCollection;
 class Collection extends IlluminateCollection
 {
     /**
-     * Constructor.
-     */
-    public function __construct($items = [])
-    {
-        parent::__construct($this->getArrayableItems($items));
-    }
-
-    /**
      * Get a Claim instance by it's unique name.
      *
      * @return \Tymon\JWTAuth\Claims\Claim
