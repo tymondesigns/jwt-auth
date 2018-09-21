@@ -178,7 +178,8 @@ class PayloadTest extends AbstractTestCase
      * @expectedException \BadMethodCallException
      * @expectedExceptionMessage The claim [getFoo] does not exist on the payload.
      */
-    public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist() {
+    public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
+    {
         $this->payload->getFoo();
     }
 

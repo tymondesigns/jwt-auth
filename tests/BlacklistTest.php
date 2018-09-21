@@ -150,7 +150,8 @@ class BlacklistTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_check_whether_a_token_has_been_blacklisted_when_the_token_is_not_blacklisted() {
+    public function it_should_check_whether_a_token_has_been_blacklisted_when_the_token_is_not_blacklisted()
+    {
         $payload = Factory::make([
             new Subject(1),
             new Issuer('http://example.com'),
