@@ -85,9 +85,9 @@ class JWTTest extends AbstractTestCase
                 ->getMock();
 
         $payload->shouldReceive('offsetGet')
-                ->with('prv')
-                ->andReturn($hash)
-                ->getMock();
+            ->with('prv')
+            ->andReturn($hash)
+            ->getMock();
 
         $this->manager->shouldReceive('decode')
             ->once()

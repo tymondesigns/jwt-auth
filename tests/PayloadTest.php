@@ -94,8 +94,14 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_cast_the_payload_to_a_string_as_json()
     {
-        $this->assertSame((string) $this->payload, json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES));
-        $this->assertJsonStringEqualsJsonString((string) $this->payload, json_encode($this->payload->get()));
+        $this->assertSame(
+            (string) $this->payload,
+            json_encode($this->payload->get(), JSON_UNESCAPED_SLASHES)
+        );
+        $this->assertJsonStringEqualsJsonString(
+            (string) $this->payload,
+            json_encode($this->payload->get())
+        );
     }
 
     /** @test */
@@ -172,8 +178,7 @@ class PayloadTest extends AbstractTestCase
      * @expectedException \BadMethodCallException
      * @expectedExceptionMessage The claim [getFoo] does not exist on the payload.
      */
-    public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
-    {
+    public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist() {
         $this->payload->getFoo();
     }
 
@@ -192,7 +197,10 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_get_the_object_as_json()
     {
-        $this->assertJsonStringEqualsJsonString(json_encode($this->payload), $this->payload->toJson());
+        $this->assertJsonStringEqualsJsonString(
+            json_encode($this->payload),
+            $this->payload->toJson()
+        );
     }
 
     /** @test */

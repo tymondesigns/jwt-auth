@@ -110,10 +110,7 @@ class PayloadValidatorTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
-        $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-        ];
+        $claims = [new Subject(1), new Issuer('http://example.com')];
 
         $collection = Collection::make($claims);
 
@@ -144,10 +141,7 @@ class PayloadValidatorTest extends AbstractTestCase
     /** @test */
     public function it_should_set_the_required_claims()
     {
-        $claims = [
-            new Subject(1),
-            new Issuer('http://example.com'),
-        ];
+        $claims = [new Subject(1), new Issuer('http://example.com')];
 
         $collection = Collection::make($claims);
 

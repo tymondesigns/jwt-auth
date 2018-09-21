@@ -27,7 +27,14 @@ class CollectionTest extends AbstractTestCase
     {
         $collection = $this->getCollection();
 
-        $this->assertSame(array_keys($collection->toArray()), ['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']);
+        $this->assertSame(array_keys($collection->toArray()), [
+            'sub',
+            'iss',
+            'exp',
+            'nbf',
+            'iat',
+            'jti',
+        ]);
     }
 
     /** @test */
@@ -35,7 +42,9 @@ class CollectionTest extends AbstractTestCase
     {
         $collection = $this->getCollection();
 
-        $this->assertFalse($collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti', 'abc']));
+        $this->assertFalse(
+            $collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti', 'abc'])
+        );
         $this->assertFalse($collection->hasAllClaims(['foo', 'bar']));
 
         $this->assertTrue($collection->hasAllClaims([]));

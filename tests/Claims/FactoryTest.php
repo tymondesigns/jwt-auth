@@ -29,15 +29,17 @@ class FactoryTest extends AbstractTestCase
     {
         $this->assertInstanceOf(Subject::class, Factory::get('sub', 1));
         $this->assertInstanceOf(Issuer::class, Factory::get('iss', 'http://example.com'));
-        $this->assertInstanceOf(Expiration::class, Factory::get('exp', $this->testNowTimestamp + 3600));
+        $this->assertInstanceOf(
+            Expiration::class,
+            Factory::get('exp', $this->testNowTimestamp + 3600)
+        );
         $this->assertInstanceOf(NotBefore::class, Factory::get('nbf', $this->testNowTimestamp));
         $this->assertInstanceOf(IssuedAt::class, Factory::get('iat', $this->testNowTimestamp));
         $this->assertInstanceOf(JwtId::class, Factory::get('jti', 'foo'));
     }
 
     /** @test */
-    public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value()
-    {
+    public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value() {
         $this->assertInstanceOf(Custom::class, Factory::get('foo', ['bar']));
     }
 

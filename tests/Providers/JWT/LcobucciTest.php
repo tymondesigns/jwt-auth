@@ -48,12 +48,23 @@ class LcobucciTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_token_when_passing_a_valid_payload_to_encode()
     {
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+        $payload = [
+            'sub' => 1,
+            'exp' => $this->testNowTimestamp + 3600,
+            'iat' => $this->testNowTimestamp,
+            'iss' => '/foo',
+        ];
 
-        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
+        $this->builder->shouldReceive('unsign')
+            ->once()
+            ->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret');
-        $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->builder->shouldReceive('sign')
+            ->once()
+            ->with(Mockery::any(), 'secret');
+        $this->builder->shouldReceive('getToken')
+            ->once()
+            ->andReturn('foo.bar.baz');
 
         $token = $this->getProvider('secret', 'HS256')->encode($payload);
 
@@ -67,11 +78,21 @@ class LcobucciTest extends AbstractTestCase
      */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+        $payload = [
+            'sub' => 1,
+            'exp' => $this->testNowTimestamp,
+            'iat' => $this->testNowTimestamp,
+            'iss' => '/foo',
+        ];
 
-        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
+        $this->builder->shouldReceive('unsign')
+            ->once()
+            ->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret')->andThrow(new Exception);
+        $this->builder->shouldReceive('sign')
+            ->once()
+            ->with(Mockery::any(), 'secret')
+            ->andThrow(new Exception());
 
         $this->getProvider('secret', 'HS256')->encode($payload);
     }
@@ -79,11 +100,24 @@ class LcobucciTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     {
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+        $payload = [
+            'sub' => 1,
+            'exp' => $this->testNowTimestamp + 3600,
+            'iat' => $this->testNowTimestamp,
+            'iss' => '/foo',
+        ];
 
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-        $this->parser->shouldReceive('verify')->once()->with(Mockery::any(), 'secret')->andReturn(true);
-        $this->parser->shouldReceive('getClaims')->once()->andReturn($payload);
+        $this->parser->shouldReceive('parse')
+            ->once()
+            ->with('foo.bar.baz')
+            ->andReturn(Mockery::self());
+        $this->parser->shouldReceive('verify')
+            ->once()
+            ->with(Mockery::any(), 'secret')
+            ->andReturn(true);
+        $this->parser->shouldReceive('getClaims')
+            ->once()
+            ->andReturn($payload);
 
         $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
@@ -93,10 +127,15 @@ class LcobucciTest extends AbstractTestCase
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @expectedExceptionMessage Token Signature could not be verified.
      */
-    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
-    {
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-        $this->parser->shouldReceive('verify')->once()->with(Mockery::any(), 'secret')->andReturn(false);
+    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature() {
+        $this->parser->shouldReceive('parse')
+            ->once()
+            ->with('foo.bar.baz')
+            ->andReturn(Mockery::self());
+        $this->parser->shouldReceive('verify')
+            ->once()
+            ->with(Mockery::any(), 'secret')
+            ->andReturn(false);
         $this->parser->shouldReceive('getClaims')->never();
 
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
@@ -109,7 +148,10 @@ class LcobucciTest extends AbstractTestCase
      */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andThrow(new InvalidArgumentException);
+        $this->parser->shouldReceive('parse')
+            ->once()
+            ->with('foo.bar.baz')
+            ->andThrow(new InvalidArgumentException());
         $this->parser->shouldReceive('verify')->never();
         $this->parser->shouldReceive('getClaims')->never();
 
@@ -119,18 +161,28 @@ class LcobucciTest extends AbstractTestCase
     /** @test */
     public function it_should_generate_a_token_when_using_an_rsa_algorithm()
     {
-        $provider = $this->getProvider(
-            'does_not_matter',
-            'RS256',
-            ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
-        );
+        $provider = $this->getProvider('does_not_matter', 'RS256', [
+            'private' => $this->getDummyPrivateKey(),
+            'public' => $this->getDummyPublicKey(),
+        ]);
 
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+        $payload = [
+            'sub' => 1,
+            'exp' => $this->testNowTimestamp + 3600,
+            'iat' => $this->testNowTimestamp,
+            'iss' => '/foo',
+        ];
 
-        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
+        $this->builder->shouldReceive('unsign')
+            ->once()
+            ->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), Mockery::type(Key::class));
-        $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->builder->shouldReceive('sign')
+            ->once()
+            ->with(Mockery::any(), Mockery::type(Key::class));
+        $this->builder->shouldReceive('getToken')
+            ->once()
+            ->andReturn('foo.bar.baz');
 
         $token = $provider->encode($payload);
 
@@ -158,7 +210,10 @@ class LcobucciTest extends AbstractTestCase
         $provider = $this->getProvider(
             'does_not_matter',
             'RS256',
-            $keys = ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
+            $keys = [
+                'private' => $this->getDummyPrivateKey(),
+                'public' => $this->getDummyPublicKey(),
+            ]
         );
 
         $this->assertSame($keys['public'], $provider->getPublicKey());
@@ -172,7 +227,10 @@ class LcobucciTest extends AbstractTestCase
         $provider = $this->getProvider(
             'does_not_matter',
             'RS256',
-            $keys = ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
+            $keys = [
+                'private' => $this->getDummyPrivateKey(),
+                'public' => $this->getDummyPublicKey(),
+            ]
         );
 
         $this->assertSame($keys, $provider->getKeys());
@@ -185,11 +243,11 @@ class LcobucciTest extends AbstractTestCase
 
     public function getDummyPrivateKey()
     {
-        return file_get_contents(__DIR__.'/../Keys/id_rsa');
+        return file_get_contents(__DIR__ . '/../Keys/id_rsa');
     }
 
     public function getDummyPublicKey()
     {
-        return file_get_contents(__DIR__.'/../Keys/id_rsa.pub');
+        return file_get_contents(__DIR__ . '/../Keys/id_rsa.pub');
     }
 }

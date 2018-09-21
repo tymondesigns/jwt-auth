@@ -61,11 +61,7 @@ class TokenValidatorTest extends AbstractTestCase
 
     public function dataProviderTokensWithWrongSegmentsNumber()
     {
-        return [
-            ['one.two'],
-            ['one.two.three.four'],
-            ['one.two.three.four.five'],
-        ];
+        return [['one.two'], ['one.two.three.four'], ['one.two.three.four.five']];
     }
 
     /**
@@ -74,8 +70,9 @@ class TokenValidatorTest extends AbstractTestCase
      *
      * @param  string  $token
      */
-    public function it_should_return_false_when_providing_a_token_with_wrong_segments_number($token)
-    {
+    public function it_should_return_false_when_providing_a_token_with_wrong_segments_number(
+        $token
+    ) {
         $this->assertFalse(TokenValidator::isValid($token));
     }
 
@@ -87,8 +84,9 @@ class TokenValidatorTest extends AbstractTestCase
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @expectedExceptionMessage Wrong number of segments
      */
-    public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number($token)
-    {
+    public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number(
+        $token
+    ) {
         TokenValidator::check($token);
     }
 }

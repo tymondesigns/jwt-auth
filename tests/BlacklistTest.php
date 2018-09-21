@@ -54,7 +54,10 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foo'),
         ]);
 
-        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => $this->testNowTimestamp], 61)->once();
+        $this->storage->shouldReceive('add')
+            ->with('foo', ['valid_until' => $this->testNowTimestamp], 61)
+            ->once();
+
         $this->blacklist->add($payload);
     }
 
@@ -69,7 +72,10 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foo'),
         ]);
 
-        $this->storage->shouldReceive('forever')->with('foo', $this->blacklist::FOREVER)->once();
+        $this->storage->shouldReceive('forever')
+            ->with('foo', $this->blacklist::FOREVER)
+            ->once();
+
         $this->blacklist->add($payload);
     }
 
@@ -85,20 +91,17 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foobar'),
         ]);
 
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(['valid_until' => $this->testNowTimestamp]);
+        $this->storage->shouldReceive('get')
+            ->with('foobar')
+            ->once()
+            ->andReturn(['valid_until' => $this->testNowTimestamp]);
 
         $this->assertTrue($this->blacklist->has($payload));
     }
 
     public function blacklist_provider()
     {
-        return [
-            [null],
-            [0],
-            [''],
-            [[]],
-            [['valid_until' => strtotime('+1day')]],
-        ];
+        return [[null], [0], [''], [[]], [['valid_until' => strtotime('+1day')]]];
     }
 
     /**
@@ -118,7 +121,11 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foobar'),
         ]);
 
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn($result);
+        $this->storage->shouldReceive('get')
+            ->with('foobar')
+            ->once()
+            ->andReturn($result);
+
         $this->assertFalse($this->blacklist->has($payload));
     }
 
@@ -134,14 +141,16 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foobar'),
         ]);
 
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn($this->blacklist::FOREVER);
+        $this->storage->shouldReceive('get')
+            ->with('foobar')
+            ->once()
+            ->andReturn($this->blacklist::FOREVER);
 
         $this->assertTrue($this->blacklist->has($payload));
     }
 
     /** @test */
-    public function it_should_check_whether_a_token_has_been_blacklisted_when_the_token_is_not_blacklisted()
-    {
+    public function it_should_check_whether_a_token_has_been_blacklisted_when_the_token_is_not_blacklisted() {
         $payload = Factory::make([
             new Subject(1),
             new Issuer('http://example.com'),
@@ -151,7 +160,10 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foobar'),
         ]);
 
-        $this->storage->shouldReceive('get')->with('foobar')->once()->andReturn(null);
+        $this->storage->shouldReceive('get')
+            ->with('foobar')
+            ->once()
+            ->andReturn(null);
 
         $this->assertFalse($this->blacklist->has($payload));
     }
@@ -168,7 +180,10 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foobar'),
         ]);
 
-        $this->storage->shouldReceive('destroy')->with('foobar')->andReturn(true);
+        $this->storage->shouldReceive('destroy')
+            ->with('foobar')
+            ->andReturn(true);
+
         $this->assertTrue($this->blacklist->remove($payload));
     }
 
@@ -184,7 +199,10 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foobar'),
         ]);
 
-        $this->storage->shouldReceive('get')->with(1)->once()->andReturn(['valid_until' => $this->testNowTimestamp]);
+        $this->storage->shouldReceive('get')
+            ->with(1)
+            ->once()
+            ->andReturn(['valid_until' => $this->testNowTimestamp]);
 
         $this->assertTrue($this->blacklist->setKey('sub')->has($payload));
         $this->assertSame(1, $this->blacklist->getKey($payload));

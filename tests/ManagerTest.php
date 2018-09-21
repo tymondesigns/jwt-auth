@@ -99,9 +99,14 @@ class ManagerTest extends AbstractTestCase
 
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
+        $this->jwt->shouldReceive('payload')
+            ->once()
+            ->with('foo.bar.baz')
+            ->andReturn($payload);
 
-        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+        $this->blacklist->shouldReceive('has')
+            ->with($payload)
+            ->andReturn(false);
 
         $payload = $this->manager->decode($token);
 
@@ -127,9 +132,14 @@ class ManagerTest extends AbstractTestCase
 
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
+        $this->jwt->shouldReceive('payload')
+            ->once()
+            ->with('foo.bar.baz')
+            ->andReturn($payload);
 
-        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(true);
+        $this->blacklist->shouldReceive('has')
+            ->with($payload)
+            ->andReturn(true);
 
         $this->manager->decode($token);
     }
@@ -157,8 +167,12 @@ class ManagerTest extends AbstractTestCase
             ->with(Mockery::type('array'))
             ->andReturn(new Token('baz.bar.foo'));
 
-        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
-        $this->blacklist->shouldReceive('add')->once()->with($payload);
+        $this->blacklist->shouldReceive('has')
+            ->with($payload)
+            ->andReturn(false);
+        $this->blacklist->shouldReceive('add')
+            ->once()
+            ->with($payload);
 
         $token = $this->manager->refresh($token, 60);
 
@@ -180,11 +194,18 @@ class ManagerTest extends AbstractTestCase
 
         $token = new Token('foo.bar.baz');
 
-        $this->jwt->shouldReceive('payload')->once()->with('foo.bar.baz')->andReturn($payload);
+        $this->jwt->shouldReceive('payload')
+            ->once()
+            ->with('foo.bar.baz')
+            ->andReturn($payload);
 
-        $this->blacklist->shouldReceive('has')->with($payload)->andReturn(false);
+        $this->blacklist->shouldReceive('has')
+            ->with($payload)
+            ->andReturn(false);
 
-        $this->blacklist->shouldReceive('add')->with($payload)->andReturn(true);
+        $this->blacklist->shouldReceive('add')
+            ->with($payload)
+            ->andReturn(true);
 
         $this->manager->invalidate($token);
     }
