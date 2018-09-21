@@ -39,7 +39,8 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value() {
+    public function it_should_get_a_custom_claim_instance_when_passing_a_non_defined_name_and_value()
+    {
         $this->assertInstanceOf(Custom::class, Factory::get('foo', ['bar']));
     }
 

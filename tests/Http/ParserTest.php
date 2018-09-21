@@ -169,7 +169,8 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_the_token_from_the_custom_query_string_not_the_custom_input_source() {
+    public function it_should_return_the_token_from_the_custom_query_string_not_the_custom_input_source()
+    {
         $request = Request::create(
             'foo?custom_token_key=foobar',
             'POST',

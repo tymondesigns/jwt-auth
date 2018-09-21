@@ -102,7 +102,8 @@ class JWTGuardTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception() {
+    public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception()
+    {
         $payload = Mockery::mock(Payload::class)
             ->shouldReceive('offsetGet')
             ->once()
@@ -253,7 +254,8 @@ class JWTGuardTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_return_true_if_credentials_are_ok_and_user_is_found_when_choosing_not_to_login() {
+    public function it_should_return_true_if_credentials_are_ok_and_user_is_found_when_choosing_not_to_login()
+    {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub();
 
@@ -426,7 +428,8 @@ class JWTGuardTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_attempt_to_authenticate_the_user_by_credentials_and_return_false_if_invalid() {
+    public function it_should_attempt_to_authenticate_the_user_by_credentials_and_return_false_if_invalid()
+    {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub();
 

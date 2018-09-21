@@ -127,7 +127,8 @@ class LcobucciTest extends AbstractTestCase
      * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
      * @expectedExceptionMessage Token Signature could not be verified.
      */
-    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature() {
+    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
+    {
         $this->parser->shouldReceive('parse')
             ->once()
             ->with('foo.bar.baz')
@@ -243,11 +244,11 @@ class LcobucciTest extends AbstractTestCase
 
     public function getDummyPrivateKey()
     {
-        return file_get_contents(__DIR__ . '/../Keys/id_rsa');
+        return file_get_contents(__DIR__.'/../Keys/id_rsa');
     }
 
     public function getDummyPublicKey()
     {
-        return file_get_contents(__DIR__ . '/../Keys/id_rsa.pub');
+        return file_get_contents(__DIR__.'/../Keys/id_rsa.pub');
     }
 }
