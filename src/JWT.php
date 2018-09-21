@@ -264,7 +264,9 @@ class JWT
      */
     public function parser(?string $key = null)
     {
-        return $key === null ? $this->parser : $this->parser->get($key);
+        return $key === null
+            ? $this->parser
+            : $this->parser->get($key);
     }
 
     /**

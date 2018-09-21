@@ -37,7 +37,8 @@ class AuthHeaders implements ParserContract
      */
     protected function fromAltHeaders(Request $request)
     {
-        return $request->server->get('HTTP_AUTHORIZATION') ?: $request->server->get('REDIRECT_HTTP_AUTHORIZATION');
+        return $request->server->get('HTTP_AUTHORIZATION')
+            ?: $request->server->get('REDIRECT_HTTP_AUTHORIZATION');
     }
 
     /**
@@ -47,7 +48,8 @@ class AuthHeaders implements ParserContract
      */
     public function parse(Request $request)
     {
-        $header = $request->headers->get($this->header) ?: $this->fromAltHeaders($request);
+        $header = $request->headers->get($this->header)
+            ?: $this->fromAltHeaders($request);
 
         if ($header && preg_match('/'.$this->prefix.'\s*(\S+)\b/i', $header, $matches)) {
             return $matches[1];

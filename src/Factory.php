@@ -26,17 +26,18 @@ class Factory
      */
     public static function make(array $claims = [], array $options = []): Payload
     {
-        $collection = Collection::make($claims)->map(function ($value, $key) use ($options) {
-            if ($value instanceof Claim) {
-                return $value;
-            }
+        $collection = Collection::make($claims)
+            ->map(function ($value, $key) use ($options) {
+                if ($value instanceof Claim) {
+                    return $value;
+                }
 
-            if (! is_string($key)) {
-                return ClaimFactory::get($value, null, $options);
-            }
+                if (! is_string($key)) {
+                    return ClaimFactory::get($value, null, $options);
+                }
 
-            return ClaimFactory::get($key, $value, $options);
-        });
+                return ClaimFactory::get($key, $value, $options);
+            });
 
         $requiredClaims = Arr::get($options, 'required_claims', []);
 

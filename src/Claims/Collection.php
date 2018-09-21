@@ -52,7 +52,9 @@ class Collection extends IlluminateCollection
             return true;
         }
 
-        return (new static($claims))->diff($this->keys())->isEmpty();
+        return (new static($claims))
+            ->diff($this->keys())
+            ->isEmpty();
     }
 
     /**
@@ -60,7 +62,8 @@ class Collection extends IlluminateCollection
      */
     public function toPlainArray(): array
     {
-        return $this->map->getValue()
+        return $this->map
+            ->getValue()
             ->toArray();
     }
 

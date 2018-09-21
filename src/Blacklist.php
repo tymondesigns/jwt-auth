@@ -83,7 +83,9 @@ class Blacklist
 
         // find the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
-        return Utils::now()->subMinute()->diffInMinutes($exp);
+        return Utils::now()
+            ->subMinute()
+            ->diffInMinutes($exp);
     }
 
     /**
@@ -136,7 +138,9 @@ class Blacklist
      */
     protected function getGraceTimestamp(): int
     {
-        return Utils::now()->addSeconds($this->gracePeriod)->getTimestamp();
+        return Utils::now()
+            ->addSeconds($this->gracePeriod)
+            ->getTimestamp();
     }
 
     /**
