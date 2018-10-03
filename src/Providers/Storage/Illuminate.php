@@ -145,16 +145,13 @@ class Illuminate implements Storage
             } catch (BadMethodCallException $ex) {
                 $this->supportsTags = false;
             }
-        } else {
-            // Laravel <= 5.1.27
-            if (method_exists($this->cache, 'getStore')) {
-                // Check for the tags function directly on the store
-                $this->supportsTags = method_exists($this->cache->getStore(), 'tags');
-            } else {
-                // Must be using custom cache repository without getStore(), and all bets are off,
-                // or we are mocking the cache contract (in testing), which will not create a getStore method
-                $this->supportsTags = false;
-            }
+
+            return;
         }
+
+        // Laravel 5.1.27 or false
+        $this->supportsTags = method_exists($this->cache, 'getStore')
+            ? method_exists($this->cache->getStore(), 'tags')
+            : false;
     }
 }
