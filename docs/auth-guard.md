@@ -2,7 +2,7 @@
 
 The following methods are available on the Auth guard instance.
 
-## Multiple Guards
+### Multiple Guards
 
 If the newly created 'api' guard is not set as a default guard or you have defined multiple guards to handle authentication,
 you should specify the guard when calling auth().
