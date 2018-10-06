@@ -53,7 +53,7 @@ class Factory
         // Run any custom validators
         foreach (Arr::get($options, 'validators', []) as $key => $validator) {
             if ($claim = $collection->getByClaimName($key)) {
-                if ($validator($claim, $key) === false) {
+                if ($validator($claim->getValue(), $key) === false) {
                     PayloadValidator::throwFailed('Validation failed for claim "'.$key.'"');
                 }
             }

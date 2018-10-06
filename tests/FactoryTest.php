@@ -86,9 +86,9 @@ class FactoryTest extends AbstractTestCase
             'foo' => 'bar',
         ], [
             'validators' => [
-                'foo' => function ($claim) {
+                'foo' => function ($value) {
                     // This will fail as the value is `bar`
-                    return $claim->getValue() === 'baz';
+                    return $value === 'baz';
                 },
             ],
         ]);
@@ -106,8 +106,8 @@ class FactoryTest extends AbstractTestCase
         ], [
             'validators' => [
                 // The `bar` claim does not exist
-                'bar' => function ($claim) {
-                    return $claim->getValue() === 'baz';
+                'bar' => function ($value) {
+                    return $value === 'baz';
                 },
             ],
         ]);
