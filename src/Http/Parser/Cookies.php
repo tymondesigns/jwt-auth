@@ -34,14 +34,19 @@ class Cookies implements ParserContract
     /**
      * Try to parse the token from the request cookies.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return null|string
      */
     public function parse(Request $request)
     {
         if ($this->decrypt && $request->hasCookie($this->key)) {
-            return Crypt::decrypt($request->cookie($this->key));
+            $token = Crypt::decrypt($request->cookie($this->key), false);
+            if ($unserializedToken = @unserialize($token)) {
+                $token = $unserializedToken;
+            }
+
+            return $token;
         }
 
         return $request->cookie($this->key);
