@@ -252,8 +252,8 @@ class JWTTest extends AbstractTestCase
             ->with('foo', Mockery::type('callable'))
             ->once();
 
-        $this->jwt->registerCustomValidator('foo', function ($claim) {
-            return $claim->getValue() !== 'bar';
+        $this->jwt->registerCustomValidator('foo', function ($value) {
+            return $value !== 'bar';
         });
     }
 
