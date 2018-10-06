@@ -206,7 +206,7 @@ class BlacklistTest extends AbstractTestCase
             ->andReturn(['valid_until' => $this->testNowTimestamp]);
 
         $this->assertTrue($this->blacklist->setKey('sub')->has($payload));
-        $this->assertSame(1, $this->blacklist->getKey($payload));
+        $this->assertSame('1', $this->blacklist->getKey($payload));
     }
 
     /** @test */

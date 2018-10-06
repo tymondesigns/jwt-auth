@@ -70,4 +70,46 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Issuer::class, $payload->getInternal('iss'));
         $this->assertInstanceOf(Custom::class, $payload->getInternal('foo'));
     }
+
+    /**
+     * @test
+     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     * @expectedExceptionMessage Validation failed for claim "foo"
+     */
+    public function it_should_run_a_custom_validator_and_throw_exception()
+    {
+        Factory::make([
+            'jti' => 'foo',
+            'iat' => $this->testNowTimestamp - 3600,
+            'iss' => 'example.com',
+            'sub' => 1,
+            'foo' => 'bar',
+        ], [
+            'validators' => [
+                'foo' => function ($claim) {
+                    // This will fail as the value is `bar`
+                    return $claim->getValue() === 'baz';
+                }
+            ]
+        ]);
+    }
+
+    /** @test */
+    public function it_should_not_run_a_custom_validator_for_a_non_existent_claim()
+    {
+        Factory::make([
+            'jti' => 'foo',
+            'iat' => $this->testNowTimestamp - 3600,
+            'iss' => 'example.com',
+            'sub' => 1,
+            'foo' => 'bar',
+        ], [
+            'validators' => [
+                // The `bar` claim does not exist
+                'bar' => function ($claim) {
+                    return $claim->getValue() === 'baz';
+                }
+            ]
+        ]);
+    }
 }

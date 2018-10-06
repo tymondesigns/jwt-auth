@@ -119,7 +119,9 @@ class Blacklist
      */
     public function remove(Payload $payload): bool
     {
-        return $this->storage->destroy($this->getKey($payload));
+        $this->storage->destroy($this->getKey($payload));
+
+        return true;
     }
 
     /**
@@ -163,12 +165,10 @@ class Blacklist
 
     /**
      * Get the unique key held within the blacklist.
-     *
-     * @return mixed
      */
-    public function getKey(Payload $payload)
+    public function getKey(Payload $payload): string
     {
-        return $payload($this->key);
+        return (string) $payload($this->key);
     }
 
     /**

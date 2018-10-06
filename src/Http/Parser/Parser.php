@@ -52,10 +52,8 @@ class Parser
 
     /**
      * Set the order of the parser chain.
-     *
-     * @return $this
      */
-    public function setChain(array $chain)
+    public function setChain(array $chain): self
     {
         $this->chain = $chain;
 
@@ -64,10 +62,8 @@ class Parser
 
     /**
      * Alias for setting the order of the chain.
-     *
-     * @return $this
      */
-    public function setChainOrder(array $chain)
+    public function setChainOrder(array $chain): self
     {
         return $this->setChain($chain);
     }
@@ -75,7 +71,7 @@ class Parser
     /**
      * Get a parser by key.
      */
-    public function get(string $key): ParserContract
+    public function get(string $key): ?ParserContract
     {
         return Arr::get($this->chain, $key);
     }
@@ -83,16 +79,16 @@ class Parser
     /**
      * Iterate through the parsers and attempt to retrieve
      * a value, otherwise return null.
-     *
-     * @return string|null
      */
-    public function parseToken()
+    public function parseToken(): ?string
     {
         foreach ($this->chain as $key => $parser) {
             if ($token = $parser->parse($this->request)) {
                 return $token;
             }
         }
+
+        return null;
     }
 
     /**

@@ -20,10 +20,8 @@ class QueryString implements ParserContract
 
     /**
      * Try to parse the token from the request query string.
-     *
-     * @return null|string
      */
-    public function parse(Request $request)
+    public function parse(Request $request): ?string
     {
         return $request->query($this->key);
     }

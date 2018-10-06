@@ -20,12 +20,8 @@ class RouteParams implements ParserContract
 
     /**
      * Try to get the token from the route parameters.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return null|string
      */
-    public function parse(Request $request)
+    public function parse(Request $request): ?string
     {
         $route = $request->route();
 
@@ -35,5 +31,7 @@ class RouteParams implements ParserContract
         if (is_callable([$route, 'parameter'])) {
             return $route->parameter($this->key);
         }
+
+        return null;
     }
 }

@@ -73,10 +73,9 @@ class IlluminateTest extends AbstractTestCase
     {
         $this->cache->shouldReceive('forget')
             ->with('foo')
-            ->once()
-            ->andReturn(true);
+            ->once();
 
-        $this->assertTrue($this->storage->destroy('foo'));
+        $this->storage->destroy('foo');
     }
 
     /** @test */
@@ -147,10 +146,9 @@ class IlluminateTest extends AbstractTestCase
         $this->emulateTags();
         $this->cache->shouldReceive('forget')
             ->with('foo')
-            ->once()
-            ->andReturn(true);
+            ->once();
 
-        $this->assertTrue($this->storage->destroy('foo'));
+        $this->storage->destroy('foo');
     }
 
     /** @test */

@@ -246,6 +246,18 @@ class JWTTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_register_a_custom_claim_validator()
+    {
+        $this->builder->shouldReceive('setCustomValidator')
+            ->with('foo', Mockery::type('callable'))
+            ->once();
+
+        $this->jwt->registerCustomValidator('foo', function ($claim) {
+            return $claim->getValue() !== 'bar';
+        });
+    }
+
+    /** @test */
     public function it_should_get_the_manager_instance()
     {
         $manager = $this->jwt->manager();

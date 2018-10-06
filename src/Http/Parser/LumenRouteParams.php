@@ -18,12 +18,8 @@ class LumenRouteParams extends RouteParams
 {
     /**
      * Try to get the token from the route parameters.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return null|string
      */
-    public function parse(Request $request)
+    public function parse(Request $request): ?string
     {
         // WARNING: Only use this parser if you know what you're doing!
         // It will only work with poorly-specified aspects of certain Lumen releases.

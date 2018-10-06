@@ -77,6 +77,13 @@ class Builder
     ];
 
     /**
+     * Any custom validators.
+     *
+     * @var array
+     */
+    protected $customValidators = [];
+
+    /**
      * Constructor.
      */
     public function __construct(Request $request)
@@ -93,6 +100,7 @@ class Builder
             'leeway' => $this->leeway,
             'required_claims' => $this->requiredClaims,
             'max_refresh_period' => $this->maxRefreshPeriod,
+            'validators' => $this->customValidators,
         ]);
     }
 
@@ -207,8 +215,6 @@ class Builder
 
     /**
      * Get the token ttl.
-     *
-     * @return int|null
      */
     public function getTTL(): ?int
     {
@@ -247,12 +253,20 @@ class Builder
 
     /**
      * Set the max refresh period in minutes.
-     *
-     * @param int|null $period
      */
     public function setMaxRefreshPeriod(?int $period): self
     {
         $this->maxRefreshPeriod = $period;
+
+        return $this;
+    }
+
+    /**
+     * Add a custom validator.
+     */
+    public function setCustomValidator(string $key, callable $validator): self
+    {
+        $this->customValidators[$key] = $validator;
 
         return $this;
     }

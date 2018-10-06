@@ -50,6 +50,15 @@ class Factory
         // Validate the claims
         $collection = PayloadValidator::check($collection, $requiredClaims);
 
+        // Run any custom validators
+        foreach (Arr::get($options, 'validators', []) as $key => $validator) {
+            if ($claim = $collection->getByClaimName($key)) {
+                if ($validator($claim, $key) === false) {
+                    PayloadValidator::throwFailed('Validation failed for claim "'.$key.'"');
+                }
+            }
+        }
+
         return new Payload($collection);
     }
 }

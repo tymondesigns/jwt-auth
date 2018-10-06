@@ -39,10 +39,6 @@ class Illuminate implements Storage
 
     /**
      * Constructor.
-     *
-     * @param  \Illuminate\Contracts\Cache\Repository  $cache
-     *
-     * @return void
      */
     public function __construct(CacheContract $cache)
     {
@@ -51,71 +47,48 @@ class Illuminate implements Storage
 
     /**
      * Add a new item into storage.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  int  $minutes
-     *
-     * @return void
      */
-    public function add($key, $value, $minutes)
+    public function add(string $key, $value, $minutes): void
     {
         $this->cache()->put($key, $value, $minutes);
     }
 
     /**
      * Add a new item into storage forever.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     *
-     * @return void
      */
-    public function forever($key, $value)
+    public function forever(string $key, $value): void
     {
         $this->cache()->forever($key, $value);
     }
 
     /**
      * Get an item from storage.
-     *
-     * @param  string  $key
-     *
-     * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->cache()->get($key);
     }
 
     /**
      * Remove an item from storage.
-     *
-     * @param  string  $key
-     *
-     * @return bool
      */
-    public function destroy($key)
+    public function destroy(string $key): void
     {
-        return $this->cache()->forget($key);
+        $this->cache()->forget($key);
     }
 
     /**
      * Remove all items associated with the tag.
-     *
-     * @return void
      */
-    public function flush()
+    public function flush(): void
     {
         $this->cache()->flush();
     }
 
     /**
      * Return the cache instance with tags attached.
-     *
-     * @return \Illuminate\Contracts\Cache\Repository
      */
-    protected function cache()
+    protected function cache(): CacheContract
     {
         if ($this->supportsTags === null) {
             $this->determineTagSupport();

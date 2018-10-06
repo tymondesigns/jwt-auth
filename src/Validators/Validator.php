@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 abstract class Validator
 {
@@ -27,5 +28,13 @@ abstract class Validator
         }
 
         return true;
+    }
+
+    /**
+     * Validation failed.
+     */
+    public static function throwFailed(string $message = 'Invalid'): void
+    {
+        throw new TokenInvalidException($message);
     }
 }

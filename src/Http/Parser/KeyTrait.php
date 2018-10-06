@@ -22,12 +22,8 @@ trait KeyTrait
 
     /**
      * Set the key.
-     *
-     * @param  string  $key
-     *
-     * @return $this
      */
-    public function setKey($key)
+    public function setKey(string $key): self
     {
         $this->key = $key;
 
@@ -36,10 +32,8 @@ trait KeyTrait
 
     /**
      * Get the key.
-     *
-     * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }

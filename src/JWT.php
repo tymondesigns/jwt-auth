@@ -223,7 +223,7 @@ class JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    protected function requireToken()
+    protected function requireToken(): void
     {
         if (! $this->token) {
             throw new JWTException('A token is required');
@@ -293,6 +293,16 @@ class JWT
     public function getTTL(): ?int
     {
         return $this->builder->getTTL();
+    }
+
+    /**
+     * Register a custom claim validator.
+     */
+    public function registerCustomValidator(string $key, callable $validator): self
+    {
+        $this->builder->setCustomValidator($key, $validator);
+
+        return $this;
     }
 
     /**

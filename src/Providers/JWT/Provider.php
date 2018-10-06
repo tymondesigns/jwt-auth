@@ -69,10 +69,8 @@ abstract class Provider
 
     /**
      * Set the algorithm used to sign the token.
-     *
-     * @return $this
      */
-    public function setAlgo(string $algo)
+    public function setAlgo(string $algo): self
     {
         $this->algo = $algo;
 
@@ -89,10 +87,8 @@ abstract class Provider
 
     /**
      * Set the secret used to sign the token.
-     *
-     * @return $this
      */
-    public function setSecret(string $secret)
+    public function setSecret(string $secret): self
     {
         $this->secret = $secret;
 
@@ -101,20 +97,16 @@ abstract class Provider
 
     /**
      * Get the secret used to sign the token.
-     *
-     * @return string
      */
-    public function getSecret()
+    public function getSecret(): string
     {
         return $this->secret;
     }
 
     /**
      * Set the keys used to sign the token.
-     *
-     * @return $this
      */
-    public function setKeys(array $keys)
+    public function setKeys(array $keys): self
     {
         $this->keys = $keys;
 
@@ -124,8 +116,6 @@ abstract class Provider
     /**
      * Get the array of keys used to sign tokens
      * with an asymmetric algorithm.
-     *
-     * @return array
      */
     public function getKeys(): array
     {
@@ -157,10 +147,8 @@ abstract class Provider
     /**
      * Get the passphrase used to sign tokens
      * with an asymmetric algorithm.
-     *
-     * @return string
      */
-    public function getPassphrase()
+    public function getPassphrase(): ?string
     {
         return Arr::get($this->keys, 'passphrase');
     }
@@ -172,7 +160,9 @@ abstract class Provider
      */
     protected function getSigningKey()
     {
-        return $this->isAsymmetric() ? $this->getPrivateKey() : $this->getSecret();
+        return $this->isAsymmetric()
+            ? $this->getPrivateKey()
+            : $this->getSecret();
     }
 
     /**
@@ -182,7 +172,9 @@ abstract class Provider
      */
     protected function getVerificationKey()
     {
-        return $this->isAsymmetric() ? $this->getPublicKey() : $this->getSecret();
+        return $this->isAsymmetric()
+            ? $this->getPublicKey()
+            : $this->getSecret();
     }
 
     /**

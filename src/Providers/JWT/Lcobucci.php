@@ -124,17 +124,17 @@ class Lcobucci extends Provider implements JWT
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return Collection::make($jwt->getClaims())->map(function ($claim) {
-            return is_object($claim) ? $claim->getValue() : $claim;
-        })->toArray();
+        return Collection::make($jwt->getClaims())
+            ->map(function ($claim) {
+                return is_object($claim) ? $claim->getValue() : $claim;
+            })
+            ->toArray();
     }
 
     /**
-     * Get the signer instance.
+     * Get the Signer instance.
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return \Lcobucci\JWT\Signer
      */
     protected function getSigner(): Signer
     {
