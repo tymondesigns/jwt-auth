@@ -11,8 +11,6 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-
 class TokenValidator extends Validator
 {
     /**

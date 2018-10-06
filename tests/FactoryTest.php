@@ -89,8 +89,8 @@ class FactoryTest extends AbstractTestCase
                 'foo' => function ($claim) {
                     // This will fail as the value is `bar`
                     return $claim->getValue() === 'baz';
-                }
-            ]
+                },
+            ],
         ]);
     }
 
@@ -108,8 +108,8 @@ class FactoryTest extends AbstractTestCase
                 // The `bar` claim does not exist
                 'bar' => function ($claim) {
                     return $claim->getValue() === 'baz';
-                }
-            ]
+                },
+            ],
         ]);
     }
 }
