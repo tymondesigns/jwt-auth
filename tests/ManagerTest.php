@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Mockery;
 use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Builder;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
@@ -44,14 +45,14 @@ class ManagerTest extends AbstractTestCase
     protected $factory;
 
     /**
+     * @var \Mockery\MockInterface|\Tymon\JWTAuth\Builder
+     */
+    protected $builder;
+
+    /**
      * @var \Tymon\JWTAuth\Manager
      */
     protected $manager;
-
-    /**
-     * @var \Mockery\MockInterface
-     */
-    protected $validator;
 
     public function setUp()
     {
@@ -59,9 +60,8 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt = Mockery::mock(JWT::class);
         $this->blacklist = Mockery::mock(Blacklist::class);
-        $this->factory = Mockery::mock(Factory::class);
-        $this->manager = new Manager($this->jwt, $this->blacklist, $this->factory);
-        $this->validator = Mockery::mock(PayloadValidator::class);
+        $this->builder = Mockery::mock(Builder::class);
+        $this->manager = new Manager($this->jwt, $this->blacklist, $this->builder);
     }
 
     /** @test */
@@ -101,12 +101,16 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz')
+            ->with('foo.bar.baz', [])
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
             ->with($payload)
             ->andReturn(false);
+
+        $this->builder->shouldReceive('getOptions')
+            ->once()
+            ->andReturn([]);
 
         $payload = $this->manager->decode($token);
 
@@ -134,12 +138,16 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz')
+            ->with('foo.bar.baz', [])
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
             ->with($payload)
             ->andReturn(true);
+
+        $this->builder->shouldReceive('getOptions')
+            ->once()
+            ->andReturn([]);
 
         $this->manager->decode($token);
     }
@@ -159,7 +167,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->twice()
-            ->with('foo.bar.baz')
+            ->with('foo.bar.baz', [])
             ->andReturn($payload);
 
         $this->jwt->shouldReceive('token')
@@ -173,6 +181,14 @@ class ManagerTest extends AbstractTestCase
         $this->blacklist->shouldReceive('add')
             ->once()
             ->with($payload);
+
+        $this->builder->shouldReceive('getOptions')
+            ->twice()
+            ->andReturn([]);
+
+        $this->builder->shouldReceive('makePayload')
+            ->once()
+            ->andReturn($payload);
 
         $token = $this->manager->refresh($token, 60);
 
@@ -196,7 +212,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz')
+            ->with('foo.bar.baz', [])
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
@@ -206,6 +222,10 @@ class ManagerTest extends AbstractTestCase
         $this->blacklist->shouldReceive('add')
             ->with($payload)
             ->andReturn(true);
+
+        $this->builder->shouldReceive('getOptions')
+            ->once()
+            ->andReturn([]);
 
         $this->manager->invalidate($token);
     }

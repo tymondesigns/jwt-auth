@@ -117,7 +117,11 @@ class Lcobucci extends Provider implements JWT
         try {
             $jwt = $this->parser->parse($token);
         } catch (Exception $e) {
-            throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
+            throw new TokenInvalidException(
+                'Could not decode token: '.$e->getMessage(),
+                $e->getCode(),
+                $e
+            );
         }
 
         if (! $jwt->verify($this->signer, $this->getVerificationKey())) {

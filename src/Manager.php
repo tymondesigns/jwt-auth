@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Builder;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -39,6 +40,13 @@ class Manager
     protected $blacklist;
 
     /**
+     * The payload builder.
+     *
+     * @var \Tymon\JWTAuth\Builder
+     */
+    protected $builder;
+
+    /**
      * The blacklist flag.
      *
      * @var bool
@@ -48,10 +56,11 @@ class Manager
     /**
      * Constructor.
      */
-    public function __construct(JWTContract $provider, Blacklist $blacklist)
+    public function __construct(JWTContract $provider, Blacklist $blacklist, Builder $builder)
     {
         $this->provider = $provider;
         $this->blacklist = $blacklist;
+        $this->builder = $builder;
     }
 
     /**
@@ -69,7 +78,7 @@ class Manager
      */
     public function decode(Token $token, bool $checkBlacklist = true): Payload
     {
-        $payload = $this->provider->payload($token->get());
+        $payload = $this->provider->payload($token->get(), $this->builder->getOptions());
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException();
@@ -92,7 +101,7 @@ class Manager
         }
 
         // Return the new token
-        return $this->encode(Factory::make($claims));
+        return $this->encode($this->builder->makePayload($claims));
     }
 
     /**

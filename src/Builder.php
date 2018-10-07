@@ -92,16 +92,32 @@ class Builder
     }
 
     /**
-     * Create a Payload instance.
+     * Create a Payload instance for a given array of claims.
      */
-    public function makePayload(JWTSubject $subject, array $claims = []): Payload
+    public function makePayload(array $claims = []): Payload
     {
-        return Factory::make($this->getClaimsArray($subject, $claims), [
+        return Factory::make($claims, $this->getOptions());
+    }
+
+    /**
+     * Create a Payload instance for a given subject.
+     */
+    public function makePayloadForSubject(JWTSubject $subject, array $claims = []): Payload
+    {
+        return $this->makePayload($this->getClaimsArray($subject, $claims));
+    }
+
+    /**
+     * Get the builder options.
+     */
+    public function getOptions(): array
+    {
+        return [
             'leeway' => $this->leeway,
             'required_claims' => $this->requiredClaims,
             'max_refresh_period' => $this->maxRefreshPeriod,
             'validators' => $this->customValidators,
-        ]);
+        ];
     }
 
     /**
