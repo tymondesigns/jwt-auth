@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Builder;
 use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
