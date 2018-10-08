@@ -185,9 +185,7 @@ class JWT
      */
     public function checkSubjectModel($model, ?Payload $payload = null): bool
     {
-        $prv = Arr::get($payload ?? $this->payload(), 'prv');
-
-        if ($prv === null) {
+        if (! $prv = Arr::get($payload ?? $this->payload(), 'prv')) {
             return true;
         }
 

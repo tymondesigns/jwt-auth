@@ -155,14 +155,4 @@ class Manager
 
         return $this;
     }
-
-    /**
-     * Set the claims to be persisted when refreshing a token.
-     */
-    public function setPersistentClaims(array $claims): self
-    {
-        $this->persistentClaims = $claims;
-
-        return $this;
-    }
 }

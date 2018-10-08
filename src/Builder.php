@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Options;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -110,14 +111,14 @@ class Builder
     /**
      * Get the builder options.
      */
-    public function getOptions(): array
+    public function getOptions(): Options
     {
-        return [
+        return new Options([
             'leeway' => $this->leeway,
             'required_claims' => $this->requiredClaims,
             'max_refresh_period' => $this->maxRefreshPeriod,
             'validators' => $this->customValidators,
-        ];
+        ]);
     }
 
     /**

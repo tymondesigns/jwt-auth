@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
+use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
@@ -114,7 +115,7 @@ class PayloadValidatorTest extends AbstractTestCase
 
         $collection = Collection::make($claims);
 
-        PayloadValidator::check($collection, ['foo']);
+        PayloadValidator::check($collection, new Options(['required_claims' => ['foo']]));
     }
 
     /**
@@ -145,6 +146,8 @@ class PayloadValidatorTest extends AbstractTestCase
 
         $collection = Collection::make($claims);
 
-        $this->assertTrue(PayloadValidator::isValid($collection, ['iss', 'sub']));
+        $this->assertTrue(
+            PayloadValidator::isValid($collection, new Options(['required_claims' => ['iss', 'sub']]))
+        );
     }
 }

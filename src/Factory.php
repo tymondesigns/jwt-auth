@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Support\Arr;
+use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -24,7 +24,7 @@ class Factory
     /**
      * Create a Payload instance.
      */
-    public static function make(array $claims = [], array $options = []): Payload
+    public static function make(array $claims = [], ?Options $options = null): Payload
     {
         $collection = Collection::make($claims)
             ->map(function ($value, $key) use ($options) {
@@ -32,32 +32,13 @@ class Factory
                     return $value;
                 }
 
-                if (! is_string($key)) {
-                    return ClaimFactory::get($value, null, $options);
-                }
-
-                return ClaimFactory::get($key, $value, $options);
+                return is_string($key)
+                    ? ClaimFactory::get($key, $value, $options)
+                    : ClaimFactory::get($value, null, $options);
             });
 
-        $requiredClaims = Arr::get($options, 'required_claims', []);
-
-        // If the collection doesn't have an exp then remove it from
-        // the required claims.
-        if (! $collection->has('exp')) {
-            $requiredClaims = Arr::except($requiredClaims, ['exp']);
-        }
-
         // Validate the claims
-        $collection = PayloadValidator::check($collection, $requiredClaims);
-
-        // Run any custom validators
-        foreach (Arr::get($options, 'validators', []) as $key => $validator) {
-            if ($claim = $collection->getByClaimName($key)) {
-                if ($validator($claim->getValue(), $key) === false) {
-                    PayloadValidator::throwFailed('Validation failed for claim "'.$key.'"');
-                }
-            }
-        }
+        $collection = PayloadValidator::check($collection, $options);
 
         return new Payload($collection);
     }

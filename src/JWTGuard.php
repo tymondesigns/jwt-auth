@@ -60,7 +60,7 @@ class JWTGuard implements Guard
     protected $useResponsable = true;
 
     /**
-     * Instantiate the class.
+     * Constructor.
      */
     public function __construct(JWT $jwt, UserProvider $provider, Request $request)
     {

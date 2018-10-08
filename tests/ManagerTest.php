@@ -16,6 +16,7 @@ use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Builder;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Manager;
+use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\JwtId;
@@ -97,10 +98,11 @@ class ManagerTest extends AbstractTestCase
         ]);
 
         $token = new Token('foo.bar.baz');
+        $options = new Options();
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz', [])
+            ->with('foo.bar.baz', $options)
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
@@ -109,7 +111,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->builder->shouldReceive('getOptions')
             ->once()
-            ->andReturn([]);
+            ->andReturn($options);
 
         $payload = $this->manager->decode($token);
 
@@ -134,10 +136,11 @@ class ManagerTest extends AbstractTestCase
         ]);
 
         $token = new Token('foo.bar.baz');
+        $options = new Options();
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz', [])
+            ->with('foo.bar.baz', $options)
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
@@ -146,7 +149,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->builder->shouldReceive('getOptions')
             ->once()
-            ->andReturn([]);
+            ->andReturn($options);
 
         $this->manager->decode($token);
     }
@@ -163,10 +166,11 @@ class ManagerTest extends AbstractTestCase
         ]);
 
         $token = new Token('foo.bar.baz');
+        $options = new Options();
 
         $this->jwt->shouldReceive('payload')
             ->twice()
-            ->with('foo.bar.baz', [])
+            ->with('foo.bar.baz', $options)
             ->andReturn($payload);
 
         $this->jwt->shouldReceive('token')
@@ -183,7 +187,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->builder->shouldReceive('getOptions')
             ->twice()
-            ->andReturn([]);
+            ->andReturn($options);
 
         $this->builder->shouldReceive('makePayload')
             ->once()
@@ -208,10 +212,11 @@ class ManagerTest extends AbstractTestCase
         ]);
 
         $token = new Token('foo.bar.baz');
+        $options = new Options();
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz', [])
+            ->with('foo.bar.baz', $options)
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
@@ -224,7 +229,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->builder->shouldReceive('getOptions')
             ->once()
-            ->andReturn([]);
+            ->andReturn($options);
 
         $this->manager->invalidate($token);
     }

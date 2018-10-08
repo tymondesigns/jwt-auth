@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Support\Arr;
+use Tymon\JWTAuth\Options;
 
 class Factory
 {
@@ -35,15 +35,17 @@ class Factory
     /**
      * Get the instance of the claim when passing the name and value.
      */
-    public static function get(string $name, $value = null, array $options = []): Claim
+    public static function get(string $name, $value = null, ?Options $options = null): Claim
     {
+        $options = $options ?? new Options();
+
         $claim = static::has($name)
             ? call_user_func([static::$classMap[$name], 'make'], $value)
             : new Custom($name, $value);
 
         return static::applyClaimMethods($claim, [
-            'setLeeway' => Arr::get($options, 'leeway', 0),
-            'setMaxRefreshPeriod' => Arr::get($options, 'max_refresh_period'),
+            'setLeeway' => $options->leeway(),
+            'setMaxRefreshPeriod' => $options->maxRefreshPeriod(),
         ]);
     }
 
