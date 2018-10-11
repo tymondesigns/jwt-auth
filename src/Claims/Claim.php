@@ -85,7 +85,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
-     * Validate the claim in a standalone Claim context.
+     * Validate the claim for creation.
      *
      * @param  mixed  $value
      *
@@ -97,13 +97,11 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     }
 
     /**
-     * Validate the Claim within a Payload context.
-     *
-     * @return mixed
+     * Check the claim when verifying the validity of the payload.
      */
-    public function validatePayload()
+    public function verify(): void
     {
-        return $this->getValue();
+        //
     }
 
     /**

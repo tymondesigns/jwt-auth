@@ -36,8 +36,8 @@ class PayloadValidator extends Validator
             static::throwFailed('JWT does not contain the required claims');
         }
 
-        // Run the built in validations
-        $claims->validate();
+        // Run the built in verifications
+        $claims->verify();
 
         // Run any custom validators
         foreach ($options->validators() as $name => $validator) {

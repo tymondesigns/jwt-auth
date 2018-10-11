@@ -32,11 +32,11 @@ class Collection extends IlluminateCollection
     }
 
     /**
-     * Validate each claim.
+     * Verify the validity of each claim.
      */
-    public function validate()
+    public function verify(): self
     {
-        $this->each->validatePayload();
+        $this->each->verify();
 
         return $this;
     }

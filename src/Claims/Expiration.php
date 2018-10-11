@@ -25,7 +25,7 @@ class Expiration extends Claim
     /**
      * {@inheritdoc}
      */
-    public function validatePayload()
+    public function verify(): void
     {
         if ($this->isPast($this->getValue())) {
             throw new TokenExpiredException('Token has expired');

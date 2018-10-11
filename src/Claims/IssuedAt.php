@@ -45,15 +45,14 @@ class IssuedAt extends Claim
     /**
      * {@inheritdoc}
      */
-    public function validatePayload()
+    public function verify(): void
     {
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
         }
 
         if ($this->maxRefreshPeriod !== null) {
-            $max = timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod);
-            if ($max->greaterThanOrEqualTo(now())) {
+            if (timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod)->isFuture()) {
                 throw new TokenExpiredException('Token has expired');
             }
         }

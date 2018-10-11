@@ -74,20 +74,16 @@ trait DatetimeTrait
 
     /**
      * Determine whether the value is in the future.
-     *
-     * @param  mixed  $value
      */
-    protected function isFuture($value): bool
+    protected function isFuture(int $value): bool
     {
         return is_future($value, $this->leeway);
     }
 
     /**
      * Determine whether the value is in the past.
-     *
-     * @param  mixed  $value
      */
-    protected function isPast($value): bool
+    protected function isPast(int $value): bool
     {
         return is_past($value, $this->leeway);
     }
@@ -112,8 +108,6 @@ trait DatetimeTrait
 
     /**
      * Set the max refresh period in minutes.
-     *
-     * @param int|null $period
      */
     public function setMaxRefreshPeriod(?int $period): self
     {
