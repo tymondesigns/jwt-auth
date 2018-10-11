@@ -11,10 +11,11 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use function Tymon\JWTAuth\Support\now;
+use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use function Tymon\JWTAuth\Support\{now, timestamp};
 
 class IssuedAt extends Claim
 {

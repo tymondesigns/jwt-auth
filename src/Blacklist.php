@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use function Tymon\JWTAuth\Support\now;
+use function Tymon\JWTAuth\Support\is_future;
+use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
-use function Tymon\JWTAuth\Support\{now, timestamp, is_future};
-
 
 class Blacklist
 {
