@@ -25,7 +25,7 @@ class Factory
      */
     public static function make(array $claims = [], ?Options $options = null): Payload
     {
-        $collection = Collection::make($claims)
+        $claims = Collection::make($claims)
             ->map(function ($value, $key) use ($options) {
                 if ($value instanceof Claim) {
                     return $value;
@@ -37,8 +37,8 @@ class Factory
             });
 
         // Validate the claims
-        $collection = PayloadValidator::check($collection, $options);
+        $claims = PayloadValidator::check($claims, $options);
 
-        return new Payload($collection);
+        return new Payload($claims);
     }
 }

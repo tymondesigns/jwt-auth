@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Support\Utils;
+use function Tymon\JWTAuth\Support\now;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -55,6 +55,6 @@ class NotBefore extends Claim
      */
     public static function make($value = null): Claim
     {
-        return new static($value ?? Utils::now()->getTimestamp());
+        return new static($value ?? now()->getTimestamp());
     }
 }

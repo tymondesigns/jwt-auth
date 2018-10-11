@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
@@ -124,7 +124,7 @@ class Manager
     {
         return array_merge($payload->toArray(), [
             'jti' => ClaimFactory::get('jti'),
-            'exp' => Utils::timestamp($payload['exp'])
+            'exp' => timestamp($payload['exp'])
                 ->addMinutes($ttl)
                 ->getTimestamp(),
         ]);

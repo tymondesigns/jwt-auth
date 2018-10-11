@@ -39,6 +39,9 @@
         "phpunit/phpunit": "^6.4"
     },
     "autoload": {
+        "files": [
+            "src/Support/helpers.php"
+        ],
         "psr-4": {
             "Tymon\\JWTAuth\\": "src/"
         }

@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
+use function Tymon\JWTAuth\Support\{now, timestamp, is_future};
+
 
 class Blacklist
 {
@@ -79,11 +80,11 @@ class Blacklist
      */
     protected function getMinutesUntilExpired(Payload $payload): int
     {
-        $exp = Utils::timestamp($payload['exp']);
+        $exp = timestamp($payload['exp']);
 
         // find the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
-        return Utils::now()
+        return now()
             ->subMinute()
             ->diffInMinutes($exp);
     }
@@ -111,7 +112,7 @@ class Blacklist
         }
 
         // check whether the expiry + grace has past
-        return ! empty($val) && ! Utils::isFuture($val['valid_until']);
+        return ! empty($val) && ! is_future($val['valid_until']);
     }
 
     /**
@@ -140,7 +141,7 @@ class Blacklist
      */
     protected function getGraceTimestamp(): int
     {
-        return Utils::now()
+        return now()
             ->addSeconds($this->gracePeriod)
             ->getTimestamp();
     }
@@ -176,7 +177,7 @@ class Blacklist
      */
     public function setKey(string $key): self
     {
-        $this->key = value($key);
+        $this->key = $key;
 
         return $this;
     }

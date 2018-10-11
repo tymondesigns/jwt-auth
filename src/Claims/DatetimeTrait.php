@@ -17,9 +17,9 @@ use DateInterval;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Carbon\CarbonInterval;
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Contracts\Claim;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use function Tymon\JWTAuth\Support\{now, timestamp, is_past, is_future};
 
 trait DatetimeTrait
 {
@@ -47,7 +47,7 @@ trait DatetimeTrait
     public function setValue($value): Claim
     {
         if ($value instanceof DateInterval) {
-            $value = Utils::now()->add($value);
+            $value = now()->add($value);
         }
 
         if ($value instanceof DateTimeInterface) {
@@ -76,7 +76,7 @@ trait DatetimeTrait
      */
     protected function isFuture($value): bool
     {
-        return Utils::isFuture($value, $this->leeway);
+        return is_future($value, $this->leeway);
     }
 
     /**
@@ -86,7 +86,7 @@ trait DatetimeTrait
      */
     protected function isPast($value): bool
     {
-        return Utils::isPast($value, $this->leeway);
+        return is_past($value, $this->leeway);
     }
 
     /**
@@ -132,7 +132,7 @@ trait DatetimeTrait
      */
     public function asCarbon(): Carbon
     {
-        return Utils::timestamp($this->getValue());
+        return timestamp($this->getValue());
     }
 
     /**
@@ -140,6 +140,6 @@ trait DatetimeTrait
      */
     public function asCarbonInterval(): CarbonInterval
     {
-        return Utils::now()->diffAsCarbonInterval($this->asCarbon());
+        return now()->diffAsCarbonInterval($this->asCarbon());
     }
 }

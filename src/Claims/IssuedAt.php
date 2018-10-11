@@ -11,10 +11,10 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use function Tymon\JWTAuth\Support\{now, timestamp};
 
 class IssuedAt extends Claim
 {
@@ -51,8 +51,8 @@ class IssuedAt extends Claim
         }
 
         if ($this->maxRefreshPeriod !== null) {
-            $max = Utils::timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod);
-            if ($max->greaterThanOrEqualTo(Utils::now())) {
+            $max = timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod);
+            if ($max->greaterThanOrEqualTo(now())) {
                 throw new TokenExpiredException('Token has expired');
             }
         }
@@ -63,6 +63,6 @@ class IssuedAt extends Claim
      */
     public static function make($value = null): Claim
     {
-        return new static($value ?? Utils::now()->getTimestamp());
+        return new static($value ?? now()->getTimestamp());
     }
 }
