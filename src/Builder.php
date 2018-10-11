@@ -94,7 +94,7 @@ class Builder
     /**
      * Create a Payload instance for a given array of claims.
      */
-    public function makePayload(array $claims = []): Payload
+    public function make(array $claims = []): Payload
     {
         return Factory::make($claims, $this->getOptions());
     }
@@ -102,9 +102,9 @@ class Builder
     /**
      * Create a Payload instance for a given subject.
      */
-    public function makePayloadForSubject(JWTSubject $subject, array $claims = []): Payload
+    public function makeForSubject(JWTSubject $subject, array $claims = []): Payload
     {
-        return $this->makePayload($this->getClaimsArray($subject, $claims));
+        return $this->make($this->getClaimsArray($subject, $claims));
     }
 
     /**

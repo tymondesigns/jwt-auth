@@ -58,7 +58,7 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_return_a_token_when_passing_a_user()
     {
-        $this->builder->shouldReceive('makePayloadForSubject')
+        $this->builder->shouldReceive('makeForSubject')
             ->once()
             ->with($user = new UserStub, ['foo' => 'bar'])
             ->andReturn($payload = Mockery::mock(Payload::class));

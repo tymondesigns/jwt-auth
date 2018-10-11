@@ -189,7 +189,7 @@ class ManagerTest extends AbstractTestCase
             ->twice()
             ->andReturn($options);
 
-        $this->builder->shouldReceive('makePayload')
+        $this->builder->shouldReceive('make')
             ->once()
             ->andReturn($payload);
 

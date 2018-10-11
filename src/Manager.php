@@ -100,7 +100,7 @@ class Manager
         }
 
         // Return the new token
-        return $this->encode($this->builder->makePayload($claims));
+        return $this->encode($this->builder->make($claims));
     }
 
     /**
