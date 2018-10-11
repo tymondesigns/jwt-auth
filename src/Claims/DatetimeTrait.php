@@ -18,8 +18,11 @@ use Carbon\Carbon;
 use DateTimeInterface;
 use Carbon\CarbonInterval;
 use Tymon\JWTAuth\Contracts\Claim;
+use function Tymon\JWTAuth\Support\now;
+use function Tymon\JWTAuth\Support\is_past;
+use function Tymon\JWTAuth\Support\is_future;
+use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
-use function Tymon\JWTAuth\Support\{now, timestamp, is_past, is_future};
 
 trait DatetimeTrait
 {
