@@ -83,8 +83,8 @@ First let's add some routes in `routes/api.php` as follows:
 ```php
 Route::group([
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
+    'middleware' => 'auth',
+    'prefix' => 'api'
 
 ], function ($router) {
 
