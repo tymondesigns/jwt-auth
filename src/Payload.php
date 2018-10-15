@@ -16,7 +16,6 @@ namespace Tymon\JWTAuth;
 use Countable;
 use ArrayAccess;
 use JsonSerializable;
-use Tymon\JWTAuth\Token;
 use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Claim;

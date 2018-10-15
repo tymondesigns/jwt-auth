@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Facades\JWTBuilder;
 use Tymon\JWTAuth\Facades\JWTProvider;
 use Tymon\JWTAuth\Validators\TokenValidator;
