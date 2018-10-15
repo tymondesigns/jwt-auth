@@ -57,8 +57,7 @@
         },
         "laravel": {
             "aliases": {
-                "JWTAuth": "Tymon\\JWTAuth\\Facades\\JWTAuth",
-                "JWTFactory": "Tymon\\JWTAuth\\Facades\\JWTFactory",
+                "JWTBuilder": "Tymon\\JWTAuth\\Facades\\JWTBuilder",
                 "JWTProvider": "Tymon\\JWTAuth\\Facades\\JWTProvider"
             },
             "providers": [
