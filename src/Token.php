@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Facades\JWTBuilder;
+use Tymon\JWTAuth\Facades\JWTProvider;
 use Tymon\JWTAuth\Validators\TokenValidator;
 
 class Token
@@ -36,6 +39,14 @@ class Token
     public function get(): string
     {
         return $this->value;
+    }
+
+    /**
+     * Get the payload for this token.
+     */
+    public function payload(): Payload
+    {
+        return JWTProvider::payload($this, JWTBuilder::getOptions());
     }
 
     /**

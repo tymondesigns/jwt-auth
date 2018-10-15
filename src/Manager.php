@@ -67,7 +67,7 @@ class Manager
      */
     public function encode(Payload $payload): Token
     {
-        return $this->provider->token($payload->get());
+        return $this->provider->token($payload);
     }
 
     /**
@@ -77,7 +77,7 @@ class Manager
      */
     public function decode(Token $token, bool $checkBlacklist = true): Payload
     {
-        $payload = $this->provider->payload($token->get(), $this->builder->getOptions());
+        $payload = $this->provider->payload($token, $this->builder->getOptions());
 
         if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
             throw new TokenBlacklistedException();

@@ -400,12 +400,12 @@ class JWTGuard implements Guard
      */
     public function __call(string $method, array $parameters)
     {
-        if (method_exists($this->jwt, $method)) {
-            return call_user_func_array([$this->jwt, $method], $parameters);
-        }
-
         if (static::hasMacro($method)) {
             return $this->macroCall($method, $parameters);
+        }
+
+        if (method_exists($this->jwt, $method)) {
+            return call_user_func_array([$this->jwt, $method], $parameters);
         }
 
         throw new BadMethodCallException("Method [$method] does not exist.");

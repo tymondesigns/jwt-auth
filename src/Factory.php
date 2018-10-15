@@ -37,8 +37,6 @@ class Factory
             });
 
         // Validate the claims
-        $claims = PayloadValidator::check($claims, $options);
-
-        return new Payload($claims);
+        return PayloadValidator::check($claims, $options);
     }
 }

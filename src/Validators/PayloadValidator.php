@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Validators;
 
 use Tymon\JWTAuth\Options;
+use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Collection;
 
@@ -23,7 +24,7 @@ class PayloadValidator extends Validator
      * @throws \Tymon\JWTAuth\Exceptions\TokenExpiredException
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    public static function check(Collection $claims, ?Options $options = null): Collection
+    public static function check(Collection $claims, ?Options $options = null): Payload
     {
         $options = $options ?? new Options();
 
@@ -48,6 +49,6 @@ class PayloadValidator extends Validator
             }
         }
 
-        return $claims;
+        return new Payload($claims);
     }
 }

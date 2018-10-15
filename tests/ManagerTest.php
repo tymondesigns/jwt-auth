@@ -77,7 +77,7 @@ class ManagerTest extends AbstractTestCase
         ]);
 
         $this->jwt->shouldReceive('token')
-            ->with($payload->toArray())
+            ->with($payload)
             ->andReturn(new Token('foo.bar.baz'));
 
         $token = $this->manager->encode($payload);
@@ -102,7 +102,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz', $options)
+            ->with($token, $options)
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
@@ -140,7 +140,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz', $options)
+            ->with($token, $options)
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')
@@ -170,12 +170,12 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->twice()
-            ->with('foo.bar.baz', $options)
+            ->with($token, $options)
             ->andReturn($payload);
 
         $this->jwt->shouldReceive('token')
             ->once()
-            ->with(Mockery::type('array'))
+            ->with(Mockery::type(Payload::class))
             ->andReturn(new Token('baz.bar.foo'));
 
         $this->blacklist->shouldReceive('has')
@@ -216,7 +216,7 @@ class ManagerTest extends AbstractTestCase
 
         $this->jwt->shouldReceive('payload')
             ->once()
-            ->with('foo.bar.baz', $options)
+            ->with($token, $options)
             ->andReturn($payload);
 
         $this->blacklist->shouldReceive('has')

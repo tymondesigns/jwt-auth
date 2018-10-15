@@ -54,17 +54,17 @@ abstract class Provider
     /**
      * Get the decoded token as a Payload instance.
      */
-    public function payload(string $token, array $options = []): Payload
+    public function payload(Token $token, array $options = []): Payload
     {
-        return Factory::make($this->decode($token), $options);
+        return Factory::make($this->decode($token->get()), $options);
     }
 
     /**
      * Get an encoded Token instance.
      */
-    public function token(array $claims): Token
+    public function token(Payload $payload): Token
     {
-        return new Token($this->encode($claims));
+        return new Token($this->encode($payload->get()));
     }
 
     /**
