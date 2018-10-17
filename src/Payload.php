@@ -24,6 +24,7 @@ use Tymon\JWTAuth\Facades\JWTProvider;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {
@@ -103,7 +104,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     /**
      * Get the underlying Claim instance.
      */
-    public function getInternal(string $claim): Claim
+    public function getInternal(string $claim): ?ClaimContract
     {
         return $this->claims->getByClaimName($claim);
     }

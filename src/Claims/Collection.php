@@ -13,20 +13,19 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Illuminate\Support\Collection as IlluminateCollection;
 
 class Collection extends IlluminateCollection
 {
     /**
      * Get a Claim instance by it's unique name.
-     *
-     * @return \Tymon\JWTAuth\Claims\Claim
      */
     public function getByClaimName(
         string $name,
         ?callable $callback = null,
         $default = null
-    ): ?Claim {
+    ): ?ClaimContract {
         return $this->filter->matchesName($name)
             ->first($callback, $default);
     }

@@ -12,18 +12,19 @@
 namespace Tymon\JWTAuth\Claims;
 
 use Illuminate\Support\Str;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class JwtId extends Claim
 {
     /**
-     * {@inheritdoc}
+     * @var string
      */
-    protected $name = 'jti';
+    const NAME = 'jti';
 
     /**
      * {@inheritdoc}
      */
-    public static function make($value = null): Claim
+    public static function make($value = null): ClaimContract
     {
         return new static($value ?? Str::random(16));
     }

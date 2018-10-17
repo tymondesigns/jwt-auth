@@ -12,33 +12,17 @@
 namespace Tymon\JWTAuth\Claims;
 
 use function Tymon\JWTAuth\Support\now;
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class NotBefore extends Claim
 {
-    use DatetimeTrait {
-        validateCreate as commonValidateCreate;
-    }
+    use DatetimeTrait;
 
     /**
-     * {@inheritdoc}
+     * @var string
      */
-    protected $name = 'nbf';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateCreate($value)
-    {
-        $this->commonValidateCreate($value);
-
-        if ($this->isFuture($value)) {
-            throw new InvalidClaimException($this);
-        }
-
-        return $value;
-    }
+    const NAME = 'nbf';
 
     /**
      * {@inheritdoc}
@@ -53,7 +37,7 @@ class NotBefore extends Claim
     /**
      * {@inheritdoc}
      */
-    public static function make($value = null): Claim
+    public static function make($value = null): ClaimContract
     {
         return new static($value ?? now()->getTimestamp());
     }

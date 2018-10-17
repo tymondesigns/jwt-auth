@@ -17,12 +17,12 @@ use DateInterval;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Carbon\CarbonInterval;
-use Tymon\JWTAuth\Contracts\Claim;
 use function Tymon\JWTAuth\Support\now;
 use function Tymon\JWTAuth\Support\is_past;
 use function Tymon\JWTAuth\Support\is_future;
 use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 trait DatetimeTrait
 {
@@ -47,7 +47,7 @@ trait DatetimeTrait
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      */
-    public function setValue($value): Claim
+    public function setValue($value): ClaimContract
     {
         if ($value instanceof DateInterval) {
             $value = now()->add($value);

@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Claims;
 class Subject extends Claim
 {
     /**
-     * {@inheritdoc}
+     * @var string
      */
-    protected $name = 'sub';
+    const NAME = 'sub';
 }

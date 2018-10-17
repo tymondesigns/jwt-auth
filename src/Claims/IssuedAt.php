@@ -16,6 +16,7 @@ use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class IssuedAt extends Claim
 {
@@ -24,9 +25,9 @@ class IssuedAt extends Claim
     }
 
     /**
-     * {@inheritdoc}
+     * @var string
      */
-    protected $name = 'iat';
+    const NAME = 'iat';
 
     /**
      * {@inheritdoc}
@@ -61,7 +62,7 @@ class IssuedAt extends Claim
     /**
      * {@inheritdoc}
      */
-    public static function make($value = null): Claim
+    public static function make($value = null): ClaimContract
     {
         return new static($value ?? now()->getTimestamp());
     }

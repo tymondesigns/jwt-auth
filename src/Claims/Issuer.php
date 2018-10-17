@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Claims;
 class Issuer extends Claim
 {
     /**
-     * {@inheritdoc}
+     * @var string
      */
-    protected $name = 'iss';
+    const NAME = 'iss';
 }

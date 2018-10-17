@@ -23,7 +23,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * The claim name.
      *
-     * @var string
+     * @var string|null
      */
     protected $name;
 
@@ -81,7 +81,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->name ?? static::NAME;
     }
 
     /**
@@ -107,7 +107,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
     /**
      * Create an instance of the claim.
      */
-    public static function make($value = null): self
+    public static function make($value = null): ClaimContract
     {
         return new static($value);
     }
@@ -129,7 +129,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      */
     public function matchesName(string $name): bool
     {
-        return $this->name === $name;
+        return $this->getName() === $name;
     }
 
     /**

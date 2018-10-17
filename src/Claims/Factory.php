@@ -23,13 +23,13 @@ class Factory
      * @var array
      */
     private static $classMap = [
-        'aud' => Audience::class,
-        'exp' => Expiration::class,
-        'iat' => IssuedAt::class,
-        'iss' => Issuer::class,
-        'jti' => JwtId::class,
-        'nbf' => NotBefore::class,
-        'sub' => Subject::class,
+        Audience::NAME => Audience::class,
+        Expiration::NAME => Expiration::class,
+        IssuedAt::NAME => IssuedAt::class,
+        Issuer::NAME => Issuer::class,
+        JwtId::NAME => JwtId::class,
+        NotBefore::NAME => NotBefore::class,
+        Subject::NAME => Subject::class,
     ];
 
     /**
