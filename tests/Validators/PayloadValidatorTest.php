@@ -75,8 +75,8 @@ class PayloadValidatorTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [nbf]
+     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
+     * @expectedExceptionMessage Not Before (nbf) timestamp cannot be in the future
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
     {

@@ -16,28 +16,12 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class NotBefore extends Claim
 {
-    use DatetimeTrait {
-        validateCreate as commonValidateCreate;
-    }
+    use DatetimeTrait;
 
     /**
      * {@inheritdoc}
      */
     protected $name = 'nbf';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateCreate($value)
-    {
-        $this->commonValidateCreate($value);
-
-        if ($this->isFuture($value)) {
-            throw new InvalidClaimException($this);
-        }
-
-        return $value;
-    }
 
     /**
      * {@inheritdoc}
