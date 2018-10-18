@@ -444,4 +444,12 @@ class JWTGuard implements Guard
 
         throw new BadMethodCallException("Method [$method] does not exist.");
     }
+
+    /**
+     * @return JWT
+     */
+    public function getJwt()
+    {
+        return $this->jwt;
+    }
 }

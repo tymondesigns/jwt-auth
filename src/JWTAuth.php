@@ -89,4 +89,12 @@ class JWTAuth extends JWT
     {
         return $this->auth->user();
     }
+
+    /**
+     * @return Auth
+     */
+    public function getAuth()
+    {
+        return $this->auth;
+    }
 }

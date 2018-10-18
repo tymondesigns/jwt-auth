@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Http\Middleware;
 
+use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -89,5 +90,13 @@ abstract class BaseMiddleware
         $response->headers->set('Authorization', 'Bearer '.$token);
 
         return $response;
+    }
+
+    /**
+     * @return Token
+     */
+    protected function getNewToken()
+    {
+        return $this->auth->getAuth()->getAuth()->getJwt()->getToken();
     }
 }
