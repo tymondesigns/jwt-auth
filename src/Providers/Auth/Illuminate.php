@@ -68,4 +68,12 @@ class Illuminate implements Auth
     {
         return $this->auth->user();
     }
+
+    /**
+     * @return \Tymon\JWTAuth\JWT
+     */
+    public function getAuth()
+    {
+        return $this->auth;
+    }
 }
