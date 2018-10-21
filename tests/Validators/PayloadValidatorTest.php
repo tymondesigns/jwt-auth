@@ -147,7 +147,9 @@ class PayloadValidatorTest extends AbstractTestCase
         $collection = Collection::make($claims);
 
         $this->assertTrue(
-            PayloadValidator::isValid($collection, new Options(['required_claims' => ['iss', 'sub']]))
+            PayloadValidator::isValid($collection, new Options([
+                'required_claims' => [Issuer::NAME, Subject::NAME]
+            ]))
         );
     }
 }

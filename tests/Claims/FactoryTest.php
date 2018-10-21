@@ -28,15 +28,15 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
     {
-        $this->assertInstanceOf(Subject::class, Factory::get('sub', 1));
-        $this->assertInstanceOf(Issuer::class, Factory::get('iss', 'http://example.com'));
+        $this->assertInstanceOf(Subject::class, Factory::get(Subject::NAME, 1));
+        $this->assertInstanceOf(Issuer::class, Factory::get(Issuer::NAME, 'http://example.com'));
         $this->assertInstanceOf(
             Expiration::class,
-            Factory::get('exp', $this->testNowTimestamp + 3600)
+            Factory::get(Expiration::NAME, $this->testNowTimestamp + 3600)
         );
         $this->assertInstanceOf(NotBefore::class, Factory::get('nbf', $this->testNowTimestamp));
-        $this->assertInstanceOf(IssuedAt::class, Factory::get('iat', $this->testNowTimestamp));
-        $this->assertInstanceOf(JwtId::class, Factory::get('jti', 'foo'));
+        $this->assertInstanceOf(IssuedAt::class, Factory::get(IssuedAt::NAME, $this->testNowTimestamp));
+        $this->assertInstanceOf(JwtId::class, Factory::get(JwtId::NAME, 'foo'));
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class FactoryTest extends AbstractTestCase
     /** @test */
     public function it_should_make_a_claim_instance_for_inferred_claims()
     {
-        $iat = Factory::get('iat', null, new Options([
+        $iat = Factory::get(IssuedAt::NAME, null, new Options([
             'leeway' => 10,
             'max_refresh_period' => 2,
         ]));
@@ -66,7 +66,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertEquals($nbf->getLeeway(), 20);
         $this->assertEquals($nbf->getMaxRefreshPeriod(), 1);
 
-        $jti = Factory::get('jti');
+        $jti = Factory::get(JwtId::NAME);
         $this->assertInstanceOf(JwtId::class, $jti);
     }
 }

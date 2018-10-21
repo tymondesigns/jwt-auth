@@ -107,20 +107,20 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_allow_array_access_on_the_payload()
     {
-        $this->assertTrue(isset($this->payload['iat']));
-        $this->assertSame($this->payload['sub'], 1);
-        $this->assertArrayHasKey('exp', $this->payload);
+        $this->assertTrue(isset($this->payload[IssuedAt::NAME]));
+        $this->assertSame($this->payload[Subject::NAME], 1);
+        $this->assertArrayHasKey(Expiration::NAME, $this->payload);
     }
 
     /** @test */
     public function it_should_get_properties_of_payload_via_get_method()
     {
         $this->assertInternalType('array', $this->payload->get());
-        $this->assertSame($this->payload->get('sub'), 1);
+        $this->assertSame($this->payload->get(Subject::NAME), 1);
 
         $this->assertSame(
             $this->payload->get(function () {
-                return 'jti';
+                return JwtId::NAME;
             }),
             'foo'
         );
@@ -129,7 +129,7 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_get_multiple_properties_when_passing_an_array_to_the_get_method()
     {
-        $values = $this->payload->get(['sub', 'jti']);
+        $values = $this->payload->get([Subject::NAME, JwtId::NAME]);
 
         list($sub, $jti) = $values;
 
@@ -162,9 +162,9 @@ class PayloadTest extends AbstractTestCase
     {
         $payload = $this->payload;
 
-        $sub = $payload('sub');
-        $jti = $payload('jti');
-        $iss = $payload('iss');
+        $sub = $payload(Subject::NAME);
+        $jti = $payload(JwtId::NAME);
+        $iss = $payload(Issuer::NAME);
 
         $this->assertSame($sub, 1);
         $this->assertSame($jti, 'foo');
@@ -188,9 +188,9 @@ class PayloadTest extends AbstractTestCase
     {
         $claims = $this->payload->getClaims();
 
-        $this->assertInstanceOf(Expiration::class, $claims['exp']);
-        $this->assertInstanceOf(JwtId::class, $claims['jti']);
-        $this->assertInstanceOf(Subject::class, $claims['sub']);
+        $this->assertInstanceOf(Expiration::class, $claims[Expiration::NAME]);
+        $this->assertInstanceOf(JwtId::class, $claims[JwtId::NAME]);
+        $this->assertInstanceOf(Subject::class, $claims[Subject::NAME]);
 
         $this->assertContainsOnlyInstancesOf(Claim::class, $claims);
     }
@@ -215,7 +215,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_match_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = (string) $values['sub'];
+        $values[Subject::NAME] = (string) $values[Subject::NAME];
 
         $this->assertTrue($this->payload->matches($values));
     }
@@ -239,7 +239,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_not_match_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = 'dummy_subject';
+        $values[Subject::NAME] = 'dummy_subject';
 
         $this->assertFalse($this->payload->matches($values));
     }
@@ -248,7 +248,7 @@ class PayloadTest extends AbstractTestCase
     public function it_should_not_match_strict_values()
     {
         $values = $this->payload->toArray();
-        $values['sub'] = (string) $values['sub'];
+        $values[Subject::NAME] = (string) $values[Subject::NAME];
 
         $this->assertFalse($this->payload->matchesStrict($values));
         $this->assertFalse($this->payload->matches($values, true));

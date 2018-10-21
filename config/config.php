@@ -1,5 +1,7 @@
 <?php
 
+use Tymon\JWTAuth\Claims;
+
 /*
  * This file is part of jwt-auth.
  *
@@ -145,11 +147,11 @@ return [
     */
 
     'required_claims' => [
-        'iss',
-        'iat',
-        'exp',
-        'sub',
-        'jti',
+        Claims\Issuer::NAME,
+        Claims\IssuedAt::NAME,
+        Claims\Expiration::NAME,
+        Claims\Subject::NAME,
+        Claims\JwtId::NAME,
     ],
 
     /*

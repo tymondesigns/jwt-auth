@@ -19,6 +19,7 @@ use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Blacklist;
+use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -135,8 +136,12 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $this->builder->shouldReceive('getTTL')->once()->andReturn(60);
-        $this->manager->shouldReceive('refresh', 60)->once()->andReturn($token = new Token('baz.bar.foo'));
+        $this->builder->shouldReceive('getTTL')
+            ->once()
+            ->andReturn(60);
+        $this->manager->shouldReceive('refresh', 60)
+            ->once()
+            ->andReturn($token = new Token('baz.bar.foo'));
 
         $result = $this->jwt->setToken('foo.bar.baz')->refresh();
 
@@ -149,7 +154,9 @@ class JWTTest extends AbstractTestCase
     {
         $token = new Token('foo.bar.baz');
 
-        $this->manager->shouldReceive('invalidate')->once()->with($token)->andReturn(true);
+        $this->manager->shouldReceive('invalidate')
+            ->once()
+            ->with($token)->andReturn(true);
 
         $this->jwt->setToken($token)->invalidate();
     }
@@ -174,7 +181,9 @@ class JWTTest extends AbstractTestCase
     public function it_should_return_false_if_the_token_is_invalid()
     {
         $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
-        $this->manager->shouldReceive('decode')->once()->andThrow(new TokenInvalidException);
+        $this->manager->shouldReceive('decode')
+            ->once()
+            ->andThrow(new TokenInvalidException);
 
         $this->assertFalse($this->jwt->parseToken()->check());
     }
@@ -185,7 +194,9 @@ class JWTTest extends AbstractTestCase
         $payload = Mockery::mock(Payload::class);
 
         $this->parser->shouldReceive('parseToken')->andReturn('foo.bar.baz');
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+        $this->manager->shouldReceive('decode')
+            ->once()
+            ->andReturn($payload);
 
         $this->assertTrue($this->jwt->parseToken()->check());
     }
@@ -225,7 +236,9 @@ class JWTTest extends AbstractTestCase
     {
         $request = Request::create('/foo', 'GET', ['token' => 'some.random.token']);
 
-        $this->parser->shouldReceive('setRequest')->once()->with($request);
+        $this->parser->shouldReceive('setRequest')
+            ->once()
+            ->with($request);
         $this->parser->shouldReceive('parseToken')->andReturn('some.random.token');
 
         $token = $this->jwt->setRequest($request)->getToken();
@@ -275,10 +288,15 @@ class JWTTest extends AbstractTestCase
     public function it_should_get_a_claim_value()
     {
         $payload = Mockery::mock(Payload::class);
-        $payload->shouldReceive('get')->once()->with('sub')->andReturn(1);
+        $payload->shouldReceive('get')
+            ->once()
+            ->with(Subject::NAME)
+            ->andReturn(1);
 
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
+        $this->manager->shouldReceive('decode')
+            ->once()
+            ->andReturn($payload);
 
-        $this->assertSame($this->jwt->setToken('foo.bar.baz')->getClaim('sub'), 1);
+        $this->assertSame($this->jwt->setToken('foo.bar.baz')->getClaim(Subject::NAME), 1);
     }
 }

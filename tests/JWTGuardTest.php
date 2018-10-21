@@ -18,6 +18,7 @@ use Tymon\JWTAuth\Builder;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Claims\Subject;
 use Illuminate\Auth\EloquentUserProvider;
 use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
 
@@ -64,7 +65,7 @@ class JWTGuardTest extends AbstractTestCase
         $payload = Mockery::mock(Payload::class)
             ->shouldReceive('offsetGet')
             ->once()
-            ->with('sub')
+            ->with(Subject::NAME)
             ->andReturn(1)
             ->getMock();
 
@@ -107,7 +108,7 @@ class JWTGuardTest extends AbstractTestCase
         $payload = Mockery::mock(Payload::class)
             ->shouldReceive('offsetGet')
             ->once()
-            ->with('sub')
+            ->with(Subject::NAME)
             ->andReturn(1)
             ->getMock();
 

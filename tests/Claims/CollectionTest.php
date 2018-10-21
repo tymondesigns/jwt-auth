@@ -28,12 +28,12 @@ class CollectionTest extends AbstractTestCase
         $collection = $this->getCollection();
 
         $this->assertSame(array_keys($collection->toArray()), [
-            'sub',
-            'iss',
-            'exp',
-            'nbf',
-            'iat',
-            'jti',
+            Subject::NAME,
+            Issuer::NAME,
+            Expiration::NAME,
+            NotBefore::NAME,
+            IssuedAt::NAME,
+            JwtId::NAME,
         ]);
     }
 
@@ -43,13 +43,13 @@ class CollectionTest extends AbstractTestCase
         $collection = $this->getCollection();
 
         $this->assertFalse(
-            $collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti', 'abc'])
+            $collection->hasAllClaims([Subject::NAME, Issuer::NAME, Expiration::NAME, 'nbf', IssuedAt::NAME, JwtId::NAME, 'abc'])
         );
         $this->assertFalse($collection->hasAllClaims(['foo', 'bar']));
 
         $this->assertTrue($collection->hasAllClaims([]));
-        $this->assertTrue($collection->hasAllClaims(['sub', 'iss']));
-        $this->assertTrue($collection->hasAllClaims(['sub', 'iss', 'exp', 'nbf', 'iat', 'jti']));
+        $this->assertTrue($collection->hasAllClaims([Subject::NAME, Issuer::NAME]));
+        $this->assertTrue($collection->hasAllClaims([Subject::NAME, Issuer::NAME, Expiration::NAME, 'nbf', IssuedAt::NAME, JwtId::NAME]));
     }
 
     /** @test */
@@ -57,10 +57,10 @@ class CollectionTest extends AbstractTestCase
     {
         $collection = $this->getCollection();
 
-        $this->assertInstanceOf(Expiration::class, $collection->getByClaimName('exp'));
-        $this->assertInstanceOf(Subject::class, $collection->getByClaimName('sub'));
-        $this->assertInstanceOf(Issuer::class, $collection->getByClaimName('iss'));
-        $this->assertInstanceOf(JwtId::class, $collection->getByClaimName('jti'));
+        $this->assertInstanceOf(Expiration::class, $collection->getByClaimName(Expiration::NAME));
+        $this->assertInstanceOf(Subject::class, $collection->getByClaimName(Subject::NAME));
+        $this->assertInstanceOf(Issuer::class, $collection->getByClaimName(Issuer::NAME));
+        $this->assertInstanceOf(JwtId::class, $collection->getByClaimName(JwtId::NAME));
     }
 
     private function getCollection()

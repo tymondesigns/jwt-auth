@@ -42,7 +42,7 @@ class ClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_convert_the_claim_to_an_array()
     {
-        $this->assertSame(['exp' => $this->testNowTimestamp], $this->claim->toArray());
+        $this->assertSame([Expiration::NAME => $this->testNowTimestamp], $this->claim->toArray());
     }
 
     /** @test */

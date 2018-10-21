@@ -22,19 +22,6 @@ class TokenValidatorTest extends AbstractTestCase
         $this->assertTrue(TokenValidator::isValid('one.two.three'));
     }
 
-    public function dataProviderMalformedTokens()
-    {
-        return [
-            ['one.two.'],
-            ['.two.'],
-            ['.two.three'],
-            ['one..three'],
-            ['..'],
-            [' . . '],
-            [' one . two . three '],
-        ];
-    }
-
     /**
      * @test
      * @dataProvider \Tymon\JWTAuth\Test\Validators\TokenValidatorTest::dataProviderMalformedTokens
@@ -88,5 +75,18 @@ class TokenValidatorTest extends AbstractTestCase
         $token
     ) {
         TokenValidator::check($token);
+    }
+
+    public function dataProviderMalformedTokens()
+    {
+        return [
+            ['one.two.'],
+            ['.two.'],
+            ['.two.three'],
+            ['one..three'],
+            ['..'],
+            [' . . '],
+            [' one . two . three '],
+        ];
     }
 }

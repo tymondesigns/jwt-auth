@@ -27,23 +27,23 @@ class FactoryTest extends AbstractTestCase
     public function it_should_return_a_payload_when_passing_an_array_of_claims()
     {
         $payload = Factory::make([
-            'jti', // auto generated
-            'iat', // auto generated
-            'nbf', // auto generated
-            'sub' => 1,
+            JwtId::NAME, // auto generated
+            IssuedAt::NAME, // auto generated
+            NotBefore::NAME, // auto generated
+            Subject::NAME => 1,
             'foo' => 'bar',
         ]);
 
-        $this->assertSame($payload->get('sub'), 1);
-        $this->assertSame($payload('iat'), $this->testNowTimestamp);
+        $this->assertSame($payload->get(Subject::NAME), 1);
+        $this->assertSame($payload(IssuedAt::NAME), $this->testNowTimestamp);
         $this->assertSame($payload('nbf'), $this->testNowTimestamp);
         $this->assertSame($payload['foo'], 'bar');
 
         $this->assertInstanceOf(Payload::class, $payload);
-        $this->assertInstanceOf(Subject::class, $payload->getInternal('sub'));
-        $this->assertInstanceOf(IssuedAt::class, $payload->getInternal('iat'));
-        $this->assertInstanceOf(JwtId::class, $payload->getInternal('jti'));
-        $this->assertInstanceOf(NotBefore::class, $payload->getInternal('nbf'));
+        $this->assertInstanceOf(Subject::class, $payload->getInternal(Subject::NAME));
+        $this->assertInstanceOf(IssuedAt::class, $payload->getInternal(IssuedAt::NAME));
+        $this->assertInstanceOf(JwtId::class, $payload->getInternal(JwtId::NAME));
+        $this->assertInstanceOf(NotBefore::class, $payload->getInternal(NotBefore::NAME));
         $this->assertInstanceOf(Custom::class, $payload->getInternal('foo'));
     }
 
@@ -51,24 +51,24 @@ class FactoryTest extends AbstractTestCase
     public function it_should_return_a_payload_when_passing_an_array_of_claims_with_values()
     {
         $payload = Factory::make([
-            'jti' => 'foo',
-            'iat' => $this->testNowTimestamp - 3600,
-            'iss' => 'example.com',
-            'sub' => 1,
+            JwtId::NAME => 'foo',
+            IssuedAt::NAME => $this->testNowTimestamp - 3600,
+            Issuer::NAME => 'example.com',
+            Subject::NAME => 1,
             'foo' => 'bar',
         ]);
 
-        $this->assertSame($payload->get('sub'), 1);
-        $this->assertSame($payload->get('jti'), 'foo');
-        $this->assertSame($payload('iat'), $this->testNowTimestamp - 3600);
+        $this->assertSame($payload->get(Subject::NAME), 1);
+        $this->assertSame($payload->get(JwtId::NAME), 'foo');
+        $this->assertSame($payload(IssuedAt::NAME), $this->testNowTimestamp - 3600);
         $this->assertSame($payload['foo'], 'bar');
-        $this->assertSame($payload['iss'], 'example.com');
+        $this->assertSame($payload[Issuer::NAME], 'example.com');
 
         $this->assertInstanceOf(Payload::class, $payload);
-        $this->assertInstanceOf(Subject::class, $payload->getInternal('sub'));
-        $this->assertInstanceOf(IssuedAt::class, $payload->getInternal('iat'));
-        $this->assertInstanceOf(JwtId::class, $payload->getInternal('jti'));
-        $this->assertInstanceOf(Issuer::class, $payload->getInternal('iss'));
+        $this->assertInstanceOf(Subject::class, $payload->getInternal(Subject::NAME));
+        $this->assertInstanceOf(IssuedAt::class, $payload->getInternal(IssuedAt::NAME));
+        $this->assertInstanceOf(JwtId::class, $payload->getInternal(JwtId::NAME));
+        $this->assertInstanceOf(Issuer::class, $payload->getInternal(Issuer::NAME));
         $this->assertInstanceOf(Custom::class, $payload->getInternal('foo'));
     }
 
@@ -80,10 +80,10 @@ class FactoryTest extends AbstractTestCase
     public function it_should_run_a_custom_validator_and_throw_exception()
     {
         Factory::make([
-            'jti' => 'foo',
-            'iat' => $this->testNowTimestamp - 3600,
-            'iss' => 'example.com',
-            'sub' => 1,
+            JwtId::NAME => 'foo',
+            IssuedAt::NAME => $this->testNowTimestamp - 3600,
+            Issuer::NAME => 'example.com',
+            Subject::NAME => 1,
             'foo' => 'bar',
         ], new Options([
             'validators' => [
@@ -99,10 +99,10 @@ class FactoryTest extends AbstractTestCase
     public function it_should_not_run_a_custom_validator_for_a_non_existent_claim()
     {
         Factory::make([
-            'jti' => 'foo',
-            'iat' => $this->testNowTimestamp - 3600,
-            'iss' => 'example.com',
-            'sub' => 1,
+            JwtId::NAME => 'foo',
+            IssuedAt::NAME => $this->testNowTimestamp - 3600,
+            Issuer::NAME => 'example.com',
+            Subject::NAME => 1,
             'foo' => 'bar',
         ], new Options([
             'validators' => [

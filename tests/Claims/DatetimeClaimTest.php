@@ -49,12 +49,12 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->validator->shouldReceive('setRefreshFlow->check');
 
         $this->claimsTimestamp = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($this->testNowTimestamp + 3600),
+            Subject::NAME => new Subject(1),
+            Issuer::NAME => new Issuer('http://example.com'),
+            Expiration::NAME => new Expiration($this->testNowTimestamp + 3600),
             'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            IssuedAt::NAME => new IssuedAt($this->testNowTimestamp),
+            JwtId::NAME => new JwtId('foo'),
         ];
     }
 
@@ -69,12 +69,12 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertInstanceOf(DatetimeInterface::class, $testCarbon);
 
         $claimsDatetime = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($testCarbonCopy->addHour()),
+            Subject::NAME => new Subject(1),
+            Issuer::NAME => new Issuer('http://example.com'),
+            Expiration::NAME => new Expiration($testCarbonCopy->addHour()),
             'nbf' => new NotBefore($testCarbon),
-            'iat' => new IssuedAt($testCarbon),
-            'jti' => new JwtId('foo'),
+            IssuedAt::NAME => new IssuedAt($testCarbon),
+            JwtId::NAME => new JwtId('foo'),
         ];
 
         $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp), $this->validator);
@@ -93,12 +93,12 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTime);
 
         $claimsDatetime = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($testDateTimeCopy->modify('+3600 seconds')),
+            Subject::NAME => new Subject(1),
+            Issuer::NAME => new Issuer('http://example.com'),
+            Expiration::NAME => new Expiration($testDateTimeCopy->modify('+3600 seconds')),
             'nbf' => new NotBefore($testDateTime),
-            'iat' => new IssuedAt($testDateTime),
-            'jti' => new JwtId('foo'),
+            IssuedAt::NAME => new IssuedAt($testDateTime),
+            JwtId::NAME => new JwtId('foo'),
         ];
 
         $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp), $this->validator);
@@ -119,12 +119,12 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertInstanceOf(DatetimeInterface::class, $testDateTimeImmutable);
 
         $claimsDatetime = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($testDateTimeImmutable->modify('+3600 seconds')),
+            Subject::NAME => new Subject(1),
+            Issuer::NAME => new Issuer('http://example.com'),
+            Expiration::NAME => new Expiration($testDateTimeImmutable->modify('+3600 seconds')),
             'nbf' => new NotBefore($testDateTimeImmutable),
-            'iat' => new IssuedAt($testDateTimeImmutable),
-            'jti' => new JwtId('foo'),
+            IssuedAt::NAME => new IssuedAt($testDateTimeImmutable),
+            JwtId::NAME => new JwtId('foo'),
         ];
 
         $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp), $this->validator);
@@ -143,21 +143,21 @@ class DatetimeClaimTest extends AbstractTestCase
         $this->assertInstanceOf(DateInterval::class, $carbonDateInterval);
 
         $claimsDateInterval = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($testDateInterval),
+            Subject::NAME => new Subject(1),
+            Issuer::NAME => new Issuer('http://example.com'),
+            Expiration::NAME => new Expiration($testDateInterval),
             'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            IssuedAt::NAME => new IssuedAt($this->testNowTimestamp),
+            JwtId::NAME => new JwtId('foo'),
         ];
 
         $claimsCarbonInterval = [
-            'sub' => new Subject(1),
-            'iss' => new Issuer('http://example.com'),
-            'exp' => new Expiration($carbonDateInterval),
+            Subject::NAME => new Subject(1),
+            Issuer::NAME => new Issuer('http://example.com'),
+            Expiration::NAME => new Expiration($carbonDateInterval),
             'nbf' => new NotBefore($this->testNowTimestamp),
-            'iat' => new IssuedAt($this->testNowTimestamp),
-            'jti' => new JwtId('foo'),
+            IssuedAt::NAME => new IssuedAt($this->testNowTimestamp),
+            JwtId::NAME => new JwtId('foo'),
         ];
 
         $payloadTimestamp = new Payload(Collection::make($this->claimsTimestamp));

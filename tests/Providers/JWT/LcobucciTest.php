@@ -17,6 +17,10 @@ use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Key;
 use InvalidArgumentException;
+use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Providers\JWT\Lcobucci;
 
@@ -49,10 +53,10 @@ class LcobucciTest extends AbstractTestCase
     public function it_should_return_the_token_when_passing_a_valid_payload_to_encode()
     {
         $payload = [
-            'sub' => 1,
-            'exp' => $this->testNowTimestamp + 3600,
-            'iat' => $this->testNowTimestamp,
-            'iss' => '/foo',
+            Subject::NAME => 1,
+            Expiration::NAME => $this->testNowTimestamp + 3600,
+            IssuedAt::NAME => $this->testNowTimestamp,
+            Issuer::NAME => '/foo',
         ];
 
         $this->builder->shouldReceive('unsign')
@@ -79,10 +83,10 @@ class LcobucciTest extends AbstractTestCase
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
         $payload = [
-            'sub' => 1,
-            'exp' => $this->testNowTimestamp,
-            'iat' => $this->testNowTimestamp,
-            'iss' => '/foo',
+            Subject::NAME => 1,
+            Expiration::NAME => $this->testNowTimestamp,
+            IssuedAt::NAME => $this->testNowTimestamp,
+            Issuer::NAME => '/foo',
         ];
 
         $this->builder->shouldReceive('unsign')
@@ -101,10 +105,10 @@ class LcobucciTest extends AbstractTestCase
     public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
     {
         $payload = [
-            'sub' => 1,
-            'exp' => $this->testNowTimestamp + 3600,
-            'iat' => $this->testNowTimestamp,
-            'iss' => '/foo',
+            Subject::NAME => 1,
+            Expiration::NAME => $this->testNowTimestamp + 3600,
+            IssuedAt::NAME => $this->testNowTimestamp,
+            Issuer::NAME => '/foo',
         ];
 
         $this->parser->shouldReceive('parse')
@@ -168,10 +172,10 @@ class LcobucciTest extends AbstractTestCase
         ]);
 
         $payload = [
-            'sub' => 1,
-            'exp' => $this->testNowTimestamp + 3600,
-            'iat' => $this->testNowTimestamp,
-            'iss' => '/foo',
+            Subject::NAME => 1,
+            Expiration::NAME => $this->testNowTimestamp + 3600,
+            IssuedAt::NAME => $this->testNowTimestamp,
+            Issuer::NAME => '/foo',
         ];
 
         $this->builder->shouldReceive('unsign')

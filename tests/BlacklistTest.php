@@ -99,11 +99,6 @@ class BlacklistTest extends AbstractTestCase
         $this->assertTrue($this->blacklist->has($payload));
     }
 
-    public function blacklist_provider()
-    {
-        return [[null], [0], [''], [[]], [['valid_until' => strtotime('+1day')]]];
-    }
-
     /**
      * @test
      * @dataProvider blacklist_provider
@@ -205,7 +200,7 @@ class BlacklistTest extends AbstractTestCase
             ->once()
             ->andReturn(['valid_until' => $this->testNowTimestamp]);
 
-        $this->assertTrue($this->blacklist->setKey('sub')->has($payload));
+        $this->assertTrue($this->blacklist->setKey(Subject::NAME)->has($payload));
         $this->assertSame('1', $this->blacklist->getKey($payload));
     }
 
@@ -221,5 +216,10 @@ class BlacklistTest extends AbstractTestCase
     {
         $this->assertInstanceOf(Blacklist::class, $this->blacklist->setGracePeriod(15));
         $this->assertSame(15, $this->blacklist->getGracePeriod());
+    }
+
+    public function blacklist_provider()
+    {
+        return [[null], [0], [''], [[]], [['valid_until' => strtotime('+1day')]]];
     }
 }
