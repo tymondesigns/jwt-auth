@@ -13,7 +13,7 @@ namespace Tymon\JWTAuth\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class JWTBuilder extends Facade
+class JWTManager extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -22,6 +22,6 @@ class JWTBuilder extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'tymon.jwt.builder';
+        return 'tymon.jwt.manager';
     }
 }

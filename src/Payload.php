@@ -20,7 +20,7 @@ use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Facades\JWTProvider;
+use Tymon\JWTAuth\Facades\JWTManager;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
@@ -130,7 +130,7 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      */
     public function token(): Token
     {
-        return JWTProvider::token($this);
+        return JWTManager::encode($this);
     }
 
     /**

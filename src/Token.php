@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Facades\JWTBuilder;
-use Tymon\JWTAuth\Facades\JWTProvider;
+use Tymon\JWTAuth\Facades\JWTManager;
 use Tymon\JWTAuth\Validators\TokenValidator;
 
 class Token
@@ -43,9 +42,9 @@ class Token
     /**
      * Get the payload for this token.
      */
-    public function payload(): Payload
+    public function payload(bool $checkBlacklist = true): Payload
     {
-        return JWTProvider::payload($this, JWTBuilder::getOptions());
+        return JWTManager::decode($this, $checkBlacklist);
     }
 
     /**

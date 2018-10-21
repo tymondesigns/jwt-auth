@@ -147,6 +147,14 @@ class Manager
     }
 
     /**
+     * Get the Builder instance.
+     */
+    public function builder(): Builder
+    {
+        return $this->builder;
+    }
+
+    /**
      * Set whether the blacklist is enabled.
      */
     public function setBlacklistEnabled(bool $enabled): self

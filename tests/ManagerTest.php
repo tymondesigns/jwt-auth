@@ -257,4 +257,10 @@ class ManagerTest extends AbstractTestCase
     {
         $this->assertInstanceOf(Blacklist::class, $this->manager->getBlacklist());
     }
+
+    /** @test */
+    public function it_should_get_the_builder()
+    {
+        $this->assertInstanceOf(Builder::class, $this->manager->builder());
+    }
 }

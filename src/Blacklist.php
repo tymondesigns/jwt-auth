@@ -44,7 +44,7 @@ class Blacklist
     /**
      * The value to store when blacklisting forever.
      *
-     * @const string
+     * @var string
      */
     const FOREVER = 'FOREVER';
 
@@ -117,7 +117,7 @@ class Blacklist
     }
 
     /**
-     * Remove the token (jti claim) from the blacklist.
+     * Remove the token from the blacklist.
      */
     public function remove(Payload $payload): bool
     {
