@@ -21,8 +21,8 @@ use function Tymon\JWTAuth\Support\now;
 use function Tymon\JWTAuth\Support\is_past;
 use function Tymon\JWTAuth\Support\is_future;
 use function Tymon\JWTAuth\Support\timestamp;
-use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 trait DatetimeTrait
 {
