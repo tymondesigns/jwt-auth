@@ -14,11 +14,12 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth\Claims;
 
 use Tymon\JWTAuth\Options;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class Factory
 {
     /**
-     * The classes map.
+     * The class map.
      *
      * @var array
      */
@@ -35,7 +36,7 @@ class Factory
     /**
      * Get the instance of the claim when passing the name and value.
      */
-    public static function get(string $name, $value = null, ?Options $options = null): Claim
+    public static function get(string $name, $value = null, ?Options $options = null): ClaimContract
     {
         $options = $options ?? new Options();
 
@@ -58,22 +59,14 @@ class Factory
     }
 
     /**
-     * Apply a method to the given claim if it exists.
-     */
-    protected static function applyClaimMethod(Claim $claim, string $methodName, $value): Claim
-    {
-        return method_exists($claim, $methodName)
-            ? $claim->{$methodName}($value)
-            : $claim;
-    }
-
-    /**
      * Apply a multiple methods to the given claim if they exist.
      */
-    protected static function applyClaimMethods(Claim $claim, array $data): Claim
+    protected static function applyClaimMethods(ClaimContract $claim, array $data): ClaimContract
     {
         foreach ($data as $method => $value) {
-            $claim = static::applyClaimMethod($claim, $method, $value);
+            $claim = method_exists($claim, $method)
+                ? $claim->{$method}($value)
+                : $claim;
         }
 
         return $claim;

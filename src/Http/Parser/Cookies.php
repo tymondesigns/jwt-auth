@@ -26,7 +26,10 @@ class Cookies implements ParserContract
      */
     private $decrypt;
 
-    public function __construct($decrypt = true)
+    /**
+     * Constructor.
+     */
+    public function __construct(bool $decrypt = true)
     {
         $this->decrypt = $decrypt;
     }

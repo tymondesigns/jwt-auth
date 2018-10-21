@@ -30,7 +30,7 @@ class JWTGenerateSecretCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Set the JWTAuth secret key used to sign the tokens';
+    protected $description = 'Set the secret key used to sign the tokens';
 
     /**
      * Execute the console command.
@@ -73,12 +73,8 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Display the key.
-     *
-     * @param  string  $key
-     *
-     * @return void
      */
-    protected function displayKey($key)
+    protected function displayKey(string $key): void
     {
         $this->laravel['config']['jwt.secret'] = $key;
 
@@ -87,10 +83,8 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Check if the modification is confirmed.
-     *
-     * @return bool
      */
-    protected function isConfirmed()
+    protected function isConfirmed(): bool
     {
         return $this->option('force') ? true : $this->confirm(
             'This will invalidate all existing tokens. Are you sure you want to override the secret key?'
@@ -99,10 +93,8 @@ class JWTGenerateSecretCommand extends Command
 
     /**
      * Get the .env file path.
-     *
-     * @return string
      */
-    protected function envPath()
+    protected function envPath(): string
     {
         if (method_exists($this->laravel, 'environmentFilePath')) {
             return $this->laravel->environmentFilePath();

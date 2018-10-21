@@ -24,8 +24,6 @@ trait CustomClaims
 
     /**
      * Set the custom claims.
-     *
-     * @return $this
      */
     public function customClaims(array $customClaims): self
     {
@@ -36,8 +34,6 @@ trait CustomClaims
 
     /**
      * Alias to set the custom claims.
-     *
-     * @return $this
      */
     public function claims(array $customClaims): self
     {

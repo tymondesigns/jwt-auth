@@ -42,8 +42,6 @@ class Parser
 
     /**
      * Get the parser chain.
-     *
-     * @return array
      */
     public function getChain(): array
     {
