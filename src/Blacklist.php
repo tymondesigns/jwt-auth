@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Claims\Expiration;
 use function Tymon\JWTAuth\Support\now;
 use function Tymon\JWTAuth\Support\is_future;
 use function Tymon\JWTAuth\Support\timestamp;
@@ -39,7 +41,7 @@ class Blacklist
      *
      * @var string
      */
-    protected $key = 'jti';
+    protected $key = JwtId::NAME;
 
     /**
      * The value to store when blacklisting forever.
@@ -63,7 +65,7 @@ class Blacklist
     {
         // if there is no exp claim then add the jwt to
         // the blacklist indefinitely
-        if (! $payload->hasKey('exp')) {
+        if (! $payload->hasKey(Expiration::NAME)) {
             return $this->addForever($payload);
         }
 
@@ -81,7 +83,7 @@ class Blacklist
      */
     protected function getMinutesUntilExpired(Payload $payload): int
     {
-        $exp = timestamp($payload['exp']);
+        $exp = timestamp($payload[Expiration::NAME]);
 
         // find the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap

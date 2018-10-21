@@ -15,7 +15,9 @@ namespace Tymon\JWTAuth;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
 use function Tymon\JWTAuth\Support\now;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -71,9 +73,9 @@ class Builder
      * @var array
      */
     protected $defaultClaims = [
-        'iat',
-        'jti',
-        'iss',
+        IssuedAt::NAME,
+        JwtId::NAME,
+        Issuer::NAME,
     ];
 
     /**
@@ -138,7 +140,7 @@ class Builder
      */
     protected function getDefaultClaims(): array
     {
-        if ($key = array_search('iss', $this->defaultClaims)) {
+        if ($key = array_search(Issuer::NAME, $this->defaultClaims)) {
             $iss = Arr::pull($this->defaultClaims, $key);
         }
 
@@ -156,7 +158,7 @@ class Builder
      */
     protected function issClaim(): Issuer
     {
-        return ClaimFactory::get('iss', $this->request->getHost());
+        return ClaimFactory::get(Issuer::NAME, $this->request->getHost());
     }
 
     /**
@@ -164,9 +166,11 @@ class Builder
      */
     protected function expClaim(): Expiration
     {
-        return ClaimFactory::get('exp', now()->addMinutes($this->getTTL())->getTimestamp(), [
-            'leeway' => $this->leeway,
-        ]);
+        return ClaimFactory::get(
+            Expiration::NAME,
+            now()->addMinutes($this->getTTL())->getTimestamp(),
+            ['leeway' => $this->leeway]
+        );
     }
 
     /**
@@ -175,7 +179,7 @@ class Builder
     protected function getClaimsForSubject(JWTSubject $subject): array
     {
         return array_merge([
-            'sub' => $subject->getJWTIdentifier(),
+            Subject::NAME => $subject->getJWTIdentifier(),
         ], $this->lockSubject ? [
             'prv' => $this->hashSubjectModel($subject),
         ] : []);

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use function Tymon\JWTAuth\Support\timestamp;
@@ -123,8 +125,8 @@ class Manager
     protected function buildRefreshClaims(Payload $payload, int $ttl): array
     {
         return array_merge($payload->toArray(), [
-            'jti' => ClaimFactory::get('jti'),
-            'exp' => timestamp($payload['exp'])
+            JwtId::NAME => ClaimFactory::get(JwtId::NAME),
+            Expiration::NAME => timestamp($payload[Expiration::NAME])
                 ->addMinutes($ttl)
                 ->getTimestamp(),
         ]);

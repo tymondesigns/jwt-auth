@@ -15,6 +15,7 @@ use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Collection;
+use Tymon\JWTAuth\Claims\Expiration;
 
 class PayloadValidator extends Validator
 {
@@ -29,9 +30,9 @@ class PayloadValidator extends Validator
         $options = $options ?? new Options();
 
         // If the collection doesn't have an exp then remove it from the required claims.
-        $requiredClaims = $claims->has('exp')
+        $requiredClaims = $claims->has(Expiration::NAME)
             ? $options->requiredClaims()
-            : Arr::except($options->requiredClaims(), ['exp']);
+            : Arr::except($options->requiredClaims(), [Expiration::NAME]);
 
         if (! $claims->hasAllClaims($requiredClaims)) {
             static::throwFailed('JWT does not contain the required claims');

@@ -16,6 +16,7 @@ namespace Tymon\JWTAuth;
 use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
+use Tymon\JWTAuth\Claims\Subject;
 use Illuminate\Contracts\Auth\Guard;
 use Tymon\JWTAuth\Http\TokenResponse;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -81,7 +82,7 @@ class JWTGuard implements Guard
         }
 
         if (($payload = $this->getPayload()) && $this->validateSubject($payload)) {
-            return $this->user = $this->provider->retrieveById($payload['sub']);
+            return $this->user = $this->provider->retrieveById($payload[Subject::NAME]);
         }
     }
 
