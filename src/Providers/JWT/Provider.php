@@ -15,6 +15,7 @@ namespace Tymon\JWTAuth\Providers\JWT;
 
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
 
@@ -54,7 +55,7 @@ abstract class Provider
     /**
      * Get the decoded token as a Payload instance.
      */
-    public function payload(Token $token, array $options = []): Payload
+    public function payload(Token $token, ?Options $options = null): Payload
     {
         return Factory::make($this->decode($token->get()), $options);
     }
@@ -180,8 +181,6 @@ abstract class Provider
     /**
      * Determine if the algorithm is asymmetric, and thus
      * requires a public/private key combo.
-     *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     abstract protected function isAsymmetric(): bool;
 }

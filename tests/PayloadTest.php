@@ -117,13 +117,7 @@ class PayloadTest extends AbstractTestCase
     {
         $this->assertInternalType('array', $this->payload->get());
         $this->assertSame($this->payload->get(Subject::NAME), 1);
-
-        $this->assertSame(
-            $this->payload->get(function () {
-                return JwtId::NAME;
-            }),
-            'foo'
-        );
+        $this->assertSame($this->payload->get(JwtId::NAME), 'foo');
     }
 
     /** @test */

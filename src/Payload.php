@@ -88,8 +88,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
      */
     public function get($claim = null)
     {
-        $claim = value($claim);
-
         if ($claim !== null) {
             if (is_array($claim)) {
                 return array_map([$this, 'get'], $claim);
