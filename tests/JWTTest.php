@@ -59,14 +59,9 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_return_a_token_when_passing_a_user()
     {
-        $this->builder->shouldReceive('makeForSubject')
+        $this->manager->shouldReceive('tokenForSubject')
             ->once()
             ->with($user = new UserStub, ['foo' => 'bar'])
-            ->andReturn($payload = Mockery::mock(Payload::class));
-
-        $this->manager->shouldReceive('encode')
-            ->once()
-            ->with($payload)
             ->andReturn($token = new Token('foo.bar.baz'));
 
         $jwt = $this->jwt->claims(['foo' => 'bar'])->fromUser($user);
@@ -136,9 +131,6 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_refresh_a_token()
     {
-        $this->builder->shouldReceive('getTTL')
-            ->once()
-            ->andReturn(60);
         $this->manager->shouldReceive('refresh', 60)
             ->once()
             ->andReturn($token = new Token('baz.bar.foo'));

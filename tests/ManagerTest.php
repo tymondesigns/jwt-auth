@@ -189,11 +189,14 @@ class ManagerTest extends AbstractTestCase
             ->twice()
             ->andReturn($options);
 
+        $this->builder->shouldReceive('getTTL')
+            ->once();
+
         $this->builder->shouldReceive('make')
             ->once()
             ->andReturn($payload);
 
-        $token = $this->manager->refresh($token, 60);
+        $token = $this->manager->refresh($token);
 
         $this->assertInstanceOf(Token::class, $token);
         $this->assertEquals('baz.bar.foo', $token);
