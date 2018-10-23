@@ -15,6 +15,7 @@ namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use function Tymon\JWTAuth\Support\timestamp;
@@ -91,10 +92,10 @@ class Manager
     /**
      * Refresh a Token and return a new Token.
      */
-    public function refresh(Token $token, int $ttl): Token
+    public function refresh(Token $token): Token
     {
         // Get the claims for the new token
-        $claims = $this->buildRefreshClaims($this->decode($token), $ttl);
+        $claims = $this->buildRefreshClaims($this->decode($token));
 
         if ($this->blacklistEnabled) {
             // Invalidate old token
@@ -120,14 +121,24 @@ class Manager
     }
 
     /**
+     * Get a token for the given subject and claims.
+     */
+    public function tokenForSubject(JWTSubject $subject, array $claims = []): Token
+    {
+        $payload = $this->builder->makeForSubject($subject, $claims);
+
+        return $this->encode($payload);
+    }
+
+    /**
      * Build the claims to go into the refreshed token.
      */
-    protected function buildRefreshClaims(Payload $payload, int $ttl): array
+    protected function buildRefreshClaims(Payload $payload): array
     {
         return array_merge($payload->toArray(), [
             JwtId::NAME => ClaimFactory::get(JwtId::NAME),
             Expiration::NAME => timestamp($payload[Expiration::NAME])
-                ->addMinutes($ttl)
+                ->addMinutes($this->builder->getTTL())
                 ->getTimestamp(),
         ]);
     }

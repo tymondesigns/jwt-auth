@@ -68,9 +68,7 @@ class JWT
      */
     public function fromSubject(JWTSubject $subject): Token
     {
-        $payload = $this->builder->makeForSubject($subject, $this->customClaims);
-
-        return $this->manager->encode($payload);
+        return $this->manager->tokenForSubject($subject, $this->customClaims);
     }
 
     /**
@@ -100,7 +98,7 @@ class JWT
     {
         $this->requireToken();
 
-        return $this->manager->refresh($this->token, $this->getTTL());
+        return $this->manager->refresh($this->token);
     }
 
     /**
