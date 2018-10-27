@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 trait JwtAuthentication
 {
@@ -22,13 +22,14 @@ trait JwtAuthentication
      *
      * @param Authenticatable $user
      * @param null|string $driver
+     *
      * @return $this
      */
     public function actingAs(Authenticatable $user, $driver = null)
     {
         if (method_exists($this, 'withHeader')) {
             $token = JWTAuth::fromUser($user);
-            $this->withHeader('Authorization', 'Bearer ' . $token);
+            $this->withHeader('Authorization', 'Bearer '.$token);
         }
 
         return $this;
