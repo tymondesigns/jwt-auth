@@ -192,7 +192,7 @@ class AuthController extends Controller
 }
 ```
 
-You should now be able to POST to the login endpoint (e.g. `http://example.dev/auth/login`) with some valid
+You should now be able to POST to the login endpoint (e.g. `http://example.dev/api/auth/login`) with some valid
 credentials and see a response like:
 
 ```json
