@@ -71,16 +71,6 @@ class Collection extends IlluminateCollection
      */
     protected function getArrayableItems($items): array
     {
-        return $this->sanitizeClaims($items);
-    }
-
-    /**
-     * Ensure that the given claims array is keyed by the claim name.
-     *
-     * @param  mixed  $items
-     */
-    private function sanitizeClaims($items): array
-    {
         $claims = [];
         foreach ($items as $key => $value) {
             if (! is_string($key) && $value instanceof Claim) {

@@ -158,7 +158,11 @@ class Builder
      */
     protected function issClaim(): Issuer
     {
-        return ClaimFactory::get(Issuer::NAME, $this->request->getHost());
+        return ClaimFactory::get(
+            Issuer::NAME,
+            $this->request->getHost(),
+            $this->getOptions()
+        );
     }
 
     /**
@@ -169,7 +173,7 @@ class Builder
         return ClaimFactory::get(
             Expiration::NAME,
             now()->addMinutes($this->getTTL())->getTimestamp(),
-            ['leeway' => $this->leeway]
+            $this->getOptions()
         );
     }
 
