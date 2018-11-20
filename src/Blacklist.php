@@ -89,7 +89,7 @@ class Blacklist
         // plus 1 minute to avoid overlap
         return now()
             ->subMinute()
-            ->diffInMinutes($exp);
+            ->diffInRealMinutes($exp);
     }
 
     /**
