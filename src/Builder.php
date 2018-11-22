@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Claims;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use function Tymon\JWTAuth\Support\now;
