@@ -13,12 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
+use Tymon\JWTAuth\Claims;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Expiration;
 use function Tymon\JWTAuth\Support\now;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
@@ -73,9 +70,9 @@ class Builder
      * @var array
      */
     protected $defaultClaims = [
-        IssuedAt::NAME,
-        JwtId::NAME,
-        Issuer::NAME,
+        Claims\IssuedAt::NAME,
+        Claims\JwtId::NAME,
+        Claims\Issuer::NAME,
     ];
 
     /**
@@ -123,7 +120,7 @@ class Builder
     }
 
     /**
-     * Build the claims array and return it.
+     * Build the claims array.
      */
     protected function getClaimsArray(JWTSubject $subject, array $claims = []): array
     {
@@ -140,7 +137,7 @@ class Builder
      */
     protected function getDefaultClaims(): array
     {
-        if ($key = array_search(Issuer::NAME, $this->defaultClaims)) {
+        if ($key = array_search(Claims\Issuer::NAME, $this->defaultClaims)) {
             $iss = Arr::pull($this->defaultClaims, $key);
         }
 
@@ -159,7 +156,7 @@ class Builder
     protected function issClaim(): Issuer
     {
         return ClaimFactory::get(
-            Issuer::NAME,
+            Claims\Issuer::NAME,
             $this->request->getHost(),
             $this->getOptions()
         );
@@ -171,7 +168,7 @@ class Builder
     protected function expClaim(): Expiration
     {
         return ClaimFactory::get(
-            Expiration::NAME,
+            Claims\Expiration::NAME,
             now()->addMinutes($this->getTTL())->getTimestamp(),
             $this->getOptions()
         );
@@ -183,7 +180,7 @@ class Builder
     protected function getClaimsForSubject(JWTSubject $subject): array
     {
         return array_merge([
-            Subject::NAME => $subject->getJWTIdentifier(),
+            Claims\Subject::NAME => $subject->getJWTIdentifier(),
         ], $this->lockSubject ? [
             'prv' => $this->hashSubjectModel($subject),
         ] : []);
@@ -196,7 +193,9 @@ class Builder
      */
     public function hashSubjectModel($model): string
     {
-        return sha1(is_object($model) ? get_class($model) : $model);
+        return sha1(is_object($model)
+            ? get_class($model)
+            : $model);
     }
 
     /**
