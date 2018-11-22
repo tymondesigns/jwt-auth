@@ -152,7 +152,7 @@ class Builder
     /**
      * Get the issuer (iss) claim.
      */
-    protected function issClaim(): Issuer
+    protected function issClaim(): Claims\Issuer
     {
         return ClaimFactory::get(
             Claims\Issuer::NAME,
@@ -164,7 +164,7 @@ class Builder
     /**
      * Get the expiration (exp) claim.
      */
-    protected function expClaim(): Expiration
+    protected function expClaim(): Claims\Expiration
     {
         return ClaimFactory::get(
             Claims\Expiration::NAME,
