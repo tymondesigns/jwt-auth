@@ -2,6 +2,15 @@
 
 The following methods are available on the Auth guard instance.
 
+### Multiple Guards
+
+If the newly created 'api' guard is not set as a default guard or you have defined multiple guards to handle authentication,
+you should specify the guard when calling auth().
+
+```php
+  $token = auth('api')->attempt($credentials);
+```
+
 ### attempt()
 
 Attempt to authenticate a user via some credentials.
