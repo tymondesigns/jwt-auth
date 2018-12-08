@@ -58,6 +58,16 @@ class JWTGenerateCommand extends Command
     }
 
     /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        return $this->fire();
+    }
+
+    /**
      * Generate a random key for the JWT Auth secret.
      *
      * @return string
