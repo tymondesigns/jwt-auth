@@ -44,11 +44,16 @@ class JWTGenerateCommand extends Command
             return $this->line('<comment>'.$key.'</comment>');
         }
 
-        $path = config_path('jwt.php');
-
-        if (file_exists($path)) {
-            file_put_contents($path, str_replace(
-                $this->laravel['config']['jwt.secret'], $key, file_get_contents($path)
+        $currentKey = $this->laravel['config']['jwt.secret'];
+        if (!preg_match('/^JWT_SECRET\=/m', file_get_contents($this->laravel->environmentFilePath()))) {
+            file_put_contents($this->laravel->environmentFilePath(),
+                file_get_contents($this->laravel->environmentFilePath()) . PHP_EOL . 'JWT_SECRET='.$key
+            );
+        } else {
+            file_put_contents($this->laravel->environmentFilePath(), preg_replace(
+                "/^JWT_SECRET" . preg_quote('='.$this->laravel['config']['jwt.secret'], '/') . "/m",
+                'JWT_SECRET='.$key,
+                file_get_contents($this->laravel->environmentFilePath())
             ));
         }
 
