@@ -11,4 +11,3 @@
 /.github export-ignore
 /phpunit.xml.dist export-ignore
 /README.md export-ignore
-/mkdocs.yml export-ignore
