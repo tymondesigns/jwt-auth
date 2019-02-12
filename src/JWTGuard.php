@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Tymon\JWTAuth\Claims\Subject;

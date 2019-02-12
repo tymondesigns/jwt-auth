@@ -21,7 +21,8 @@ class Collection extends IlluminateCollection
     /**
      * Get a Claim instance by it's unique name.
      */
-    public function getByClaimName(string $name, ...$args): ?ClaimContract {
+    public function getByClaimName(string $name, ...$args): ?ClaimContract
+    {
         return $this->filter->matchesName($name)
             ->first(...$args);
     }
