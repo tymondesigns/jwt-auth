@@ -11,7 +11,6 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
-use Mockery;
 use DateTime;
 use DateInterval;
 use Carbon\Carbon;
@@ -27,7 +26,6 @@ use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
-use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class DatetimeClaimTest extends AbstractTestCase
 {
