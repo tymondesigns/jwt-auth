@@ -265,15 +265,13 @@ class JWTTest extends AbstractTestCase
     /** @test */
     public function it_should_get_the_manager_instance()
     {
-        $manager = $this->jwt->manager();
-        $this->assertInstanceOf(Manager::class, $manager);
+        $this->assertInstanceOf(Manager::class, $this->jwt->manager());
     }
 
     /** @test */
     public function it_should_get_the_parser_instance()
     {
-        $parser = $this->jwt->parser();
-        $this->assertInstanceOf(Parser::class, $parser);
+        $this->assertInstanceOf(Parser::class, $this->jwt->parser());
     }
 
     /** @test */

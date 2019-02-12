@@ -37,11 +37,9 @@ function timestamp(int $timestamp): Carbon
  */
 function is_past(int $timestamp, int $leeway = 0): bool
 {
-    $timestamp = timestamp($timestamp);
-
-    return $leeway > 0
-        ? $timestamp->addSeconds($leeway)->isPast()
-        : $timestamp->isPast();
+    return timestamp($timestamp)
+        ->addSeconds($leeway)
+        ->isPast();
 }
 
 /**
@@ -49,9 +47,7 @@ function is_past(int $timestamp, int $leeway = 0): bool
  */
 function is_future(int $timestamp, int $leeway = 0): bool
 {
-    $timestamp = timestamp($timestamp);
-
-    return $leeway > 0
-        ? $timestamp->subSeconds($leeway)->isFuture()
-        : $timestamp->isFuture();
+    return timestamp($timestamp)
+        ->subSeconds($leeway)
+        ->isFuture();
 }

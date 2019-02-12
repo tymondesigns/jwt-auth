@@ -51,6 +51,13 @@ class Blacklist
     const FOREVER = 'FOREVER';
 
     /**
+     * The key to use for the blacklist value.
+     *
+     * @var string
+     */
+    const VALID_UNTIL = 'valid_until';
+
+    /**
      * Constructor.
      */
     public function __construct(Storage $storage)
@@ -71,7 +78,7 @@ class Blacklist
 
         $this->storage->add(
             $this->getKey($payload),
-            ['valid_until' => $this->getGraceTimestamp()],
+            [static::VALID_UNTIL => $this->getGraceTimestamp()],
             $this->getMinutesUntilExpired($payload)
         );
 
@@ -115,7 +122,7 @@ class Blacklist
         }
 
         // check whether the expiry + grace has past
-        return ! empty($val) && ! is_future($val['valid_until']);
+        return ! empty($val) && ! is_future($val[static::VALID_UNTIL]);
     }
 
     /**
@@ -154,7 +161,7 @@ class Blacklist
      */
     public function setGracePeriod(int $gracePeriod): self
     {
-        $this->gracePeriod = (int) $gracePeriod;
+        $this->gracePeriod = $gracePeriod;
 
         return $this;
     }

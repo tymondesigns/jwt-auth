@@ -1,4 +1,6 @@
-### Install via composer
+# Lumen Installation
+
+## Install via composer
 
 Run the following command to pull in the latest version:
 
@@ -8,7 +10,7 @@ composer require tymon/jwt-auth
 
 -------------------------------------------------------------------------------
 
-### Bootstrap file changes.
+## Bootstrap file changes.
 
 Add the following snippet to the `bootstrap/app.php` file under the providers section as follows:
 
@@ -30,7 +32,7 @@ $app->routeMiddleware([
 
 -------------------------------------------------------------------------------
 
-### Generate secret key
+## Generate secret key
 
 I have included a helper command to generate a key for you:
 

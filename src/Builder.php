@@ -111,10 +111,10 @@ class Builder
     public function getOptions(): Options
     {
         return new Options([
-            'leeway' => $this->leeway,
-            'required_claims' => $this->requiredClaims,
-            'max_refresh_period' => $this->maxRefreshPeriod,
-            'validators' => $this->customValidators,
+            Options::LEEWAY => $this->leeway,
+            Options::REQUIRED_CLAIMS => $this->requiredClaims,
+            Options::MAX_REFRESH_PERIOD => $this->maxRefreshPeriod,
+            Options::VALIDATORS => $this->customValidators,
         ]);
     }
 

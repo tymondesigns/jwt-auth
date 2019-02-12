@@ -18,6 +18,26 @@ use Illuminate\Support\Arr;
 final class Options
 {
     /**
+     * @var string
+     */
+    const LEEWAY = 'leeway';
+
+    /**
+     * @var string
+     */
+    const REQUIRED_CLAIMS = 'required_claims';
+
+    /**
+     * @var string
+     */
+    const MAX_REFRESH_PERIOD = 'max_refresh_period';
+
+    /**
+     * @var string
+     */
+    const VALIDATORS = 'validators';
+
+    /**
      * @var array
      */
     protected $options = [];
@@ -35,7 +55,7 @@ final class Options
      */
     public function requiredClaims(): array
     {
-        return Arr::get($this->options, 'required_claims', []);
+        return Arr::get($this->options, static::REQUIRED_CLAIMS, []);
     }
 
     /**
@@ -43,7 +63,7 @@ final class Options
      */
     public function leeway(): int
     {
-        return Arr::get($this->options, 'leeway', 0);
+        return Arr::get($this->options, static::LEEWAY, 0);
     }
 
     /**
@@ -51,7 +71,7 @@ final class Options
      */
     public function maxRefreshPeriod(): ?int
     {
-        return Arr::get($this->options, 'max_refresh_period');
+        return Arr::get($this->options, static::MAX_REFRESH_PERIOD);
     }
 
     /**
@@ -59,6 +79,6 @@ final class Options
      */
     public function validators(): array
     {
-        return Arr::get($this->options, 'validators', []);
+        return Arr::get($this->options, static::VALIDATORS, []);
     }
 }

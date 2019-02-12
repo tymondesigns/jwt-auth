@@ -34,7 +34,7 @@ class FactoryTest extends AbstractTestCase
             Expiration::class,
             Factory::get(Expiration::NAME, $this->testNowTimestamp + 3600)
         );
-        $this->assertInstanceOf(NotBefore::class, Factory::get('nbf', $this->testNowTimestamp));
+        $this->assertInstanceOf(NotBefore::class, Factory::get(NotBefore::NAME, $this->testNowTimestamp));
         $this->assertInstanceOf(IssuedAt::class, Factory::get(IssuedAt::NAME, $this->testNowTimestamp));
         $this->assertInstanceOf(JwtId::class, Factory::get(JwtId::NAME, 'foo'));
     }
@@ -57,7 +57,7 @@ class FactoryTest extends AbstractTestCase
         $this->assertEquals($iat->getLeeway(), 10);
         $this->assertEquals($iat->getMaxRefreshPeriod(), 2);
 
-        $nbf = Factory::get('nbf', null, new Options([
+        $nbf = Factory::get(NotBefore::NAME, null, new Options([
             'leeway' => 20,
             'max_refresh_period' => 1,
         ]));
@@ -66,7 +66,6 @@ class FactoryTest extends AbstractTestCase
         $this->assertEquals($nbf->getLeeway(), 20);
         $this->assertEquals($nbf->getMaxRefreshPeriod(), 1);
 
-        $jti = Factory::get(JwtId::NAME);
-        $this->assertInstanceOf(JwtId::class, $jti);
+        $this->assertInstanceOf(JwtId::class, Factory::get(JwtId::NAME));
     }
 }

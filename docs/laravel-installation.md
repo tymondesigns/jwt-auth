@@ -1,4 +1,6 @@
-### Install via composer
+# Laravel Installation
+
+## Install via composer
 
 Run the following command to pull in the latest version:
 
@@ -8,7 +10,7 @@ composer require tymon/jwt-auth
 
 -------------------------------------------------------------------------------
 
-### Add service provider ( Laravel 5.4 or below )
+## Add service provider ( Laravel 5.4 or below )
 
 Add the service provider to the `providers` array in the `config/app.php` config file as follows:
 
@@ -23,7 +25,7 @@ Add the service provider to the `providers` array in the `config/app.php` config
 
 -------------------------------------------------------------------------------
 
-### Publish the config
+## Publish the config
 
 Run the following command to publish the package config file:
 
@@ -35,7 +37,7 @@ You should now have a `config/jwt.php` file that allows you to configure the bas
 
 -------------------------------------------------------------------------------
 
-### Generate secret key
+## Generate secret key
 
 I have included a helper command to generate a key for you:
 

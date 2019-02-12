@@ -1,7 +1,9 @@
+# Quick Start
+
 Before continuing, make sure you have installed the package as per the installation instructions for
 [Laravel](laravel-installation) or [Lumen](lumen-installation).
 
-### Update your User model
+## Update your User model
 
 Firstly you need to implement the `Tymon\JWTAuth\Contracts\JWTSubject` contract on your User model,
 which requires that you implement the 2 methods `getJWTIdentifier()` and `getJWTCustomClaims()`.
@@ -46,9 +48,9 @@ class User extends Authenticatable implements JWTSubject
 }
 ```
 
-### Configure Auth guard
+## Configure Auth guard
 
-*Note: This will only work if you are using Laravel 5.2 and above.*
+!> This will only work if you are using Laravel 5.2 and above.*
 
 Inside the `config/auth.php` file you will need to make a few changes to configure Laravel
 to use the `jwt` guard to power your application authentication.
@@ -76,27 +78,23 @@ as the default.
 
 We can now use Laravel's built in Auth system, with jwt-auth doing the work behind the scenes!
 
-### Add some basic authentication routes
+## Add some basic authentication routes
 
 First let's add some routes in `routes/api.php` as follows:
 
 ```php
 Route::group([
-
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function ($router) {
-
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-
 });
 ```
 
-### Create the AuthController
+## Create the AuthController
 
 Then create the `AuthController`, either manually or by running the artisan command:
 
@@ -205,7 +203,7 @@ credentials and see a response like:
 
 This token can then be used to make authenticated requests to your application.
 
-### Authenticated requests
+## Authenticated requests
 
 There are a number of ways to send the token via http:
 

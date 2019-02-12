@@ -65,10 +65,7 @@ class PayloadTest extends AbstractTestCase
 
         $collection = Collection::make($claims);
 
-        $this->validator = Mockery::mock(PayloadValidator::class);
-        $this->validator->shouldReceive('setRefreshFlow->check')->andReturn($collection);
-
-        return new Payload($collection, $this->validator);
+        return new Payload($collection);
     }
 
     /**

@@ -43,13 +43,13 @@ class CollectionTest extends AbstractTestCase
         $collection = $this->getCollection();
 
         $this->assertFalse(
-            $collection->hasAllClaims([Subject::NAME, Issuer::NAME, Expiration::NAME, 'nbf', IssuedAt::NAME, JwtId::NAME, 'abc'])
+            $collection->hasAllClaims([Subject::NAME, Issuer::NAME, Expiration::NAME, NotBefore::NAME, IssuedAt::NAME, JwtId::NAME, 'abc'])
         );
         $this->assertFalse($collection->hasAllClaims(['foo', 'bar']));
 
         $this->assertTrue($collection->hasAllClaims([]));
         $this->assertTrue($collection->hasAllClaims([Subject::NAME, Issuer::NAME]));
-        $this->assertTrue($collection->hasAllClaims([Subject::NAME, Issuer::NAME, Expiration::NAME, 'nbf', IssuedAt::NAME, JwtId::NAME]));
+        $this->assertTrue($collection->hasAllClaims([Subject::NAME, Issuer::NAME, Expiration::NAME, NotBefore::NAME, IssuedAt::NAME, JwtId::NAME]));
     }
 
     /** @test */

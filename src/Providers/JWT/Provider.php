@@ -18,8 +18,9 @@ use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 
-abstract class Provider
+abstract class Provider implements JWT
 {
     /**
      * The secret.

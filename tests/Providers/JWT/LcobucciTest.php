@@ -37,7 +37,7 @@ class LcobucciTest extends AbstractTestCase
     protected $builder;
 
     /**
-     * @var \Tymon\JWTAuth\Providers\JWT\Namshi
+     * @var \Tymon\JWTAuth\Providers\JWT\Lcobucci
      */
     protected $provider;
 

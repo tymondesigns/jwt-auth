@@ -20,10 +20,12 @@ use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Traits\ForwardsCalls;
 
 class JWT
 {
     use CustomClaims;
+    use ForwardsCalls;
 
     /**
      * The payload builder.
@@ -292,6 +294,27 @@ class JWT
     }
 
     /**
+     * Set the secret.
+     */
+    public function setSecret(string $secret): self
+    {
+        $this->manager->getJWTProvider()
+            ->setSecret($secret);
+
+        return $this;
+    }
+
+    /**
+     * Set the required claims.
+     */
+    public function setRequiredClaims(array $claims = []): self
+    {
+        $this->builder->setRequiredClaims($claims);
+
+        return $this;
+    }
+
+    /**
      * Register a custom claim validator.
      */
     public function registerCustomValidator(string $key, callable $validator): self
@@ -310,10 +333,6 @@ class JWT
      */
     public function __call(string $method, array $parameters)
     {
-        if (method_exists($this->manager, $method)) {
-            return call_user_func_array([$this->manager, $method], $parameters);
-        }
-
-        throw new BadMethodCallException("Method [$method] does not exist.");
+        return $this->forwardCallTo($this->manager, $method, $parameters);
     }
 }

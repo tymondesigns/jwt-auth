@@ -18,24 +18,11 @@ use ReflectionClass;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Rsa;
-use Lcobucci\JWT\Signer\Ecdsa;
-use Lcobucci\JWT\Signer\Keychain;
 use Illuminate\Support\Collection;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
-use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
-use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
-use Lcobucci\JWT\Signer\Hmac\Sha256 as HS256;
-use Lcobucci\JWT\Signer\Hmac\Sha384 as HS384;
-use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
-use Lcobucci\JWT\Signer\Ecdsa\Sha256 as ES256;
-use Lcobucci\JWT\Signer\Ecdsa\Sha384 as ES384;
-use Lcobucci\JWT\Signer\Ecdsa\Sha512 as ES512;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-class Lcobucci extends Provider implements JWT
+class Lcobucci extends Provider
 {
     /**
      * The Builder instance.
@@ -50,6 +37,13 @@ class Lcobucci extends Provider implements JWT
      * @var \Lcobucci\JWT\Parser
      */
     protected $parser;
+
+    /**
+     * The Signer instance.
+     *
+     * @var \Lcobucci\JWT\Signer
+     */
+    protected $signer;
 
     /**
      * Constructor.
@@ -74,15 +68,15 @@ class Lcobucci extends Provider implements JWT
      * @var array
      */
     protected $signers = [
-        'HS256' => HS256::class,
-        'HS384' => HS384::class,
-        'HS512' => HS512::class,
-        'RS256' => RS256::class,
-        'RS384' => RS384::class,
-        'RS512' => RS512::class,
-        'ES256' => ES256::class,
-        'ES384' => ES384::class,
-        'ES512' => ES512::class,
+        'HS256' => Signer\Hmac\Sha256::class,
+        'HS384' => Signer\Hmac\Sha384::class,
+        'HS512' => Signer\Hmac\Sha512::class,
+        'RS256' => Signer\Rsa\Sha256::class,
+        'RS384' => Signer\Rsa\Sha384::class,
+        'RS512' => Signer\Rsa\Sha512::class,
+        'ES256' => Signer\Ecdsa\Sha256::class,
+        'ES384' => Signer\Ecdsa\Sha384::class,
+        'ES512' => Signer\Ecdsa\Sha512::class,
     ];
 
     /**
@@ -156,7 +150,8 @@ class Lcobucci extends Provider implements JWT
     {
         $reflect = new ReflectionClass($this->signer);
 
-        return $reflect->isSubclassOf(Rsa::class) || $reflect->isSubclassOf(Ecdsa::class);
+        return $reflect->isSubclassOf(Signer\Rsa::class)
+            || $reflect->isSubclassOf(Signer\Ecdsa::class);
     }
 
     /**
@@ -165,7 +160,7 @@ class Lcobucci extends Provider implements JWT
     protected function getSigningKey()
     {
         return $this->isAsymmetric()
-            ? (new Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase())
+            ? (new Signer\Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase())
             : $this->getSecret();
     }
 
@@ -175,7 +170,7 @@ class Lcobucci extends Provider implements JWT
     protected function getVerificationKey()
     {
         return $this->isAsymmetric()
-            ? (new Keychain())->getPublicKey($this->getPublicKey())
+            ? (new Signer\Keychain())->getPublicKey($this->getPublicKey())
             : $this->getSecret();
     }
 }

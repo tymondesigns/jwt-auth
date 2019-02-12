@@ -21,13 +21,9 @@ class Collection extends IlluminateCollection
     /**
      * Get a Claim instance by it's unique name.
      */
-    public function getByClaimName(
-        string $name,
-        ?callable $callback = null,
-        $default = null
-    ): ?ClaimContract {
+    public function getByClaimName(string $name, ...$args): ?ClaimContract {
         return $this->filter->matchesName($name)
-            ->first($callback, $default);
+            ->first(...$args);
     }
 
     /**
@@ -61,8 +57,7 @@ class Collection extends IlluminateCollection
      */
     public function toPlainArray(): array
     {
-        return $this->map
-            ->getValue()
+        return $this->map->getValue()
             ->toArray();
     }
 

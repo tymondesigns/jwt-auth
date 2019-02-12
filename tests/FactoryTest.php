@@ -36,7 +36,7 @@ class FactoryTest extends AbstractTestCase
 
         $this->assertSame($payload->get(Subject::NAME), 1);
         $this->assertSame($payload(IssuedAt::NAME), $this->testNowTimestamp);
-        $this->assertSame($payload('nbf'), $this->testNowTimestamp);
+        $this->assertSame($payload(NotBefore::NAME), $this->testNowTimestamp);
         $this->assertSame($payload['foo'], 'bar');
 
         $this->assertInstanceOf(Payload::class, $payload);

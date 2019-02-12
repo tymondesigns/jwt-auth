@@ -22,4 +22,20 @@ class JWTProviderStub extends Provider
     {
         return false;
     }
+
+    /**
+     * Create a JSON Web Token.
+     */
+    public function encode(array $payload): string
+    {
+        return 'foo.bar.baz';
+    }
+
+    /**
+     * Decode a JSON Web Token.
+     */
+    public function decode(string $token): array
+    {
+        return ['foo' => 'bar'];
+    }
 }

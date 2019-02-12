@@ -23,11 +23,13 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Traits\Macroable;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard
 {
     use GuardHelpers;
+    use ForwardsCalls;
     use Macroable {
         __call as macroCall;
     }
@@ -405,10 +407,6 @@ class JWTGuard implements Guard
             return $this->macroCall($method, $parameters);
         }
 
-        if (method_exists($this->jwt, $method)) {
-            return call_user_func_array([$this->jwt, $method], $parameters);
-        }
-
-        throw new BadMethodCallException("Method [$method] does not exist.");
+        return $this->forwardCallTo($this->jwt, $method, $parameters);
     }
 }

@@ -15,10 +15,13 @@ namespace Tymon\JWTAuth\Http;
 
 use Tymon\JWTAuth\Token;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\Contracts\Support\Responsable;
 
 class TokenResponse implements Responsable
 {
+    use ForwardsCalls;
+
     /**
      * The token itself.
      *
@@ -79,10 +82,6 @@ class TokenResponse implements Responsable
      */
     public function __call(string $method, array $parameters)
     {
-        if (method_exists($this->token, $method)) {
-            return call_user_func_array([$this->token, $method], $parameters);
-        }
-
-        throw new BadMethodCallException("Method [$method] does not exist.");
+        return $this->forwardCallTo($this->token, $method, $parameters);
     }
 }
