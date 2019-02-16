@@ -48,7 +48,7 @@ class User extends Authenticatable implements JWTSubject
 
 ### Configure Auth guard
 
-*Note: This will only work if you are using Laravel 5.2 and above.*
+_Note: This will only work if you are using Laravel 5.2 and above._
 
 Inside the `config/auth.php` file you will need to make a few changes to configure Laravel
 to use the `jwt` guard to power your application authentication.
@@ -113,6 +113,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -135,7 +136,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = Auth::guard()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -149,7 +150,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(Auth::guard()->user());
     }
 
     /**
@@ -159,7 +160,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        Auth::guard()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -171,7 +172,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(Auth::guard()->refresh());
     }
 
     /**
@@ -186,7 +187,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => Auth::guard()->factory()->getTTL() * 60
         ]);
     }
 }

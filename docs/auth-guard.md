@@ -5,10 +5,10 @@ The following methods are available on the Auth guard instance.
 ### Multiple Guards
 
 If the newly created 'api' guard is not set as a default guard or you have defined multiple guards to handle authentication,
-you should specify the guard when calling auth().
+you should specify the guard when calling Auth::guard().
 
 ```php
-  $token = auth('api')->attempt($credentials);
+  $token = Auth::guard('api')->attempt($credentials);
 ```
 
 ### attempt()
@@ -17,7 +17,7 @@ Attempt to authenticate a user via some credentials.
 
 ```php
 // Generate a token for the user if the credentials are valid
-$token = auth()->attempt($credentials);
+$token = Auth::guard()->attempt($credentials);
 ```
 
 This will return either a jwt or `null`
@@ -31,7 +31,7 @@ Log a user in and return a jwt for them.
 $user = User::first();
 
 // Get the token
-$token = auth()->login($user);
+$token = Auth::guard()->login($user);
 ```
 
 ### user()
@@ -40,7 +40,7 @@ Get the currently authenticated user.
 
 ```php
 // Get the currently authenticated user
-$user = auth()->user();
+$user = Auth::guard()->user();
 ```
 
 If the user is not then authenticated, then `null` will be returned.
@@ -51,7 +51,7 @@ Get the currently authenticated user or throw an exception.
 
 ```php
 try {
-    $user = auth()->userOrFail();
+    $user = Auth::guard()->userOrFail();
 } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
     // do something
 }
@@ -65,10 +65,10 @@ If the user is not set, then a `Tymon\JWTAuth\Exceptions\UserNotDefinedException
 Log the user out - which will invalidate the current token and unset the authenticated user.
 
 ```php
-auth()->logout();
+Auth::guard()->logout();
 
 // Pass true to force the token to be blacklisted "forever"
-auth()->logout(true);
+Auth::guard()->logout(true);
 ```
 
 ### refresh()
@@ -76,11 +76,11 @@ auth()->logout(true);
 Refresh a token, which invalidates the current one
 
 ```php
-$newToken = auth()->refresh();
+$newToken = Auth::guard()->refresh();
 
 // Pass true as the first param to force the token to be blacklisted "forever".
 // The second parameter will reset the claims for the new token
-$newToken = auth()->refresh(true, true);
+$newToken = Auth::guard()->refresh(true, true);
 ```
 
 ### invalidate()
@@ -88,10 +88,10 @@ $newToken = auth()->refresh(true, true);
 Invalidate the token (add it to the blacklist)
 
 ```php
-auth()->invalidate();
+Auth::guard()->invalidate();
 
 // Pass true as the first param to force the token to be blacklisted "forever".
-auth()->invalidate(true);
+Auth::guard()->invalidate(true);
 ```
 
 ### tokenById()
@@ -99,7 +99,7 @@ auth()->invalidate(true);
 Get a token based on a given user's id.
 
 ```php
-$token = auth()->tokenById(123);
+$token = Auth::guard()->tokenById(123);
 ```
 
 ### payload()
@@ -107,7 +107,7 @@ $token = auth()->tokenById(123);
 Get the raw JWT payload
 
 ```php
-$payload = auth()->payload();
+$payload = Auth::guard()->payload();
 
 // then you can access the claims directly e.g.
 $payload->get('sub'); // = 123
@@ -121,7 +121,7 @@ $payload->toArray(); // = ['sub' => 123, 'exp' => 123456, 'jti' => 'asfe4fq434as
 Validate a user's credentials
 
 ```php
-if (auth()->validate($credentials)) {
+if (Auth::guard()->validate($credentials)) {
     // credentials are valid
 }
 ```
@@ -131,23 +131,23 @@ if (auth()->validate($credentials)) {
 ### Adding custom claims
 
 ```php
-$token = auth()->claims(['foo' => 'bar'])->attempt($credentials);
+$token = Auth::guard()->claims(['foo' => 'bar'])->attempt($credentials);
 ```
 
 ### Set the token explicitly
 
 ```php
-$user = auth()->setToken('eyJhb...')->user();
+$user = Auth::guard()->setToken('eyJhb...')->user();
 ```
 
 ### Set the request instance explicitly
 
 ```php
-$user = auth()->setRequest($request)->user();
+$user = Auth::guard()->setRequest($request)->user();
 ```
 
 ### Override the token ttl
 
 ```php
-$token = auth()->setTTL(7200)->attempt($credentials);
+$token = Auth::guard()->setTTL(7200)->attempt($credentials);
 ```
