@@ -30,7 +30,7 @@
         "illuminate/support": "^5.1",
         "lcobucci/jwt": "^3.2",
         "namshi/jose": "^7.0",
-        "nesbot/carbon": "^1.0"
+        "nesbot/carbon": "^1.0 || ^2.0"
     },
     "require-dev": {
         "cartalyst/sentinel": "2.0.*",
