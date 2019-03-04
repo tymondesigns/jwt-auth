@@ -114,8 +114,13 @@ class BlacklistTest extends AbstractTestCase
 
         $payload = new Payload($collection, $this->validator, true);
 
-        $this->storage->shouldReceive('add')->with('foo', ['valid_until' => $this->testNowTimestamp], 20161)->once();
-        $this->assertTrue($this->blacklist->add($payload));
+        $refreshTTL = 20161;
+
+        $this->storage->shouldReceive('add')
+            ->with('foo', ['valid_until' => $this->testNowTimestamp], $refreshTTL + 1)
+            ->once();
+
+        $this->assertTrue($this->blacklist->setRefreshTTL($refreshTTL)->add($payload));
     }
 
     /** @test */
