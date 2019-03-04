@@ -25,4 +25,20 @@ class LaravelServiceProvider extends AbstractServiceProvider
 
         $this->extendAuthGuard();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function registerStorageProvider()
+    {
+        $this->app->singleton('tymon.jwt.provider.storage', function () {
+            $instance = $this->getConfigInstance('providers.storage');
+
+            if (method_exists($instance, 'setLaravelVersion')) {
+                $instance->setLaravelVersion($this->app->version());
+            }
+
+            return $instance;
+        });
+    }
 }

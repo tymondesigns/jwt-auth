@@ -38,6 +38,11 @@ class Illuminate implements Storage
     protected $supportsTags;
 
     /**
+     * @var string|null
+     */
+    protected $laravelVersion;
+
+    /**
      * Constructor.
      */
     public function __construct(CacheContract $cache)
@@ -50,6 +55,14 @@ class Illuminate implements Storage
      */
     public function add(string $key, $value, $minutes): void
     {
+        // If the laravel version is 5.8 or higher then convert minutes to seconds.
+        if ($this->laravelVersion !== null
+            && is_int($minutes)
+            && version_compare($this->laravelVersion, '5.8', '>=')
+        ) {
+            $minutes = $minutes * 60;
+        }
+
         $this->cache()->put($key, $value, $minutes);
     }
 
@@ -102,32 +115,27 @@ class Illuminate implements Storage
     }
 
     /**
+     * Set the laravel version.
+     */
+    public function setLaravelVersion(string $version)
+    {
+        $this->laravelVersion = $version;
+
+        return $this;
+    }
+
+    /**
      * Detect as best we can whether tags are supported with this repository & store,
      * and save our result on the $supportsTags flag.
-     *
-     * @return void
      */
-    protected function determineTagSupport()
+    protected function determineTagSupport(): void
     {
-        // Laravel >= 5.1.28
-        if (method_exists($this->cache, 'tags') || $this->cache instanceof PsrCacheInterface) {
-            try {
-                // Attempt the repository tags command, which throws exceptions when unsupported
-                $this->cache->tags($this->tag);
-                $this->supportsTags = true;
-            } catch (BadMethodCallException $ex) {
-                $this->supportsTags = false;
-            }
-        } else {
-            // Laravel <= 5.1.27
-            if (method_exists($this->cache, 'getStore')) {
-                // Check for the tags function directly on the store
-                $this->supportsTags = method_exists($this->cache->getStore(), 'tags');
-            } else {
-                // Must be using custom cache repository without getStore(), and all bets are off,
-                // or we are mocking the cache contract (in testing), which will not create a getStore method
-                $this->supportsTags = false;
-            }
+        try {
+            // Attempt the repository tags command, which throws exceptions when unsupported
+            $this->cache->tags($this->tag);
+            $this->supportsTags = true;
+        } catch (BadMethodCallException $ex) {
+            $this->supportsTags = false;
         }
     }
 }
