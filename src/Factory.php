@@ -84,9 +84,7 @@ class Factory
             $this->emptyClaims();
         }
 
-        $payload = $this->withClaims($this->buildClaimsCollection());
-
-        return $payload;
+        return $this->withClaims($this->buildClaimsCollection());
     }
 
     /**

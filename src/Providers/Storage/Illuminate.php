@@ -38,6 +38,11 @@ class Illuminate implements Storage
     protected $supportsTags;
 
     /**
+     * @var string|null
+     */
+    protected $laravelVersion;
+
+    /**
      * Constructor.
      *
      * @param  \Illuminate\Contracts\Cache\Repository  $cache
@@ -60,6 +65,14 @@ class Illuminate implements Storage
      */
     public function add($key, $value, $minutes)
     {
+        // If the laravel version is 5.8 or higher then convert minutes to seconds.
+        if ($this->laravelVersion !== null
+            && is_int($minutes)
+            && version_compare($this->laravelVersion, '5.8', '>=')
+        ) {
+            $minutes = $minutes * 60;
+        }
+
         $this->cache()->put($key, $value, $minutes);
     }
 
@@ -126,6 +139,16 @@ class Illuminate implements Storage
         }
 
         return $this->cache;
+    }
+
+    /**
+     * Set the laravel version.
+     */
+    public function setLaravelVersion(string $version)
+    {
+        $this->laravelVersion = $version;
+
+        return $this;
     }
 
     /**

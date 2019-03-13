@@ -39,7 +39,7 @@ class JWTGenerateSecretCommand extends Command
      */
     public function handle()
     {
-        $key = Str::random(32);
+        $key = Str::random(64);
 
         if ($this->option('show')) {
             $this->comment($key);
