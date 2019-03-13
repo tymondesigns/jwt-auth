@@ -74,6 +74,10 @@ class BlacklistTest extends AbstractTestCase
             ->with('foo', ['valid_until' => $this->testNowTimestamp], $refreshTTL + 1)
             ->once();
 
+        $this->storage->allows('get')
+            ->with($this->blacklist->getKey($payload))
+            ->once();
+
         $this->blacklist->setRefreshTTL($refreshTTL)->add($payload);
     }
 
@@ -118,6 +122,10 @@ class BlacklistTest extends AbstractTestCase
 
         $this->storage->shouldReceive('add')
             ->with('foo', ['valid_until' => $this->testNowTimestamp], $refreshTTL + 1)
+            ->once();
+
+        $this->storage->allows('get')
+            ->with($this->blacklist->getKey($payload))
             ->once();
 
         $this->assertTrue($this->blacklist->setRefreshTTL($refreshTTL)->add($payload));
