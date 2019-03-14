@@ -144,7 +144,7 @@ class Illuminate implements Storage
     /**
      * Set the laravel version.
      */
-    public function setLaravelVersion(string $version)
+    public function setLaravelVersion($version)
     {
         $this->laravelVersion = $version;
 
