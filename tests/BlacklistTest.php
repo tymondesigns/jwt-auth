@@ -54,11 +54,40 @@ class BlacklistTest extends AbstractTestCase
             new JwtId('foo'),
         ]);
 
+        $this->storage->shouldReceive('get')
+            ->with('foo')
+            ->once()
+            ->andReturn([]);
+
         $this->storage->shouldReceive('add')
             ->with('foo', ['valid_until' => $this->testNowTimestamp], 61)
             ->once();
 
         $this->blacklist->add($payload);
+    }
+
+    /** @test */
+    public function it_should_return_true_early_when_adding_an_item_and_it_already_exists()
+    {
+        $payload = Factory::make([
+            new Subject(1),
+            new Issuer('http://example.com'),
+            new Expiration($this->testNowTimestamp + 3600),
+            new NotBefore($this->testNowTimestamp),
+            new IssuedAt($this->testNowTimestamp),
+            new JwtId('foo'),
+        ]);
+
+        $this->storage->shouldReceive('get')
+            ->with('foo')
+            ->once()
+            ->andReturn(['valid_until' => $this->testNowTimestamp]);
+
+        $this->storage->shouldReceive('add')
+            ->with('foo', ['valid_until' => $this->testNowTimestamp], 61)
+            ->never();
+
+        $this->assertTrue($this->blacklist->add($payload));
     }
 
     /** @test */

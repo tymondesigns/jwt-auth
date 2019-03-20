@@ -76,6 +76,11 @@ class Blacklist
             return $this->addForever($payload);
         }
 
+        // if we have already added this token to the blacklist
+        if (! empty($this->storage->get($this->getKey($payload)))) {
+            return true;
+        }
+
         $this->storage->add(
             $this->getKey($payload),
             [static::VALID_UNTIL => $this->getGraceTimestamp()],
