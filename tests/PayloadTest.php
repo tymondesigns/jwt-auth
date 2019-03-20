@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Tymon\JWTAuth\Payload;
+use BadMethodCallException;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Issuer;
@@ -21,6 +22,7 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Exceptions\PayloadException;
 
 class PayloadTest extends AbstractTestCase
 {
@@ -66,22 +68,20 @@ class PayloadTest extends AbstractTestCase
         return new Payload($collection);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_trying_to_add_to_the_payload()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\PayloadException::class, 'The payload is immutable');
+        $this->expectException(PayloadException::class);
+        $this->expectExceptionMessage('The payload is immutable');
 
         $this->payload['foo'] = 'bar';
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_trying_to_remove_a_key_from_the_payload()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\PayloadException::class, 'The payload is immutable');
+        $this->expectException(PayloadException::class);
+        $this->expectExceptionMessage('The payload is immutable');
 
         unset($this->payload['foo']);
     }
@@ -110,7 +110,7 @@ class PayloadTest extends AbstractTestCase
     /** @test */
     public function it_should_get_properties_of_payload_via_get_method()
     {
-        $this->assertInternalType('array', $this->payload->get());
+        $this->assertIsArray($this->payload->get());
         $this->assertSame($this->payload->get(Subject::NAME), 1);
         $this->assertSame($this->payload->get(JwtId::NAME), 'foo');
     }
@@ -122,7 +122,7 @@ class PayloadTest extends AbstractTestCase
 
         list($sub, $jti) = $values;
 
-        $this->assertInternalType('array', $values);
+        $this->assertIsArray($values);
         $this->assertSame($sub, 1);
         $this->assertSame($jti, 'foo');
     }
@@ -162,12 +162,11 @@ class PayloadTest extends AbstractTestCase
         $this->assertSame($payload(), $this->payload->toArray());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
     {
-        $this->setExpectedException(\BadMethodCallException::class, 'The claim [getFoo] does not exist on the payload.');
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('The claim [Foo] does not exist on the payload.');
 
         $this->payload->getFoo();
     }

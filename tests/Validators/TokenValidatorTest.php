@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Test\Validators;
 
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Validators\TokenValidator;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class TokenValidatorTest extends AbstractTestCase
 {
@@ -41,7 +42,8 @@ class TokenValidatorTest extends AbstractTestCase
      */
     public function it_should_throw_an_exception_when_providing_a_malformed_token($token)
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Malformed token');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Malformed token');
 
         TokenValidator::check($token);
     }
@@ -72,7 +74,8 @@ class TokenValidatorTest extends AbstractTestCase
     public function it_should_throw_an_exception_when_providing_a_malformed_token_with_wrong_segments_number(
         $token
     ) {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Wrong number of segments');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Wrong number of segments');
 
         TokenValidator::check($token);
     }

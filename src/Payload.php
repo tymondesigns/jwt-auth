@@ -23,11 +23,14 @@ use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Facades\JWTManager;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {
+    use ForwardsCalls;
+
     /**
      * The collection of claims.
      *
@@ -240,15 +243,18 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
     public function __call(string $method, array $parameters)
     {
         if (preg_match('/get(.+)\b/i', $method, $matches)) {
+            $match = $matches[1];
             foreach ($this->claims as $claim) {
-                if (get_class($claim) === 'Tymon\\JWTAuth\\Claims\\'.$matches[1]) {
+                if (get_class($claim) === 'Tymon\\JWTAuth\\Claims\\'.$match) {
                     return $claim->getValue();
                 }
             }
+
+            throw new BadMethodCallException(
+                sprintf('The claim [%s] does not exist on the payload.', $match ?? $method)
+            );
         }
 
-        throw new BadMethodCallException(
-            sprintf('The claim [%s] does not exist on the payload.', $method)
-        );
+        static::throwBadMethodCallException($method);
     }
 }

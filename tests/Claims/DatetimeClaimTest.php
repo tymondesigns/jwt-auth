@@ -167,12 +167,13 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_get_the_date_interval_instance()
     {
-        // TODO: fix this carbon issue
         $exp = new Expiration($this->testNowTimestamp + ($seconds = 3600));
+        $this->assertInstanceOf(CarbonInterval::class, $exp->asCarbonInterval());
         // $this->assertEquals(CarbonInterval::seconds($seconds)->cascade(), $exp->asCarbonInterval());
-        // $this->assertEquals('PT1H', $exp->asCarbonInterval()->spec());
+        $this->assertEquals('PT1H', $exp->asCarbonInterval()->cascade()->spec());
 
         $iat = new IssuedAt($this->testNowTimestamp);
+        $this->assertInstanceOf(CarbonInterval::class, $iat->asCarbonInterval());
         // $this->assertEquals(CarbonInterval::seconds(0)->cascade(), $iat->asCarbonInterval());
         // $this->assertEquals('PT0S', $iat->asCarbonInterval()->spec());
     }

@@ -20,6 +20,7 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class FactoryTest extends AbstractTestCase
 {
@@ -72,12 +73,11 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Custom::class, $payload->getInternal('foo'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_run_a_custom_validator_and_throw_exception()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Validation failed for claim [foo]');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Validation failed for claim [foo]');
 
         Factory::make([
             JwtId::NAME => 'foo',

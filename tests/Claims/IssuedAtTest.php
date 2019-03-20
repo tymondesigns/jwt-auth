@@ -13,15 +13,15 @@ namespace Tymon\JWTAuth\Test\Claims;
 
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 class IssuedAtTest extends AbstractTestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_passing_a_future_timestamp()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\InvalidClaimException::class, 'Invalid value provided for claim [iat]');
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [iat]');
 
         new IssuedAt($this->testNowTimestamp + 3600);
     }

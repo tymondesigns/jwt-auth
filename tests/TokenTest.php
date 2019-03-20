@@ -36,6 +36,6 @@ class TokenTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_token_when_calling_get_method()
     {
-        $this->assertInternalType('string', $this->token->get());
+        $this->assertIsString($this->token->get());
     }
 }

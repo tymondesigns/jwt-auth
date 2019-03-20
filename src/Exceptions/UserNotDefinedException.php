@@ -13,5 +13,8 @@ namespace Tymon\JWTAuth\Exceptions;
 
 class UserNotDefinedException extends JWTException
 {
-    //
+    /**
+     * {@inheritdoc}
+     */
+    protected $message = 'User not defined';
 }

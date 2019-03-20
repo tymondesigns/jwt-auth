@@ -23,6 +23,8 @@ use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Providers\JWT\Lcobucci;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class LcobucciTest extends AbstractTestCase
 {
@@ -75,12 +77,11 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\JWTException::class, 'Could not create token:');
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Could not create token:');
 
         $payload = [
             Subject::NAME => 1,
@@ -126,12 +127,11 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Token Signature could not be verified.');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Token Signature could not be verified.');
 
         $this->parser->shouldReceive('parse')
             ->once()
@@ -146,12 +146,11 @@ class LcobucciTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Could not decode token:');
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Could not decode token:');
 
         $this->parser->shouldReceive('parse')
             ->once()
@@ -194,12 +193,11 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\JWTException::class, 'The given algorithm could not be found');
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('The given algorithm could not be found');
 
         $this->parser->shouldReceive('parse')->never();
         $this->parser->shouldReceive('verify')->never();
@@ -207,9 +205,7 @@ class LcobucciTest extends AbstractTestCase
         $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_return_the_public_key()
     {
         $provider = $this->getProvider(
@@ -224,9 +220,7 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($keys['public'], $provider->getPublicKey());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_return_the_keys()
     {
         $provider = $this->getProvider(

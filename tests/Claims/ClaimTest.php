@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Test\Claims;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Illuminate\Contracts\Support\Arrayable;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 class ClaimTest extends AbstractTestCase
 {
@@ -29,12 +30,11 @@ class ClaimTest extends AbstractTestCase
         $this->claim = new Expiration($this->testNowTimestamp);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_passing_an_invalid_value()
     {
-        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\InvalidClaimException::class, 'Invalid value provided for claim [exp]');
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [exp]');
 
         $this->claim->setValue('foo');
     }
