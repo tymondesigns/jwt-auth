@@ -77,11 +77,11 @@ class LcobucciTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage Could not create token:
      */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\JWTException::class, 'Could not create token:');
+
         $payload = [
             Subject::NAME => 1,
             Expiration::NAME => $this->testNowTimestamp,
@@ -128,11 +128,11 @@ class LcobucciTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Token Signature could not be verified.
      */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Token Signature could not be verified.');
+
         $this->parser->shouldReceive('parse')
             ->once()
             ->with('foo.bar.baz')
@@ -148,11 +148,11 @@ class LcobucciTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Could not decode token:
      */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Could not decode token:');
+
         $this->parser->shouldReceive('parse')
             ->once()
             ->with('foo.bar.baz')
@@ -196,11 +196,11 @@ class LcobucciTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage The given algorithm could not be found
      */
     public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\JWTException::class, 'The given algorithm could not be found');
+
         $this->parser->shouldReceive('parse')->never();
         $this->parser->shouldReceive('verify')->never();
 

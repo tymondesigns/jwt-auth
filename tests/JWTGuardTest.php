@@ -176,11 +176,11 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
-     * @expectedExceptionMessage An error occurred
      */
     public function it_should_throw_an_exception_if_an_invalid_token_is_provided()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\UserNotDefinedException::class, 'An error occurred');
+
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')
             ->twice()
@@ -197,11 +197,11 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
-     * @expectedExceptionMessage An error occurred
      */
     public function it_should_throw_an_exception_if_no_token_is_provided()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\UserNotDefinedException::class, 'An error occurred');
+
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->andReturn(null);
         $this->jwt->shouldReceive('check')->never();
@@ -358,11 +358,11 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage Token could not be parsed from the request.
      */
     public function it_should_throw_an_exception_if_there_is_no_token_present_when_required()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\JWTException::class, 'Token could not be parsed from the request.');
+
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')
             ->once()

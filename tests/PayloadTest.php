@@ -68,21 +68,21 @@ class PayloadTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\PayloadException
-     * @expectedExceptionMessage The payload is immutable
      */
     public function it_should_throw_an_exception_when_trying_to_add_to_the_payload()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\PayloadException::class, 'The payload is immutable');
+
         $this->payload['foo'] = 'bar';
     }
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\PayloadException
-     * @expectedExceptionMessage The payload is immutable
      */
     public function it_should_throw_an_exception_when_trying_to_remove_a_key_from_the_payload()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\PayloadException::class, 'The payload is immutable');
+
         unset($this->payload['foo']);
     }
 
@@ -164,11 +164,11 @@ class PayloadTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage The claim [getFoo] does not exist on the payload.
      */
     public function it_should_throw_an_exception_when_magically_getting_a_property_that_does_not_exist()
     {
+        $this->setExpectedException(\BadMethodCallException::class, 'The claim [getFoo] does not exist on the payload.');
+
         $this->payload->getFoo();
     }
 

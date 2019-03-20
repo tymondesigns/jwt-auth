@@ -18,11 +18,11 @@ class IssuedAtTest extends AbstractTestCase
 {
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [iat]
      */
     public function it_should_throw_an_exception_when_passing_a_future_timestamp()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\InvalidClaimException::class, 'Invalid value provided for claim [iat]');
+
         new IssuedAt($this->testNowTimestamp + 3600);
     }
 }

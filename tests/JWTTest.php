@@ -195,11 +195,11 @@ class JWTTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage The token could not be parsed from the request
      */
     public function it_should_throw_an_exception_when_token_not_present_in_request()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\JWTException::class, 'The token could not be parsed from the request');
+
         $this->parser->shouldReceive('parseToken')->andReturn(false);
 
         $this->jwt->parseToken();
