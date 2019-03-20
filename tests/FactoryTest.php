@@ -74,11 +74,11 @@ class FactoryTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Validation failed for claim [foo]
      */
     public function it_should_run_a_custom_validator_and_throw_exception()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Validation failed for claim [foo]');
+
         Factory::make([
             JwtId::NAME => 'foo',
             IssuedAt::NAME => $this->testNowTimestamp - 3600,

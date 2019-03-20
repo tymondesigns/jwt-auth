@@ -43,11 +43,11 @@ class PayloadValidatorTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     * @expectedExceptionMessage Token has expired
      */
     public function it_should_throw_an_exception_when_providing_an_expired_payload()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenExpiredException::class, 'Token has expired');
+
         $claims = [
             new Subject(1),
             new Issuer('example.com'),
@@ -64,11 +64,11 @@ class PayloadValidatorTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Not Before (nbf) timestamp cannot be in the future
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'Not Before (nbf) timestamp cannot be in the future');
+
         $claims = [
             new Subject(1),
             new Issuer('example.com'),
@@ -85,11 +85,11 @@ class PayloadValidatorTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [iat]
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_iat_claim()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\InvalidClaimException::class, 'Invalid value provided for claim [iat]');
+
         $claims = [
             new Subject(1),
             new Issuer('example.com'),
@@ -106,11 +106,11 @@ class PayloadValidatorTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage JWT does not contain the required claims
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\TokenInvalidException::class, 'JWT does not contain the required claims');
+
         $claims = [new Subject(1), new Issuer('http://example.com')];
 
         $collection = Collection::make($claims);
@@ -120,11 +120,11 @@ class PayloadValidatorTest extends AbstractTestCase
 
     /**
      * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [exp]
      */
     public function it_should_throw_an_exception_when_providing_an_invalid_expiry()
     {
+        $this->setExpectedException(\Tymon\JWTAuth\Exceptions\InvalidClaimException::class, 'Invalid value provided for claim [exp]');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
