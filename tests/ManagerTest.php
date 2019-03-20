@@ -54,7 +54,7 @@ class ManagerTest extends AbstractTestCase
      */
     protected $manager;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -34,7 +34,7 @@ class PayloadTest extends AbstractTestCase
      */
     protected $payload;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

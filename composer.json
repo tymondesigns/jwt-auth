@@ -23,12 +23,12 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "illuminate/contracts": "^5.4",
         "illuminate/http": "^5.4",
         "illuminate/support": "^5.4",
         "lcobucci/jwt": "^3.2",
-        "nesbot/carbon": "^1.26"
+        "nesbot/carbon": "^1.0 || ^2.0"
     },
     "require-dev": {
         "illuminate/auth": "^5.4",
@@ -37,7 +37,7 @@
         "illuminate/routing": "^5.4",
         "mockery/mockery": "^1.0",
         "phpstan/phpstan": "^0.11.1",
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "files": [

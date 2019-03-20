@@ -48,7 +48,7 @@ class JWTTest extends AbstractTestCase
      */
     protected $jwt;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->builder = Mockery::spy(Builder::class);
         $this->manager = Mockery::spy(Manager::class);
