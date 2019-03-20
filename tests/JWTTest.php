@@ -22,6 +22,7 @@ use Tymon\JWTAuth\Blacklist;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Tymon\JWTAuth\Claims\HashedSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -71,61 +72,55 @@ class JWTTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_pass_provider_check_if_hash_matches()
+    public function it_should_pass_hash_check_if_hash_matches()
     {
         $hash = sha1(UserStub::class);
 
         $payload = Mockery::mock(Payload::class)->shouldReceive('offsetExists')
-                ->with('prv')
-                ->andReturn(true)
-                ->getMock();
-
-        $payload->shouldReceive('offsetGet')
-            ->with('prv')
-            ->andReturn($hash)
+            ->with(HashedSubject::NAME)
+            ->andReturn(true)
             ->getMock();
 
-        $this->manager->shouldReceive('decode')
-            ->once()
-            ->andReturn($payload);
+        $payload->shouldReceive('get')
+            ->with(HashedSubject::NAME)
+            ->andReturn($hash);
 
         $this->builder->shouldReceive('hashSubjectModel')
             ->once()
             ->with(UserStub::class)
             ->andReturn($hash);
 
-        $this->assertTrue($this->jwt->setToken('foo.bar.baz')->checkSubjectModel(UserStub::class));
+        $this->assertTrue(
+            $this->jwt->setToken('foo.bar.baz')->checkSubjectModel(UserStub::class, $payload)
+        );
     }
 
     /** @test */
-    public function it_should_pass_provider_check_if_hash_matches_when_provider_is_null()
+    public function it_should_pass_provider_check_if_hash_matches_when_hashed_subject_is_null()
     {
-        $payload = Mockery::mock(Payload::class)->shouldReceive('offsetExists')
-                ->with('prv')
-                ->andReturn(false)
-                ->getMock();
+        $payload = Mockery::mock(Payload::class)->shouldReceive('get')
+            ->with(HashedSubject::NAME)
+            ->andReturn(null)
+            ->getMock();
 
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
-
-        $this->assertTrue($this->jwt->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertTrue(
+            $this->jwt->setToken('foo.bar.baz')
+                ->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub', $payload)
+        );
     }
 
     /** @test */
     public function it_should_not_pass_provider_check_if_hash_not_match()
     {
-        $payload = Mockery::mock(Payload::class)->shouldReceive('offsetExists')
-                ->with('prv')
-                ->andReturn(true)
-                ->getMock();
+        $payload = Mockery::mock(Payload::class)->shouldReceive('get')
+            ->with(HashedSubject::NAME)
+            ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub1'))
+            ->getMock();
 
-        $payload->shouldReceive('offsetGet')
-                ->with('prv')
-                ->andReturn(sha1('Tymon\JWTAuth\Test\Stubs\UserStub1'))
-                ->getMock();
-
-        $this->manager->shouldReceive('decode')->once()->andReturn($payload);
-
-        $this->assertFalse($this->jwt->setToken('foo.bar.baz')->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub'));
+        $this->assertFalse(
+            $this->jwt->setToken('foo.bar.baz')
+                ->checkSubjectModel('Tymon\JWTAuth\Test\Stubs\UserStub', $payload)
+        );
     }
 
     /** @test */

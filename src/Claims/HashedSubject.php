@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tymon\JWTAuth\Exceptions;
+namespace Tymon\JWTAuth\Claims;
 
-class PayloadException extends JWTException
+class HashedSubject extends Claim
 {
     /**
-     * {@inheritdoc}
+     * @var string
      */
-    protected $message = 'The payload is immutable';
+    const NAME = 'hsu';
 }

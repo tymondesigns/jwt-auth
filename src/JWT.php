@@ -16,6 +16,7 @@ namespace Tymon\JWTAuth;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Claims\HashedSubject;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -184,11 +185,13 @@ class JWT
      */
     public function checkSubjectModel($model, ?Payload $payload = null): bool
     {
-        if (! $prv = Arr::get($payload ?? $this->payload(), 'prv')) {
+        $payload = $payload ?? $this->payload();
+
+        if (! $hash = $payload->get(HashedSubject::NAME)) {
             return true;
         }
 
-        return $this->builder->hashSubjectModel($model) === $prv;
+        return $this->builder->hashSubjectModel($model) === $hash;
     }
 
     /**

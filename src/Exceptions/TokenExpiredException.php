@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Exceptions;
 class TokenExpiredException extends JWTException
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $message = 'The token has expired';
 }

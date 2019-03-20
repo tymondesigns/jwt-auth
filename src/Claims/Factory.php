@@ -31,6 +31,7 @@ class Factory
         JwtId::NAME => JwtId::class,
         NotBefore::NAME => NotBefore::class,
         Subject::NAME => Subject::class,
+        HashedSubject::NAME => HashedSubject::class,
     ];
 
     /**

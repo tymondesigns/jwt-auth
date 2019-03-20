@@ -102,7 +102,12 @@ class Builder
      */
     public function makeForSubject(JWTSubject $subject, array $claims = []): Payload
     {
-        return $this->make($this->getClaimsArray($subject, $claims));
+        return $this->make(array_merge(
+            $this->getDefaultClaims(),
+            $this->getClaimsForSubject($subject),
+            $subject->getJWTCustomClaims(), // custom claims from JWTSubject method
+            $claims // custom claims from inline setter
+        ));
     }
 
     /**
@@ -116,19 +121,6 @@ class Builder
             Options::MAX_REFRESH_PERIOD => $this->maxRefreshPeriod,
             Options::VALIDATORS => $this->customValidators,
         ]);
-    }
-
-    /**
-     * Build the claims array.
-     */
-    protected function getClaimsArray(JWTSubject $subject, array $claims = []): array
-    {
-        return array_merge(
-            $this->getDefaultClaims(),
-            $this->getClaimsForSubject($subject),
-            $subject->getJWTCustomClaims(), // custom claims from JWTSubject method
-            $claims // custom claims from inline setter
-        );
     }
 
     /**
@@ -181,7 +173,7 @@ class Builder
         return array_merge([
             Claims\Subject::NAME => $subject->getJWTIdentifier(),
         ], $this->lockSubject ? [
-            'prv' => $this->hashSubjectModel($subject),
+            Claims\HashedSubject::NAME => $this->hashSubjectModel($subject),
         ] : []);
     }
 
@@ -192,9 +184,7 @@ class Builder
      */
     public function hashSubjectModel($model): string
     {
-        return sha1(is_object($model)
-            ? get_class($model)
-            : $model);
+        return sha1(is_object($model) ? get_class($model) : $model);
     }
 
     /**

@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Exceptions;
 class TokenInvalidException extends JWTException
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $message = 'The token is invalid';
 }
