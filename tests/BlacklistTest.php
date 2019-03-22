@@ -67,7 +67,7 @@ class BlacklistTest extends AbstractTestCase
     }
 
     /** @test */
-    public function it_should_return_true_early_when_adding_an_item_and_it_already_exists()
+    public function it_should_return_early_when_adding_an_item_and_it_already_exists()
     {
         $payload = Factory::make([
             new Subject(1),
@@ -87,7 +87,7 @@ class BlacklistTest extends AbstractTestCase
             ->with('foo', ['valid_until' => $this->testNowTimestamp], 61)
             ->never();
 
-        $this->assertTrue($this->blacklist->add($payload));
+        $this->blacklist->add($payload);
     }
 
     /** @test */
@@ -207,9 +207,9 @@ class BlacklistTest extends AbstractTestCase
 
         $this->storage->shouldReceive('destroy')
             ->with('foobar')
-            ->andReturn(true);
+            ->once();
 
-        $this->assertTrue($this->blacklist->remove($payload));
+        $this->blacklist->remove($payload);
     }
 
     /** @test */
@@ -236,8 +236,8 @@ class BlacklistTest extends AbstractTestCase
     /** @test */
     public function it_should_empty_the_blacklist()
     {
-        $this->storage->shouldReceive('flush');
-        $this->assertTrue($this->blacklist->clear());
+        $this->storage->shouldReceive('flush')->once();
+        $this->blacklist->clear();
     }
 
     /** @test */

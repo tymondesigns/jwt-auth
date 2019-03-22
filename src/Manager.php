@@ -111,13 +111,13 @@ class Manager
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    public function invalidate(Token $token): bool
+    public function invalidate(Token $token): void
     {
         if (! $this->blacklistEnabled) {
             throw new JWTException('You must have the blacklist enabled to invalidate a token.');
         }
 
-        return $this->blacklist->add($this->decode($token, false));
+        $this->blacklist->add($this->decode($token, false));
     }
 
     /**
