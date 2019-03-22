@@ -95,7 +95,7 @@ class Manager
     public function refresh(Token $token): Token
     {
         // Get the claims for the new token
-        $claims = $this->buildRefreshClaims($this->decode($token));
+        $claims = $this->builder->buildRefreshClaims($this->decode($token));
 
         if ($this->blacklistEnabled) {
             // Invalidate old token
@@ -128,19 +128,6 @@ class Manager
         $payload = $this->builder->makeForSubject($subject, $claims);
 
         return $this->encode($payload);
-    }
-
-    /**
-     * Build the claims to go into the refreshed token.
-     */
-    protected function buildRefreshClaims(Payload $payload): array
-    {
-        return array_merge($payload->toArray(), [
-            JwtId::NAME => ClaimFactory::get(JwtId::NAME),
-            Expiration::NAME => timestamp($payload[Expiration::NAME])
-                ->addMinutes($this->builder->getTTL())
-                ->getTimestamp(),
-        ]);
     }
 
     /**

@@ -132,9 +132,9 @@ class JWT
     /**
      * Get the token.
      */
-    public function getToken(): ?Token
+    public function getToken(bool $fresh = false): ?Token
     {
-        if ($this->token === null) {
+        if ($this->token === null || $fresh === true) {
             try {
                 $this->parseToken();
             } catch (JWTException $e) {

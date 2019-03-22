@@ -190,11 +190,14 @@ class ManagerTest extends AbstractTestCase
             ->twice()
             ->andReturn($options);
 
-        $this->builder->shouldReceive('getTTL')
-            ->once();
+        $this->builder->shouldReceive('buildRefreshClaims')
+            ->once()
+            ->with($payload)
+            ->andReturn($claims = $payload->toArray());
 
         $this->builder->shouldReceive('make')
             ->once()
+            ->with($claims)
             ->andReturn($payload);
 
         $token = $this->manager->refresh($token);

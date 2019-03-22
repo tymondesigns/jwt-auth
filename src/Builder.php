@@ -17,6 +17,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use function Tymon\JWTAuth\Support\now;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use function Tymon\JWTAuth\Support\timestamp;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 
 class Builder
@@ -108,6 +109,19 @@ class Builder
             $subject->getJWTCustomClaims(), // custom claims from JWTSubject method
             $claims // custom claims from inline setter
         ));
+    }
+
+    /**
+     * Build the claims to go into the refreshed token.
+     */
+    public function buildRefreshClaims(Payload $payload): array
+    {
+        return array_merge($payload->toArray(), [
+            Claims\JwtId::NAME => ClaimFactory::get(Claims\JwtId::NAME),
+            Claims\Expiration::NAME => timestamp($payload[Claims\Expiration::NAME])
+                ->addMinutes($this->getTTL())
+                ->getTimestamp(),
+        ]);
     }
 
     /**
