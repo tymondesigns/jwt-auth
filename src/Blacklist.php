@@ -68,17 +68,19 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist.
      */
-    public function add(Payload $payload): bool
+    public function add(Payload $payload): void
     {
         // if there is no exp claim then add the jwt to
         // the blacklist indefinitely
         if (! $payload->hasKey(Expiration::NAME)) {
-            return $this->addForever($payload);
+            $this->addForever($payload);
+
+            return;
         }
 
         // if we have already added this token to the blacklist
         if (! empty($this->storage->get($this->getKey($payload)))) {
-            return true;
+            return;
         }
 
         $this->storage->add(
@@ -86,8 +88,6 @@ class Blacklist
             [static::VALID_UNTIL => $this->getGraceTimestamp()],
             $this->getMinutesUntilExpired($payload)
         );
-
-        return true;
     }
 
     /**
@@ -107,11 +107,9 @@ class Blacklist
     /**
      * Add the token (jti claim) to the blacklist indefinitely.
      */
-    public function addForever(Payload $payload): bool
+    public function addForever(Payload $payload): void
     {
         $this->storage->forever($this->getKey($payload), static::FOREVER);
-
-        return true;
     }
 
     /**
@@ -133,21 +131,17 @@ class Blacklist
     /**
      * Remove the token from the blacklist.
      */
-    public function remove(Payload $payload): bool
+    public function remove(Payload $payload): void
     {
         $this->storage->destroy($this->getKey($payload));
-
-        return true;
     }
 
     /**
      * Remove all tokens from the blacklist.
      */
-    public function clear(): bool
+    public function clear(): void
     {
         $this->storage->flush();
-
-        return true;
     }
 
     /**
