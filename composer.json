@@ -24,19 +24,18 @@
     ],
     "require": {
         "php": "^7.2",
-        "illuminate/contracts": "^5.4",
-        "illuminate/http": "^5.4",
-        "illuminate/support": "^5.4",
+        "illuminate/contracts": "^5.7",
+        "illuminate/http": "^5.7",
+        "illuminate/support": "^5.7",
         "lcobucci/jwt": "^3.2",
         "nesbot/carbon": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "illuminate/auth": "^5.4",
-        "illuminate/console": "^5.4",
-        "illuminate/database": "^5.4",
-        "illuminate/routing": "^5.4",
+        "illuminate/auth": "^5.7",
+        "illuminate/console": "^5.7",
+        "illuminate/database": "^5.7",
+        "illuminate/routing": "^5.7",
         "mockery/mockery": "^1.0",
-        "phpstan/phpstan": "^0.11.1",
         "phpunit/phpunit": "^8.0"
     },
     "autoload": {
