@@ -13,13 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use function Tymon\JWTAuth\Support\timestamp;
-use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 
