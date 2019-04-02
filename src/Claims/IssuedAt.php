@@ -53,7 +53,7 @@ class IssuedAt extends Claim
         }
 
         if ($this->maxRefreshPeriod !== null) {
-            if (timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod)->isFuture()) {
+            if (timestamp($this->getValue())->addMinutes($this->maxRefreshPeriod)->isPast()) {
                 throw new TokenExpiredException('Token has expired');
             }
         }
