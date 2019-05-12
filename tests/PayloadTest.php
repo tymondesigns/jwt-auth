@@ -120,7 +120,7 @@ class PayloadTest extends AbstractTestCase
     {
         $values = $this->payload->get([Subject::NAME, JwtId::NAME]);
 
-        list($sub, $jti) = $values;
+        [$sub, $jti] = $values;
 
         $this->assertIsArray($values);
         $this->assertSame($sub, 1);
