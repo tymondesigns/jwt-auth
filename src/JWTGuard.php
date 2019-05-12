@@ -143,7 +143,7 @@ class JWTGuard implements Guard
     /**
      * Logout the user, thus invalidating the token.
      */
-    public function logout()
+    public function logout(): void
     {
         $this->requireToken()->invalidate();
 

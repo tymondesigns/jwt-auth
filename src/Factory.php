@@ -31,9 +31,12 @@ class Factory
                     return $value;
                 }
 
-                return is_string($key)
-                    ? ClaimFactory::get($key, $value, $options)
-                    : ClaimFactory::get($value, null, $options);
+                if (! is_string($key)) {
+                    $key = $value;
+                    $value = null;
+                }
+
+                return ClaimFactory::get($key, $value, $options);
             });
 
         // Validate the claims

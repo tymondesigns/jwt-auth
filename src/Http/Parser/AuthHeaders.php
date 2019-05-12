@@ -31,15 +31,6 @@ class AuthHeaders implements ParserContract
     protected $prefix = 'bearer';
 
     /**
-     * Attempt to parse the token from some other possible headers.
-     */
-    protected function fromAltHeaders(Request $request): ?string
-    {
-        return $request->server->get('HTTP_AUTHORIZATION')
-            ?: $request->server->get('REDIRECT_HTTP_AUTHORIZATION');
-    }
-
-    /**
      * Try to parse the token from the request header.
      */
     public function parse(Request $request): ?string
@@ -72,5 +63,14 @@ class AuthHeaders implements ParserContract
         $this->prefix = $headerPrefix;
 
         return $this;
+    }
+
+    /**
+     * Attempt to parse the token from some other possible headers.
+     */
+    protected function fromAltHeaders(Request $request): ?string
+    {
+        return $request->server->get('HTTP_AUTHORIZATION')
+            ?? $request->server->get('REDIRECT_HTTP_AUTHORIZATION');
     }
 }

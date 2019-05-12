@@ -47,7 +47,7 @@ class JWTGenerateSecretCommand extends Command
             return;
         }
 
-        if (file_exists($path = $this->envPath()) === false) {
+        if (file_exists($path = $this->laravel->environmentFilePath()) === false) {
             return $this->displayKey($key);
         }
 
@@ -89,17 +89,5 @@ class JWTGenerateSecretCommand extends Command
         return $this->option('force') ? true : $this->confirm(
             'This will invalidate all existing tokens. Are you sure you want to override the secret key?'
         );
-    }
-
-    /**
-     * Get the .env file path.
-     */
-    protected function envPath(): string
-    {
-        if (method_exists($this->laravel, 'environmentFilePath')) {
-            return $this->laravel->environmentFilePath();
-        }
-
-        return $this->laravel->basePath('.env');
     }
 }

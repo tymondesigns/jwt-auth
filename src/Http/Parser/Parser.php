@@ -18,18 +18,18 @@ use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 class Parser
 {
     /**
-     * The chain.
-     *
-     * @var array
-     */
-    private $chain;
-
-    /**
      * The request.
      *
      * @var \Illuminate\Http\Request
      */
     protected $request;
+
+    /**
+     * The chain.
+     *
+     * @var array
+     */
+    private $chain;
 
     /**
      * Constructor.
@@ -80,7 +80,7 @@ class Parser
      */
     public function parseToken(): ?string
     {
-        foreach ($this->chain as $key => $parser) {
+        foreach ($this->chain as $parser) {
             if ($token = $parser->parse($this->request)) {
                 return $token;
             }

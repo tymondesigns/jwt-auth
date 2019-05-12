@@ -180,7 +180,7 @@ class JWT
     }
 
     /**
-     * Check if the subject model matches the one saved in the token.
+     * Check if the subject model matches the one saved in the payload.
      */
     public function checkSubjectModel($model, ?Payload $payload = null): bool
     {
