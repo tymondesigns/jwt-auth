@@ -47,3 +47,21 @@ This will update your `.env` file with something like `JWT_SECRET=foobar`
 
 It is the key that will be used to sign your tokens. How that happens exactly will depend
 on the algorithm that you choose to use.
+
+-------------------------------------------------------------------------------
+### Add to service provider
+
+Open ```app.php``` and add following lines  
+In ‘aliases’ array   
+```bash
+'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+```
+-------------------------------------------------------------------------------
+### Add to middleware
+
+Open ```Kernel.php``` then add in $routeMiddleware
+```bash
+'jwt.auth' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
+```
