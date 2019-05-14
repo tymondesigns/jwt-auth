@@ -83,7 +83,7 @@ First let's add some routes in `routes/api.php` as follows:
 ```php
 Route::group([
 
-    'middleware' => 'api',
+    'middleware' => 'jwt.auth',
     'prefix' => 'auth'
 
 ], function ($router) {
@@ -123,7 +123,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('jwt.auth', ['except' => ['login']]);
     }
 
     /**
