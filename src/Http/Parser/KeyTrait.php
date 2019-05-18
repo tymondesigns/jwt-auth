@@ -18,7 +18,7 @@ trait KeyTrait
      *
      * @var string
      */
-    protected $key = 'token';
+    protected $key = 'apikey';
 
     /**
      * Set the key.
