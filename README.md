@@ -15,6 +15,8 @@ For version `0.5.*` See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki
 
 Documentation for `1.0.0` is coming soon, but there is an unfinished guide [here](http://jwt-auth.readthedocs.io)
 
+[<img src="https://user-images.githubusercontent.com/1801923/57975478-a7a88900-79c1-11e9-924b-d7fa742f743b.png" height="40">](https://www.patreon.com/bePatron?u=11815122)
+
 -----------------------------------
 
 ### Supported by Auth0 <span><img src="https://user-images.githubusercontent.com/1801923/31792116-d4fca9ec-b512-11e7-92eb-56e8d3df8e70.png" height="28" align="top"></span>
