@@ -25,6 +25,7 @@
     "require": {
         "php": "^7.2",
         "illuminate/contracts": "^5.7",
+        "illuminate/events": "^5.7",
         "illuminate/http": "^5.7",
         "illuminate/support": "^5.7",
         "lcobucci/jwt": "^3.2",
