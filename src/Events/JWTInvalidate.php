@@ -1,7 +1,15 @@
 <?php
 
-namespace Tymon\JWTAuth\Events;
+/*
+ * This file is part of jwt-auth.
+ *
+ * (c) Sean Tymon <tymon148@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+namespace Tymon\JWTAuth\Events;
 
 class JWTInvalidate
 {
@@ -22,6 +30,7 @@ class JWTInvalidate
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Tymon\JWTAuth\Token|string  $token
+     *
      * @return void
      */
     public function __construct($user, $token)

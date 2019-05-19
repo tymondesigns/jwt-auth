@@ -11,13 +11,7 @@
 
 namespace Tymon\JWTAuth\Test;
 
-use Illuminate\Support\Testing\Fakes\EventFake;
 use Mockery;
-use Tymon\JWTAuth\Events\JWTAttempt;
-use Tymon\JWTAuth\Events\JWTInvalidate;
-use Tymon\JWTAuth\Events\JWTLogin;
-use Tymon\JWTAuth\Events\JWTLogout;
-use Tymon\JWTAuth\Events\JWTRefresh;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Builder;
@@ -25,9 +19,15 @@ use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Events\JWTLogin;
+use Tymon\JWTAuth\Events\JWTLogout;
+use Tymon\JWTAuth\Events\JWTAttempt;
+use Tymon\JWTAuth\Events\JWTRefresh;
+use Tymon\JWTAuth\Events\JWTInvalidate;
 use Illuminate\Auth\EloquentUserProvider;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
+use Illuminate\Support\Testing\Fakes\EventFake;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuardTest extends AbstractTestCase
@@ -271,7 +271,7 @@ class JWTGuardTest extends AbstractTestCase
         $user = new LaravelUserStub();
 
         $this->events->shouldReceive('dispatch')->times(2);
-        $this->events->shouldReceive('assertDispatched')->times(2);
+        $this->events->shouldReceive('assertDispatched')->once();
 
         $this->provider->shouldReceive('retrieveByCredentials')
             ->twice()
@@ -284,9 +284,8 @@ class JWTGuardTest extends AbstractTestCase
             ->andReturn(true);
 
         $this->assertTrue($this->guard->attempt($credentials, false)); // once
-        $this->events->assertDispatched(JWTAttempt::class, 1);
-        $this->events->assertDispatched(JWTLogin::class, 1);
         $this->assertTrue($this->guard->validate($credentials)); // twice
+        $this->events->assertDispatched(JWTAttempt::class, 2);
     }
 
     /** @test */
@@ -435,7 +434,6 @@ class JWTGuardTest extends AbstractTestCase
 
         $this->events->shouldReceive('dispatch')->once();
         $this->events->shouldReceive('assertDispatched')->once();
-
 
         $this->assertTrue($this->guard->once($credentials));
         $this->events->assertDispatched(JWTAttempt::class, 1);

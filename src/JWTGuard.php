@@ -13,21 +13,21 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Tymon\JWTAuth\Claims\Subject;
-use Illuminate\Contracts\Auth\Guard;
-use Tymon\JWTAuth\Events\JWTAttempt;
-use Tymon\JWTAuth\Events\JWTInvalidate;
 use Tymon\JWTAuth\Events\JWTLogin;
 use Tymon\JWTAuth\Events\JWTLogout;
+use Illuminate\Contracts\Auth\Guard;
+use Tymon\JWTAuth\Events\JWTAttempt;
 use Tymon\JWTAuth\Events\JWTRefresh;
 use Tymon\JWTAuth\Http\TokenResponse;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Events\JWTInvalidate;
 use Illuminate\Support\Traits\Macroable;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Traits\ForwardsCalls;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
@@ -136,8 +136,9 @@ class JWTGuard implements Guard
 
         if ($this->hasValidCredentials($user, $credentials)) {
             $this->events->dispatch(
-                new JWTAttempt($user, $this->jwt)
+                new JWTAttempt($user)
             );
+
             return $login ? $this->login($user) : true;
         }
 
