@@ -294,6 +294,9 @@ class JWTGuardTest extends AbstractTestCase
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub();
 
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
+
         $this->provider->shouldReceive('retrieveByCredentials')
             ->once()
             ->with($credentials)
@@ -305,6 +308,7 @@ class JWTGuardTest extends AbstractTestCase
             ->andReturn(false);
 
         $this->assertFalse($this->guard->attempt($credentials));
+        $this->events->assertDispatched(JWTAttempt::class, 1);
     }
 
     /** @test */
@@ -455,7 +459,11 @@ class JWTGuardTest extends AbstractTestCase
             ->with($user, $credentials)
             ->andReturn(false);
 
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
+
         $this->assertFalse($this->guard->once($credentials));
+        $this->events->assertDispatched(JWTAttempt::class, 1);
     }
 
     /** @test */

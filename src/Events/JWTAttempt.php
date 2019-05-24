@@ -11,24 +11,10 @@
 
 namespace Tymon\JWTAuth\Events;
 
-class JWTAttempt
+class JWTAttempt extends AbstractJWTEvent
 {
-    /**
-     * The authenticated user.
-     *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
-     */
-    public $user;
-
-    /**
-     * Create a new event instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     *
-     * @return void
-     */
     public function __construct($user)
     {
-        $this->user = $user;
+        parent::__construct($user, null);
     }
 }
