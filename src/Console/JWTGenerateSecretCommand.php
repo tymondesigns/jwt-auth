@@ -53,7 +53,7 @@ class JWTGenerateSecretCommand extends Command
 
         if (Str::contains(file_get_contents($path), 'JWT_SECRET') === false) {
             // update existing entry
-            file_put_contents($path, PHP_EOL."JWT_SECRET=$key", FILE_APPEND);
+            file_put_contents($path, PHP_EOL."JWT_SECRET=$key".PHP_EOL, FILE_APPEND);
         } else {
             if ($this->isConfirmed() === false) {
                 $this->comment('Phew... No changes were made to your secret key.');
