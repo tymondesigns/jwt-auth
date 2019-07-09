@@ -11,6 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -76,7 +78,7 @@ class Payload implements \ArrayAccess
                 return array_map([$this, 'get'], $claim);
             }
 
-            return array_get($this->toArray(), $claim, false);
+            return Arr::get($this->toArray(), $claim, false);
         }
 
         return $this->toArray();
@@ -122,7 +124,7 @@ class Payload implements \ArrayAccess
      */
     public function offsetGet($key)
     {
-        return array_get($this->toArray(), $key, []);
+        return Arr::get($this->toArray(), $key, []);
     }
 
     /**
@@ -160,7 +162,7 @@ class Payload implements \ArrayAccess
      */
     public function __call($method, $parameters)
     {
-        if (! method_exists($this, $method) && starts_with($method, 'get')) {
+        if (! method_exists($this, $method) && Str::startsWith($method, 'get')) {
             $class = sprintf('Tymon\\JWTAuth\\Claims\\%s', substr($method, 3));
 
             foreach ($this->claims as $claim) {
