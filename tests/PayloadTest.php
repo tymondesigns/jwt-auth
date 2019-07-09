@@ -125,7 +125,8 @@ class PayloadTest extends AbstractTestCase
     {
         $values = $this->payload->get(['sub', 'jti']);
 
-        list($sub, $jti) = $values;
+        $sub = $values[0];
+        $jti = $values[1];
 
         $this->assertInternalType('array', $values);
         $this->assertSame($sub, 1);
