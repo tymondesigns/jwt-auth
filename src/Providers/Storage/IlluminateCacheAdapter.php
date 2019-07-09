@@ -81,7 +81,7 @@ class IlluminateCacheAdapter implements StorageInterface
     /**
      * Return the cache instance with tags attached.
      *
-     * @return \Illuminate\Cache\CacheManager
+     * @return \Illuminate\Cache\CacheManager|\Illuminate\Cache\TaggedCache
      */
     protected function cache()
     {
