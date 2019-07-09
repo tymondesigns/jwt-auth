@@ -43,7 +43,7 @@ class IlluminateCacheAdapter implements StorageInterface
      */
     public function add($key, $value, $minutes)
     {
-        $this->cache()->put($key, $value, $minutes);
+        $this->cache()->put($key, $value, $this->calculateTTL($minutes));
     }
 
     /**
@@ -90,5 +90,21 @@ class IlluminateCacheAdapter implements StorageInterface
         }
 
         return $this->cache->tags($this->tag);
+    }
+
+    /**
+     * Calculates the cache TTL, accounting for API differences introduced in Laravel 5.8.
+     *
+     * @param  int $ttl
+     * @return int Cache TTL in minutes or seconds depending on the version of `illuminate/cache` installed
+     */
+    protected function calculateTTL($ttl)
+    {
+        // There may be a more reliable check to use, but for now rely on the presence of classes introduced in 5.8 to decide which behavior to use
+        if (class_exists('Illuminate\Cache\DynamoDbLock')) {
+            $ttl = $ttl * 60;
+        }
+
+        return $ttl;
     }
 }
