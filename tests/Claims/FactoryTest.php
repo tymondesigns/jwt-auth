@@ -20,7 +20,6 @@ use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Test\Fixtures\Foo;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class FactoryTest extends AbstractTestCase

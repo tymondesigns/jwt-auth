@@ -24,7 +24,6 @@ use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
 use Tymon\JWTAuth\Claims\HashedSubject;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class JWTTest extends AbstractTestCase
