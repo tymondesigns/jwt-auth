@@ -7,8 +7,12 @@ The following methods are available on the Auth guard instance.
 Attempt to authenticate a user via some credentials.
 
 ```php
+$credentials = request(['email', 'password']);
+
 // Generate a token for the user if the credentials are valid
-$token = auth()->attempt($credentials);
+if ($token = auth()->attempt($credentials)) {
+    // Credentials are good
+}
 ```
 
 This will return either a jwt or `null`
@@ -102,9 +106,21 @@ $payload = auth()->payload();
 
 // then you can access the claims directly e.g.
 $payload->get('sub'); // = 123
+
+// array access to claims
 $payload['jti']; // = 'asfe4fq434asdf'
+
+// invokable access to claims
 $payload('exp') // = 123456
-$payload->toArray(); // = ['sub' => 123, 'exp' => 123456, 'jti' => 'asfe4fq434asdf'] etc
+
+$payload->toArray(); // = ['sub' => 123, 'exp' => 123456, 'jti' => 'asfe4...'] etc
+```
+
+?> Payloads are immutable and cannot be altered after they have been created.
+
+```php
+// This will throw a \Tymon\JWTAuth\Exceptions\PayloadException
+$payload['sub'] = 1;
 ```
 
 ### validate()

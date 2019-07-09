@@ -2,46 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>jwt-auth Documentation</title>
+    <title>JSON Web Token Authentication for Laravel & Lumen</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="description" content="Description">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"> -->
+    <link rel="stylesheet" href="//unpkg.com/prismjs/themes/prism-tomorrow.css">
+    <style>
+        :root {
+            --code-block-border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <div id="app"></div>
     <script>
         window.$docsify = {
-            // coverpage: true,
             name: 'jwt-auth',
             repo: 'tymondesigns/jwt-auth',
             homepage: 'index.md',
             auto2top: true,
             loadSidebar: true,
+            // loadNavbar: true,
+            coverpage: true,
             maxLevel: 4,
-            subMaxLevel: 2,
-            // themeColor: '#CA3535',
+            subMaxLevel: 1,
+            themeColor: '#7ec699',
+            themeable: {
+                readyTransition: true,
+                responsiveTables: true
+            },
+            pagination: {
+                crossChapter: true
+            },
             plugins: [
-            function (hook, vm) {
-                hook.beforeEach(function (html) {
-                    if (/githubusercontent\.com/.test(vm.route.file)) {
-                    url = vm.route.file
-                        .replace('raw.githubusercontent.com', 'github.com')
-                        .replace(/\/master/, '/blob/master')
-                    } else {
-                        url = 'https://github.com/tymondesigns/jwt-auth/blob/master/docs/' + vm.route.file
-                    }
+                function (hook, vm) {
+                    hook.afterEach(function (html) {
+                        if (/githubusercontent\.com/.test(vm.route.file)) {
+                            url = vm.route.file
+                                .replace('raw.githubusercontent.com', 'github.com')
+                                .replace(/\/master/, '/blob/master')
+                        } else {
+                            url = 'https://github.com/tymondesigns/jwt-auth/blob/master/docs/' + vm.route.file
+                        }
 
-                    return html + '\n\n----\n\n' + '[:memo: Edit Document](' + url + ')\n'
-                })
+                        var header = [
+                            '<div style="overflow: auto">',
+                            '<p style="float:right;margin:0;">',
+                                '<a href="' + url + '" target="_blank"><img src="https://icongr.am/clarity/note.svg?color=333333&size=16" style="vertical-align:text-bottom;margin-right:5px;">Edit on github</a>',
+                            '</p>',
+                            '</div>'
+                        ].join('')
+
+                        return header + html;
+                    })
                 },
             ]
         }
     </script>
     <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0"></script>
     <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
     <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
     <script src="//unpkg.com/prismjs/components/prism-php.min.js"></script>
-    <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
+    <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+    <!-- <script src="https://unpkg.com/docsify-copy-code@2"></script> -->
 </body>
 </html>

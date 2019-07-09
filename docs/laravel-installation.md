@@ -16,7 +16,6 @@ Add the service provider to the `providers` array in the `config/app.php` config
 
 ```php
 'providers' => [
-
     ...
 
     Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
