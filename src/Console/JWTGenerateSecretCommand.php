@@ -23,6 +23,7 @@ class JWTGenerateSecretCommand extends Command
      */
     protected $signature = 'jwt:secret
         {--s|show : Display the key instead of modifying files.}
+        {--always-no : Skip generating key if it already exists.}
         {--f|force : Skip confirmation when overwriting an existing key.}';
 
     /**
@@ -55,6 +56,12 @@ class JWTGenerateSecretCommand extends Command
             // create new entry
             file_put_contents($path, PHP_EOL."JWT_SECRET=$key".PHP_EOL, FILE_APPEND);
         } else {
+            if ($this->option('always-no')) {
+                $this->comment('Secret key already exists. Skipping...');
+
+                return;
+            }
+
             if ($this->isConfirmed() === false) {
                 $this->comment('Phew... No changes were made to your secret key.');
 
