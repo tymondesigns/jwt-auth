@@ -41,7 +41,12 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
     {
         $this->auth->shouldReceive('getToken')->once()->andReturn(false);
 
-        $this->events->shouldReceive('fire')->once()->with('tymon.jwt.absent', [], true);
+        if (method_exists('Illuminate\Contracts\Events\Dispatcher', 'dispatch')) {
+            $this->events->shouldReceive('dispatch')->once()->with('tymon.jwt.absent', [], true);
+        } else {
+            $this->events->shouldReceive('fire')->once()->with('tymon.jwt.absent', [], true);
+        }
+
         $this->response->shouldReceive('json')->with(['error' => 'token_not_provided'], 400);
 
         $this->middleware->handle($this->request, function () {
@@ -56,7 +61,12 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
         $this->auth->shouldReceive('authenticate')->once()->with('foo')->andThrow($exception);
 
-        $this->events->shouldReceive('fire')->once()->with('tymon.jwt.expired', [$exception], true);
+        if (method_exists('Illuminate\Contracts\Events\Dispatcher', 'dispatch')) {
+            $this->events->shouldReceive('dispatch')->once()->with('tymon.jwt.expired', [$exception], true);
+        } else {
+            $this->events->shouldReceive('fire')->once()->with('tymon.jwt.expired', [$exception], true);
+        }
+
         $this->response->shouldReceive('json')->with(['error' => 'token_expired'], 401);
 
         $this->middleware->handle($this->request, function () {
@@ -71,7 +81,12 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
         $this->auth->shouldReceive('authenticate')->once()->with('foo')->andThrow($exception);
 
-        $this->events->shouldReceive('fire')->once()->with('tymon.jwt.invalid', [$exception], true);
+        if (method_exists('Illuminate\Contracts\Events\Dispatcher', 'dispatch')) {
+            $this->events->shouldReceive('dispatch')->once()->with('tymon.jwt.invalid', [$exception], true);
+        } else {
+            $this->events->shouldReceive('fire')->once()->with('tymon.jwt.invalid', [$exception], true);
+        }
+
         $this->response->shouldReceive('json')->with(['error' => 'token_invalid'], 400);
 
         $this->middleware->handle($this->request, function () {
@@ -84,7 +99,12 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
         $this->auth->shouldReceive('authenticate')->once()->with('foo')->andReturn(false);
 
-        $this->events->shouldReceive('fire')->once()->with('tymon.jwt.user_not_found', [], true);
+        if (method_exists('Illuminate\Contracts\Events\Dispatcher', 'dispatch')) {
+            $this->events->shouldReceive('dispatch')->once()->with('tymon.jwt.user_not_found', [], true);
+        } else {
+            $this->events->shouldReceive('fire')->once()->with('tymon.jwt.user_not_found', [], true);
+        }
+
         $this->response->shouldReceive('json')->with(['error' => 'user_not_found'], 404);
 
         $this->middleware->handle($this->request, function () {
@@ -99,7 +119,12 @@ class GetUserFromTokenTest extends \PHPUnit_Framework_TestCase
         $this->auth->shouldReceive('getToken')->once()->andReturn('foo');
         $this->auth->shouldReceive('authenticate')->once()->with('foo')->andReturn($user);
 
-        $this->events->shouldReceive('fire')->once()->with('tymon.jwt.valid', $user);
+        if (method_exists('Illuminate\Contracts\Events\Dispatcher', 'dispatch')) {
+            $this->events->shouldReceive('dispatch')->once()->with('tymon.jwt.valid', $user);
+        } else {
+            $this->events->shouldReceive('fire')->once()->with('tymon.jwt.valid', $user);
+        }
+
         $this->response->shouldReceive('json')->never();
 
         $this->middleware->handle($this->request, function () {

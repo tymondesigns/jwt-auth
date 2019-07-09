@@ -57,7 +57,11 @@ abstract class BaseMiddleware
      */
     protected function respond($event, $error, $status, $payload = [])
     {
-        $response = $this->events->fire($event, $payload, true);
+        if (method_exists($this->events, 'dispatch')) {
+            $response = $this->events->dispatch($event, $payload, true);
+        } else {
+            $response = $this->events->fire($event, $payload, true);
+        }
 
         return $response ?: $this->response->json(['error' => $error], $status);
     }

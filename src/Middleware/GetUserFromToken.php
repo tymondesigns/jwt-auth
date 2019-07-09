@@ -41,7 +41,11 @@ class GetUserFromToken extends BaseMiddleware
             return $this->respond('tymon.jwt.user_not_found', 'user_not_found', 404);
         }
 
-        $this->events->fire('tymon.jwt.valid', $user);
+        if (method_exists($this->events, 'dispatch')) {
+            $this->events->dispatch('tymon.jwt.valid', $user);
+        } else {
+            $this->events->fire('tymon.jwt.valid', $user);
+        }
 
         return $next($request);
     }
