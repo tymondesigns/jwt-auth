@@ -133,7 +133,7 @@ class Lcobucci extends Provider implements JWT
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
-        if (! $jwt->verify($this->signer, $this->getVerificationKey())) {
+        if ($this->laravel['config']['jwt.verifySignature'] && !$jwt->verify($this->signer, $this->getVerificationKey())) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
