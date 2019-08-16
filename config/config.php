@@ -295,7 +295,7 @@ return [
         | Specify the provider that is used to authenticate users.
         |
         */
-        
+
         'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
 
         /*
