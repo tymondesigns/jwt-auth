@@ -169,6 +169,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Persistent Claims
+    |--------------------------------------------------------------------------
+    |
+    | Specify the claim keys to be persisted when refreshing a token.
+    | `sub` and `iat` will automatically be persisted, in
+    | addition to the these claims.
+    |
+    | Note: If a claim does not exist then it will be ignored.
+    |
+    */
+    'persistent_claims' => [
+        // 'foo',
+        // 'bar',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Lock Subject
     |--------------------------------------------------------------------------
     |
@@ -278,6 +295,7 @@ return [
         | Specify the provider that is used to authenticate users.
         |
         */
+        
         'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
 
         /*
