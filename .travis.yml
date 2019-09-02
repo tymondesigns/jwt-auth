@@ -20,32 +20,6 @@ matrix:
       dist: trusty
       env: LARAVEL='5.4.*' XDEBUG=1
       group: edge
-    - php: 5.5.9
-      env: LARAVEL='5.1.*'
-    - php: 5.5.9
-      env: LARAVEL='5.2.*'
-    - php: 5.5
-      env: LARAVEL='5.1.*'
-    - php: 5.5
-      env: LARAVEL='5.2.*'
-    - php: 5.6
-      env: LARAVEL='5.1.*'
-    - php: 5.6
-      env: LARAVEL='5.2.*'
-    - php: 5.6
-      env: LARAVEL='5.3.*'
-    - php: 5.6
-      env: LARAVEL='5.4.*'
-    - php: 7.0
-      env: LARAVEL='5.1.*'
-    - php: 7.0
-      env: LARAVEL='5.2.*'
-    - php: 7.0
-      env: LARAVEL='5.3.*'
-    - php: 7.0
-      env: LARAVEL='5.4.*'
-    - php: 7.0
-      env: LARAVEL='5.5.*'
     - php: 7.1
       env: LARAVEL='5.1.*'
     - php: 7.1
