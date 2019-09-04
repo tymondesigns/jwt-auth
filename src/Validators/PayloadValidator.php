@@ -29,12 +29,7 @@ class PayloadValidator extends Validator
     {
         $options = $options ?? new Options();
 
-        // If the collection doesn't have an exp then remove it from the required claims.
-        $requiredClaims = $claims->has(Expiration::NAME)
-            ? $options->requiredClaims()
-            : Arr::except($options->requiredClaims(), [Expiration::NAME]);
-
-        if (! $claims->hasAllClaims($requiredClaims)) {
+        if (! $this->hasRequiredClaims($claims, $options)) {
             static::throwFailed('JWT does not contain the required claims');
         }
 
@@ -51,5 +46,18 @@ class PayloadValidator extends Validator
         }
 
         return new Payload($claims);
+    }
+
+    /**
+     * Determine whether the given collection of claims has all the required claims.
+     */
+    protected function hasRequiredClaims(Collection $claims, ?Options $options = null): bool
+    {
+        // If the collection doesn't have an exp then remove it from the required claims.
+        $requiredClaims = $claims->has(Expiration::NAME)
+            ? $options->requiredClaims()
+            : Arr::except($options->requiredClaims(), [Expiration::NAME]);
+
+        return $claims->hasAllClaims($requiredClaims);
     }
 }
