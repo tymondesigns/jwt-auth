@@ -72,5 +72,11 @@
     "scripts": {
         "test": "phpunit --colors=always",
         "test:ci": "composer test -- --verbose --coverage-text --coverage-clover=coverage.xml"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MatanYadaev/jwt-auth.git"
+        }
+    ]
 }

@@ -132,7 +132,7 @@ class DatetimeClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_handle_datetinterval_claims()
     {
-        $testDateInterval = DateInterval::createFromDateString('PT1H');
+        $testDateInterval = new DateInterval('PT1H');
 
         $this->assertInstanceOf(DateInterval::class, $testDateInterval);
 
