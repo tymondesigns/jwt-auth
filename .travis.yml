@@ -80,6 +80,8 @@ matrix:
       env: LARAVEL='5.7.*'
     - php: 7.2
       env: LARAVEL='5.8.*'
+    - php: 7.2
+      env: LARAVEL='6.0.*'
     - php: 7.3
       env: LARAVEL='5.1.*' XDEBUG=1
     - php: 7.3
