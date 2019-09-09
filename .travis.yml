@@ -21,20 +21,28 @@ matrix:
       env: LARAVEL='5.4.*' XDEBUG=1
       group: edge
     - php: 5.5.9
+      dist: trusty
       env: LARAVEL='5.1.*'
     - php: 5.5.9
+      dist: trusty
       env: LARAVEL='5.2.*'
     - php: 5.5
+      dist: trusty
       env: LARAVEL='5.1.*'
     - php: 5.5
+      dist: trusty
       env: LARAVEL='5.2.*'
     - php: 5.6
+      dist: trusty
       env: LARAVEL='5.1.*'
     - php: 5.6
+      dist: trusty
       env: LARAVEL='5.2.*'
     - php: 5.6
+      dist: trusty
       env: LARAVEL='5.3.*'
     - php: 5.6
+      dist: trusty
       env: LARAVEL='5.4.*'
     - php: 7.0
       env: LARAVEL='5.1.*'
@@ -78,6 +86,8 @@ matrix:
       env: LARAVEL='5.7.*'
     - php: 7.2
       env: LARAVEL='5.8.*'
+    - php: 7.2
+      env: LARAVEL='6.*'
     - php: 7.3
       env: LARAVEL='5.1.*' XDEBUG=1
     - php: 7.3
@@ -93,7 +103,9 @@ matrix:
     - php: 7.3
       env: LARAVEL='5.7.*' XDEBUG=1
     - php: 7.3
-      env: COVERAGE=1 LARAVEL='5.8.*' XDEBUG=1
+      env: LARAVEL='5.8.*' XDEBUG=1
+    - php: 7.3
+      env: COVERAGE=1 LARAVEL='6.*' XDEBUG=1
   fast_finish: true
 
 
@@ -106,8 +118,14 @@ install:
   - travis_retry composer install --prefer-dist --no-interaction --no-suggest
 
 script:
-  - if [[ $LARAVEL = '5.1.*' ]]; then composer test:ci -- --exclude-group laravel-5.2; fi
-  - if [[ $LARAVEL != '5.1.*' ]]; then composer test:ci; fi
+  - |
+    if [[ $LARAVEL == '6.*' ]]; then
+      composer test:ci -- --exclude-group sentinel-2
+    elif [[ $LARAVEL == '5.1.*' ]]; then
+      composer test:ci -- --exclude-group laravel-5.2
+    else
+      composer test:ci
+    fi
 
 after_success:
   - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
