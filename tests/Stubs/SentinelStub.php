@@ -12,7 +12,6 @@
 namespace Tymon\JWTAuth\Test\Stubs;
 
 use Cartalyst\Sentinel\Users\UserInterface;
-use phpDocumentor\Reflection\Types\String_;
 
 class SentinelStub implements UserInterface
 {
