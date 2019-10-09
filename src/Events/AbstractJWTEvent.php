@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of jwt-auth.
  *
@@ -7,7 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tymon\JWTAuth\Events;
+
 abstract class AbstractJWTEvent
 {
     /**
@@ -20,6 +23,7 @@ abstract class AbstractJWTEvent
      * @var \Tymon\JWTAuth\Token
      */
     public $token;
+
     /**
      * Create a new event instance.
      *
