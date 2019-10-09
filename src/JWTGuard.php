@@ -14,11 +14,17 @@ namespace Tymon\JWTAuth;
 use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
+use Tymon\JWTAuth\Events\JWTLogin;
+use Tymon\JWTAuth\Events\JWTLogout;
+use Tymon\JWTAuth\Events\JWTAttempt;
 use Illuminate\Contracts\Auth\Guard;
+use Tymon\JWTAuth\Events\JWTRefresh;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Events\JWTInvalidate;
 use Illuminate\Support\Traits\Macroable;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard
@@ -49,19 +55,28 @@ class JWTGuard implements Guard
     protected $request;
 
     /**
+     * The Dispatcher instance.
+     *
+     * @var \Illuminate\Contracts\Events\Dispatcher
+     */
+    protected $events;
+
+    /**
      * Instantiate the class.
      *
      * @param  \Tymon\JWTAuth\JWT  $jwt
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Contracts\Events\Dispatcher $events
      *
      * @return void
      */
-    public function __construct(JWT $jwt, UserProvider $provider, Request $request)
+    public function __construct(JWT $jwt, UserProvider $provider, Request $request, Dispatcher $events)
     {
         $this->jwt = $jwt;
         $this->provider = $provider;
         $this->request = $request;
+        $this->events = $events;
     }
 
     /**
@@ -123,6 +138,8 @@ class JWTGuard implements Guard
     {
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
 
+        $this->events->dispatch(new JWTAttempt($user));
+
         if ($this->hasValidCredentials($user, $credentials)) {
             return $login ? $this->login($user) : true;
         }
@@ -142,6 +159,10 @@ class JWTGuard implements Guard
         $token = $this->jwt->fromUser($user);
         $this->setToken($token)->setUser($user);
 
+        $this->events->dispatch(
+            new JWTLogin($user, $token)
+        );
+
         return $token;
     }
 
@@ -154,6 +175,10 @@ class JWTGuard implements Guard
      */
     public function logout($forceForever = false)
     {
+        $this->events->dispatch(
+            new JWTLogout($this->user(), $this->jwt->getToken())
+        );
+
         $this->requireToken()->invalidate($forceForever);
 
         $this->user = null;
@@ -170,7 +195,13 @@ class JWTGuard implements Guard
      */
     public function refresh($forceForever = false, $resetClaims = false)
     {
-        return $this->requireToken()->refresh($forceForever, $resetClaims);
+        $token = $this->requireToken()->refresh($forceForever, $resetClaims);
+
+        $this->events->dispatch(
+            new JWTRefresh($this->user, $token)
+        );
+
+        return $token;
     }
 
     /**
@@ -182,7 +213,13 @@ class JWTGuard implements Guard
      */
     public function invalidate($forceForever = false)
     {
-        return $this->requireToken()->invalidate($forceForever);
+        $token = $this->requireToken()->invalidate($forceForever);
+
+        $this->events->dispatch(
+            new JWTInvalidate($this->user, $this->jwt)
+        );
+
+        return $token;
     }
 
     /**
