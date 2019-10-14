@@ -15,7 +15,7 @@ use Cartalyst\Sentinel\Users\UserInterface;
 
 class SentinelStub implements UserInterface
 {
-     public function getUserId(): int
+    public function getUserId(): int
     {
         return 123;
     }
