@@ -141,6 +141,9 @@ class Factory
         if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $this->defaultClaims)) {
             unset($this->defaultClaims[$key]);
         }
+        if ($this->claimFactory->getTTL() === null && array_key_exists('exp', $this->customClaims)) {
+            unset($this->customClaims['exp']);
+        }
 
         // add the default claims
         foreach ($this->defaultClaims as $claim) {
