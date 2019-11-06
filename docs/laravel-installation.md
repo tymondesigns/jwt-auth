@@ -6,6 +6,12 @@ Run the following command to pull in the latest version:
 composer require tymon/jwt-auth
 ```
 
+For Laravel 6 and above use,
+```bash
+composer require tymon/jwt-auth:^1.0.0-rc.5
+```
+Make sure you use the appropriate version code.( replace **1.0.0-rc.5** with your required one)
+
 -------------------------------------------------------------------------------
 
 ### Add service provider ( Laravel 5.4 or below )
