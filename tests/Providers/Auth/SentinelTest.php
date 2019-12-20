@@ -44,7 +44,10 @@ class SentinelTest extends AbstractTestCase
         $this->assertTrue($this->auth->byCredentials(['email' => 'foo@bar.com', 'password' => 'foobar']));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group sentinel-2
+     */
     public function it_should_return_true_if_user_is_found()
     {
         $stub = new SentinelStub;
@@ -57,13 +60,16 @@ class SentinelTest extends AbstractTestCase
     /** @test */
     public function it_should_return_false_if_user_is_not_found()
     {
-        $this->sentinel->shouldReceive('getUserRepository->findById')->once()->with(321)->andReturn(false);
+        $this->sentinel->shouldReceive('getUserRepository->findById')->once()->with(321)->andReturn(null);
         $this->sentinel->shouldReceive('setUser')->never();
 
         $this->assertFalse($this->auth->byId(321));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group sentinel-2
+     */
     public function it_should_return_the_currently_authenticated_user()
     {
         $this->sentinel->shouldReceive('getUser')->once()->andReturn(new SentinelStub);
