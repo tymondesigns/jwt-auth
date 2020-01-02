@@ -13,10 +13,10 @@ namespace Tymon\JWTAuth;
 
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Support\RefreshFlow;
-use Tymon\JWTAuth\Support\CustomClaims;
-use Tymon\JWTAuth\Validators\PayloadValidator;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
+use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Support\RefreshFlow;
+use Tymon\JWTAuth\Validators\PayloadValidator;
 
 class Factory
 {
