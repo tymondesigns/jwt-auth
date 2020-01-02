@@ -139,6 +139,8 @@ class Factory
     {
         $defaultClaims = $this->defaultClaims;
 
+        $this->emptyClaims();
+
         // remove the exp claim if it exists and the ttl is null
         if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $defaultClaims)) {
             unset($defaultClaims[$key]);
