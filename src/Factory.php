@@ -137,13 +137,15 @@ class Factory
      */
     protected function buildClaims()
     {
+        $defaultClaims = $this->defaultClaims;
+
         // remove the exp claim if it exists and the ttl is null
-        if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $this->defaultClaims)) {
-            unset($this->defaultClaims[$key]);
+        if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $defaultClaims)) {
+            unset($defaultClaims[$key]);
         }
 
         // add the default claims
-        foreach ($this->defaultClaims as $claim) {
+        foreach ($defaultClaims as $claim) {
             $this->addClaim($claim, $this->claimFactory->make($claim));
         }
 
