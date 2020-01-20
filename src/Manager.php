@@ -169,13 +169,16 @@ class Manager
      */
     protected function buildRefreshClaims(Payload $payload)
     {
-        // assign the payload values as variables for use later
-        extract($payload->toArray());
+        // Get the claims to be persisted from the payload
+        $persistentClaims = collect($payload->toArray())
+            ->only($this->persistentClaims)
+            ->toArray();
 
         // persist the relevant claims
         return array_merge(
             $this->customClaims,
-            compact($this->persistentClaims, 'sub', 'iat')
+            $persistentClaims,
+            $payload->get(['sub', 'iat']),
         );
     }
 
