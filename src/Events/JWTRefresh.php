@@ -11,6 +11,6 @@
 
 namespace Tymon\JWTAuth\Events;
 
-class JWTRefresh extends AbstractJWTEvent
+class JWTRefresh extends JWTEvent
 {
 }

@@ -11,10 +11,6 @@
 
 namespace Tymon\JWTAuth\Events;
 
-class JWTAttempt extends AbstractJWTEvent
+class JWTAttempt extends JWTEvent
 {
-    public function __construct($user)
-    {
-        parent::__construct($user, null);
-    }
 }

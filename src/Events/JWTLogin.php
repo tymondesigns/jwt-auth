@@ -11,6 +11,6 @@
 
 namespace Tymon\JWTAuth\Events;
 
-class JWTLogin extends AbstractJWTEvent
+class JWTLogin extends JWTEvent
 {
 }

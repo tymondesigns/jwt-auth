@@ -11,6 +11,6 @@
 
 namespace Tymon\JWTAuth\Events;
 
-class JWTInvalidate extends AbstractJWTEvent
+class JWTInvalidate extends JWTEvent
 {
 }

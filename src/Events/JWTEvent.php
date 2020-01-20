@@ -11,7 +11,7 @@
 
 namespace Tymon\JWTAuth\Events;
 
-abstract class AbstractJWTEvent
+abstract class JWTEvent
 {
     /**
      * The authenticated user.
@@ -21,19 +21,19 @@ abstract class AbstractJWTEvent
     public $user;
 
     /**
-     * @var \Tymon\JWTAuth\Token
+     * @var \Tymon\JWTAuth\Token|string|null
      */
     public $token;
 
     /**
-     * Create a new event instance.
+     * Constructor.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Tymon\JWTAuth\Token|string  $token
+     * @param  \Tymon\JWTAuth\Token|string|null  $token
      *
      * @return void
      */
-    public function __construct($user, $token)
+    public function __construct($user, $token = null)
     {
         $this->token = $token;
         $this->user = $user;
