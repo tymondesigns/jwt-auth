@@ -68,7 +68,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $guard = new JwtGuard(
                 $app['tymon.jwt'],
                 $app['auth']->createUserProvider($config['provider']),
-                $app['request']
+                $app['request'],
+                $app['events']
             );
 
             $app->refresh('request', $guard, 'setRequest');
