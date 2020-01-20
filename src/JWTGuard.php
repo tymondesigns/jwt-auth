@@ -12,13 +12,13 @@
 namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
-use Illuminate\Http\Request;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Support\Traits\Macroable;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Traits\Macroable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard

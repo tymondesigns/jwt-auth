@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Mockery;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Mockery;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Http\Parser\Parser;
 
 class RefreshTokenTest extends AbstractMiddlewareTest
 {

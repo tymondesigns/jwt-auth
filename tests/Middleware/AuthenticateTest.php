@@ -12,10 +12,10 @@
 namespace Tymon\JWTAuth\Test\Middleware;
 
 use Mockery;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthenticateTest extends AbstractMiddlewareTest
 {

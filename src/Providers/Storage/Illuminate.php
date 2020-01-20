@@ -12,9 +12,9 @@
 namespace Tymon\JWTAuth\Providers\Storage;
 
 use BadMethodCallException;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
-use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
+use Psr\SimpleCache\CacheInterface as PsrCacheInterface;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Illuminate implements Storage
 {
