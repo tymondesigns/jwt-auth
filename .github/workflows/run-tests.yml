@@ -5,15 +5,17 @@ on:
 
 jobs:
   php-tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         php: [7.4]
         laravel: [6.*]
         dependency-version: [prefer-lowest, prefer-stable]
+        os: [ubuntu-latest, windows-latest]
+        coverage: ['none', 'xdebug']
 
-    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.dependency-version }}]'
+    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.dependency-version }}] [${{ matrix.os }}]'
 
     steps:
       - name: Checkout code
@@ -23,8 +25,8 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
-          extension-csv: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: none
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: ${{ matrix.coverage }}
 
       - name: Install dependencies
         run: |
@@ -32,4 +34,12 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: composer test:ci
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        if: matrix.coverage == 'xdebug'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          yml: ./codecov.yml
