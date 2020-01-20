@@ -28,31 +28,23 @@ class JWT
 
     /**
      * The payload builder.
-     *
-     * @var \Tymon\JWTAuth\Builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * The authentication manager.
-     *
-     * @var \Tymon\JWTAuth\Manager
      */
-    protected $manager;
+    protected Manager $manager;
 
     /**
      * The HTTP parser.
-     *
-     * @var \Tymon\JWTAuth\Http\Parser\Parser
      */
-    protected $parser;
+    protected Parser $parser;
 
     /**
      * The token.
-     *
-     * @var \Tymon\JWTAuth\Token|null
      */
-    protected $token;
+    protected ?Token $token = null;
 
     /**
      * JWT constructor.
@@ -184,7 +176,7 @@ class JWT
      */
     public function checkSubjectModel($model, ?Payload $payload = null): bool
     {
-        $payload = $payload ?? $this->payload();
+        $payload ??= $this->payload();
 
         if (! $hash = $payload->get(HashedSubject::NAME)) {
             return true;

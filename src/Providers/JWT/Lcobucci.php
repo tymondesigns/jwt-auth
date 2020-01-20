@@ -26,24 +26,18 @@ class Lcobucci extends Provider
 {
     /**
      * The Builder instance.
-     *
-     * @var \Lcobucci\JWT\Builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * The Parser instance.
-     *
-     * @var \Lcobucci\JWT\Parser
      */
-    protected $parser;
+    protected Parser $parser;
 
     /**
      * The Signer instance.
-     *
-     * @var \Lcobucci\JWT\Signer
      */
-    protected $signer;
+    protected Signer $signer;
 
     /**
      * Constructor.
@@ -63,11 +57,11 @@ class Lcobucci extends Provider
     }
 
     /**
-     * Signers that this provider supports.
+     * Algorithms that this provider supports.
      *
      * @var array
      */
-    protected $signers = [
+    protected $algorithms = [
         'HS256' => Signer\Hmac\Sha256::class,
         'HS384' => Signer\Hmac\Sha384::class,
         'HS512' => Signer\Hmac\Sha512::class,
@@ -123,9 +117,7 @@ class Lcobucci extends Provider
         }
 
         return Collection::make($jwt->getClaims())
-            ->map(function ($claim) {
-                return is_object($claim) ? $claim->getValue() : $claim;
-            })
+            ->map(fn ($claim) => is_object($claim) ? $claim->getValue() : $claim)
             ->toArray();
     }
 
@@ -136,11 +128,11 @@ class Lcobucci extends Provider
      */
     protected function getSigner(): Signer
     {
-        if (! array_key_exists($this->algo, $this->signers)) {
+        if (! array_key_exists($this->algo, $this->algorithms)) {
             throw new JWTException('The given algorithm could not be found');
         }
 
-        return new $this->signers[$this->algo];
+        return new $this->algorithms[$this->algo];
     }
 
     /**

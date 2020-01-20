@@ -38,9 +38,9 @@ final class Options
     const VALIDATORS = 'validators';
 
     /**
-     * @var array
+     * The provided options
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * Options constructor.

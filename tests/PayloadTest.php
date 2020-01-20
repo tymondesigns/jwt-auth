@@ -57,11 +57,8 @@ class PayloadTest extends AbstractTestCase
             new NotBefore($this->testNowTimestamp),
             new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
+            ...$extraClaims,
         ];
-
-        if ($extraClaims) {
-            $claims = array_merge($claims, $extraClaims);
-        }
 
         $collection = Collection::make($claims);
 
@@ -120,7 +117,7 @@ class PayloadTest extends AbstractTestCase
     {
         $values = $this->payload->get([Subject::NAME, JwtId::NAME]);
 
-        list($sub, $jti) = $values;
+        [$sub, $jti] = $values;
 
         $this->assertIsArray($values);
         $this->assertSame($sub, 1);

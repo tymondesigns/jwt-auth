@@ -87,10 +87,8 @@ class FactoryTest extends AbstractTestCase
             'foo' => 'bar',
         ], new Options([
             'validators' => [
-                'foo' => function ($value) {
-                    // This will fail as the value is `bar`
-                    return $value === 'baz';
-                },
+                // This will fail as the value is `bar`
+                'foo' => fn ($value) => $value === 'baz',
             ],
         ]));
     }
@@ -107,9 +105,7 @@ class FactoryTest extends AbstractTestCase
         ], new Options([
             'validators' => [
                 // The `bar` claim does not exist
-                'bar' => function ($value) {
-                    return $value === 'baz';
-                },
+                'bar' => fn ($value) => $value === 'baz',
             ],
         ]));
     }

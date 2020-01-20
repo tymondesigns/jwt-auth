@@ -295,9 +295,7 @@ class ParserTest extends AbstractTestCase
     public function it_should_return_the_token_from_route()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return $this->getRouteMock('foobar');
-        });
+        $request->setRouteResolver(fn () => $this->getRouteMock('foobar'));
 
         $parser = new Parser($request);
         $parser->setChain([
@@ -315,9 +313,7 @@ class ParserTest extends AbstractTestCase
     public function it_should_return_the_token_from_route_with_a_custom_param()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return $this->getRouteMock('foobar', 'custom_route_param');
-        });
+        $request->setRouteResolver(fn () => $this->getRouteMock('foobar', 'custom_route_param'));
 
         $parser = new Parser($request);
         $parser->setChain([
@@ -355,9 +351,11 @@ class ParserTest extends AbstractTestCase
     public function it_should_ignore_lumen_request_arrays()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return [false, ['uses' => 'someController'], ['token' => 'foobar']];
-        });
+        $request->setRouteResolver(fn () => [
+            false,
+            ['uses' => 'someController'],
+            ['token' => 'foobar']
+        ]);
 
         $parser = new Parser($request);
         $parser->setChain([
@@ -375,9 +373,11 @@ class ParserTest extends AbstractTestCase
     public function it_should_accept_lumen_request_arrays_with_special_class()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return [false, ['uses' => 'someController'], ['token' => 'foo.bar.baz']];
-        });
+        $request->setRouteResolver(fn () => [
+            false,
+            ['uses' => 'someController'],
+            ['token' => 'foo.bar.baz']
+        ]);
 
         $parser = new Parser($request);
         $parser->setChain([
@@ -395,9 +395,7 @@ class ParserTest extends AbstractTestCase
     public function it_should_return_null_if_no_token_in_request()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return $this->getRouteMock();
-        });
+        $request->setRouteResolver(fn () => $this->getRouteMock());
 
         $parser = new Parser($request);
         $parser->setChain([

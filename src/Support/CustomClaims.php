@@ -17,10 +17,8 @@ trait CustomClaims
 {
     /**
      * Custom claims.
-     *
-     * @var array
      */
-    protected $customClaims = [];
+    protected array $customClaims = [];
 
     /**
      * Set the custom claims.

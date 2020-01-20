@@ -19,9 +19,9 @@ use Tymon\JWTAuth\Validators\TokenValidator;
 class Token
 {
     /**
-     * @var string
+     * The token value.
      */
-    private $value;
+    private string $value;
 
     /**
      * Create a new JSON Web Token.

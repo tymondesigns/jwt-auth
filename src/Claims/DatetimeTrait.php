@@ -28,17 +28,13 @@ trait DatetimeTrait
 {
     /**
      * Time leeway in seconds.
-     *
-     * @var int
      */
-    protected $leeway = 0;
+    protected int $leeway = 0;
 
     /**
      * Max refresh period in minutes.
-     *
-     * @var int|null
      */
-    protected $maxRefreshPeriod;
+    protected ?int $maxRefreshPeriod = null;
 
     /**
      * Set the claim value, and call a validate method.
@@ -137,6 +133,8 @@ trait DatetimeTrait
      */
     public function asCarbonInterval(): CarbonInterval
     {
-        return now()->diffAsCarbonInterval($this->asCarbon());
+        return now()
+            ->diffAsCarbonInterval($this->asCarbon()->endOfSecond())
+            ->microseconds(0);
     }
 }

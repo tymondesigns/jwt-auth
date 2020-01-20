@@ -20,10 +20,8 @@ class Factory
 {
     /**
      * The class map.
-     *
-     * @var array
      */
-    private static $classMap = [
+    private static array $classMap = [
         Audience::NAME => Audience::class,
         Expiration::NAME => Expiration::class,
         IssuedAt::NAME => IssuedAt::class,
@@ -39,7 +37,7 @@ class Factory
      */
     public static function get(string $name, $value = null, ?Options $options = null): ClaimContract
     {
-        $options = $options ?? new Options();
+        $options ??= new Options();
 
         $claim = static::has($name)
             ? call_user_func([static::$classMap[$name], 'make'], $value)

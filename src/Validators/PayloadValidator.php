@@ -27,9 +27,9 @@ class PayloadValidator extends Validator
      */
     public static function check(Collection $claims, ?Options $options = null): Payload
     {
-        $options = $options ?? new Options();
+        $options ??= new Options();
 
-        if (! $this->hasRequiredClaims($claims, $options)) {
+        if (! static::hasRequiredClaims($claims, $options)) {
             static::throwFailed('JWT does not contain the required claims');
         }
 
@@ -51,7 +51,7 @@ class PayloadValidator extends Validator
     /**
      * Determine whether the given collection of claims has all the required claims.
      */
-    protected function hasRequiredClaims(Collection $claims, ?Options $options = null): bool
+    protected static function hasRequiredClaims(Collection $claims, ?Options $options = null): bool
     {
         // If the collection doesn't have an exp then remove it from the required claims.
         $requiredClaims = $claims->has(Expiration::NAME)

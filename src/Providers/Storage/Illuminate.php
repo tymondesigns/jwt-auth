@@ -19,27 +19,23 @@ class Illuminate implements Storage
 {
     /**
      * The cache repository contract.
-     *
-     * @var \Illuminate\Contracts\Cache\Repository
      */
-    protected $cache;
+    protected CacheContract $cache;
 
     /**
      * The used cache tag.
-     *
-     * @var string
      */
-    protected $tag = 'tymon.jwt';
+    protected string $tag = 'tymon.jwt';
 
     /**
-     * @var bool
+     * Whether the storage driver supports tagging.
      */
-    protected $supportsTags;
+    protected ?bool $supportsTags = null;
 
     /**
-     * @var string|null
+     * The laravel version.
      */
-    protected $laravelVersion;
+    protected ?string $laravelVersion = null;
 
     /**
      * Constructor.

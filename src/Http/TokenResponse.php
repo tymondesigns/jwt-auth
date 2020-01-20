@@ -24,24 +24,18 @@ class TokenResponse implements Responsable
 
     /**
      * The token itself.
-     *
-     * @var \Tymon\JWTAuth\Token
      */
-    protected $token;
+    protected Token $token;
 
     /**
      * The token ttl.
-     *
-     * @var int
      */
-    protected $ttl;
+    protected int $ttl;
 
     /**
      * The token type.
-     *
-     * @var string
      */
-    protected $type;
+    protected string $type;
 
     /**
      * Constructor.

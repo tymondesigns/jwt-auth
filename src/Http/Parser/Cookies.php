@@ -21,10 +21,8 @@ class Cookies implements ParserContract
 
     /**
      * Decrypt or not the cookie while parsing.
-     *
-     * @var bool
      */
-    private $decrypt;
+    private bool $decrypt;
 
     /**
      * Constructor.

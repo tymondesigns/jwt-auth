@@ -169,12 +169,12 @@ class DatetimeClaimTest extends AbstractTestCase
     {
         $exp = new Expiration($this->testNowTimestamp + ($seconds = 3600));
         $this->assertInstanceOf(CarbonInterval::class, $exp->asCarbonInterval());
-        // $this->assertEquals(CarbonInterval::seconds($seconds)->cascade(), $exp->asCarbonInterval());
-        // $this->assertEquals('PT1H', $exp->asCarbonInterval()->spec());
+        $this->assertEquals(CarbonInterval::seconds($seconds)->cascade(), $exp->asCarbonInterval());
+        $this->assertEquals('PT1H', $exp->asCarbonInterval()->spec());
 
         $iat = new IssuedAt($this->testNowTimestamp);
         $this->assertInstanceOf(CarbonInterval::class, $iat->asCarbonInterval());
-        // $this->assertEquals(CarbonInterval::seconds(0)->cascade(), $iat->asCarbonInterval());
-        // $this->assertEquals('PT0S', $iat->asCarbonInterval()->spec());
+        $this->assertEquals(CarbonInterval::seconds(0)->cascade(), $iat->asCarbonInterval());
+        $this->assertEquals('PT0S', $iat->asCarbonInterval()->spec());
     }
 }

@@ -25,31 +25,23 @@ class Manager
 
     /**
      * The provider.
-     *
-     * @var \Tymon\JWTAuth\Contracts\Providers\JWT
      */
-    protected $provider;
+    protected JWTContract $provider;
 
     /**
      * The blacklist.
-     *
-     * @var \Tymon\JWTAuth\Blacklist
      */
-    protected $blacklist;
+    protected Blacklist $blacklist;
 
     /**
      * The payload builder.
-     *
-     * @var \Tymon\JWTAuth\Builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * The blacklist flag.
-     *
-     * @var bool
      */
-    protected $blacklistEnabled = true;
+    protected bool $blacklistEnabled = true;
 
     /**
      * Constructor.

@@ -22,10 +22,8 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
 {
     /**
      * The claim name.
-     *
-     * @var string|null
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
      * The claim value.

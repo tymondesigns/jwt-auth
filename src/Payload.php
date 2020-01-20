@@ -33,10 +33,8 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
 
     /**
      * The collection of claims.
-     *
-     * @var \Tymon\JWTAuth\Claims\Collection
      */
-    private $claims;
+    private Collection $claims;
 
     /**
      * Constructor.

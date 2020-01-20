@@ -23,7 +23,7 @@ class Factory
     /**
      * Create a Payload instance.
      */
-    public static function make(array $claims = [], ?Options $options = null): Payload
+    public static function make($claims = [], ?Options $options = null): Payload
     {
         $claims = Collection::make($claims)
             ->map(function ($value, $key) use ($options) {

@@ -24,24 +24,18 @@ class Blacklist
 {
     /**
      * The storage.
-     *
-     * @var \Tymon\JWTAuth\Contracts\Providers\Storage
      */
-    protected $storage;
+    protected Storage $storage;
 
     /**
      * The grace period when a token is blacklisted. In seconds.
-     *
-     * @var int
      */
-    protected $gracePeriod = 0;
+    protected int $gracePeriod = 0;
 
     /**
      * The unique key held within the blacklist.
-     *
-     * @var string
      */
-    protected $key = JwtId::NAME;
+    protected string $key = JwtId::NAME;
 
     /**
      * The value to store when blacklisting forever.
@@ -178,7 +172,7 @@ class Blacklist
      */
     public function getKey(Payload $payload): string
     {
-        return (string) $payload($this->key);
+        return (string) $payload[$this->key];
     }
 
     /**

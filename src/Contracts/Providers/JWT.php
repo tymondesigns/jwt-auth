@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Contracts\Providers;
 
+use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Options;
+use Tymon\JWTAuth\Payload;
+
 interface JWT
 {
     /**
@@ -24,4 +28,14 @@ interface JWT
      * Decode a JSON Web Token.
      */
     public function decode(string $token): array;
+
+    /**
+     * Get the decoded token as a Payload instance.
+     */
+    public function payload(Token $token, ?Options $options = null): Payload;
+
+    /**
+     * Get an encoded Token instance.
+     */
+    public function token(Payload $payload): Token;
 }

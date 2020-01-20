@@ -15,10 +15,8 @@ trait KeyTrait
 {
     /**
      * The key.
-     *
-     * @var string
      */
-    protected $key = 'token';
+    protected string $key = 'token';
 
     /**
      * Set the key.

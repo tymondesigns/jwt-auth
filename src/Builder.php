@@ -24,52 +24,38 @@ class Builder
 {
     /**
      * The request.
-     *
-     * @var \Illuminate\Http\Request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * The TTL in minutes.
-     *
-     * @var int
      */
-    protected $ttl = 30;
+    protected int $ttl = 30;
 
     /**
      * Lock the subject.
-     *
-     * @var bool
      */
-    protected $lockSubject = true;
+    protected bool $lockSubject = true;
 
     /**
      * Time leeway in seconds.
-     *
-     * @var int
      */
-    protected $leeway = 0;
+    protected int $leeway = 0;
 
     /**
      * Max refresh period in minutes.
-     *
-     * @var int|null
      */
-    protected $maxRefreshPeriod;
+    protected ?int $maxRefreshPeriod = null;
 
     /**
      * The required claims.
-     *
-     * @var array
      */
-    protected $requiredClaims;
+    protected array $requiredClaims = [];
 
     /**
      * The default claims to add.
-     *
-     * @var array
      */
-    protected $defaultClaims = [
+    protected array $defaultClaims = [
         Claims\IssuedAt::NAME,
         Claims\JwtId::NAME,
         Claims\Issuer::NAME,
@@ -77,10 +63,8 @@ class Builder
 
     /**
      * Any custom validators.
-     *
-     * @var array
      */
-    protected $customValidators = [];
+    protected array $customValidators = [];
 
     /**
      * Constructor.
@@ -93,7 +77,7 @@ class Builder
     /**
      * Create a Payload instance for a given array of claims.
      */
-    public function make(array $claims = []): Payload
+    public function make($claims = []): Payload
     {
         return Factory::make($claims, $this->getOptions());
     }

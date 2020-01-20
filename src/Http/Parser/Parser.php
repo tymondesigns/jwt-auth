@@ -19,17 +19,13 @@ class Parser
 {
     /**
      * The request.
-     *
-     * @var \Illuminate\Http\Request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * The chain.
-     *
-     * @var array
      */
-    private $chain;
+    private array $chain;
 
     /**
      * Constructor.
