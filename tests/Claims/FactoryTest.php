@@ -12,16 +12,16 @@
 namespace Tymon\JWTAuth\Test\Claims;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Custom;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\Factory;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Test\Fixtures\Foo;
+use Tymon\JWTAuth\Claims\Factory;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Claims\NotBefore;
+use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Test\Fixtures\Foo;
 
 class FactoryTest extends AbstractTestCase
 {

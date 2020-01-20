@@ -11,10 +11,10 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Mockery;
 use Exception;
-use Namshi\JOSE\JWS;
 use InvalidArgumentException;
+use Mockery;
+use Namshi\JOSE\JWS;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 

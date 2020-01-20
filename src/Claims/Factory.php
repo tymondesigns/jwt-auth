@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Support\Utils;
 
 class Factory

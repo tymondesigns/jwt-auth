@@ -11,19 +11,19 @@
 
 namespace Tymon\JWTAuth\Test;
 
+use Illuminate\Http\Request;
 use Mockery;
 use stdClass;
-use Tymon\JWTAuth\Token;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Factory;
+use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Token;
 
 class JWTAuthTest extends AbstractTestCase
 {
