@@ -6,4 +6,4 @@ enabled:
   - phpdoc_order
   - phpdoc_separation
   - unalign_double_arrow
-  - length_ordered_imports
+  # - length_ordered_imports
