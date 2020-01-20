@@ -11,16 +11,16 @@
 
 namespace Tymon\JWTAuth\Test;
 
+use Tymon\JWTAuth\Claims\Custom;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Claims\NotBefore;
+use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
-use Tymon\JWTAuth\Claims\JwtId;
-use Tymon\JWTAuth\Claims\Custom;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class FactoryTest extends AbstractTestCase
 {

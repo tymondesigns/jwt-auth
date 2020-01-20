@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Test\Validators;
 
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Validators\TokenValidator;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class TokenValidatorTest extends AbstractTestCase
 {

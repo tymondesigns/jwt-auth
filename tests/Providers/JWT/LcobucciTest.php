@@ -11,20 +11,20 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Mockery;
 use Exception;
-use Lcobucci\JWT\Parser;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Key;
 use InvalidArgumentException;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer\Key;
+use Mockery;
+use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Claims\IssuedAt;
 use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Test\AbstractTestCase;
-use Tymon\JWTAuth\Providers\JWT\Lcobucci;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Providers\JWT\Lcobucci;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class LcobucciTest extends AbstractTestCase
 {

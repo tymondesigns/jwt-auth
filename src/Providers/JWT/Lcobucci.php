@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
-use ReflectionClass;
+use Illuminate\Support\Collection;
+use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\Builder;
-use Illuminate\Support\Collection;
+use ReflectionClass;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 

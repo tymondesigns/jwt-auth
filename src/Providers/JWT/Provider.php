@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-use Tymon\JWTAuth\Token;
+use Illuminate\Support\Arr;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
-use Illuminate\Support\Arr;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
+use Tymon\JWTAuth\Token;
 
 abstract class Provider implements JWT
 {

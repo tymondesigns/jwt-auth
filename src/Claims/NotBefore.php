@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Claims;
 
-use function Tymon\JWTAuth\Support\now;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use function Tymon\JWTAuth\Support\now;
 
 class NotBefore extends Claim
 {

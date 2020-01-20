@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Http\Parser\Parser;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Tymon\JWTAuth\Claims\HashedSubject;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Support\CustomClaims;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Traits\ForwardsCalls;
+use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Support\CustomClaims;
 
 class JWT
 {

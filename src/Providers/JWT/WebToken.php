@@ -14,23 +14,23 @@ declare(strict_types=1);
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
-use RuntimeException;
-use Jose\Component\Core\JWK;
-use Jose\Component\Core\Algorithm;
-use Jose\Component\Signature\JWSLoader;
-use Jose\Component\Signature\JWSBuilder;
-use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Signature\JWSVerifier;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Jose\Component\Checker\AlgorithmChecker;
-use Jose\Component\KeyManagement\JWKFactory;
-use Jose\Component\Signature\JWSTokenSupport;
 use Jose\Component\Checker\HeaderCheckerManager;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Jose\Component\Core\Algorithm;
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Core\JWK;
+use Jose\Component\KeyManagement\JWKFactory;
 use Jose\Component\Signature\Algorithm as Algorithms;
-use Jose\Component\Signature\Serializer\JWSSerializer;
+use Jose\Component\Signature\JWSBuilder;
+use Jose\Component\Signature\JWSLoader;
+use Jose\Component\Signature\JWSTokenSupport;
+use Jose\Component\Signature\JWSVerifier;
 use Jose\Component\Signature\Serializer\CompactSerializer;
+use Jose\Component\Signature\Serializer\JWSSerializer;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
+use RuntimeException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class WebToken extends Provider
 {
@@ -122,7 +122,7 @@ class WebToken extends Provider
 
         return JWKFactory::createFromSecret($this->getSecret(), [
             'alg' => $this->getAlgo(),
-            'use' => 'sig'
+            'use' => 'sig',
         ]);
     }
 
