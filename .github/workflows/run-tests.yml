@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         php: [7.4]
-        laravel: [6.*, 5.8.*]
+        laravel: [6.*]
         dependency-version: [prefer-lowest, prefer-stable]
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
