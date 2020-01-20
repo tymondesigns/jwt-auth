@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Illuminate\Support\Collection as IlluminateCollection;
+use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 
 class Collection extends IlluminateCollection
 {

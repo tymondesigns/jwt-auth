@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth\Test\Claims;
 
 use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class IssuedAtTest extends AbstractTestCase
 {

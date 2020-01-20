@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Http;
 
-use Tymon\JWTAuth\Token;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Traits\ForwardsCalls;
-use Illuminate\Contracts\Support\Responsable;
+use Tymon\JWTAuth\Token;
 
 class TokenResponse implements Responsable
 {

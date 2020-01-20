@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\Expiration;
-use function Tymon\JWTAuth\Support\now;
-use function Tymon\JWTAuth\Support\is_future;
-use function Tymon\JWTAuth\Support\timestamp;
+use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Contracts\Providers\Storage;
+use function Tymon\JWTAuth\Support\is_future;
+use function Tymon\JWTAuth\Support\now;
+use function Tymon\JWTAuth\Support\timestamp;
 
 class Blacklist
 {

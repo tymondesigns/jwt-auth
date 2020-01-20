@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
-use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
+use Tymon\JWTAuth\Options;
 
 class Factory
 {

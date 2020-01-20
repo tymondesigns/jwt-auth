@@ -11,10 +11,10 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 use Illuminate\Contracts\Support\Arrayable;
+use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class ClaimTest extends AbstractTestCase
 {

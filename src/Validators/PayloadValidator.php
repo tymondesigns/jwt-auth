@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth\Validators;
 
-use Tymon\JWTAuth\Options;
-use Tymon\JWTAuth\Payload;
 use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Collection;
 use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Options;
+use Tymon\JWTAuth\Payload;
 
 class PayloadValidator extends Validator
 {

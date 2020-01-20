@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use function Tymon\JWTAuth\Support\now;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use function Tymon\JWTAuth\Support\timestamp;
+use Illuminate\Support\Arr;
 use Tymon\JWTAuth\Claims\Factory as ClaimFactory;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use function Tymon\JWTAuth\Support\now;
+use function Tymon\JWTAuth\Support\timestamp;
 
 class Builder
 {

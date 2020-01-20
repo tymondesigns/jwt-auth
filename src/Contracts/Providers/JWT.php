@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Contracts\Providers;
 
-use Tymon\JWTAuth\Token;
 use Tymon\JWTAuth\Options;
 use Tymon\JWTAuth\Payload;
+use Tymon\JWTAuth\Token;
 
 interface JWT
 {

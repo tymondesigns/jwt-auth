@@ -13,19 +13,19 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth;
 
-use Countable;
 use ArrayAccess;
-use JsonSerializable;
 use BadMethodCallException;
+use Countable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\ForwardsCalls;
+use JsonSerializable;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Tymon\JWTAuth\Facades\JWTManager;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Traits\ForwardsCalls;
-use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
+use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Facades\JWTManager;
 
 class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerializable
 {

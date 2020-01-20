@@ -12,8 +12,8 @@
 namespace Tymon\JWTAuth\Providers\Storage;
 
 use BadMethodCallException;
-use Tymon\JWTAuth\Contracts\Providers\Storage;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
+use Tymon\JWTAuth\Contracts\Providers\Storage;
 
 class Illuminate implements Storage
 {

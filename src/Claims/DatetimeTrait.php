@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Tymon\JWTAuth\Claims;
 
-use DateInterval;
 use Carbon\Carbon;
-use DateTimeInterface;
 use Carbon\CarbonInterval;
-use function Tymon\JWTAuth\Support\now;
-use function Tymon\JWTAuth\Support\is_past;
-use function Tymon\JWTAuth\Support\is_future;
-use function Tymon\JWTAuth\Support\timestamp;
+use DateInterval;
+use DateTimeInterface;
 use Tymon\JWTAuth\Contracts\Claim as ClaimContract;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use function Tymon\JWTAuth\Support\is_future;
+use function Tymon\JWTAuth\Support\is_past;
+use function Tymon\JWTAuth\Support\now;
+use function Tymon\JWTAuth\Support\timestamp;
 
 trait DatetimeTrait
 {
