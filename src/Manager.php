@@ -178,7 +178,10 @@ class Manager
         return array_merge(
             $this->customClaims,
             $persistentClaims,
-            $payload->get(['sub', 'iat'])
+            [
+                'sub' => $payload['sub'],
+                'iat' => $payload['iat'],
+            ]
         );
     }
 
