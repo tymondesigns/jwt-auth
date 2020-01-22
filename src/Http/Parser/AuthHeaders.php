@@ -54,9 +54,9 @@ class AuthHeaders implements ParserContract
         $header = $request->headers->get($this->header) ?: $this->fromAltHeaders($request);
 
         if ($header) {
-            $start = strlen($this->prefix) + 1; // +1 to include the space separator
+            $start = strlen($this->prefix);
 
-            return substr($header, $start);
+            return trim(substr($header, $start));
         }
     }
 
