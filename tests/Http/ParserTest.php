@@ -108,6 +108,25 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_not_strip_trailing_hyphens_from_the_authorization_header()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Bearer foobar--');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar--');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_return_the_token_from_query_string()
     {
         $request = Request::create('foo', 'GET', ['token' => 'foobar']);
