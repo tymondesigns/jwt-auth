@@ -33,6 +33,7 @@
         "nesbot/carbon": "^1.0|^2.0"
     },
     "require-dev": {
+        "php": "^7.0",
         "cartalyst/sentinel": "^2|^3",
         "illuminate/console": "^5.1|^6",
         "illuminate/database": "^5.1|^6",

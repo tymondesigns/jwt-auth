@@ -131,6 +131,20 @@ class Factory
     }
 
     /**
+     * Remove a claim from the Payload.
+     *
+     * @param  string  $name
+     *
+     * @return $this
+     */
+    protected function removeClaim($name)
+    {
+        $this->claims->pull($name);
+
+        return $this;
+    }
+
+    /**
      * Build the default claims.
      *
      * @return $this
@@ -139,10 +153,9 @@ class Factory
     {
         $defaultClaims = $this->defaultClaims;
 
-        $this->emptyClaims();
-
         // remove the exp claim if it exists and the ttl is null
         if ($this->claimFactory->getTTL() === null && $key = array_search('exp', $defaultClaims)) {
+            $this->removeClaim('exp');
             unset($defaultClaims[$key]);
         }
 
