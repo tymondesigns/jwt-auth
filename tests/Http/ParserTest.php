@@ -230,6 +230,25 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_return_the_token_from_an_unencrypted_cookie_with_configurable_name()
+    {
+        $cookieName = 'custom_cookie_name';
+        $request = Request::create('foo', 'POST', [], [$cookieName => 'foobar']);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            new RouteParams,
+            new Cookies(false, $cookieName),
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_return_the_token_from_a_crypted_cookie()
     {
         Crypt::shouldReceive('encrypt')
