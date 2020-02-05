@@ -236,7 +236,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
                     new QueryString,
                     new InputSource,
                     new RouteParams,
-                    new Cookies($this->config('decrypt_cookies')),
+                    new Cookies($this->config('decrypt_cookies'), $this->config('token_cookie_name')),
                 ]
             );
 
