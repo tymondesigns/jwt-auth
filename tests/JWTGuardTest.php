@@ -13,7 +13,13 @@ namespace Tymon\JWTAuth\Test;
 
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Testing\Fakes\EventFake;
 use Mockery;
+use Tymon\JWTAuth\Events\JWTAttempt;
+use Tymon\JWTAuth\Events\JWTInvalidate;
+use Tymon\JWTAuth\Events\JWTLogin;
+use Tymon\JWTAuth\Events\JWTLogout;
+use Tymon\JWTAuth\Events\JWTRefresh;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTGuard;
@@ -37,13 +43,26 @@ class JWTGuardTest extends AbstractTestCase
      */
     protected $guard;
 
+    /**
+     * @var \Illuminate\Support\Testing\Fakes\EventFake|\Mockery\MockInterface
+     */
+    protected $events;
+
     public function setUp()
     {
         parent::setUp();
 
         $this->jwt = Mockery::mock(JWT::class);
         $this->provider = Mockery::mock(EloquentUserProvider::class);
-        $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
+
+        $this->events = Mockery::mock(EventFake::class);
+
+        $this->guard = new JWTGuard(
+            $this->jwt,
+            $this->provider,
+            Request::create('/foo', 'GET'),
+            $this->events
+        );
     }
 
     /**
@@ -199,6 +218,9 @@ class JWTGuardTest extends AbstractTestCase
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub;
 
+        $this->events->shouldReceive('dispatch')->times(2);
+        $this->events->shouldReceive('assertDispatched')->times(2);
+
         $this->provider->shouldReceive('retrieveByCredentials')
                        ->once()
                        ->with($credentials)
@@ -226,6 +248,8 @@ class JWTGuardTest extends AbstractTestCase
 
         $token = $this->guard->claims(['foo' => 'bar'])->attempt($credentials);
 
+        $this->events->assertDispatched(JWTAttempt::class, 1);
+        $this->events->assertDispatched(JWTLogin::class, 1);
         $this->assertSame($this->guard->getLastAttempted(), $user);
         $this->assertSame($token, 'foo.bar.baz');
     }
@@ -239,6 +263,9 @@ class JWTGuardTest extends AbstractTestCase
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub;
 
+        $this->events->shouldReceive('dispatch')->times(2);
+        $this->events->shouldReceive('assertDispatched')->once();
+
         $this->provider->shouldReceive('retrieveByCredentials')
                        ->twice()
                        ->with($credentials)
@@ -251,6 +278,7 @@ class JWTGuardTest extends AbstractTestCase
 
         $this->assertTrue($this->guard->attempt($credentials, false)); // once
         $this->assertTrue($this->guard->validate($credentials)); // twice
+        $this->events->assertDispatched(JWTAttempt::class, 2);
     }
 
     /**
@@ -261,6 +289,9 @@ class JWTGuardTest extends AbstractTestCase
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub;
+
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
 
         $this->provider->shouldReceive('retrieveByCredentials')
                        ->once()
@@ -273,6 +304,7 @@ class JWTGuardTest extends AbstractTestCase
                        ->andReturn(false);
 
         $this->assertFalse($this->guard->attempt($credentials));
+        $this->events->assertDispatched(JWTAttempt::class, 1);
     }
 
     /**
@@ -292,11 +324,16 @@ class JWTGuardTest extends AbstractTestCase
     public function it_should_logout_the_user_by_invalidating_the_token()
     {
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
-        $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
+        $this->jwt->shouldReceive('getToken')->times(3)->andReturn(true);
         $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
         $this->jwt->shouldReceive('unsetToken')->once();
+        $this->jwt->shouldReceive('check')->once();
+
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
 
         $this->guard->logout();
+        $this->events->assertDispatched(JWTLogout::class, 1);
         $this->assertNull($this->guard->getUser());
     }
 
@@ -310,7 +347,11 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
         $this->jwt->shouldReceive('refresh')->once()->andReturn('foo.bar.baz');
 
+        $this->events->shouldReceive('dispatch')->times(1);
+        $this->events->shouldReceive('assertDispatched')->once();
+
         $this->assertSame($this->guard->refresh(), 'foo.bar.baz');
+        $this->events->assertDispatched(JWTRefresh::class, 1);
     }
 
     /**
@@ -322,8 +363,11 @@ class JWTGuardTest extends AbstractTestCase
         $this->jwt->shouldReceive('setRequest')->andReturn($this->jwt);
         $this->jwt->shouldReceive('getToken')->once()->andReturn(true);
         $this->jwt->shouldReceive('invalidate')->once()->andReturn(true);
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
 
         $this->assertTrue($this->guard->invalidate());
+        $this->events->assertDispatched(JWTInvalidate::class, 1);
     }
 
     /**
@@ -385,6 +429,9 @@ class JWTGuardTest extends AbstractTestCase
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub;
 
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
+
         $this->provider->shouldReceive('retrieveByCredentials')
                        ->once()
                        ->with($credentials)
@@ -396,6 +443,7 @@ class JWTGuardTest extends AbstractTestCase
                        ->andReturn(true);
 
         $this->assertTrue($this->guard->once($credentials));
+        $this->events->assertDispatched(JWTAttempt::class, 1);
     }
 
     /**
@@ -406,6 +454,9 @@ class JWTGuardTest extends AbstractTestCase
     {
         $credentials = ['foo' => 'bar', 'baz' => 'bob'];
         $user = new LaravelUserStub;
+
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
 
         $this->provider->shouldReceive('retrieveByCredentials')
                        ->once()
@@ -418,6 +469,7 @@ class JWTGuardTest extends AbstractTestCase
                        ->andReturn(false);
 
         $this->assertFalse($this->guard->once($credentials));
+        $this->events->assertDispatched(JWTAttempt::class, 1);
     }
 
     /**
@@ -460,6 +512,9 @@ class JWTGuardTest extends AbstractTestCase
     {
         $user = new LaravelUserStub;
 
+        $this->events->shouldReceive('dispatch')->once();
+        $this->events->shouldReceive('assertDispatched')->once();
+
         $this->jwt->shouldReceive('fromUser')
                   ->once()
                   ->with($user)
@@ -472,6 +527,7 @@ class JWTGuardTest extends AbstractTestCase
 
         $token = $this->guard->login($user);
 
+        $this->events->assertDispatched(JWTLogin::class, 1);
         $this->assertSame('foo.bar.baz', $token);
     }
 
