@@ -11,20 +11,20 @@
 
 namespace Tymon\JWTAuth\Test;
 
+use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Testing\Fakes\EventFake;
 use Mockery;
+use Tymon\JWTAuth\Events\JWTAttempt;
+use Tymon\JWTAuth\Events\JWTInvalidate;
+use Tymon\JWTAuth\Events\JWTLogin;
+use Tymon\JWTAuth\Events\JWTLogout;
+use Tymon\JWTAuth\Events\JWTRefresh;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTGuard;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Events\JWTLogin;
-use Tymon\JWTAuth\Events\JWTLogout;
-use Tymon\JWTAuth\Events\JWTAttempt;
-use Tymon\JWTAuth\Events\JWTRefresh;
-use Tymon\JWTAuth\Events\JWTInvalidate;
-use Illuminate\Auth\EloquentUserProvider;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Test\Stubs\LaravelUserStub;
-use Illuminate\Support\Testing\Fakes\EventFake;
 
 class JWTGuardTest extends AbstractTestCase
 {

@@ -13,18 +13,18 @@ namespace Tymon\JWTAuth;
 
 use BadMethodCallException;
 use Illuminate\Auth\GuardHelpers;
-use Tymon\JWTAuth\Events\JWTLogin;
-use Tymon\JWTAuth\Events\JWTLogout;
 use Illuminate\Contracts\Auth\Guard;
-use Tymon\JWTAuth\Events\JWTAttempt;
-use Tymon\JWTAuth\Events\JWTRefresh;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Events\JWTInvalidate;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Traits\Macroable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Events\JWTAttempt;
+use Tymon\JWTAuth\Events\JWTInvalidate;
+use Tymon\JWTAuth\Events\JWTLogin;
+use Tymon\JWTAuth\Events\JWTLogout;
+use Tymon\JWTAuth\Events\JWTRefresh;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Contracts\Events\Dispatcher;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class JWTGuard implements Guard

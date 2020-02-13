@@ -15,22 +15,22 @@ use Cartalyst\Sentinel\Users\UserInterface;
 
 class SentinelStub implements UserInterface
 {
-    public function getUserId() : int
+    public function getUserId(): int
     {
         return 123;
     }
 
-    public function getUserLogin() : string
+    public function getUserLogin(): string
     {
         return 'foo';
     }
 
-    public function getUserLoginName() : string
+    public function getUserLoginName(): string
     {
         return 'bar';
     }
 
-    public function getUserPassword() : string
+    public function getUserPassword(): string
     {
         return 'baz';
     }
