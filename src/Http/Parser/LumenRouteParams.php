@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Http\Parser;
 
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class LumenRouteParams extends RouteParams
 {

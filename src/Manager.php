@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Support\RefreshFlow;
-use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Contracts\Providers\JWT as JWTContract;
+use Tymon\JWTAuth\Support\CustomClaims;
+use Tymon\JWTAuth\Support\RefreshFlow;
 
 class Manager
 {
@@ -169,13 +169,19 @@ class Manager
      */
     protected function buildRefreshClaims(Payload $payload)
     {
-        // assign the payload values as variables for use later
-        extract($payload->toArray());
+        // Get the claims to be persisted from the payload
+        $persistentClaims = collect($payload->toArray())
+            ->only($this->persistentClaims)
+            ->toArray();
 
         // persist the relevant claims
         return array_merge(
             $this->customClaims,
-            compact($this->persistentClaims, 'sub', 'iat')
+            $persistentClaims,
+            [
+                'sub' => $payload['sub'],
+                'iat' => $payload['iat'],
+            ]
         );
     }
 

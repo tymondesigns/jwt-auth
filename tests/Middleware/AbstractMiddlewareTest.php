@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
+use Illuminate\Http\Request;
 use Mockery;
 use Tymon\JWTAuth\JWTAuth;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 abstract class AbstractMiddlewareTest extends AbstractTestCase

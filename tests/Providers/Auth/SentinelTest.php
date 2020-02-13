@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth\Test\Providers\Auth;
 
-use Mockery;
 use Cartalyst\Sentinel\Sentinel;
+use Mockery;
+use Tymon\JWTAuth\Providers\Auth\Sentinel as Auth;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Test\Stubs\SentinelStub;
-use Tymon\JWTAuth\Providers\Auth\Sentinel as Auth;
 
 class SentinelTest extends AbstractTestCase
 {

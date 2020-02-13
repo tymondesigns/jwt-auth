@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth\Providers\Auth;
 
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Cartalyst\Sentinel\Sentinel as SentinelAuth;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class Sentinel implements Auth
 {

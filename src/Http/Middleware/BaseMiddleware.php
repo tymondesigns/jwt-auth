@@ -11,10 +11,10 @@
 
 namespace Tymon\JWTAuth\Http\Middleware;
 
-use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\JWTAuth;
 
 abstract class BaseMiddleware
 {
