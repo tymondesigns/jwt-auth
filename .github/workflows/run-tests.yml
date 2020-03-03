@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         php: [7.4]
-        laravel: [6.*]
+        laravel: [6.*, 7.*]
         os: [ubuntu-latest, windows-latest]
         coverage: ['none', 'xdebug']
 
