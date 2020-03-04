@@ -22,19 +22,10 @@ matrix:
       group: edge
     - php: 5.5.9
       dist: trusty
-      env: LARAVEL='5.1.*'
-    - php: 5.5.9
-      dist: trusty
       env: LARAVEL='5.2.*'
     - php: 5.5
       dist: trusty
-      env: LARAVEL='5.1.*'
-    - php: 5.5
-      dist: trusty
       env: LARAVEL='5.2.*'
-    - php: 5.6
-      dist: trusty
-      env: LARAVEL='5.1.*'
     - php: 5.6
       dist: trusty
       env: LARAVEL='5.2.*'
@@ -44,8 +35,6 @@ matrix:
     - php: 5.6
       dist: trusty
       env: LARAVEL='5.4.*'
-    - php: 7.0
-      env: LARAVEL='5.1.*'
     - php: 7.0
       env: LARAVEL='5.2.*'
     - php: 7.0
@@ -54,8 +43,6 @@ matrix:
       env: LARAVEL='5.4.*'
     - php: 7.0
       env: LARAVEL='5.5.*'
-    - php: 7.1
-      env: LARAVEL='5.1.*'
     - php: 7.1
       env: LARAVEL='5.2.*'
     - php: 7.1
@@ -70,8 +57,6 @@ matrix:
       env: LARAVEL='5.7.*'
     - php: 7.1
       env: LARAVEL='5.8.*'
-    - php: 7.2
-      env: LARAVEL='5.1.*'
     - php: 7.2
       env: LARAVEL='5.2.*'
     - php: 7.2
@@ -90,8 +75,6 @@ matrix:
       env: LARAVEL='6.*'
     - php: 7.2
       env: LARAVEL='7.*'
-    - php: 7.3
-      env: LARAVEL='5.1.*' XDEBUG=1
     - php: 7.3
       env: LARAVEL='5.2.*' XDEBUG=1
     - php: 7.3
