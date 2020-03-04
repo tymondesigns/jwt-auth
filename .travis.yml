@@ -105,12 +105,7 @@ install:
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction --no-suggest
 
 script:
-  - |
-    if [[ $LARAVEL == '5.1.*' ]]; then
-      composer test:ci -- --exclude-group laravel-5.2
-    else
-      composer test:ci
-    fi
+  - composer test:ci
 
 after_success:
   - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi

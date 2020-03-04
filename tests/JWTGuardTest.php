@@ -48,7 +48,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_get_the_request()
     {
@@ -57,7 +56,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided()
     {
@@ -92,7 +90,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_get_the_authenticated_user_if_a_valid_token_is_provided_and_not_throw_an_exception()
     {
@@ -124,7 +121,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_return_null_if_an_invalid_token_is_provided()
     {
@@ -140,7 +136,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_return_null_if_no_token_is_provided()
     {
@@ -156,7 +151,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
      * @expectedExceptionMessage An error occurred
      */
@@ -174,7 +168,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      * @expectedException \Tymon\JWTAuth\Exceptions\UserNotDefinedException
      * @expectedExceptionMessage An error occurred
      */
@@ -192,7 +185,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_return_a_token_if_credentials_are_ok_and_user_is_found()
     {
@@ -232,7 +224,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_return_true_if_credentials_are_ok_and_user_is_found_when_choosing_not_to_login()
     {
@@ -255,7 +246,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_return_false_if_credentials_are_invalid()
     {
@@ -277,7 +267,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_magically_call_the_jwt_instance()
     {
@@ -287,7 +276,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_logout_the_user_by_invalidating_the_token()
     {
@@ -302,7 +290,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_refresh_the_token()
     {
@@ -315,7 +302,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_invalidate_the_token()
     {
@@ -328,7 +314,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
      * @expectedExceptionMessage Token could not be parsed from the request.
      */
@@ -343,7 +328,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_generate_a_token_by_id()
     {
@@ -364,7 +348,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_not_generate_a_token_by_id()
     {
@@ -378,7 +361,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_authenticate_the_user_by_credentials_and_return_true_if_valid()
     {
@@ -400,7 +382,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_attempt_to_authenticate_the_user_by_credentials_and_return_false_if_invalid()
     {
@@ -422,7 +403,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_authenticate_the_user_by_id_and_return_boolean()
     {
@@ -439,7 +419,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_not_authenticate_the_user_by_id_and_return_false()
     {
@@ -454,7 +433,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_create_a_token_from_a_user_object()
     {
@@ -477,7 +455,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_get_the_payload()
     {
@@ -489,7 +466,6 @@ class JWTGuardTest extends AbstractTestCase
 
     /**
      * @test
-     * @group laravel-5.2
      */
     public function it_should_be_macroable()
     {
