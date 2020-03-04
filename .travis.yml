@@ -119,7 +119,7 @@ before_install:
   - travis_retry composer require "illuminate/contracts:${LARAVEL}" --no-interaction --no-update
 
 install:
-  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction --no-suggest
 
 script:
   - |
