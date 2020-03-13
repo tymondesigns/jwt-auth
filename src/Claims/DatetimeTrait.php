@@ -13,8 +13,8 @@ namespace Tymon\JWTAuth\Claims;
 
 use DateInterval;
 use DateTimeInterface;
-use Tymon\JWTAuth\Support\Utils;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Support\Utils;
 
 trait DatetimeTrait
 {

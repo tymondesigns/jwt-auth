@@ -11,8 +11,8 @@
 
 namespace Tymon\JWTAuth;
 
-use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
+use Tymon\JWTAuth\Http\Parser\Parser;
 
 class JWTAuth extends JWT
 {

@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth\Test\Providers\Storage;
 
-use Mockery;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 use Illuminate\Contracts\Cache\Repository;
-use Tymon\JWTAuth\Test\Stubs\TaggedStorage;
+use Mockery;
 use Tymon\JWTAuth\Providers\Storage\Illuminate as Storage;
+use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Test\Stubs\TaggedStorage;
 
 class IlluminateTest extends AbstractTestCase
 {

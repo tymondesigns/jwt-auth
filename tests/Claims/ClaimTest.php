@@ -11,9 +11,9 @@
 
 namespace Tymon\JWTAuth\Test\Claims;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Claims\Expiration;
 use Tymon\JWTAuth\Test\AbstractTestCase;
-use Illuminate\Contracts\Support\Arrayable;
 
 class ClaimTest extends AbstractTestCase
 {

@@ -12,11 +12,11 @@
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
+use InvalidArgumentException;
 use Namshi\JOSE\JWS;
+use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use ReflectionClass;
 use ReflectionException;
-use InvalidArgumentException;
-use Namshi\JOSE\Signer\OpenSSL\PublicKey;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
