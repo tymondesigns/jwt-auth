@@ -22,19 +22,10 @@ matrix:
       group: edge
     - php: 5.5.9
       dist: trusty
-      env: LARAVEL='5.1.*'
-    - php: 5.5.9
-      dist: trusty
       env: LARAVEL='5.2.*'
     - php: 5.5
       dist: trusty
-      env: LARAVEL='5.1.*'
-    - php: 5.5
-      dist: trusty
       env: LARAVEL='5.2.*'
-    - php: 5.6
-      dist: trusty
-      env: LARAVEL='5.1.*'
     - php: 5.6
       dist: trusty
       env: LARAVEL='5.2.*'
@@ -44,8 +35,6 @@ matrix:
     - php: 5.6
       dist: trusty
       env: LARAVEL='5.4.*'
-    - php: 7.0
-      env: LARAVEL='5.1.*'
     - php: 7.0
       env: LARAVEL='5.2.*'
     - php: 7.0
@@ -54,8 +43,6 @@ matrix:
       env: LARAVEL='5.4.*'
     - php: 7.0
       env: LARAVEL='5.5.*'
-    - php: 7.1
-      env: LARAVEL='5.1.*'
     - php: 7.1
       env: LARAVEL='5.2.*'
     - php: 7.1
@@ -70,8 +57,6 @@ matrix:
       env: LARAVEL='5.7.*'
     - php: 7.1
       env: LARAVEL='5.8.*'
-    - php: 7.2
-      env: LARAVEL='5.1.*'
     - php: 7.2
       env: LARAVEL='5.2.*'
     - php: 7.2
@@ -88,8 +73,8 @@ matrix:
       env: LARAVEL='5.8.*'
     - php: 7.2
       env: LARAVEL='6.*'
-    - php: 7.3
-      env: LARAVEL='5.1.*' XDEBUG=1
+    - php: 7.2
+      env: LARAVEL='7.*'
     - php: 7.3
       env: LARAVEL='5.2.*' XDEBUG=1
     - php: 7.3
@@ -106,6 +91,8 @@ matrix:
       env: LARAVEL='5.8.*' XDEBUG=1
     - php: 7.3
       env: COVERAGE=1 LARAVEL='6.*' XDEBUG=1
+    - php: 7.3
+      env: COVERAGE=1 LARAVEL='7.*' XDEBUG=1
   fast_finish: true
 
 
@@ -115,17 +102,10 @@ before_install:
   - travis_retry composer require "illuminate/contracts:${LARAVEL}" --no-interaction --no-update
 
 install:
-  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction --no-suggest
 
 script:
-  - |
-    if [[ $LARAVEL == '6.*' ]]; then
-      composer test:ci -- --exclude-group sentinel-2
-    elif [[ $LARAVEL == '5.1.*' ]]; then
-      composer test:ci -- --exclude-group laravel-5.2
-    else
-      composer test:ci
-    fi
+  - composer test:ci
 
 after_success:
   - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
