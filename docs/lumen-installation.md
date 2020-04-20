@@ -8,7 +8,19 @@ composer require tymon/jwt-auth
 
 -------------------------------------------------------------------------------
 
-### Bootstrap file changes.
+### Copy the config
+
+Copy the `config` file from `vendor/tymon/jwt-auth/config/config.php` to `config` folder of your Lumen application and rename it to `jwt.php`
+
+Register your config by adding the following in the `bootstrap/app.php` before middleware declaration.
+
+```php
+$app->configure('jwt');
+```
+
+-------------------------------------------------------------------------------
+
+### Bootstrap file changes
 
 Add the following snippet to the `bootstrap/app.php` file under the providers section as follows:
 
