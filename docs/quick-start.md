@@ -88,10 +88,10 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', 'AuthController@login');
+    Route::post('login', 'AuthController@login')->withoutMiddleware(['api']);
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::get('me', 'AuthController@me');
 
 });
 ```
