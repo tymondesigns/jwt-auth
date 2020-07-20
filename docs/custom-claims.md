@@ -12,5 +12,5 @@ $token = \Tymon\JWTAuth\Facades\JWTAuth::encode($payload);
 
 For decoding
 ```
-$payload = \Tymon\JWTAuth\Facades\JWTAuth::setToken($payload)->getPayload()
+$payload = \Tymon\JWTAuth\Facades\JWTAuth::setToken($payload)->getPayload()->get()
 ```
