@@ -170,4 +170,6 @@ return [
 
     ],
 
+    'cache' => 'redis',
+
 ];
