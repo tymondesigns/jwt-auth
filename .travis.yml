@@ -15,11 +15,6 @@ env:
 
 matrix:
   include:
-    - php: hhvm-3.18
-      sudo: required
-      dist: trusty
-      env: LARAVEL='5.4.*' XDEBUG=1
-      group: edge
     - php: 5.5.9
       dist: trusty
       env: LARAVEL='5.2.*'
@@ -93,6 +88,14 @@ matrix:
       env: COVERAGE=1 LARAVEL='6.*' XDEBUG=1
     - php: 7.3
       env: COVERAGE=1 LARAVEL='7.*' XDEBUG=1
+    - php: 7.3
+      env: COVERAGE=1 LARAVEL='8.*' XDEBUG=1
+    - php: 7.4
+      env: COVERAGE=1 LARAVEL='6.*' XDEBUG=1
+    - php: 7.4
+      env: COVERAGE=1 LARAVEL='7.*' XDEBUG=1
+    - php: 7.4
+      env: COVERAGE=1 LARAVEL='8.*' XDEBUG=1
   fast_finish: true
 
 
