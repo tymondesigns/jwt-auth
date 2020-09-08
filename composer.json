@@ -63,6 +63,12 @@
             ]
         }
     },
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/seantymon"
+        }
+    ],
     "config": {
         "sort-packages": true
     },
