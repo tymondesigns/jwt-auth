@@ -46,6 +46,25 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_return_the_token_from_the_custom_header_and_custom_prefix()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('X-Authorization', 'Token foobar');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders('x-authorization', 'token'),
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_return_the_token_from_the_prefixed_authentication_header()
     {
         $request = Request::create('foo', 'POST');

@@ -33,7 +33,7 @@ class LumenServiceProvider extends AbstractServiceProvider
         $this->extendAuthGuard();
 
         $this->app['tymon.jwt.parser']->setChain([
-            new AuthHeaders,
+            new AuthHeaders($this->config('parsers.auth_header.header'), $this->config('parsers.auth_header.prefix')),
             new QueryString,
             new InputSource,
             new LumenRouteParams,
