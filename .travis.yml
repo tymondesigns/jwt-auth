@@ -29,11 +29,11 @@ matrix:
 
 before_install:
   - if [[ $XDEBUG = 0 ]]; then phpenv config-rm xdebug.ini; fi
-  - travis_retry composer self-update
+  - travis_retry composer self-update --2
   - travis_retry composer require "illuminate/contracts:${LARAVEL}" --no-interaction --no-update
 
 install:
-  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
+  - travis_retry composer update --prefer-dist --no-interaction
 
 script:
   - composer test:ci
