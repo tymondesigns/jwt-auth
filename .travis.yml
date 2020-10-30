@@ -1,5 +1,4 @@
-sudo: false
-
+os: linux
 dist: bionic
 
 git:
@@ -15,7 +14,7 @@ env:
   global:
     - COVERAGE=1 XDEBUG=1
 
-matrix:
+jobs:
   include:
     - php: 7.4
       env: LARAVEL='6.*'
