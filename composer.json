@@ -43,7 +43,7 @@
         "illuminate/database": "^6|^7|^8",
         "illuminate/routing": "^6|^7|^8",
         "mockery/mockery": "^1.4",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0|^9.3"
     },
     "autoload": {
         "files": [
