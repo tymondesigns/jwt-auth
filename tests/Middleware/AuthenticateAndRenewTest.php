@@ -11,12 +11,13 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Illuminate\Http\Response;
 use Mockery;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticateAndRenewTest extends AbstractMiddlewareTest
 {
@@ -25,7 +26,7 @@ class AuthenticateAndRenewTest extends AbstractMiddlewareTest
      */
     protected $middleware;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -51,12 +52,11 @@ class AuthenticateAndRenewTest extends AbstractMiddlewareTest
         $this->assertSame($response->headers->get('authorization'), 'Bearer foo.bar.baz');
     }
 
-    /**
-     * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
+    /** @test */
     public function it_should_throw_an_unauthorized_exception_if_token_not_provided()
     {
+        $this->expectException(UnauthorizedHttpException::class);
+
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
 
@@ -68,12 +68,11 @@ class AuthenticateAndRenewTest extends AbstractMiddlewareTest
         });
     }
 
-    /**
-     * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
+    /** @test */
     public function it_should_throw_an_unauthorized_exception_if_token_invalid()
     {
+        $this->expectException(UnauthorizedHttpException::class);
+
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 

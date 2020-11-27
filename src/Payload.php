@@ -11,15 +11,16 @@
 
 namespace Tymon\JWTAuth;
 
-use ArrayAccess;
-use BadMethodCallException;
 use Countable;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Support\Arr;
+use ArrayAccess;
 use JsonSerializable;
+use BadMethodCallException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
@@ -286,6 +287,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
             }
         }
 
-        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', $method));
+        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', Str::after($method, 'get')));
     }
 }

@@ -12,10 +12,11 @@
 namespace Tymon\JWTAuth\Test\Middleware;
 
 use Mockery;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticateTest extends AbstractMiddlewareTest
 {
@@ -24,7 +25,7 @@ class AuthenticateTest extends AbstractMiddlewareTest
      */
     protected $middleware;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -47,12 +48,11 @@ class AuthenticateTest extends AbstractMiddlewareTest
         });
     }
 
-    /**
-     * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
+    /** @test */
     public function it_should_throw_an_unauthorized_exception_if_token_not_provided()
     {
+        $this->expectException(UnauthorizedHttpException::class);
+
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(false);
 
@@ -64,12 +64,11 @@ class AuthenticateTest extends AbstractMiddlewareTest
         });
     }
 
-    /**
-     * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
+    /** @test */
     public function it_should_throw_an_unauthorized_exception_if_token_invalid()
     {
+        $this->expectException(UnauthorizedHttpException::class);
+
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 
@@ -83,12 +82,11 @@ class AuthenticateTest extends AbstractMiddlewareTest
         });
     }
 
-    /**
-     * @test
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
+    /** @test */
     public function it_should_throw_an_unauthorized_exception_if_user_not_found()
     {
+        $this->expectException(UnauthorizedHttpException::class);
+
         $parser = Mockery::mock(Parser::class);
         $parser->shouldReceive('hasToken')->once()->andReturn(true);
 

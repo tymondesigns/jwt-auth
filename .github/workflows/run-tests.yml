@@ -12,10 +12,19 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4]
-        laravel: [6.*, 7.*, 8.*]
-        os: [ubuntu-latest]
-        coverage: ['none', 'xdebug']
+        php:
+          - 7.2
+          - 7.3
+          - 7.4
+        laravel:
+          - 6.*
+          - 7.*
+          - 8.*
+        os:
+          - ubuntu-latest
+        coverage:
+          - none
+          - xdebug
 
     name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
 
@@ -32,19 +41,19 @@ jobs:
           ini-values: memory_limit=-1
           tools: composer:v2
 
-      - name: "Cache dependencies"
-        uses: "actions/cache@v2"
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
           path: |
             ~/.composer/cache
             vendor
-          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}"
-          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}"
+          key: 'php-${{ matrix.php }}-laravel-${{ matrix.laravel }}'
+          restore-keys: 'php-${{ matrix.php }}-laravel-${{ matrix.laravel }}'
 
       - name: Install dependencies
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --prefer-stable --prefer-dist --no-interaction --no-suggest --ignore-platform-req=php
+          composer update --prefer-stable --prefer-dist --no-interaction --ignore-platform-req=php
 
       - name: Execute tests
         run: composer test:ci
