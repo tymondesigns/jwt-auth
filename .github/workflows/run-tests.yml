@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         php:
-          - 7.2
           - 7.3
           - 7.4
+          - 8.0
         laravel:
           - 6.*
           - 7.*
@@ -36,19 +36,20 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, gmp, exif, iconv, imagick
+          extensions: mbstring json openssl
           coverage: ${{ matrix.coverage }}
           ini-values: memory_limit=-1
-          tools: composer:v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: |
-            ~/.composer/cache
-            vendor
-          key: 'php-${{ matrix.php }}-laravel-${{ matrix.laravel }}'
-          restore-keys: 'php-${{ matrix.php }}-laravel-${{ matrix.laravel }}'
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-"
 
       - name: Install dependencies
         run: |
