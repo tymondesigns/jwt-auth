@@ -49,12 +49,12 @@ jobs:
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-"
+          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         run: |
-          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --prefer-stable --prefer-dist --no-interaction --ignore-platform-req=php
+          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
+          composer update --prefer-stable --no-progress --prefer-dist --no-interaction --ignore-platform-req=php
 
       - name: Execute tests
         run: composer test:ci
