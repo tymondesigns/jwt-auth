@@ -1,8 +1,10 @@
 name: Run tests
 
 on:
-  pull_request:
   push:
+  release:
+    types:
+      - published
 
 jobs:
   php-tests:
@@ -10,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0]
+        php: [7.2, 7.3, 7.4]
         laravel: [6.*, 7.*, 8.*]
         os: [ubuntu-latest]
         coverage: ['none', 'xdebug']
@@ -27,6 +29,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, gmp, exif, iconv, imagick
           coverage: ${{ matrix.coverage }}
+          ini-values: memory_limit=-1
           tools: composer:v2
 
       - name: "Cache dependencies"
