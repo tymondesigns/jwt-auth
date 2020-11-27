@@ -1,0 +1,55 @@
+name: Run tests
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  php-tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        php: [7.2, 7.3, 7.4, 8.0]
+        laravel: [6.*, 7.*, 8.*]
+        os: [ubuntu-latest]
+        coverage: ['none', 'xdebug']
+
+    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.os }}] [${{ matrix.coverage }}]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, gmp, exif, iconv, imagick
+          coverage: ${{ matrix.coverage }}
+          tools: composer:v2
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.composer/cache
+            vendor
+          key: "composer-${{ matrix.php }}-${{ matrix.laravel }}"
+          restore-keys: "composer-${{ matrix.php }}-${{ matrix.laravel }}"
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-update
+          composer update --prefer-stable --prefer-dist --no-interaction --no-suggest --ignore-platform-req=php
+
+      - name: Execute tests
+        run: composer test:ci
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        if: matrix.coverage == 'xdebug'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          yml: ./codecov.yml
