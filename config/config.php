@@ -239,21 +239,80 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cookies encryption
+    | Configuration for Parsers
     |--------------------------------------------------------------------------
     |
-    | By default Laravel encrypt cookies for security reason.
-    | If you decide to not decrypt cookies, you will have to configure Laravel
-    | to not encrypt your cookie token by adding its name into the $except
-    | array available in the middleware "EncryptCookies" provided by Laravel.
-    | see https://laravel.com/docs/master/responses#cookies-and-encryption
-    | for details.
-    |
-    | Set it to true if you want to decrypt cookies.
+    | Specify the configuration of various parsers used throughout the package.
     |
     */
 
-    'decrypt_cookies' => false,
+    'parsers' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Auth header
+        |--------------------------------------------------------------------------
+        |
+        | Parse token from specific header
+        |
+        */
+
+        'auth_header' => [
+
+            /*
+            |--------------------------------------------------------------------------
+            | HTTP Authorization Header
+            |--------------------------------------------------------------------------
+            |
+            | Name of header has token value
+            |
+            */
+
+            'header' => 'authorization',
+
+            /*
+            |--------------------------------------------------------------------------
+            | Prefix
+            |--------------------------------------------------------------------------
+            |
+            | Prefix text right before token
+            |
+            */
+
+            'prefix' => 'bearer',
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cookie
+        |--------------------------------------------------------------------------
+        |
+        | Parse token from cookie
+        |
+        */
+
+        'cookie' => [
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cookies encryption
+            |--------------------------------------------------------------------------
+            |
+            | By default Laravel encrypt cookies for security reason.
+            | If you decide to not decrypt cookies, you will have to configure Laravel
+            | to not encrypt your cookie token by adding its name into the $except
+            | array available in the middleware "EncryptCookies" provided by Laravel.
+            | see https://laravel.com/docs/master/responses#cookies-and-encryption
+            | for details.
+            |
+            | Set it to true if you want to decrypt cookies.
+            |
+            */
+
+            'decrypt' => false,
+        ],
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
