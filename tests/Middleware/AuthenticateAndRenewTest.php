@@ -11,13 +11,13 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Mockery;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Test\Stubs\UserStub;
+use Mockery;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Http\Parser\Parser;
+use Tymon\JWTAuth\Test\Stubs\UserStub;
 
 class AuthenticateAndRenewTest extends AbstractMiddlewareTest
 {

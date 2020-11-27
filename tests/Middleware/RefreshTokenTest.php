@@ -11,12 +11,12 @@
 
 namespace Tymon\JWTAuth\Test\Middleware;
 
-use Mockery;
 use Illuminate\Http\Response;
-use Tymon\JWTAuth\Http\Parser\Parser;
-use Tymon\JWTAuth\Http\Middleware\RefreshToken;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Mockery;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken;
+use Tymon\JWTAuth\Http\Parser\Parser;
 
 class RefreshTokenTest extends AbstractMiddlewareTest
 {
