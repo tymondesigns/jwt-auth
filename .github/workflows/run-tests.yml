@@ -17,7 +17,7 @@ jobs:
         os: [ubuntu-latest]
         coverage: ['none', 'xdebug']
 
-    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.os }}] [${{ matrix.coverage }}]'
+    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
 
     steps:
       - name: Checkout code
@@ -38,8 +38,8 @@ jobs:
           path: |
             ~/.composer/cache
             vendor
-          key: "composer-${{ matrix.php }}-${{ matrix.laravel }}"
-          restore-keys: "composer-${{ matrix.php }}-${{ matrix.laravel }}"
+          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}"
+          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}"
 
       - name: Install dependencies
         run: |
