@@ -11,16 +11,16 @@
 
 namespace Tymon\JWTAuth;
 
-use Countable;
 use ArrayAccess;
-use JsonSerializable;
 use BadMethodCallException;
+use Countable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use JsonSerializable;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
 use Tymon\JWTAuth\Exceptions\PayloadException;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 

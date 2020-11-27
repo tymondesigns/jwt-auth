@@ -12,11 +12,11 @@
 namespace Tymon\JWTAuth\Test\Middleware;
 
 use Mockery;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Test\Stubs\UserStub;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticateTest extends AbstractMiddlewareTest
 {
