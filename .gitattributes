@@ -9,7 +9,6 @@
 /.styleci.yml export-ignore
 /.travis.yml export-ignore
 /.github export-ignore
-/mkdocs.yml export-ignore
 /phpunit.xml.dist export-ignore
 /README.md export-ignore
 /mkdocs.yml export-ignore
