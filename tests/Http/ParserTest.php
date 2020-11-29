@@ -419,6 +419,45 @@ class ParserTest extends AbstractTestCase
         $this->assertInstanceOf(Cookies::class, $cookies);
     }
 
+    /** @test */
+    public function it_should_add_custom_parser()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock('foobar');
+        });
+
+        $customParser = Mockery::mock(\Tymon\JWTAuth\Contracts\Http\Parser::class);
+        $customParser->shouldReceive('parse')->with($request)->andReturn('foobar');
+
+        $parser = new Parser($request);
+        $parser->addChain($customParser);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_add_multiple_custom_parser()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+        $request->setRouteResolver(function () {
+            return $this->getRouteMock('foobar');
+        });
+
+        $customParser1 = Mockery::mock(\Tymon\JWTAuth\Contracts\Http\Parser::class);
+        $customParser1->shouldReceive('parse')->with($request)->andReturn(false);
+
+        $customParser2 = Mockery::mock(\Tymon\JWTAuth\Contracts\Http\Parser::class);
+        $customParser2->shouldReceive('parse')->with($request)->andReturn('foobar');
+
+        $parser = new Parser($request);
+        $parser->addChain([$customParser1, $customParser2]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
     protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
     {
         return Mockery::mock(Route::class)

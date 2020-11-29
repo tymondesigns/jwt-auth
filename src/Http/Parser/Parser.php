@@ -54,6 +54,20 @@ class Parser
     }
 
     /**
+     * Add a new parser to the chain.
+     *
+     * @param array|\Tymon\JWTAuth\Contracts\Http\Parser $chain
+     *
+     * @return $this
+     */
+    public function addChain($chain)
+    {
+        $this->chain = array_merge($this->chain, is_array($chain) ? $chain : [$chain]);
+
+        return $this;
+    }
+
+    /**
      * Set the order of the parser chain.
      *
      * @param  array  $chain

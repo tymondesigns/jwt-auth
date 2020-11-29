@@ -27,11 +27,9 @@ use Tymon\JWTAuth\Http\Middleware\AuthenticateAndRenew;
 use Tymon\JWTAuth\Http\Middleware\Check;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
-use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Http\Parser\InputSource;
 use Tymon\JWTAuth\Http\Parser\Parser;
 use Tymon\JWTAuth\Http\Parser\QueryString;
-use Tymon\JWTAuth\Http\Parser\RouteParams;
 use Tymon\JWTAuth\JWT;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\JWTGuard;
@@ -235,8 +233,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
                     new AuthHeaders,
                     new QueryString,
                     new InputSource,
-                    new RouteParams,
-                    new Cookies($this->config('decrypt_cookies')),
                 ]
             );
 
