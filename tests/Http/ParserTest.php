@@ -423,9 +423,6 @@ class ParserTest extends AbstractTestCase
     public function it_should_add_custom_parser()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return $this->getRouteMock('foobar');
-        });
 
         $customParser = Mockery::mock(\Tymon\JWTAuth\Contracts\Http\Parser::class);
         $customParser->shouldReceive('parse')->with($request)->andReturn('foobar');
@@ -441,9 +438,6 @@ class ParserTest extends AbstractTestCase
     public function it_should_add_multiple_custom_parser()
     {
         $request = Request::create('foo', 'GET', ['foo' => 'bar']);
-        $request->setRouteResolver(function () {
-            return $this->getRouteMock('foobar');
-        });
 
         $customParser1 = Mockery::mock(\Tymon\JWTAuth\Contracts\Http\Parser::class);
         $customParser1->shouldReceive('parse')->with($request)->andReturn(false);
