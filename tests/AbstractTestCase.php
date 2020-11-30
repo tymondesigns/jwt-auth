@@ -13,7 +13,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
