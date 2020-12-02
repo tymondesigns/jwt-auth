@@ -9,26 +9,19 @@ on:
 jobs:
   php-tests:
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
 
     strategy:
+      fail-fast: false
       matrix:
         php: [7.2, 7.3, 7.4, 8.0]
         laravel: [6.*, 7.*, 8.*]
         os: [ubuntu-latest]
         coverage: [none]
-        experimental: [false]
         include:
           - php: 8.0
             laravel: 8.*
             os: ubuntu-latest
             coverage: xdebug
-            experimental: false
-          - php: 8.1
-            laravel: 8.*
-            os: ubuntu-latest
-            coverage: none
-            experimental: true
         exclude:
           - php: 7.2
             laravel: 8.*
@@ -63,7 +56,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
-          composer update --prefer-stable --no-progress --prefer-dist --no-interaction
+          composer update --no-progress --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: composer test:ci
