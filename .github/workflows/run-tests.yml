@@ -12,10 +12,19 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0]
-        laravel: [6.*, 7.*, 8.*]
-        os: [ubuntu-latest]
-        coverage: [none]
+        php:
+          - 7.2
+          - 7.3
+          - 7.4
+          - 8.0
+        laravel:
+          - 6.*
+          - 7.*
+          - 8.*
+        os:
+          - ubuntu-latest
+        coverage:
+          - none
         include:
           - php: 8.0
             laravel: 8.*
