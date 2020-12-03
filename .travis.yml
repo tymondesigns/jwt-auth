@@ -1,4 +1,5 @@
-sudo: false
+os: linux
+dist: bionic
 
 git:
   depth: 1
@@ -11,25 +12,26 @@ language: php
 
 env:
   global:
-    - COVERAGE=0 XDEBUG=0
+    - COVERAGE=1 XDEBUG=1
 
-matrix:
+jobs:
   include:
     - php: 7.4
-      env: LARAVEL='5.7.*' XDEBUG=1
+      env: LARAVEL='6.*'
     - php: 7.4
-      env: LARAVEL='5.8.*' XDEBUG=1
+      env: LARAVEL='7.*'
     - php: 7.4
-      env: COVERAGE=1 LARAVEL='6.*' XDEBUG=1
+      env: LARAVEL='8.*'
+    - php: nightly
+      env: COVERAGE=1 LARAVEL='8.*' XDEBUG=1
   fast_finish: true
 
 before_install:
   - if [[ $XDEBUG = 0 ]]; then phpenv config-rm xdebug.ini; fi
-  - travis_retry composer self-update
   - travis_retry composer require "illuminate/contracts:${LARAVEL}" --no-interaction --no-update
 
 install:
-  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
+  - travis_retry composer update --prefer-dist --no-interaction
 
 script:
   - composer test:ci
