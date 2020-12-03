@@ -27,7 +27,7 @@
         "illuminate/contracts": "^6|^7|^8",
         "illuminate/http": "^6|^7|^8",
         "illuminate/support": "^6|^7|^8",
-        "lcobucci/jwt": "^3.2",
+        "lcobucci/jwt": "^3.2 <3.4",
         "nesbot/carbon": "^2.0",
         "web-token/jwt-checker": "^2.1",
         "web-token/jwt-core": "^2.1",
