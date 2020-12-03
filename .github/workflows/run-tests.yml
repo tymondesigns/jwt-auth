@@ -1,0 +1,70 @@
+name: Run tests
+
+on:
+  push:
+  release:
+    types:
+      - published
+
+jobs:
+  php-tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.2, 7.3, 7.4, 8.0]
+        laravel: [6.*, 7.*, 8.*]
+        os: [ubuntu-latest]
+        coverage: [none]
+        include:
+          - php: 8.0
+            laravel: 8.*
+            os: ubuntu-latest
+            coverage: xdebug
+        exclude:
+          - php: 7.2
+            laravel: 8.*
+          - php: 8.0
+            laravel: 6.*
+
+    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring json openssl
+          coverage: ${{ matrix.coverage }}
+          ini-values: memory_limit=-1
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
+          composer update --no-progress --prefer-dist --no-interaction --no-suggest
+
+      - name: Execute tests
+        run: composer test:ci
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        if: matrix.coverage == 'xdebug'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          yml: ./codecov.yml

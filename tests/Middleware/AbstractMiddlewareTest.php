@@ -28,7 +28,7 @@ abstract class AbstractMiddlewareTest extends AbstractTestCase
      */
     protected $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

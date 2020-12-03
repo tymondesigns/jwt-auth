@@ -13,7 +13,7 @@ namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
@@ -22,7 +22,7 @@ abstract class AbstractTestCase extends TestCase
      */
     protected $testNowTimestamp;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -30,7 +30,7 @@ abstract class AbstractTestCase extends TestCase
         $this->testNowTimestamp = $now->getTimestamp();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Carbon::setTestNow();
         Mockery::close();
