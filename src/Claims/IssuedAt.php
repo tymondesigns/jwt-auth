@@ -55,7 +55,7 @@ class IssuedAt extends Claim
      */
     public function validateRefresh($refreshTTL)
     {
-        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
+        if ($this->isPast($this->getValue()->getTimestamp() + ($refreshTTL * 60))) {
             throw new TokenExpiredException('Token has expired and can no longer be refreshed');
         }
     }

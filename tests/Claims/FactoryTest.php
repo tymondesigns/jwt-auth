@@ -78,11 +78,11 @@ class FactoryTest extends AbstractTestCase
     public function it_should_make_a_claim_instance_with_a_value()
     {
         $iat = $this->factory->make('iat');
-        $this->assertSame($iat->getValue(), $this->testNowTimestamp);
+        $this->assertSame($iat->getValue()->getTimestamp(), $this->testNowTimestampInstance->getTimestamp());
         $this->assertInstanceOf(IssuedAt::class, $iat);
 
         $nbf = $this->factory->make('nbf');
-        $this->assertSame($nbf->getValue(), $this->testNowTimestamp);
+        $this->assertSame($nbf->getValue()->getTimestamp(), $this->testNowTimestampInstance->getTimestamp());
         $this->assertInstanceOf(NotBefore::class, $nbf);
 
         $iss = $this->factory->make('iss');
@@ -90,7 +90,10 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(Issuer::class, $iss);
 
         $exp = $this->factory->make('exp');
-        $this->assertSame($exp->getValue(), $this->testNowTimestamp + 3600);
+        $this->assertSame(
+            $exp->getValue()->getTimestamp(),
+            $this->testNowTimestampInstance->getTimestamp() + 3600
+        );
         $this->assertInstanceOf(Expiration::class, $exp);
 
         $jti = $this->factory->make('jti');

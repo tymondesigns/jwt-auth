@@ -85,8 +85,8 @@ class FactoryTest extends AbstractTestCase
         $payload = $this->factory->claims(['sub' => 1, 'jti' => 'foo', 'iat' => 123, 'nbf' => 123])->make();
 
         $this->assertSame($payload->get('sub'), 1);
-        $this->assertSame($payload->get('iat'), 123);
-        $this->assertSame($payload['exp'], $expTime);
+        $this->assertSame($payload->get('iat')->getTimestamp(), 123);
+        $this->assertSame($payload['exp']->getTimestamp(), $expTime);
         $this->assertSame($payload['jti'], 'foo');
 
         $this->assertInstanceOf(Payload::class, $payload);
