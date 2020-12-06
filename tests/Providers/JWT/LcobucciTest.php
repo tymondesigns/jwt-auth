@@ -11,12 +11,11 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Exception;
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
-use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Token;
 use Mockery;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;

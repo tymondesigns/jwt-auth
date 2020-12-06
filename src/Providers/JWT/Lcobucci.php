@@ -136,7 +136,7 @@ class Lcobucci extends Provider implements JWT
 
         $verificationKey = $this->getVerificationKey();
         $verificationKey = is_string($verificationKey) ? new Key($verificationKey) : $verificationKey;
-        
+
         if (! $jwt->verify($this->signer, $verificationKey)) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
