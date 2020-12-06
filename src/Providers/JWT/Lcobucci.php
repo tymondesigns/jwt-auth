@@ -111,6 +111,7 @@ class Lcobucci extends Provider implements JWT
             foreach ($payload as $key => $value) {
                 $this->builder->set($key, $value);
             }
+
             return (string) $this->builder->getToken($this->signer, $signingKey);
         } catch (Exception $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
