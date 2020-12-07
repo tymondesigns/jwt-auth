@@ -14,6 +14,7 @@ namespace Tymon\JWTAuth\Http\Middleware;
 use Closure;
 use Exception;
 
+/** @deprecated */
 class Check extends BaseMiddleware
 {
     /**

@@ -17,6 +17,7 @@ use Countable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use JsonSerializable;
 use Tymon\JWTAuth\Claims\Claim;
 use Tymon\JWTAuth\Claims\Collection;
@@ -286,6 +287,6 @@ class Payload implements ArrayAccess, Arrayable, Countable, Jsonable, JsonSerial
             }
         }
 
-        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', $method));
+        throw new BadMethodCallException(sprintf('The claim [%s] does not exist on the payload.', Str::after($method, 'get')));
     }
 }

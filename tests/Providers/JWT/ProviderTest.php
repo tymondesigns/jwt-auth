@@ -21,7 +21,7 @@ class ProviderTest extends AbstractTestCase
      */
     protected $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -21,6 +21,8 @@ use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Subject;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\Manager;
 use Tymon\JWTAuth\Payload;
@@ -54,7 +56,7 @@ class ManagerTest extends AbstractTestCase
      */
     protected $validator;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -121,13 +123,12 @@ class ManagerTest extends AbstractTestCase
         $this->assertSame($payload->count(), 6);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
-     * @expectedExceptionMessage The token has been blacklisted
-     */
+    /** @test */
     public function it_should_throw_exception_when_token_is_blacklisted()
     {
+        $this->expectException(TokenBlacklistedException::class);
+        $this->expectExceptionMessage('The token has been blacklisted');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -247,13 +248,12 @@ class ManagerTest extends AbstractTestCase
         $this->manager->invalidate($token, true);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage You must have the blacklist enabled to invalidate a token.
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_enable_blacklist_is_set_to_false()
     {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('You must have the blacklist enabled to invalidate a token.');
+
         $token = new Token('foo.bar.baz');
 
         $this->manager->setBlacklistEnabled(false)->invalidate($token);

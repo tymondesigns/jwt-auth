@@ -29,7 +29,7 @@ class IlluminateTest extends AbstractTestCase
      */
     protected $storage;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

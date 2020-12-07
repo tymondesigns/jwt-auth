@@ -20,7 +20,7 @@ class TokenTest extends AbstractTestCase
      */
     protected $token;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -36,6 +36,6 @@ class TokenTest extends AbstractTestCase
     /** @test */
     public function it_should_return_the_token_when_calling_get_method()
     {
-        $this->assertInternalType('string', $this->token->get());
+        $this->assertIsString($this->token->get());
     }
 }
