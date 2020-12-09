@@ -18,6 +18,9 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Validators\PayloadValidator;
 
@@ -28,7 +31,7 @@ class PayloadValidatorTest extends AbstractTestCase
      */
     protected $validator;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -52,13 +55,12 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->isValid($collection));
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     * @expectedExceptionMessage Token has expired
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_providing_an_expired_payload()
     {
+        $this->expectException(TokenExpiredException::class);
+        $this->expectExceptionMessage('Token has expired');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -73,13 +75,12 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Not Before (nbf) timestamp cannot be in the future
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_nbf_claim()
     {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Not Before (nbf) timestamp cannot be in the future');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -94,13 +95,12 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [iat]
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_iat_claim()
     {
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [iat]');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -115,13 +115,12 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage JWT payload does not contain the required claims
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_payload()
     {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('JWT payload does not contain the required claims');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -132,13 +131,12 @@ class PayloadValidatorTest extends AbstractTestCase
         $this->validator->check($collection);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [exp]
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_providing_an_invalid_expiry()
     {
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [exp]');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),
@@ -204,13 +202,12 @@ class PayloadValidatorTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenExpiredException
-     * @expectedExceptionMessage Token has expired and can no longer be refreshed
-     */
+    /** @test */
     public function it_should_throw_an_exception_if_the_token_cannot_be_refreshed()
     {
+        $this->expectException(TokenExpiredException::class);
+        $this->expectExceptionMessage('Token has expired and can no longer be refreshed');
+
         $claims = [
             new Subject(1),
             new Issuer('http://example.com'),

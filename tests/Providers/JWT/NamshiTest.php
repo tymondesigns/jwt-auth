@@ -15,6 +15,8 @@ use Exception;
 use InvalidArgumentException;
 use Mockery;
 use Namshi\JOSE\JWS;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Providers\JWT\Namshi;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
@@ -30,7 +32,7 @@ class NamshiTest extends AbstractTestCase
      */
     protected $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -51,13 +53,12 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage Could not create token:
-     */
+    /** @test */
     public function it_should_throw_an_invalid_exception_when_the_payload_could_not_be_encoded()
     {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Could not create token:');
+
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
         $this->jws->shouldReceive('setPayload')->once()->with($payload)->andReturn(Mockery::self());
@@ -78,13 +79,12 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Token Signature could not be verified.
-     */
+    /** @test */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_a_bad_signature()
     {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Token Signature could not be verified.');
+
         $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andReturn(Mockery::self());
         $this->jws->shouldReceive('verify')->once()->with('secret', 'HS256')->andReturn(false);
         $this->jws->shouldReceive('getPayload')->never();
@@ -92,13 +92,12 @@ class NamshiTest extends AbstractTestCase
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\TokenInvalidException
-     * @expectedExceptionMessage Could not decode token:
-     */
+    /** @test */
     public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded()
     {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Could not decode token:');
+
         $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andThrow(new InvalidArgumentException);
         $this->jws->shouldReceive('verify')->never();
         $this->jws->shouldReceive('getPayload')->never();
@@ -166,22 +165,19 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame('foo.bar.baz', $token);
     }
 
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\JWTException
-     * @expectedExceptionMessage The given algorithm could not be found
-     */
+    /** @test */
     public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
     {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('The given algorithm could not be found');
+
         $this->jws->shouldReceive('load')->once()->with('foo.bar.baz', false)->andReturn(Mockery::self());
         $this->jws->shouldReceive('verify')->with('secret', 'AlgorithmWrong')->andReturn(true);
 
         $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_return_the_public_key()
     {
         $provider = $this->getProvider(
@@ -193,9 +189,7 @@ class NamshiTest extends AbstractTestCase
         $this->assertSame($keys['public'], $provider->getPublicKey());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_should_return_the_keys()
     {
         $provider = $this->getProvider(

@@ -12,17 +12,17 @@
 namespace Tymon\JWTAuth\Test\Claims;
 
 use Tymon\JWTAuth\Claims\NotBefore;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class NotBeforeTest extends AbstractTestCase
 {
-    /**
-     * @test
-     * @expectedException \Tymon\JWTAuth\Exceptions\InvalidClaimException
-     * @expectedExceptionMessage Invalid value provided for claim [nbf]
-     */
+    /** @test */
     public function it_should_throw_an_exception_when_passing_an_invalid_value()
     {
+        $this->expectException(InvalidClaimException::class);
+        $this->expectExceptionMessage('Invalid value provided for claim [nbf]');
+
         new NotBefore('foo');
     }
 }

@@ -42,7 +42,7 @@ class FactoryTest extends AbstractTestCase
      */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

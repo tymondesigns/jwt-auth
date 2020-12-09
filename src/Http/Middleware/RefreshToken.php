@@ -15,6 +15,7 @@ use Closure;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
+/** @deprecated */
 class RefreshToken extends BaseMiddleware
 {
     /**
