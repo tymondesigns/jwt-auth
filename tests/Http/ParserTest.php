@@ -447,7 +447,7 @@ class ParserTest extends AbstractTestCase
         $customParser2->shouldReceive('parse')->with($request)->andReturn('foobar');
 
         $parser = new Parser($request);
-        $parser->addParser([ $customParser1, $customParser2]);
+        $parser->addParser([$customParser1, $customParser2]);
 
         $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());

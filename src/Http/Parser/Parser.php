@@ -62,7 +62,7 @@ class Parser
      */
     public function addParser($parsers)
     {
-        $this->chain = array_merge($this->chain, is_array($parsers) ? $parsers : [ $parsers]);
+        $this->chain = array_merge($this->chain, is_array($parsers) ? $parsers : [$parsers]);
 
         return $this;
     }
