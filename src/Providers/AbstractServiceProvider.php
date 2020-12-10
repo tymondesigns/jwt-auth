@@ -169,8 +169,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
     {
         $this->app->singleton('tymon.jwt.provider.jwt.lcobucci', function ($app) {
             return new Lcobucci(
-                new JWTBuilder(),
-                new JWTParser(),
+                new Lcobucci\JWT\Builder(),
+                new Lcobucci\JWT\Parser(),
                 $this->config('secret'),
                 $this->config('algo'),
                 $this->config('keys')
