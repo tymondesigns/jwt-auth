@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
 use Mockery;
+use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Http\Parser\InputSource;
@@ -417,6 +418,39 @@ class ParserTest extends AbstractTestCase
     {
         $cookies = (new Cookies)->setKey('test');
         $this->assertInstanceOf(Cookies::class, $cookies);
+    }
+
+    /** @test */
+    public function it_should_add_custom_parser()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+
+        $customParser = Mockery::mock(ParserContract::class);
+        $customParser->shouldReceive('parse')->with($request)->andReturn('foobar');
+
+        $parser = new Parser($request);
+        $parser->addParser($customParser);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_add_multiple_custom_parser()
+    {
+        $request = Request::create('foo', 'GET', ['foo' => 'bar']);
+
+        $customParser1 = Mockery::mock(ParserContract::class);
+        $customParser1->shouldReceive('parse')->with($request)->andReturn(false);
+
+        $customParser2 = Mockery::mock(ParserContract::class);
+        $customParser2->shouldReceive('parse')->with($request)->andReturn('foobar');
+
+        $parser = new Parser($request);
+        $parser->addParser([$customParser1, $customParser2]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
     }
 
     protected function getRouteMock($expectedParameterValue = null, $expectedParameterName = 'token')
