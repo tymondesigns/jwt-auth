@@ -47,3 +47,6 @@ This will update your `.env` file with something like `JWT_SECRET=foobar`
 
 It is the key that will be used to sign your tokens. How that happens exactly will depend
 on the algorithm that you choose to use.
+
+### Video Tutorial
+[<img src="https://img.youtube.com/vi/VtAxYez4ZdQ/0.jpg" width="480">](https://youtu.be/VtAxYez4ZdQ)
