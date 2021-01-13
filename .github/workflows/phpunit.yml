@@ -26,8 +26,6 @@ jobs:
         exclude:
           - php: 7.2
             laravel: 8.*
-          - php: 8.0
-            laravel: 6.*
 
     name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
 
