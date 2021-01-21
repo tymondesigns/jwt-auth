@@ -33,10 +33,6 @@ class IssuedAt extends Claim
     {
         $this->commonValidateCreate($value);
 
-        if ($this->isFuture($value)) {
-            throw new InvalidClaimException($this);
-        }
-
         return $value;
     }
 
