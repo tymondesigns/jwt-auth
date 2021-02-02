@@ -109,6 +109,62 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_not_strip_trailing_hyphens_from_the_authorization_header()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Bearer foobar--');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar--');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    /**
+     * @test
+     * @dataProvider whitespaceProvider
+     */
+    public function it_should_handle_excess_whitespace_from_the_authorization_header($whitespace)
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', "Bearer{$whitespace}foobar{$whitespace}");
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertSame($parser->parseToken(), 'foobar');
+        $this->assertTrue($parser->hasToken());
+    }
+
+    public function whitespaceProvider()
+    {
+        return [
+            'space' => [' '],
+            'multiple spaces' => ['    '],
+            'tab' => ["\t"],
+            'multiple tabs' => ["\t\t\t"],
+            'new line' => ["\n"],
+            'multiple new lines' => ["\n\n\n"],
+            'carriage return' => ["\r"],
+            'carriage returns' => ["\r\r\r"],
+            'mixture of whitespace' => ["\t \n \r \t \n"],
+        ];
+    }
+
+    /** @test */
     public function it_should_return_the_token_from_query_string()
     {
         $request = Request::create('foo', 'GET', ['token' => 'foobar']);
