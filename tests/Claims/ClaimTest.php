@@ -27,7 +27,7 @@ class ClaimTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->claim = new Expiration($this->testNowTimestamp);
+        $this->claim = new Expiration($this->testNowTimestampInstance);
     }
 
     /** @test */
@@ -42,7 +42,7 @@ class ClaimTest extends AbstractTestCase
     /** @test */
     public function it_should_convert_the_claim_to_an_array()
     {
-        $this->assertSame(['exp' => $this->testNowTimestamp], $this->claim->toArray());
+        $this->assertSame(['exp' => $this->testNowTimestampInstance], $this->claim->toArray());
     }
 
     /** @test */

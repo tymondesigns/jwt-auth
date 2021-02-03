@@ -22,6 +22,7 @@ use Lcobucci\JWT\Signer\Ecdsa\Sha512 as ES512;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as HS256;
 use Lcobucci\JWT\Signer\Hmac\Sha384 as HS384;
 use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
+use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
@@ -105,15 +106,16 @@ class Lcobucci extends Provider implements JWT
         $this->builder->unsign();
 
         try {
+            $signingKey = $this->getSigningKey();
+            $signingKey = is_string($signingKey) ? new Key($signingKey) : $signingKey;
             foreach ($payload as $key => $value) {
                 $this->builder->set($key, $value);
             }
-            $this->builder->sign($this->signer, $this->getSigningKey());
+
+            return (string) $this->builder->getToken($this->signer, $signingKey);
         } catch (Exception $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
-
-        return (string) $this->builder->getToken();
     }
 
     /**
@@ -133,7 +135,10 @@ class Lcobucci extends Provider implements JWT
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
-        if (! $jwt->verify($this->signer, $this->getVerificationKey())) {
+        $verificationKey = $this->getVerificationKey();
+        $verificationKey = is_string($verificationKey) ? new Key($verificationKey) : $verificationKey;
+
+        if (! $jwt->verify($this->signer, $verificationKey)) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 

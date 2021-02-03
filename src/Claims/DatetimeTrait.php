@@ -12,7 +12,8 @@
 namespace Tymon\JWTAuth\Claims;
 
 use DateInterval;
-use DateTimeInterface;
+use DateTime;
+use DateTimeImmutable;
 use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Support\Utils;
 
@@ -40,8 +41,12 @@ trait DatetimeTrait
             $value = Utils::now()->add($value);
         }
 
-        if ($value instanceof DateTimeInterface) {
-            $value = $value->getTimestamp();
+        if ($value instanceof DateTime) {
+            $value = DateTimeImmutable::createFromMutable($value);
+        }
+
+        if (is_numeric($value)) {
+            $value = new DateTimeImmutable('@'.$value);
         }
 
         return parent::setValue($value);
@@ -52,7 +57,7 @@ trait DatetimeTrait
      */
     public function validateCreate($value)
     {
-        if (! is_numeric($value)) {
+        if (! is_a($value, DateTimeImmutable::class, true)) {
             throw new InvalidClaimException($this);
         }
 

@@ -12,6 +12,7 @@
 namespace Tymon\JWTAuth\Test;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Mockery;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
@@ -22,12 +23,18 @@ abstract class AbstractTestCase extends TestCase
      */
     protected $testNowTimestamp;
 
+    /**
+     * @var \Carbon\CarbonImmutable
+     */
+    protected $testNowTimestampInstance;
+
     public function setUp(): void
     {
         parent::setUp();
 
         Carbon::setTestNow($now = Carbon::now());
         $this->testNowTimestamp = $now->getTimestamp();
+        $this->testNowTimestampInstance = CarbonImmutable::instance($now);
     }
 
     public function tearDown(): void

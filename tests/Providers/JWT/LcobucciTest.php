@@ -11,11 +11,11 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Exception;
 use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Token;
 use Mockery;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -28,6 +28,11 @@ class LcobucciTest extends AbstractTestCase
      * @var \Mockery\MockInterface
      */
     protected $parser;
+
+    /**
+     * @var \Mockery\MockInterface
+     */
+    protected $token;
 
     /**
      * @var \Mockery\MockInterface
@@ -45,17 +50,19 @@ class LcobucciTest extends AbstractTestCase
 
         $this->builder = Mockery::mock(Builder::class);
         $this->parser = Mockery::mock(Parser::class);
+        $this->token = Mockery::mock(Token::class);
     }
 
     /** @test */
     public function it_should_return_the_token_when_passing_a_valid_payload_to_encode()
     {
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
-
+        $signer = Mockery::any();
         $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret');
-        $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->builder->shouldReceive('getToken')->once()
+            ->with(Mockery::any(), Mockery::type(Key::class))
+            ->andReturn('foo.bar.baz');
 
         $token = $this->getProvider('secret', 'HS256')->encode($payload);
 
@@ -72,7 +79,6 @@ class LcobucciTest extends AbstractTestCase
 
         $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret')->andThrow(new Exception);
 
         $this->getProvider('secret', 'HS256')->encode($payload);
     }
@@ -83,8 +89,10 @@ class LcobucciTest extends AbstractTestCase
         $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
 
         $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-        $this->parser->shouldReceive('verify')->once()->with(Mockery::any(), 'secret')->andReturn(true);
-        $this->parser->shouldReceive('getClaims')->once()->andReturn($payload);
+        $this->token->shouldReceive('verify')->once()
+            ->with(Mockery::any(), Mockery::type(Key::class))
+            ->andReturn(true);
+        $this->token->shouldReceive('getClaims')->once()->andReturn($payload);
 
         $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
     }
@@ -96,8 +104,10 @@ class LcobucciTest extends AbstractTestCase
         $this->expectExceptionMessage('Token Signature could not be verified.');
 
         $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-        $this->parser->shouldReceive('verify')->once()->with(Mockery::any(), 'secret')->andReturn(false);
-        $this->parser->shouldReceive('getClaims')->never();
+        $this->token->shouldReceive('verify')->once()
+            ->with(Mockery::any(), Mockery::type(Key::class))
+            ->andReturn(false);
+        $this->token->shouldReceive('getClaims')->never();
 
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
     }
@@ -128,8 +138,9 @@ class LcobucciTest extends AbstractTestCase
 
         $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
         $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), Mockery::type(Key::class));
-        $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $this->builder->shouldReceive('getToken')->once()
+            ->with(Mockery::any(), Mockery::type(Key::class))
+            ->andReturn('foo.bar.baz');
 
         $token = $provider->encode($payload);
 
