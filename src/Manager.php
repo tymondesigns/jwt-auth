@@ -179,7 +179,7 @@ class Manager
             $this->customClaims,
             $persistentClaims,
             [
-                'sub' => $payload['sub']
+                'sub' => $payload['sub'],
             ]
         );
     }
