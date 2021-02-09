@@ -192,8 +192,13 @@ class AuthController extends Controller
 }
 ```
 
-You should now be able to POST to the login endpoint (e.g. `http://example.dev/auth/login`) with some valid
-credentials and see a response like:
+You should now be able to POST to the login endpoint (e.g. `http://example.test/api/auth/login`) with some valid credentials, ie:
+
+```
+curl -X POST --data "email=user@email.com&password=secret" http://laravel.test/api/auth/login
+```
+
+You will receive a response like:
 
 ```json
 {
