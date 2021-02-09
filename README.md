@@ -3,13 +3,13 @@
 [![PHPUnit](https://github.com/tymondesigns/jwt-auth/workflows/PHPUnit%20tests/badge.svg)](https://travis-ci.org/tymondesigns/jwt-auth)
 [![Codecov branch](https://img.shields.io/codecov/c/github/tymondesigns/jwt-auth/develop.svg?style=flat-square&logo=codecov)](https://codecov.io/github/tymondesigns/jwt-auth)
 [![StyleCI](https://styleci.io/repos/23680678/shield?style=flat-square)](https://styleci.io/repos/23680678)
-[![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square&logo=composer)](https://packagist.org/packages/tymon/jwt-auth)
+[![Latest Version](https://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square&logo=composer)](https://packagist.org/packages/tymon/jwt-auth)
 [![Latest Dev Version](https://img.shields.io/packagist/vpre/tymon/jwt-auth.svg?style=flat-square&logo=composer)](https://packagist.org/packages/tymon/jwt-auth#dev-develop)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/tymon/jwt-auth.svg?style=flat-square&logo=composer)](https://packagist.org/packages/tymon/jwt-auth)
 
 ## Documentation
 
-Documentation for `1.*` [here](http://jwt-auth.com)
+Documentation for `1.*` [here](https://jwt-auth.readthedocs.io/en/develop/)
 
 For version `0.5.*` See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation.
 
