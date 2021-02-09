@@ -51,6 +51,13 @@ class JWT
     protected $lockSubject = true;
 
     /**
+     * Indicates if the parser should attempt to parse a new token when $this->token is null.
+     *
+     * @var bool
+     */
+    protected $flushToken = false;
+
+    /**
      * JWT constructor.
      *
      * @param  \Tymon\JWTAuth\Manager  $manager
@@ -161,7 +168,7 @@ class JWT
      */
     public function getToken()
     {
-        if ($this->token === null) {
+        if ($this->token === null && ! $this->flushToken) {
             try {
                 $this->parseToken();
             } catch (JWTException $e) {
@@ -302,6 +309,7 @@ class JWT
     public function setToken($token)
     {
         $this->token = $token instanceof Token ? $token : new Token($token);
+        $this->flushToken = false;
 
         return $this;
     }
@@ -316,6 +324,18 @@ class JWT
         $this->token = null;
 
         return $this;
+    }
+
+    /**
+     * Unset the current token and make sure it's not automatically set again.
+     *
+     * @return $this
+     */
+    public function flushToken()
+    {
+        $this->flushToken = true;
+
+        return $this->unsetToken();
     }
 
     /**
