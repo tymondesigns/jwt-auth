@@ -2,6 +2,12 @@
 
 Run the following command to pull in the latest version:
 
+For laravel 8 or above
+```bash
+composer require tymon/jwt-auth:^1.0.2
+```
+
+Otherwise
 ```bash
 composer require tymon/jwt-auth
 ```
