@@ -58,7 +58,7 @@ try {
 
 ```
 
-If the user is not set, then a `Tymon\JWTAuth\Exceptions\UserNotDefinedException` will be thrown
+If the user is not set, then a `Tymon\JWTAuth\Exceptions\UserNotDefinedException` will be thrown.
 
 ### logout()
 
@@ -73,7 +73,7 @@ auth()->logout(true);
 
 ### refresh()
 
-Refresh a token, which invalidates the current one
+Refresh a token, which invalidates the current one.
 
 ```php
 $newToken = auth()->refresh();
@@ -85,7 +85,7 @@ $newToken = auth()->refresh(true, true);
 
 ### invalidate()
 
-Invalidate the token (add it to the blacklist)
+Invalidate the token (add it to the blacklist).
 
 ```php
 auth()->invalidate();
@@ -104,7 +104,7 @@ $token = auth()->tokenById(123);
 
 ### payload()
 
-Get the raw JWT payload
+Get the raw JWT payload.
 
 ```php
 $payload = auth()->payload();
@@ -118,7 +118,7 @@ $payload->toArray(); // = ['sub' => 123, 'exp' => 123456, 'jti' => 'asfe4fq434as
 
 ### validate()
 
-Validate a user's credentials
+Validate a user's credentials.
 
 ```php
 if (auth()->validate($credentials)) {
@@ -129,6 +129,7 @@ if (auth()->validate($credentials)) {
 ## More advanced usage
 
 ### Adding custom claims
+Use `getJWTCustomClaims` on your `JWTSubject` for claims specific to your authenticated users. Other than that, add custom claims like this:
 
 ```php
 $token = auth()->claims(['foo' => 'bar'])->attempt($credentials);
@@ -147,7 +148,8 @@ $user = auth()->setRequest($request)->user();
 ```
 
 ### Override the token ttl
+This example sets the token to expire after 2 hours.
 
 ```php
-$token = auth()->setTTL(7200)->attempt($credentials);
+$token = auth()->setTTL(120)->attempt($credentials);
 ```
