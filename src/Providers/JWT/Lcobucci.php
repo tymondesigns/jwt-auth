@@ -27,6 +27,7 @@ use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
 use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
 use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
 use Lcobucci\JWT\Token\RegisteredClaims;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use ReflectionClass;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -73,6 +74,11 @@ class Lcobucci extends Provider implements JWT
         }
         else {
             $this->config = Configuration::forSymmetricSigner($this->signer, InMemory::plainText( $this->getSecret() ) );
+        }
+        if ( !count($this->config->validationConstraints()) ) {
+            $this->config->setValidationConstraints(
+                new SignedWith($this->signer, $this->getVerificationKey()),
+            );
         }
     }
     
@@ -217,7 +223,7 @@ class Lcobucci extends Provider implements JWT
     {
         return $this->isAsymmetric() ?
             InMemory::plainText($this->getPrivateKey(), $this->getPassphrase() ?? '') :
-            $this->getSecret();
+            InMemory::plainText($this->getSecret());
     }
 
     /**
@@ -227,6 +233,6 @@ class Lcobucci extends Provider implements JWT
     {
         return $this->isAsymmetric() ?
             InMemory::plainText($this->getPublicKey()) :
-            $this->getSecret();
+            InMemory::plainText($this->getSecret());
     }
 }
