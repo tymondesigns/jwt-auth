@@ -13,6 +13,7 @@ namespace Tymon\JWTAuth\Providers\JWT;
 
 use Exception;
 use Illuminate\Support\Collection;
+use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256 as ES256;
@@ -44,6 +45,9 @@ class Lcobucci extends Provider implements JWT
     
     /** @var \Lcobucci\JWT\Signer The signer chosen based on the aglo. */
     protected $signer;
+    
+    /** @var Builder */
+    protected $builder;
     
 
     /**
@@ -119,11 +123,12 @@ class Lcobucci extends Provider implements JWT
      */
     public function encode(array $payload)
     {
+	    $this->builder = null;
         try {
             foreach ($payload as $key => $value) {
                 $this->addClaim( $key, $value );
             }
-            return $this->config->builder()->getToken($this->config->signer(), $this->config->signingKey())->toString();
+            return $this->builder->getToken($this->config->signer(), $this->config->signingKey())->toString();
         } catch (Exception $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
@@ -137,30 +142,33 @@ class Lcobucci extends Provider implements JWT
      */
     protected function addClaim($key, $value)
     {
+    	if (!isset($this->builder)) {
+		    $this->builder = $this->config->builder();
+	    }
         switch ($key) {
             case RegisteredClaims::ID:
-                $this->config->builder()->identifiedBy($value);
+	            $this->builder->identifiedBy($value);
                 break;
             case RegisteredClaims::EXPIRATION_TIME:
-                $this->config->builder()->expiresAt(\DateTimeImmutable::createFromFormat('U', $value));
+                    $this->builder->expiresAt(\DateTimeImmutable::createFromFormat('U', $value));
                 break;
             case RegisteredClaims::NOT_BEFORE:
-                $this->config->builder()->canOnlyBeUsedAfter(\DateTimeImmutable::createFromFormat('U', $value));
+                    $this->builder->canOnlyBeUsedAfter(\DateTimeImmutable::createFromFormat('U', $value));
                 break;
             case RegisteredClaims::ISSUED_AT:
-                $this->config->builder()->issuedAt(\DateTimeImmutable::createFromFormat('U', $value));
+                    $this->builder->issuedAt(\DateTimeImmutable::createFromFormat('U', $value));
                 break;
             case RegisteredClaims::ISSUER:
-                $this->config->builder()->issuedBy($value);
+                    $this->builder->issuedBy($value);
                 break;
             case RegisteredClaims::AUDIENCE:
-                $this->config->builder()->permittedFor($value);
+                    $this->builder->permittedFor($value);
                 break;
             case RegisteredClaims::SUBJECT:
-                $this->config->builder()->relatedTo($value);
+                    $this->builder->relatedTo($value);
                 break;
             default:
-                $this->config->builder()->withClaim($key, $value);
+                    $this->builder->withClaim($key, $value);
         }
     }
 
