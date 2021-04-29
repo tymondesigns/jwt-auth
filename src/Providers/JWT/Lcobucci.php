@@ -14,7 +14,7 @@ namespace Tymon\JWTAuth\Providers\JWT;
 use Exception;
 use Illuminate\Support\Collection;
 use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256 as ES256;
 use Lcobucci\JWT\Signer\Ecdsa\Sha384 as ES384;
@@ -22,11 +22,13 @@ use Lcobucci\JWT\Signer\Ecdsa\Sha512 as ES512;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as HS256;
 use Lcobucci\JWT\Signer\Hmac\Sha384 as HS384;
 use Lcobucci\JWT\Signer\Hmac\Sha512 as HS512;
-use Lcobucci\JWT\Signer\Keychain;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RS256;
 use Lcobucci\JWT\Signer\Rsa\Sha384 as RS384;
 use Lcobucci\JWT\Signer\Rsa\Sha512 as RS512;
+use Lcobucci\JWT\Token\RegisteredClaims;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use ReflectionClass;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -35,42 +37,60 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class Lcobucci extends Provider implements JWT
 {
     /**
-     * The Builder instance.
+     * The Configuration instance.
      *
-     * @var \Lcobucci\JWT\Builder
+     * @var Configuration
      */
-    protected $builder;
+    protected $config;
 
-    /**
-     * The Parser instance.
-     *
-     * @var \Lcobucci\JWT\Parser
-     */
-    protected $parser;
+    /** @var \Lcobucci\JWT\Signer The signer chosen based on the aglo. */
+    protected $signer;
+
+    /** @var Builder */
+    protected $builder;
 
     /**
      * Create the Lcobucci provider.
      *
-     * @param  \Lcobucci\JWT\Builder  $builder
-     * @param  \Lcobucci\JWT\Parser  $parser
-     * @param  string  $secret
-     * @param  string  $algo
-     * @param  array  $keys
+     * @param  string        $secret
+     * @param  string        $algo
+     * @param  array         $keys
+     * @param  Configuration $config Optional, to pass an existing configuration to be used.
      *
      * @return void
      */
     public function __construct(
-        Builder $builder,
-        Parser $parser,
         $secret,
         $algo,
-        array $keys
+        array $keys,
+        $config = null
     ) {
         parent::__construct($secret, $algo, $keys);
 
-        $this->builder = $builder;
-        $this->parser = $parser;
         $this->signer = $this->getSigner();
+
+        if (! is_null($config)) {
+            $this->config = $config;
+        } elseif ($this->isAsymmetric()) {
+            $this->config = Configuration::forAsymmetricSigner($this->signer, $this->getSigningKey(), $this->getVerificationKey());
+        } else {
+            $this->config = Configuration::forSymmetricSigner($this->signer, InMemory::plainText($this->getSecret()));
+        }
+        if (! count($this->config->validationConstraints())) {
+            $this->config->setValidationConstraints(
+                new SignedWith($this->signer, $this->getVerificationKey()),
+            );
+        }
+    }
+
+    /**
+     * Gets the {@see $config} attribute.
+     *
+     * @return Configuration
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 
     /**
@@ -101,19 +121,54 @@ class Lcobucci extends Provider implements JWT
      */
     public function encode(array $payload)
     {
-        // Remove the signature on the builder instance first.
-        $this->builder->unsign();
-
+        $this->builder = null;
         try {
             foreach ($payload as $key => $value) {
-                $this->builder->set($key, $value);
+                $this->addClaim($key, $value);
             }
-            $this->builder->sign($this->signer, $this->getSigningKey());
+
+            return $this->builder->getToken($this->config->signer(), $this->config->signingKey())->toString();
         } catch (Exception $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
         }
+    }
 
-        return (string) $this->builder->getToken();
+    /**
+     * Adds a claim to the {@see $config}.
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    protected function addClaim($key, $value)
+    {
+        if (! isset($this->builder)) {
+            $this->builder = $this->config->builder();
+        }
+        switch ($key) {
+            case RegisteredClaims::ID:
+                $this->builder->identifiedBy($value);
+                break;
+            case RegisteredClaims::EXPIRATION_TIME:
+                    $this->builder->expiresAt(\DateTimeImmutable::createFromFormat('U', $value));
+                break;
+            case RegisteredClaims::NOT_BEFORE:
+                    $this->builder->canOnlyBeUsedAfter(\DateTimeImmutable::createFromFormat('U', $value));
+                break;
+            case RegisteredClaims::ISSUED_AT:
+                    $this->builder->issuedAt(\DateTimeImmutable::createFromFormat('U', $value));
+                break;
+            case RegisteredClaims::ISSUER:
+                    $this->builder->issuedBy($value);
+                break;
+            case RegisteredClaims::AUDIENCE:
+                    $this->builder->permittedFor($value);
+                break;
+            case RegisteredClaims::SUBJECT:
+                    $this->builder->relatedTo($value);
+                break;
+            default:
+                    $this->builder->withClaim($key, $value);
+        }
     }
 
     /**
@@ -128,17 +183,24 @@ class Lcobucci extends Provider implements JWT
     public function decode($token)
     {
         try {
-            $jwt = $this->parser->parse($token);
+            $jwt = $this->config->parser()->parse($token);
         } catch (Exception $e) {
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
-        if (! $jwt->verify($this->signer, $this->getVerificationKey())) {
+        if (! $this->config->validator()->validate($jwt, ...$this->config->validationConstraints())) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
-        return (new Collection($jwt->getClaims()))->map(function ($claim) {
-            return is_object($claim) ? $claim->getValue() : $claim;
+        return (new Collection($jwt->claims()->all()))->map(function ($claim) {
+            if (is_a($claim, \DateTimeImmutable::class)) {
+                return $claim->getTimestamp();
+            }
+            if (is_object($claim) && method_exists($claim, 'getValue')) {
+                return $claim->getValue();
+            }
+
+            return $claim;
         })->toArray();
     }
 
@@ -174,8 +236,8 @@ class Lcobucci extends Provider implements JWT
     protected function getSigningKey()
     {
         return $this->isAsymmetric() ?
-            (new Keychain())->getPrivateKey($this->getPrivateKey(), $this->getPassphrase()) :
-            $this->getSecret();
+            InMemory::plainText($this->getPrivateKey(), $this->getPassphrase() ?? '') :
+            InMemory::plainText($this->getSecret());
     }
 
     /**
@@ -184,7 +246,7 @@ class Lcobucci extends Provider implements JWT
     protected function getVerificationKey()
     {
         return $this->isAsymmetric() ?
-            (new Keychain())->getPublicKey($this->getPublicKey()) :
-            $this->getSecret();
+            InMemory::plainText($this->getPublicKey()) :
+            InMemory::plainText($this->getSecret());
     }
 }
