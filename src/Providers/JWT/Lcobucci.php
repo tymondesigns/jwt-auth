@@ -123,7 +123,7 @@ class Lcobucci extends Provider implements JWT
      */
     public function encode(array $payload)
     {
-	    $this->builder = null;
+        $this->builder = null;
         try {
             foreach ($payload as $key => $value) {
                 $this->addClaim( $key, $value );
@@ -142,12 +142,12 @@ class Lcobucci extends Provider implements JWT
      */
     protected function addClaim($key, $value)
     {
-    	if (!isset($this->builder)) {
-		    $this->builder = $this->config->builder();
-	    }
+        if (!isset($this->builder)) {
+            $this->builder = $this->config->builder();
+        }
         switch ($key) {
             case RegisteredClaims::ID:
-	            $this->builder->identifiedBy($value);
+                $this->builder->identifiedBy($value);
                 break;
             case RegisteredClaims::EXPIRATION_TIME:
                     $this->builder->expiresAt(\DateTimeImmutable::createFromFormat('U', $value));
@@ -194,7 +194,13 @@ class Lcobucci extends Provider implements JWT
         }
 
         return (new Collection($jwt->claims()->all()))->map(function ($claim) {
-            return is_object($claim) ? $claim->getValue() : $claim;
+            if ( is_a($claim, \DateTimeImmutable::class)) {
+                return $claim->getTimestamp();
+            }
+            if ( is_object($claim) && method_exists( $claim, 'getValue') ) {
+                return $claim->getValue();
+            }
+            return $claim;
         })->toArray();
     }
 
