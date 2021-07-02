@@ -298,15 +298,16 @@ return [
         */
 
         'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
-        
+
         /*
         |--------------------------------------------------------------------------
-        | Storage Provider
+        | Show blacklisted token option
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to store tokens in the blacklist.
+        | Specify if you want to show black listed token exception on the laravel logs.
         |
         */
+
         'show_black_list_exception' => env('JWT_SHOW_BLACKLIST_EXCEPTION', true),
     ],
 
