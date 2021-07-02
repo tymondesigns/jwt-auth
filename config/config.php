@@ -299,6 +299,16 @@ return [
 
         'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Storage Provider
+        |--------------------------------------------------------------------------
+        |
+        | Specify the provider that is used to store tokens in the blacklist.
+        |
+        */
+        'show_black_list_exception' => env("JWT_SHOW_BLACKLIST_EXCEPTION", true),
     ],
 
 ];

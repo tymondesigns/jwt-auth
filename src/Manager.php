@@ -56,6 +56,8 @@ class Manager
      */
     protected $persistentClaims = [];
 
+    protected $showBlackListException = true;
+
     /**
      * Constructor.
      *
@@ -105,7 +107,12 @@ class Manager
                         ->customClaims($payloadArray)
                         ->make();
 
-        if ($checkBlacklist && $this->blacklistEnabled && $this->blacklist->has($payload)) {
+        if (
+            $checkBlacklist &&
+            $this->blacklistEnabled &&
+            $this->blacklist->has($payload) &&
+            $this->gettBlackListExceptionEnabled()
+        ) {
             throw new TokenBlacklistedException('The token has been blacklisted');
         }
 
@@ -227,6 +234,31 @@ class Manager
         $this->blacklistEnabled = $enabled;
 
         return $this;
+    }
+
+    /**
+     * Configuration to set up if show the TokenBlacklistedException
+     * can be throwable or not
+     *
+     * @param bool $showBlackListException
+     *
+     * @removed this
+     */
+    public function setBlackListExceptionEnabled($showBlackListException = true)
+    {
+        $this->showBlackListException = $showBlackListException;
+
+        return $this;
+    }
+
+    /**
+     * Get if the blacklist instance is enabled.
+     *
+     * @return bool
+     */
+    public function gettBlackListExceptionEnabled()
+    {
+        return $this->showBlackListException;
     }
 
     /**
