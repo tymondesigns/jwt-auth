@@ -299,6 +299,16 @@ return [
 
         'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
 
+        /*
+        |--------------------------------------------------------------------------
+        | Show blacklisted token option
+        |--------------------------------------------------------------------------
+        |
+        | Specify if you want to show black listed token exception on the laravel logs.
+        |
+        */
+
+        'show_black_list_exception' => env('JWT_SHOW_BLACKLIST_EXCEPTION', true),
     ],
 
 ];
