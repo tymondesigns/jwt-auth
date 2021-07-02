@@ -460,6 +460,7 @@ class JWTGuard implements Guard
      * Fire the attempt event.
      *
      * @param  array  $credentials
+     *
      * @return void
      */
     protected function fireAttemptEvent(array $credentials)
@@ -475,6 +476,7 @@ class JWTGuard implements Guard
      * Fires the validated event.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     *
      * @return void
      */
     protected function fireValidatedEvent($user)
@@ -490,6 +492,7 @@ class JWTGuard implements Guard
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
      * @param  array  $credentials
+     *
      * @return void
      */
     protected function fireFailedEvent($user, array $credentials)

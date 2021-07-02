@@ -18,7 +18,6 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Mockery;
-use Mockery\Mock;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use Tymon\JWTAuth\Factory;
