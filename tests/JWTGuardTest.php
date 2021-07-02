@@ -12,8 +12,13 @@
 namespace Tymon\JWTAuth\Test;
 
 use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Auth\Events\Attempting;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Mockery;
+use Mockery\Mock;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use Tymon\JWTAuth\Factory;
@@ -39,13 +44,24 @@ class JWTGuardTest extends AbstractTestCase
      */
     protected $guard;
 
+    /**
+     * @var \lluminate\Contracts\Events\Dispatcher|\Mockery\MockInterface
+     */
+    protected $eventDispatcher;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->jwt = Mockery::mock(JWT::class);
         $this->provider = Mockery::mock(EloquentUserProvider::class);
-        $this->guard = new JWTGuard($this->jwt, $this->provider, Request::create('/foo', 'GET'));
+        $this->eventDispatcher = Mockery::mock(Dispatcher::class);
+        $this->guard = new JWTGuard(
+            $this->jwt,
+            $this->provider,
+            Request::create('/foo', 'GET'),
+            $this->eventDispatcher
+        );
     }
 
     /** @test */
@@ -204,6 +220,14 @@ class JWTGuardTest extends AbstractTestCase
                   ->with(['foo' => 'bar'])
                   ->andReturnSelf();
 
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Attempting::class));
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Validated::class));
+
         $token = $this->guard->claims(['foo' => 'bar'])->attempt($credentials);
 
         $this->assertSame($this->guard->getLastAttempted(), $user);
@@ -226,6 +250,14 @@ class JWTGuardTest extends AbstractTestCase
                        ->with($user, $credentials)
                        ->andReturn(true);
 
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->twice()
+                              ->with(Mockery::type(Attempting::class));
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->twice()
+                              ->with(Mockery::type(Validated::class));
+
         $this->assertTrue($this->guard->attempt($credentials, false)); // once
         $this->assertTrue($this->guard->validate($credentials)); // twice
     }
@@ -245,6 +277,14 @@ class JWTGuardTest extends AbstractTestCase
                        ->once()
                        ->with($user, $credentials)
                        ->andReturn(false);
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Attempting::class));
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Failed::class));
 
         $this->assertFalse($this->guard->attempt($credentials));
     }
@@ -346,6 +386,14 @@ class JWTGuardTest extends AbstractTestCase
                        ->with($user, $credentials)
                        ->andReturn(true);
 
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Attempting::class));
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Validated::class));
+
         $this->assertTrue($this->guard->once($credentials));
     }
 
@@ -364,6 +412,14 @@ class JWTGuardTest extends AbstractTestCase
                        ->once()
                        ->with($user, $credentials)
                        ->andReturn(false);
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Attempting::class));
+
+        $this->eventDispatcher->shouldReceive('dispatch')
+                              ->once()
+                              ->with(Mockery::type(Failed::class));
 
         $this->assertFalse($this->guard->once($credentials));
     }
