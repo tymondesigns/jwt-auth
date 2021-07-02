@@ -238,7 +238,7 @@ class Manager
 
     /**
      * Configuration to set up if show the TokenBlacklistedException
-     * can be throwable or not
+     * can be throwable or not.
      *
      * @param bool $showBlackListException
      *
