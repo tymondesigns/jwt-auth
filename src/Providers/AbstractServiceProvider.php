@@ -215,7 +215,9 @@ abstract class AbstractServiceProvider extends ServiceProvider
             );
 
             return $instance->setBlacklistEnabled((bool) $this->config('blacklist_enabled'))
-                            ->setPersistentClaims($this->config('persistent_claims'));
+                ->setPersistentClaims($this->config('persistent_claims'));
+                ->setPersistentClaims($this->config('persistent_claims'))
+                ->setBlackListExceptionEnabled((bool) $this->config('show_black_list_exception', true));
         });
     }
 

@@ -276,4 +276,28 @@ class ManagerTest extends AbstractTestCase
     {
         $this->assertInstanceOf(Blacklist::class, $this->manager->getBlacklist());
     }
+
+     /** @test */
+     public function test_if_show_blacklisted_exception_configuration_is_enabled()
+     {
+         $this->manager->setBlackListExceptionEnabled(true);
+ 
+         $this->assertIsBool($this->manager->gettBlackListExceptionEnabled());
+     }
+ 
+     /** @test */
+     public function test_if_black_listed_exception_is_set_to_true()
+     {
+         $this->manager->setBlackListExceptionEnabled(true);
+ 
+         $this->assertTrue($this->manager->gettBlackListExceptionEnabled());
+     }
+ 
+     /** @test */
+     public function test_if_black_listed_exception_is_set_to_false()
+     {
+         $this->manager->setBlackListExceptionEnabled(false);
+ 
+         $this->assertFalse($this->manager->gettBlackListExceptionEnabled());
+     }
 }
