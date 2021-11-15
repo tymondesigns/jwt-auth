@@ -8,10 +8,10 @@
         "jwt",
         "laravel"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/manuirrazabal/jwt-auth",
     "support": {
         "issues": "https://github.com/tymondesigns/jwt-auth/issues",
-        "source": "https://github.com/tymondesigns/jwt-auth"
+        "source": "https://github.com/manuirrazabal/jwt-auth"
     },
     "license": "MIT",
     "authors": [
@@ -52,7 +52,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "1.0-dev"
+            "dev-develop": "1.0"
         },
         "laravel": {
             "aliases": {
