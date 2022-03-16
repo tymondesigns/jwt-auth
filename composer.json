@@ -1,6 +1,6 @@
 {
-    "name": "tymon/jwt-auth",
-    "description": "JSON Web Token Authentication for Laravel and Lumen",
+    "name": "alexlopezit/jwt-auth",
+    "description": "JSON Web Token Authentication for Laravel and Lumen (fork from tymon/jwt-auth)",
     "keywords": [
         "auth",
         "authentication",
@@ -8,10 +8,10 @@
         "jwt",
         "laravel"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/alexlopezit/jwt-auth",
     "support": {
-        "issues": "https://github.com/tymondesigns/jwt-auth/issues",
-        "source": "https://github.com/tymondesigns/jwt-auth"
+        "issues": "https://github.com/alexlopezit/jwt-auth/issues",
+        "source": "https://github.com/alexlopezit/jwt-auth"
     },
     "license": "MIT",
     "authors": [
@@ -20,22 +20,28 @@
             "email": "tymon148@gmail.com",
             "homepage": "https://tymon.xyz",
             "role": "Developer"
+        },
+        {
+            "name": "Alex Lopez",
+            "email": "alex@alexlopezit.com",
+            "homepage": "https://github.com/alexlopezit",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.2|^8.0",
-        "illuminate/auth": "^5.2|^6|^7|^8",
-        "illuminate/contracts": "^5.2|^6|^7|^8",
-        "illuminate/http": "^5.2|^6|^7|^8",
-        "illuminate/support": "^5.2|^6|^7|^8",
-        "lcobucci/jwt": "<3.4",
+        "illuminate/auth": "^5.2|^6|^7|^8|^9.0",
+        "illuminate/contracts": "^5.2|^6|^7|^8|^9.0",
+        "illuminate/http": "^5.2|^6|^7|^8|^9.0",
+        "illuminate/support": "^5.2|^6|^7|^8|^9.0",
+        "lcobucci/jwt": "^4.0",
         "namshi/jose": "^7.0",
         "nesbot/carbon": "^1.0|^2.0"
     },
     "require-dev": {
-        "illuminate/console": "^5.2|^6|^7|^8",
-        "illuminate/database": "^5.2|^6|^7|^8",
-        "illuminate/routing": "^5.2|^6|^7|^8",
+        "illuminate/console": "^5.2|^6|^7|^8|^9",
+        "illuminate/database": "^5.2|^6|^7|^8|^9",
+        "illuminate/routing": "^5.2|^6|^7|^8|^9",
         "mockery/mockery": ">=0.9.9",
         "phpunit/phpunit": "^8.5|^9.4",
         "yoast/phpunit-polyfills": "^0.2.0"
