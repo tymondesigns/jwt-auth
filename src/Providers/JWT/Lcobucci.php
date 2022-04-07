@@ -11,31 +11,31 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-use Exception;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\Signer\Rsa;
-use Lcobucci\JWT\Signer\Ecdsa;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Token\Builder;
+use Exception;
 use Illuminate\Support\Collection;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Rsa;
+use Lcobucci\JWT\Token\Builder;
 use Lcobucci\JWT\Token\RegisteredClaims;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Lcobucci extends Provider implements JWT
 {
     /**
-     * \Lcobucci\JWT\Signer
+     * \Lcobucci\JWT\Signer.
      */
     protected $signer;
 
     /**
-     * \Lcobucci\JWT\Configuration
+     * \Lcobucci\JWT\Configuration.
      */
     protected $config;
 
@@ -46,7 +46,6 @@ class Lcobucci extends Provider implements JWT
      * @param  string  $algo
      * @param  array  $keys
      * @param  \Lcobucci\JWT\Configuration|null  $config
-     *
      * @return void
      */
     public function __construct($secret, $algo, array $keys, $config = null)
@@ -78,10 +77,9 @@ class Lcobucci extends Provider implements JWT
      * Create a JSON Web Token.
      *
      * @param  array  $payload
+     * @return string
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return string
      */
     public function encode(array $payload)
     {
@@ -100,10 +98,9 @@ class Lcobucci extends Provider implements JWT
      * Decode a JSON Web Token.
      *
      * @param  string  $token
+     * @return array
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return array
      */
     public function decode($token)
     {
@@ -135,7 +132,6 @@ class Lcobucci extends Provider implements JWT
      * Create an instance of the builder with all of the claims applied.
      *
      * @param  array  $payload
-     *
      * @return \Lcobucci\JWT\Token\Builder
      */
     protected function getBuilderFromClaims(array $payload): Builder
@@ -198,9 +194,9 @@ class Lcobucci extends Provider implements JWT
     /**
      * Get the signer instance.
      *
-     * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
      * @return \Lcobucci\JWT\Signer
+     *
+     * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
     protected function getSigner()
     {

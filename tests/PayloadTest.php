@@ -47,7 +47,6 @@ class PayloadTest extends AbstractTestCase
 
     /**
      * @param  array  $extraClaims
-     *
      * @return \Tymon\JWTAuth\Payload
      */
     private function getTestPayload(array $extraClaims = [])

@@ -24,7 +24,6 @@ trait KeyTrait
      * Set the key.
      *
      * @param  string  $key
-     *
      * @return $this
      */
     public function setKey($key)

@@ -57,7 +57,6 @@ class Factory
      * Constructor.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      * @return void
      */
     public function __construct(Request $request)
@@ -70,7 +69,6 @@ class Factory
      *
      * @param  string  $name
      * @param  mixed  $value
-     *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
     public function get($name, $value)
@@ -90,7 +88,6 @@ class Factory
      * Check whether the claim exists.
      *
      * @param  string  $name
-     *
      * @return bool
      */
     public function has($name)
@@ -102,7 +99,6 @@ class Factory
      * Generate the initial value and return the Claim instance.
      *
      * @param  string  $name
-     *
      * @return \Tymon\JWTAuth\Claims\Claim
      */
     public function make($name)
@@ -165,7 +161,6 @@ class Factory
      *
      * @param  string  $name
      * @param  string  $classPath
-     *
      * @return $this
      */
     public function extend($name, $classPath)
@@ -179,7 +174,6 @@ class Factory
      * Set the request instance.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
@@ -193,7 +187,6 @@ class Factory
      * Set the token ttl (in minutes).
      *
      * @param  int  $ttl
-     *
      * @return $this
      */
     public function setTTL($ttl)
@@ -217,7 +210,6 @@ class Factory
      * Set the leeway in seconds.
      *
      * @param  int  $leeway
-     *
      * @return $this
      */
     public function setLeeway($leeway)

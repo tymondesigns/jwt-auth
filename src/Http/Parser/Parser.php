@@ -34,7 +34,6 @@ class Parser
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  array  $chain
-     *
      * @return void
      */
     public function __construct(Request $request, array $chain = [])
@@ -56,8 +55,7 @@ class Parser
     /**
      * Add a new parser to the chain.
      *
-     * @param array|\Tymon\JWTAuth\Contracts\Http\Parser $parsers
-     *
+     * @param  array|\Tymon\JWTAuth\Contracts\Http\Parser  $parsers
      * @return $this
      */
     public function addParser($parsers)
@@ -71,7 +69,6 @@ class Parser
      * Set the order of the parser chain.
      *
      * @param  array  $chain
-     *
      * @return $this
      */
     public function setChain(array $chain)
@@ -85,7 +82,6 @@ class Parser
      * Alias for setting the order of the chain.
      *
      * @param  array  $chain
-     *
      * @return $this
      */
     public function setChainOrder(array $chain)
@@ -122,7 +118,6 @@ class Parser
      * Set the request instance.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
