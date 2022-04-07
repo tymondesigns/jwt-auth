@@ -2,7 +2,5 @@ preset: laravel
 
 enabled:
   - no_useless_else
-  - phpdoc_order
   - phpdoc_separation
   - unalign_double_arrow
-  # - length_ordered_imports
