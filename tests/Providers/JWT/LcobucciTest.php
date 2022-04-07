@@ -11,55 +11,93 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
-use Exception;
-use InvalidArgumentException;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Parser;
-use Lcobucci\JWT\Signer\Key;
-use Mockery;
+use Tymon\JWTAuth\Test\AbstractTestCase;
+use Tymon\JWTAuth\Providers\JWT\Lcobucci;
+use Tymon\JWTAuth\Providers\JWT\Provider;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Providers\JWT\Lcobucci;
-use Tymon\JWTAuth\Test\AbstractTestCase;
 
 class LcobucciTest extends AbstractTestCase
 {
-    /**
-     * @var \Mockery\MockInterface
-     */
-    protected $parser;
-
-    /**
-     * @var \Mockery\MockInterface
-     */
-    protected $builder;
-
-    /**
-     * @var \Tymon\JWTAuth\Providers\JWT\Namshi
-     */
-    protected $provider;
-
-    public function setUp(): void
+    /** @test */
+    public function it_can_encode_claims_using_a_symmetric_key()
     {
-        parent::setUp();
+        $payload = [
+            'sub' => 1,
+            'exp' => $exp = $this->testNowTimestamp + 3600,
+            'iat' => $iat = $this->testNowTimestamp,
+            'iss' => '/foo',
+            'custom_claim' => 'foobar',
+        ];
 
-        $this->builder = Mockery::mock(Builder::class);
-        $this->parser = Mockery::mock(Parser::class);
+        $token = $this->getProvider('secret', Provider::ALGO_HS256)->encode($payload);
+        [$header, $payload, $signature] = explode('.', $token);
+
+        $claims = json_decode(base64_decode($payload), true);
+        $headerValues = json_decode(base64_decode($header), true);
+
+        $this->assertEquals(Provider::ALGO_HS256, $headerValues['alg']);
+        $this->assertIsString($signature);
+
+        $this->assertEquals('1', $claims['sub']);
+        $this->assertEquals('/foo', $claims['iss']);
+        $this->assertEquals('foobar', $claims['custom_claim']);
+        $this->assertEquals($exp, $claims['exp']);
+        $this->assertEquals($iat, $claims['iat']);
     }
 
     /** @test */
-    public function it_should_return_the_token_when_passing_a_valid_payload_to_encode()
+    public function it_can_encode_and_decode_a_token_using_a_symmetric_key()
     {
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+        $payload = [
+            'sub' => 1,
+            'exp' => $exp = $this->testNowTimestamp + 3600,
+            'iat' => $iat = $this->testNowTimestamp,
+            'iss' => '/foo',
+            'custom_claim' => 'foobar',
+        ];
 
-        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
-        $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret');
-        $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
+        $provider = $this->getProvider('secret', Provider::ALGO_HS256);
 
-        $token = $this->getProvider('secret', 'HS256')->encode($payload);
+        $token = $provider->encode($payload);
+        $claims = $provider->decode($token);
 
-        $this->assertSame('foo.bar.baz', $token);
+        $this->assertEquals('1', $claims['sub']);
+        $this->assertEquals('/foo', $claims['iss']);
+        $this->assertEquals('foobar', $claims['custom_claim']);
+        $this->assertEquals($exp, $claims['exp']);
+        $this->assertEquals($iat, $claims['iat']);
+    }
+
+    /** @test */
+    public function it_can_encode_and_decode_a_token_using_an_asymmetric_RS256_key()
+    {
+        $payload = [
+            'sub' => 1,
+            'exp' => $exp = $this->testNowTimestamp + 3600,
+            'iat' => $iat = $this->testNowTimestamp,
+            'iss' => '/foo',
+            'custom_claim' => 'foobar',
+        ];
+
+        $provider = $this->getProvider(
+            'secret',
+            Provider::ALGO_RS256,
+            ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
+        );
+
+        $token = $provider->encode($payload);
+
+        $header = json_decode(base64_decode(head(explode('.', $token))), true);
+        $this->assertEquals(Provider::ALGO_RS256, $header['alg']);
+
+        $claims = $provider->decode($token);
+
+        $this->assertEquals('1', $claims['sub']);
+        $this->assertEquals('/foo', $claims['iss']);
+        $this->assertEquals('foobar', $claims['custom_claim']);
+        $this->assertEquals($exp, $claims['exp']);
+        $this->assertEquals($iat, $claims['iat']);
     }
 
     /** @test */
@@ -68,25 +106,16 @@ class LcobucciTest extends AbstractTestCase
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('Could not create token:');
 
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+        $payload = [
+            'sub' => 1,
+            'exp' => $this->testNowTimestamp + 3600,
+            'iat' => $this->testNowTimestamp,
+            'iss' => '/foo',
+            'custom_claim' => 'foobar',
+            'invalid_utf8' => "\xB1\x31", // cannot be encoded as JSON
+        ];
 
-        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
-        $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), 'secret')->andThrow(new Exception);
-
-        $this->getProvider('secret', 'HS256')->encode($payload);
-    }
-
-    /** @test */
-    public function it_should_return_the_payload_when_passing_a_valid_token_to_decode()
-    {
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
-
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-        $this->parser->shouldReceive('verify')->once()->with(Mockery::any(), 'secret')->andReturn(true);
-        $this->parser->shouldReceive('getClaims')->once()->andReturn($payload);
-
-        $this->assertSame($payload, $this->getProvider('secret', 'HS256')->decode('foo.bar.baz'));
+        $this->getProvider('secret', Provider::ALGO_HS256)->encode($payload);
     }
 
     /** @test */
@@ -95,11 +124,20 @@ class LcobucciTest extends AbstractTestCase
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Token Signature could not be verified.');
 
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andReturn(Mockery::self());
-        $this->parser->shouldReceive('verify')->once()->with(Mockery::any(), 'secret')->andReturn(false);
-        $this->parser->shouldReceive('getClaims')->never();
+        // This has a different secret than the one used to encode the token
+        $this->getProvider('secret', Provider::ALGO_HS256)
+            ->decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjQ5MjYxMDY1LCJpYXQiOjE2NDkyNTc0NjUsImlzcyI6Ii9mb28iLCJjdXN0b21fY2xhaW0iOiJmb29iYXIifQ.jZufNqDHAxtboUIPmDp4ZFOIQxK-B5G6vNdBEp-9uL8');
+    }
 
-        $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
+    /** @test */
+    public function it_should_throw_a_token_invalid_exception_when_the_token_could_not_be_decoded_due_to_tampered_token()
+    {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Token Signature could not be verified.');
+
+        // This sub claim for this token has been tampered with so the signature will not match
+        $this->getProvider('secret', Provider::ALGO_HS256)
+            ->decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNjQ5MjY0OTA2LCJpYXQiOjE2NDkyNjEzMDYsImlzcyI6Ii9mb28iLCJjdXN0b21fY2xhaW0iOiJmb29iYXIifQ.IcJvMvwMXf8oEpnz8-hvAy60QDE_o8XFaxhbZIGVy0U');
     }
 
     /** @test */
@@ -108,32 +146,7 @@ class LcobucciTest extends AbstractTestCase
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Could not decode token:');
 
-        $this->parser->shouldReceive('parse')->once()->with('foo.bar.baz')->andThrow(new InvalidArgumentException);
-        $this->parser->shouldReceive('verify')->never();
-        $this->parser->shouldReceive('getClaims')->never();
-
         $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
-    }
-
-    /** @test */
-    public function it_should_generate_a_token_when_using_an_rsa_algorithm()
-    {
-        $provider = $this->getProvider(
-            'does_not_matter',
-            'RS256',
-            ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
-        );
-
-        $payload = ['sub' => 1, 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
-
-        $this->builder->shouldReceive('unsign')->once()->andReturnSelf();
-        $this->builder->shouldReceive('set')->times(count($payload));
-        $this->builder->shouldReceive('sign')->once()->with(Mockery::any(), Mockery::type(Key::class));
-        $this->builder->shouldReceive('getToken')->once()->andReturn('foo.bar.baz');
-
-        $token = $provider->encode($payload);
-
-        $this->assertSame('foo.bar.baz', $token);
     }
 
     /** @test */
@@ -142,10 +155,7 @@ class LcobucciTest extends AbstractTestCase
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('The given algorithm could not be found');
 
-        $this->parser->shouldReceive('parse')->never();
-        $this->parser->shouldReceive('verify')->never();
-
-        $this->getProvider('secret', 'AlgorithmWrong')->decode('foo.bar.baz');
+        $this->getProvider('secret', 'INVALID_ALGO')->decode('foo.bar.baz');
     }
 
     /** @test */
@@ -174,7 +184,7 @@ class LcobucciTest extends AbstractTestCase
 
     public function getProvider($secret, $algo, array $keys = [])
     {
-        return new Lcobucci($this->builder, $this->parser, $secret, $algo, $keys);
+        return new Lcobucci($secret, $algo, $keys);
     }
 
     public function getDummyPrivateKey()
