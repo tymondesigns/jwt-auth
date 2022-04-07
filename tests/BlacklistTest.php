@@ -202,7 +202,7 @@ class BlacklistTest extends AbstractTestCase
      * @test
      * @dataProvider blacklist_provider
      *
-     * @param mixed $result
+     * @param  mixed  $result
      */
     public function it_should_check_whether_a_token_has_not_been_blacklisted($result)
     {

@@ -62,7 +62,6 @@ class Manager
      * @param  \Tymon\JWTAuth\Contracts\Providers\JWT  $provider
      * @param  \Tymon\JWTAuth\Blacklist  $blacklist
      * @param  \Tymon\JWTAuth\Factory  $payloadFactory
-     *
      * @return void
      */
     public function __construct(JWTContract $provider, Blacklist $blacklist, Factory $payloadFactory)
@@ -76,7 +75,6 @@ class Manager
      * Encode a Payload and return the Token.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
-     *
      * @return \Tymon\JWTAuth\Token
      */
     public function encode(Payload $payload)
@@ -91,10 +89,9 @@ class Manager
      *
      * @param  \Tymon\JWTAuth\Token  $token
      * @param  bool  $checkBlacklist
+     * @return \Tymon\JWTAuth\Payload
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
-     *
-     * @return \Tymon\JWTAuth\Payload
      */
     public function decode(Token $token, $checkBlacklist = true)
     {
@@ -118,7 +115,6 @@ class Manager
      * @param  \Tymon\JWTAuth\Token  $token
      * @param  bool  $forceForever
      * @param  bool  $resetClaims
-     *
      * @return \Tymon\JWTAuth\Token
      */
     public function refresh(Token $token, $forceForever = false, $resetClaims = false)
@@ -143,10 +139,9 @@ class Manager
      *
      * @param  \Tymon\JWTAuth\Token  $token
      * @param  bool  $forceForever
+     * @return bool
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
-     *
-     * @return bool
      */
     public function invalidate(Token $token, $forceForever = false)
     {
@@ -164,7 +159,6 @@ class Manager
      * Build the claims to go into the refreshed token.
      *
      * @param  \Tymon\JWTAuth\Payload  $payload
-     *
      * @return array
      */
     protected function buildRefreshClaims(Payload $payload)
@@ -219,7 +213,6 @@ class Manager
      * Set whether the blacklist is enabled.
      *
      * @param  bool  $enabled
-     *
      * @return $this
      */
     public function setBlacklistEnabled($enabled)
@@ -233,7 +226,6 @@ class Manager
      * Set the claims to be persisted when refreshing a token.
      *
      * @param  array  $claims
-     *
      * @return $this
      */
     public function setPersistentClaims(array $claims)

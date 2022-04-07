@@ -82,7 +82,6 @@ class JWTGenerateSecretCommand extends Command
      * Display the key.
      *
      * @param  string  $key
-     *
      * @return void
      */
     protected function displayKey($key)
