@@ -298,4 +298,14 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | JWT Authentication Trait
+    |--------------------------------------------------------------------------
+    |
+    | Specify the authentication trait that is used for query string authentication.
+    */
+
+    'auth_trait' => env('JWT_AUTH_TRAIT', 'token'),
+
 ];

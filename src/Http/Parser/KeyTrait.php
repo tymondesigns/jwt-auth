@@ -18,7 +18,7 @@ trait KeyTrait
      *
      * @var string
      */
-    protected $key = 'token';
+    protected $key = config('jwt.auth_trait');
 
     /**
      * Set the key.
