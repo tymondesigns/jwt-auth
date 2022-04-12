@@ -1,6 +1,6 @@
 ![jwt-auth-banner](https://cloud.githubusercontent.com/assets/1801923/9915273/119b9350-5cae-11e5-850b-c941cac60b32.png)
 
-[![PHPUnit](https://github.com/tymondesigns/jwt-auth/workflows/PHPUnit%20tests/badge.svg)](https://travis-ci.org/tymondesigns/jwt-auth)
+[![PHPUnit](https://github.com/tymondesigns/jwt-auth/workflows/PHPUnit%20tests/badge.svg)](https://github.com/tymondesigns/jwt-auth/actions)
 [![Codecov branch](https://img.shields.io/codecov/c/github/tymondesigns/jwt-auth/develop.svg?style=flat-square&logo=codecov)](https://codecov.io/github/tymondesigns/jwt-auth)
 [![StyleCI](https://styleci.io/repos/23680678/shield?style=flat-square)](https://styleci.io/repos/23680678)
 [![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square&logo=composer)](https://packagist.org/packages/tymon/jwt-auth)
