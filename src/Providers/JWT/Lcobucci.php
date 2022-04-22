@@ -11,21 +11,21 @@
 
 namespace Tymon\JWTAuth\Providers\JWT;
 
-use Exception;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\Signer\Key;
-use Lcobucci\JWT\Signer\Rsa;
-use Lcobucci\JWT\Signer\Ecdsa;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Token\Builder;
+use Exception;
 use Illuminate\Support\Collection;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Signer\Ecdsa;
+use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Rsa;
+use Lcobucci\JWT\Token\Builder;
 use Lcobucci\JWT\Token\RegisteredClaims;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Lcobucci extends Provider implements JWT
