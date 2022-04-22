@@ -146,11 +146,11 @@ class LcobucciTest extends AbstractTestCase
         $this->expectException(TokenInvalidException::class);
         $this->expectExceptionMessage('Could not decode token:');
 
-        $this->getProvider('secret', 'HS256')->decode('foo.bar.baz');
+        $this->getProvider('secret', Provider::ALGO_HS256)->decode('foo.bar.baz');
     }
 
     /** @test */
-    public function it_should_throw_a_exception_when_the_algorithm_passed_is_invalid()
+    public function it_should_throw_an_exception_when_the_algorithm_passed_is_invalid()
     {
         $this->expectException(JWTException::class);
         $this->expectExceptionMessage('The given algorithm could not be found');
@@ -159,11 +159,55 @@ class LcobucciTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_throw_an_exception_when_no_symmetric_key_is_provided_when_encoding()
+    {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Secret is not set.');
+
+        $this->getProvider(null, Provider::ALGO_HS256)->encode(['sub' => 1]);
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_no_symmetric_key_is_provided_when_decoding()
+    {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Secret is not set.');
+
+        $this->getProvider(null, Provider::ALGO_HS256)->decode('foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_no_asymmetric_public_key_is_provided()
+    {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Public key is not set.');
+
+        $this->getProvider(
+            'does_not_matter',
+            Provider::ALGO_RS256,
+            ['private' => $this->getDummyPrivateKey(), 'public' => null]
+        )->decode('foo.bar.baz');
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_no_asymmetric_private_key_is_provided()
+    {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Private key is not set.');
+
+        $this->getProvider(
+            'does_not_matter',
+            Provider::ALGO_RS256,
+            ['private' => null, 'public' => $this->getDummyPublicKey()]
+        )->encode(['sub' => 1]);
+    }
+
+    /** @test */
     public function it_should_return_the_public_key()
     {
         $provider = $this->getProvider(
             'does_not_matter',
-            'RS256',
+            Provider::ALGO_RS256,
             $keys = ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
         );
 
@@ -175,7 +219,7 @@ class LcobucciTest extends AbstractTestCase
     {
         $provider = $this->getProvider(
             'does_not_matter',
-            'RS256',
+            Provider::ALGO_RS256,
             $keys = ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
         );
 

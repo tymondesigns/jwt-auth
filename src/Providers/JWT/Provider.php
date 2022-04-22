@@ -133,7 +133,7 @@ abstract class Provider
     /**
      * Get the public key used to sign tokens with an asymmetric algorithm.
      *
-     * @return resource|string|null
+     * @return string|null
      */
     public function getPublicKey()
     {
@@ -143,7 +143,7 @@ abstract class Provider
     /**
      * Get the private key used to sign tokens with an asymmetric algorithm.
      *
-     * @return resource|string|null
+     * @return string|null
      */
     public function getPrivateKey()
     {
@@ -164,7 +164,7 @@ abstract class Provider
     /**
      * Get the key used to sign the tokens.
      *
-     * @return resource|string|null
+     * @return string|null
      */
     protected function getSigningKey()
     {
@@ -174,7 +174,7 @@ abstract class Provider
     /**
      * Get the key used to verify the tokens.
      *
-     * @return resource|string|null
+     * @return string|null
      */
     protected function getVerificationKey()
     {
