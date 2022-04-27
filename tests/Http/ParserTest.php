@@ -109,6 +109,25 @@ class ParserTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_ignore_non_bearer_tokens()
+    {
+        $request = Request::create('foo', 'POST');
+        $request->headers->set('Authorization', 'Basic OnBhc3N3b3Jk');
+
+        $parser = new Parser($request);
+
+        $parser->setChain([
+            new QueryString,
+            new InputSource,
+            new AuthHeaders,
+            new RouteParams,
+        ]);
+
+        $this->assertNull($parser->parseToken());
+        $this->assertFalse($parser->hasToken());
+    }
+
+    /** @test */
     public function it_should_not_strip_trailing_hyphens_from_the_authorization_header()
     {
         $request = Request::create('foo', 'POST');
