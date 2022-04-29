@@ -76,7 +76,7 @@ class Factory
      * @param  bool  $resetClaims
      * @return \Tymon\JWTAuth\Payload
      */
-    public function make($resetClaims = false)
+    public function make($resetClaims = true)
     {
         if ($resetClaims) {
             $this->emptyClaims();
