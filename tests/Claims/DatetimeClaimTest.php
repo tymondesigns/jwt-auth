@@ -24,6 +24,7 @@ use Tymon\JWTAuth\Claims\Issuer;
 use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Claims\NotBefore;
 use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Payload;
 use Tymon\JWTAuth\Test\AbstractTestCase;
 use Tymon\JWTAuth\Validators\PayloadValidator;
@@ -55,6 +56,37 @@ class DatetimeClaimTest extends AbstractTestCase
             'iat' => new IssuedAt($this->testNowTimestamp),
             'jti' => new JwtId('foo'),
         ];
+    }
+
+    /** @test */
+    public function it_should_return_same_class_instance_when_setting_the_leeway()
+    {
+        $exp = new Expiration($this->testNowTimestamp + 3600);
+        $nbf = new NotBefore($this->testNowTimestamp);
+        $iat = new IssuedAt($this->testNowTimestamp);
+
+        $this->assertInstanceOf(Expiration::class, $exp->setLeeway(5));
+        $this->assertInstanceOf(NotBefore::class, $nbf->setLeeway(5));
+        $this->assertInstanceOf(IssuedAt::class, $iat->setLeeway(5));
+    }
+
+    /** @test */
+    public function it_should_consider_the_leeway_when_performing_validations()
+    {
+        $futureTimestamp = $this->testNowTimestamp + 5;
+        $pastTimestmap = $this->testNowTimestamp - 5;
+
+        try {
+            $exp = new Expiration($pastTimestmap, 10);
+            $nbf = new NotBefore($futureTimestamp, 10);
+            $iat = new IssuedAt($futureTimestamp, 10);
+
+            $exp->validatePayload();
+            $nbf->validatePayload();
+            $iat->validatePayload();
+        } catch (JWTException $ignored) {
+            $this->fail("Failed asserting that the leeway is considered when validating tokens");
+        }
     }
 
     /** @test */

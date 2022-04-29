@@ -26,6 +26,19 @@ trait DatetimeTrait
     protected $leeway = 0;
 
     /**
+     * @param  mixed  $value
+     * @param  int  $leeway
+     *
+     * @return void
+     */
+    public function __construct($value, $leeway = 0)
+    {
+        $this->leeway = $leeway;
+
+        parent::__construct($value);
+    }
+
+    /**
      * Set the claim value, and call a validate method.
      *
      * @param  mixed  $value
