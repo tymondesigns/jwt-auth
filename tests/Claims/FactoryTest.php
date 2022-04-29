@@ -58,6 +58,12 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_return_same_class_instance_when_setting_the_leeway()
+    {
+        $this->assertInstanceOf(Factory::class, $this->factory->setLeeway(5));
+    }
+
+    /** @test */
     public function it_should_get_a_defined_claim_instance_when_passing_a_name_and_value()
     {
         $this->assertInstanceOf(Subject::class, $this->factory->get('sub', 1));
