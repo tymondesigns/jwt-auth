@@ -11,9 +11,11 @@
 
 namespace Tymon\JWTAuth\Http\Parser;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Cookies implements ParserContract
 {
@@ -40,7 +42,11 @@ class Cookies implements ParserContract
     public function parse(Request $request)
     {
         if ($this->decrypt && $request->hasCookie($this->key)) {
-            return Crypt::decrypt($request->cookie($this->key));
+            try {
+                return Crypt::decrypt($request->cookie($this->key));
+            } catch (DecryptException $ex) {
+                throw new TokenInvalidException('Token has not decrypted successfully.');
+            }
         }
 
         return $request->cookie($this->key);

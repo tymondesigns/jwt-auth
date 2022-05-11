@@ -11,11 +11,13 @@
 
 namespace Tymon\JWTAuth\Test\Http;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
 use Mockery;
 use Tymon\JWTAuth\Contracts\Http\Parser as ParserContract;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Http\Parser\AuthHeaders;
 use Tymon\JWTAuth\Http\Parser\Cookies;
 use Tymon\JWTAuth\Http\Parser\InputSource;
@@ -331,6 +333,29 @@ class ParserTest extends AbstractTestCase
 
         $this->assertSame($parser->parseToken(), 'foobar');
         $this->assertTrue($parser->hasToken());
+    }
+
+    /** @test */
+    public function it_should_throw_token_invalid_exception_from_a_invalid_encrypted_cookie()
+    {
+        $request = Request::create('foo', 'POST', [], ['token' => 'foobar']);
+
+        $parser = new Parser($request);
+        $parser->setChain([
+            new AuthHeaders,
+            new QueryString,
+            new InputSource,
+            new RouteParams,
+            new Cookies(true),
+        ]);
+
+        Crypt::shouldReceive('decrypt')
+            ->with('foobar')
+            ->andThrow(new DecryptException());
+
+        $this->expectException(TokenInvalidException::class);
+
+        $parser->parseToken();
     }
 
     /** @test */
