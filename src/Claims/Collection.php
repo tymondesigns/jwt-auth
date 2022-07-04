@@ -35,7 +35,7 @@ class Collection extends IlluminateCollection
      * @param  mixed  $default
      * @return \Tymon\JWTAuth\Claims\Claim
      */
-    public function getByClaimName($name, callable $callback = null, $default = null)
+    public function getByClaimName($name, ?callable $callback = null, $default = null)
     {
         return $this->filter(function (Claim $claim) use ($name) {
             return $claim->getName() === $name;
