@@ -140,7 +140,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings for the Lcobucci JWT provider.
+     * Register the bindings for the Namshi JWT provider.
      *
      * @return void
      */
