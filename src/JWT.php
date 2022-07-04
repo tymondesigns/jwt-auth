@@ -262,7 +262,7 @@ class JWT
      */
     protected function hashSubjectModel($model)
     {
-        return sha1(is_object($model) ? get_class($model) : $model);
+        return sha1(is_object($model) ? $model::class : $model);
     }
 
     /**
