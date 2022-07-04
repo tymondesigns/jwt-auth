@@ -25,7 +25,7 @@ abstract class Validator implements ValidatorContract
      * @param  array  $value
      * @return bool
      */
-    public function isValid($value)
+    final public function isValid($value)
     {
         try {
             $this->check($value);

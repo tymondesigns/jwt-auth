@@ -67,7 +67,7 @@ abstract class Provider
      * @param  string  $algo
      * @return $this
      */
-    public function setAlgo($algo)
+    final public function setAlgo($algo)
     {
         $this->algo = $algo;
 
@@ -79,7 +79,7 @@ abstract class Provider
      *
      * @return string
      */
-    public function getAlgo()
+    final public function getAlgo()
     {
         return $this->algo;
     }
@@ -90,7 +90,7 @@ abstract class Provider
      * @param  string  $secret
      * @return $this
      */
-    public function setSecret($secret)
+    final public function setSecret($secret)
     {
         $this->secret = $secret;
 
@@ -102,7 +102,7 @@ abstract class Provider
      *
      * @return string
      */
-    public function getSecret()
+    final public function getSecret()
     {
         return $this->secret;
     }
@@ -113,7 +113,7 @@ abstract class Provider
      * @param  array  $keys
      * @return $this
      */
-    public function setKeys(array $keys)
+    final public function setKeys(array $keys)
     {
         $this->keys = $keys;
 
@@ -125,7 +125,7 @@ abstract class Provider
      *
      * @return array
      */
-    public function getKeys()
+    final public function getKeys()
     {
         return $this->keys;
     }
@@ -135,7 +135,7 @@ abstract class Provider
      *
      * @return string|null
      */
-    public function getPublicKey()
+    final public function getPublicKey()
     {
         return Arr::get($this->keys, 'public');
     }
@@ -145,7 +145,7 @@ abstract class Provider
      *
      * @return string|null
      */
-    public function getPrivateKey()
+    final public function getPrivateKey()
     {
         return Arr::get($this->keys, 'private');
     }
@@ -156,7 +156,7 @@ abstract class Provider
      *
      * @return string|null
      */
-    public function getPassphrase()
+    final public function getPassphrase()
     {
         return Arr::get($this->keys, 'passphrase');
     }

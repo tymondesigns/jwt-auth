@@ -62,7 +62,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    final public function register()
     {
         $this->registerAliases();
 

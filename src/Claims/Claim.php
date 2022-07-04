@@ -49,7 +49,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @throws \Tymon\JWTAuth\Exceptions\InvalidClaimException
      */
-    public function setValue($value)
+    final public function setValue($value)
     {
         $this->value = $this->validateCreate($value);
 
@@ -61,7 +61,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @return mixed
      */
-    public function getValue()
+    final public function getValue()
     {
         return $this->value;
     }
@@ -72,7 +72,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @param  string  $name
      * @return $this
      */
-    public function setName($name)
+    final public function setName($name)
     {
         $this->name = $name;
 
@@ -84,7 +84,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @return string
      */
-    public function getName()
+    final public function getName()
     {
         return $this->name;
     }
@@ -95,7 +95,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @param  mixed  $value
      * @return bool
      */
-    public function validateCreate($value)
+    final public function validateCreate($value)
     {
         return $value;
     }
@@ -105,7 +105,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @return bool
      */
-    public function validatePayload()
+    final public function validatePayload()
     {
         return $this->getValue();
     }
@@ -116,7 +116,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @param  int  $refreshTTL
      * @return bool
      */
-    public function validateRefresh($refreshTTL)
+    final public function validateRefresh($refreshTTL)
     {
         return $this->getValue();
     }
@@ -128,7 +128,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @param  bool  $strict
      * @return bool
      */
-    public function matches($value, $strict = true)
+    final public function matches($value, $strict = true)
     {
         return $strict ? $this->value === $value : $this->value == $value;
     }
@@ -139,7 +139,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @return array
      */
     #[\ReturnTypeWillChange]
-    public function jsonSerialize()
+    final public function jsonSerialize()
     {
         return $this->toArray();
     }
@@ -149,7 +149,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      *
      * @return array
      */
-    public function toArray()
+    final public function toArray()
     {
         return [$this->getName() => $this->getValue()];
     }
@@ -160,7 +160,7 @@ abstract class Claim implements Arrayable, ClaimContract, Jsonable, JsonSerializ
      * @param  int  $options
      * @return string
      */
-    public function toJson($options = JSON_UNESCAPED_SLASHES)
+    final public function toJson($options = JSON_UNESCAPED_SLASHES)
     {
         return json_encode($this->toArray(), $options);
     }
