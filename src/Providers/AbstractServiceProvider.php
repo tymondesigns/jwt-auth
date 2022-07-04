@@ -134,9 +134,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->registerNamshiProvider();
         $this->registerLcobucciProvider();
 
-        $this->app->singleton('tymon.jwt.provider.jwt', function ($app) {
-            return $this->getConfigInstance('providers.jwt');
-        });
+        $this->app->singleton('tymon.jwt.provider.jwt', fn ($app) => $this->getConfigInstance('providers.jwt'));
     }
 
     /**
@@ -179,9 +177,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerAuthProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.auth', function () {
-            return $this->getConfigInstance('providers.auth');
-        });
+        $this->app->singleton('tymon.jwt.provider.auth', fn () => $this->getConfigInstance('providers.auth'));
     }
 
     /**
@@ -191,9 +187,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerStorageProvider()
     {
-        $this->app->singleton('tymon.jwt.provider.storage', function () {
-            return $this->getConfigInstance('providers.storage');
-        });
+        $this->app->singleton('tymon.jwt.provider.storage', fn () => $this->getConfigInstance('providers.storage'));
     }
 
     /**
@@ -336,9 +330,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerJWTCommand()
     {
-        $this->app->singleton('tymon.jwt.secret', function () {
-            return new JWTGenerateSecretCommand;
-        });
+        $this->app->singleton('tymon.jwt.secret', fn () => new JWTGenerateSecretCommand);
     }
 
     /**

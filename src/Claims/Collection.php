@@ -37,9 +37,7 @@ class Collection extends IlluminateCollection
      */
     public function getByClaimName($name, callable $callback = null, $default = null)
     {
-        return $this->filter(function (Claim $claim) use ($name) {
-            return $claim->getName() === $name;
-        })->first($callback, $default);
+        return $this->filter(fn (Claim $claim) => $claim->getName() === $name)->first($callback, $default);
     }
 
     /**
@@ -81,9 +79,7 @@ class Collection extends IlluminateCollection
      */
     public function toPlainArray()
     {
-        return $this->map(function (Claim $claim) {
-            return $claim->getValue();
-        })->toArray();
+        return $this->map(fn (Claim $claim) => $claim->getValue())->toArray();
     }
 
     /**

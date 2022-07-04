@@ -154,9 +154,7 @@ class Factory
      */
     protected function resolveClaims()
     {
-        return $this->claims->map(function ($value, $name) {
-            return $value instanceof Claim ? $value : $this->claimFactory->get($name, $value);
-        });
+        return $this->claims->map(fn ($value, $name) => $value instanceof Claim ? $value : $this->claimFactory->get($name, $value));
     }
 
     /**
