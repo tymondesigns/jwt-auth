@@ -117,7 +117,7 @@ class Lcobucci extends Provider implements JWT
         }
 
         return Collection::wrap($token->claims()->all())
-            ->map(function ($claim) {
+            ->map(static function ($claim) {
                 if ($claim instanceof DateTimeInterface) {
                     return $claim->getTimestamp();
                 }

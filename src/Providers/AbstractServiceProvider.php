@@ -91,7 +91,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function extendAuthGuard()
     {
-        $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
+        $this->app['auth']->extend('jwt', static function ($app, $name, array $config) {
             $guard = new JWTGuard(
                 $app['tymon.jwt'],
                 $app['auth']->createUserProvider($config['provider']),
@@ -222,7 +222,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerTokenParser()
     {
-        $this->app->singleton('tymon.jwt.parser', function ($app) {
+        $this->app->singleton('tymon.jwt.parser', static function ($app) {
             $parser = new Parser(
                 $app['request'],
                 [
@@ -321,7 +321,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerPayloadFactory()
     {
-        $this->app->singleton('tymon.jwt.payload.factory', function ($app) {
+        $this->app->singleton('tymon.jwt.payload.factory', static function ($app) {
             return new Factory(
                 $app['tymon.jwt.claim.factory'],
                 $app['tymon.jwt.validators.payload']
@@ -336,7 +336,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      */
     protected function registerJWTCommand()
     {
-        $this->app->singleton('tymon.jwt.secret', function () {
+        $this->app->singleton('tymon.jwt.secret', static function () {
             return new JWTGenerateSecretCommand;
         });
     }

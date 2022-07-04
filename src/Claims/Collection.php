@@ -37,7 +37,7 @@ class Collection extends IlluminateCollection
      */
     public function getByClaimName($name, callable $callback = null, $default = null)
     {
-        return $this->filter(function (Claim $claim) use ($name) {
+        return $this->filter(static function (Claim $claim) use ($name) {
             return $claim->getName() === $name;
         })->first($callback, $default);
     }
@@ -53,7 +53,7 @@ class Collection extends IlluminateCollection
         $args = func_get_args();
         array_shift($args);
 
-        $this->each(function ($claim) use ($context, $args) {
+        $this->each(static function ($claim) use ($context, $args) {
             call_user_func_array(
                 [$claim, 'validate'.Str::ucfirst($context)],
                 $args
@@ -81,7 +81,7 @@ class Collection extends IlluminateCollection
      */
     public function toPlainArray()
     {
-        return $this->map(function (Claim $claim) {
+        return $this->map(static function (Claim $claim) {
             return $claim->getValue();
         })->toArray();
     }
