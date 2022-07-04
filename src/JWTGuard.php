@@ -147,7 +147,7 @@ class JWTGuard implements Guard
      * @param  bool  $forceForever
      * @return void
      */
-    public function logout($forceForever = false)
+    public function logout($forceForever = false): void
     {
         $this->requireToken()->invalidate($forceForever);
 

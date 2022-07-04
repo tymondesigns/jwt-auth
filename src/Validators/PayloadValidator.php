@@ -59,7 +59,7 @@ class PayloadValidator extends Validator
      *
      * @throws \Tymon\JWTAuth\Exceptions\TokenInvalidException
      */
-    protected function validateStructure(Collection $claims)
+    protected function validateStructure(Collection $claims): void
     {
         if ($this->requiredClaims && ! $claims->hasAllClaims($this->requiredClaims)) {
             throw new TokenInvalidException('JWT payload does not contain the required claims');

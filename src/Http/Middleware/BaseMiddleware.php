@@ -45,7 +45,7 @@ abstract class BaseMiddleware
      *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
-    public function checkForToken(Request $request)
+    public function checkForToken(Request $request): void
     {
         if (! $this->auth->parser()->setRequest($request)->hasToken()) {
             throw new UnauthorizedHttpException('jwt-auth', 'Token not provided');
@@ -60,7 +60,7 @@ abstract class BaseMiddleware
      *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      */
-    public function authenticate(Request $request)
+    public function authenticate(Request $request): void
     {
         $this->checkForToken($request);
 

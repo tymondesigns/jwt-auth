@@ -25,7 +25,7 @@ class NotBefore extends Claim
     /**
      * {@inheritdoc}
      */
-    public function validatePayload()
+    public function validatePayload(): void
     {
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');

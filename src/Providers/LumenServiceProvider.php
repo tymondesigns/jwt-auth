@@ -18,7 +18,7 @@ class LumenServiceProvider extends AbstractServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         $this->app->configure('jwt');
 

@@ -42,5 +42,5 @@ abstract class Validator implements ValidatorContract
      * @param  array  $value
      * @return void
      */
-    abstract public function check($value);
+    abstract public function check($value): void;
 }

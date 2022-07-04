@@ -19,7 +19,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         $path = realpath(__DIR__.'/../../config/config.php');
 
@@ -39,7 +39,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
     /**
      * {@inheritdoc}
      */
-    protected function registerStorageProvider()
+    protected function registerStorageProvider(): void
     {
         $this->app->singleton('tymon.jwt.provider.storage', function () {
             $instance = $this->getConfigInstance('providers.storage');
@@ -57,7 +57,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
      *
      * @return void
      */
-    protected function aliasMiddleware()
+    protected function aliasMiddleware(): void
     {
         $router = $this->app['router'];
 

@@ -19,14 +19,14 @@ interface Storage
      * @param  int  $minutes
      * @return void
      */
-    public function add($key, $value, $minutes);
+    public function add($key, $value, $minutes): void;
 
     /**
      * @param  string  $key
      * @param  mixed  $value
      * @return void
      */
-    public function forever($key, $value);
+    public function forever($key, $value): void;
 
     /**
      * @param  string  $key
@@ -43,5 +43,5 @@ interface Storage
     /**
      * @return void
      */
-    public function flush();
+    public function flush(): void;
 }

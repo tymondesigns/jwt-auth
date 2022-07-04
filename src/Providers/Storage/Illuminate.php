@@ -61,7 +61,7 @@ class Illuminate implements Storage
      * @param  int  $minutes
      * @return void
      */
-    public function add($key, $value, $minutes)
+    public function add($key, $value, $minutes): void
     {
         // If the laravel version is 5.8 or higher then convert minutes to seconds.
         if ($this->laravelVersion !== null
@@ -81,7 +81,7 @@ class Illuminate implements Storage
      * @param  mixed  $value
      * @return void
      */
-    public function forever($key, $value)
+    public function forever($key, $value): void
     {
         $this->cache()->forever($key, $value);
     }
@@ -113,7 +113,7 @@ class Illuminate implements Storage
      *
      * @return void
      */
-    public function flush()
+    public function flush(): void
     {
         $this->cache()->flush();
     }
@@ -152,7 +152,7 @@ class Illuminate implements Storage
      *
      * @return void
      */
-    protected function determineTagSupport()
+    protected function determineTagSupport(): void
     {
         // Laravel >= 5.1.28
         if (method_exists($this->cache, 'tags') || $this->cache instanceof PsrCacheInterface) {

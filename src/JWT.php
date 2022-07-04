@@ -312,7 +312,7 @@ class JWT
      *
      * @throws \Tymon\JWTAuth\Exceptions\JWTException
      */
-    protected function requireToken()
+    protected function requireToken(): void
     {
         if (! $this->token) {
             throw new JWTException('A token is required');

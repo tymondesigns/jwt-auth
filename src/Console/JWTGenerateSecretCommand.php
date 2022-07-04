@@ -84,7 +84,7 @@ class JWTGenerateSecretCommand extends Command
      * @param  string  $key
      * @return void
      */
-    protected function displayKey($key)
+    protected function displayKey($key): void
     {
         $this->laravel['config']['jwt.secret'] = $key;
 

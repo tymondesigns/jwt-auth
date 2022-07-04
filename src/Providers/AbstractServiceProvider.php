@@ -55,14 +55,14 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    abstract public function boot();
+    abstract public function boot(): void;
 
     /**
      * Register the service provider.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerAliases();
 
@@ -89,7 +89,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function extendAuthGuard()
+    protected function extendAuthGuard(): void
     {
         $this->app['auth']->extend('jwt', function ($app, $name, array $config) {
             $guard = new JWTGuard(
@@ -109,7 +109,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAliases()
+    protected function registerAliases(): void
     {
         $this->app->alias('tymon.jwt', JWT::class);
         $this->app->alias('tymon.jwt.auth', JWTAuth::class);
@@ -129,7 +129,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerJWTProvider()
+    protected function registerJWTProvider(): void
     {
         $this->registerNamshiProvider();
         $this->registerLcobucciProvider();
@@ -144,7 +144,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerNamshiProvider()
+    protected function registerNamshiProvider(): void
     {
         $this->app->singleton('tymon.jwt.provider.jwt.namshi', function ($app) {
             return new Namshi(
@@ -161,7 +161,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerLcobucciProvider()
+    protected function registerLcobucciProvider(): void
     {
         $this->app->singleton('tymon.jwt.provider.jwt.lcobucci', function ($app) {
             return new Lcobucci(
@@ -177,7 +177,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAuthProvider()
+    protected function registerAuthProvider(): void
     {
         $this->app->singleton('tymon.jwt.provider.auth', function () {
             return $this->getConfigInstance('providers.auth');
@@ -189,7 +189,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerStorageProvider()
+    protected function registerStorageProvider(): void
     {
         $this->app->singleton('tymon.jwt.provider.storage', function () {
             return $this->getConfigInstance('providers.storage');
@@ -201,7 +201,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerManager()
+    protected function registerManager(): void
     {
         $this->app->singleton('tymon.jwt.manager', function ($app) {
             $instance = new Manager(
@@ -220,7 +220,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerTokenParser()
+    protected function registerTokenParser(): void
     {
         $this->app->singleton('tymon.jwt.parser', function ($app) {
             $parser = new Parser(
@@ -243,7 +243,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerJWT()
+    protected function registerJWT(): void
     {
         $this->app->singleton('tymon.jwt', function ($app) {
             return (new JWT(
@@ -258,7 +258,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerJWTAuth()
+    protected function registerJWTAuth(): void
     {
         $this->app->singleton('tymon.jwt.auth', function ($app) {
             return (new JWTAuth(
@@ -274,7 +274,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerJWTBlacklist()
+    protected function registerJWTBlacklist(): void
     {
         $this->app->singleton('tymon.jwt.blacklist', function ($app) {
             $instance = new Blacklist($app['tymon.jwt.provider.storage']);
@@ -289,7 +289,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPayloadValidator()
+    protected function registerPayloadValidator(): void
     {
         $this->app->singleton('tymon.jwt.validators.payload', function () {
             return (new PayloadValidator)
@@ -303,7 +303,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerClaimFactory()
+    protected function registerClaimFactory(): void
     {
         $this->app->singleton('tymon.jwt.claim.factory', function ($app) {
             $factory = new ClaimFactory($app['request']);
@@ -319,7 +319,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPayloadFactory()
+    protected function registerPayloadFactory(): void
     {
         $this->app->singleton('tymon.jwt.payload.factory', function ($app) {
             return new Factory(
@@ -334,7 +334,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerJWTCommand()
+    protected function registerJWTCommand(): void
     {
         $this->app->singleton('tymon.jwt.secret', function () {
             return new JWTGenerateSecretCommand;

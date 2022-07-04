@@ -19,7 +19,7 @@ interface Validator
      * @param  mixed  $value
      * @return void
      */
-    public function check($value);
+    public function check($value): void;
 
     /**
      * Helper function to return a boolean.

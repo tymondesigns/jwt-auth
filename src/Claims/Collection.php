@@ -53,7 +53,7 @@ class Collection extends IlluminateCollection
         $args = func_get_args();
         array_shift($args);
 
-        $this->each(function ($claim) use ($context, $args) {
+        $this->each(function ($claim) use ($context, $args): void {
             call_user_func_array(
                 [$claim, 'validate'.Str::ucfirst($context)],
                 $args

@@ -43,7 +43,7 @@ class IssuedAt extends Claim
     /**
      * {@inheritdoc}
      */
-    public function validatePayload()
+    public function validatePayload(): void
     {
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
@@ -53,7 +53,7 @@ class IssuedAt extends Claim
     /**
      * {@inheritdoc}
      */
-    public function validateRefresh($refreshTTL)
+    public function validateRefresh($refreshTTL): void
     {
         if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
             throw new TokenExpiredException('Token has expired and can no longer be refreshed');
