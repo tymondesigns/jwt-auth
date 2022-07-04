@@ -64,7 +64,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
         $method = method_exists($router, 'aliasMiddleware') ? 'aliasMiddleware' : 'middleware';
 
         foreach ($this->middlewareAliases as $alias => $middleware) {
-            $router->$method($alias, $middleware);
+            $router->{$method}($alias, $middleware);
         }
     }
 }
