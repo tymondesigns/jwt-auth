@@ -133,7 +133,7 @@ class Factory
      */
     public function exp()
     {
-        return Utils::now()->addMinutes($this->ttl)->getTimestamp();
+        return round(microtime(true) * 1000);
     }
 
     /**
