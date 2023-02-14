@@ -14,18 +14,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4, 8.0, 8.1]
-        laravel: [6.*, 7.*, 8.*, 9.*]
+        php: [8.0, 8.1, 8.2]
+        laravel: [9.*, 10.*]
         os: [ubuntu-latest]
         coverage: [none]
         include:
-          - php: 8.1
-            laravel: 9.*
+          - php: 8.2
+            laravel: 10.*
             os: ubuntu-latest
             coverage: xdebug
         exclude:
-          - php: 7.4
-            laravel: 9.*
+          - php: 8.0
+            laravel: 10.*
 
     name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
 
@@ -43,10 +43,10 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
