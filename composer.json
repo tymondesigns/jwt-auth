@@ -23,22 +23,20 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
-        "illuminate/auth": "^5.2|^6|^7|^8|^9",
-        "illuminate/contracts": "^5.2|^6|^7|^8|^9",
-        "illuminate/http": "^5.2|^6|^7|^8|^9",
-        "illuminate/support": "^5.2|^6|^7|^8|^9",
-        "lcobucci/jwt": "^3.4|^4.0",
-        "namshi/jose": "^7.0",
-        "nesbot/carbon": "^1.0|^2.0"
+        "php": "^8.0",
+        "illuminate/auth": "^9.0|^10.0",
+        "illuminate/contracts": "^9.0|^10.0",
+        "illuminate/http": "^9.0|^10.0",
+        "illuminate/support": "^9.0|^10.0",
+        "lcobucci/jwt": "^4.0",
+        "nesbot/carbon": "^2.0"
     },
     "require-dev": {
-        "illuminate/console": "^5.2|^6|^7|^8|^9",
-        "illuminate/database": "^5.2|^6|^7|^8|^9",
-        "illuminate/routing": "^5.2|^6|^7|^8|^9",
+        "illuminate/console": "^9.0|^10.0",
+        "illuminate/database": "^9.0|^10.0",
+        "illuminate/routing": "^9.0|^10.0",
         "mockery/mockery": ">=0.9.9",
-        "phpunit/phpunit": "^8.5|^9.4",
-        "yoast/phpunit-polyfills": "^0.2.0"
+        "phpunit/phpunit": "^9.4"
     },
     "autoload": {
         "psr-4": {
@@ -52,7 +50,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "1.0-dev"
+            "dev-develop": "1.0-dev",
+            "dev-2.x": "2.0-dev"
         },
         "laravel": {
             "aliases": {

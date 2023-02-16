@@ -9,9 +9,13 @@
 
 ## Documentation
 
-Documentation for `1.*` [here](http://jwt-auth.com)
+[jwt-auth.com](https://jwt-auth.com)
 
-For version `0.5.*` See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation.
+| jwt-auth version | Laravel version(s) |
+|---|---|
+| 1.x  | 6 / 7 / 8 |
+| 2.x  | 9 / 10 |
+
 
 [<img src="https://user-images.githubusercontent.com/1801923/57975478-a7a88900-79c1-11e9-924b-d7fa742f743b.png" height="40">](https://www.patreon.com/bePatron?u=11815122)
 
@@ -28,5 +32,3 @@ If you discover any security related issues, please email tymon148@gmail.com ins
 ## License
 
 The MIT License (MIT)
-
-[![SensioLabs Insight](https://insight.sensiolabs.com/projects/ba600082-7869-4ea8-b877-0bf6a86d4988/big.svg)](https://insight.sensiolabs.com/projects/ba600082-7869-4ea8-b877-0bf6a86d4988)

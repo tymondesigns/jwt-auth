@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Test\Providers\JWT;
 
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Providers\JWT\Lcobucci;
@@ -30,7 +31,7 @@ class LcobucciTest extends AbstractTestCase
             'custom_claim' => 'foobar',
         ];
 
-        $token = $this->getProvider('secret', Provider::ALGO_HS256)->encode($payload);
+        $token = $this->getProvider(Str::random(64), Provider::ALGO_HS256)->encode($payload);
         [$header, $payload, $signature] = explode('.', $token);
 
         $claims = json_decode(base64_decode($payload), true);
@@ -57,7 +58,7 @@ class LcobucciTest extends AbstractTestCase
             'custom_claim' => 'foobar',
         ];
 
-        $provider = $this->getProvider('secret', Provider::ALGO_HS256);
+        $provider = $this->getProvider(Str::random(64), Provider::ALGO_HS256);
 
         $token = $provider->encode($payload);
         $claims = $provider->decode($token);
@@ -81,7 +82,7 @@ class LcobucciTest extends AbstractTestCase
         ];
 
         $provider = $this->getProvider(
-            'secret',
+            Str::random(64),
             Provider::ALGO_RS256,
             ['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]
         );
@@ -115,7 +116,7 @@ class LcobucciTest extends AbstractTestCase
             'invalid_utf8' => "\xB1\x31", // cannot be encoded as JSON
         ];
 
-        $this->getProvider('secret', Provider::ALGO_HS256)->encode($payload);
+        $this->getProvider(Str::random(64), Provider::ALGO_HS256)->encode($payload);
     }
 
     /** @test */
@@ -125,8 +126,8 @@ class LcobucciTest extends AbstractTestCase
         $this->expectExceptionMessage('Token Signature could not be verified.');
 
         // This has a different secret than the one used to encode the token
-        $this->getProvider('secret', Provider::ALGO_HS256)
-            ->decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjQ5MjYxMDY1LCJpYXQiOjE2NDkyNTc0NjUsImlzcyI6Ii9mb28iLCJjdXN0b21fY2xhaW0iOiJmb29iYXIifQ.jZufNqDHAxtboUIPmDp4ZFOIQxK-B5G6vNdBEp-9uL8');
+        $this->getProvider(Str::random(64), Provider::ALGO_HS256)
+            ->decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjQ5MjYxMDY1LCJpYXQiOjE2NDkyNTc0NjUsImlzcyI6Ii9mb28iLCJjdXN0b21fY2xhaW0iOiJmb29iYXIifQ.jamiInQiin-1RUviliPjZxl0MLEnQnVTbr2sGooeXBY');
     }
 
     /** @test */
@@ -136,8 +137,8 @@ class LcobucciTest extends AbstractTestCase
         $this->expectExceptionMessage('Token Signature could not be verified.');
 
         // This sub claim for this token has been tampered with so the signature will not match
-        $this->getProvider('secret', Provider::ALGO_HS256)
-            ->decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNjQ5MjY0OTA2LCJpYXQiOjE2NDkyNjEzMDYsImlzcyI6Ii9mb28iLCJjdXN0b21fY2xhaW0iOiJmb29iYXIifQ.IcJvMvwMXf8oEpnz8-hvAy60QDE_o8XFaxhbZIGVy0U');
+        $this->getProvider(Str::random(64), Provider::ALGO_HS256)
+            ->decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjQ5MjYxMDY1LCJpYXQiOjE2NDkyNTc0NjUsImlzcyI6Ii9mb29iYXIiLCJjdXN0b21fY2xhaW0iOiJmb29iYXIifQ.jamiInQiin-1RUviliPjZxl0MLEnQnVTbr2sGooeXBY');
     }
 
     /** @test */
