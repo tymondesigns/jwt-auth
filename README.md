@@ -11,6 +11,12 @@
 
 [jwt-auth.com](https://jwt-auth.com)
 
+| jwt-auth version | Laravel version(s) |
+|---|---|
+| 1.x  | 6 / 7 / 8 |
+| 2.x  | 9 / 10 |
+
+
 [<img src="https://user-images.githubusercontent.com/1801923/57975478-a7a88900-79c1-11e9-924b-d7fa742f743b.png" height="40">](https://www.patreon.com/bePatron?u=11815122)
 
 -----------------------------------
