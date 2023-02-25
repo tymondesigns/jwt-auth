@@ -128,7 +128,7 @@ class Blacklist
             return true;
         }
 
-        // check whether the expiry + grace has past
+        // check whether the expiry + grace has passed
         return ! empty($val) && ! Utils::isFuture($val['valid_until']);
     }
 
