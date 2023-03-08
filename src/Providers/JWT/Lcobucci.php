@@ -207,10 +207,6 @@ class Lcobucci extends Provider implements JWT
 
         $signer = $this->signers[$this->algo];
 
-        if (is_subclass_of($signer, Ecdsa::class)) {
-            return $signer::create();
-        }
-
         return new $signer();
     }
 
