@@ -151,9 +151,7 @@ abstract class Provider
      */
     public function getPrivateKey()
     {
-        $private = Arr::get($this->keys, 'private');
-
-        return $this->getKeyContents($private);
+        return Arr::get($this->keys, 'public');
     }
 
     /**
@@ -196,8 +194,8 @@ abstract class Provider
      */
     protected function getKeyContents(string $key)
     {
-        if (Str::of($key)->startsWith('file:')) {
-            $key = InMemory::file($key);
+        if (Str::of($key)->endsWith('.pem')) {
+            $key = InMemory::file(storage_path($key));
         } else {
             $key = InMemory::base64Encoded($key);
         }
