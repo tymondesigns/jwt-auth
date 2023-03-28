@@ -83,15 +83,15 @@ First let's add some routes in `routes/api.php` as follows:
 ```php
 Route::group([
 
-    'middleware' => 'api',
+    'middleware' => ['api','auth:api'],
     'prefix' => 'auth'
 
 ], function ($router) {
 
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::post('refresh', 'AuthController@refresh')->withoutMiddleware(['api','auth:api']);
+    Route::get('me', 'AuthController@me');
 
 });
 ```
@@ -123,7 +123,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','refresh']]);
     }
 
     /**
