@@ -148,6 +148,7 @@ class ParserTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider whitespaceProvider
      */
     public function it_should_handle_excess_whitespace_from_the_authorization_header($whitespace)

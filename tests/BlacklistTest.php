@@ -200,6 +200,7 @@ class BlacklistTest extends AbstractTestCase
 
     /**
      * @test
+     *
      * @dataProvider blacklist_provider
      *
      * @param  mixed  $result
