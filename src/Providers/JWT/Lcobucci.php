@@ -140,31 +140,18 @@ class Lcobucci extends Provider implements JWT
         $builder = $this->config->builder();
 
         foreach ($payload as $key => $value) {
-            switch ($key) {
-                case RegisteredClaims::ID:
-                    $builder->identifiedBy($value);
-                    break;
-                case RegisteredClaims::EXPIRATION_TIME:
-                    $builder->expiresAt(DateTimeImmutable::createFromFormat('U', $value));
-                    break;
-                case RegisteredClaims::NOT_BEFORE:
-                    $builder->canOnlyBeUsedAfter(DateTimeImmutable::createFromFormat('U', $value));
-                    break;
-                case RegisteredClaims::ISSUED_AT:
-                    $builder->issuedAt(DateTimeImmutable::createFromFormat('U', $value));
-                    break;
-                case RegisteredClaims::ISSUER:
-                    $builder->issuedBy($value);
-                    break;
-                case RegisteredClaims::AUDIENCE:
-                    $builder->permittedFor($value);
-                    break;
-                case RegisteredClaims::SUBJECT:
-                    $builder->relatedTo($value);
-                    break;
-                default:
-                    $builder->withClaim($key, $value);
-            }
+            $builder = match ($key) {
+                RegisteredClaims::ID => $builder->identifiedBy($value),
+                RegisteredClaims::EXPIRATION_TIME => $builder->expiresAt(DateTimeImmutable::createFromFormat('U',
+                    $value)),
+                RegisteredClaims::NOT_BEFORE => $builder->canOnlyBeUsedAfter(DateTimeImmutable::createFromFormat('U',
+                    $value)),
+                RegisteredClaims::ISSUED_AT => $builder->issuedAt(DateTimeImmutable::createFromFormat('U', $value)),
+                RegisteredClaims::ISSUER => $builder->issuedBy($value),
+                RegisteredClaims::AUDIENCE => $builder->permittedFor($value),
+                RegisteredClaims::SUBJECT => $builder->relatedTo($value),
+                default => $builder->withClaim($key, $value),
+            };
         }
 
         return $builder;
@@ -206,10 +193,6 @@ class Lcobucci extends Provider implements JWT
         }
 
         $signer = $this->signers[$this->algo];
-
-        if (is_subclass_of($signer, Ecdsa::class)) {
-            return $signer::create();
-        }
 
         return new $signer();
     }

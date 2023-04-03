@@ -1,34 +1,14 @@
 {
-    "name": "tymon/jwt-auth",
-    "description": "JSON Web Token Authentication for Laravel and Lumen",
-    "keywords": [
-        "auth",
-        "authentication",
-        "json web token",
-        "jwt",
-        "laravel"
-    ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
-    "support": {
-        "issues": "https://github.com/tymondesigns/jwt-auth/issues",
-        "source": "https://github.com/tymondesigns/jwt-auth"
-    },
+    "name": "nexus/common",
+    "description": "JSON Web Token Authentication for Laravel",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Sean Tymon",
-            "email": "tymon148@gmail.com",
-            "homepage": "https://tymon.xyz",
-            "role": "Developer"
-        }
-    ],
     "require": {
         "php": "^8.0",
         "illuminate/auth": "^9.0|^10.0",
         "illuminate/contracts": "^9.0|^10.0",
         "illuminate/http": "^9.0|^10.0",
         "illuminate/support": "^9.0|^10.0",
-        "lcobucci/jwt": "^4.0",
+        "lcobucci/jwt": "^5.0",
         "nesbot/carbon": "^2.0"
     },
     "require-dev": {
@@ -49,10 +29,6 @@
         }
     },
     "extra": {
-        "branch-alias": {
-            "dev-develop": "1.0-dev",
-            "dev-2.x": "2.0-dev"
-        },
         "laravel": {
             "aliases": {
                 "JWTAuth": "Tymon\\JWTAuth\\Facades\\JWTAuth",
@@ -63,12 +39,6 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "patreon",
-            "url": "https://www.patreon.com/seantymon"
-        }
-    ],
     "config": {
         "sort-packages": true
     },

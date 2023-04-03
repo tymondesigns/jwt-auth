@@ -12,6 +12,8 @@
 namespace Tymon\JWTAuth\Providers\JWT;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Lcobucci\JWT\Signer\Key\InMemory;
 
 abstract class Provider
 {
@@ -137,7 +139,9 @@ abstract class Provider
      */
     public function getPublicKey()
     {
-        return Arr::get($this->keys, 'public');
+        $public = Arr::get($this->keys, 'public');
+
+        return $this->getKeyContents($public);
     }
 
     /**
@@ -147,7 +151,7 @@ abstract class Provider
      */
     public function getPrivateKey()
     {
-        return Arr::get($this->keys, 'private');
+        return Arr::get($this->keys, 'public');
     }
 
     /**
@@ -179,6 +183,24 @@ abstract class Provider
     protected function getVerificationKey()
     {
         return $this->isAsymmetric() ? $this->getPublicKey() : $this->getSecret();
+    }
+
+    /**
+     * Properly load pem files
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    protected function getKeyContents(string $key)
+    {
+        if (Str::of($key)->endsWith('.pem')) {
+            $key = InMemory::file(storage_path($key));
+        } else {
+            $key = InMemory::base64Encoded($key);
+        }
+
+        return $key->contents;
     }
 
     /**
