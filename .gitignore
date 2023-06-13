@@ -1,5 +1,4 @@
 /vendor
-/.idea
 composer.lock
 build
 coverage.xml
