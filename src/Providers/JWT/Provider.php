@@ -16,6 +16,7 @@ use Illuminate\Support\Arr;
 abstract class Provider
 {
     const ALGO_HS256 = 'HS256';
+    const ALGO_UNSAFE_HS256 = 'UNSAFE-HS256';
     const ALGO_HS384 = 'HS384';
     const ALGO_HS512 = 'HS512';
     const ALGO_RS256 = 'RS256';

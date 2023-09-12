@@ -64,6 +64,7 @@ class Lcobucci extends Provider implements JWT
      */
     protected $signers = [
         self::ALGO_HS256 => Signer\Hmac\Sha256::class,
+        self::ALGO_UNSAFE_HS256 => Signer\Hmac\UnsafeSha256::class,
         self::ALGO_HS384 => Signer\Hmac\Sha384::class,
         self::ALGO_HS512 => Signer\Hmac\Sha512::class,
         self::ALGO_RS256 => Signer\Rsa\Sha256::class,
