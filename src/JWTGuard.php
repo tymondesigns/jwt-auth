@@ -352,6 +352,16 @@ class JWTGuard implements Guard
     }
 
     /**
+     * Get the token's auth factory.
+     *
+     * @return \Tymon\JWTAuth\Factory
+     */
+    public function factory()
+    {
+        return $this->jwt->factory();
+    }
+
+    /**
      * Get the last user we attempted to authenticate.
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable
