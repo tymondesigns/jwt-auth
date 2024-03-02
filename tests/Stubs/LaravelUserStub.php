@@ -45,4 +45,9 @@ class LaravelUserStub extends UserStub implements Authenticatable, JWTSubject
     {
         //
     }
+
+    public function getAuthPasswordName()
+    {
+        return 'password';
+    }
 }
