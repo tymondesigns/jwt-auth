@@ -21,7 +21,7 @@ use Lcobucci\JWT\Signer\Ecdsa;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa;
-use Lcobucci\JWT\Token\Builder;
+use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
