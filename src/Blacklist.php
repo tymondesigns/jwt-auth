@@ -91,13 +91,18 @@ class Blacklist
      */
     protected function getMinutesUntilExpired(Payload $payload)
     {
-        $exp = Utils::timestamp($payload['exp']);
-        $iat = Utils::timestamp($payload['iat']);
+        $now = time();
+        $exp = (int) $payload['exp'];
+        $iat = (int) $payload['iat'];
 
-        // get the latter of the two expiration dates and find
-        // the number of minutes until the expiration date,
+        // get the latter of the two expiration timestamps
+        $latterTs = max([$exp, $iat + 60 * $this->refreshTTL]);
+
+        // find the number of minutes until the expiration timestamp
+        $minutesUntilExpired = (int) (($latterTs - $now) / 60);
+
         // plus 1 minute to avoid overlap
-        return $exp->max($iat->addMinutes($this->refreshTTL))->addMinute()->diffInRealMinutes();
+        return $minutesUntilExpired + 1;
     }
 
     /**
