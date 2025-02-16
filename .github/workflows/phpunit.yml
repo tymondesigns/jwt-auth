@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [8.0, 8.1, 8.2, 8.3]
-        laravel: [9.*, 10.*, 11.*]
+        laravel: ['9.*', '10.*', '11.*', '12.*']
         os: [ubuntu-latest]
         coverage: [none]
         include:
@@ -30,8 +30,12 @@ jobs:
             laravel: 11.*
           - php: 8.1
             laravel: 11.*
+          - laravel: 12.*
+            php: 8.0
+          - laravel: 12.*
+            php: 8.1
 
-    name: '[P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]'
+    name: [P${{ matrix.php }}] [L${{ matrix.laravel }}] [${{ matrix.coverage }}]
 
     steps:
       - name: Checkout code
@@ -53,8 +57,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
+          key: php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}
 
       - name: Install dependencies
         run: |
@@ -66,7 +70,7 @@ jobs:
 
       - name: Upload coverage
         uses: codecov/codecov-action@v1
-        if: matrix.coverage == 'xdebug'
+        if: "matrix.coverage == 'xdebug'"
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.xml
