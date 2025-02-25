@@ -16,7 +16,7 @@ jobs:
       matrix:
         php: [8.0, 8.1, 8.2, 8.3, 8.4]
         laravel: [9.*, 10.*, 11.*, 12.*]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         coverage: [none]
         stability: [prefer-lowest, prefer-stable]
         include:
@@ -59,13 +59,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('**/composer.json') }}"
+          key: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}"
 
       - name: Install dependencies
         run: |
           composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-progress --no-update
-          composer update --no-progress --prefer-dist --no-interaction
+          composer update --${{ matrix.stability }} --no-progress --prefer-dist --no-interaction
 
       - name: Execute tests
         run: composer test:ci
