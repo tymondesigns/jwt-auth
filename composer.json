@@ -28,7 +28,7 @@
         "illuminate/contracts": "^9.0|^10.0|^11.0",
         "illuminate/http": "^9.0|^10.0|^11.0",
         "illuminate/support": "^9.0|^10.0|^11.0",
-        "lcobucci/jwt": "^4.0",
+        "lcobucci/jwt": "^4.0|^5.0",
         "nesbot/carbon": "^2.0|^3.0"
     },
     "require-dev": {
