@@ -97,7 +97,13 @@ class Blacklist
         // get the latter of the two expiration dates and find
         // the number of minutes until the expiration date,
         // plus 1 minute to avoid overlap
-        $minutes = $exp->max($iat->addMinutes($this->refreshTTL))->addMinute()->diffInRealMinutes();
+        $adjustedExpiration = $exp->max($iat->addMinutes($this->refreshTTL))->addMinute();
+
+        if (method_exists($adjustedExpiration, 'diffInRealMinutes')) {
+            $minutes = $adjustedExpiration->diffInRealMinutes();
+        } else {
+            $minutes = $adjustedExpiration->diffInMinutes();
+        }
 
         // if Carbon 3
         if (is_float($minutes)) {
