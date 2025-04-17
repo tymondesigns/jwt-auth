@@ -279,8 +279,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->app->singleton('tymon.jwt.blacklist', function ($app) {
             $instance = new Blacklist($app['tymon.jwt.provider.storage']);
 
-            return $instance->setGracePeriod($this->config('blacklist_grace_period'))
-                            ->setRefreshTTL($this->config('refresh_ttl'));
+            return $instance->setGracePeriod(intval($this->config('blacklist_grace_period')))
+                            ->setRefreshTTL(intval($this->config('refresh_ttl')));
         });
     }
 
@@ -293,7 +293,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     {
         $this->app->singleton('tymon.jwt.validators.payload', function () {
             return (new PayloadValidator)
-                ->setRefreshTTL($this->config('refresh_ttl'))
+                ->setRefreshTTL(intval($this->config('refresh_ttl')))
                 ->setRequiredClaims($this->config('required_claims'));
         });
     }
@@ -309,8 +309,8 @@ abstract class AbstractServiceProvider extends ServiceProvider
             $factory = new ClaimFactory($app['request']);
             $app->refresh('request', $factory, 'setRequest');
 
-            return $factory->setTTL($this->config('ttl'))
-                           ->setLeeway($this->config('leeway'));
+            return $factory->setTTL(intval($this->config('ttl')))
+                           ->setLeeway(intval($this->config('leeway')));
         });
     }
 
