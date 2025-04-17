@@ -278,4 +278,18 @@ class Lcobucci extends Provider implements JWT
     {
         return InMemory::plainText($contents, $passphrase);
     }
+
+    /**
+     * Set the secret used to sign the token.
+     *
+     * @param  string  $secret
+     * @return $this
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+        $this->config = $this->buildConfig();
+
+        return $this;
+    }
 }

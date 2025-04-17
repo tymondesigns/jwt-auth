@@ -227,6 +227,26 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($keys, $provider->getKeys());
     }
 
+    public function testItShouldThrowAExceptionWhenTheSecretHasBeenUpdatedAndAnOldTokenIsUsed()
+    {
+        $orignal_secret = 'OF8SQY475aF8uiRuWunK9ZO6VdZDBemk';
+        $new_secret = 'vsd1z800ApIihL6HVNyhbGLRyBLD74sZ';
+
+        $payload = ['sub' => '1', 'exp' => $this->testNowTimestamp + 3600, 'iat' => $this->testNowTimestamp, 'iss' => '/foo'];
+
+        $provider = $this->getProvider($orignal_secret, 'HS256', []);
+        $token = $provider->encode($payload);
+
+        $this->assertSame($payload, $provider->decode($token));
+
+        $provider->setSecret($new_secret);
+
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Token Signature could not be verified.');
+
+        $provider->decode($token);
+    }
+
     public function getProvider($secret, $algo, array $keys = [])
     {
         return new Lcobucci($secret, $algo, $keys);
