@@ -42,7 +42,7 @@ jobs:
           - php: 8.2
             laravel: 13.*
 
-    name: PHP${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: PHP${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }} - Laravel${{ matrix.laravel }}
 
     steps:
       - name: Checkout code
