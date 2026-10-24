@@ -40,9 +40,18 @@ class IlluminateTest extends AbstractTestCase
     /** @test */
     public function it_should_add_the_item_to_storage()
     {
-        $this->cache->shouldReceive('put')->with('foo', 'bar', 10)->once();
+        $this->cache->shouldReceive('put')->with('foo', 'bar', 600)->once();
 
         $this->storage->add('foo', 'bar', 10);
+    }
+
+    /** @test */
+    public function it_should_add_the_item_to_storage_in_seconds_regardless_of_the_framework_version()
+    {
+        $this->cache->shouldReceive('put')->with('foo', 'bar', 600)->twice();
+
+        $this->storage->setLaravelVersion('Lumen (10.0.4) (Laravel Components ^10.0)')->add('foo', 'bar', 10);
+        $this->storage->setLaravelVersion('13.0.0')->add('foo', 'bar', 10);
     }
 
     /** @test */
@@ -96,7 +105,7 @@ class IlluminateTest extends AbstractTestCase
     public function it_should_add_the_item_to_tagged_storage()
     {
         $this->emulateTags();
-        $this->cache->shouldReceive('put')->with('foo', 'bar', 10)->once();
+        $this->cache->shouldReceive('put')->with('foo', 'bar', 600)->once();
 
         $this->storage->add('foo', 'bar', 10);
     }

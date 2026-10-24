@@ -63,11 +63,9 @@ class Illuminate implements Storage
      */
     public function add($key, $value, $minutes)
     {
-        // If the laravel version is 5.8 or higher then convert minutes to seconds.
-        if ($this->laravelVersion !== null
-            && is_int($minutes)
-            && version_compare($this->laravelVersion, '5.8', '>=')
-        ) {
+        // The cache expects seconds on every supported Laravel and Lumen version,
+        // so always convert, rather than relying on the framework version being set.
+        if (is_int($minutes)) {
             $minutes = $minutes * 60;
         }
 
