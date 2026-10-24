@@ -76,6 +76,36 @@ class Lcobucci extends Provider implements JWT
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    public function setAlgo($algo)
+    {
+        parent::setAlgo($algo);
+
+        return $this->resetConfig();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSecret($secret)
+    {
+        parent::setSecret($secret);
+
+        return $this->resetConfig();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setKeys(array $keys)
+    {
+        parent::setKeys($keys);
+
+        return $this->resetConfig();
+    }
+
+    /**
      * Create a JSON Web Token.
      *
      * @param  array  $payload
@@ -89,7 +119,7 @@ class Lcobucci extends Provider implements JWT
 
         try {
             return $builder
-                ->getToken($this->config->signer(), $this->config->signingKey())
+                ->getToken($this->config()->signer(), $this->config()->signingKey())
                 ->toString();
         } catch (Exception $e) {
             throw new JWTException('Could not create token: '.$e->getMessage(), $e->getCode(), $e);
@@ -106,14 +136,16 @@ class Lcobucci extends Provider implements JWT
      */
     public function decode($token)
     {
+        $config = $this->config();
+
         try {
             /** @var \Lcobucci\JWT\Token\Plain */
-            $token = $this->config->parser()->parse($token);
+            $token = $config->parser()->parse($token);
         } catch (Exception $e) {
             throw new TokenInvalidException('Could not decode token: '.$e->getMessage(), $e->getCode(), $e);
         }
 
-        if (! $this->config->validator()->validate($token, ...$this->config->validationConstraints())) {
+        if (! $config->validator()->validate($token, ...$config->validationConstraints())) {
             throw new TokenInvalidException('Token Signature could not be verified.');
         }
 
@@ -154,8 +186,36 @@ class Lcobucci extends Provider implements JWT
                     default => $builder->withClaim($key, $value),
                 };
             },
-            $this->config->builder()
+            $this->config()->builder()
         );
+    }
+
+    /**
+     * Get the configuration, rebuilding it if the algorithm or keys have changed.
+     *
+     * @return \Lcobucci\JWT\Configuration
+     */
+    protected function config(): Configuration
+    {
+        if ($this->config === null) {
+            $this->signer = $this->getSigner();
+            $this->config = $this->buildConfig();
+        }
+
+        return $this->config;
+    }
+
+    /**
+     * Discard the signer and configuration so they are rebuilt on next use.
+     *
+     * @return $this
+     */
+    protected function resetConfig()
+    {
+        $this->signer = null;
+        $this->config = null;
+
+        return $this;
     }
 
     /**
