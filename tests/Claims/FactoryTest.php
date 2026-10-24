@@ -54,6 +54,13 @@ class FactoryTest extends AbstractTestCase
     }
 
     /** @test */
+    public function it_should_allow_setting_a_null_ttl()
+    {
+        $this->assertInstanceOf(Factory::class, $this->factory->setTTL(null));
+        $this->assertNull($this->factory->getTTL());
+    }
+
+    /** @test */
     public function it_should_set_the_leeway()
     {
         $this->assertInstanceOf(Factory::class, $this->factory->setLeeway(30));
