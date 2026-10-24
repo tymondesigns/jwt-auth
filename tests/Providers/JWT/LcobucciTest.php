@@ -287,6 +287,67 @@ class LcobucciTest extends AbstractTestCase
         $this->assertSame($keys, $provider->getKeys());
     }
 
+    /** @test */
+    public function it_should_sign_with_the_new_algorithm_after_setting_the_algorithm()
+    {
+        $provider = $this->getProvider(Str::random(64), Provider::ALGO_HS256);
+
+        $token = $provider->setAlgo(Provider::ALGO_HS512)->encode(['sub' => 1]);
+        $header = json_decode(base64_decode(explode('.', $token)[0]), true);
+
+        $this->assertEquals(Provider::ALGO_HS512, $provider->getAlgo());
+        $this->assertEquals(Provider::ALGO_HS512, $header['alg']);
+        $this->assertEquals('1', $provider->decode($token)['sub']);
+    }
+
+    /** @test */
+    public function it_should_not_verify_tokens_signed_with_the_previous_secret_after_setting_the_secret()
+    {
+        $this->expectException(TokenInvalidException::class);
+        $this->expectExceptionMessage('Token Signature could not be verified.');
+
+        $provider = $this->getProvider(Str::random(64), Provider::ALGO_HS256);
+        $token = $provider->encode(['sub' => 1]);
+
+        $provider->setSecret(Str::random(64))->decode($token);
+    }
+
+    /** @test */
+    public function it_should_sign_with_the_new_secret_after_setting_the_secret()
+    {
+        $secret = Str::random(64);
+        $provider = $this->getProvider(Str::random(64), Provider::ALGO_HS256)->setSecret($secret);
+
+        $token = $provider->encode(['sub' => 1]);
+
+        $this->assertEquals('1', $this->getProvider($secret, Provider::ALGO_HS256)->decode($token)['sub']);
+    }
+
+    /** @test */
+    public function it_can_switch_from_a_symmetric_to_an_asymmetric_algorithm()
+    {
+        $provider = $this->getProvider(Str::random(64), Provider::ALGO_HS256)
+            ->setAlgo(Provider::ALGO_RS256)
+            ->setKeys(['private' => $this->getDummyPrivateKey(), 'public' => $this->getDummyPublicKey()]);
+
+        $token = $provider->encode(['sub' => 1]);
+        $header = json_decode(base64_decode(explode('.', $token)[0]), true);
+
+        $this->assertEquals(Provider::ALGO_RS256, $header['alg']);
+        $this->assertEquals('1', $provider->decode($token)['sub']);
+    }
+
+    /** @test */
+    public function it_should_throw_an_exception_when_switching_to_an_asymmetric_algorithm_without_keys()
+    {
+        $this->expectException(JWTException::class);
+        $this->expectExceptionMessage('Private key is not set.');
+
+        $this->getProvider(Str::random(64), Provider::ALGO_HS256)
+            ->setAlgo(Provider::ALGO_RS256)
+            ->encode(['sub' => 1]);
+    }
+
     public function getProvider($secret, $algo, array $keys = [])
     {
         return new Lcobucci($secret, $algo, $keys);
