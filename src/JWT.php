@@ -250,7 +250,7 @@ class JWT
     protected function getClaimsForSubject(JWTSubject $subject)
     {
         return array_merge([
-            'sub' => $subject->getJWTIdentifier(),
+            config('jwt.identifier') => $subject->getJWTIdentifier(),
         ], $this->lockSubject ? ['prv' => $this->hashSubjectModel($subject)] : []);
     }
 
