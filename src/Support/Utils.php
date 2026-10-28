@@ -16,13 +16,25 @@ use Carbon\Carbon;
 class Utils
 {
     /**
+     * Get the timezone from Carbon.
+     *
+     * @return string
+     */
+    protected static function getTimezone()
+    {
+        $tz = Carbon::now()->getTimezone()->getName();
+
+        return in_array($tz, timezone_identifiers_list()) ? $tz : 'UTC';
+    }
+
+    /**
      * Get the Carbon instance for the current time.
      *
      * @return \Carbon\Carbon
      */
     public static function now()
     {
-        return Carbon::now('UTC');
+        return Carbon::now(static::getTimezone());
     }
 
     /**
@@ -33,7 +45,7 @@ class Utils
      */
     public static function timestamp($timestamp)
     {
-        return Carbon::createFromTimestampUTC($timestamp)->timezone('UTC');
+        return Carbon::createFromTimestampUTC($timestamp)->timezone(static::getTimezone());
     }
 
     /**
